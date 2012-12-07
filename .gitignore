@@ -9,7 +9,12 @@
 *.dir
 *.opensdf
 *.idea
-
+moc_QtNetworkManager.cc
+moc_WebRender.cc
+moc_QtCookieJar.cc
+moc_QtFileDownloader.cc
+moc_QtHttpRequestHandler.cc
+    
 # Compiled source #
 ###################
 *.com
