@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="SlingShot_Tree_BGImageMap"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#SlingShot_Tree_BG.png" />
