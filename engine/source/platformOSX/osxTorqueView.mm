@@ -393,6 +393,8 @@
     if (!Input::isEnabled() && !Input::isKeyboardEnabled())
         return;
 
+    unichar chars = [[event charactersIgnoringModifiers] characterAtIndex:0];
+
     // Get the key code for the event
     U32 keyCode = [event keyCode];
 
@@ -407,7 +409,7 @@
 
     // Build the input event
     InputEvent torqueEvent;
-    
+
     torqueEvent.deviceType  = KeyboardDeviceType;
     torqueEvent.deviceInst  = 0;
     torqueEvent.objType     = SI_KEY;
@@ -416,6 +418,7 @@
     torqueEvent.ascii       = 0;
     torqueEvent.action      = repeat ? SI_REPEAT : SI_MAKE;
     torqueEvent.fValue      = 1.0f;
+    torqueEvent.ascii       = chars;
 
     // Post the input event
     Game->postEvent(torqueEvent);

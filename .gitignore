@@ -9,6 +9,7 @@
 *.dir
 *.opensdf
 *.idea
+*.dSYM
 moc_QtNetworkManager.cc
 moc_WebRender.cc
 moc_QtCookieJar.cc
@@ -22,6 +23,7 @@ Torque2D_DEBUG.exe
 3StepStudio_Debug.app
 3StepStudio.exe
 3StepStudio_Debug.exe
+linkmap.txt
     
 # Compiled source #
 ###################
