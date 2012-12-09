@@ -1954,7 +1954,6 @@
 			isa = PBXGroup;
 			children = (
 				86BC7E7616518D4600D96ADF /* assets */,
-				86BC7E7F16518D4600D96ADF /* camera */,
 				86BC7E8016518D4600D96ADF /* core */,
 				86BC7E9616518D4600D96ADF /* gui */,
 				86BC7EA216518D4600D96ADF /* scene */,
@@ -1977,13 +1976,6 @@
 				86BC7E7E16518D4600D96ADF /* ImageAsset_ScriptBinding.h */,
 			);
 			path = assets;
-			sourceTree = "<group>";
-		};
-		86BC7E7F16518D4600D96ADF /* camera */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = camera;
 			sourceTree = "<group>";
 		};
 		86BC7E8016518D4600D96ADF /* core */ = {
