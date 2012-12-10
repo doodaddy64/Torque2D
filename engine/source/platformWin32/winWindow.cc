@@ -438,7 +438,7 @@ void Platform::disableKeyboardTranslation(void)
 }
 
 //--------------------------------------
-void Platform::setWindowLocked(bool locked)
+void Platform::setMouseLock(bool locked)
 {
    windowLocked = locked;
    setMouseClipping();
@@ -1607,7 +1607,7 @@ void Platform::shutdown()
 
    if(gMutexHandle)
       CloseHandle(gMutexHandle);
-   setWindowLocked( false );
+   setMouseLock( false );
    Video::destroy();
    Input::destroy();
    WinConsole::destroy();

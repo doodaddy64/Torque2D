@@ -141,7 +141,7 @@ void Platform::init()
 //------------------------------------------------------------------------------
 void Platform::shutdown()
 {
-   setWindowLocked( false );
+   setMouseLock( false );
    Video::destroy();
    Input::destroy();
    iOSConsole::destroy();

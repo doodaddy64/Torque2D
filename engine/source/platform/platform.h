@@ -136,7 +136,7 @@ struct Platform
     static const Point2I &getWindowSize();
     static void minimizeWindow();
     static void restoreWindow();
-    static void setWindowLocked(bool locked);
+    static void setMouseLock(bool locked);
 
     /// GUI.
     static void AlertOK(const char *windowTitle, const char *message);

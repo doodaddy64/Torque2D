@@ -64,7 +64,7 @@ void Platform::disableKeyboardTranslation(void)
 }
 
 
-void Platform::setWindowLocked(bool locked)
+void Platform::setMouseLock(bool locked)
 {
 }
 

@@ -120,8 +120,9 @@ static Point _MacCarbGetMouseEventLocalCoords(EventRef theEvent)
 
 //-----------------------------------------------------------------------------
 // Sets whether the mouse is locked to the appWindow.
-// Function name is a little deceptive, but this directly affects nary a window.
-void Platform::setWindowLocked(bool locked)
+// This changes how the mouse input is processed on movement, but does not
+// affect any actual window or view properties.
+void Platform::setMouseLock(bool locked)
 {
    if(platState.mouseLocked == locked)
       return;

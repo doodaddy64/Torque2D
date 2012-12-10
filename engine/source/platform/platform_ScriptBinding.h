@@ -3,11 +3,11 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-ConsoleFunction( lockMouse, void, 2, 2, "( isLocked ) Use the lockMouse function to un/lock the mouse.\n"
+ConsoleFunction( setMouseLock, void, 2, 2, "( isLocked ) Use the setMouseLock function to un/lock the mouse.\n"
                                                                 "@param isLocked A boolean value.\n"
                                                                 "@return No return value")
 {
-    Platform::setWindowLocked(dAtob(argv[1]));
+    Platform::setMouseLock(dAtob(argv[1]));
 }
 
 //-----------------------------------------------------------------------------

@@ -3,8 +3,9 @@
 // Copyright GarageGames, LLC 2012
 //-----------------------------------------------------------------------------
 #import "platformOSX/platformOSX.h"
+
 #include "platformOSX/osxOpenGLDevice.h"
-#include "console/console.h"
+
 
 //------------------------------------------------------------------------------
 // Get the video settings from the prefs.
@@ -145,29 +146,48 @@ const Point2I& Platform::getWindowSize()
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::minimizeWindow not yet implemented")
+// Simulates the user clicking the minimize button by momentarily highlighting
+// the button, then minimizing the window.
 void Platform::minimizeWindow()
 {
-    
+    osxPlatState* platState = [osxPlatState sharedPlatState];
+
+    [[platState window] performMiniaturize:nil];
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::restoreWindow not yet implemented")
+// De-minimizes the window.
 void Platform::restoreWindow()
 {
-    
+    osxPlatState* platState = [osxPlatState sharedPlatState];
+
+    [[platState window] deminiaturize:nil];
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::setWindowLocked not yet implemented")
-void Platform::setWindowLocked(bool locked)
+// Sets whether the mouse is locked to the appWindow. Thist changes how the
+// mouse input is processed on movement, but does not affect any actual window
+// or view properties.
+void Platform::setMouseLock(bool locked)
 {
-    
+    osxPlatState* platState = [osxPlatState sharedPlatState];
+
+    [platState setMouseLocked:YES];
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::openWebBrowser not yet implemented")
+// Launch the default OS browser. This has nothing to do with the QT browser
 bool Platform::openWebBrowser( const char* webAddress )
 {
-    return false;
+    if(Video::isFullScreen())
+        Video::toggleFullScreen();
+
+    NSString* convertedAddress = [NSString stringWithUTF8String:webAddress];
+
+    bool result = [[NSWorkspace sharedWorkspace] openFile:convertedAddress];
+
+    if (!result)
+        Con::errorf("Platform::openWebBrowser could not open web address:%s", webAddress);
+
+    return result;
 }
