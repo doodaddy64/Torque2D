@@ -31,7 +31,6 @@ linkmap.txt
 ###################
 *.com
 *.class
-*.exe
 *.o
 *.so
 *.obj
