@@ -84,7 +84,12 @@ void Platform::initWindow(const Point2I &initialSize, const char *name)
                                               defer:NO] autorelease];
     
     [tempWindow setBackgroundColor:[NSColor blueColor]];
-    
+
+    // The full frame for a window must consider the title bar height as well
+    // Thus, our NSWindow must be larger than the passed width and height
+    frame = [NSWindow frameRectForContentRect:frame styleMask:NSTitledWindowMask];
+    [tempWindow setFrame:frame display:YES];
+
     [platState setWindow:tempWindow];
     
     [platState updateWindowTitle:name];

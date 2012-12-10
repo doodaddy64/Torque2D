@@ -110,7 +110,9 @@ static osxPlatState * tempSharedPlatState = nil;
 - (void)setWindowSize:(int)width height:(int)height
 {
     NSRect frame = NSMakeRect([_window frame].origin.x, [_window frame].origin.y, width, height);
-    
+
+    frame = [NSWindow frameRectForContentRect:frame styleMask:NSTitledWindowMask];
+
     [_window setFrame:frame display:YES];
     
     _windowSize.x = width;
