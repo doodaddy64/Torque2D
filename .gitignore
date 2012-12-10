@@ -25,6 +25,10 @@ Torque2D_DEBUG.exe
 3StepStudio_Debug.app
 3StepStudio.exe
 3StepStudio_Debug.exe
+3StepStudioGame.app
+3StepStudioGame_Debug.app
+3StepStudioGame.exe
+3StepStudioGame_Debug.exe
 linkmap.txt
     
 # Compiled source #
