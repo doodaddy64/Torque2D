@@ -11,6 +11,7 @@
 *.idea
 *.dSYM
 *.res
+*.cache
 moc_QtNetworkManager.cc
 moc_WebRender.cc
 moc_QtCookieJar.cc
@@ -38,6 +39,7 @@ linkmap.txt
 *.idb
 *.pdb
 *.ilk
+*.ipch
 *.lastbuildstate
 *.unsuccessfulbuild
 *.manifest
