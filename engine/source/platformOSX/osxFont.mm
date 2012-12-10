@@ -185,8 +185,8 @@ PlatformFont::CharInfo& OSXFont::getCharInfo(const UTF16 character) const
     const F32 scaledSize = (F32)CTFontGetSize( mFontRef );
 
     // Render font anti-aliased if font is arbitrarily small.
-    CGContextSetShouldAntialias( bitmapContext, scaledSize < 10.0f);
-    CGContextSetShouldSmoothFonts( bitmapContext, false);
+    CGContextSetShouldAntialias( bitmapContext, true);
+    CGContextSetShouldSmoothFonts( bitmapContext, true);
     CGContextSetRenderingIntent( bitmapContext, kCGRenderingIntentAbsoluteColorimetric);
     CGContextSetInterpolationQuality( bitmapContext, kCGInterpolationNone);
     CGContextSetGrayFillColor( bitmapContext, 1.0, 1.0);
@@ -207,7 +207,7 @@ PlatformFont::CharInfo& OSXFont::getCharInfo(const UTF16 character) const
 #endif
 
     // Adjust the y origin for the glyph size.
-    characterInfo.yOrigin += characterInfo.height - mHeight;
+    characterInfo.yOrigin += characterInfo.height;// + mHeight;
 
     // Release the bitmap context.
     CGContextRelease( bitmapContext );
