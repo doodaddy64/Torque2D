@@ -269,13 +269,6 @@ function SceneWindow::onTouchDown(%this, %touchID, %worldPos)
 }
 
 //-----------------------------------------------------------------------------
-function showTestGUI()
-{
-    TamlRead("./testGui.gui.taml");
-    Canvas.setContent("TestGuiControl");
-}
-
-//-----------------------------------------------------------------------------
 
 function startMichTesting()
 {
@@ -291,8 +284,6 @@ function startMichTesting()
     createBox2DScene();
     
     createTestBindings();
-    
-    //showTestGUI();
 }
 
 //-----------------------------------------------------------------------------
