@@ -10,6 +10,7 @@
 *.opensdf
 *.idea
 *.dSYM
+*.res
 moc_QtNetworkManager.cc
 moc_WebRender.cc
 moc_QtCookieJar.cc
@@ -32,6 +33,15 @@ linkmap.txt
 *.exe
 *.o
 *.so
+*.obj
+*.lib
+*.idb
+*.pdb
+*.ilk
+*.lastbuildstate
+*.unsuccessfulbuild
+*.manifest
+*.tlog
 
 # Logs and databases #
 ######################
