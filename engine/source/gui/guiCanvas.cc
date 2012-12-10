@@ -96,7 +96,7 @@ ConsoleMethod( GuiCanvas, popDialog, void, 2, 3, "( handle ) Use the popDialog m
       Canvas->popDialogControl();
 }
 
-ConsoleMethod( GuiCanvas, popLayer, void, 2, 3, "( layer ) Use the popLayer method to remove (close) all dialogs in the specified canvas ‘layer’.\n"
+ConsoleMethod( GuiCanvas, popLayer, void, 2, 3, "( layer ) Use the popLayer method to remove (close) all dialogs in the specified canvas ï¿½layerï¿½.\n"
                                                                 "@param layer A integer value in the range [ 0 , inf ) specifying the canvas layer to clear.\n"
                                                                 "@return No return value.\n"
                                                                 "@sa pushDialog, popDialog")
@@ -180,7 +180,7 @@ ConsoleMethod( GuiCanvas, reset, void, 2, 2, "() Use the reset method to reset t
 }
 
 ConsoleMethod( GuiCanvas, getCursorPos, const char*, 2, 2, "() Use the getCursorPos method to retrieve the current position of the mouse pointer.\n"
-                                                                "@return Returns a vector containing the “x y” coordinates of the cursor in the canvas")
+                                                                "@return Returns a vector containing the ï¿½x yï¿½ coordinates of the cursor in the canvas")
 {
    Point2I pos = Canvas->getCursorPos();
    char * ret = Con::getReturnBuffer(32);

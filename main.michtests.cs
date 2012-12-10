@@ -255,7 +255,24 @@ function createTestBindings()
 function SceneWindow::onTouchDown(%this, %touchID, %worldPos)
 {
     echo("Click on: " @ %worldPos);
+
+    //createBlockAtPoint(%worldPos);
     
+    dragSprite(%worldPos);
+}
+
+function SceneWindow::onTouchDragged(%this, %touchID, %worldPos)
+{
+    updateDraggingSprite(%worldPos);
+}
+
+function SceneWindow::onTouchUp(%this, %touchID, %worldPos)
+{
+    releaseDraggingSprite();
+}
+
+function createBlockAtPoint(%worldPos)
+{
     %sprite = new Sprite()
     {
         Animation = $TestAnimationID;
@@ -266,6 +283,48 @@ function SceneWindow::onTouchDown(%this, %touchID, %worldPos)
     
     %sprite.createPolygonBoxCollisionShape( %sprite.size );
     testScene.addToScene( %sprite );
+}
+
+function dragSprite(%startingPoint)
+{
+    %objList = testScene.pickPoint(%startingPoint);
+    %objCount = getWordCount(%objList);
+    %sprite = "";
+    
+    for(%i = 0; %i < %objCount; %i++)
+    {
+        %object = getWord(%objList, %i);
+        
+        if (%object.isMemberOfClass("Sprite"))
+        {    
+            %sprite = %object;
+            break;
+        }
+    }
+    
+    $currentJointID = testScene.createTargetJoint(%sprite, %startingPoint, 1000);
+    
+    echo("New joint: " @ $currentJointID);
+}
+
+function updateDraggingSprite(%worldPos)
+{
+    echo(currentJointID);
+    
+    if ($currentJointID !$= "")
+    {
+        echo("Found joint: " @ %currentJointID);
+        testScene.setTargetJointTarget($currentJointID, %worldPos);
+    }
+}
+
+function releaseDraggingSprite()
+{
+    if ($currentJointID !$= "")
+    {
+        echo("Deleting target joint: " @ $currentJointID);
+        testScene.deleteJoint($currentJointID);
+    }
 }
 
 //-----------------------------------------------------------------------------

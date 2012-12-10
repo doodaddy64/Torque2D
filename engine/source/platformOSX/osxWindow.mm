@@ -184,7 +184,7 @@ bool Platform::openWebBrowser( const char* webAddress )
 
     NSString* convertedAddress = [NSString stringWithUTF8String:webAddress];
 
-    bool result = [[NSWorkspace sharedWorkspace] openFile:convertedAddress];
+    bool result = [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:convertedAddress]];
 
     if (!result)
         Con::errorf("Platform::openWebBrowser could not open web address:%s", webAddress);
