@@ -20,21 +20,21 @@
 #include <OpenGL/glext.h>
 
 /// Using aglMacro.h gives us signifigant performance gains in opengl immediate mode ( glVertex etc )
-#if !defined(TORQUE_DEBUG)
-#define USE_AGL_MACRO
-#endif
-
-#if defined(USE_AGL_MACRO)
-#if !defined(AGLContext)
-typedef struct __AGLContextRec       *AGLContext;
-#endif
-#include <AGL/aglMacro.h>
-extern AGLContext agl_ctx;
-#endif
-
-/// Allows outline mode drawing via a function pointer swapping trick.
-/// Must be included AFTER all the OpenGL headers.
-#include "platformMacCarb/macCarbOutlineGL.h"
+//#if !defined(TORQUE_DEBUG)
+//#define USE_AGL_MACRO
+//#endif
+//
+//#if defined(USE_AGL_MACRO)
+//#if !defined(AGLContext)
+//typedef struct __AGLContextRec       *AGLContext;
+//#endif
+//#include <AGL/aglMacro.h>
+//extern AGLContext agl_ctx;
+//#endif
+//
+///// Allows outline mode drawing via a function pointer swapping trick.
+///// Must be included AFTER all the OpenGL headers.
+//#include "platformMacCarb/macCarbOutlineGL.h"
 
 
 //------------------------------------------------------------------------------
