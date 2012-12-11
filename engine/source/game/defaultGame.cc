@@ -103,7 +103,7 @@ static F32 fpsVirtual;
 static F32 fpsFrames;
 static F32 fpsNext;
 static bool fpsInit = false;
-const F32 UPDATE_INTERVAL = 0.25f;
+const F32 FPS_UPDATE_INTERVAL = 0.25f;
 
 //-----------------------------------------------------------------------------
 
@@ -387,7 +387,7 @@ void fpsUpdate()
     {
         fpsRealStart    = (F32)Platform::getRealMilliseconds()/1000.0f;      // Real-World Tick Count
         fpsVirtualStart = (F32)Platform::getVirtualMilliseconds()/1000.0f;   // Engine Tick Count (does not vary between frames)
-        fpsNext         = fpsRealStart + UPDATE_INTERVAL;
+        fpsNext         = fpsRealStart + FPS_UPDATE_INTERVAL;
 
         fpsRealLast = 0.0f;
         fpsReal     = 0.0f;
@@ -417,10 +417,13 @@ void fpsUpdate()
     {
         Con::setVariable("fps::real",    avar("%4.1f", 1.0f/fpsReal));
         Con::setVariable("fps::virtual", avar("%4.1f", 1.0f/fpsVirtual));
-        if (update > UPDATE_INTERVAL)
-            fpsNext  = fpsRealLast + UPDATE_INTERVAL;
+
+        //Con::printf("Real:%f, Virtual:%f", 1.0f/fpsReal, 1.0f/fpsVirtual);
+
+        if (update > FPS_UPDATE_INTERVAL)
+            fpsNext  = fpsRealLast + FPS_UPDATE_INTERVAL;
         else
-            fpsNext += UPDATE_INTERVAL;
+            fpsNext += FPS_UPDATE_INTERVAL;
     }
 }
 
@@ -624,7 +627,6 @@ iPhoneProfilerStart("GL_RENDER");
          preRenderOnly = true;
 
       PROFILE_START(RenderFrame);
-      //ShapeBase::incRenderFrame();
       Canvas->renderFrame(preRenderOnly);
       PROFILE_END();
       gFrameCount++;

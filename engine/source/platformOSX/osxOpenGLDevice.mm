@@ -349,10 +349,11 @@ bool osxOpenGLDevice::setGammaCorrection(F32 g)
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("osxOpenGLDevice::setVerticalSync not yet implemented")
-bool osxOpenGLDevice::setVerticalSync( bool on )
+
+bool osxOpenGLDevice::setVerticalSync( bool sync )
 {
-    
+    if ([[platState torqueView] contextInitialized])
+        [[platState torqueView] setVerticalSync:sync];
 }
 
 //------------------------------------------------------------------------------

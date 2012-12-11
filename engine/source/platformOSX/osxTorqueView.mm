@@ -134,6 +134,18 @@
     }
 }
 
+//-----------------------------------------------------------------------------
+
+- (void) setVerticalSync:(bool)sync
+{
+    if (_openGLContext != nil)
+    {
+        GLint swapInterval = sync ? 1 : 0;
+        [_openGLContext setValues:&swapInterval forParameter:NSOpenGLCPSwapInterval];
+    }
+}
+
+
 
 #pragma mark ---- OSXTorqueView Input Handling ----
 

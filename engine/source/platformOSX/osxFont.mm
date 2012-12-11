@@ -63,7 +63,7 @@ bool OSXFont::create( const char* name, U32 size, U32 charset )
 
     // Use Windows as a baseline (96 DPI) and adjust accordingly.
     F32 scaledSize = size * (72.0f/96.0f);
-    scaledSize = (U32)mRound(scaledSize);
+    scaledSize = mRound(scaledSize);
 
     // Create the font reference.
     mFontRef = CTFontCreateWithName( fontName, scaledSize, NULL );
