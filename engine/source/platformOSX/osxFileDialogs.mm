@@ -4,10 +4,17 @@
 //-----------------------------------------------------------------------------
 
 #include "platformOSX/platformOSX.h"
-#include "sim/simBase.h"
 #include "platform/nativeDialogs/fileDialog.h"
+#include "console/consoleTypes.h"
+#include "io/resource/resourceManager.h"
 
 //-----------------------------------------------------------------------------
+// MICH NOTE: Ok. There is a lot of repeat code in this file. Aside from the
+// most important part ::execute, the code found in each of the classes
+// are duplicated across all platforms. This is not platform abstraction,
+// just bad practice. In our next platform cleanup pass, this whole section
+// should be reworked. Due to the Cocoa deadline, I'll let it go for now,
+// but I will be coming back to this early in the next phase.
 
 IMPLEMENT_CONOBJECT(FileDialog);
 IMPLEMENT_CONOBJECT(OpenFileDialog);
@@ -18,6 +25,17 @@ IMPLEMENT_CONOBJECT(OpenFolderDialog);
 #pragma message ("FileDialogData constructor not yet implemented")
 FileDialogData::FileDialogData()
 {
+    mDefaultPath = StringTable->insert(Con::getVariable("Tools::FileDialogs::LastFilePath"));
+
+    if (mDefaultPath == StringTable->EmptyString || !Platform::isDirectory(mDefaultPath))
+        mDefaultPath = Platform::getCurrentDirectory();
+
+    mDefaultFile = StringTable->insert("");
+    mFilters = StringTable->insert("");
+    mFile = StringTable->insert("");
+    mTitle = StringTable->insert("");
+
+    mStyle = 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -30,6 +48,9 @@ FileDialogData::~FileDialogData()
 #pragma message ("FileDialog constructor not yet implemented")
 FileDialog::FileDialog() : mData()
 {
+    // Default to File Must Exist Open Dialog style
+    mData.mStyle = FileDialogData::FDS_OPEN | FileDialogData::FDS_MUSTEXIST;
+    mChangePath = false;
 }
 
 //-----------------------------------------------------------------------------
@@ -42,6 +63,13 @@ FileDialog::~FileDialog()
 #pragma message ("FileDialog::initPersistFields not yet implemented")
 void FileDialog::initPersistFields()
 {
+    // Let's relocate this to a more platform agonstic location in the next cleanup
+    addProtectedField("DefaultPath", TypeString, Offset(mData.mDefaultPath, FileDialog), &setDefaultPath, &defaultProtectedGetFn, "Default Path when Dialog is shown");
+    addProtectedField("DefaultFile", TypeString, Offset(mData.mDefaultFile, FileDialog), &setDefaultFile, &defaultProtectedGetFn, "Default File when Dialog is shown");
+    addProtectedField("FileName", TypeString, Offset(mData.mFile, FileDialog), &setFile, &defaultProtectedGetFn, "Default File when Dialog is shown");
+    addProtectedField("Filters", TypeString, Offset(mData.mFilters, FileDialog), &setFilters, &defaultProtectedGetFn, "Default File when Dialog is shown");
+    addField("Title", TypeString, Offset(mData.mTitle, FileDialog), "Default File when Dialog is shown");
+    addProtectedField("ChangePath", TypeBool, Offset(mChangePath, FileDialog), &setChangePath, &getChangePath, "True/False whether to set the working directory to the directory returned by the dialog");
     Parent::initPersistFields();
 }
 
@@ -49,147 +77,265 @@ void FileDialog::initPersistFields()
 #pragma message ("FileDialog::Execute not yet implemented")
 bool FileDialog::Execute()
 {
-    return false;
+    NSArray* nsFileArray;
+
+    if (mData.mStyle & FileDialogData::FDS_OPEN)
+    {
+        //nsFileArray = ShowOSXOpenFileDialog(mData);
+    }
+    else if (mData.mStyle & FileDialogData::FDS_SAVE)
+    {
+        //nsFileArray = ShowOSXSaveFileDialog(mData);
+    }
+    else
+    {
+        Con::errorf("Bad File Dialog Setup.");
+        return false;
+    }
+
+    // If multiple file selection was allowed and the dialog did grab multiple files
+    // loop through and add them
+    if ((mData.mStyle & FileDialogData::FDS_MULTIPLEFILES) && [nsFileArray count] >= 1)
+    {
+
+    }
+    else
+    {
+        // Multiple file selection was not allowed or only one file was selected
+    }
+
+    return true;
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("FileDialog::setFilters not yet implemented")
+// Re-implemented based on Windows and old OS X. Honestly, why even have this
+// TODO: Consider removing in next cleanup
 bool FileDialog::setFilters(void* obj, const char* data)
 {
-    return false;
+    if (!data)
+        return true;
+
+    return true;
 };
 
 //-----------------------------------------------------------------------------
-#pragma message ("FileDialog::setDefaultPath not yet implemented")
+// Default Path Property - String Validated on Write
 bool FileDialog::setDefaultPath(void* obj, const char* data)
 {
-    return false;
-};
+    if (!data || !dStrncmp(data, "", 1))
+        return true;
 
-//-----------------------------------------------------------------------------
-#pragma message ("FileDialog::setDefaultFile not yet implemented")
-bool FileDialog::setDefaultFile(void* obj, const char* data)
-{
-    return false;
-};
+    // Expand the path to something fully qualified
+    static char szPathValidate[512];
 
-//-----------------------------------------------------------------------------
-#pragma message ("FileDialog::setChangePath not yet implemented")
-bool FileDialog::setChangePath(void* obj, const char* data)
-{
-    return false;
-};
+    Platform::makeFullPathName(data, szPathValidate, sizeof(szPathValidate));
 
-//-----------------------------------------------------------------------------
-#pragma message ("FileDialog::getChangePath not yet implemented")
-const char* FileDialog::getChangePath(void* obj, const char* data)
-{
-    return "";
+    // Check to make sure the path is valid
+    ResourceManager->addPath(szPathValidate, true);
+    if (Platform::isDirectory(szPathValidate))
+    {
+        // Finally, assign in proper format.
+        FileDialog *pDlg = static_cast<FileDialog*>(obj);
+        pDlg->mData.mDefaultPath = StringTable->insert(szPathValidate);
+    }
+
+    return false;
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("FileDialog::setFile not yet implemented")
+// Default Path Property - String Validated on Write
+bool FileDialog::setDefaultFile(void* obj, const char* data)
+{
+    if (!data || !dStrncmp(data, "", 1))
+        return true;
+
+    // Copy and Backslash the path (Windows dialogs are VERY picky about this format)
+    static char szPathValidate[512];
+    Platform::makeFullPathName( data,szPathValidate, sizeof(szPathValidate) );
+
+    // Finally, assign in proper format.
+    FileDialog *pDlg = static_cast<FileDialog*>( obj );
+    pDlg->mData.mDefaultFile = StringTable->insert( szPathValidate );
+
+    return false;
+};
+
+//-----------------------------------------------------------------------------
+// ChangePath Property - Change working path on successful file selection
+bool FileDialog::setChangePath(void* obj, const char* data)
+{
+    bool bMustExist = dAtob(data);
+
+    FileDialog *pDlg = static_cast<FileDialog*>(obj);
+
+    if(bMustExist)
+        pDlg->mData.mStyle |= FileDialogData::FDS_CHANGEPATH;
+    else
+        pDlg->mData.mStyle &= ~FileDialogData::FDS_CHANGEPATH;
+
+    return true;
+};
+
+//-----------------------------------------------------------------------------
+// ChangePath Property - Get working path on successful file selection
+const char* FileDialog::getChangePath(void* obj, const char* data)
+{
+    FileDialog *pDlg = static_cast<FileDialog*>(obj);
+
+    if (pDlg->mData.mStyle & FileDialogData::FDS_CHANGEPATH)
+        return StringTable->insert("true");
+    else
+        return StringTable->insert("false");
+}
+
+//-----------------------------------------------------------------------------
+// This returns false on every platform, so why use it?
+// TODO: Consider removing in the next platform cleanup
 bool FileDialog::setFile(void* obj, const char* data)
 {
    return false;
 };
 
 //-----------------------------------------------------------------------------
-#pragma message ("OpenFileDialog constructor not yet implemented")
 OpenFileDialog::OpenFileDialog()
 {
+    // Default File Must Exist
+    mData.mStyle = FileDialogData::FDS_OPEN | FileDialogData::FDS_MUSTEXIST;
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("OpenFileDialog destructor not yet implemented")
 OpenFileDialog::~OpenFileDialog()
 {
+    mMustExist = true;
+    mMultipleFiles = false;
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("OpenFileDialog::initPersistFields not yet implemented")
 void OpenFileDialog::initPersistFields()
 {
+    addProtectedField("MustExist", TypeBool, Offset(mMustExist, OpenFileDialog), &setMustExist, &getMustExist, "True/False whether the file returned must exist or not" );
+    addProtectedField("MultipleFiles", TypeBool, Offset(mMultipleFiles, OpenFileDialog), &setMultipleFiles, &getMultipleFiles, "True/False whether multiple files may be selected and returned or not" );
+
     Parent::initPersistFields();
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("OpenFileDialog::setMustExist not yet implemented")
 bool OpenFileDialog::setMustExist(void* obj, const char* data)
 {
-    return false;
-};
+    bool bMustExist = dAtob( data );
+
+    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>( obj );
+
+    if( bMustExist )
+        pDlg->mData.mStyle |= FileDialogData::FDS_MUSTEXIST;
+    else
+        pDlg->mData.mStyle &= ~FileDialogData::FDS_MUSTEXIST;
+
+    return true;
+}
 
 //-----------------------------------------------------------------------------
-#pragma message ("OpenFileDialog::getMustExist not yet implemented")
 const char* OpenFileDialog::getMustExist(void* obj, const char* data)
 {
-    return "";
+    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>( obj );
+
+    if( pDlg->mData.mStyle & FileDialogData::FDS_MUSTEXIST )
+        return StringTable->insert("true");
+    else
+        return StringTable->insert("false");
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("OpenFileDialog::setMultipleFiles not yet implemented")
 bool OpenFileDialog::setMultipleFiles(void* obj, const char* data)
 {
-    return false;
+    bool bMustExist = dAtob( data );
+
+    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>( obj );
+
+    if( bMustExist )
+        pDlg->mData.mStyle |= FileDialogData::FDS_MULTIPLEFILES;
+    else
+        pDlg->mData.mStyle &= ~FileDialogData::FDS_MULTIPLEFILES;
+
+    return true;
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("OpenFileDialog::getMultipleFiles not yet implemented")
 const char* OpenFileDialog::getMultipleFiles(void* obj, const char* data)
 {
-   return "";
+    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>( obj );
+
+    if( pDlg->mData.mStyle & FileDialogData::FDS_MULTIPLEFILES )
+        return StringTable->insert("true");
+    else
+        return StringTable->insert("false");
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("SaveFileDialog constructor not yet implemented")
 SaveFileDialog::SaveFileDialog()
 {
+    // Default File Must Exist
+    mData.mStyle = FileDialogData::FDS_SAVE | FileDialogData::FDS_OVERWRITEPROMPT;
+    mOverwritePrompt = true;
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("SaveFileDialog destructor not yet implemented")
 SaveFileDialog::~SaveFileDialog()
 {
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("SaveFileDialog::initPersistFields not yet implemented")
 void SaveFileDialog::initPersistFields()
 {
+    addProtectedField("OverwritePrompt", TypeBool, Offset(mOverwritePrompt, SaveFileDialog), &setOverwritePrompt, &getOverwritePrompt, "True/False whether the dialog should prompt before accepting an existing file name" );
+
     Parent::initPersistFields();
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("SaveFileDialog::setOverwritePrompt not yet implemented")
 bool SaveFileDialog::setOverwritePrompt(void* obj, const char* data)
 {
-    return false;
-};
+    bool bOverwrite = dAtob( data );
+
+    SaveFileDialog *pDlg = static_cast<SaveFileDialog*>( obj );
+
+    if( bOverwrite )
+        pDlg->mData.mStyle |= FileDialogData::FDS_OVERWRITEPROMPT;
+    else
+        pDlg->mData.mStyle &= ~FileDialogData::FDS_OVERWRITEPROMPT;
+
+    return true;
+}
 
 //-----------------------------------------------------------------------------
-#pragma message ("SaveFileDialog::getOverwritePrompt not yet implemented")
 const char* SaveFileDialog::getOverwritePrompt(void* obj, const char* data)
 {
-    return "";
+    SaveFileDialog *pDlg = static_cast<SaveFileDialog*>( obj );
+
+    if( pDlg->mData.mStyle & FileDialogData::FDS_OVERWRITEPROMPT )
+        return StringTable->insert("true");
+    else
+        return StringTable->insert("false");
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("OpenFolderDialog constructor not yet implemented")
 OpenFolderDialog::OpenFolderDialog()
 {
+    mData.mStyle = FileDialogData::FDS_OPEN | FileDialogData::FDS_OVERWRITEPROMPT | FileDialogData::FDS_BROWSEFOLDER;
+
+    mMustExistInDir = "";
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("OpenFolderDialog destructor not yet implemented")
 OpenFolderDialog::~OpenFolderDialog()
 {
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("OpenFolderDialog::initPersistFields not yet implemented")
 void OpenFolderDialog::initPersistFields()
 {
+    addField("fileMustExist", TypeFilename, Offset(mMustExistInDir, OpenFolderDialog), "File that must in selected folder for it to be valid");
+
     Parent::initPersistFields();
 }
 
