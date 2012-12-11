@@ -24,10 +24,10 @@ $pref::T2D::imageAssetGlobalFilterMode = "Smooth";
 setCompanyAndProduct("GarageGames", "3StepStudio" @ getThreeStepStudioVersion());
 
 // Set module database information echo.
-ModuleDatabase.EchoInfo = true;
+ModuleDatabase.EchoInfo = false;
 
 // Set asset database information echo.
-AssetDatabase.EchoInfo = true;
+AssetDatabase.EchoInfo = false;
 
 // Is a module merge available?
 if ( ModuleDatabase.isModuleMergeAvailable() )

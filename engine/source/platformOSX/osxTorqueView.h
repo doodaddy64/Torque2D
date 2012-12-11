@@ -27,4 +27,5 @@
 - (void) clearContext;
 - (void) updateContext;
 - (void) flushBuffer;
+- (void) setVerticalSync:(bool)sync;
 @end
