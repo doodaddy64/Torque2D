@@ -12,6 +12,8 @@
 *.dSYM
 *.res
 *.cache
+*.exports
+*.opt
 moc_QtNetworkManager.cc
 moc_WebRender.cc
 moc_QtCookieJar.cc
