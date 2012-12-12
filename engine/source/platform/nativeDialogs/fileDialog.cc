@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "platform/nativeDialogs/fileDialog.h"
 #include "console/consoleTypes.h"
-#include "io/resource/resourceManager.h"
+#include "fileDialog_ScriptBinding.h"
 
 IMPLEMENT_CONOBJECT(FileDialog);
 IMPLEMENT_CONOBJECT(OpenFileDialog);

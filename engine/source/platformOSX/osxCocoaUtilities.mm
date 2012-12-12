@@ -24,7 +24,9 @@
 #pragma message ("NSSavePanel::showSavePanel not yet implemented")
 +(NSArray *) showSavePanel
 {
-    return nil;
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
+
+    return array;
 }
 @end
 
@@ -41,7 +43,9 @@
 #pragma message ("NSOpenPanel::showOpenPanel not yet implemented")
 +(NSArray *) showOpenPanel
 {
-    return nil;
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
+
+    return array;
 }
 
 @end

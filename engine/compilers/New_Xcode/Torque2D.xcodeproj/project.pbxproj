@@ -17,6 +17,7 @@
 		8609FE3116556E5A004662ED /* osxThread.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8609FE3016556E5A004662ED /* osxThread.mm */; };
 		8609FE361655716E004662ED /* osxPopupMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8609FE351655716E004662ED /* osxPopupMenu.mm */; };
 		8609FE38165572EC004662ED /* osxFont.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8609FE37165572EC004662ED /* osxFont.mm */; };
+		861CD8D01678F6C200DAE1A0 /* fileDialog.cc in Sources */ = {isa = PBXBuildFile; fileRef = 861CD8CF1678F6C200DAE1A0 /* fileDialog.cc */; };
 		8652C279165586520052D0CB /* osxAudio.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8652C278165586520052D0CB /* osxAudio.mm */; };
 		8658B174165A7BFB0087ABC1 /* osxCPU.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8658B171165A7BFB0087ABC1 /* osxCPU.mm */; };
 		8658B175165A7BFB0087ABC1 /* osxNetwork.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8658B172165A7BFB0087ABC1 /* osxNetwork.mm */; };
@@ -542,9 +543,10 @@
 		8609FE2E16556DD2004662ED /* osxSemaphore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxSemaphore.mm; sourceTree = "<group>"; };
 		8609FE3016556E5A004662ED /* osxThread.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxThread.mm; sourceTree = "<group>"; };
 		8609FE3216556F22004662ED /* osxFileDialogs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxFileDialogs.mm; sourceTree = "<group>"; };
-		8609FE3416556FBF004662ED /* osxFileDialogs_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osxFileDialogs_ScriptBinding.h; sourceTree = "<group>"; };
 		8609FE351655716E004662ED /* osxPopupMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxPopupMenu.mm; sourceTree = "<group>"; };
 		8609FE37165572EC004662ED /* osxFont.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxFont.mm; sourceTree = "<group>"; };
+		861CD8CE1678F6C200DAE1A0 /* fileDialog_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileDialog_ScriptBinding.h; sourceTree = "<group>"; };
+		861CD8CF1678F6C200DAE1A0 /* fileDialog.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fileDialog.cc; sourceTree = "<group>"; };
 		864ECFEA1652795700012416 /* platform_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_ScriptBinding.h; sourceTree = "<group>"; };
 		864ECFEB1652795700012416 /* platformNetwork.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platformNetwork.cc; sourceTree = "<group>"; };
 		864ECFED165279E100012416 /* networkProcessList.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = networkProcessList.cc; sourceTree = "<group>"; };
@@ -1829,7 +1831,6 @@
 				8694ADC41656B06B0080ABAC /* osxEvents.h */,
 				8694ADC51656B06B0080ABAC /* osxEvents.mm */,
 				8609FE3216556F22004662ED /* osxFileDialogs.mm */,
-				8609FE3416556FBF004662ED /* osxFileDialogs_ScriptBinding.h */,
 				866381D7165550FF00C8C551 /* osxFileIO.mm */,
 				8609FE37165572EC004662ED /* osxFont.mm */,
 				2A0A68DF166E268E0093AD41 /* osxFont.h */,
@@ -3070,6 +3071,8 @@
 			isa = PBXGroup;
 			children = (
 				86BC833B16518FBC00D96ADF /* msgBox.cpp */,
+				861CD8CE1678F6C200DAE1A0 /* fileDialog_ScriptBinding.h */,
+				861CD8CF1678F6C200DAE1A0 /* fileDialog.cc */,
 				86BC833C16518FBC00D96ADF /* fileDialog.h */,
 				86BC833D16518FBC00D96ADF /* msgBox.h */,
 			);
@@ -3700,6 +3703,7 @@
 				2ACFC0A8166CE1AB00FE7370 /* platformMemoryTests.cc in Sources */,
 				865BD2F9166FA7F80064F595 /* osxInputManager.mm in Sources */,
 				86EA5B401678C7C700598E68 /* osxCocoaUtilities.mm in Sources */,
+				861CD8D01678F6C200DAE1A0 /* fileDialog.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

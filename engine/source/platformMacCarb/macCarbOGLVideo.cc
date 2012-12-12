@@ -662,11 +662,11 @@ void OpenGLDevice::swapBuffers()
 {
    if (platState.ctx)
       aglSwapBuffers(platState.ctx); 
-#if defined(TORQUE_DEBUG)
-   if(gOutlineEnabled)
-      glClear(GL_COLOR_BUFFER_BIT);
-#endif
-}  
+//#if defined(TORQUE_DEBUG)
+//   if(gOutlineEnabled)
+//      glClear(GL_COLOR_BUFFER_BIT);
+//#endif
+}
 
 
 //------------------------------------------------------------------------------

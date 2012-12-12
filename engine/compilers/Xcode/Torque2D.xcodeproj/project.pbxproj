@@ -2911,6 +2911,14 @@
 		7DF58FB41056FC1600BE8C07 /* dynamicConsoleMethodComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DF58F911056FC1600BE8C07 /* dynamicConsoleMethodComponent.h */; };
 		7DF58FB91056FC1600BE8C07 /* simComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7DF58F971056FC1600BE8C07 /* simComponent.cpp */; };
 		7DF58FBA1056FC1600BE8C07 /* simComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DF58F981056FC1600BE8C07 /* simComponent.h */; };
+		863B234B1678F7B400B72838 /* fileDialog_ScriptBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 863B23491678F7B400B72838 /* fileDialog_ScriptBinding.h */; };
+		863B234C1678F7B400B72838 /* fileDialog_ScriptBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 863B23491678F7B400B72838 /* fileDialog_ScriptBinding.h */; };
+		863B234D1678F7B400B72838 /* fileDialog_ScriptBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 863B23491678F7B400B72838 /* fileDialog_ScriptBinding.h */; };
+		863B234E1678F7B400B72838 /* fileDialog_ScriptBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 863B23491678F7B400B72838 /* fileDialog_ScriptBinding.h */; };
+		863B234F1678F7B400B72838 /* fileDialog.cc in Sources */ = {isa = PBXBuildFile; fileRef = 863B234A1678F7B400B72838 /* fileDialog.cc */; };
+		863B23501678F7B400B72838 /* fileDialog.cc in Sources */ = {isa = PBXBuildFile; fileRef = 863B234A1678F7B400B72838 /* fileDialog.cc */; };
+		863B23511678F7B400B72838 /* fileDialog.cc in Sources */ = {isa = PBXBuildFile; fileRef = 863B234A1678F7B400B72838 /* fileDialog.cc */; };
+		863B23521678F7B400B72838 /* fileDialog.cc in Sources */ = {isa = PBXBuildFile; fileRef = 863B234A1678F7B400B72838 /* fileDialog.cc */; };
 		D202538D0BB0DA470094256E /* jmemansi.c in Sources */ = {isa = PBXBuildFile; fileRef = D202538B0BB0DA470094256E /* jmemansi.c */; };
 		D203E8530BB887E200E53A94 /* popupMenu.cc in Sources */ = {isa = PBXBuildFile; fileRef = D203E4F40BB847B200E53A94 /* popupMenu.cc */; };
 		D2073D910BB07F8200FE267B /* platformNetAsync.unix.cc in Sources */ = {isa = PBXBuildFile; fileRef = D2073D8D0BB07F8200FE267B /* platformNetAsync.unix.cc */; };
@@ -4049,6 +4057,8 @@
 		7DF58F911056FC1600BE8C07 /* dynamicConsoleMethodComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamicConsoleMethodComponent.h; sourceTree = "<group>"; };
 		7DF58F971056FC1600BE8C07 /* simComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simComponent.cpp; sourceTree = "<group>"; };
 		7DF58F981056FC1600BE8C07 /* simComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simComponent.h; sourceTree = "<group>"; };
+		863B23491678F7B400B72838 /* fileDialog_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileDialog_ScriptBinding.h; sourceTree = "<group>"; };
+		863B234A1678F7B400B72838 /* fileDialog.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fileDialog.cc; sourceTree = "<group>"; };
 		D202538B0BB0DA470094256E /* jmemansi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = jmemansi.c; path = ../../lib/ljpeg/jmemansi.c; sourceTree = SOURCE_ROOT; };
 		D203E4F40BB847B200E53A94 /* popupMenu.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = popupMenu.cc; sourceTree = "<group>"; };
 		D2073D8D0BB07F8200FE267B /* platformNetAsync.unix.cc */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = platformNetAsync.unix.cc; path = ../../source/platform/platformNetAsync.unix.cc; sourceTree = SOURCE_ROOT; };
@@ -5766,6 +5776,8 @@
 			isa = PBXGroup;
 			children = (
 				D26160D80BA5DBBC002BC449 /* msgBox.cpp */,
+				863B23491678F7B400B72838 /* fileDialog_ScriptBinding.h */,
+				863B234A1678F7B400B72838 /* fileDialog.cc */,
 				D26160D70BA5DBBC002BC449 /* fileDialog.h */,
 				D26160D90BA5DBBC002BC449 /* msgBox.h */,
 			);
@@ -6190,6 +6202,7 @@
 				2A943EDD165265FA008A08B2 /* networkProcessList.h in Headers */,
 				2AD35A501663607600C75F30 /* platformFileIO.h in Headers */,
 				2AD35A6A1663763F00C75F30 /* unitTesting.h in Headers */,
+				863B234C1678F7B400B72838 /* fileDialog_ScriptBinding.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6476,6 +6489,7 @@
 				2A943ED416524941008A08B2 /* gameInterface_ScriptBinding.h in Headers */,
 				2A943EDE165265FA008A08B2 /* networkProcessList.h in Headers */,
 				2AD35A511663607600C75F30 /* platformFileIO.h in Headers */,
+				863B234D1678F7B400B72838 /* fileDialog_ScriptBinding.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6761,6 +6775,7 @@
 				2A943ED516524941008A08B2 /* gameInterface_ScriptBinding.h in Headers */,
 				2A943EDF165265FA008A08B2 /* networkProcessList.h in Headers */,
 				2AD35A521663607600C75F30 /* platformFileIO.h in Headers */,
+				863B234E1678F7B400B72838 /* fileDialog_ScriptBinding.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7135,6 +7150,7 @@
 				2A943EDC165265FA008A08B2 /* networkProcessList.h in Headers */,
 				2AD35A4F1663607600C75F30 /* platformFileIO.h in Headers */,
 				2AD35A691663763F00C75F30 /* unitTesting.h in Headers */,
+				863B234B1678F7B400B72838 /* fileDialog_ScriptBinding.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7802,6 +7818,7 @@
 				2AD35A661663763F00C75F30 /* platformFileIoTests.cc in Sources */,
 				2AD35A681663763F00C75F30 /* unitTesting.cc in Sources */,
 				2AC5C7F51667C89700A0D046 /* platformStringTests.cc in Sources */,
+				863B23501678F7B400B72838 /* fileDialog.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8245,6 +8262,7 @@
 				2ABEFE73164CF98700C218A0 /* platformFont.cc in Sources */,
 				2A943ECE16524925008A08B2 /* platformNetwork.cc in Sources */,
 				2A943EDA165265FA008A08B2 /* networkProcessList.cc in Sources */,
+				863B23511678F7B400B72838 /* fileDialog.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8687,6 +8705,7 @@
 				2ABEFE74164CF98700C218A0 /* platformFont.cc in Sources */,
 				2A943ECF16524925008A08B2 /* platformNetwork.cc in Sources */,
 				2A943EDB165265FA008A08B2 /* networkProcessList.cc in Sources */,
+				863B23521678F7B400B72838 /* fileDialog.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9164,6 +9183,7 @@
 				2AD35A671663763F00C75F30 /* unitTesting.cc in Sources */,
 				2AC5C7F41667C89700A0D046 /* platformStringTests.cc in Sources */,
 				2ACFC0AB166CE1BE00FE7370 /* platformMemoryTests.cc in Sources */,
+				863B234F1678F7B400B72838 /* fileDialog.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
