@@ -39,8 +39,7 @@ protected:
     AssetPtr<ImageAsset>  mImageDownAsset;
     AssetPtr<ImageAsset>  mImageInactiveAsset;
 
-    void renderButton( ImageAsset* pDatablock, const U32 frame, Point2I &offset, const RectI& updateRect);
-    void renderNoImage( Point2I &offset, const RectI& updateRect );
+    void renderButton( ImageAsset* pImageAsset, const U32 frame, Point2I &offset, const RectI& updateRect);
 
 protected:
     enum ButtonState

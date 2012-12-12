@@ -79,6 +79,8 @@ public:
     StringTableEntry        expandAssetFilePath( const char* pAssetFilePath ) const;
     StringTableEntry        collapseAssetFilePath( const char* pAssetFilePath ) const;
 
+    virtual bool            isAssetValid( void ) const                          { return true; }
+
     void                    refreshAsset( void );
 
     /// Declare Console Object.

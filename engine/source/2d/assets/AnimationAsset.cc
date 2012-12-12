@@ -219,6 +219,13 @@ void AnimationAsset::validateFrames( void )
 
 //------------------------------------------------------------------------------
 
+bool AnimationAsset::isAssetValid( void ) const
+{
+    return mImageAsset.notNull() && mImageAsset->isAssetValid() && mValidatedFrames.size() > 0;
+}
+
+//------------------------------------------------------------------------------
+
 void AnimationAsset::initializeAsset( void )
 {
     // Call parent.

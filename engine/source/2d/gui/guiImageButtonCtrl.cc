@@ -205,101 +205,70 @@ void GuiImageButtonCtrl::onRender(Point2I offset, const RectI& updateRect)
     {
         case NORMAL:
             {
-                // Is the asset available?
-                if ( mImageNormalAsset.notNull() )
-                {
-                    // Yes, so render it.
-                    renderButton(mImageNormalAsset, 0, offset, updateRect);
-                }
-                else
-                {
-                    // No, so render no-image render-proxy.
-                    renderNoImage( offset, updateRect );
-                }
+                // Render the "normal" asset.
+                renderButton(mImageNormalAsset, 0, offset, updateRect);
+
             } break;
 
         case HOVER:
             {
-                // Is the asset available?
-                if ( mImageHoverAsset.notNull() )
-                {
-                    // Yes, so render it.
-                    renderButton(mImageHoverAsset, 0, offset, updateRect);
-                }
-                else
-                {
-                    // No, so render no-image render-proxy.
-                    renderNoImage( offset, updateRect );
-                }
+                // Render the "hover" asset.
+                renderButton(mImageHoverAsset, 0, offset, updateRect);
+
             } break;
 
         case DOWN:
             {
-                // Is the asset available?
-                if ( mImageDownAsset.notNull() )
-                {
-                    // Yes, so render it.
-                    renderButton(mImageDownAsset, 0, offset, updateRect);
-                }
-                else
-                {
-                    // No, so render no-image render-proxy.
-                    renderNoImage( offset, updateRect );
-                }
+                // Render the "down" asset.
+                renderButton(mImageDownAsset, 0, offset, updateRect);
+
             }  break;
 
         case INACTIVE:
             {
-                // Is the asset available?
-                if ( mImageInactiveAsset.notNull() )
-                {
-                    // Yes, so render it.
-                    renderButton(mImageInactiveAsset, 0, offset, updateRect);
-                }
-                else
-                {
-                    // No, so render no-image render-proxy.
-                    renderNoImage( offset, updateRect );
-                }
+                // Render the "inactive" asset.
+                renderButton(mImageInactiveAsset, 0, offset, updateRect);
+
             } break;
     }
 }
 
 //------------------------------------------------------------------------------
 
-void GuiImageButtonCtrl::renderButton( ImageAsset* pDatablock, const U32 frame, Point2I &offset, const RectI& updateRect )
+void GuiImageButtonCtrl::renderButton( ImageAsset* pImageAsset, const U32 frame, Point2I &offset, const RectI& updateRect )
 {
     // Ignore an invalid datablock.
-    if ( pDatablock == NULL )
+    if ( pImageAsset == NULL )
         return;
 
-    // Calculate source region.
-    const ImageAsset::FrameArea::PixelArea& pixelArea = pDatablock->getImageFrameArea( frame ).mPixelArea;
-    RectI sourceRegion( pixelArea.mPixelOffset, Point2I(pixelArea.mPixelWidth, pixelArea.mPixelHeight) );
+    // Is the asset valid and has the specified frame?
+    if ( pImageAsset->isAssetValid() && frame < pImageAsset->getFrameCount() )
+    {
+        // Yes, so calculate the source region.
+        const ImageAsset::FrameArea::PixelArea& pixelArea = pImageAsset->getImageFrameArea( frame ).mPixelArea;
+        RectI sourceRegion( pixelArea.mPixelOffset, Point2I(pixelArea.mPixelWidth, pixelArea.mPixelHeight) );
 
-    // Calculate destination region.
-    RectI destinationRegion(offset, mBounds.extent);
+        // Calculate destination region.
+        RectI destinationRegion(offset, mBounds.extent);
 
-    // Render image.
-    dglClearBitmapModulation();
-    dglDrawBitmapStretchSR( pDatablock->getImageTexture(), destinationRegion, sourceRegion );
-    renderChildControls( offset, updateRect);
-}
+        // Render image.
+        dglClearBitmapModulation();
+        dglDrawBitmapStretchSR( pImageAsset->getImageTexture(), destinationRegion, sourceRegion );
+        renderChildControls( offset, updateRect);
+    }
+    else
+    {
+        // No, so fetch the default "NoImageRenderProxy".
+        RenderProxy* pNoImageRenderProxy = Sim::findObject<RenderProxy>( Con::getVariable( NO_IMAGE_RENDER_PROXY_NAME ) );
 
-//------------------------------------------------------------------------------
+        // Finish if no render proxy available or it can't render.
+        if ( pNoImageRenderProxy == NULL || !pNoImageRenderProxy->canRender() )
+            return;
 
-void GuiImageButtonCtrl::renderNoImage( Point2I &offset, const RectI& updateRect )
-{
-    // Fetch the default "NoImageRenderProxy".
-    RenderProxy* pNoImageRenderProxy = Sim::findObject<RenderProxy>( Con::getVariable( "$NoImageRenderProxy" ) );
+        // Render using render-proxy..
+        pNoImageRenderProxy->renderGui( *this, offset, updateRect );
+    }
 
-    // Finish if no render proxy available.
-    if ( pNoImageRenderProxy == NULL )
-        return;
-
-    // Render using render-proxy..
-    pNoImageRenderProxy->renderGui( *this, offset, updateRect );
-
-    // Update control.
+    // Update the control.
     setUpdate();
 }

@@ -55,6 +55,9 @@ public:
     // Frame validation.
     void            validateFrames( void );
 
+    // Asset validation.
+    virtual bool    isAssetValid( void ) const;
+
     /// Declare Console Object.
     DECLARE_CONOBJECT(AnimationAsset);
 

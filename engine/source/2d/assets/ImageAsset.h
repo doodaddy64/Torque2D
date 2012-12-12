@@ -173,14 +173,15 @@ public:
 
     inline const FrameArea& getImageFrameArea( U32 frame ) const            { clampFrame(frame); return mFrames[frame]; };
     inline const void       bindImageTexture( void)                         { glBindTexture( GL_TEXTURE_2D, getImageTexture().getGLName() ); };
-
-    inline void             clampFrame( U32& frame ) const                  { const U32 totalFrames = getFrameCount(); if ( frame >= totalFrames ) frame = (totalFrames == 0 ? 0 : totalFrames-1 ); };
-    void                    calculateImageMap( void );
-
+    
+    virtual bool            isAssetValid( void ) const                      { return !mImageTextureHandle.IsNull(); }
+    
     /// Declare Console Object.
     DECLARE_CONOBJECT(ImageAsset);
 
 private:
+    inline void clampFrame( U32& frame ) const                              { const U32 totalFrames = getFrameCount(); if ( frame >= totalFrames ) frame = (totalFrames == 0 ? 0 : totalFrames-1 ); };
+    void calculateImageMap( void );
     void setTextureFilter( const TextureFilterMode filterMode );
 
 protected:

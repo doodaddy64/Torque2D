@@ -306,7 +306,7 @@ void GuiSpriteCtrl::onRender( Point2I offset, const RectI &updateRect)
     if ( isStaticMode() )
     {
         // Do we have a valid image to render?
-        if ( mImageAsset.notNull() && mImageFrame < mImageAsset->getFrameCount() )
+        if ( mImageAsset.notNull() && mImageAsset->isAssetValid() && mImageFrame < mImageAsset->getFrameCount() )
         {
             // Yes, so calculate source region.
             const ImageAsset::FrameArea::PixelArea& pixelArea = mImageAsset->getImageFrameArea( mImageFrame ).mPixelArea;
@@ -328,7 +328,7 @@ void GuiSpriteCtrl::onRender( Point2I offset, const RectI &updateRect)
     else
     {
         // Do we have a valid animation to render?
-        if ( mpAnimationController != NULL && mpAnimationController->getAnimationAsset().notNull() )
+        if ( mpAnimationController != NULL && mpAnimationController->isAnimationValid() )
         {
             // Yes, so calculate source region.
             const ImageAsset::FrameArea::PixelArea& pixelArea = mpAnimationController->getCurrentImageFrameArea().mPixelArea;
@@ -360,10 +360,10 @@ void GuiSpriteCtrl::onRender( Point2I offset, const RectI &updateRect)
 void GuiSpriteCtrl::renderNoImage( Point2I &offset, const RectI& updateRect )
 {
     // Fetch the default "NoImageRenderProxy".
-    RenderProxy* pNoImageRenderProxy = Sim::findObject<RenderProxy>( Con::getVariable( "$NoImageRenderProxy" ) );
+    RenderProxy* pNoImageRenderProxy = Sim::findObject<RenderProxy>( Con::getVariable( NO_IMAGE_RENDER_PROXY_NAME ) );
 
-    // Finish if no render proxy available.
-    if ( pNoImageRenderProxy == NULL )
+    // Finish if no render proxy available or it can't render.
+    if ( pNoImageRenderProxy == NULL || !pNoImageRenderProxy->canRender() )
         return;
 
     // Render using render-proxy.
