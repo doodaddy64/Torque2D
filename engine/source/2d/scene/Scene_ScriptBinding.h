@@ -2900,26 +2900,34 @@ ConsoleMethod(Scene, resetDebugStats, void, 2, 2,   "() Resets the debug statist
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, getFPS, F32, 2, 2,  "() Gets the FPS achieved.\n"
-                                                    "@return The FPS achieved.")
+ConsoleMethod(Scene, getFPS, F32, 2, 2,  "() Gets the current average frames-per-second.\n"
+                                                    "@return The current average frames-per-second.")
 {
     return object->getDebugStats().fps;
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, getMinFPS, F32, 2, 2,  "() Gets the minimum FPS achieved.\n"
-                                                    "@return The minimum FPS achieved.")
+ConsoleMethod(Scene, getMinFPS, F32, 2, 2,  "() Gets the minimum average frames-per-second.\n"
+                                                    "@return The minimum Faverage frames-per-second.")
 {
     return object->getDebugStats().minFPS;
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, getMaxFPS, F32, 2, 2,  "() Gets the maximum FPS achieved.\n"
-                                                    "@return The maximum FPS achieved.")
+ConsoleMethod(Scene, getMaxFPS, F32, 2, 2,  "() Gets the maximum average frames-per-second.\n"
+                                                    "@return The average frames-per-second.")
 {
     return object->getDebugStats().maxFPS;
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(Scene, getFrameCount, S32, 2, 2,  "() Gets the current rendered frame count.\n"
+                                                    "@return The current rendered frame count.")
+{
+    return (S32)object->getDebugStats().frameCount;
 }
 
 //-----------------------------------------------------------------------------

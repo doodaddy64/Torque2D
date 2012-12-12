@@ -1596,11 +1596,12 @@ void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
         linePositionY += linePositionOffsetY;
 
         // Rendering.
-        dSprintf( mDebugText, sizeof( mDebugText ), "Render    : Picked=%d<%d>, RenderRequests=%d<%d>, RenderFallbacks=%d<%d>, FPS=%0.0f<%0.0f/%0.0f>",
+        dSprintf( mDebugText, sizeof( mDebugText ), "Render    : Frames=%u, FPS=%4.1f<%4.1f/%4.1f>, Picked=%d<%d>, RenderRequests=%d<%d>, RenderFallbacks=%d<%d>",
+            debugStats.frameCount,
+            debugStats.fps, debugStats.minFPS, debugStats.maxFPS,
             debugStats.renderPicked, debugStats.maxRenderPicked,
             debugStats.renderRequests, debugStats.maxRenderRequests,
-            debugStats.renderFallbacks, debugStats.maxRenderFallbacks,
-            debugStats.fps, debugStats.minFPS, debugStats.maxFPS );
+            debugStats.renderFallbacks, debugStats.maxRenderFallbacks );
         dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
         linePositionY += linePositionOffsetY;
 

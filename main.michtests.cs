@@ -72,7 +72,7 @@ function createDefaultProfile()
         fillColorNA = "244 244 244 64";
         
         // font
-        fontType = "Arial";
+        fontType = $platform $= "windows" ? "lucida console" : "monaco";
         fontSize = 12;
         fontColor = "255 255 255 255";
 
@@ -367,3 +367,5 @@ function startMichTesting()
 //-----------------------------------------------------------------------------
 
 startMichTesting();
+
+echo( "Platform=" SPC $platform );

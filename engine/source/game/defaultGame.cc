@@ -95,6 +95,11 @@ static U32 gTimeAdvance = 0;
 static U32 gFrameSkip = 0;
 static U32 gFrameCount = 0;
 
+// Reset frames stats.
+static F32 framePeriod = 0.0f;
+static F32 frameTotalTime = 0.0f;
+static U32 frameTotalCount = 0;
+
 //-----------------------------------------------------------------------------
 
 bool initializeLibraries()
@@ -322,34 +327,38 @@ void shutdownGame()
 
 bool DefaultGame::mainInitialize(int argc, const char **argv)
 {
-   if(!initializeLibraries())
-      return false;
+    if(!initializeLibraries())
+        return false;
     
-   // Set up the command line args for the console scripts...
-   Con::setIntVariable("$GameProject::argc", argc);
-   U32 i;
-   for (i = 0; i < (U32)argc; i++)
-      Con::setVariable(avar("$GameProject::argv%d", i), argv[i]);
-   if (initializeGame(argc, argv) == false)
-   { 
-      //Using printf cos Con:: is not around here.
-       printf("\nApplication failed to start! Make sure your resources are in the correct place.");
-      shutdownGame();
-      shutdownLibraries();
-      return false;
-   }
+    // Set up the command line args for the console scripts...
+    Con::setIntVariable("$GameProject::argc", argc);
+    U32 i;
+    for (i = 0; i < (U32)argc; i++)
+        Con::setVariable(avar("$GameProject::argv%d", i), argv[i]);
+    if (initializeGame(argc, argv) == false)
+    { 
+        //Using printf cos Con:: is not around here.
+        printf("\nApplication failed to start! Make sure your resources are in the correct place.");
+        shutdownGame();
+        shutdownLibraries();
+        return false;
+    }
+
+    // Start processing ticks.
+    setProcessTicks( true );
+
     
 #ifdef TORQUE_OS_IOS	
     
-   // Torque 2D does not have true, GameKit networking support. 
-   // The old socket network code is untested, undocumented and likely broken. 
-   // This will eventually be replaced with GameKit. 
-   // For now, it is confusing to even have a checkbox in the editor that no one uses or understands. 
-   // If you are one of the few that uses this, just replace the false; with the commented line. -MP 1.5
+    // Torque 2D does not have true, GameKit networking support. 
+    // The old socket network code is untested, undocumented and likely broken. 
+    // This will eventually be replaced with GameKit. 
+    // For now, it is confusing to even have a checkbox in the editor that no one uses or understands. 
+    // If you are one of the few that uses this, just replace the false; with the commented line. -MP 1.5
 
-   //-Mat this is a bit of a hack, but if we don't want the network, we shut it off now. 
-   // We can't do it until we've run the entry script, otherwise the script variable will not have ben loaded
-   bool usesNet = false; //dAtob( Con::getVariable( "$pref::iOS::UseNetwork" ) );
+    //-Mat this is a bit of a hack, but if we don't want the network, we shut it off now. 
+    // We can't do it until we've run the entry script, otherwise the script variable will not have ben loaded
+    bool usesNet = false; //dAtob( Con::getVariable( "$pref::iOS::UseNetwork" ) );
     if( !usesNet ) {
         Net::shutdown();
     }
@@ -357,48 +366,37 @@ bool DefaultGame::mainInitialize(int argc, const char **argv)
 #ifdef TORQUE_OS_IOS_PROFILE
     iPhoneProfilerProfilerInit();
 #endif
-#endif
+    #endif
 
    return true;
 }
 
+
+
 //--------------------------------------------------------------------------
 
-void fpsUpdate()
+void DefaultGame::processTick( void )
 {
-    // Reset stats.
-    const U32 FPS_UPDATE_INTERVAL = 250;
-    static U32 lastRealTime = 0;
-    static U32 lastVirtualTime = 0;
-    static U32 frameCount = 0;
-    static U32 nextFpsConsoleUpdate = Platform::getRealMilliseconds() + FPS_UPDATE_INTERVAL;
+    Con::setVariable( "Sim::Time", avar("%4.1f", (F32)Platform::getVirtualMilliseconds() / 1000.0f ) );
+    Con::setVariable( "fps::framePeriod", avar("%4.1f", framePeriod) );
+    Con::setVariable( "fps::frameCount", avar("%u", frameTotalCount) );
+}
 
-    // Fetch current times.
-    const U32 currentReal = Platform::getRealMilliseconds();
-    const U32 currentVirtual = Platform::getVirtualMilliseconds();
+//--------------------------------------------------------------------------
 
-    // Update frame count.
-    frameCount++;
+void DefaultGame::advanceTime( F32 timeDelta )
+{
+    // Update total frame time.
+    frameTotalTime += timeDelta;
 
-    // Calculate FPS.
-    const F32 realFPS = 1000.0f / (F32)(currentReal - lastRealTime);
-    const F32 virtualFPS = 1000.0f / (F32)(currentVirtual - lastVirtualTime);
+    // Update frame total count.
+    frameTotalCount++;
 
-    // Update last times.
-    lastRealTime = currentReal;
-    lastVirtualTime = currentVirtual;
+    // Calculate average FPS.
+    framePeriod = (F32)frameTotalCount / frameTotalTime;
 
-    //Con::printf("Real:%4.1f, Virtual:%4.1f", realFPS, virtualFPS);
-
-    // Update console variables periodically.
-    const U32 update = lastRealTime - nextFpsConsoleUpdate;
-    if  ( update > FPS_UPDATE_INTERVAL )
-    {
-        Con::setVariable("fps::real",    avar("%4.1f", realFPS));
-        Con::setVariable("fps::virtual", avar("%4.1f", 1.0f/ virtualFPS));
-
-        nextFpsConsoleUpdate = lastRealTime;
-    }
+    // Debug output.
+    //Con::printf("FramePeriod:%4.1f", framePeriod);
 }
 
 //--------------------------------------------------------------------------
@@ -447,11 +445,14 @@ void DefaultGame::mainLoop( void )
 
 void DefaultGame::mainShutdown( void )
 {
-   shutdownGame();
-   shutdownLibraries();
+    // Stop processing ticks.
+    setProcessTicks( false );
 
-   if( Game->requiresRestart() )
-      Platform::restartInstance();
+    shutdownGame();
+    shutdownLibraries();
+
+    if( Game->requiresRestart() )
+    Platform::restartInstance();
 }
 
 //--------------------------------------------------------------------------
@@ -524,12 +525,17 @@ void DefaultGame::processTimeEvent(TimeEvent *event)
       elapsedTime = 1024;
    }
 
-   U32 timeDelta;
-
    if(gTimeAdvance)
-      timeDelta = gTimeAdvance;
-   else
-      timeDelta = (U32) (elapsedTime * gTimeScale);
+   {
+      elapsedTime = gTimeAdvance;
+   }
+   else if ( mNotEqual( gTimeScale, 1.0f ) )
+   {
+      elapsedTime = (U32) (elapsedTime * gTimeScale);
+   }
+   {
+       elapsedTime = elapsedTime;
+   }
 
    Platform::advanceTime(elapsedTime);
    bool tickPass;
@@ -538,7 +544,7 @@ void DefaultGame::processTimeEvent(TimeEvent *event)
 #ifdef TORQUE_OS_IOS_PROFILE
 iPhoneProfilerStart("SERVER_PROC");
 #endif    
-    tickPass = gServerProcessList.advanceTime(timeDelta);
+    tickPass = gServerProcessList.advanceTime(elapsedTime);
 #ifdef TORQUE_OS_IOS_PROFILE
     iPhoneProfilerEnd("SERVER_PROC");
 #endif
@@ -554,7 +560,7 @@ iPhoneProfilerStart("SERVER_PROC");
 #ifdef TORQUE_OS_IOS_PROFILE
     iPhoneProfilerStart("SIM_TIME");
 #endif
-    Sim::advanceTime(timeDelta);
+    Sim::advanceTime(elapsedTime);
 #ifdef TORQUE_OS_IOS_PROFILE
     iPhoneProfilerEnd("SIM_TIME");
 #endif
@@ -564,7 +570,10 @@ iPhoneProfilerStart("SERVER_PROC");
 #ifdef TORQUE_OS_IOS_PROFILE
     iPhoneProfilerStart("CLIENT_PROC");
 #endif
-   Tickable::advanceTime(timeDelta);	
+
+   PROFILE_START(TickableAdvanceTime);
+   Tickable::advanceTime(elapsedTime);	
+   PROFILE_END();
 
     // This is based on PW's stuff
 #ifndef NO_AUDIO_SUPPORT
@@ -609,15 +618,11 @@ iPhoneProfilerEnd("GL_RENDER");
 #endif
    }
    GNet->checkTimeouts();
-   fpsUpdate();
     
 #ifdef TORQUE_ALLOW_MUSICPLAYER
     updateVolume();
 #endif
    PROFILE_END();
-
-   // Update the console time
-   Con::setFloatVariable("Sim::Time",F32(Platform::getVirtualMilliseconds()) / 1000);
 }
 
 //--------------------------------------------------------------------------

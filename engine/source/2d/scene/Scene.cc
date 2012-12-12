@@ -690,7 +690,8 @@ void Scene::processTick( void )
     processDeleteRequests(false);
 
     // Update debug stats.
-    mDebugStats.fps           = Con::getFloatVariable("fps::real", 0.0f);
+    mDebugStats.fps           = Con::getFloatVariable("fps::framePeriod", 0.0f);
+    mDebugStats.frameCount    = Con::getIntVariable("fps::frameCount", 0);
     mDebugStats.bodyCount     = mpWorld->GetBodyCount();
     mDebugStats.jointCount    = mpWorld->GetJointCount();
     mDebugStats.contactCount  = mpWorld->GetContactCount();

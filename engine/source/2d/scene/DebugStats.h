@@ -24,7 +24,7 @@ public:
     inline void updateRanges( void )
     {
         // Frames per-second.
-        if ( fps > 0.0f )
+        if ( frameCount > 1000 )
         {
             if ( fps < minFPS ) minFPS = fps;
             if ( fps > maxFPS ) maxFPS = fps;
@@ -167,6 +167,8 @@ public:
         minFPS = 10000.0f;
         maxFPS = 0.0f;
 
+        frameCount = 0;
+
         dMemset( &worldProfile, 0, sizeof(worldProfile) );
         dMemset( &maxWorldProfile, 0, sizeof(maxWorldProfile) );
     }
@@ -257,6 +259,8 @@ public:
     F32     fps;
     F32     minFPS;
     F32     maxFPS;
+
+    U32     frameCount;
 
     b2Profile worldProfile;
     b2Profile maxWorldProfile;
