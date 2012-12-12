@@ -98,6 +98,7 @@ static U32 gFrameCount = 0;
 // Reset frames stats.
 static F32 framePeriod = 0.0f;
 static F32 frameTotalTime = 0.0f;
+static F32 frameTotalLastTime = 0.0f;
 static U32 frameTotalCount = 0;
 
 //-----------------------------------------------------------------------------
@@ -378,8 +379,15 @@ bool DefaultGame::mainInitialize(int argc, const char **argv)
 void DefaultGame::processTick( void )
 {
     Con::setVariable( "Sim::Time", avar("%4.1f", (F32)Platform::getVirtualMilliseconds() / 1000.0f ) );
-    Con::setVariable( "fps::framePeriod", avar("%4.1f", framePeriod) );
-    Con::setVariable( "fps::frameCount", avar("%u", frameTotalCount) );
+
+    // Update the frame variables periodically.
+    static F32 lastFrameUpdate = frameTotalTime;    
+    if ( (frameTotalTime - lastFrameUpdate) > 0.25f )
+    {
+        Con::setVariable( "fps::framePeriod", avar("%4.1f", 1.0f / framePeriod) );
+        Con::setVariable( "fps::frameCount", avar("%u", frameTotalCount) );
+        lastFrameUpdate = frameTotalTime;
+    }
 }
 
 //--------------------------------------------------------------------------
@@ -387,16 +395,23 @@ void DefaultGame::processTick( void )
 void DefaultGame::advanceTime( F32 timeDelta )
 {
     // Update total frame time.
-    frameTotalTime += timeDelta;
+    frameTotalTime += timeDelta;    
 
     // Update frame total count.
     frameTotalCount++;
 
-    // Calculate average FPS.
-    framePeriod = (F32)frameTotalCount / frameTotalTime;
+    // Have we already processed a single frame?
+    if ( frameTotalCount > 1 )
+    {
+        // Yes, so set the time-bias to use.
+        const F32 timeBias = 0.01f;
 
-    // Debug output.
-    //Con::printf("FramePeriod:%4.1f", framePeriod);
+        // Calculate the current frame period.
+        framePeriod = framePeriod * ( 1.0f - timeBias ) + ( frameTotalTime - frameTotalLastTime ) * timeBias;
+    }
+
+    // Update last total frame time.
+    frameTotalLastTime = frameTotalTime;
 }
 
 //--------------------------------------------------------------------------

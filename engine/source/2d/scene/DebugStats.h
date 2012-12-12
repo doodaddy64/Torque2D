@@ -24,7 +24,7 @@ public:
     inline void updateRanges( void )
     {
         // Frames per-second.
-        if ( frameCount > 1000 )
+        if ( fps > 0.0f )
         {
             if ( fps < minFPS ) minFPS = fps;
             if ( fps > maxFPS ) maxFPS = fps;
