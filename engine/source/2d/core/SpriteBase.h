@@ -35,7 +35,8 @@ public:
     static void initPersistFields();
 
     virtual void integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats );
-    virtual bool canRender( void ) const { return (isStaticMode() && mImageAsset.notNull()) || (!isStaticMode() && mAnimationAsset.notNull()); }
+
+    virtual bool canRender( void ) const;
 
     virtual void copyTo(SimObject* object);
 

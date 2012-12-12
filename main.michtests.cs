@@ -16,6 +16,9 @@ trace( false );
 // Controls whether global 
 $pref::T2D::imageAssetGlobalFilterMode = "Smooth";
 
+// Disable the vertical sync.
+$pref::Video::disableVerticalSync = 1;
+
 // The name of the company. Used to form the path to save preferences. Defaults to GarageGames
 // if not specified.
 // The name of the game. Used to form the path to save preferences. Defaults to C++ engine define TORQUE_GAME_NAME
@@ -27,7 +30,7 @@ setCompanyAndProduct("GarageGames", "3StepStudio" @ getThreeStepStudioVersion())
 ModuleDatabase.EchoInfo = false;
 
 // Set asset database information echo.
-AssetDatabase.EchoInfo = false;
+AssetDatabase.EchoInfo = true;
 
 // Is a module merge available?
 if ( ModuleDatabase.isModuleMergeAvailable() )
@@ -99,6 +102,24 @@ function createDefaultCanvas()
         error("Could not set screen mode");
         quit();
     }
+}
+
+//-----------------------------------------------------------------------------
+
+function createDefaultRenderProxy()
+{
+    // Create default image.
+    %defaultImageMap = new ImageAsset()
+    {
+        ImageFile = expandPath( "./modules/{MelvTesting}/1/assets/images/defaultImage.png" );
+    };
+    %defaultAssetId = AssetDatabase.addPrivateAsset( %defaultImageMap );
+
+    // Create no-image render proxy.
+    $NoImageRenderProxy = new RenderProxy()
+    {
+        ImageMap = %defaultAssetId;
+    };    
 }
 
 //-----------------------------------------------------------------------------
@@ -187,20 +208,16 @@ function createAnimatedSprite()
 
 function createBox2DScene()
 {
-    testScene.setDebugOn( 0, 4, 5 );
+    testScene.setDebugOn( 0, 5 );
     testScene.setGravity( 0, -9.8 );
-    
+       
     %asset = new ImageAsset()
     {
         ImageFile = expandPath("./modules/{MelvTesting}/1/assets/images/MiniTileMap.png");
-        CellCountX = 4;
-        CellCountY = 4;
-        CellWidth = 128;
-        CellHeight = 128;
     };
     
-    %imageAssetID = AssetDatabase.addPrivateAsset( %asset );
-    
+    %assetId = AssetDatabase.addPrivateAsset( %asset );
+           
     %animation = new AnimationAsset()
     {
         ImageMap = %imageAssetID;
@@ -218,11 +235,12 @@ function createBox2DScene()
     %worldBounds.createPolygonBoxCollisionShape( 4, 70, 48, 0 );
     testScene.addToScene( %worldBounds );    
     
-    for( %n = 0; %n < 100; %n++ )
+    for( %n = 0; %n < 10; %n++ )
     {
         %sprite = new Sprite()
         {
-            Animation = $TestAnimationID;
+            //Animation = $TestAnimationID;
+            ImageMap = %assetId;
             position = getRandom( -40, 40 ) SPC getRandom( 100, 40 );
             size = "5 5";
             angle = getRandom(0,360);
@@ -335,6 +353,7 @@ function startMichTesting()
 
     createDefaultProfile();
     createDefaultCanvas();
+    createDefaultRenderProxy();
     
     createTestScene();
     

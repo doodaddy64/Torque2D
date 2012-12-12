@@ -45,11 +45,12 @@ public:
     virtual ~AnimationController();
 
     TextureHandle&                                  getImageTexture( void )                 { return mAnimationAsset->getImageMap()->getImageTexture(); };
-    const ImageAsset::FrameArea&                    getCurrentImageFrameArea( void ) const  { return mAnimationAsset->getImageMap()->getImageFrameArea(getCurrentFrame()); };
+    const ImageAsset::FrameArea&                    getCurrentImageFrameArea( void ) const;
     const AnimationAsset*                           getCurrentDataBlock( void ) const       { return mAnimationAsset.notNull() ? mAnimationAsset : NULL; };
     const StringTableEntry                          getCurrentAnimation( void ) const       { return mAnimationAsset.getAssetId(); };
-    const U32                                       getCurrentFrame( void ) const           { return mAnimationAsset->getValidatedAnimationFrames()[mCurrentFrameIndex]; };
+    const U32                                       getCurrentFrame( void ) const;
     const F32                                       getCurrentTime( void ) const            { return mCurrentTime; };
+    bool                                            isAnimationValid( void ) const;
     bool                                            isAnimationFinished( void ) const       { return mAnimationFinished; };
 
     const AssetPtr<AnimationAsset>&                 getAnimationAsset( void ) const         { return mAnimationAsset; };

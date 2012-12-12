@@ -762,8 +762,8 @@ void SceneObject::sceneRenderFallback( const SceneRenderState* pSceneRenderState
     // Fetch the default "NoImageRenderProxy".
     RenderProxy* pNoImageRenderProxy = Sim::findObject<RenderProxy>( Con::getVariable( NO_IMAGE_RENDER_PROXY_NAME) );
 
-    // Finish if no render proxy available.
-    if ( pNoImageRenderProxy == NULL )
+    // Finish if no render proxy available or it can't render.
+    if ( pNoImageRenderProxy == NULL || !pNoImageRenderProxy->canRender() )
         return;
 
     // Fetch render AABB.

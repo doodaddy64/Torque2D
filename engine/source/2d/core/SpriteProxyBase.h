@@ -58,7 +58,9 @@ public:
     virtual void interpolateTick( F32 delta ) {};
     virtual void advanceTime( F32 timeDelta ) {};
 
-    void render(
+    virtual bool canRender( void ) const;
+
+    virtual void render(
         const bool flipX,
         const bool flipY,
         const Vector2& vertexPos0,

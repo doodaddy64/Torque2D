@@ -92,6 +92,21 @@ void SpriteProxyBase::processTick( void )
 
 //------------------------------------------------------------------------------
 
+bool SpriteProxyBase::canRender( void ) const
+{
+    // Are we in static mode?
+    if ( isStaticMode() )
+    {
+        // Yes, so we must have an image asset and the frame must be in bounds.
+        return mImageAsset.notNull() && ( getImageFrame() < mImageAsset->getFrameCount() );
+    }
+
+    // No, so we must have an animation controller and the animation must be valid.
+    return mpAnimationController != NULL && mpAnimationController->isAnimationValid();
+}
+
+//------------------------------------------------------------------------------
+
 void SpriteProxyBase::render(
     const bool flipX,
     const bool flipY,
@@ -101,17 +116,13 @@ void SpriteProxyBase::render(
     const Vector2& vertexPos3,
     BatchRender* pBatchRenderer ) const
 {
+    // Finish if we can't render.
+    if ( !canRender() )
+        return;
+
     // Static mode?
     if ( isStaticMode() )
     {
-        // Yes, so finish if no image-map.
-        if ( mImageAsset.isNull() )
-            return;
-
-        // Finish if frame is invalid.
-        if ( mImageFrame >= mImageAsset->getFrameCount() )
-            return;
-
         // Fetch current frame area.
         ImageAsset::FrameArea::TexelArea texelArea = mImageAsset->getImageFrameArea( mImageFrame ).mTexelArea;
 
@@ -137,10 +148,6 @@ void SpriteProxyBase::render(
         return;
     }
     
-    // Finish if no animation.
-    if ( mAnimationAsset.isNull() )
-        return;
-
     // Fetch current frame area.
     ImageAsset::FrameArea::TexelArea texelArea = mpAnimationController->getCurrentImageFrameArea().mTexelArea;
 
@@ -325,7 +332,7 @@ bool SpriteProxyBase::setAnimation( const char* pAnimationAssetId, const bool au
     // Set as dynamic render.
     mStaticMode = false;
 
-    // Ensure animation is unpaused.
+    // Ensure animation is un-paused.
     mAnimationPaused = false;
 
     // Create animation controller if required.

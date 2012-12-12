@@ -45,6 +45,77 @@ void AnimationController::onAssetRefreshed( AssetPtrBase* pAssetPtrBase )
 
 //-----------------------------------------------------------------------------
 
+const ImageAsset::FrameArea& AnimationController::getCurrentImageFrameArea( void ) const
+{
+    // Fetch current frame.
+    const U32 currentFrame = getCurrentFrame();
+
+    // Sanity!
+    AssertFatal( mAnimationAsset.notNull(), "Animation controller requested image frame but no animation asset assigned." );
+
+    // Fetch image asset.
+    const AssetPtr<ImageAsset>& imageAsset = mAnimationAsset->getImageMap();
+
+    // Sanity!
+    AssertFatal( imageAsset.notNull(), "Animation controller requested image frame but no image asset assigned." );
+
+    // Sanity!
+    AssertFatal( currentFrame < imageAsset->getFrameCount(), "Animation controller requested image frame that is out of bounds." );
+
+    return imageAsset->getImageFrameArea(currentFrame);
+};
+
+//-----------------------------------------------------------------------------
+
+const U32 AnimationController::getCurrentFrame( void ) const
+{
+    // Sanity!
+    AssertFatal( mAnimationAsset.notNull(), "Animation controller requested current image frame but no animation asset assigned." );
+
+    // Fetch validated frames.
+    const Vector<S32>& validatedFrames = mAnimationAsset->getValidatedAnimationFrames();
+
+    // Sanity!
+    AssertFatal( mCurrentFrameIndex < validatedFrames.size(), "Animation controller requested the current frame but it is out of bounds of the validated frames." );
+
+    return validatedFrames[mCurrentFrameIndex];
+};
+
+//-----------------------------------------------------------------------------
+
+bool AnimationController::isAnimationValid( void ) const
+{
+    // Not valid if no animation asset.
+    if ( mAnimationAsset.isNull() )
+        return false;
+
+    // Fetch validated frames.
+    const Vector<S32>& validatedFrames = mAnimationAsset->getValidatedAnimationFrames();
+
+    // Not valid if current frame index is out of bounds of the validated frames.
+    if ( mCurrentFrameIndex >= validatedFrames.size() )
+        return false;
+
+    // Fetch image asset.
+    const AssetPtr<ImageAsset>& imageAsset = mAnimationAsset->getImageMap();
+
+    // Not valid if no image asset.
+    if ( imageAsset.isNull() )
+        return false;
+
+    // Fetch current frame.
+    const U32 currentFrame = getCurrentFrame();
+
+    // Not valid if current frame is out of bounds of the image asset.
+    if ( currentFrame >= imageAsset->getFrameCount() )
+        return false;
+
+    // Valid.
+    return true;
+}
+
+//-----------------------------------------------------------------------------
+
 bool AnimationController::playAnimation( const AssetPtr<AnimationAsset>& animationAsset, const bool autoRestore )
 {
     // Stop animation.

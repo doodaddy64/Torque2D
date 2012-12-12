@@ -231,16 +231,16 @@ void Scroller::updateTickScrollPosition( void )
 
 void Scroller::sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer )
 {
+    // Finish if we can't render.
+    if ( !SpriteProxyBase::canRender() )
+        return;
+
     ImageAsset::FrameArea::TexelArea frameTexelArea;
     TextureHandle texture;
 
     // Static mode?
     if ( isStaticMode() )
     {
-        // Yes, so finish if no image-map.
-        if ( mImageAsset.isNull() )
-            return;
-
         // Fetch frame texel area.
         frameTexelArea = mImageAsset->getImageFrameArea( mImageFrame ).mTexelArea;
 
@@ -249,10 +249,6 @@ void Scroller::sceneRender( const SceneRenderState* pSceneRenderState, const Sce
     }
     else
     {
-        // Finish if no animation.
-        if ( mAnimationAsset.isNull() || mAnimationAsset->getImageMap().isNull() )
-            return;
-
         // Fetch animation controller.
         AnimationController* pAnimationController = getAnimationController();
 

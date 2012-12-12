@@ -60,6 +60,13 @@ void SpriteBase::integrateObject( const F32 totalTime, const F32 elapsedTime, De
 
 //------------------------------------------------------------------------------
 
+bool SpriteBase::canRender( void ) const
+{
+    return SpriteProxyBase::canRender();
+}
+
+//------------------------------------------------------------------------------
+
 void SpriteBase::copyTo(SimObject* object)
 {
     // Call to parent.
