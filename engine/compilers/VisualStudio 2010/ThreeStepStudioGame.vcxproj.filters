@@ -438,9 +438,6 @@
     <ClCompile Include="..\..\source\platformWin32\menus\popupMenuWin32.cc">
       <Filter>Source Files\platformWin32\menus</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\platformWin32\nativeDialogs\fileDialog.cc">
-      <Filter>Source Files\platformWin32\nativeDialogs</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\platformWin32\nativeDialogs\win32DirectoryResolver.cpp">
       <Filter>Source Files\platformWin32\nativeDialogs</Filter>
     </ClCompile>
@@ -1322,6 +1319,12 @@
     </ClCompile>
     <ClCompile Include="..\..\source\testing\tests\platformMemoryTests.cc">
       <Filter>Source Files\testing\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\platform\nativeDialogs\fileDialog.cc">
+      <Filter>Source Files\platform\nativeDialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\platformWin32\nativeDialogs\win32FileDialog.cc">
+      <Filter>Source Files\platformWin32\nativeDialogs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

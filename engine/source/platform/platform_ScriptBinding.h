@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 // Torque
-// Copyright GarageGames, LLC 2011
+// Copyright GarageGames, LLC 2012
 //-----------------------------------------------------------------------------
 
 ConsoleFunction( setMouseLock, void, 2, 2, "( isLocked ) Use the setMouseLock function to un/lock the mouse.\n"

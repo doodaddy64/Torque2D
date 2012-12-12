@@ -508,7 +508,9 @@
     <ClCompile Include="..\..\source\math\mSolver.cc" />
     <ClCompile Include="..\..\source\math\mSplinePatch.cc" />
     <ClCompile Include="..\..\source\persistence\SimXMLDocument.cpp" />
+    <ClCompile Include="..\..\source\platformWin32\nativeDialogs\win32FileDialog.cc" />
     <ClCompile Include="..\..\source\platform\CursorManager.cc" />
+    <ClCompile Include="..\..\source\platform\nativeDialogs\fileDialog.cc" />
     <ClCompile Include="..\..\source\platform\platform.cc" />
     <ClCompile Include="..\..\source\platform\platformAssert.cc" />
     <ClCompile Include="..\..\source\platform\platformCPU.cc" />
@@ -548,7 +550,6 @@
     <ClCompile Include="..\..\source\platformWin32\winVideo.cc" />
     <ClCompile Include="..\..\source\platformWin32\winWindow.cc" />
     <ClCompile Include="..\..\source\platformWin32\menus\popupMenuWin32.cc" />
-    <ClCompile Include="..\..\source\platformWin32\nativeDialogs\fileDialog.cc" />
     <ClCompile Include="..\..\source\platformWin32\nativeDialogs\win32DirectoryResolver.cpp" />
     <ClCompile Include="..\..\source\platformWin32\nativeDialogs\win32MsgBox.cpp" />
     <ClCompile Include="..\..\source\platformWin32\registry\winRegistryAccess.cpp" />
