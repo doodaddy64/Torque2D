@@ -3,10 +3,61 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#include "platformOSX/platformOSX.h"
+#import "platformOSX/platformOSX.h"
+#import "platformOSX/osxCocoaUtilities.h"
 #include "platform/nativeDialogs/fileDialog.h"
 #include "console/consoleTypes.h"
 #include "io/resource/resourceManager.h"
+
+//-----------------------------------------------------------------------------
+// Builds and runs a NSOpenPanel. It will return the results of the user's
+// interaction as a NSArray of file URLs
+static NSArray* ShowOSXOpenFileDialog(FileDialogData &mData)
+{
+    NSOpenPanel* panel = [NSOpenPanel openPanel];
+
+    bool chooseDir = (mData.mStyle & FileDialogData::FDS_BROWSEFOLDER);
+
+    // User freedom niceties
+    [panel setCanCreateDirectories:YES];
+    [panel setCanSelectHiddenExtension:YES];
+    [panel setTreatsFilePackagesAsDirectories:YES];
+    [panel setAllowsMultipleSelection:(mData.mStyle & FileDialogData::FDS_MULTIPLEFILES)];
+    [panel setCanChooseFiles:!chooseDir];
+    [panel setCanChooseDirectories:chooseDir];
+
+    if (chooseDir)
+    {
+        [panel setPrompt:@"Choose"];
+        [panel setTitle:@"Choose Folder"];
+    }
+
+    NSString *initialFile = [[NSString stringWithUTF8String:mData.mDefaultFile] lastPathComponent];
+
+    // We only use mDefaultDir if mDefault path is not set.
+    NSString *dir;
+
+    if (dStrlen(mData.mDefaultPath) < 1)
+        dir = [[NSString stringWithUTF8String:mData.mDefaultFile] stringByDeletingLastPathComponent];
+    else
+        dir = [NSString stringWithUTF8String: mData.mDefaultPath];
+
+    [panel setDirectoryURL:[NSURL fileURLWithPath:dir isDirectory:YES]];
+
+    [panel setFilters:mData.mFilters];
+
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
+
+
+}
+
+//-----------------------------------------------------------------------------
+// Builds and runs a NSOpenPanel. It will return the results of the user's
+// interaction as a NSArray of file URLs
+static NSArray* ShowOSXSaveFileDialog(FileDialogData &mData)
+{
+    NSSavePanel* savePanel = [NSSavePanel savePanel];
+}
 
 //-----------------------------------------------------------------------------
 // MICH NOTE: Ok. There is a lot of repeat code in this file. Aside from the
@@ -81,11 +132,11 @@ bool FileDialog::Execute()
 
     if (mData.mStyle & FileDialogData::FDS_OPEN)
     {
-        //nsFileArray = ShowOSXOpenFileDialog(mData);
+        nsFileArray = [NSOpenPanel showOpenPanel];
     }
     else if (mData.mStyle & FileDialogData::FDS_SAVE)
     {
-        //nsFileArray = ShowOSXSaveFileDialog(mData);
+        nsFileArray = [NSSavePanel showSavePanel];
     }
     else
     {
@@ -151,11 +202,11 @@ bool FileDialog::setDefaultFile(void* obj, const char* data)
 
     // Copy and Backslash the path (Windows dialogs are VERY picky about this format)
     static char szPathValidate[512];
-    Platform::makeFullPathName( data,szPathValidate, sizeof(szPathValidate) );
+    Platform::makeFullPathName(data,szPathValidate, sizeof(szPathValidate));
 
     // Finally, assign in proper format.
-    FileDialog *pDlg = static_cast<FileDialog*>( obj );
-    pDlg->mData.mDefaultFile = StringTable->insert( szPathValidate );
+    FileDialog *pDlg = static_cast<FileDialog*>(obj);
+    pDlg->mData.mDefaultFile = StringTable->insert(szPathValidate);
 
     return false;
 };
@@ -168,7 +219,7 @@ bool FileDialog::setChangePath(void* obj, const char* data)
 
     FileDialog *pDlg = static_cast<FileDialog*>(obj);
 
-    if(bMustExist)
+    if (bMustExist)
         pDlg->mData.mStyle |= FileDialogData::FDS_CHANGEPATH;
     else
         pDlg->mData.mStyle &= ~FileDialogData::FDS_CHANGEPATH;
@@ -213,8 +264,8 @@ OpenFileDialog::~OpenFileDialog()
 //-----------------------------------------------------------------------------
 void OpenFileDialog::initPersistFields()
 {
-    addProtectedField("MustExist", TypeBool, Offset(mMustExist, OpenFileDialog), &setMustExist, &getMustExist, "True/False whether the file returned must exist or not" );
-    addProtectedField("MultipleFiles", TypeBool, Offset(mMultipleFiles, OpenFileDialog), &setMultipleFiles, &getMultipleFiles, "True/False whether multiple files may be selected and returned or not" );
+    addProtectedField("MustExist", TypeBool, Offset(mMustExist, OpenFileDialog), &setMustExist, &getMustExist, "True/False whether the file returned must exist or not");
+    addProtectedField("MultipleFiles", TypeBool, Offset(mMultipleFiles, OpenFileDialog), &setMultipleFiles, &getMultipleFiles, "True/False whether multiple files may be selected and returned or not");
 
     Parent::initPersistFields();
 }
@@ -222,11 +273,11 @@ void OpenFileDialog::initPersistFields()
 //-----------------------------------------------------------------------------
 bool OpenFileDialog::setMustExist(void* obj, const char* data)
 {
-    bool bMustExist = dAtob( data );
+    bool bMustExist = dAtob(data);
 
-    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>( obj );
+    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>(obj);
 
-    if( bMustExist )
+    if (bMustExist)
         pDlg->mData.mStyle |= FileDialogData::FDS_MUSTEXIST;
     else
         pDlg->mData.mStyle &= ~FileDialogData::FDS_MUSTEXIST;
@@ -237,9 +288,9 @@ bool OpenFileDialog::setMustExist(void* obj, const char* data)
 //-----------------------------------------------------------------------------
 const char* OpenFileDialog::getMustExist(void* obj, const char* data)
 {
-    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>( obj );
+    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>(obj);
 
-    if( pDlg->mData.mStyle & FileDialogData::FDS_MUSTEXIST )
+    if (pDlg->mData.mStyle & FileDialogData::FDS_MUSTEXIST)
         return StringTable->insert("true");
     else
         return StringTable->insert("false");
@@ -248,11 +299,11 @@ const char* OpenFileDialog::getMustExist(void* obj, const char* data)
 //-----------------------------------------------------------------------------
 bool OpenFileDialog::setMultipleFiles(void* obj, const char* data)
 {
-    bool bMustExist = dAtob( data );
+    bool bMustExist = dAtob(data);
 
-    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>( obj );
+    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>(obj);
 
-    if( bMustExist )
+    if (bMustExist)
         pDlg->mData.mStyle |= FileDialogData::FDS_MULTIPLEFILES;
     else
         pDlg->mData.mStyle &= ~FileDialogData::FDS_MULTIPLEFILES;
@@ -263,9 +314,9 @@ bool OpenFileDialog::setMultipleFiles(void* obj, const char* data)
 //-----------------------------------------------------------------------------
 const char* OpenFileDialog::getMultipleFiles(void* obj, const char* data)
 {
-    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>( obj );
+    OpenFileDialog *pDlg = static_cast<OpenFileDialog*>(obj);
 
-    if( pDlg->mData.mStyle & FileDialogData::FDS_MULTIPLEFILES )
+    if (pDlg->mData.mStyle & FileDialogData::FDS_MULTIPLEFILES)
         return StringTable->insert("true");
     else
         return StringTable->insert("false");
@@ -287,7 +338,7 @@ SaveFileDialog::~SaveFileDialog()
 //-----------------------------------------------------------------------------
 void SaveFileDialog::initPersistFields()
 {
-    addProtectedField("OverwritePrompt", TypeBool, Offset(mOverwritePrompt, SaveFileDialog), &setOverwritePrompt, &getOverwritePrompt, "True/False whether the dialog should prompt before accepting an existing file name" );
+    addProtectedField("OverwritePrompt", TypeBool, Offset(mOverwritePrompt, SaveFileDialog), &setOverwritePrompt, &getOverwritePrompt, "True/False whether the dialog should prompt before accepting an existing file name");
 
     Parent::initPersistFields();
 }
@@ -295,11 +346,11 @@ void SaveFileDialog::initPersistFields()
 //-----------------------------------------------------------------------------
 bool SaveFileDialog::setOverwritePrompt(void* obj, const char* data)
 {
-    bool bOverwrite = dAtob( data );
+    bool bOverwrite = dAtob(data);
 
-    SaveFileDialog *pDlg = static_cast<SaveFileDialog*>( obj );
+    SaveFileDialog *pDlg = static_cast<SaveFileDialog*>(obj);
 
-    if( bOverwrite )
+    if (bOverwrite)
         pDlg->mData.mStyle |= FileDialogData::FDS_OVERWRITEPROMPT;
     else
         pDlg->mData.mStyle &= ~FileDialogData::FDS_OVERWRITEPROMPT;
@@ -310,9 +361,9 @@ bool SaveFileDialog::setOverwritePrompt(void* obj, const char* data)
 //-----------------------------------------------------------------------------
 const char* SaveFileDialog::getOverwritePrompt(void* obj, const char* data)
 {
-    SaveFileDialog *pDlg = static_cast<SaveFileDialog*>( obj );
+    SaveFileDialog *pDlg = static_cast<SaveFileDialog*>(obj);
 
-    if( pDlg->mData.mStyle & FileDialogData::FDS_OVERWRITEPROMPT )
+    if (pDlg->mData.mStyle & FileDialogData::FDS_OVERWRITEPROMPT)
         return StringTable->insert("true");
     else
         return StringTable->insert("false");
