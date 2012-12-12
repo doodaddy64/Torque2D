@@ -495,6 +495,7 @@
 		86D770C11656873C0046D71F /* ScriptFunctions.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC816416518D4600D96ADF /* ScriptFunctions.cc */; };
 		86D770C21656873C0046D71F /* UserManager.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC816516518D4600D96ADF /* UserManager.cc */; };
 		86D770C3165687450046D71F /* osxFileDialogs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8609FE3216556F22004662ED /* osxFileDialogs.mm */; };
+		86EA5B401678C7C700598E68 /* osxCocoaUtilities.mm in Sources */ = {isa = PBXBuildFile; fileRef = 86EA5B3F1678C7C700598E68 /* osxCocoaUtilities.mm */; };
 		86EC5AC7165C1E0100757872 /* osxTorqueView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 86EC5AC6165C1E0100757872 /* osxTorqueView.mm */; };
 /* End PBXBuildFile section */
 
@@ -1492,6 +1493,8 @@
 		86D76F74165682BF0046D71F /* platformGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platformGL.h; sourceTree = "<group>"; };
 		86D76F76165683240046D71F /* osxOutlineGL.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osxOutlineGL.cc; sourceTree = "<group>"; };
 		86D76F77165683240046D71F /* osxOutlineGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osxOutlineGL.h; sourceTree = "<group>"; };
+		86EA5B3E1678C7C700598E68 /* osxCocoaUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osxCocoaUtilities.h; sourceTree = "<group>"; };
+		86EA5B3F1678C7C700598E68 /* osxCocoaUtilities.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxCocoaUtilities.mm; sourceTree = "<group>"; };
 		86EC5AC5165C1E0100757872 /* osxTorqueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osxTorqueView.h; sourceTree = "<group>"; };
 		86EC5AC6165C1E0100757872 /* osxTorqueView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxTorqueView.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1816,6 +1819,8 @@
 		865A2351165188AF00527C44 /* platformOSX */ = {
 			isa = PBXGroup;
 			children = (
+				86EA5B3E1678C7C700598E68 /* osxCocoaUtilities.h */,
+				86EA5B3F1678C7C700598E68 /* osxCocoaUtilities.mm */,
 				865A235716518AD300527C44 /* AppDelegate.h */,
 				865A235816518AD300527C44 /* AppDelegate.mm */,
 				865A235916518AD300527C44 /* main.mm */,
@@ -3694,6 +3699,7 @@
 				2AC5C7E81667C85700A0D046 /* platformStringTests.cc in Sources */,
 				2ACFC0A8166CE1AB00FE7370 /* platformMemoryTests.cc in Sources */,
 				865BD2F9166FA7F80064F595 /* osxInputManager.mm in Sources */,
+				86EA5B401678C7C700598E68 /* osxCocoaUtilities.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
