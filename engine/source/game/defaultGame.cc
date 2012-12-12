@@ -94,16 +94,6 @@ static F32 gTimeScale = 1.0;
 static U32 gTimeAdvance = 0;
 static U32 gFrameSkip = 0;
 static U32 gFrameCount = 0;
-static F32 fpsRealStart;
-static F32 fpsRealLast;
-static F32 fpsReal;
-static F32 fpsVirtualStart;
-static F32 fpsVirtualLast;
-static F32 fpsVirtual;
-static F32 fpsFrames;
-static F32 fpsNext;
-static bool fpsInit = false;
-const F32 FPS_UPDATE_INTERVAL = 0.25f;
 
 //-----------------------------------------------------------------------------
 
@@ -141,13 +131,6 @@ bool initializeLibraries()
    // Register known file types here
    ResourceManager->registerExtension(".jpg", constructBitmapJPEG);
    ResourceManager->registerExtension(".jpeg", constructBitmapJPEG);
-
-// Deprecated for 1.5 -MP
-#define _NO_BMP_SUPPORT 1
-#ifndef _NO_BMP_SUPPORT
-   ResourceManager->registerExtension(".bmp", constructBitmapBMP);
-#endif // _NO_BMP_SUPPORT
-
    ResourceManager->registerExtension(".png", constructBitmapPNG);
    ResourceManager->registerExtension(".uft", constructNewFont);
 
@@ -383,47 +366,38 @@ bool DefaultGame::mainInitialize(int argc, const char **argv)
 
 void fpsUpdate()
 {
-    if ( !fpsInit )
+    // Reset stats.
+    const U32 FPS_UPDATE_INTERVAL = 250;
+    static U32 lastRealTime = 0;
+    static U32 lastVirtualTime = 0;
+    static U32 frameCount = 0;
+    static U32 nextFpsConsoleUpdate = Platform::getRealMilliseconds() + FPS_UPDATE_INTERVAL;
+
+    // Fetch current times.
+    const U32 currentReal = Platform::getRealMilliseconds();
+    const U32 currentVirtual = Platform::getVirtualMilliseconds();
+
+    // Update frame count.
+    frameCount++;
+
+    // Calculate FPS.
+    const F32 realFPS = 1000.0f / (F32)(currentReal - lastRealTime);
+    const F32 virtualFPS = 1000.0f / (F32)(currentVirtual - lastVirtualTime);
+
+    // Update last times.
+    lastRealTime = currentReal;
+    lastVirtualTime = currentVirtual;
+
+    //Con::printf("Real:%4.1f, Virtual:%4.1f", realFPS, virtualFPS);
+
+    // Update console variables periodically.
+    const U32 update = lastRealTime - nextFpsConsoleUpdate;
+    if  ( update > FPS_UPDATE_INTERVAL )
     {
-        fpsRealStart    = (F32)Platform::getRealMilliseconds()/1000.0f;      // Real-World Tick Count
-        fpsVirtualStart = (F32)Platform::getVirtualMilliseconds()/1000.0f;   // Engine Tick Count (does not vary between frames)
-        fpsNext         = fpsRealStart + FPS_UPDATE_INTERVAL;
+        Con::setVariable("fps::real",    avar("%4.1f", realFPS));
+        Con::setVariable("fps::virtual", avar("%4.1f", 1.0f/ virtualFPS));
 
-        fpsRealLast = 0.0f;
-        fpsReal     = 0.0f;
-        fpsVirtualLast  = 0.0f;
-        fpsVirtual      = 0.0f;
-        fpsFrames = 0;
-        fpsInit   = true;
-    }
-
-    const float alpha  = 0.07f;
-    F32 realSeconds    = (F32)Platform::getRealMilliseconds()/1000.0f;
-    F32 virtualSeconds = (F32)Platform::getVirtualMilliseconds()/1000.0f;
-
-    fpsFrames++;
-    if (fpsFrames > 1)
-    {
-        fpsReal    = fpsReal*(1.0f-alpha) + (realSeconds-fpsRealLast)*alpha;
-        fpsVirtual = fpsVirtual*(1.0f-alpha) + (virtualSeconds-fpsVirtualLast)*alpha;
-    }
-
-    fpsRealLast    = realSeconds;
-    fpsVirtualLast = virtualSeconds;
-
-    // update variables every few frames
-    F32 update = fpsRealLast - fpsNext;
-    if (update > 0.5f)
-    {
-        Con::setVariable("fps::real",    avar("%4.1f", 1.0f/fpsReal));
-        Con::setVariable("fps::virtual", avar("%4.1f", 1.0f/fpsVirtual));
-
-        //Con::printf("Real:%f, Virtual:%f", 1.0f/fpsReal, 1.0f/fpsVirtual);
-
-        if (update > FPS_UPDATE_INTERVAL)
-            fpsNext  = fpsRealLast + FPS_UPDATE_INTERVAL;
-        else
-            fpsNext += FPS_UPDATE_INTERVAL;
+        nextFpsConsoleUpdate = lastRealTime;
     }
 }
 
