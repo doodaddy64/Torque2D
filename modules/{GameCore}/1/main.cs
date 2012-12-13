@@ -91,7 +91,7 @@ function loadDir( %dir )
 function showCursor()
 {
     if ($cursorControlled)
-        lockMouse(false);
+        setWindowLocked(false);
         
     Canvas.cursorOn();
 }
@@ -99,7 +99,7 @@ function showCursor()
 function hideCursor()
 {
     if ($cursorControlled)
-        lockMouse(true);
+        setWindowLocked(true);
         
     Canvas.cursorOff();
 }
