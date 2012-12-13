@@ -105,13 +105,7 @@ function createNewProject(%name, %template, %openImmediately)
     
     // T2D project
     pathCopy($ProjectFilesLocation @ "project.tssproject", %gameLocation @ "project.tssproj");
-    
-    // OpenAL DLL
-    pathCopy($ProjectFilesLocation @ "OpenAL32.dll", %gameLocation @ "OpenAL32.dll");
-    
-    // OpenGL DLL
-    pathCopy($ProjectFilesLocation @ "opengl2d3d.dll", %gameLocation @ "opengl2d3d.dll");
-    
+       
     // Torsion file
     pathCopy($ProjectFilesLocation @ "Game.torsion", %gameLocation @ "Game.torsion");
     
@@ -205,6 +199,7 @@ function copyProjectGameBinaries(%gameLocation, %name)
         
     pathCopy(%srcpath @ "unicows.dll", %gameLocation @ "unicows.dll");
     pathCopy(%srcpath @ "openAL32.dll", %gameLocation @ "openAL32.dll");
+    pathCopy(%srcpath @ "opengl2d3d", %gameLocation @ "opengl2d3d");       
 }
 
 function isValidProject(%project)
