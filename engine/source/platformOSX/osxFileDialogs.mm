@@ -68,11 +68,11 @@ bool FileDialog::Execute()
 
     if (mData.mStyle & FileDialogData::FDS_OPEN)
     {
-        nsFileArray = [NSOpenPanel showOpenPanel];
+        nsFileArray = [NSOpenPanel showOpenPanel:&mData];
     }
     else if (mData.mStyle & FileDialogData::FDS_SAVE)
     {
-        nsFileArray = [NSSavePanel showSavePanel];
+        nsFileArray = [NSSavePanel showSavePanel:&mData];
     }
     else
     {
