@@ -71,7 +71,7 @@ $cursorControlled = true;
 function showCursor()
 {
     if ($cursorControlled)
-        setWindowLocked(false);
+        setMouseLock(false);
         
     Canvas.cursorOn();
 }
@@ -79,7 +79,7 @@ function showCursor()
 function hideCursor()
 {
     if ($cursorControlled)
-        setWindowLocked(true);
+        setMouseLock(true);
     Canvas.cursorOff();
 }
 
