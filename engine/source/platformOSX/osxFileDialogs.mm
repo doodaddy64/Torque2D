@@ -84,11 +84,18 @@ bool FileDialog::Execute()
     // loop through and add them
     if ((mData.mStyle & FileDialogData::FDS_MULTIPLEFILES) && [nsFileArray count] >= 1)
     {
+        for(U32 i = 0; i < [nsFileArray count]; i++)
+        {
+            const UTF8* f = [(NSString*)[nsFileArray objectAtIndex:i] UTF8String];
+            setDataField(StringTable->insert("files"), Con::getIntArg(i), StringTable->insert(f));
+        }
 
+        setDataField(StringTable->insert("fileCount"), NULL, Con::getIntArg([nsFileArray count]));
     }
     else
     {
-        // Multiple file selection was not allowed or only one file was selected
+        const UTF8* f = [(NSString*)[nsFileArray objectAtIndex:0] UTF8String];
+        mData.mFile = StringTable->insert(f);
     }
 
     return true;
