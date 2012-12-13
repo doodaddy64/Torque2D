@@ -14,17 +14,16 @@ IMPLEMENT_CONOBJECT(OpenFolderDialog);
 //-----------------------------------------------------------------------------
 FileDialogData::FileDialogData()
 {
+    mDefaultPath = StringTable->insert("");
+    mFilters = StringTable->insert("");
+    mFile = StringTable->insert("");
+    mTitle = StringTable->insert("");
+    mStyle = 0;
+
 	mDefaultPath = StringTable->insert(Con::getVariable("Tools::FileDialogs::LastFilePath"));
 
 	if (mDefaultPath == StringTable->EmptyString || !Platform::isDirectory(mDefaultPath))
 		mDefaultPath = Platform::getCurrentDirectory();
-
-	mDefaultPath = StringTable->insert("");
-	mFilters = StringTable->insert("");
-	mFile = StringTable->insert("");
-	mTitle = StringTable->insert("");
-
-	mStyle = 0;
 }
 
 //-----------------------------------------------------------------------------

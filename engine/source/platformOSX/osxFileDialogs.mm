@@ -68,11 +68,11 @@ bool FileDialog::Execute()
 
     if (mData.mStyle & FileDialogData::FDS_OPEN)
     {
-        nsFileArray = [NSOpenPanel showOpenPanel];
+        nsFileArray = [NSOpenPanel showOpenPanel:&mData];
     }
     else if (mData.mStyle & FileDialogData::FDS_SAVE)
     {
-        nsFileArray = [NSSavePanel showSavePanel];
+        nsFileArray = [NSSavePanel showSavePanel:&mData];
     }
     else
     {
@@ -84,11 +84,24 @@ bool FileDialog::Execute()
     // loop through and add them
     if ((mData.mStyle & FileDialogData::FDS_MULTIPLEFILES) && [nsFileArray count] >= 1)
     {
+        for(U32 i = 0; i < [nsFileArray count]; i++)
+        {
+            NSURL* fileURL =
+                    [nsFileArray objectAtIndex:i];
 
+            const UTF8* file = [[fileURL path] UTF8String];
+            setDataField(StringTable->insert("files"), Con::getIntArg(i), StringTable->insert(file));
+        }
+
+        setDataField(StringTable->insert("fileCount"), NULL, Con::getIntArg([nsFileArray count]));
     }
     else
     {
-        // Multiple file selection was not allowed or only one file was selected
+        NSURL* fileURL = [nsFileArray objectAtIndex:0];
+
+        const UTF8* file = [[fileURL path] UTF8String];
+
+        mData.mFile = StringTable->insert(file);
     }
 
     return true;

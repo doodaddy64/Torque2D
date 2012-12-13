@@ -3,47 +3,220 @@
 // Copyright GarageGames, LLC 2012
 //-----------------------------------------------------------------------------
 #import "platformOSX/platformOSX.h"
+#import "fileDialog.h"
+#import "osxCocoaUtilities.h"
 
 @implementation NSSavePanel (TorqueFileDialogs)
 
 //-----------------------------------------------------------------------------
 #pragma message ("NSSavePanel::setFilters not yet implemented")
--(void)setFilters:(StringTableEntry)filters
+- (void)setFilters:(StringTableEntry)filters
 {
+    FileDialogFileTypeList fileTypes (filters);
 
+    NSMutableArray *types = [NSMutableArray arrayWithCapacity:10];
+
+    char *token = fileTypes.filterData;
+    char *place = fileTypes.filterData;
+
+    // scan the filter list until we hit a null.
+    // when we see the separator '|', replace it with a null, and save the token
+    // format is description|extension|description|extension
+    bool isDesc = true;
+    for (; *place; place++)
+    {
+        if (*place != '|')
+        {
+            continue;
+        }
+
+        *place = '\0';
+
+        if (isDesc)
+        {
+            fileTypes.names.push_back(token);
+        }
+        else
+        {
+            // detect *.*
+            if (dStrstr((const char *) token, "*.*"))
+            {
+                fileTypes.any = true;
+            }
+
+            fileTypes.exts.push_back([self getFileExtensionsFromString:token]);
+        }
+
+
+        isDesc = !isDesc;
+        ++place;
+        token = place;
+    }
+
+    fileTypes.exts.push_back([self getFileExtensionsFromString:token]);
+
+    for (U32 i = 0; i < fileTypes.exts.size(); i++)
+    {
+        for (U32 j = 0; j < fileTypes.exts[i]->list.size(); j++)
+        {
+            char *ext = fileTypes.exts[i]->list[j];
+            if (ext)
+            {
+                // MP: Added for 1.4.1
+                // Passing *.*, *., .*, or just . does nothing on OS X 10.6
+                // Manually adding the extensions supported by the engine for now
+                if (dStrncmp(ext, "*.*", 3) == 0)
+                {
+                    [types addObject:[NSString stringWithUTF8String:"png"]];
+                    [types addObject:[NSString stringWithUTF8String:"jpg"]];
+                    [types addObject:[NSString stringWithUTF8String:"eff"]];
+                    [types addObject:[NSString stringWithUTF8String:"lyr"]];
+                    [types addObject:[NSString stringWithUTF8String:"gui"]];
+                    [types addObject:[NSString stringWithUTF8String:"bmp"]];
+                    continue;
+                }
+
+                if (dStrncmp(ext, "*.", 2) == 0)
+                {
+                    ext += 2;
+                }
+
+                [types addObject:[NSString stringWithUTF8String:ext]];
+            }
+        }
+    }
+
+    if ([types count] > 0)
+    {
+        [self setAllowedFileTypes:types];
+    }
+
+    if (fileTypes.any)
+    {
+        [self setAllowsOtherFileTypes:YES];
+    }
 }
 
 //-----------------------------------------------------------------------------
 #pragma message ("NSSavePanel::setDefaultAttributes not yet implemented")
--(void)setDefaultAttributes
+- (void)setAttributesFromData:(FileDialogData *)data
 {
-
+    [self setCanCreateDirectories:YES];
+    [self setCanSelectHiddenExtension:YES];
+    [self setTreatsFilePackagesAsDirectories:YES];
 }
 
 //-----------------------------------------------------------------------------
 #pragma message ("NSSavePanel::showSavePanel not yet implemented")
-+(NSArray *) showSavePanel
+- (FileDialogFileExtList *)getFileExtensionsFromString:(char const *)filter
 {
+    FileDialogFileExtList *list = new FileDialogFileExtList(filter);
+
+    char *token = list->data;
+    char *place = list->data;
+
+    for (; *place; place++)
+    {
+        if (*place != ';')
+        {
+            continue;
+        }
+
+        *place = '\0';
+
+        list->list.push_back(token);
+
+        ++place;
+        token = place;
+    }
+    // last token
+    list->list.push_back(token);
+
+    return list;
+}
+
++ (NSArray *)showSavePanel:(FileDialogData *)withData
+{
+    U32 runResult;
+
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
+
+    NSSavePanel *panel = [NSSavePanel savePanel];
+
+    NSString *dir;
+
+    if (dStrlen(withData->mDefaultPath) < 1)
+        dir = [[NSString stringWithUTF8String:withData->mDefaultFile] stringByDeletingLastPathComponent];
+    else
+        dir = [NSString stringWithUTF8String:withData->mDefaultPath];
+
+    [panel setDirectoryURL:[NSURL fileURLWithPath:dir]];
+
+    [panel setFilters:withData->mFilters];
+
+    runResult = (U32) [panel runModal];
+
+    if (runResult != NSFileHandlingPanelCancelButton)
+        [array addObject:[panel URL]];
 
     return array;
 }
 @end
 
-@implementation  NSOpenPanel (TorqueFileDialogs)
+@implementation NSOpenPanel (TorqueFileDialogs)
 
 //-----------------------------------------------------------------------------
 #pragma message ("NSOpenPanel::setDefaultAttributes not yet implemented")
--(void) setDefaultAttributes
+- (void)setAttributesFromData:(FileDialogData *)data
 {
+    bool chooseDir = (data->mStyle & FileDialogData::FDS_BROWSEFOLDER);
 
+    [self setCanCreateDirectories:YES];
+    [self setCanSelectHiddenExtension:YES];
+    [self setTreatsFilePackagesAsDirectories:YES];
+    [self setAllowsMultipleSelection:(data->mStyle & FileDialogData::FDS_MULTIPLEFILES)];
+    [self setCanChooseFiles:!chooseDir];
+    [self setCanChooseDirectories:chooseDir];
+
+    if (chooseDir)
+    {
+        [self setPrompt:@"Choose"];
+        [self setTitle:@"Choose Folder"];
+    }
 }
 
 //-----------------------------------------------------------------------------
 #pragma message ("NSOpenPanel::showOpenPanel not yet implemented")
-+(NSArray *) showOpenPanel
++ (NSArray *)showOpenPanel:(FileDialogData *)withData
 {
+    U32 runResult;
+
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
+
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+
+    [panel setAttributesFromData:withData];
+
+    NSString *dir;
+
+    if (dStrlen(withData->mDefaultPath) < 1)
+        dir = [[NSString stringWithUTF8String:withData->mDefaultFile] stringByDeletingLastPathComponent];
+    else
+        dir = [NSString stringWithUTF8String:withData->mDefaultPath];
+
+    [panel setDirectoryURL:[NSURL fileURLWithPath:dir]];
+
+    [panel setFilters:withData->mFilters];
+
+    runResult = (U32) [panel runModal];
+
+    if (runResult != NSFileHandlingPanelCancelButton)
+    {
+        if ([panel allowsMultipleSelection])
+            [array addObjectsFromArray:[panel URLs]];
+        else
+            [array addObject:[panel URL]];
+    }
 
     return array;
 }

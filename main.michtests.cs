@@ -270,13 +270,101 @@ function createTestBindings()
 
 //-----------------------------------------------------------------------------
 
+function pickFile()
+{
+    //$T2D::ImageMapSpec = "All Supported Graphics (*.jpg;*.jpeg;*.png;)|*.png;*.jpg;*.jpeg|";
+
+    %assetFileSpec = "Asset Files (*.taml)|*.taml|";
+    
+    echo("Opening a file");
+    
+    %dlg = new OpenFileDialog()
+    {
+        Filters = %assetFileSpec;
+        ChangePath = false;
+        MustExist = true;
+        MultipleFiles = true;
+    };
+    
+    if (!isObject(%dlg))
+    {
+        error("Could not create OpenFileDialog");
+        return;
+    }
+
+    echo("Executing OpenFileDialog");
+
+    if (%dlg.Execute())
+    {
+        echo("Successfully picked a file");
+        
+        %file = %dlg.files[0];
+        %fileOnlyName = fileName(%file);
+        %fileOnlyBase = fileBase(%file);
+        %fileOnlyExtension = fileExt(%file);
+        
+        echo("File: " @ %file);
+        echo("Name: " @ %fileOnlyName);
+        echo("Base: " @ %fileOnlyBase);
+        echo("Extension: " @ %fileOnlyExtension);
+        
+        %fileExists = isFile(%file);
+        
+        if (%fileExists)
+        {
+            echo("File does exist. Let's save it to another location");
+            saveFile(%file);
+        }
+        else
+        {
+            echo("File does not exist");
+        }
+    }
+    else
+    {
+        error("Could not pick a file");
+    }
+}
+
+function saveFile(%originalFile)
+{
+    %assetFileSpec = "Asset Files (*.taml)|*.taml|";
+   
+    %object = TamlRead(%originalFile);
+     
+   %dlg = new SaveFileDialog()
+   {
+      Filters           = %assetFileSpec;
+      DefaultPath       = filePath(%originalFile);
+      DefaultFile       = fileName(%originalFile);
+      ChangePath        = true;
+      OverwritePrompt   = true;
+   };
+   
+    if (%dlg.execute())
+    {
+        %file = %dlg.FileName;
+        
+        echo("Saving file to: " @ %file);
+        
+        TamlWrite(%object, %file);
+        
+        if (isFile(%file))
+        {
+            echo("File finished saving properly");
+        }
+    }
+}
+
 function SceneWindow::onTouchDown(%this, %touchID, %worldPos)
 {
     echo("Click on: " @ %worldPos);
 
+    pickFile();
+    
     //createBlockAtPoint(%worldPos);
     
-    dragSprite(%worldPos);
+    //dragSprite(%worldPos);
 }
 
 function SceneWindow::onTouchDragged(%this, %touchID, %worldPos)
@@ -286,7 +374,8 @@ function SceneWindow::onTouchDragged(%this, %touchID, %worldPos)
 
 function SceneWindow::onTouchUp(%this, %touchID, %worldPos)
 {
-    releaseDraggingSprite();
+    //releaseDraggingSprite();
+    pickFile();
 }
 
 function createBlockAtPoint(%worldPos)
