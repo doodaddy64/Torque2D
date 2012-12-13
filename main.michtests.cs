@@ -272,13 +272,15 @@ function createTestBindings()
 
 function pickFile()
 {
-    $T2D::ImageMapSpec = "All Supported Graphics (*.jpg;*.jpeg;*.png;)|*.png;*.jpg;*.jpeg|";
+    //$T2D::ImageMapSpec = "All Supported Graphics (*.jpg;*.jpeg;*.png;)|*.png;*.jpg;*.jpeg|";
+
+    %assetFileSpec = "Asset Files (*.taml)|*.taml|";
     
     echo("Opening a file");
     
     %dlg = new OpenFileDialog()
     {
-        Filters = $T2D::ImageMapSpec;
+        Filters = %assetFileSpec;
         ChangePath = false;
         MustExist = true;
         MultipleFiles = true;
@@ -305,10 +307,52 @@ function pickFile()
         echo("Name: " @ %fileOnlyName);
         echo("Base: " @ %fileOnlyBase);
         echo("Extension: " @ %fileOnlyExtension);
+        
+        %fileExists = isFile(%file);
+        
+        if (%fileExists)
+        {
+            echo("File does exist. Let's save it to another location");
+            saveFile(%file);
+        }
+        else
+        {
+            echo("File does not exist");
+        }
     }
     else
     {
         error("Could not pick a file");
+    }
+}
+
+function saveFile(%originalFile)
+{
+    %assetFileSpec = "Asset Files (*.taml)|*.taml|";
+   
+    %object = TamlRead(%originalFile);
+     
+   %dlg = new SaveFileDialog()
+   {
+      Filters           = %assetFileSpec;
+      DefaultPath       = filePath(%originalFile);
+      DefaultFile       = fileName(%originalFile);
+      ChangePath        = true;
+      OverwritePrompt   = true;
+   };
+   
+    if (%dlg.execute())
+    {
+        %file = %dlg.FileName;
+        
+        echo("Saving file to: " @ %file);
+        
+        TamlWrite(%object, %file);
+        
+        if (isFile(%file))
+        {
+            echo("File finished saving properly");
+        }
     }
 }
 

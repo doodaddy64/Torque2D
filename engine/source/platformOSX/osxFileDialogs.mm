@@ -86,9 +86,10 @@ bool FileDialog::Execute()
     {
         for(U32 i = 0; i < [nsFileArray count]; i++)
         {
-            NSURL* fileURL = [nsFileArray objectAtIndex:i];
+            NSURL* fileURL =
+                    [nsFileArray objectAtIndex:i];
 
-            const UTF8* file = [[fileURL absoluteString] UTF8String];
+            const UTF8* file = [[fileURL path] UTF8String];
             setDataField(StringTable->insert("files"), Con::getIntArg(i), StringTable->insert(file));
         }
 
@@ -98,7 +99,7 @@ bool FileDialog::Execute()
     {
         NSURL* fileURL = [nsFileArray objectAtIndex:0];
 
-        const UTF8* file = [[fileURL absoluteString] UTF8String];
+        const UTF8* file = [[fileURL path] UTF8String];
 
         mData.mFile = StringTable->insert(file);
     }
