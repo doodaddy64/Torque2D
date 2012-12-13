@@ -9,11 +9,5 @@
         <Location
 			Path="^{UserAssets}/audio"
 			Extension="asset.taml"/>
-        <Location
-			Path="^{UserAssets}/particles"
-			Extension="asset.taml"/>
-        <Location
-			Path="^{UserAssets}/tilemaps"
-			Extension="asset.taml"/>
 	</AssetManifest.Search>
 </AssetManifest>
