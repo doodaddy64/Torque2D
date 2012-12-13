@@ -53,8 +53,6 @@ function initializeEditorCore(%scopeSet)
     // File IO and preferences
     exec("./scripts/fileLoader.cs");   
    
-    loadDirectory( expandPath("./gui/panels") );
-    
     // Load Form Managers
     exec("./scripts/guiClasses/guiFormLibraryManager.cs");
     exec("./scripts/guiClasses/guiFormContentManager.cs");
