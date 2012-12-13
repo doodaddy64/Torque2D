@@ -279,6 +279,7 @@ namespace Con
    void collapsePath( char* pDstPath, U32 size, const char* pSrcPath );
    bool isBasePath( const char* SrcPath, const char* pBasePath );
    void ensureTrailingSlash( char* pDstPath, const char* pSrcPath );
+   bool stripRepeatSlashes( char* pDstPath, const char* pSrcPath, S32 dstSize );
 
    void addPathExpando( const char* pExpandoName, const char* pPath );
    void removePathExpando( const char* pExpandoName );

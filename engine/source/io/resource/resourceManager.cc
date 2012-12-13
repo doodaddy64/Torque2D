@@ -438,6 +438,8 @@ void ResManager::searchPath (const char *path, bool noDups /* = false */, bool i
       ResourceObject *ro = createResource (rInfo.pFullPath, rInfo.pFileName);
       dictionary.pushBehind (ro, ResourceObject::File);
 
+      Con::printf("> ResourceManager: Found file '%s' in path '%s'.", rInfo.pFileName, rInfo.pFullPath );
+
       ro->flags = ResourceObject::File;
       ro->fileOffset = 0;
       ro->fileSize = rInfo.fileSize;

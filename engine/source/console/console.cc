@@ -1236,8 +1236,41 @@ void addPathExpando( const char* pExpandoName, const char* pPath )
     // Fetch expando name.
     StringTableEntry expandoName = StringTable->insert( pExpandoName );
 
+    // Fetch the length of the path.
+    S32 pathLength = dStrlen(pPath);
+
+    char pathBuffer[1024];
+
+    // Sanity!
+    if ( pathLength == 0 || pathLength >= sizeof(pathBuffer) )
+    {
+        Con::warnf( "Cannot add path expando '%s' with path '%s' as the path is an invalid length.", pExpandoName, pPath );
+        return;
+    }
+
+    // Strip repeat slashes.
+    if ( !Con::stripRepeatSlashes(pathBuffer, pPath, sizeof(pathBuffer) ) )
+    {
+        Con::warnf( "Cannot add path expando '%s' with path '%s' as the path is an invalid length.", pExpandoName, pPath );
+        return;
+    }
+
+    // Fetch new path length.
+    pathLength = dStrlen(pathBuffer);
+
+    // Sanity!
+    if ( pathLength == 0 )
+    {
+        Con::warnf( "Cannot add path expando '%s' with path '%s' as the path is an invalid length.", pExpandoName, pPath );
+        return;
+    }
+
+    // Remove any terminating slash.
+    if (pathBuffer[pathLength-1] == '/')
+        pathBuffer[pathLength-1] = 0;
+
     // Fetch expanded path.
-    StringTableEntry expandedPath = StringTable->insert( pPath );
+    StringTableEntry expandedPath = StringTable->insert( pathBuffer );
 
     // Info.
     #if defined(TORQUE_DEBUG)
@@ -1368,7 +1401,7 @@ StringTableEntry getPathExpandoValue( U32 expandoIndex )
 
 bool expandPath( char* pDstPath, U32 size, const char* pSrcPath, const bool ensureTrailingSlash )
 { 
-    char prefixBuffer[1024];
+    char pathBuffer[2048];
     const char* pSrc = pSrcPath;
     char* pSlash;
 
@@ -1386,7 +1419,7 @@ bool expandPath( char* pDstPath, U32 size, const char* pSrcPath, const bool ensu
     {
         // Initial prefix search.
         const char* pPrefixSrc = pSrc+1;
-        char* pPrefixDst = prefixBuffer;
+        char* pPrefixDst = pathBuffer;
 
         // Search for end of expando.
         while( *pPrefixSrc != '/' && *pPrefixSrc != 0 )
@@ -1399,13 +1432,13 @@ bool expandPath( char* pDstPath, U32 size, const char* pSrcPath, const bool ensu
         *pPrefixDst = 0;
 
         // Fetch the expando path.
-        StringTableEntry expandoPath = getPathExpando( prefixBuffer );
+        StringTableEntry expandoPath = getPathExpando(pathBuffer);
                
         // Does the expando exist?
         if( expandoPath == NULL )
         {
             // No, so error.
-            Con::errorf("expandPath() : Could not find path expando '%s' for path '%s'.", prefixBuffer, pSrcPath );
+            Con::errorf("expandPath() : Could not find path expando '%s' for path '%s'.", pathBuffer, pSrcPath );
 
             // Are we ensuring the trailing slash?
             if ( ensureTrailingSlash )
@@ -1423,17 +1456,20 @@ bool expandPath( char* pDstPath, U32 size, const char* pSrcPath, const bool ensu
         }
 
         // Skip the expando and the following slash.
-        pSrc += dStrlen( prefixBuffer ) + 1;
+        pSrc += dStrlen(pathBuffer) + 1;
 
         // Format the output path.
-        dSprintf( pDstPath, size, "%s%s", expandoPath, pSrc );
+        dSprintf( pathBuffer, sizeof(pathBuffer), "%s/%s", expandoPath, pSrc );
 
         // Are we ensuring the trailing slash?
         if ( ensureTrailingSlash )
         {
             // Yes, so ensure it.
-            Con::ensureTrailingSlash( pDstPath, pDstPath );
+            Con::ensureTrailingSlash( pathBuffer, pathBuffer );
         }
+
+        // Strip repeat slashes.
+        Con::stripRepeatSlashes( pDstPath, pathBuffer, size );
 
         return true;
     }
@@ -1466,10 +1502,10 @@ bool expandPath( char* pDstPath, U32 size, const char* pSrcPath, const bool ensu
         }
 
         // Yes, so use it as the prefix.
-        dStrcpy( prefixBuffer, codeblockFullPath );
+        dStrcpy(pathBuffer, codeblockFullPath );
 
         // Find the final slash in the code-block.
-        pSlash = dStrrchr(prefixBuffer, '/');
+        pSlash = dStrrchr(pathBuffer, '/');
 
         // Is this a parent directory token?
         if ( followingToken == '.' )
@@ -1487,14 +1523,17 @@ bool expandPath( char* pDstPath, U32 size, const char* pSrcPath, const bool ensu
         }
            
         // Format the output path.
-        dSprintf( pDstPath, size, "%s%s", prefixBuffer, pSrc );
+        dSprintf( pathBuffer, sizeof(pathBuffer), "%s/%s", pathBuffer, pSrc );
 
         // Are we ensuring the trailing slash?
         if ( ensureTrailingSlash )
         {
             // Yes, so ensure it.
-            Con::ensureTrailingSlash( pDstPath, pDstPath );
+            Con::ensureTrailingSlash( pathBuffer, pathBuffer );
         }
+
+        // Strip repeat slashes.
+        Con::stripRepeatSlashes( pDstPath, pathBuffer, size );
 
         return true;
     }
@@ -1575,27 +1614,33 @@ bool expandPath( char* pDstPath, U32 size, const char* pSrcPath, const bool ensu
         }
          
         // Format the output path.
-        dSprintf( pDstPath, size, "%s%s", injectedPathPrefix, pSrc );
+        dSprintf( pathBuffer, sizeof(pathBuffer), "%s/%s", injectedPathPrefix, pSrc );
 
         // Are we ensuring the trailing slash?
         if ( ensureTrailingSlash )
         {
             // Yes, so ensure it.
-            Con::ensureTrailingSlash( pDstPath, pDstPath );
+            Con::ensureTrailingSlash( pathBuffer, pathBuffer );
         }
+
+        // Strip repeat slashes.
+        Con::stripRepeatSlashes( pDstPath, pathBuffer, size );
 
         return true;
     }
 
     // All else.
-    Platform::makeFullPathName( pSrcPath, pDstPath, size );
+    Platform::makeFullPathName( pSrcPath, pathBuffer, sizeof(pathBuffer) );
 
     // Are we ensuring the trailing slash?
     if ( ensureTrailingSlash )
     {
         // Yes, so ensure it.
-        Con::ensureTrailingSlash( pDstPath, pDstPath );
+        Con::ensureTrailingSlash( pathBuffer, pathBuffer );
     }
+
+    // Strip repeat slashes.
+    Con::stripRepeatSlashes( pDstPath, pathBuffer, size );
 
     return true;
 }
@@ -1615,7 +1660,9 @@ void collapsePath( char* pDstPath, U32 size, const char* pSrcPath )
 {
     // Check path against expandos.  If there are multiple matches, choose the
     // expando that produces the shortest relative path.
-    
+
+    char pathBuffer[2048];
+
     // Fetch expando count.
     const U32 expandoCount = getPathExpandoCount();
 
@@ -1651,12 +1698,17 @@ void collapsePath( char* pDstPath, U32 size, const char* pSrcPath )
         StringTableEntry expandoName = getPathExpandoKey( expandoIndex );
 
         // Format against expando.
-        dSprintf( pDstPath, size, "^%s/%s", expandoName, relativePath );
+        dSprintf( pathBuffer, sizeof(pathBuffer), "^%s/%s", expandoName, relativePath );
     }
 
     // Check if we've found a suitable expando
     if ( expandoRelativePathLength != U32_MAX )
+    {
+        // Strip repeat slashes.
+        Con::stripRepeatSlashes( pDstPath, pathBuffer, size );
+
         return;
+    }
 
     // Fetch the current directory.
     StringTableEntry currentDirectory = Platform::getCurrentDirectory();
@@ -1669,7 +1721,10 @@ void collapsePath( char* pDstPath, U32 size, const char* pSrcPath )
         relativePath++;
 
     // Format against expando.
-    dSprintf( pDstPath, size, "%s/%s", currentDirectory, relativePath );
+    dSprintf( pathBuffer, sizeof(pathBuffer), "%s/%s", currentDirectory, relativePath );
+
+    // Strip repeat slashes.
+    Con::stripRepeatSlashes( pDstPath, pathBuffer, size );
 }
 
 //-----------------------------------------------------------------------------
@@ -1693,6 +1748,51 @@ void ensureTrailingSlash( char* pDstPath, const char* pSrcPath )
     // Add trailing slash.
     pDstPath[trailIndex++] = '/';
     pDstPath[trailIndex] = 0;
+}
+
+//-----------------------------------------------------------------------------
+
+bool stripRepeatSlashes( char* pDstPath, const char* pSrcPath, S32 dstSize )
+{
+    // Note original destination.
+    const char* pOriginalSrc = pSrcPath;
+    char* pOriginalDst = pDstPath;
+
+    // Reset last source character.
+    char lastSrcChar = 0;
+
+    // Search source...
+    while ( dstSize > 0 )
+    {
+        // Fetch characters.
+        const char srcChar = *pSrcPath++;
+
+        // Do we have a repeat slash?
+        if ( srcChar == '/' && lastSrcChar == '/' )
+        {
+            // Yes, so skip it.
+            continue;
+        }
+
+        // No, so copy character.
+        *pDstPath++ = srcChar;
+
+        // Finish if end of source.
+        if ( srcChar == 0 )
+            return true;
+
+        // Reduce room left in destination.
+        dstSize--;
+
+        // Set last character.
+        lastSrcChar = srcChar;
+    }
+
+    // Terminate the destination string as we ran out of room.
+    *pOriginalDst = 0;
+
+    // Fail!
+    return false;
 }
 
 //-----------------------------------------------------------------------------
