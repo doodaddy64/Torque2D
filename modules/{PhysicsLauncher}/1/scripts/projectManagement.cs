@@ -61,7 +61,7 @@ function PhysicsLauncher::initializeProject()
     // Prefab objects
     //---------------------------------------------------------------
     %prefabsFile = expandPath("^PhysicsLauncherTemplate/managed/prefabs.taml");
-    addResPath(%prefabsFile); 
+    addResPath(expandPath("^PhysicsLauncherTemplate/managed")); 
     
     if (isFile(%prefabsFile))
         $prefabSet = TamlRead(%prefabsFile);
