@@ -104,7 +104,7 @@ function createNewProject(%name, %template, %openImmediately)
     pathCopy($ProjectFilesLocation @ "main.cs", %gameLocation @ "main.cs");
     
     // T2D project
-    pathCopy($ProjectFilesLocation @ "project.tssproject", %gameLocation @ "project.tssproj");
+    pathCopy($ProjectFilesLocation @ "project.tssproj", %gameLocation @ "project.tssproj");
        
     // Torsion file
     pathCopy($ProjectFilesLocation @ "Game.torsion", %gameLocation @ "Game.torsion");
