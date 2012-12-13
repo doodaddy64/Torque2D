@@ -168,26 +168,27 @@ ResManager::~ResManager ()
 }
 
 #ifdef TORQUE_DEBUG
-void ResManager::dumpLoadedResources ()
+void ResManager::dumpResources (const bool onlyLoaded)
 {
    ResourceObject *walk = resourceList.nextResource;
    while (walk != NULL)
    {
-      if (walk->mInstance != NULL)
+      if ( !onlyLoaded || walk->mInstance != NULL)
       {
-         Con::errorf ("LoadedRes: %s/%s (%d)", walk->path, walk->name,
+         Con::errorf ("Resource: %s/%s (%d)", walk->path, walk->name,
              walk->lockCount);
       }
       walk = walk->nextResource;
    }
 }
 
-ConsoleFunction(dumpResourceStats, void, 1, 1, "() Use the dumpResourceStats function to dump a listing of the currently in-use resources to the console. This will include such things as sound files, font files, etc.\n"
+ConsoleFunction(dumpResources, void, 2, 2, "(onlyLoaded?) Use the dumpLoadedResources function to dump a listing of the currently in-use resources to the console. This will include such things as sound files, font files, etc.\n"
                                                                 "For this to work, the engine must have been compiled with TORQUE_DEBUG defined.\n"
                                                                 "@return No return value.\n"
                                                                 "@sa purgeResources")
 {
-   ResourceManager->dumpLoadedResources();
+    const bool onlyLoaded = argc == 2 ? dAtob(argv[1]) : true;
+    ResourceManager->dumpResources(onlyLoaded);
 }
 
 #endif
@@ -438,7 +439,7 @@ void ResManager::searchPath (const char *path, bool noDups /* = false */, bool i
       ResourceObject *ro = createResource (rInfo.pFullPath, rInfo.pFileName);
       dictionary.pushBehind (ro, ResourceObject::File);
 
-      Con::printf("> ResourceManager: Found file '%s' in path '%s'.", rInfo.pFileName, rInfo.pFullPath );
+      //Con::printf("> ResourceManager: Found file '%s' in path '%s'.", rInfo.pFileName, rInfo.pFullPath );
 
       ro->flags = ResourceObject::File;
       ro->fileOffset = 0;
@@ -1217,7 +1218,8 @@ ResourceObject * ResManager::findMatch (const char *expression, const char **fn,
 #ifdef TORQUE_PLAYER
       StringTableEntry fname = Platform::stripBasePath(buildPath(start->path, start->name));
 #else
-      const char *fname = buildPath (start->path, start->name);
+       const char *fname = buildPath (start->path, start->name);
+       //Con::printf("Expr='%s' with '%s'", expression, fname);
 #endif
       if (FindMatch::isMatch (expression, fname, false))
       {

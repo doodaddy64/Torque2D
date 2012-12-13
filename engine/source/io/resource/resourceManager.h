@@ -458,10 +458,10 @@ public:
    bool isValidWriteFileName(const char *fn);         ///< Checks to see if the given path is valid for writing.
 
    /// Opens a file for writing!
-   bool openFileForWrite(FileStream &fs, const char *fileName, U32 accessMode = 1);
+   bool openFileForWrite(FileStream &fs, const char *fileName, U32 accessMode = File::Write);
 
 #ifdef TORQUE_DEBUG
-   void dumpLoadedResources();                        ///< Dumps all loaded resources to the console.
+   void dumpResources(const bool onlyLoaded = true);                        ///< Dumps all loaded resources to the console.
 #endif
 };
 
