@@ -38,6 +38,9 @@
         [self addTrackingArea: _trackingArea];
 
         inputManager = (osxInputManager*)Input::getManager();
+
+        _lastDragLocation.x = -1;
+        _lastDragLocation.y = -1;
     }
 }
 
@@ -186,10 +189,7 @@
         return;
 
     // Get the click location
-    NSPoint clickLocation;
-
-    clickLocation = [self convertPoint:[event locationInWindow]
-                              fromView:nil];
+    NSPoint clickLocation = [self convertPoint:[event locationInWindow] fromView:nil];
 
     NSRect bounds = [self bounds];
 
@@ -226,10 +226,11 @@
         return;
 
     // Get the click location
-    NSPoint clickLocation;
+    NSPoint clickLocation = [self convertPoint:[event locationInWindow] fromView:nil];
 
-    clickLocation = [self convertPoint:[event locationInWindow]
-                              fromView:nil];
+    NSRect bounds = [self bounds];
+
+    clickLocation.y = bounds.size.height - clickLocation.y;
 
     // Move the cursor
     Canvas->setCursorPos(Point2I((S32)clickLocation.x, (S32)clickLocation.y));
@@ -262,10 +263,11 @@
         return;
 
     // Get the click location
-    NSPoint clickLocation;
+    NSPoint clickLocation = [self convertPoint:[event locationInWindow] fromView:nil];
 
-    clickLocation = [self convertPoint:[event locationInWindow]
-                              fromView:nil];
+    NSRect bounds = [self bounds];
+
+    clickLocation.y = bounds.size.height - clickLocation.y;
 
     // Move the cursor
     Canvas->setCursorPos(Point2I((S32)clickLocation.x, (S32)clickLocation.y));
@@ -300,6 +302,10 @@
     // Get the mouse location
     NSPoint location = [self convertPoint:[event locationInWindow] fromView:nil];
 
+    NSRect bounds = [self bounds];
+
+    location.y = bounds.size.height - location.y;
+
     // Grab any modifiers
     U32 modifiers;
     [self getModifierKey:modifiers event:event];
@@ -314,6 +320,51 @@
     Game->postEvent(TorqueEvent);
 }
 
+-(void)mouseDragged:(NSEvent *)event
+{
+    if (!Input::isEnabled() && !Input::isMouseEnabled())
+        return;
+
+    // Get the click location
+    NSPoint clickLocation = [self convertPoint:[event locationInWindow] fromView:nil];
+
+    NSRect bounds = [self bounds];
+
+    clickLocation.y = bounds.size.height - clickLocation.y;
+
+    // Move the cursor
+    Canvas->setCursorPos(Point2I((S32)clickLocation.x, (S32)clickLocation.y));
+
+    // Grab any modifiers
+    U32 modifiers;
+    [self getModifierKey:modifiers event:event];
+
+    // get the deltas
+    int32_t lastMouseX, lastMouseY;
+    CGGetLastMouseDelta (&lastMouseX, &lastMouseY);
+
+    InputEvent torqueEvent;
+    torqueEvent.deviceType = MouseDeviceType;
+    torqueEvent.deviceInst = 0;
+    torqueEvent.objInst    = 0;
+    torqueEvent.modifier   = modifiers;
+    torqueEvent.ascii      = 0;
+    torqueEvent.action     = SI_MOVE;
+
+    // deliver the x and y events separately.
+    if(lastMouseX != 0)
+    {
+        torqueEvent.objType = SI_XAXIS;
+        torqueEvent.fValue  = F32(lastMouseX);
+        Game->postEvent(torqueEvent);
+    }
+    if(lastMouseY != 0)
+    {
+        torqueEvent.objType = SI_YAXIS;
+        torqueEvent.fValue  = F32(lastMouseY);
+        Game->postEvent(torqueEvent);
+    }
+}
 //-----------------------------------------------------------------------------
 // Default mouseUp override
 #pragma message ("OSXTorqueView::mouseUp not yet implemented")
