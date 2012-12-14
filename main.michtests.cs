@@ -456,5 +456,3 @@ function startMichTesting()
 //-----------------------------------------------------------------------------
 
 startMichTesting();
-
-echo( "Platform=" SPC $platform );
