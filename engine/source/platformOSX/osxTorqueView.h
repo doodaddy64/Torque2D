@@ -5,12 +5,12 @@
 
 #import <Cocoa/Cocoa.h>
 #import "platformOSX/osxInputManager.h"
+#include "platform/event.h"
 
 @interface OSXTorqueView : NSView
 {
     @private
     NSOpenGLContext* _openGLContext;
-    NSPoint _lastDragLocation;
     osxInputManager* inputManager;
     NSTrackingArea* _trackingArea;
 
@@ -28,4 +28,8 @@
 - (void) updateContext;
 - (void) flushBuffer;
 - (void) setVerticalSync:(bool)sync;
+
+- (void)processMouseButton:(NSEvent *)event button:(KeyCodes)button action:(U8)action;
+- (void)processMouseDrag:(NSEvent *)event;
+- (void)processKeyEvent:(NSEvent *)event action:(U8)action;
 @end
