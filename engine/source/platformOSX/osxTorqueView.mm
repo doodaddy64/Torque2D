@@ -144,6 +144,8 @@
 
 #pragma mark ---- OSXTorqueView Input Handling ----
 
+//-----------------------------------------------------------------------------
+// Fills out the modifiers based on key presses such as shift, alt, etc
 - (void)getModifierKey:(U32&)modifiers event:(NSEvent *)event;
 {
     /*
@@ -173,6 +175,8 @@
         modifiers |= SI_CTRL;
 }
 
+//-----------------------------------------------------------------------------
+// Processes mouse up and down events, posts to the event system
 - (void)processMouseButton:(NSEvent *)event button:(KeyCodes)button action:(U8)action
 {
     // Get the click location
@@ -205,6 +209,8 @@
     Game->postEvent(torqueEvent);
 }
 
+//-----------------------------------------------------------------------------
+// Processes mouse drag events, posts to the event system
 - (void)processMouseDrag:(NSEvent *)event
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
@@ -252,6 +258,8 @@
     }
 }
 
+//-----------------------------------------------------------------------------
+// Processes keyboard up and down events, posts to the event system
 - (void)processKeyEvent:(NSEvent *)event action:(U8)action
 {
     // If input and keyboard are enabled
@@ -411,7 +419,6 @@
 }
 //-----------------------------------------------------------------------------
 // Default keyDown override
-#pragma message ("OSXTorqueView::keyDown not yet implemented")
 - (void)keyDown:(NSEvent *)event
 {
     // If input and keyboard are enabled
@@ -428,7 +435,6 @@
 
 //-----------------------------------------------------------------------------
 // Default keyUp override
-#pragma message ("OSXTorqueView::keyUp not yet implemented")
 - (void)keyUp:(NSEvent *)event
 {
     // If input and keyboard are enabled
