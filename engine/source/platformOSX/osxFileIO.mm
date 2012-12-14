@@ -137,16 +137,6 @@ void recurseDumpDirectories(const char* basePath, const char* subPath, Vector<St
 
 static void recurseDumpPath(const char* curPath, Vector<Platform::FileInfo>& fileVector, U32 depth)
 {
-    // Is path a directory?
-    if ( !Platform::isDirectory(curPath) )
-    {
-        // No, so warn.
-        Con::warnf("recurseDumpPath: %s is not a directory", curPath);
-        
-        // Fnish.
-        return;
-    }
-
     // Fetch the shared file manager.
     NSFileManager* fileManager = [NSFileManager defaultManager];
     
