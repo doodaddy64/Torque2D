@@ -152,7 +152,7 @@ SimObject* Taml::read( const char* pFilename )
     if ( !stream.open( filenameBuffer, FileStream::Read ) )
     {
         // No, so warn.
-        Con::warnf("Taml::readFile() - Could not open filename '%s' for read.", filenameBuffer );
+        Con::warnf("Taml::read() - Could not open filename '%s' for read.", filenameBuffer );
         return NULL;
     }
 
@@ -167,6 +167,13 @@ SimObject* Taml::read( const char* pFilename )
 
     // Reset the compilation.
     resetCompilation();
+
+    // Did we generate an object?
+    if ( pSimObject == NULL )
+    {
+        // No, so warn.
+        Con::warnf( "Taml::read() - Failed to load an object from the file '%s'.", filenameBuffer );
+    }
 
     return pSimObject;
 }
