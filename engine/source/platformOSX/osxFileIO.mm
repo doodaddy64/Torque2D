@@ -669,13 +669,29 @@ bool Platform::createPath(const char *file)
     // Make sure the file pointer is valid
     if (!file || !*file)
         return false;
+
+    // Ensure that the path has no file on the end.
+    char pathBuffer[1024];
+    dSprintf(pathBuffer, sizeof(pathBuffer), "%s", file );
+    const S32 pathLength = dStrlen(pathBuffer);
+    if ( pathLength == sizeof(pathBuffer)-1 )
+    {
+        Con::warnf("Could not create path as it was too long: '%s", file);
+        return false;
+    }
+    char* pFinalSlash = dStrrchr(pathBuffer, '/');
+    if ( pFinalSlash != pathBuffer+pathLength-1 )
+    {
+        pFinalSlash[1] = 0;
+    }
+    file = pathBuffer;
     
     // Standard auto-release pool
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     // Conver the file path to a NSString
     NSString* convertedPath = [[NSString stringWithUTF8String:file] stringByStandardizingPath];
-    
+
     // Get the shared file manager
     NSFileManager* fileManager = [NSFileManager defaultManager];
     
