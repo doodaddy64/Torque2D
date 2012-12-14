@@ -352,7 +352,7 @@
 - (void)otherMouseUp:(NSEvent *)event
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
-    return;
+        return;
 
     [self processMouseButton:event button:KEY_BUTTON2 action:SI_BREAK];
 }
@@ -411,9 +411,7 @@
 - (void)otherMouseDragged:(NSEvent *)event
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
-    {
         return;
-    }
 
     [self processMouseDrag:event];
 }
