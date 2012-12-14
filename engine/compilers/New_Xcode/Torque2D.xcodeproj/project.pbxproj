@@ -3813,12 +3813,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../lib/Qt/lib/Xcode/Dylibs\"",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{PackageMaker}/1/PackageMaker/PackageMaker.app/Contents/MacOS\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{PackageMaker}/1/PackageMaker/PackageMaker.app/Contents/MacOS\"/**",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = /usr/lib/libz.dylib;
@@ -3926,12 +3920,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../lib/Qt/lib/Xcode/Dylibs\"",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{PackageMaker}/1/PackageMaker/PackageMaker.app/Contents/MacOS\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{PackageMaker}/1/PackageMaker/PackageMaker.app/Contents/MacOS\"/**",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = /usr/lib/libz.dylib;
@@ -3973,12 +3961,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../lib/Qt/lib/Xcode/Dylibs\"",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{PackageMaker}/1/PackageMaker/PackageMaker.app/Contents/MacOS\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{3SSFilesPatcher}/1/3SSFilesPatcher.app/Contents/Frameworks\"/**",
-					"\"${PROJECT_DIR}/../../../modules/{PackageMaker}/1/PackageMaker/PackageMaker.app/Contents/MacOS\"/**",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = /usr/lib/libz.dylib;
