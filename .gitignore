@@ -3,6 +3,7 @@
 *.xcworkspace
 *.xcuserdatad
 /tmp/*
+*.dso
 *.user
 *.sdf
 *.suo
