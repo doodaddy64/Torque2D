@@ -10,8 +10,10 @@
 
 @interface OSXTorqueView (PrivateMethods)
 - (void)windowFinishedLiveResize:(NSNotification *)notification;
-
 - (void)getModifierKey:(U32&)modifiers event:(NSEvent *)event;
+- (void)processMouseButton:(NSEvent *)event button:(KeyCodes)button action:(U8)action;
+- (void)processMouseDrag:(NSEvent *)event;
+- (void)processKeyEvent:(NSEvent *)event action:(U8)action;
 @end
 
 @implementation OSXTorqueView
