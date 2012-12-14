@@ -117,83 +117,43 @@ static _NSStringMap sgButtonTextMap[] =
 };
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::AlertOK not yet implemented")
+// Standard message box with a single "OK" button
 void Platform::AlertOK(const char *windowTitle, const char *message)
 {
     Platform::messageBox(windowTitle, message, MBOk, MIWarning);
-
-    /*NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-    [alert setAlertStyle:NSWarningAlertStyle];
-    [alert addButtonWithTitle:@"OK"];
-    [alert setMessageText:[NSString stringWithUTF8String:windowTitle]];
-    [alert setInformativeText:[NSString stringWithUTF8String:message]];
-
-    [alert runModal];*/
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::AlertOKCancel not yet implemented")
+// Displays an alert with Cancel and OK as buttons
 bool Platform::AlertOKCancel(const char *windowTitle, const char *message)
 {
-    return Platform::messageBox(windowTitle, message, MBOkCancel, MIWarning);
+    S32 result = Platform::messageBox(windowTitle, message, MBOkCancel, MIWarning);
 
-    /*
-    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-    [alert setAlertStyle:NSWarningAlertStyle];
-    [alert addButtonWithTitle:@"OK"];
-    [alert addButtonWithTitle:@"Cancel"];
-    [alert setMessageText:[NSString stringWithUTF8String:windowTitle]];
-    [alert setInformativeText:[NSString stringWithUTF8String:message]];
-
-    S32 result = [alert runModal];
-    */
-
-    //return (result == NSAlertFirstButtonReturn);
+    return (result == NSAlertFirstButtonReturn);
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::AlertRetry not yet implemented")
+// Standard message box with Cancel and Retry buttons
 bool Platform::AlertRetry(const char *windowTitle, const char *message)
 {
-    return Platform::messageBox(windowTitle, message, MBRetryCancel, MIWarning);
-
-    /*
-    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-    [alert setAlertStyle:NSWarningAlertStyle];
-    [alert addButtonWithTitle:@"Retry"];
-    [alert addButtonWithTitle:@"Cancel"];
-    [alert setMessageText:[NSString stringWithUTF8String:windowTitle]];
-    [alert setInformativeText:[NSString stringWithUTF8String:message]];
-
-    S32 result = [alert runModal];
+    S32 result = Platform::messageBox(windowTitle, message, MBRetryCancel, MIWarning);
 
     return (result == NSAlertFirstButtonReturn);
-    */
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::AlertYesNo not yet implemented")
+// Standard message box with No and Yes buttons
 bool Platform::AlertYesNo(const char *windowTitle, const char *message)
 {
-    return Platform::messageBox(windowTitle, message, MBSaveDontSave, MIWarning);
-
-    /*
-    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-    [alert setAlertStyle:NSWarningAlertStyle];
-    [alert addButtonWithTitle:@"Yes"];
-    [alert addButtonWithTitle:@"No"];
-    [alert setMessageText:[NSString stringWithUTF8String:windowTitle]];
-    [alert setInformativeText:[NSString stringWithUTF8String:message]];
-
-    S32 result = [alert runModal];
+    S32 result = Platform::messageBox(windowTitle, message, MBSaveDontSave, MIWarning);
 
     return (result == NSAlertFirstButtonReturn);
-    */
 }
 
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::messageBox not yet implemented")
+// Responsible for creating, building, showing, and catching the return of
+// a NSAlert. The messageBox ConsoleFunction calls into this
 S32 Platform::messageBox(const UTF8 *title, const UTF8 *message, MBButtons buttons, MBIcons icon)
 {
     NSString *okBtn      = nil;
@@ -233,5 +193,5 @@ S32 Platform::messageBox(const UTF8 *title, const UTF8 *message, MBButtons butto
 
     S32 result = [alert runModal];
 
-    return (result == NSAlertFirstButtonReturn);
+    return result;
 }
