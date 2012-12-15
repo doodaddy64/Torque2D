@@ -360,9 +360,9 @@ function SceneWindow::onTouchDown(%this, %touchID, %worldPos)
 {
     echo("Click on: " @ %worldPos);
 
-    pickFile();
+    //pickFile();
     
-    //createBlockAtPoint(%worldPos);
+    createBlockAtPoint(%worldPos);
     
     //dragSprite(%worldPos);
 }
@@ -374,8 +374,7 @@ function SceneWindow::onTouchDragged(%this, %touchID, %worldPos)
 
 function SceneWindow::onTouchUp(%this, %touchID, %worldPos)
 {
-    //releaseDraggingSprite();
-    pickFile();
+    releaseDraggingSprite();
 }
 
 function createBlockAtPoint(%worldPos)

@@ -8,58 +8,6 @@
 #include "platform/nativeDialogs/fileDialog.h"
 #include "io/resource/resourceManager.h"
 
-/*
-//-----------------------------------------------------------------------------
-// Builds and runs a NSOpenPanel. It will return the results of the user's
-// interaction as a NSArray of file URLs
-static NSArray* ShowOSXOpenFileDialog(FileDialogData &mData)
-{
-    NSOpenPanel* panel = [NSOpenPanel openPanel];
-
-    bool chooseDir = (mData.mStyle & FileDialogData::FDS_BROWSEFOLDER);
-
-    // User freedom niceties
-    [panel setCanCreateDirectories:YES];
-    [panel setCanSelectHiddenExtension:YES];
-    [panel setTreatsFilePackagesAsDirectories:YES];
-    [panel setAllowsMultipleSelection:(mData.mStyle & FileDialogData::FDS_MULTIPLEFILES)];
-    [panel setCanChooseFiles:!chooseDir];
-    [panel setCanChooseDirectories:chooseDir];
-
-    if (chooseDir)
-    {
-        [panel setPrompt:@"Choose"];
-        [panel setTitle:@"Choose Folder"];
-    }
-
-    NSString *initialFile = [[NSString stringWithUTF8String:mData.mDefaultFile] lastPathComponent];
-
-    // We only use mDefaultDir if mDefault path is not set.
-    NSString *dir;
-
-    if (dStrlen(mData.mDefaultPath) < 1)
-        dir = [[NSString stringWithUTF8String:mData.mDefaultFile] stringByDeletingLastPathComponent];
-    else
-        dir = [NSString stringWithUTF8String: mData.mDefaultPath];
-
-    [panel setDirectoryURL:[NSURL fileURLWithPath:dir isDirectory:YES]];
-
-    [panel setFilters:mData.mFilters];
-
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
-
-
-}
-
-//-----------------------------------------------------------------------------
-// Builds and runs a NSOpenPanel. It will return the results of the user's
-// interaction as a NSArray of file URLs
-static NSArray* ShowOSXSaveFileDialog(FileDialogData &mData)
-{
-    NSSavePanel* savePanel = [NSSavePanel savePanel];
-}
- */
-
 //-----------------------------------------------------------------------------
 #pragma message ("FileDialog::Execute not yet implemented")
 bool FileDialog::Execute()
@@ -150,37 +98,100 @@ bool FileDialog::setDefaultFile(void* obj, const char* data)
     return false;
 };
 
+struct _NSStringMap
+{
+    S32 num;
+    NSString* ok;
+    NSString* cancel;
+    NSString* third;
+};
+
+static _NSStringMap sgButtonTextMap[] =
+{
+        { MBOk,                 @"Ok",    nil,        nil },
+        { MBOkCancel,           @"Ok",    @"Cancel",  nil },
+        { MBRetryCancel,        @"Retry", @"Cancel",  nil },
+        { MBSaveDontSave,       @"Yes",  @"No", nil },
+        { MBSaveDontSaveCancel, @"Save",  @"Cancel",  @"Don't Save" },
+        { -1, nil, nil, nil }
+};
+
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::AlertOK not yet implemented")
+// Standard message box with a single "OK" button
 void Platform::AlertOK(const char *windowTitle, const char *message)
 {
-    
+    Platform::messageBox(windowTitle, message, MBOk, MIWarning);
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::AlertOKCancel not yet implemented")
+// Displays an alert with Cancel and OK as buttons
 bool Platform::AlertOKCancel(const char *windowTitle, const char *message)
 {
-    return false;
+    S32 result = Platform::messageBox(windowTitle, message, MBOkCancel, MIWarning);
+
+    return (result == NSAlertFirstButtonReturn);
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::AlertRetry not yet implemented")
+// Standard message box with Cancel and Retry buttons
 bool Platform::AlertRetry(const char *windowTitle, const char *message)
 {
-    return false;
+    S32 result = Platform::messageBox(windowTitle, message, MBRetryCancel, MIWarning);
+
+    return (result == NSAlertFirstButtonReturn);
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::AlertYesNo not yet implemented")
+// Standard message box with No and Yes buttons
 bool Platform::AlertYesNo(const char *windowTitle, const char *message)
 {
-    return false;
+    S32 result = Platform::messageBox(windowTitle, message, MBSaveDontSave, MIWarning);
+
+    return (result == NSAlertFirstButtonReturn);
 }
 
+
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::messageBox not yet implemented")
+// Responsible for creating, building, showing, and catching the return of
+// a NSAlert. The messageBox ConsoleFunction calls into this
 S32 Platform::messageBox(const UTF8 *title, const UTF8 *message, MBButtons buttons, MBIcons icon)
 {
-    return 0;
+    NSString *okBtn      = nil;
+    NSString *cancelBtn  = nil;
+    NSString *thirdBtn   = nil;
+
+    U32 i;
+
+    for (i = 0; sgButtonTextMap[i].num != -1; i++)
+    {
+        if (sgButtonTextMap[i].num != buttons)
+            continue;
+
+        okBtn = sgButtonTextMap[i].ok;
+        cancelBtn = sgButtonTextMap[i].cancel;
+        thirdBtn = sgButtonTextMap[i].third;
+
+        break;
+    }
+
+    if(sgButtonTextMap[i].num == -1)
+        Con::errorf("Unknown message box button set requested. Mac Platform::messageBox() probably needs to be updated.");
+
+    // convert title and message to NSStrings
+    NSString *nsTitle = [NSString stringWithUTF8String:title];
+    NSString *nsMessage = [NSString stringWithUTF8String:message];
+
+    Input::setCursorShape(CursorManager::curIBeam);
+
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+    [alert setAlertStyle:NSWarningAlertStyle];
+    [alert addButtonWithTitle:okBtn];
+    [alert addButtonWithTitle:cancelBtn];
+    [alert addButtonWithTitle:thirdBtn];
+    [alert setMessageText:nsTitle];
+    [alert setInformativeText:nsMessage];
+
+    S32 result = [alert runModal];
+
+    return result;
 }
