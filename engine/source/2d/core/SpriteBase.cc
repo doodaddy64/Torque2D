@@ -42,7 +42,8 @@ void SpriteBase::initPersistFields()
     // Call parent.
     Parent::initPersistFields();
 
-    addProtectedField("ImageMap", TypeImageMapAssetPtr, Offset(mImageAsset, SpriteBase), &setImage, &getImage, &writeImage, "");
+
+    addProtectedField("ImageMap", TypeImageAssetPtr, Offset(mImageAsset, SpriteBase), &setImage, &getImage, &writeImage, "");
     addProtectedField("Frame", TypeS32, Offset(mImageFrame, SpriteBase), &setFrame, &defaultProtectedGetFn, &writeFrame, "");
     addProtectedField("Animation", TypeAnimationAssetPtr, Offset(mAnimationAsset, SpriteBase), &setAnimation, &getAnimation, &writeAnimation, "");
 }

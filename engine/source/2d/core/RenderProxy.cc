@@ -44,7 +44,7 @@ RenderProxy::~RenderProxy()
 
 void RenderProxy::initPersistFields()
 {
-   addProtectedField("ImageMap", TypeImageMapAssetPtr, Offset(mImageAsset, RenderProxy), &setImage, &getImage, &writeImage, "");
+   addProtectedField("ImageMap", TypeImageAssetPtr, Offset(mImageAsset, RenderProxy), &setImage, &getImage, &writeImage, "");
    addProtectedField("Frame", TypeS32, Offset(mImageFrame, RenderProxy), &setImageFrame, &defaultProtectedGetFn, &writeImageFrame, "");
    addProtectedField("Animation", TypeAnimationAssetPtr, Offset(mAnimationAsset, RenderProxy), &setAnimation, &getAnimation, &writeAnimation, "");
 

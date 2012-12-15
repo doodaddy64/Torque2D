@@ -39,7 +39,7 @@ void AnimationAsset::initPersistFields()
     // Call parent.
     Parent::initPersistFields();
 
-    addProtectedField("ImageMap", TypeImageMapAssetPtr, Offset(mImageAsset, AnimationAsset), &setImageMap, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
+    addProtectedField("ImageMap", TypeImageAssetPtr, Offset(mImageAsset, AnimationAsset), &setImageMap, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
     addProtectedField("AnimationFrames", TypeS32Vector, Offset(mAnimationFrames, AnimationAsset), &setAnimationFrames, &defaultProtectedGetFn, &writeAnimationFrames, "");
     addProtectedField("AnimationTime", TypeF32, Offset(mAnimationTime, AnimationAsset), &setAnimationTime, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
     addProtectedField("AnimationCycle", TypeBool, Offset(mAnimationCycle, AnimationAsset), &setAnimationCycle, &defaultProtectedGetFn, &writeAnimationCycle, "");

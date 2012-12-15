@@ -14,7 +14,7 @@
 
 DefineConsoleType( TypeAssetId )
 DefineConsoleType( TypeAssetLooseFilePath )
-DefineConsoleType( TypeImageMapAssetPtr )
+DefineConsoleType( TypeImageAssetPtr )
 DefineConsoleType( TypeAnimationAssetPtr )
 DefineConsoleType( TypeAudioAssetPtr )
 

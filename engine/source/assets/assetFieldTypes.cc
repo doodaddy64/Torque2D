@@ -35,7 +35,7 @@
 
 ConsoleType( assetLooseFilePath, TypeAssetLooseFilePath, sizeof(StringTableEntry), ASSET_LOOSE_FILE_FIELD_PREFIX )
 ConsoleType( assetIdString, TypeAssetId, sizeof(StringTableEntry), ASSET_ID_FIELD_PREFIX )
-ConsoleType( imageMapAssetPtr, TypeImageMapAssetPtr, sizeof(AssetPtr<ImageAsset>), ASSET_ID_FIELD_PREFIX )
+ConsoleType( imageAssetPtr, TypeImageAssetPtr, sizeof(AssetPtr<ImageAsset>), ASSET_ID_FIELD_PREFIX )
 ConsoleType( animationAssetPtr, TypeAnimationAssetPtr, sizeof(AssetPtr<AnimationAsset>), ASSET_ID_FIELD_PREFIX )
 ConsoleType( audioAssetPtr, TypeAudioAssetPtr, sizeof(AssetPtr<AudioAsset>), ASSET_ID_FIELD_PREFIX )
 
@@ -103,7 +103,7 @@ ConsoleSetType( TypeAssetId )
 
 //-----------------------------------------------------------------------------
 
-ConsoleGetType( TypeImageMapAssetPtr )
+ConsoleGetType( TypeImageAssetPtr )
 {
     // Fetch asset Id.
     return (*((AssetPtr<ImageAsset>*)dptr)).getAssetId();
@@ -111,7 +111,7 @@ ConsoleGetType( TypeImageMapAssetPtr )
 
 //-----------------------------------------------------------------------------
 
-ConsoleSetType( TypeImageMapAssetPtr )
+ConsoleSetType( TypeImageAssetPtr )
 {
     // Was a single argument specified?
     if( argc == 1 )
@@ -126,7 +126,7 @@ ConsoleSetType( TypeImageMapAssetPtr )
         if ( pAssetPtr == NULL )
         {
             // No, so fail.
-            Con::warnf( "(TypeImageMapAssetPtr) - Failed to set asset Id '%d'.", pFieldValue );
+            Con::warnf( "(TypeImageAssetPtr) - Failed to set asset Id '%d'.", pFieldValue );
             return;
         }
 
@@ -137,7 +137,7 @@ ConsoleSetType( TypeImageMapAssetPtr )
    }
 
     // Warn.
-    Con::warnf( "(TypeImageMapAssetPtr) - Cannot set multiple args to a single asset." );
+    Con::warnf( "(TypeImageAssetPtr) - Cannot set multiple args to a single asset." );
 }
 
 //-----------------------------------------------------------------------------

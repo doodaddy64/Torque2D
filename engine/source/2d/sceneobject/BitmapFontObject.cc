@@ -94,7 +94,7 @@ void BitmapFontObject::initPersistFields()
     // Call parent.
     Parent::initPersistFields();
 
-    addProtectedField("imageMap", TypeImageMapAssetPtr, Offset(mImageAsset, BitmapFontObject), &setImageMap, &getImageMap, &writeImageMap, "");
+    addProtectedField("imageMap", TypeImageAssetPtr, Offset(mImageAsset, BitmapFontObject), &setImageMap, &getImageMap, &writeImageMap, "");
     addProtectedField("text", TypeString, Offset( mConsoleBuffer, BitmapFontObject ), setText, getText, &writeText, "The text to be displayed." );  
     addProtectedField("textAlignment", TypeEnum, Offset(mTextAlignment, BitmapFontObject), &setTextAlignment, &defaultProtectedGetFn, &writeTextAlignment, 1, &gTextAlignmentTable, "");
     addProtectedField("characterSize", TypeT2DVector, Offset(mCharacterSize, BitmapFontObject), &setCharacterSize, &defaultProtectedGetFn,&writeCharacterSize, "" );

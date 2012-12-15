@@ -233,9 +233,6 @@ protected:
     static bool writeCellHeight( void* obj, StringTableEntry pFieldName )   { return static_cast<ImageAsset*>(obj)->getCellHeight() != 0; }
 };
 
-// Image-Map Console Type.
-DECLARE_CONSOLETYPE(ImageAsset)
-
 //-----------------------------------------------------------------------------
 
 extern ImageAsset::TextureFilterMode getFilterModeEnum(const char* label);
