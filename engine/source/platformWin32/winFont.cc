@@ -91,9 +91,9 @@ BOOL CALLBACK EnumFamCallBack(LPLOGFONT logFont, LPNEWTEXTMETRIC textMetric, DWO
    return true;
 }
 
-void PlatformFont::enumeratePlatformFonts( Vector<StringTableEntry>& fonts, UTF16* fontFamily )
+void PlatformFont::enumeratePlatformFonts( Vector<StringTableEntry>& fonts )
 {
-   EnumFontFamilies( fontHDC, fontFamily, (FONTENUMPROC)EnumFamCallBack, (LPARAM)&fonts );
+   EnumFontFamilies( fontHDC, NULL, (FONTENUMPROC)EnumFamCallBack, (LPARAM)&fonts );
 }
 
 PlatformFont *createPlatformFont(const char *name, U32 size, U32 charset /* = TGE_ANSI_CHARSET */)

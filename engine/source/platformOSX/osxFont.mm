@@ -24,8 +24,19 @@ PlatformFont* createPlatformFont( const char* name, U32 size, U32 charset )
 
 //------------------------------------------------------------------------------
 
-void PlatformFont::enumeratePlatformFonts( Vector<StringTableEntry>& fonts, UTF16* fontFamily )
+void PlatformFont::enumeratePlatformFonts( Vector<StringTableEntry>& fonts )
 {
+    // Fetch available fonts.
+    NSArray* availableFonts = [[NSFontManager sharedFontManager] availableFontNamesWithTraits:0];
+
+    // Enumerate font names.
+    for (id fontName in availableFonts)
+    {
+        fonts.push_back( StringTable->insert( [fontName UTF8String] ) );
+    }
+
+    // Release font name.
+    [availableFonts release];
 }
 
 //------------------------------------------------------------------------------

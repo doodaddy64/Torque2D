@@ -122,6 +122,6 @@ PlatformFont::CharInfo& iOSFont::getCharInfo(const UTF16 ch) const
 	return c;
 }
 
-void PlatformFont::enumeratePlatformFonts( Vector<StringTableEntry>& fonts, UTF16* fontFamily )
+void PlatformFont::enumeratePlatformFonts( Vector<StringTableEntry>& fonts )
 {}
 

@@ -278,7 +278,7 @@ static OSStatus _MacCarbEnumFontsCallback(ATSFontRef font, void* fontVector)
    return noErr;
 }
 
-void PlatformFont::enumeratePlatformFonts( Vector<StringTableEntry>& fonts, UTF16* fontFamily )
+void PlatformFont::enumeratePlatformFonts( Vector<StringTableEntry>& fonts )
 {
    ATSFontApplyFunction (_MacCarbEnumFontsCallback, (void*)&fonts);
 }

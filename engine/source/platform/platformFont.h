@@ -73,7 +73,7 @@ public:
     virtual PlatformFont::CharInfo &getCharInfo(const UTF8 *str) const = 0;
 
     virtual bool create(const char *name, U32 size, U32 charset = TGE_ANSI_CHARSET) = 0;
-    static void enumeratePlatformFonts( Vector<StringTableEntry>& fonts, UTF16* fontFamily = NULL );
+    static void enumeratePlatformFonts( Vector<StringTableEntry>& fonts );
 };
 
 //-------------------------------------------------------------------------
