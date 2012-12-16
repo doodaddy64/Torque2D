@@ -201,9 +201,6 @@ SceneObject::SceneObject() :
     mSerialId(0)
 
 {
-    // Field names.
-    SCENEOBJECT_COLLISIONSHAPE_FIELDNAME      = StringTable->insert("CollisionShape");
-
     // Initialize collision shape field names.
     if ( !collisionShapePropertiesInitialized )
     {
@@ -3678,109 +3675,6 @@ BehaviorInstance * SceneObject::behavior(const char *name)
 U32 SceneObject::getGlobalSceneObjectCount( void )
 {
     return sGlobalSceneObjectCount;
-}
-
-//-----------------------------------------------------------------------------
-
-void SceneObject::onTamlPreWrite( void )
-{
-    // Call parent.
-    Parent::onTamlPreWrite();
-
-    // Finish if a prefab is assigned.
-    if ( hasPrefab() )
-        return;
-
-#if 0
-    // Fetch collision shape count.
-    const U32 collisionShapeCount = getCollisionShapeCount();
-
-    // Format collision shapes if we have any.
-    if ( collisionShapeCount > 0 )
-    {
-        char indexBuffer[16];
-        char collisionShapeBuffer[256];
-        for ( U32 index = 0; index < collisionShapeCount; ++index )
-        {
-            dSprintf( indexBuffer, 16, "%d", index );
-            formatCollisionShape( index, collisionShapeBuffer, 256 );
-            setDataField( SCENEOBJECT_COLLISIONSHAPE_FIELDNAME, indexBuffer, collisionShapeBuffer ); 
-        }
-    }
-#endif
-}
-
-//-----------------------------------------------------------------------------
-
-void SceneObject::onTamlPostWrite( void )
-{
-    // Call parent.
-    Parent::onTamlPostWrite();
-
-    // Finish if a prefab is assigned.
-    if ( hasPrefab() )
-        return;
-
-    // Fetch collision shape count.
-    const U32 collisionShapeCount = getCollisionShapeCount();
-
-    // Format collision shapes if we have any.
-    if ( collisionShapeCount > 0 )
-    {
-        char indexBuffer[16];
-
-        // Now clear fields as these are processed when the object is added to a scene.
-        for ( U32 index = 0; index < collisionShapeCount; ++index )
-        {
-            dSprintf( indexBuffer, 16, "%d", index );
-            setDataField( SCENEOBJECT_COLLISIONSHAPE_FIELDNAME, indexBuffer, "" ); 
-        }
-    }
-}
-
-//-----------------------------------------------------------------------------
-
-void SceneObject::onTamlPreRead( void )
-{
-    // Call parent.
-    Parent::onTamlPreRead();
-}
-
-//-----------------------------------------------------------------------------
-
-void SceneObject::onTamlPostRead( const TamlCollection& customCollection )
-{
-    // Call parent.
-    Parent::onTamlPostRead( customCollection );
-
-    // Create collision shapes from dynamic fields.
-    char indexBuffer[16];
-
-    // Iterate all collision shapes.
-    for ( U32 collisionShapeIndex = 0;; ++collisionShapeIndex )
-    {
-        // Format index buffer.
-        dSprintf( indexBuffer, 16, "%d", collisionShapeIndex );
-
-        // Fetch data field.
-        const char* pData = getDataField(SCENEOBJECT_COLLISIONSHAPE_FIELDNAME, indexBuffer);
-
-        // Do we have any useful data for this collision shape?
-        if ( pData != NULL && dStrlen( pData ) > 0 )
-        {
-            // Yes, so parse it.
-            parseCollisionShape( pData );
-
-            // Reset data field.
-            setDataField(SCENEOBJECT_COLLISIONSHAPE_FIELDNAME, indexBuffer, "");
-
-            // Next collision shape.
-            continue;
-        }
-
-        // Stop parsing collision shapes.
-        break;
-    };
 }
 
 //-----------------------------------------------------------------------------

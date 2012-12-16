@@ -225,10 +225,6 @@ protected:
     U32                     mRotateToEventId;
     U32                     mSerialId;
 
-private:
-    // Field Names.
-    StringTableEntry        SCENEOBJECT_COLLISIONSHAPE_FIELDNAME;
-
 protected:
     static S32 QSORT_CALLBACK sceneObjectLayerDepthSort(const void* a, const void* b);
 
@@ -245,10 +241,6 @@ protected:
     void                    initializeContactGathering( void );
 
     /// Taml callbacks.
-    virtual void            onTamlPreWrite( void );
-    virtual void            onTamlPostWrite( void );
-    virtual void            onTamlPreRead( void );
-    virtual void            onTamlPostRead( const TamlCollection& customCollection );
     virtual void            onTamlCustomWrite( TamlCollection& customCollection );
     virtual void            onTamlCustomRead( const TamlCollection& customCollection );
 
