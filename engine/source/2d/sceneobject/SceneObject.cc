@@ -460,6 +460,7 @@ void SceneObject::OnRegisterScene( Scene* pScene )
         // Destroy fixture definition.
         delete pFixtureDef;          
     }
+
     // Clear offline fixture definitions.
     mCollisionFixtureDefs.clear();
 
@@ -505,6 +506,7 @@ void SceneObject::OnUnregisterScene( Scene* pScene )
         // Push fixture definition.
         mCollisionFixtureDefs.push_back( pFixtureDef );
     }
+
     // Clear our fixture references.
     // The actual fixtures will get destroyed when the body is destroyed so no need to destroy them here.
     mCollisionFixtures.clear();
@@ -571,16 +573,6 @@ void SceneObject::resetTickSpatials( const bool resize )
         WorldQuery* pWorldQuery = mpScene->getWorldQuery();
 
         // Are we resizing the object?
-
-        // MM:  There is a problem with moving the proxy currently.  I cannot isolate why but it has
-        //      manifested itself as a "flickering" bug in the "Release" branch.
-        //      For now I'll just enforce recreation of the world proxy which is a fool-proof way
-        //      of dealing with the issue.  I will investigate why the "MoveProxy" is not always
-        //      working correctly.  It's possible that the displacement of "{0,0}" is triggering the
-        //      problem although there is nothing I can find to suggest than such a displacement
-        //      is invalid in any way even if it doesn't entirely make sense to move a proxy with
-        //      zero displacement.
-
         if ( resize )
         {
             // Yes, so we need to recreate a proxy.
@@ -674,7 +666,7 @@ void SceneObject::postIntegrate(const F32 totalTime, const F32 elapsedTime, Debu
    if( getScene() )
    {
 #ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_START(PHYSIC_PROXY_SCENEOBJECT_onUpdate);
+        PROFILE_START(SceneObject_onUpdate);
 #endif
 
         // Notify components.
@@ -705,7 +697,7 @@ void SceneObject::postIntegrate(const F32 totalTime, const F32 elapsedTime, Debu
         }
 
 #ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_END();   // PHYSIC_PROXY_SCENEOBJECT_onUpdate
+        PROFILE_END();   // SceneObject_onUpdate
 #endif
    }
 }
@@ -896,7 +888,7 @@ void SceneObject::setLifetime( const F32 lifetime )
 {
 // Debug Profiling.
 #ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(PHYSIC_PROXY_SCENEOBJECT_setLifetime);
+    PROFILE_START(SceneObject_setLifetime);
 #endif
 
     // Usage Flag.
@@ -916,7 +908,7 @@ void SceneObject::setLifetime( const F32 lifetime )
 
 // Debug Profiling.
 #ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // PHYSIC_PROXY_SCENEOBJECT_setLifetime
+    PROFILE_END();   // SceneObject_setLifetime
 #endif
 }
 
@@ -3299,7 +3291,6 @@ void SceneObject::attachGui( GuiControl* pGuiControl, SceneWindow* pSceneWindow,
     if ( mpAttachedGui->getParent() != mpAttachedGuiSceneWindow )
     {
         // Warn.
-        //Con::warnf("SceneObject::attachGui() - GuiControl is not a direct-child of Scene; adjusting!");
         // Remove GuiControl from existing parent (if it has one).
         if ( mpAttachedGui->getParent() )
         {
@@ -3354,7 +3345,7 @@ void SceneObject::updateAttachedGui( void )
 
 // Debug Profiling.
 #ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(PHYSIC_PROXY_SCENEOBJECT_updateAttachedGui);
+    PROFILE_START(SceneObject_updateAttachedGui);
 #endif
 
     // Calculate the GUI Controls' dimensions.
@@ -3399,7 +3390,7 @@ void SceneObject::updateAttachedGui( void )
 
 // Debug Profiling.
 #ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // PHYSIC_PROXY_SCENEOBJECT_updateAttachedGui
+    PROFILE_END();   // SceneObject_updateAttachedGui
 #endif
 }
 
@@ -3650,14 +3641,14 @@ void SceneObject::notifyComponentsUpdate( void )
 
 //-----------------------------------------------------------------------------
 
-BehaviorInstance * SceneObject::behavior(const char *name)
+BehaviorInstance* SceneObject::behavior(const char *name)
 {
    StringTableEntry stName = StringTable->insert(name);
    VectorPtr<SimComponent *>&componentList = lockComponentList();
 
    for( SimComponentIterator nItr = componentList.begin(); nItr != componentList.end(); nItr++ )
    {
-      BehaviorInstance *pComponent = dynamic_cast<BehaviorInstance*>(*nItr);
+      BehaviorInstance* pComponent = dynamic_cast<BehaviorInstance*>(*nItr);
       if( pComponent && StringTable->insert(pComponent->getTemplateName()) == stName )
       {
          unlockComponentList();
@@ -4152,32 +4143,6 @@ bool SceneObject::writeField(StringTableEntry fieldname, const char* value)
       return false;
 
    return true;
-}
-
-//-----------------------------------------------------------------------------
-
-void SceneObject::writeFields(Stream& stream, U32 tabStop)
-{
-    // Fetch collision shape count.
-    const U32 collisionShapeCount = getCollisionShapeCount();
-
-    // Format collision shapes if we have any.
-    if ( collisionShapeCount > 0 )
-    {
-        // The work we want to perform here is in the Taml callback.
-        onTamlPreWrite();
-
-        // Call parent.
-        Parent::writeFields(stream, tabStop);
-
-        // The work we want to perform here is in the Taml callback.
-        onTamlPostWrite();
-    }
-    else
-    {
-        // Call parent.
-        Parent::writeFields(stream, tabStop);
-    }
 }
 
 //------------------------------------------------------------------------------

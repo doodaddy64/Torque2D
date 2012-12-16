@@ -596,7 +596,6 @@ public:
 
     // Read / Write fields.
     virtual bool            writeField(StringTableEntry fieldname, const char* value);
-    virtual void            writeFields(Stream& stream, U32 tabStop);
 
     /// Declare Console Object.
     DECLARE_CONOBJECT( SceneObject );

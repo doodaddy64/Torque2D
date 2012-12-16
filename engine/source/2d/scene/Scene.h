@@ -282,8 +282,6 @@ private:
 
 protected:
     /// Taml callbacks.
-    virtual void            onTamlPreWrite( void );
-    virtual void            onTamlPostWrite( void );
     virtual void            onTamlPreRead( void );
     virtual void            onTamlPostRead( const TamlCollection& customCollection );
     virtual void            onTamlCustomWrite( TamlCollection& customCollection );

@@ -3568,22 +3568,6 @@ void Scene::SayGoodbye( b2Fixture* pFixture )
 
 //-----------------------------------------------------------------------------
 
-void Scene::onTamlPreWrite( void )
-{
-    // Call parent.
-    Parent::onTamlPreWrite();
-}
-
-//-----------------------------------------------------------------------------
-
-void Scene::onTamlPostWrite( void )
-{
-    // Call parent.
-    Parent::onTamlPostWrite();
-}
-
-//-----------------------------------------------------------------------------
-
 void Scene::onTamlPreRead( void )
 {
     // Call parent.
