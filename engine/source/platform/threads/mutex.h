@@ -3,11 +3,11 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#include "platform/types.h"
-#include "platform/platformAssert.h"
-
 #ifndef _PLATFORM_THREADS_MUTEX_H_
 #define _PLATFORM_THREADS_MUTEX_H_
+
+#include "platform/types.h"
+#include "platform/platformAssert.h"
 
 // Forward ref used by platform code
 struct PlatformMutexData;
