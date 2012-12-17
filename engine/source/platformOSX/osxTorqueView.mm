@@ -2,6 +2,8 @@
 // Torque
 // Copyright GarageGames, LLC 2012
 //-----------------------------------------------------------------------------
+
+#import "platformOSX/platformOSX.h"
 #import "platformOSX/osxTorqueView.h"
 #import "game/gameInterface.h"
 #import "gui/guiCanvas.h"
@@ -79,6 +81,8 @@
 // Called whent the parent finishes its live resizing
 - (void)windowFinishedLiveResize:(NSNotification *)notification
 {
+    NSSize size = [[self window] frame].size;
+    [[osxPlatState sharedPlatState] setWindowSize:(S32)size.width height:(S32)size.height];
     [self updateContext];
 }
 

@@ -829,7 +829,7 @@ bool OpenGLDevice::setScreenMode( U32 width, U32 height, U32 bpp, bool fullScree
    if ( !winState.appWindow )
    {
       Con::printf( "Creating a new %swindow...", ( fullScreen ? "full-screen " : "" ) );
-      winState.appWindow = CreateOpenGLWindow( newRes.w, newRes.h, newFullScreen, false );
+      winState.appWindow = CreateOpenGLWindow( newRes.w, newRes.h, newFullScreen, true );
       if ( !winState.appWindow )
       {
          AssertFatal( false, "OpenGLDevice::setScreenMode\nFailed to create a new window!" );
