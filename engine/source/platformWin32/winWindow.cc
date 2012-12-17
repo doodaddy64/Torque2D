@@ -112,7 +112,6 @@ static S32 modifierKeys = 0;
 static bool windowActive = true;
 static Point2I lastCursorPos(0,0);
 static Point2I windowSize;
-static HANDLE gMutexHandle = NULL;
 static bool sgDoubleByteEnabled = false;
 
 //--------------------------------------
@@ -133,28 +132,6 @@ static const char *getMessageName(S32 msg)
    }
 }
 
-//--------------------------------------
-bool Platform::excludeOtherInstances(const char *mutexName)
-{
-#ifdef UNICODE
-   UTF16 b[512];
-   convertUTF8toUTF16((UTF8 *)mutexName, b, sizeof(b));
-   gMutexHandle = CreateMutex(NULL, true, b);
-#else
-   gMutexHandle = CreateMutex(NULL, true, mutexName);
-#endif
-   if(!gMutexHandle)
-      return false;
-
-   if(GetLastError() == ERROR_ALREADY_EXISTS)
-   {
-      CloseHandle(gMutexHandle);
-      gMutexHandle = NULL;
-      return false;
-   }
-
-   return true;
-}
 
 void Platform::restartInstance()
 {
@@ -199,42 +176,6 @@ void Platform::restartInstance()
       CloseHandle( pi.hProcess );
       CloseHandle( pi.hThread );
    }
-}
-
-///just check if the app's global mutex exists, and if so, 
-///return true - otherwise, false. Should be called before ExcludeOther 
-/// at very start of app execution.
-bool Platform::checkOtherInstances(const char *mutexName)
-{
-#ifdef TORQUE_MULTITHREAD
-
-   HANDLE pMutex	=	NULL;
-#ifdef UNICODE
-   UTF16 b[512];
-   convertUTF8toUTF16((UTF8 *)mutexName, b, sizeof(b));
-   pMutex  = CreateMutex(NULL, true, b);
-#else
-   pMutex = CreateMutex(NULL, true, mutexName);
-#endif
-   if(!pMutex)
-      return false;
-
-   if(GetLastError() == ERROR_ALREADY_EXISTS)
-   {
-      //another mutex of the same name exists
-      //close ours
-      CloseHandle(pMutex);
-      pMutex = NULL;
-      return true;
-   }
-
-   CloseHandle(pMutex);
-   pMutex = NULL;
-#endif
-
-   //we don;t care, always false
-   return false;
-
 }
 
 //--------------------------------------
@@ -1592,8 +1533,6 @@ void Platform::shutdown()
 {
    sgQueueEvents = false;
 
-   if(gMutexHandle)
-      CloseHandle(gMutexHandle);
    setMouseLock( false );
    Video::destroy();
    Input::destroy();

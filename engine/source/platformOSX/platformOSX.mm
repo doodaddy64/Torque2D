@@ -284,22 +284,6 @@ void Platform::shutdown()
 }
 
 //-----------------------------------------------------------------------------
-
-#pragma message "excludeOtherInstances() - How should this be implemented? Using a mutex?"
-bool Platform::excludeOtherInstances(const char *mutexName)
-{
-    return false;
-}
-
-//-----------------------------------------------------------------------------
-
-#pragma message "checkOtherInstances() - How should this be implemented? Using a mutex?"
-bool Platform::checkOtherInstances(const char *mutexName)
-{
-    return false;
-}
-
-//-----------------------------------------------------------------------------
 // Completely closes and restarts the simulation
 void Platform::restartInstance()
 {

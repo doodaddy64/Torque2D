@@ -118,8 +118,6 @@ struct Platform
     static void process();
     static void shutdown();
     static void sleep(U32 ms);
-    static bool excludeOtherInstances(const char *string);
-    static bool checkOtherInstances(const char *string);
     static void restartInstance();
     static void postQuitMessage(const U32 in_quitVal);
     static void forceShutdown(S32 returnValue);

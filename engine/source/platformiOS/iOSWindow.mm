@@ -259,13 +259,6 @@ bool Platform::openWebBrowser( const char* webAddress )
 	return ret;// this bails on the application, switching to Safari
 }
 
-//dunno where this is supposed to be, but the windows version has it under WinWindow, so this seems a likely place
-bool Platform::excludeOtherInstances(const char *string)
-{
-	return true;//only one instance on iOS no matter what
-}
-
-
 bool isStatusBarHidden() 
 {
 	if( platState.application.statusBarHidden == YES ) 

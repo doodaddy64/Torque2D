@@ -217,12 +217,6 @@ ConsoleFunction( createCanvas, bool, 2, 2, "( WindowTitle ) Use the createCanvas
 {
    AssertISV(!Canvas, "CreateCanvas: canvas has already been instantiated");
 
-#if !defined(TORQUE_OS_OSX) // macs can only run one instance in general.
-//#if !defined(TORQUE_DEBUG) && !defined(INTERNAL_RELEASE)
-//   if(!Platform::excludeOtherInstances(TORQUE_INSTANCE_EXCLUSION))
-//      return false;
-//#endif
-#endif
 #ifdef TORQUE_OS_IOS
     
     // First fetch the values from the prefs.
