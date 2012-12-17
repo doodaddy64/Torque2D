@@ -510,7 +510,6 @@ void Platform::openFolder(const char* path )
       Con::printf(strerror(errno));
 }
 
-// helper func for getWorkingDirectory
 static bool isMainDotCsPresent(char *dir)
 { 
    char maincsbuf[MAX_MAC_PATH_LONG];

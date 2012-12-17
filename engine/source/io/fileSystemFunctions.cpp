@@ -277,8 +277,6 @@ ConsoleFunction(getDirectoryList, const char*, 2, 3, "(strPath, [intDepth])\n"
    char path[1024];
    Platform::makeFullPathName(dStrcmp(argv[1], "/") == 0 ? "" : argv[1], path, sizeof(path));
 
-   //dSprintf(path, 511, "%s/%s", Platform::getWorkingDirectory(), argv[1]);
-
    // Append a trailing backslash if it's not present already.
    if (path[dStrlen(path) - 1] != '/')
    {
@@ -566,11 +564,6 @@ ConsoleFunction(pathCopy, bool, 3, 4, "pathCopy(fromFile, toFile [, nooverwrite 
    Platform::makeFullPathName(toFile, qualifiedToFile, sizeof(qualifiedToFile));
 
    return Platform::pathCopy( qualifiedFromFile, qualifiedToFile, nooverwrite );
-}
-
-ConsoleFunction(getWorkingDirectory, const char *, 1, 1, "alias to getCurrentDirectory()")
-{
-   return Platform::getCurrentDirectory();
 }
 
 ConsoleFunction(getCurrentDirectory, const char *, 1, 1, "getCurrentDirectory()")

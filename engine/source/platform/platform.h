@@ -170,9 +170,6 @@ struct Platform
     static bool setCurrentDirectory(StringTableEntry newDir);
     static StringTableEntry getTemporaryDirectory();
     static StringTableEntry getTemporaryFileName();
-    #ifdef TORQUE_OS_IOS
-        static StringTableEntry getWorkingDirectory();
-    #endif
     static StringTableEntry getExecutableName();
     static StringTableEntry getExecutablePath(); 
     static void setMainDotCsDir(const char *dir);

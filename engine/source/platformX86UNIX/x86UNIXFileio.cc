@@ -882,20 +882,6 @@ bool dPathCopy(const char *fromName, const char *toName, bool nooverwrite)
  }
  
  //-----------------------------------------------------------------------------
- StringTableEntry Platform::getWorkingDirectory()
- {
-    static StringTableEntry cwd = NULL;
- 
-    if (!cwd)
-    {
-       char cwd_buf[2048];
-       getcwd(cwd_buf, 2047);
-       cwd = StringTable->insert(cwd_buf);
-    }
-    return cwd;
- }
- 
- //-----------------------------------------------------------------------------
  bool Platform::isFile(const char *pFilePath)
  {
     if (!pFilePath || !*pFilePath)

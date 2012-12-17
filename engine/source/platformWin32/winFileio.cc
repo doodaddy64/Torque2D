@@ -733,11 +733,6 @@ bool Platform::dumpPath(const char *path, Vector<Platform::FileInfo> &fileVector
 
 //--------------------------------------
 
-//StringTableEntry Platform::getWorkingDirectory()
-//{
-//   return getCurrentDirectory();
-//}
-
 StringTableEntry Platform::getCurrentDirectory()
 {
    char cwd_buf[2048];

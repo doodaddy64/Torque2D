@@ -13,7 +13,7 @@ function initialize3SSFilesWin()
     while(%file !$= "")
     {
         //echo(%file);
-        %relativeToApp = makeRelativePath(%file, getWorkingDirectory());
+        %relativeToApp = makeRelativePath(%file, getCurrentDirectory());
         //echo(%relativeToApp);
 
         %relativeToModule = makeRelativePath(%file, %fullPath);

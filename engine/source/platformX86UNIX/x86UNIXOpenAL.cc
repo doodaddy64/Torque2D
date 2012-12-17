@@ -222,7 +222,7 @@ bool OpenALDLLInit()
    for (int i = 0; searchPath[i] != NULL; ++i)
    {   
       dSprintf(openalPath, sizeof(openalPath), "%s/%s/%s",
-         Platform::getWorkingDirectory(), 
+         Platform::getCurrentDirectory(), 
          searchPath[i],
          libName);
          
