@@ -1755,7 +1755,6 @@ void ensureTrailingSlash( char* pDstPath, const char* pSrcPath )
 bool stripRepeatSlashes( char* pDstPath, const char* pSrcPath, S32 dstSize )
 {
     // Note original destination.
-    const char* pOriginalSrc = pSrcPath;
     char* pOriginalDst = pDstPath;
 
     // Reset last source character.
