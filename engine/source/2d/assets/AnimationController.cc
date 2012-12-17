@@ -39,6 +39,10 @@ AnimationController::~AnimationController()
 
 void AnimationController::onAssetRefreshed( AssetPtrBase* pAssetPtrBase )
 {
+    // Don't perform any action if the animation is not already playing.
+    if ( mAnimationFinished )
+        return;
+
     // Attempt to restart the animation.
     playAnimation( mAnimationAsset, false );
 }
