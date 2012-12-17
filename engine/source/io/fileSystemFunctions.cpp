@@ -582,7 +582,7 @@ ConsoleFunction(getExecutableName, const char *, 1, 1, "getExecutableName()")
    return Platform::getExecutableName();
 }
 
-ConsoleFunction(getMainDotCsDir, const char *, 1, 1, "getExecutableName()")
+ConsoleFunction(getMainDotCsDir, const char *, 1, 1, "getMainDotCsDir()")
 {
    return Platform::getMainDotCsDir();
 }
