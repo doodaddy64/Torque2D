@@ -38,43 +38,6 @@ U32 Platform::getTime()
    return (U32)long_time;
 }
 
-void Platform::fileToLocalTime(const FileTime & ft, LocalTime * lt)
-{
-   if(!lt)
-      return;
-
-   dMemset(lt, 0, sizeof(LocalTime));
-
-   FILETIME winFileTime;
-   winFileTime.dwLowDateTime = ft.v1;
-   winFileTime.dwHighDateTime = ft.v2;
-
-   SYSTEMTIME winSystemTime;
-
-   // convert the filetime to local time
-   FILETIME convertedFileTime;
-   if(::FileTimeToLocalFileTime(&winFileTime, &convertedFileTime))
-   {
-      // get the time into system time struct
-      if(::FileTimeToSystemTime((const FILETIME *)&convertedFileTime, &winSystemTime))
-      {
-         SYSTEMTIME * time = &winSystemTime;
-
-         // fill it in...
-         lt->sec      = (U8)time->wSecond;
-         lt->min      = (U8)time->wMinute;
-         lt->hour     = (U8)time->wHour;
-         lt->month    = (U8)time->wMonth;
-         lt->monthday = (U8)time->wDay;
-         lt->weekday  = (U8)time->wDayOfWeek;
-         lt->year     = (U8)((time->wYear < 1900) ? 1900 : (time->wYear - 1900));
-
-         // not calculated
-         lt->yearday = 0;
-         lt->isdst = false;
-      }
-   }
-}
 
 U32 Platform::getRealMilliseconds()
 {
