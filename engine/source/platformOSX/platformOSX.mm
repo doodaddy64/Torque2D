@@ -2,9 +2,8 @@
 // Torque
 // Copyright GarageGames, LLC 2012
 //-----------------------------------------------------------------------------
+
 #import "platformOSX/platformOSX.h"
-#include "platform/platformSemaphore.h"
-#include "platform/platformInput.h"
 #include "platform/platformVideo.h"
 #include "game/gameInterface.h"
 
@@ -282,6 +281,22 @@ void Platform::shutdown()
 {
     Input::destroy();
     Video::destroy();
+}
+
+//-----------------------------------------------------------------------------
+
+bool Platform::excludeOtherInstances(const char *mutexName)
+{
+    #pragma message ("excludeOtherInstances() - How should this be implemented? Using a mutex?");
+    return false;
+}
+
+//-----------------------------------------------------------------------------
+
+bool Platform::checkOtherInstances(const char *mutexName)
+{
+    #pragma message ("checkOtherInstances() - How should this be implemented? Using a mutex?");
+    return false;
 }
 
 //-----------------------------------------------------------------------------
