@@ -1263,11 +1263,28 @@ bool AssetManager::refreshAsset( const char* pAssetId )
         Con::printf( "Asset Manager: Started refreshing Asset Id '%s'...", pAssetId );
     }    
 
+    // Fetch asset Id.
+    StringTableEntry assetId = StringTable->insert( pAssetId );
+
     // Is the asset private?
     if ( pAssetDefinition->mAssetPrivate )
     {
         // Yes, so notify asset of asset refresh only.
         pAssetDefinition->mpAssetBase->onAssetRefresh();
+
+        // Asset refresh notifications.
+        for( typeAssetPtrRefreshHash::iterator refreshNotifyItr = mAssetPtrRefreshNotifications.begin(); refreshNotifyItr != mAssetPtrRefreshNotifications.end(); ++refreshNotifyItr )
+        {
+            // Fetch pointed asset.
+            StringTableEntry pointedAsset = refreshNotifyItr->key->getAssetId();
+
+            // Ignore if the pointed asset is not a dependency.
+            if ( !doesAssetDependOn( pointedAsset, assetId ) )
+                continue;
+
+            // Perform refresh notification callback.
+            refreshNotifyItr->value->onAssetRefreshed( refreshNotifyItr->key );
+        }
     }
     // Is the asset definition allowed to refresh?
     else if ( pAssetDefinition->mAssetRefreshEnable )
@@ -1300,9 +1317,6 @@ bool AssetManager::refreshAsset( const char* pAssetId )
 
             // Fetch asset dependencies.
             TamlAssetDeclaredVisitor::typeAssetIdVector& assetDependencies = assetDeclaredVisitor.getAssetDependencies();
-
-            // Fetch asset Id.
-            StringTableEntry assetId = StringTable->insert( pAssetId );
 
             // Are there any asset dependences?
             if ( assetDependencies.size() > 0 )
