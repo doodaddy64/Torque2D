@@ -122,7 +122,7 @@
 
 bool dPathCopy(const char *fromName, const char *toName, bool nooverwrite)
 {
- 	return CopyFile(fromName,toName);
+    return CopyFile(fromName,toName);
 }
  
  //-----------------------------------------------------------------------------
@@ -337,10 +337,10 @@ bool dPathCopy(const char *fromName, const char *toName, bool nooverwrite)
           // skip . and .. directories
           if (dStrcmp(fEntry->d_name, ".") == 0 || dStrcmp(fEntry->d_name, "..") == 0)
              continue;
- 			
- 		// skip excluded directories
- 		if( Platform::isExcludedDirectory(fEntry->d_name))
- 			continue;
+            
+        // skip excluded directories
+        if( Platform::isExcludedDirectory(fEntry->d_name))
+            continue;
  
  
           char child[MaxPath];
@@ -355,9 +355,9 @@ bool dPathCopy(const char *fromName, const char *toName, bool nooverwrite)
           }
 
           if (recurseDepth > 0)
-	    RecurseDumpPath(child, childRelative, pattern, fileVector, recurseDepth - 1);
-	  else if (recurseDepth == -1)
-	    RecurseDumpPath(child, childRelative, pattern, fileVector, -1);
+        RecurseDumpPath(child, childRelative, pattern, fileVector, recurseDepth - 1);
+      else if (recurseDepth == -1)
+        RecurseDumpPath(child, childRelative, pattern, fileVector, -1);
        }      
        else
        {
@@ -568,7 +568,7 @@ bool dPathCopy(const char *fromName, const char *toName, bool nooverwrite)
          
          // position beyond EOS is OK
          finalPos = lseek(*((int *)handle), position, SEEK_CUR);
- 	break;
+    break;
      }
  
      if (0xffffffff == finalPos)
@@ -591,11 +591,11 @@ bool dPathCopy(const char *fromName, const char *toName, bool nooverwrite)
      
      if (Ok == currentStatus || EOS == currentStatus)
      {
- 	long	currentOffset = getPosition();                  // keep track of our current position
- 	long	fileSize;
- 	lseek(*((int *)handle), 0, SEEK_END);                     // seek to the end of the file
- 	fileSize = getPosition();                               // get the file size
- 	lseek(*((int *)handle), currentOffset, SEEK_SET);         // seek back to our old offset
+    long	currentOffset = getPosition();                  // keep track of our current position
+    long	fileSize;
+    lseek(*((int *)handle), 0, SEEK_END);                     // seek to the end of the file
+    fileSize = getPosition();                               // get the file size
+    lseek(*((int *)handle), currentOffset, SEEK_SET);         // seek back to our old offset
          return fileSize;                                        // success!
      }
      else
@@ -992,29 +992,7 @@ bool dPathCopy(const char *fromName, const char *toName, bool nooverwrite)
  
  //-----------------------------------------------------------------------------
  
- 
- // This is untested -- BJG
- 
- bool Platform::fileTimeToString(FileTime * time, char * string, U32 strLen)
- {
-    if(!time || !string)
-       return(false);
- 
-    dSprintf(string, strLen, "%ld", *time);
-    return(true);
- }
- 
- bool Platform::stringToFileTime(const char * string, FileTime * time)
- {
-    if(!time || !string)
-       return(false);
- 
-    *time = dAtoi(string);
- 
-    return(true);
- }
- 
- bool Platform::hasSubDirectory(const char *pPath)
+  bool Platform::hasSubDirectory(const char *pPath)
  {
    if (!pPath)
      return false;
@@ -1028,29 +1006,29 @@ bool dPathCopy(const char *fromName, const char *toName, bool nooverwrite)
  
    while (d = readdir(dip))
      {
-	bool isDir = false;
-	if (d->d_type == DT_UNKNOWN) 
-	{
-		char child [1024];
-		if ((pPath[dStrlen(pPath) - 1] == '/'))
-			dSprintf(child, 1024, "%s%s", pPath, d->d_name);
-		else
-			dSprintf(child, 1024, "%s/%s", pPath, d->d_name);
-		isDir = Platform::isDirectory (child);
-	}
-	else if (d->d_type & DT_DIR)
-		isDir = true;
-	  	if( isDir )
-	  	{
- 	  	// Skip the . and .. directories
- 	  	if (dStrcmp(d->d_name, ".") == 0 ||dStrcmp(d->d_name, "..") == 0)
- 		    continue;
- 		if (Platform::isExcludedDirectory(d->d_name))
- 		    continue;
- 		  Platform::clearExcludedDirectories();
- 		  closedir(dip);
- 		  return true;
- 	}
+    bool isDir = false;
+    if (d->d_type == DT_UNKNOWN) 
+    {
+        char child [1024];
+        if ((pPath[dStrlen(pPath) - 1] == '/'))
+            dSprintf(child, 1024, "%s%s", pPath, d->d_name);
+        else
+            dSprintf(child, 1024, "%s/%s", pPath, d->d_name);
+        isDir = Platform::isDirectory (child);
+    }
+    else if (d->d_type & DT_DIR)
+        isDir = true;
+        if( isDir )
+        {
+        // Skip the . and .. directories
+        if (dStrcmp(d->d_name, ".") == 0 ||dStrcmp(d->d_name, "..") == 0)
+            continue;
+        if (Platform::isExcludedDirectory(d->d_name))
+            continue;
+          Platform::clearExcludedDirectories();
+          closedir(dip);
+          return true;
+    }
      }
    closedir(dip);
    Platform::clearExcludedDirectories();
@@ -1066,9 +1044,9 @@ bool dPathCopy(const char *fromName, const char *toName, bool nooverwrite)
    if (subPath && (dStrncmp(subPath, "", 1) != 0))
      {
        if ((basePath[dStrlen(basePath) - 1]) == '/')
- 	dSprintf(Path, 1024, "%s%s", basePath, subPath);
+    dSprintf(Path, 1024, "%s%s", basePath, subPath);
        else
- 	dSprintf(Path, 1024, "%s/%s", basePath, subPath);
+    dSprintf(Path, 1024, "%s/%s", basePath, subPath);
      }
    else
      dSprintf(Path, 1024, "%s", basePath);
@@ -1081,79 +1059,79 @@ bool dPathCopy(const char *fromName, const char *toName, bool nooverwrite)
    if (!Platform::isExcludedDirectory(subPath))
      {
        if (noBasePath)
- 	{
- 	  // We have a path and it's not an empty string or an excluded directory
- 	  if ( (subPath && (dStrncmp (subPath, "", 1) != 0)) )
- 	    directoryVector.push_back(StringTable->insert(subPath));
- 	}
+    {
+      // We have a path and it's not an empty string or an excluded directory
+      if ( (subPath && (dStrncmp (subPath, "", 1) != 0)) )
+        directoryVector.push_back(StringTable->insert(subPath));
+    }
        else
- 	{
- 	  if ( (subPath && (dStrncmp(subPath, "", 1) != 0)) )
- 	    {
- 	      char szPath[1024];
- 	      dMemset(szPath, 0, 1024);
- 	      if ( (basePath[dStrlen(basePath) - 1]) != '/')
- 		dSprintf(szPath, 1024, "%s%s", basePath, subPath);
- 	      else
- 		dSprintf(szPath, 1024, "%s%s", basePath, &subPath[1]);
- 	      directoryVector.push_back(StringTable->insert(szPath));
- 	    }
- 	  else
- 	    directoryVector.push_back(StringTable->insert(basePath));
- 	}
+    {
+      if ( (subPath && (dStrncmp(subPath, "", 1) != 0)) )
+        {
+          char szPath[1024];
+          dMemset(szPath, 0, 1024);
+          if ( (basePath[dStrlen(basePath) - 1]) != '/')
+        dSprintf(szPath, 1024, "%s%s", basePath, subPath);
+          else
+        dSprintf(szPath, 1024, "%s%s", basePath, &subPath[1]);
+          directoryVector.push_back(StringTable->insert(szPath));
+        }
+      else
+        directoryVector.push_back(StringTable->insert(basePath));
+    }
      }
    //////////////////////////////////////////////////////////////////////////
    // Iterate through and grab valid directories
    //////////////////////////////////////////////////////////////////////////
  
-	while (d = readdir(dip))
-	{
-		bool	isDir;
-		isDir = false;
-		if (d->d_type == DT_UNKNOWN) 
-		{
-			char child [1024];
-			if ((Path[dStrlen(Path) - 1] == '/'))
-				dSprintf(child, 1024, "%s%s", Path, d->d_name);
-			else
-				dSprintf(child, 1024, "%s/%s", Path, d->d_name);
-			isDir = Platform::isDirectory (child);
-		}
-		else if (d->d_type & DT_DIR)
-		isDir = true;
-			
+    while (d = readdir(dip))
+    {
+        bool	isDir;
+        isDir = false;
+        if (d->d_type == DT_UNKNOWN) 
+        {
+            char child [1024];
+            if ((Path[dStrlen(Path) - 1] == '/'))
+                dSprintf(child, 1024, "%s%s", Path, d->d_name);
+            else
+                dSprintf(child, 1024, "%s/%s", Path, d->d_name);
+            isDir = Platform::isDirectory (child);
+        }
+        else if (d->d_type & DT_DIR)
+        isDir = true;
+            
        if ( isDir )
- 	{
- 	  if (dStrcmp(d->d_name, ".") == 0 ||
- 	      dStrcmp(d->d_name, "..") == 0)
- 	    continue;
- 	  if (Platform::isExcludedDirectory(d->d_name))
- 	    continue;
- 	  if ( (subPath && (dStrncmp(subPath, "", 1) != 0)) )
- 	    {
- 	      char child[1024];
- 	      if ((subPath[dStrlen(subPath) - 1] == '/'))
- 		dSprintf(child, 1024, "%s%s", subPath, d->d_name);
- 	      else
- 		dSprintf(child, 1024, "%s/%s", subPath, d->d_name);
- 	      if (currentDepth < recurseDepth || recurseDepth == -1 )
- 		recurseDumpDirectories(basePath, child, directoryVector,
- 				       currentDepth + 1, recurseDepth,
- 				       noBasePath);
- 	    }
- 	  else
- 	    {
- 	      char child[1024];
- 	      if ( (basePath[dStrlen(basePath) - 1]) == '/')
- 		dStrcpy (child, d->d_name);
- 	      else
- 		dSprintf(child, 1024, "/%s", d->d_name);
- 	      if (currentDepth < recurseDepth || recurseDepth == -1)
- 		recurseDumpDirectories(basePath, child, directoryVector, 
- 				       currentDepth + 1, recurseDepth, 
- 				       noBasePath);
- 	    }
- 	}
+    {
+      if (dStrcmp(d->d_name, ".") == 0 ||
+          dStrcmp(d->d_name, "..") == 0)
+        continue;
+      if (Platform::isExcludedDirectory(d->d_name))
+        continue;
+      if ( (subPath && (dStrncmp(subPath, "", 1) != 0)) )
+        {
+          char child[1024];
+          if ((subPath[dStrlen(subPath) - 1] == '/'))
+        dSprintf(child, 1024, "%s%s", subPath, d->d_name);
+          else
+        dSprintf(child, 1024, "%s/%s", subPath, d->d_name);
+          if (currentDepth < recurseDepth || recurseDepth == -1 )
+        recurseDumpDirectories(basePath, child, directoryVector,
+                       currentDepth + 1, recurseDepth,
+                       noBasePath);
+        }
+      else
+        {
+          char child[1024];
+          if ( (basePath[dStrlen(basePath) - 1]) == '/')
+        dStrcpy (child, d->d_name);
+          else
+        dSprintf(child, 1024, "/%s", d->d_name);
+          if (currentDepth < recurseDepth || recurseDepth == -1)
+        recurseDumpDirectories(basePath, child, directoryVector, 
+                       currentDepth + 1, recurseDepth, 
+                       noBasePath);
+        }
+    }
      }
    closedir(dip);
    return true;
@@ -1169,13 +1147,13 @@ bool dPathCopy(const char *fromName, const char *toName, bool nooverwrite)
  
 StringTableEntry Platform::getExecutableName()
 {
-	static StringTableEntry cwd = NULL;
+    static StringTableEntry cwd = NULL;
 
-	if (!cwd)
-	{
-		cwd = StringTable->insert(x86UNIXState->getExeName());
-	}
-	return cwd;
+    if (!cwd)
+    {
+        cwd = StringTable->insert(x86UNIXState->getExeName());
+    }
+    return cwd;
 
 }
 

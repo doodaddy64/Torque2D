@@ -127,7 +127,6 @@ struct Platform
     /// User.
     static StringTableEntry getUserHomeDirectory();
     static StringTableEntry getUserDataDirectory();
-    static bool getUserIsAdministrator();
 
     /// Window.
     static void initWindow(const Point2I &initialSize, const char *name);
@@ -156,10 +155,7 @@ struct Platform
     static void advanceTime(U32 delta);
     static S32 getBackgroundSleepTime();
     static void getLocalTime(LocalTime &);
-    static void fileToLocalTime(const FileTime &ft, LocalTime *lt);
     static S32 compareFileTimes(const FileTime &a, const FileTime &b);
-    static bool stringToFileTime(const char * string, FileTime * time);
-    static bool fileTimeToString(FileTime * time, char * string, U32 strLen);
 
     /// Math.
     static float getRandom();
@@ -172,7 +168,6 @@ struct Platform
     /// File IO.
     static StringTableEntry getCurrentDirectory();
     static bool setCurrentDirectory(StringTableEntry newDir);
-    static bool fileExistsAtPath(const char *filePath);
     static StringTableEntry getTemporaryDirectory();
     static StringTableEntry getTemporaryFileName();
     #ifdef TORQUE_OS_IOS
@@ -199,8 +194,6 @@ struct Platform
     static void addExcludedDirectory(const char *pDir);
     static void clearExcludedDirectories();
     static bool isExcludedDirectory(const char *pDir);
-    static void getVolumeNamesList( Vector<const char*>& out_rNameVector, bool bOnlyFixedDrives = false );
-    static void getVolumeInformationList( Vector<VolumeInformation>& out_rVolumeInfoVector, bool bOnlyFixedDrives = false );
     static bool createPath(const char *path);
     static bool deleteDirectory( const char* pPath );
     static bool fileDelete(const char *name);

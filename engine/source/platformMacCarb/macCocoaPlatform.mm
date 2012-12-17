@@ -64,12 +64,6 @@ StringTableEntry Platform::osGetTemporaryDirectory()
 
 #pragma mark ---- Administrator ----
 //-----------------------------------------------------------------------------
-bool Platform::getUserIsAdministrator()
-{
-   // if we can write to /Library, we're probably an admin
-   // HACK: this is not really very good, because people can chmod Library.
-   return (access("/Library", W_OK) == 0);
-}
 
 #pragma mark ---- MessageBox ----
 struct _NSStringMap

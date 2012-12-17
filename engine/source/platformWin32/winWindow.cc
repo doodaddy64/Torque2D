@@ -306,20 +306,6 @@ bool Platform::AlertYesNo(const char *windowTitle, const char *message)
 #endif
 }
 
-bool Platform::fileExistsAtPath(const char *filePath)
-{
-    struct stat fInfo;
-    if(stat(filePath,&fInfo))
-    {
-        //0 means success, anything else is failure and the file does not exist
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-}
-
 //--------------------------------------
 HIMC gIMEContext;
 

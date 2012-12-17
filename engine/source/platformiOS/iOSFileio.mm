@@ -891,11 +891,6 @@ bool Platform::dumpPath(const char *path, Vector<Platform::FileInfo>& fileVector
    return ret;
 }
 
-// TODO: implement stringToFileTime()
-bool Platform::stringToFileTime(const char * string, FileTime * time) { return false;}
-// TODO: implement fileTimeToString()
-bool Platform::fileTimeToString(FileTime * time, char * string, U32 strLen) { return false;}
-
 //----------------------------------------------------------------------------
 // Loading and Saving of data to the NSUserDefaults on the iOS / iPod Touch
 
