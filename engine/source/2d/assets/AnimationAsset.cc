@@ -231,6 +231,6 @@ void AnimationAsset::initializeAsset( void )
     // Call parent.
     Parent::initializeAsset();
 
-    // Currently there is not specified initialization required.
+    // Currently there is no specific initialization required.
 }
 
