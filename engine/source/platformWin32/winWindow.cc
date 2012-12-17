@@ -5,6 +5,7 @@
 
 #include "platformWin32/platformWin32.h"
 #include "platform/platform.h"
+#include "platformWin32/winWindow.h"
 #include "platformWin32/platformGL.h"
 #include "platform/platformVideo.h"
 #include "platformWin32/winOGLVideo.h"
@@ -1896,9 +1897,9 @@ bool Platform::openWebBrowser( const char* webAddress )
 //--------------------------------------
 
 // Creates the menu bar for the window
-void Platform::CreateMenuBar()
+void CreateWin32MenuBar( void )
 {
-   if( HasMenuBar() )
+   if( HasWin32MenuBar() )
    {
       DrawMenuBar( winState.appWindow );
       return;
@@ -1913,9 +1914,9 @@ void Platform::CreateMenuBar()
    }
 }
 
-void Platform::DestroyMenuBar()
+void DestroyWin32MenuBar( void )
 {
-   if( HasMenuBar() )
+   if( HasWin32MenuBar() )
       DestroyMenu( winState.appMenu );
 
    // Need to update platform window child rect?
@@ -1923,7 +1924,7 @@ void Platform::DestroyMenuBar()
    DrawMenuBar(winState.appWindow);
 }
 
-bool Platform::HasMenuBar()
+bool HasWin32MenuBar( void )
 {
    return (bool)IsMenu( winState.appMenu );
 }

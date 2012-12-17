@@ -5,6 +5,7 @@
 
 #include "platform/menus/popupMenu.h"
 #include "platformWin32/platformWin32.h"
+#include "platformWin32/winWindow.h"
 #include "memory/safeDelete.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -275,15 +276,7 @@ void PopupMenu::attachToMenuBar(S32 pos, const char *title)
 {
    if(winState.appMenu == NULL)
    {
-      Platform::CreateMenuBar();
-
-//      HMENU menu = CreateMenu();
-//      if(menu)
-//      {
-//         winState.appMenu = menu;
-//         SetMenu(winState.appWindow, menu);
-//         DrawMenuBar(winState.appWindow);
-//      }
+      CreateWin32MenuBar();
    }
 
    MENUITEMINFOA mii;

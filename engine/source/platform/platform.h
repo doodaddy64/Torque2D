@@ -144,9 +144,6 @@ struct Platform
     static bool AlertRetry(const char *windowTitle, const char *message);
     static bool AlertYesNo(const char *windowTitle, const char *message);
     static S32 messageBox(const UTF8 *title, const UTF8 *message, MBButtons buttons = MBOkCancel, MBIcons icon = MIInformation);
-    static void CreateMenuBar();
-    static void DestroyMenuBar();
-    static bool HasMenuBar();
 
     /// Input.
     static void enableKeyboardTranslation(void);

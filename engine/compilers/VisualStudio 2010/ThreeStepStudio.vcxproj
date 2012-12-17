@@ -961,6 +961,7 @@
     <ClInclude Include="..\..\source\persistence\taml\taml_ScriptBinding.h" />
     <ClInclude Include="..\..\source\persistence\tinyXML\tinystr.h" />
     <ClInclude Include="..\..\source\persistence\tinyXML\tinyxml.h" />
+    <ClInclude Include="..\..\source\platformWin32\winWindow.h" />
     <ClInclude Include="..\..\source\platform\nativeDialogs\fileDialog_ScriptBinding.h" />
     <ClInclude Include="..\..\source\platform\platformCPU.h" />
     <ClInclude Include="..\..\source\platform\platformEndian.h" />

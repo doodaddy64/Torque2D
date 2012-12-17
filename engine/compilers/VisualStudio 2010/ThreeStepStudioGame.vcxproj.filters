@@ -2672,6 +2672,9 @@
     <ClInclude Include="..\..\source\platform\platformInput_ScriptBinding.h">
       <Filter>Source Files\platform</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\platformWin32\winWindow.h">
+      <Filter>Source Files\platformWin32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\source\math\mMath_ASM.asm">
