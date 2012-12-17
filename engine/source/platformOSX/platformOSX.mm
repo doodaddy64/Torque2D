@@ -285,17 +285,17 @@ void Platform::shutdown()
 
 //-----------------------------------------------------------------------------
 
+#pragma message "excludeOtherInstances() - How should this be implemented? Using a mutex?"
 bool Platform::excludeOtherInstances(const char *mutexName)
 {
-    #pragma message ("excludeOtherInstances() - How should this be implemented? Using a mutex?");
     return false;
 }
 
 //-----------------------------------------------------------------------------
 
+#pragma message "checkOtherInstances() - How should this be implemented? Using a mutex?"
 bool Platform::checkOtherInstances(const char *mutexName)
 {
-    #pragma message ("checkOtherInstances() - How should this be implemented? Using a mutex?");
     return false;
 }
 
@@ -358,4 +358,13 @@ void Platform::forceShutdown(S32 returnValue)
 void Platform::debugBreak()
 {
     raise(SIGTRAP);
+}
+
+//-----------------------------------------------------------------------------
+
+void Platform::outputDebugString(const char *string)
+{
+    fprintf(stderr, string, NULL );
+    fprintf(stderr, "\n" );
+    fflush(stderr);
 }
