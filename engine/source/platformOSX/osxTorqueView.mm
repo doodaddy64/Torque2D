@@ -15,7 +15,7 @@
 - (void)getModifierKey:(U32&)modifiers event:(NSEvent *)event;
 - (void)processMouseButton:(NSEvent *)event button:(KeyCodes)button action:(U8)action;
 - (void)processMouseDrag:(NSEvent *)event;
-- (void)processKeyEvent:(NSEvent *)event action:(U8)action;
+- (void)processKeyEvent:(NSEvent *)event make:(BOOL)make;
 @end
 
 @implementation OSXTorqueView
@@ -266,7 +266,7 @@
 
 //-----------------------------------------------------------------------------
 // Processes keyboard up and down events, posts to the event system
-- (void)processKeyEvent:(NSEvent *)event action:(U8)action
+- (void)processKeyEvent:(NSEvent *)event make:(BOOL)make
 {
     // If input and keyboard are enabled
     if (!Input::isEnabled() && !Input::isKeyboardEnabled())
@@ -283,11 +283,21 @@
     U32 modifiers = 0;
     [self getModifierKey:modifiers event:event];
 
-    // Find out if this is a repeating key
-    BOOL repeat = [event isARepeat];
-
     // Build the input event
     InputEvent torqueEvent;
+
+    F32 fValue = 1.0f;
+    U8 action = SI_MAKE;
+
+    if (!make)
+    {
+        action = SI_BREAK;
+        fValue = 0.0f;
+    }
+    else if(make && [event isARepeat])
+    {
+        action = SI_REPEAT;
+    }
 
     torqueEvent.deviceType = KeyboardDeviceType;
     torqueEvent.deviceInst = 0;
@@ -296,7 +306,7 @@
     torqueEvent.modifier = modifiers;
     torqueEvent.ascii = 0;
     torqueEvent.action = action;
-    torqueEvent.fValue = 1.0f;
+    torqueEvent.fValue = fValue;
     torqueEvent.ascii = chars;
 
     // Post the input event
@@ -429,12 +439,7 @@
     if (!Input::isEnabled() && !Input::isKeyboardEnabled())
         return;
 
-    // Find out if this is a repeating key
-    BOOL isARepeat = [event isARepeat];
-
-    U8 action = isARepeat ? SI_REPEAT : SI_MAKE;
-
-    [self processKeyEvent:event action:action];
+    [self processKeyEvent:event make:YES];
 }
 
 //-----------------------------------------------------------------------------
@@ -445,7 +450,7 @@
     if (!Input::isEnabled() && !Input::isKeyboardEnabled())
         return;
 
-    [self processKeyEvent:event action:SI_BREAK];
+    [self processKeyEvent:event make:NO];
 }
 
 @end
