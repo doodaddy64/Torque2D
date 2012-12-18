@@ -2,7 +2,8 @@
 
 function startMelvTesting()
 {
-    setScreenMode( 1920, 1200, 32, false );
+       
+    setScreenMode( 1024, 768, 32, false );
     //setScreenMode( 2560, 1600, 32, true );
 
 	$NoImageRenderProxy = new RenderProxy()
@@ -57,37 +58,20 @@ function startMelvTesting()
     testScene.setDebugOn( 0, 2, 3 );
     
     
-    %asset = new ImageAsset()
-    {
-        ImageFile = expandPath("^{MelvTesting}/assets/images/Curiosity.jpg");
-    };
-    
-    %assetId = AssetDatabase.addPrivateAsset( %asset );
-
-    %sprite = new Sprite();
-    testScene.addToScene( %sprite );    
-    %sprite.imageMap = %assetId;
-    %sprite.setSize( 100, 75 );
-    
-    AssetDatabase.removeSingleDeclaredAsset( %assetId );
-    //return;
-    
-    return;    
-	
 	%composite = new CompositeSprite();
 	testScene.addToScene( %composite );
 	%composite.BatchIsolated = "true";
 
-    %composite.setDefaultSpriteStride( 5.2345678, 5.2345678 );
-    %composite.setDefaultSpriteSize( 4.56789 );
+    %composite.setDefaultSpriteStride( 1, 1 );
+    %composite.setDefaultSpriteSize( 1 );
     
-    %composite.setAngle( 30.0001 );
+    //%composite.setAngle( 30.0001 );
 	
 	%frame = 0;
 	
-    for ( %y = -3; %y < 3; %y++ )
+    for ( %y = -30; %y <= 30; %y++ )
 	{
-	    for ( %x = -3; %x < 3; %x++ )
+	    for ( %x = -30; %x <= 30; %x++ )
         {
             %composite.addSprite( %x, %y );
             //%composite.setSpriteImage( "{MelvTesting}:isotiles2", getRandom(0,4) );
@@ -101,7 +85,7 @@ function startMelvTesting()
 	}
 	
 	testSceneWindow2D.setCurrentCameraPosition( 0, 0 );
-	
+	testScene.setDebugSceneObject( %composite );
 	//%composite.setAngularVelocity( 20 );
 	
     //%assetTags = AssetDatabase.getAssetTags();    
@@ -208,6 +192,33 @@ function testScreen()
     new Scene(testScene);
     testSceneWindow2D.setScene( testScene );
     Canvas.setContent(testSceneWindow2D);   
+    
+    
+    if(!isObject(MelvDebugProfile)) new GuiControlProfile (MelvDebugProfile)
+    {
+        tab = false;
+        canKeyFocus = false;
+        hasBitmapArray = false;
+        mouseOverSelected = false;
+
+        // fill color
+        opaque = false;
+        fillColor = "255 255 255 48";
+        
+        // font
+        fontType = $platform $= "windows" ? "lucida console" : "monaco";
+        fontSize = 10;
+        fontColor = "255 255 255 255";
+
+        // border color
+        border = 1;
+        borderColor   = "100 100 100 255";
+        borderColorHL = "128 128 128";
+        borderColorNA = "64 64 64";
+
+    }; 
+    
+    testSceneWindow2D.Profile = MelvDebugProfile;  
     
     //new GuiSceneObjectCtrl(testT2DViewer);    
     //testT2DViewer.position = "0 0";

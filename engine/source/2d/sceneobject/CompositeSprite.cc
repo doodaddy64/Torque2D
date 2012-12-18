@@ -62,26 +62,11 @@ void CompositeSprite::preIntegrate( const F32 totalTime, const F32 elapsedTime, 
         setBatchTransform( getRenderTransform() );
     }
 
-    // Is the render AABB dirty?
-    if ( getRenderAABBDirty() )
+    // Are the render extents dirty?
+    if ( getLocalExtentsDirty() )
     {
-        // Yes, so fetch the render AABB.
-        const b2AABB& renderAABB = getRenderAABB();
-    
-        // Fetch render transform.
-        const b2Transform renderTransform = getRenderTransform();
-
-        // Calculate local render extents.
-        b2Vec2 localLowerExtent = b2MulT( renderTransform, renderAABB.lowerBound );
-        b2Vec2 localUpperExtent = b2MulT( renderTransform, renderAABB.upperBound );
-
-        // Calculate size.
-        const Vector2 size(
-            mFabs(localUpperExtent.x > localLowerExtent.x ? localUpperExtent.x : localLowerExtent.x) * 2.0f,
-            mFabs(localUpperExtent.y > localLowerExtent.y ? localUpperExtent.y : localLowerExtent.y) * 2.0f );
-
-        // Set size.
-        setSize( size );
+        // Yes, so set size as local extents.
+        setSize( getLocalExtents() );
     }
 
     // Call parent.

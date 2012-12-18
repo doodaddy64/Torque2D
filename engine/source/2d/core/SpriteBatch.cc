@@ -26,6 +26,8 @@ SpriteBatch::SpriteBatch() :
     mRenderAABB.lowerBound.Set(-0.5f, -0.5f);
     mRenderAABB.upperBound.Set(0.5f, 0.5f);
     mRenderAABBDirty = true;
+    mLocalExtents.SetZero();
+    mLocalExtentsDirty = true;
 }
 
 //------------------------------------------------------------------------------
@@ -127,7 +129,7 @@ U32 SpriteBatch::addSprite( const LogicalPosition& logicalPosition )
     // Insert into look-up.
     mSpriteLookup.insert( mSelectedSprite->getKey(), mSelectedSprite->getBatchId() );
 
-    return mSelectedSprite->getBatchId();;
+    return mSelectedSprite->getBatchId();
 }
 
 //------------------------------------------------------------------------------
@@ -722,6 +724,37 @@ void SpriteBatch::updateRenderAABB( void )
 
     // Flag as NOT dirty.
     mRenderAABBDirty = false;
+}
+
+//------------------------------------------------------------------------------
+
+void SpriteBatch::updateLocalExtents( void )
+{
+    // Finish if the local extents are not dirty.
+    if ( !mLocalExtentsDirty )
+        return;
+
+    // Yes, so fetch the render AABB.
+    const b2AABB& renderAABB = getRenderAABB();
+    
+    // Fetch batch transform.
+    const b2Transform& batchTransform = getBatchTransform();
+
+    // Calculate local render extents.
+    b2Vec2 localLowerExtent = b2MulT( batchTransform, renderAABB.lowerBound );
+    b2Vec2 localUpperExtent = b2MulT( batchTransform, renderAABB.upperBound );
+
+    // Calculate maximum extents.
+    const F32 lowerExtentX = mFabs(localLowerExtent.x);
+    const F32 lowerExtentY = mFabs(localLowerExtent.y);
+    const F32 upperExtentX = mFabs(localUpperExtent.x);
+    const F32 upperExtentY = mFabs(localUpperExtent.y);
+
+    // Calculate local extents.
+    mLocalExtents.Set( mFabs(lowerExtentX > upperExtentX ? lowerExtentX : upperExtentX) * 2.0f, mFabs(lowerExtentY > upperExtentY ? lowerExtentY : upperExtentY) * 2.0f );
+
+    // Flag as NOT dirty.
+    mLocalExtentsDirty = false;
 }
 
 //------------------------------------------------------------------------------

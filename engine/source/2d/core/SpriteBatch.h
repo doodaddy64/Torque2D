@@ -74,6 +74,8 @@ private:
     typeSpriteItemVector            mRenderQuery;
     bool                            mRenderAABBDirty;
     b2AABB                          mRenderAABB;
+    bool                            mLocalExtentsDirty;
+    Vector2                         mLocalExtents;
 
 public:
     SpriteBatch();
@@ -84,7 +86,11 @@ public:
 
     inline void setRenderAABBDirty( void ) { mRenderAABBDirty = true; }
     inline bool getRenderAABBDirty( void ) const { return mRenderAABBDirty; }
-    const b2AABB& getRenderAABB( void ) { if ( mRenderAABBDirty ) updateRenderAABB(); return mRenderAABB; }
+    inline const b2AABB& getRenderAABB( void ) { if ( mRenderAABBDirty ) updateRenderAABB(); return mRenderAABB; }
+
+    inline void setLocalExtentsDirty( void ) { mLocalExtentsDirty = true; }
+    inline bool getLocalExtentsDirty( void ) const { return mLocalExtentsDirty; }
+    inline const Vector2& getLocalExtents( void ) { if ( getLocalExtentsDirty() ) updateLocalExtents(); return mLocalExtents; }
 
     const b2Transform& getBatchTransform( void ) const { return mWorldTransform; }
     virtual void copyTo( SpriteBatch* pSpriteBatch ) const;
@@ -169,6 +175,7 @@ protected:
     SpriteBatchItem* findSpriteId( const U32 batchId );
 
     void updateRenderAABB( void );
+    void updateLocalExtents( void );
 
     virtual SpriteBatchItem* createSprite( const LogicalPosition& logicalPosition );
 
