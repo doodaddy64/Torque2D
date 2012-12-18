@@ -4,6 +4,7 @@
 *.xcuserdatad
 /tmp/*
 *.dso
+*.edso
 *.user
 *.sdf
 *.suo
