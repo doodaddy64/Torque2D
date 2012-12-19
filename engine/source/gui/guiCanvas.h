@@ -62,6 +62,11 @@ protected:
    typedef GuiControl Parent;
    typedef SimObject Grandparent;
 
+    /// Background color.
+    ColorF                      mBackgroundColor;
+    bool                        mUseBackgroundColor;
+
+
    /// @name Rendering
    /// @{
 
@@ -147,6 +152,15 @@ public:
    DECLARE_CONOBJECT(GuiCanvas);
    GuiCanvas();
    virtual ~GuiCanvas();
+
+    static void             initPersistFields();
+
+
+    /// Background color.
+    inline void             setBackgroundColor( const ColorF& backgroundColor ) { mBackgroundColor = backgroundColor; }
+    inline const ColorF&    getBackgroundColor( void ) const            { return mBackgroundColor; }
+    inline void             setUseBackgroundColor( const bool useBackgroundColor ) { mUseBackgroundColor = useBackgroundColor; }
+    inline bool             getUseBackgroundColor( void ) const         { return mUseBackgroundColor; }
 
    /// @name Rendering methods
    ///

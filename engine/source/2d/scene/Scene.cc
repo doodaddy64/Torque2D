@@ -143,6 +143,10 @@ Scene::Scene() :
 
     /// Window rendering.
     mpCurrentRenderWindow(NULL),
+    
+    /// Background color.
+    mBackgroundColor( 0.0f, 0.0f, 0.0f, 0.0f ),
+    mUseBackgroundColor(false),   
 
     /// Miscellaneous.
     mIsEditorScene(0),
@@ -354,6 +358,8 @@ void Scene::initPersistFields()
     addProtectedField("Gravity", TypeT2DVector, Offset(mWorldGravity, Scene), &setGravity, &getGravity, &writeGravity, "" );
     addField("VelocityIterations", TypeS32, Offset(mVelocityIterations, Scene), &writeVelocityIterations, "" );
     addField("PositionIterations", TypeS32, Offset(mPositionIterations, Scene), &writePositionIterations, "" );
+    addField("UseBackgroundColor", TypeBool, Offset(mUseBackgroundColor, Scene), &writeUseBackgroundColor, "" );
+    addField("BackgroundColor", TypeColorF, Offset(mBackgroundColor, Scene), &writeBackgroundColor, "" );
 
     // Layer sort modes.
     char buffer[64];
@@ -923,6 +929,13 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
     pDebugStats->batchLayerFlush                = 0;
     pDebugStats->batchNoBatchFlush              = 0;
     pDebugStats->batchAnonymousFlush            = 0;
+
+    // Clear the background color if requested.
+    if ( mUseBackgroundColor )
+    {
+        glClearColor( mBackgroundColor.red, mBackgroundColor.green, mBackgroundColor.blue, mBackgroundColor.alpha );
+        glClear(GL_COLOR_BUFFER_BIT);	
+    }
 
     // Clear world query.
     mpWorldQuery->clearQuery();

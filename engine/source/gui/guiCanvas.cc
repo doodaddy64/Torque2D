@@ -3,8 +3,8 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#include "console/console.h"
 #include "torqueConfig.h"
+#include "console/consoleInternal.h"
 #include "debug/profiler.h"
 #include "graphics/dgl.h"
 #include "platform/event.h"
@@ -211,6 +211,112 @@ ConsoleMethod( GuiCanvas, getMouseControl, S32, 2, 2, "Gets the gui control unde
    return NULL;
 }
 
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(GuiCanvas, setBackgroundColor, void, 3, 6,    "(float red, float green, float blue, [float alpha = 1.0]) - Sets the background color for the canvas."
+                                                            "@param red The red value.\n"
+                                                            "@param green The green value.\n"
+                                                            "@param blue The blue value.\n"
+                                                            "@param alpha The alpha value.\n"
+                                                            "@return No return Value.")
+{
+    // The colors.
+    F32 red;
+    F32 green;
+    F32 blue;
+    F32 alpha = 1.0f;
+
+    // Grab the element count.
+    const U32 elementCount = Utility::mGetStringElementCount(argv[2]);
+
+    // Space separated.
+    if (argc < 4)
+    {
+        // ("R G B [A]")
+        if ((elementCount == 3) || (elementCount == 4))
+        {
+            // Extract the color.
+            red   = dAtof(Utility::mGetStringElement(argv[2], 0));
+            green = dAtof(Utility::mGetStringElement(argv[2], 1));
+            blue  = dAtof(Utility::mGetStringElement(argv[2], 2));
+
+            // Grab the alpha if it's there.
+            if (elementCount > 3)
+            alpha = dAtof(Utility::mGetStringElement(argv[2], 3));
+        }
+
+        // Invalid.
+        else
+        {
+            Con::warnf("GuiCanvas::setBackgroundColor() - Invalid Number of parameters!");
+            return;
+        }
+    }
+
+    // (R, G, B)
+    else if (argc >= 5)
+    {
+        red   = dAtof(argv[2]);
+        green = dAtof(argv[3]);
+        blue  = dAtof(argv[4]);
+
+        // Grab the alpha if it's there.
+        if (argc > 5)
+            alpha = dAtof(argv[5]);
+    }
+
+    // Invalid.
+    else
+    {
+        Con::warnf("GuiCanvas::setBackgroundColor() - Invalid Number of parameters!");
+        return;
+    }
+
+    // Set background color.
+    object->setBackgroundColor(ColorF(red, green, blue, alpha) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(GuiCanvas, getBackgroundColor, const char*, 2, 2, "Gets the background color for the canvas.\n"
+                                                                "@return (float red / float green / float blue / float alpha) The background color for the canvas.")
+{
+    // Get the background color.
+    const ColorF& backgroundColor = object->getBackgroundColor();
+
+    // Create Returnable Buffer.
+    char* pBuffer = Con::getReturnBuffer(64);
+
+    // Format Buffer.
+    dSprintf(pBuffer, 64, "%g %g %g %g", backgroundColor.red, backgroundColor.green, backgroundColor.blue, backgroundColor.alpha );
+
+    // Return buffer.
+    return pBuffer;
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(GuiCanvas, setUseBackgroundColor, void, 3, 3, "Sets whether to use the canvas background color or not.\n"
+                                                            "@param useBackgroundColor Whether to use the canvas background color or not.\n"
+                                                            "@return No return value." )
+{
+    // Fetch flag.
+    const bool useBackgroundColor = dAtob(argv[2]);
+
+    // Set the flag.
+    object->setUseBackgroundColor( useBackgroundColor );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(GuiCanvas, getUseBackgroundColor, bool, 2, 2, "Gets whether the canvas background color is in use or not.\n"
+                                                            "@return Whether the canvas background color is in use or not." )
+{
+    // Get the flag.
+    return object->getUseBackgroundColor();
+}
+
+
 ConsoleFunction( createCanvas, bool, 2, 2, "( WindowTitle ) Use the createCanvas function to initialize the canvas.\n"
                                                                 "@return Returns true on success, false on failure.\n"
                                                                 "@sa createEffectCanvas")
@@ -357,6 +463,10 @@ GuiCanvas::GuiCanvas()
    mDoubleClickHeight = Input::getDoubleClickHeight();
    mDoubleClickTime = Input::getDoubleClickTime();
 
+    /// Background color.
+    mBackgroundColor.set( 0.0f, 0.0f, 0.0f, 0.0f );
+    mUseBackgroundColor = true;
+
    _WPB(INIT);
 }
 
@@ -366,6 +476,19 @@ GuiCanvas::~GuiCanvas()
 
    if(Canvas == this)
       Canvas = 0;
+}
+
+
+//-----------------------------------------------------------------------------
+
+void GuiCanvas::initPersistFields()
+{
+    // Call Parent.
+    Parent::initPersistFields();
+
+    // Physics.
+    addField("UseBackgroundColor", TypeBool, Offset(mUseBackgroundColor, GuiCanvas), "" );
+    addField("BackgroundColor", TypeColorF, Offset(mBackgroundColor, GuiCanvas), "" );
 }
 
 //------------------------------------------------------------------------------
@@ -1500,9 +1623,12 @@ void GuiCanvas::renderFrame(bool preRenderOnly, bool bufferSwap /* = true */)
    buildUpdateUnion(&updateUnion);
    if (updateUnion.intersect(screenRect))
    {
-      //fill in with black first
-      glClearColor(0, 0, 0, 0);
-      glClear(GL_COLOR_BUFFER_BIT);
+    // Clear the background color if requested.
+    if ( mUseBackgroundColor )
+    {
+        glClearColor( mBackgroundColor.red, mBackgroundColor.green, mBackgroundColor.blue, mBackgroundColor.alpha );
+        glClear(GL_COLOR_BUFFER_BIT);	
+    }
 
       //render the dialogs
       iterator i;
