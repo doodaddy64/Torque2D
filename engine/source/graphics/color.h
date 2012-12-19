@@ -70,7 +70,7 @@ class ColorF
    bool operator==(const ColorF&) const;
    bool operator!=(const ColorF&) const;
 
-   operator const F32*() const { return &red; }
+   const F32* address( void ) const { return &red; }
 
    // This MUST be unique for the RGBA state as it is used as a hash key.
    operator const U32() const { return getRGBAPack(); }
@@ -147,7 +147,7 @@ class ColorI
 
    operator ColorF() const;
 
-   operator const U8*() const { return &red; }
+   const U8* address( void ) const { return &red; }
 
    // This MUST be unique for the RGBA state as it is used as a hash key.
    operator const U32() const { return getRGBAPack(); }

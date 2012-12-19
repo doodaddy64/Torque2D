@@ -207,7 +207,7 @@ void GuiGraphCtrl::onRender(Point2I offset, const RectI &updateRect)
 
 			glBegin(GL_QUADS);
 
-			glColor3fv(mPlots[k].mGraphColor);
+			glColor3fv(mPlots[k].mGraphColor.address());
 
 			S32 temp1,temp2;
 			temp1 = 0;
@@ -242,7 +242,7 @@ void GuiGraphCtrl::onRender(Point2I offset, const RectI &updateRect)
 		{
 			glBegin(GL_QUADS);
 
-			glColor3fv(mPlots[k].mGraphColor);
+			glColor3fv(mPlots[k].mGraphColor.address());
 
 			S32 temp1,temp2;
 			temp1 = 0;
@@ -302,7 +302,7 @@ void GuiGraphCtrl::onRender(Point2I offset, const RectI &updateRect)
 			else
 				glBegin(GL_LINE_STRIP);
 
-			glColor3fv(mPlots[k].mGraphColor);
+			glColor3fv(mPlots[k].mGraphColor.address());
 
 			for (S32 sample = 0; sample < getExtent().x; sample++)
 			{

@@ -269,104 +269,104 @@ void dglDrawBlendBox(RectI &bounds, ColorF &c1, ColorF &c2, ColorF &c3, ColorF &
    glBegin(GL_QUADS);
 
       // Color
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(l, t);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r, t);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r, b);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(l, b);
 
       // White
-      glColor4fv(c1);
+      glColor4fv(c1.address());
       glVertex2f(l, t);
-      glColor4fv(colorAlphaW);
+      glColor4fv(colorAlphaW.address());
       glVertex2f(r, t);
-      glColor4fv(colorAlphaW);
+      glColor4fv(colorAlphaW.address());
       glVertex2f(r, b);
-      glColor4fv(c1);
+      glColor4fv(c1.address());
       glVertex2f(l, b);
 
       // Black
-      glColor4fv(c3);
+      glColor4fv(c3.address());
       glVertex2f(l, t);
-      glColor4fv(c3);
+      glColor4fv(c3.address());
       glVertex2f(r, t);
-      glColor4fv(c4);
+      glColor4fv(c4.address());
       glVertex2f(r, b);
-      glColor4fv(c4);
+      glColor4fv(c4.address());
       glVertex2f(l, b);
 
       // Top right
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r, t);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r, t+1);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r-1, t+1);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r-1, t);
       
       // Top-Right Corner
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r, t);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r, t-1);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r+1, t-1);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r+1, t);
 
       // Top-Right Corner
-      glColor4fv(c1);
+      glColor4fv(c1.address());
       glVertex2f(l, t);
-      glColor4fv(c1);
+      glColor4fv(c1.address());
       glVertex2f(l, t-1);
-      glColor4fv(c1);
+      glColor4fv(c1.address());
       glVertex2f(l-1, t-1);
-      glColor4fv(c1);
+      glColor4fv(c1.address());
       glVertex2f(l-1, t);
 
       // Top row
-      glColor4fv(c1);
+      glColor4fv(c1.address());
       glVertex2f(l, t);
-      glColor4fv(c1);
+      glColor4fv(c1.address());
       glVertex2f(l, t-1);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r, t-1);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r, t);
       
 
       // Right side
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r, t);
-      glColor4fv(c2);
+      glColor4fv(c2.address());
       glVertex2f(r+1, t);
-      glColor4fv(c4);
+      glColor4fv(c4.address());
       glVertex2f(r+1, b);
-      glColor4fv(c4);
+      glColor4fv(c4.address());
       glVertex2f(r, b);
 
       // Left side
-      glColor4fv(c1);
+      glColor4fv(c1.address());
       glVertex2f(l, t);
-      glColor4fv(c1);
+      glColor4fv(c1.address());
       glVertex2f(l-1, t);
-      glColor4fv(c4);
+      glColor4fv(c4.address());
       glVertex2f(l-1, b);
-      glColor4fv(c4);
+      glColor4fv(c4.address());
       glVertex2f(l, b);
 
       // Bottom row
-      glColor4fv(c4);
+      glColor4fv(c4.address());
       glVertex2f(l-1, b);
-      glColor4fv(c4);
+      glColor4fv(c4.address());
       glVertex2f(l-1, b+1);
-      glColor4fv(c4);
+      glColor4fv(c4.address());
       glVertex2f(r+1, b+1);
-      glColor4fv(c4);
+      glColor4fv(c4.address());
       glVertex2f(r+1, b);
 
    glEnd();
