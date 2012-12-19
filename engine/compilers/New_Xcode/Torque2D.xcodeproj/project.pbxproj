@@ -2931,13 +2931,13 @@
 		86BC7FB916518D4600D96ADF /* graphics */ = {
 			isa = PBXGroup;
 			children = (
-				2AE851D11681E56E00193F17 /* color.cc */,
 				86BC7FBA16518D4600D96ADF /* bitmapBmp.cc */,
 				86BC7FBB16518D4600D96ADF /* bitmapJpeg.cc */,
 				86BC7FBC16518D4600D96ADF /* bitmapPng.cc */,
 				86BC7FBD16518D4600D96ADF /* bitmapPvr.cc */,
 				86BC7FBE16518D4600D96ADF /* bitRender.cc */,
 				86BC7FBF16518D4600D96ADF /* bitRender.h */,
+				2AE851D11681E56E00193F17 /* color.cc */,
 				86BC7FC016518D4600D96ADF /* color.h */,
 				86BC7FC116518D4600D96ADF /* dgl.cc */,
 				86BC7FC216518D4600D96ADF /* dgl.h */,

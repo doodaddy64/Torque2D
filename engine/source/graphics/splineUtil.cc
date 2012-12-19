@@ -140,7 +140,7 @@ void drawSplineBeam( SplineBeamInfo &sbi )
       }
       else
       {
-         glColor4fv( sbi.color );
+         glColor4fv( sbi.color.address());
       }
 
       glTexCoord2f( u, 0.0 );

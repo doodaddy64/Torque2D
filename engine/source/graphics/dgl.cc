@@ -84,7 +84,7 @@ void dglDrawBitmapStretchSR(TextureObject* texture,
    
       ColorF kModulationColor;
       dglGetBitmapModulation(&kModulationColor);
-      glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, kModulationColor);
+      glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, kModulationColor.address());
    }
    else
    {
@@ -198,7 +198,7 @@ void dglDrawBitmapStretchSR(TextureObject* texture,
 #endif
    if (bSilhouette)
    {
-      glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, ColorF(0.0f, 0.0f, 0.0f, 0.0f));
+      glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, ColorF(0.0f, 0.0f, 0.0f, 0.0f).address());
    }
 
    glDisable(GL_BLEND);
