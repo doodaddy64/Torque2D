@@ -1009,12 +1009,19 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                     else
                     {
                         // No, so perform the render preparation for it.
-                        pSceneRenderQueue->createRenderRequest()->set(
+                        SceneRenderRequest* pSceneRenderRequest = pSceneRenderQueue->createRenderRequest()->set(
                             pSceneObject,
                             pSceneObject->getRenderPosition(),
                             pSceneObject->getSceneLayerDepth(),
                             pSceneObject->getSortPoint(),
                             pSceneObject->getSerialId() );
+
+                        // Prepare the blending for it.
+                        pSceneRenderRequest->mBlendMode = pSceneObject->getBlendMode();
+                        pSceneRenderRequest->mBlendColor = pSceneObject->getBlendColor();
+                        pSceneRenderRequest->mSrcBlendFactor = pSceneObject->getSrcBlendFactor();
+                        pSceneRenderRequest->mDstBlendFactor = pSceneObject->getDstBlendFactor();
+                        pSceneRenderRequest->mAlphaTest = pSceneObject->getAlphaTest();
                     }
                 }
 

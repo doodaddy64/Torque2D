@@ -72,6 +72,9 @@ class ColorF
 
    operator const F32*() const { return &red; }
 
+   // This MUST be unique for the RGBA state as it is used as a hash key.
+   operator const U32() const { return getRGBAPack(); }
+
    U32 getARGBPack() const;
    U32 getRGBAPack() const;
    U32 getBGRAPack() const;
@@ -145,6 +148,9 @@ class ColorI
    operator ColorF() const;
 
    operator const U8*() const { return &red; }
+
+   // This MUST be unique for the RGBA state as it is used as a hash key.
+   operator const U32() const { return getRGBAPack(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -322,14 +328,14 @@ inline ColorF ColorF::operator-() const
 
 inline bool ColorF::operator==(const ColorF& in_Cmp) const
 {
-   return (red == in_Cmp.red && green == in_Cmp.green && blue == in_Cmp.blue && alpha == in_Cmp.alpha);
+   return ( mIsEqual(red, in_Cmp.red) && mIsEqual(green, in_Cmp.green) && mIsEqual(blue, in_Cmp.blue) && mIsEqual(alpha, in_Cmp.alpha) );
 }
 
 //-----------------------------------------------------------------------------
 
 inline bool ColorF::operator!=(const ColorF& in_Cmp) const
 {
-   return (red != in_Cmp.red || green != in_Cmp.green || blue != in_Cmp.blue || alpha != in_Cmp.alpha);
+   return ( mNotEqual(red, in_Cmp.red) || mNotEqual(green, in_Cmp.green) || mNotEqual(blue, in_Cmp.blue) || mNotEqual(alpha, in_Cmp.alpha) );
 }
 
 //-----------------------------------------------------------------------------

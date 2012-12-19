@@ -226,12 +226,19 @@ ConsoleMethod(GuiCanvas, setBackgroundColor, void, 3, 6,    "(float red, float g
     F32 blue;
     F32 alpha = 1.0f;
 
-    // Grab the element count.
-    const U32 elementCount = Utility::mGetStringElementCount(argv[2]);
-
     // Space separated.
-    if (argc < 4)
+    if (argc == 3)
     {
+        // Grab the element count.
+        const U32 elementCount = Utility::mGetStringElementCount(argv[2]);
+
+        // Has a single argument been specified?
+        if ( elementCount == 1 )
+        {
+            object->setDataField( StringTable->insert("BackgroundColor"), NULL, argv[2] );
+            return;
+        }
+
         // ("R G B [A]")
         if ((elementCount == 3) || (elementCount == 4))
         {
@@ -242,7 +249,7 @@ ConsoleMethod(GuiCanvas, setBackgroundColor, void, 3, 6,    "(float red, float g
 
             // Grab the alpha if it's there.
             if (elementCount > 3)
-            alpha = dAtof(Utility::mGetStringElement(argv[2], 3));
+                alpha = dAtof(Utility::mGetStringElement(argv[2], 3));
         }
 
         // Invalid.
@@ -282,13 +289,20 @@ ConsoleMethod(GuiCanvas, getBackgroundColor, const char*, 2, 2, "Gets the backgr
                                                                 "@return (float red / float green / float blue / float alpha) The background color for the canvas.")
 {
     // Get the background color.
-    const ColorF& backgroundColor = object->getBackgroundColor();
+    const ColorF& color = object->getBackgroundColor();
+
+    // Fetch color name.
+    StringTableEntry colorName = StockColor::name( color );
+
+    // Return the color name if it's valid.
+    if ( colorName != StringTable->EmptyString )
+        return colorName;
 
     // Create Returnable Buffer.
     char* pBuffer = Con::getReturnBuffer(64);
 
     // Format Buffer.
-    dSprintf(pBuffer, 64, "%g %g %g %g", backgroundColor.red, backgroundColor.green, backgroundColor.blue, backgroundColor.alpha );
+    dSprintf(pBuffer, 64, "%g %g %g %g", color.red, color.green, color.blue, color.alpha );
 
     // Return buffer.
     return pBuffer;
