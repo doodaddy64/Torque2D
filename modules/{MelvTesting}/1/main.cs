@@ -14,6 +14,11 @@ function startMelvTesting()
 	
 	testScreen();
 
+    Canvas.BackgroundColor = "1 1 0 0";
+    Canvas.UseBackgroundColor = true;
+
+    //testScene.BackgroundColor = "1 0 1 0";
+    //testScene.UseBackgroundColor = true;
 
 	//testQueryAssetName();
 	//testQueryAssetType();
@@ -62,16 +67,16 @@ function startMelvTesting()
 	testScene.addToScene( %composite );
 	%composite.BatchIsolated = "true";
 
-    %composite.setDefaultSpriteStride( 1, 1 );
+    %composite.setDefaultSpriteStride( 2, 2 );
     %composite.setDefaultSpriteSize( 1 );
     
     //%composite.setAngle( 30.0001 );
 	
 	%frame = 0;
 	
-    for ( %y = -30; %y <= 30; %y++ )
+    for ( %y = -10; %y <= 10; %y++ )
 	{
-	    for ( %x = -30; %x <= 30; %x++ )
+	    for ( %x = -10; %x <= 10; %x++ )
         {
             %composite.addSprite( %x, %y );
             //%composite.setSpriteImage( "{MelvTesting}:isotiles2", getRandom(0,4) );
@@ -86,7 +91,7 @@ function startMelvTesting()
 	
 	testSceneWindow2D.setCurrentCameraPosition( 0, 0 );
 	testScene.setDebugSceneObject( %composite );
-	//%composite.setAngularVelocity( 20 );
+	%composite.setAngularVelocity( 20 );
 	
     //%assetTags = AssetDatabase.getAssetTags();    
     //%assetTags.createtag( "Test" );
