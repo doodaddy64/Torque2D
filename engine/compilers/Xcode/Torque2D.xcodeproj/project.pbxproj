@@ -2014,6 +2014,10 @@
 		2AE5476B157ED8CE0011007A /* moduleManager.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AE5475B157ED8CE0011007A /* moduleManager.cc */; };
 		2AE5476E157ED8CE0011007A /* moduleManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AE5475C157ED8CE0011007A /* moduleManager.h */; };
 		2AE5476F157ED8CE0011007A /* moduleManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AE5475C157ED8CE0011007A /* moduleManager.h */; };
+		2AE851DB1681E59500193F17 /* color.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AE851DA1681E59500193F17 /* color.cc */; };
+		2AE851DC1681E59500193F17 /* color.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AE851DA1681E59500193F17 /* color.cc */; };
+		2AE851DD1681E59500193F17 /* color.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AE851DA1681E59500193F17 /* color.cc */; };
+		2AE851DE1681E59500193F17 /* color.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AE851DA1681E59500193F17 /* color.cc */; };
 		2AEB2B3C15CAABE1007EB9DC /* assetQuery_ScriptBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AEB2B3915CAABE1007EB9DC /* assetQuery_ScriptBinding.h */; };
 		2AEB2B3D15CAABE1007EB9DC /* assetQuery_ScriptBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AEB2B3915CAABE1007EB9DC /* assetQuery_ScriptBinding.h */; };
 		2AEB2B3E15CAABE1007EB9DC /* assetQuery_ScriptBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AEB2B3915CAABE1007EB9DC /* assetQuery_ScriptBinding.h */; };
@@ -3874,6 +3878,7 @@
 		2AE5475A157ED8CE0011007A /* moduleManager_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = moduleManager_ScriptBinding.h; path = ../../source/module/moduleManager_ScriptBinding.h; sourceTree = "<group>"; };
 		2AE5475B157ED8CE0011007A /* moduleManager.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = moduleManager.cc; path = ../../source/module/moduleManager.cc; sourceTree = "<group>"; };
 		2AE5475C157ED8CE0011007A /* moduleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = moduleManager.h; path = ../../source/module/moduleManager.h; sourceTree = "<group>"; };
+		2AE851DA1681E59500193F17 /* color.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = color.cc; path = ../../source/graphics/color.cc; sourceTree = "<group>"; };
 		2AEB2B3915CAABE1007EB9DC /* assetQuery_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = assetQuery_ScriptBinding.h; path = ../../source/assets/assetQuery_ScriptBinding.h; sourceTree = "<group>"; };
 		2AEB2B3A15CAABE1007EB9DC /* assetQuery.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = assetQuery.cc; path = ../../source/assets/assetQuery.cc; sourceTree = "<group>"; };
 		2AEB2B3B15CAABE1007EB9DC /* assetQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = assetQuery.h; path = ../../source/assets/assetQuery.h; sourceTree = "<group>"; };
@@ -4766,6 +4771,7 @@
 		2A04D6A815EE540900A908BB /* graphics */ = {
 			isa = PBXGroup;
 			children = (
+				2AE851DA1681E59500193F17 /* color.cc */,
 				2ACC2D321635966600374D8A /* gFont.cc */,
 				2ACC2D331635966600374D8A /* gFont.h */,
 				2A8B882915F5CAEF00FD973C /* DynamicTexture.cc */,
@@ -7819,6 +7825,7 @@
 				2AD35A681663763F00C75F30 /* unitTesting.cc in Sources */,
 				2AC5C7F51667C89700A0D046 /* platformStringTests.cc in Sources */,
 				863B23501678F7B400B72838 /* fileDialog.cc in Sources */,
+				2AE851DC1681E59500193F17 /* color.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8263,6 +8270,7 @@
 				2A943ECE16524925008A08B2 /* platformNetwork.cc in Sources */,
 				2A943EDA165265FA008A08B2 /* networkProcessList.cc in Sources */,
 				863B23511678F7B400B72838 /* fileDialog.cc in Sources */,
+				2AE851DD1681E59500193F17 /* color.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8706,6 +8714,7 @@
 				2A943ECF16524925008A08B2 /* platformNetwork.cc in Sources */,
 				2A943EDB165265FA008A08B2 /* networkProcessList.cc in Sources */,
 				863B23521678F7B400B72838 /* fileDialog.cc in Sources */,
+				2AE851DE1681E59500193F17 /* color.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9184,6 +9193,7 @@
 				2AC5C7F41667C89700A0D046 /* platformStringTests.cc in Sources */,
 				2ACFC0AB166CE1BE00FE7370 /* platformMemoryTests.cc in Sources */,
 				863B234F1678F7B400B72838 /* fileDialog.cc in Sources */,
+				2AE851DB1681E59500193F17 /* color.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

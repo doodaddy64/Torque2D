@@ -352,6 +352,7 @@
     <ClCompile Include="..\..\source\graphics\bitmapJpeg.cc" />
     <ClCompile Include="..\..\source\graphics\bitmapPng.cc" />
     <ClCompile Include="..\..\source\graphics\bitRender.cc" />
+    <ClCompile Include="..\..\source\graphics\color.cc" />
     <ClCompile Include="..\..\source\graphics\dgl.cc" />
     <ClCompile Include="..\..\source\graphics\dglMatrix.cc" />
     <ClCompile Include="..\..\source\graphics\DynamicTexture.cc" />

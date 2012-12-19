@@ -12,6 +12,8 @@
 		2ABF5C8F16569A0C00BBBF1D /* osxMutex.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF5C8E16569A0C00BBBF1D /* osxMutex.mm */; };
 		2AC5C7E81667C85700A0D046 /* platformStringTests.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5C7E71667C85700A0D046 /* platformStringTests.cc */; };
 		2ACFC0A8166CE1AB00FE7370 /* platformMemoryTests.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ACFC0A7166CE1AB00FE7370 /* platformMemoryTests.cc */; };
+		2AE851D21681E56E00193F17 /* color.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AE851D11681E56E00193F17 /* color.cc */; };
+		2AE851D31681E56E00193F17 /* color.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AE851D11681E56E00193F17 /* color.cc */; };
 		86063A251654180000362D83 /* platformOSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 86063A241654180000362D83 /* platformOSX.mm */; };
 		8609FE2F16556DD2004662ED /* osxSemaphore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8609FE2E16556DD2004662ED /* osxSemaphore.mm */; };
 		8609FE3116556E5A004662ED /* osxThread.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8609FE3016556E5A004662ED /* osxThread.mm */; };
@@ -1003,6 +1005,7 @@
 		2AC5C7E71667C85700A0D046 /* platformStringTests.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platformStringTests.cc; path = ../../../source/testing/tests/platformStringTests.cc; sourceTree = "<group>"; };
 		2ACFC0A7166CE1AB00FE7370 /* platformMemoryTests.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platformMemoryTests.cc; path = ../../../source/testing/tests/platformMemoryTests.cc; sourceTree = "<group>"; };
 		2AD35A541663608E00C75F30 /* platformFileIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platformFileIO.h; sourceTree = "<group>"; };
+		2AE851D11681E56E00193F17 /* color.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color.cc; sourceTree = "<group>"; };
 		331525D51B0C541827EB81DA /* main.manifestGenerator.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.manifestGenerator.cs; path = ../../../../main.manifestGenerator.cs; sourceTree = "<group>"; };
 		331525E70D6BA99395C51D2E /* main.keybindtest.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.keybindtest.cs; path = ../../../../main.keybindtest.cs; sourceTree = "<group>"; };
 		3315260D4A59442F9EE0325F /* main.michtests.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.michtests.cs; path = ../../../../main.michtests.cs; sourceTree = "<group>"; };
@@ -2928,6 +2931,7 @@
 		86BC7FB916518D4600D96ADF /* graphics */ = {
 			isa = PBXGroup;
 			children = (
+				2AE851D11681E56E00193F17 /* color.cc */,
 				86BC7FBA16518D4600D96ADF /* bitmapBmp.cc */,
 				86BC7FBB16518D4600D96ADF /* bitmapJpeg.cc */,
 				86BC7FBC16518D4600D96ADF /* bitmapPng.cc */,
@@ -4222,6 +4226,7 @@
 				861F87AF167FC164004E5816 /* osxInputManager.mm in Sources */,
 				861F87B0167FC164004E5816 /* osxCocoaUtilities.mm in Sources */,
 				861F87B1167FC164004E5816 /* fileDialog.cc in Sources */,
+				2AE851D31681E56E00193F17 /* color.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4697,6 +4702,7 @@
 				865BD2F9166FA7F80064F595 /* osxInputManager.mm in Sources */,
 				86EA5B401678C7C700598E68 /* osxCocoaUtilities.mm in Sources */,
 				861CD8D01678F6C200DAE1A0 /* fileDialog.cc in Sources */,
+				2AE851D21681E56E00193F17 /* color.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

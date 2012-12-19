@@ -6,10 +6,17 @@
 #ifndef _COLOR_H_
 #define _COLOR_H_
 
-//Includes
 #ifndef _PLATFORM_H_
 #include "platform/platform.h"
 #endif
+
+#ifndef _CONSOLE_BASE_TYPE_H_
+#include "console/consoleBaseType.h"
+#endif
+
+// Define console types.
+DefineConsoleType( TypeColorI )
+DefineConsoleType( TypeColorF )
 
 
 // Forward Declarations...

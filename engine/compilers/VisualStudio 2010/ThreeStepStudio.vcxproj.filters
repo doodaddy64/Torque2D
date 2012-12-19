@@ -1455,6 +1455,9 @@
     <ClCompile Include="..\..\source\platformWin32\nativeDialogs\win32FileDialog.cc">
       <Filter>Source Files\platformWin32\nativeDialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\graphics\color.cc">
+      <Filter>Source Files\graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\audio\audio.h">
