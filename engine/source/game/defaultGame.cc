@@ -119,6 +119,8 @@ bool initializeLibraries()
     gMasterAddress = StringTable->EmptyString;
     Con::addVariable( "MasterServerAddress", TypeString, &gMasterAddress );
 
+    // Create the stock colors.
+    StockColor::create();
     
 #ifdef TORQUE_OS_IOS
    //3MB default is way too big for iPhone!!!
@@ -182,6 +184,9 @@ void shutdownLibraries()
 #endif
    ResManager::destroy();
    TextureManager::destroy();
+
+    // Destroy the stock colors.
+    StockColor::destroy();
 
    _StringTable::destroy();
 

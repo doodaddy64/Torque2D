@@ -157,6 +157,9 @@ public:
     static const ColorI& colorI( const char* pStockColorName );
     static StringTableEntry name( const ColorF& color );
     static StringTableEntry name( const ColorI& color );
+
+    static void create( void );
+    static void destroy( void );
 };
 
 //-----------------------------------------------------------------------------

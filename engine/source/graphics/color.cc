@@ -7,6 +7,10 @@
 #include "console/console.h"
 #include "console/consoleTypes.h"
 
+#ifndef _STRINGUNIT_H_
+#include "string/stringUnit.h"
+#endif
+
 #ifndef _HASHTABLE_H
 #include "collection/hashTable.h"
 #endif
@@ -39,23 +43,17 @@ public:
         AssertFatal( pName != NULL, "Stock color name cannot be NULL." );
 
         // Set stock color.
-        mColorName = StringTable->insert( pName );
+        // NOTE:-   We'll use the char pointer here.  We can yet use the string-table unfortunately.
+        mColorName = pName;
         mColorI.set( red, green, blue, alpha );
         mColorF = mColorI;
-
-        // Insert mappings.
-        mNameToColorF.insert( mColorName, mColorF );
-        mNameToColorI.insert( mColorName, mColorI );
-        mColorFToName.insert( mColorF, mColorName );
-        mColorIToName.insert( mColorI, mColorName );
     }
 
-    inline StringTableEntry getColorName( void ) const { return mColorName; }
+    inline const char*      getColorName( void ) const { return mColorName; }
     inline const ColorF&    getColorF( void ) const { return mColorF; }
     inline const ColorI&    getColorI( void ) const { return mColorI; }
 
-private:
-    StringTableEntry    mColorName;
+    const char*         mColorName;
     ColorF              mColorF;
     ColorI              mColorI;
 };
@@ -210,10 +208,67 @@ StockColorItem StockColorTable[] =
 
 //-----------------------------------------------------------------------------
 
+static bool stockColorsCreated = false;
+
+void StockColor::create( void )
+{
+    // Finish if already created.
+    if ( stockColorsCreated )
+        return;
+
+    // Fetch stock color count.
+    const S32 stockColorCount = sizeof(StockColorTable) / sizeof(StockColorItem);
+
+    // Insert all stock colors.
+    for( S32 index = 0; index < stockColorCount; ++index )
+    {
+        // Fetch stock color item.
+        StockColorItem& stockColor = StockColorTable[index];
+
+        // Fetch stock color item.
+        StringTableEntry colorName = StringTable->insert( stockColor.mColorName );
+
+        // Insert stock color mappings.
+        mNameToColorF.insert( colorName, stockColor.mColorF );
+        mNameToColorI.insert( colorName, stockColor.mColorI );
+        mColorFToName.insert( stockColor.mColorF, colorName );
+        mColorIToName.insert( stockColor.mColorI, colorName );
+    }
+
+    // Flag as created.
+    stockColorsCreated = true;
+}
+
+//-----------------------------------------------------------------------------
+
+void StockColor::destroy( void )
+{
+    // Finish if not created.
+    if ( !stockColorsCreated )
+        return;
+
+    // Clear stock color mappings.
+    mNameToColorF.clear();
+    mNameToColorI.clear();
+    mColorFToName.clear();
+    mColorIToName.clear();
+
+    // Flag as not created.
+    stockColorsCreated = false;
+}
+
+//-----------------------------------------------------------------------------
+
 bool StockColor::isColor( const char* pStockColorName )
 {
+    // Sanity!
+    AssertFatal( pStockColorName != NULL, "Cannot fetch a NULL stock color name." );
+
+    // Fetch color name.
+    StringTableEntry colorName = StringTable->insert( pStockColorName );
+
     // Find if color name exists or not.
-    return mNameToColorF.find( pStockColorName ) != mNameToColorF.end();
+    return mNameToColorF.find( colorName ) != mNameToColorF.end();
 }
 
 //-----------------------------------------------------------------------------
@@ -222,6 +277,9 @@ const ColorF& StockColor::colorF( const char* pStockColorName )
 {
     // Sanity!
     AssertFatal( pStockColorName != NULL, "Cannot fetch a NULL stock color name." );
+
+    // Fetch color name.
+    StringTableEntry colorName = StringTable->insert( pStockColorName );
 
     // Find stock color.
     typeNameToColorFHash::iterator colorItr = mNameToColorF.find( pStockColorName );
@@ -244,15 +302,18 @@ const ColorI& StockColor::colorI( const char* pStockColorName )
     // Sanity!
     AssertFatal( pStockColorName != NULL, "Cannot fetch a NULL stock color name." );
 
+    // Fetch color name.
+    StringTableEntry colorName = StringTable->insert( pStockColorName );
+
     // Find stock color.
-    typeNameToColorIHash::iterator colorItr = mNameToColorI.find( pStockColorName );
+    typeNameToColorIHash::iterator colorItr = mNameToColorI.find( colorName );
 
     // Return color if found.
     if ( colorItr != mNameToColorI.end() )
         return colorItr->value;
 
     // Warn.
-    Con::warnf( "Could not find stock color name '%s'.", pStockColorName );
+    Con::warnf( "Could not find stock color name '%s'.", colorName );
 
     // Return default stock color.
     return mNameToColorI.find( DEFAULT_UNKNOWN_STOCK_COLOR_NAME )->value; 
@@ -358,44 +419,71 @@ ConsoleType( ColorF, TypeColorF, sizeof(ColorF), "" )
 
 ConsoleGetType( TypeColorF )
 {
-   ColorF * color = (ColorF*)dptr;
-   char* returnBuffer = Con::getReturnBuffer(256);
-   dSprintf(returnBuffer, 256, "%g %g %g %g", color->red, color->green, color->blue, color->alpha);
-   return(returnBuffer);
+    // Fetch color.
+    const ColorF* color = (ColorF*)dptr;
+
+    // Fetch stock color name.
+    StringTableEntry colorName = StockColor::name( *color );
+
+    // Write as color name if was found.
+    if ( colorName != StringTable->EmptyString ) 
+        return colorName;
+
+    // Format as color components.
+    char* returnBuffer = Con::getReturnBuffer(256);
+    dSprintf(returnBuffer, 256, "%g %g %g %g", color->red, color->green, color->blue, color->alpha);
+    return(returnBuffer);
 }
 
 //-----------------------------------------------------------------------------
 
 ConsoleSetType( TypeColorF )
 {
-   ColorF *tmpColor = (ColorF *) dptr;
-   if(argc == 1)
-   {
-      tmpColor->set(0, 0, 0, 1);
-      F32 r,g,b,a;
-      S32 args = dSscanf(argv[0], "%g %g %g %g", &r, &g, &b, &a);
-      tmpColor->red = r;
-      tmpColor->green = g;
-      tmpColor->blue = b;
-      if (args == 4)
-         tmpColor->alpha = a;
-   }
-   else if(argc == 3)
-   {
-      tmpColor->red    = dAtof(argv[0]);
-      tmpColor->green  = dAtof(argv[1]);
-      tmpColor->blue   = dAtof(argv[2]);
-      tmpColor->alpha  = 1.f;
-   }
-   else if(argc == 4)
-   {
-      tmpColor->red    = dAtof(argv[0]);
-      tmpColor->green  = dAtof(argv[1]);
-      tmpColor->blue   = dAtof(argv[2]);
-      tmpColor->alpha  = dAtof(argv[3]);
-   }
-   else
-      Con::printf("Color must be set as { r, g, b [,a] }");
+    ColorF* color = (ColorF*)dptr;
+
+    if(argc == 1)
+    {
+        // Is only a single argument passed?
+        if ( StringUnit::getUnitCount( argv[0], " " ) == 1 )
+        {
+            // Is this a stock color name?
+            if ( !StockColor::isColor(argv[0]) )
+            {
+                // No, so warn.
+                Con::warnf( "TypeColorF() - Invalid single argument of '%s' could not be interpreted as a stock color name.  Using default.", argv[0] );
+            }
+
+            // Set stock color (if it's invalid we'll get the default.
+            color->set( argv[0] );
+
+            return;
+        }
+
+        color->set(0, 0, 0, 1);
+        F32 r,g,b,a;
+        const S32 args = dSscanf(argv[0], "%g %g %g %g", &r, &g, &b, &a);
+        color->red = r;
+        color->green = g;
+        color->blue = b;
+        if (args == 4)
+            color->alpha = a;
+    }
+    else if(argc == 3)
+    {
+        color->red    = dAtof(argv[0]);
+        color->green  = dAtof(argv[1]);
+        color->blue   = dAtof(argv[2]);
+        color->alpha  = 1.f;
+    }
+    else if(argc == 4)
+    {
+        color->red    = dAtof(argv[0]);
+        color->green  = dAtof(argv[1]);
+        color->blue   = dAtof(argv[2]);
+        color->alpha  = dAtof(argv[3]);
+    }
+    else
+        Con::printf("Color must be set as { r, g, b [,a] }, { r g b [b] } or { stockColorName }");
 }
 
 //-----------------------------------------------------------------------------
@@ -406,44 +494,70 @@ ConsoleType( ColorI, TypeColorI, sizeof(ColorI), "" )
 
 ConsoleGetType( TypeColorI )
 {
-   ColorI *color = (ColorI *) dptr;
-   char* returnBuffer = Con::getReturnBuffer(256);
-   dSprintf(returnBuffer, 256, "%d %d %d %d", color->red, color->green, color->blue, color->alpha);
-   return returnBuffer;
+    // Fetch color.
+    ColorI* color = (ColorI*)dptr;
+
+    // Fetch stock color name.
+    StringTableEntry colorName = StockColor::name( *color );
+
+    // Write as color name if was found.
+    if ( colorName != StringTable->EmptyString ) 
+        return colorName;
+
+    // Format as color components.
+    char* returnBuffer = Con::getReturnBuffer(256);
+    dSprintf(returnBuffer, 256, "%d %d %d %d", color->red, color->green, color->blue, color->alpha);
+    return returnBuffer;
 }
 
 //-----------------------------------------------------------------------------
 
 ConsoleSetType( TypeColorI )
 {
-   ColorI *tmpColor = (ColorI *) dptr;
-   if(argc == 1)
-   {
-      tmpColor->set(0, 0, 0, 255);
-      S32 r,g,b,a;
-      S32 args = dSscanf(argv[0], "%d %d %d %d", &r, &g, &b, &a);
-      tmpColor->red = r;
-      tmpColor->green = g;
-      tmpColor->blue = b;
-      if (args == 4)
-         tmpColor->alpha = a;
-   }
-   else if(argc == 3)
-   {
-      tmpColor->red    = dAtoi(argv[0]);
-      tmpColor->green  = dAtoi(argv[1]);
-      tmpColor->blue   = dAtoi(argv[2]);
-      tmpColor->alpha  = 255;
-   }
-   else if(argc == 4)
-   {
-      tmpColor->red    = dAtoi(argv[0]);
-      tmpColor->green  = dAtoi(argv[1]);
-      tmpColor->blue   = dAtoi(argv[2]);
-      tmpColor->alpha  = dAtoi(argv[3]);
-   }
-   else
-      Con::printf("Color must be set as { r, g, b [,a] }");
+    ColorI* color = (ColorI*)dptr;
+    if(argc == 1)
+    {
+        // Is only a single argument passed?
+        if ( StringUnit::getUnitCount( argv[0], " " ) == 1 )
+        {
+            // Is this a stock color name?
+            if ( !StockColor::isColor(argv[0]) )
+            {
+                // No, so warn.
+                Con::warnf( "TypeColorF() - Invalid single argument of '%s' could not be interpreted as a stock color name.  Using default.", argv[0] );
+            }
+
+            // Set stock color (if it's invalid we'll get the default.
+            color->set( argv[0] );
+
+            return;
+        }
+
+        color->set(0, 0, 0, 255);
+        S32 r,g,b,a;
+        const S32 args = dSscanf(argv[0], "%d %d %d %d", &r, &g, &b, &a);
+        color->red = r;
+        color->green = g;
+        color->blue = b;
+        if (args == 4)
+            color->alpha = a;
+    }
+    else if(argc == 3)
+    {
+        color->red    = dAtoi(argv[0]);
+        color->green  = dAtoi(argv[1]);
+        color->blue   = dAtoi(argv[2]);
+        color->alpha  = 255;
+    }
+    else if(argc == 4)
+    {
+        color->red    = dAtoi(argv[0]);
+        color->green  = dAtoi(argv[1]);
+        color->blue   = dAtoi(argv[2]);
+        color->alpha  = dAtoi(argv[3]);
+    }
+    else
+        Con::printf("Color must be set as { r, g, b [,a] }, { r g b [b] }  or { stockColorName }");
 }
 
 //-----------------------------------------------------------------------------
@@ -451,7 +565,7 @@ ConsoleSetType( TypeColorI )
 ConsoleFunction( getStockColorCount, S32, 1, 1, "() - Gets a count of available stock colors.\n"
                                                 "@return A count of available stock colors." )
 {
-    return sizeof(StockColorTable) / sizeof(StockColor);
+    return sizeof(StockColorTable) / sizeof(StockColorItem);
 }
 
 //-----------------------------------------------------------------------------
@@ -464,7 +578,7 @@ ConsoleFunction( getStockColorName, const char*, 2, 2,  "(stockColorIndex) - Get
     const S32 stockColorIndex = dAtoi(argv[1]);
 
     // Fetch stock color count.
-    const S32 stockColorCount = sizeof(StockColorTable) / sizeof(StockColor);
+    const S32 stockColorCount = sizeof(StockColorTable) / sizeof(StockColorItem);
 
     // Is the stock color index in range?
     if ( stockColorIndex < 0 || stockColorIndex >= stockColorCount )
@@ -476,6 +590,19 @@ ConsoleFunction( getStockColorName, const char*, 2, 2,  "(stockColorIndex) - Get
 
     // Return color name.
     return StockColorTable[stockColorIndex].getColorName();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleFunction( isStockColor, bool, 2, 2,  "(stockColorName) - Gets whether the specified name is a stock color or not.\n"
+                                            "@param stockColorName - The stock color name to test for.\n"
+                                            "@return Whether the specified name is a stock color or not.\n" )
+{
+    // Fetch stock color name.
+    const char* pStockColorName = argv[1];
+
+    // Return whether this is a stock color name or not.
+    return StockColor::isColor( pStockColorName );
 }
 
 //-----------------------------------------------------------------------------
