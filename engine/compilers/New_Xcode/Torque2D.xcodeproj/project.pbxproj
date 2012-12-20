@@ -3702,14 +3702,13 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/myfile",
 			);
 			name = "MOC WebRender";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/../../lib/Qt/bin/OSX/moc\" \"$(ProjectDir)../../source/qt/WebRender.h\" -o \"$(ProjectDir)../../source/qt/moc_WebRender.cc\"";
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/engine/lib/Qt/bin/OSX/moc\" \"${BUILT_PRODUCTS_DIR}/engine/source/qt/WebRender.h\" -o \"${BUILT_PRODUCTS_DIR}/engine/source/qt/moc_WebRender.cc\"";
 		};
 		865A21D9165180F600527C44 /* MOC QtFileDownloader */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3723,7 +3722,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/../../lib/Qt/bin/OSX/moc\" \"$(ProjectDir)../../source/qt/QtFileDownloader.h\" -o \"$(ProjectDir)../../source/qt/moc_QtFileDownloader.cc\"";
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/engine/lib/Qt/bin/OSX/moc\" \"${BUILT_PRODUCTS_DIR}/engine/source/qt/QtFileDownloader.h\" -o \"${BUILT_PRODUCTS_DIR}/engine/source/qt/moc_QtFileDownloader.cc\"";
 		};
 		865A21DA1651811200527C44 /* MOC QtCookieJar */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3737,7 +3736,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/../../lib/Qt/bin/OSX/moc\" \"$(ProjectDir)../../source/qt/QtCookieJar.h\" -o \"$(ProjectDir)../../source/qt/moc_QtCookieJar.cc\"";
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/engine/lib/Qt/bin/OSX/moc\" \"${BUILT_PRODUCTS_DIR}/engine/source/qt/QtCookieJar.h\" -o \"${BUILT_PRODUCTS_DIR}/engine/source/qt/moc_QtCookieJar.cc\"";
 		};
 		865A21DB1651812500527C44 /* MOC QtNetworkManager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3751,7 +3750,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/../../lib/Qt/bin/OSX/moc\" \"$(ProjectDir)../../source/qt/QtNetworkManager.h\" -o \"$(ProjectDir)../../source/qt/moc_QtNetworkManager.cc\"";
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/engine/lib/Qt/bin/OSX/moc\" \"${BUILT_PRODUCTS_DIR}/engine/source/qt/QtNetworkManager.h\" -o \"${BUILT_PRODUCTS_DIR}/engine/source/qt/moc_QtNetworkManager.cc\"";
 		};
 		865A21DC1651813900527C44 /* MOC QtHttpRequestHandler */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3765,7 +3764,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PROJECT_DIR}/../../lib/Qt/bin/OSX/moc\" \"$(ProjectDir)../../source/qt/QtHttpRequestHandler.h\" -o \"$(ProjectDir)../../source/qt/moc_QtHttpRequestHandler.cc\"";
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/engine/lib/Qt/bin/OSX/moc\" \"${BUILT_PRODUCTS_DIR}/engine/source/qt/QtHttpRequestHandler.h\" -o \"${BUILT_PRODUCTS_DIR}/engine/source/qt/moc_QtHttpRequestHandler.cc\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
