@@ -83,6 +83,31 @@ S32 PopupMenu::insertItem(S32 pos, const char *title, const char *accel)
 #pragma message ("PopupMenu::insertSubMenu not yet implemented")
 S32 PopupMenu::insertSubMenu(S32 pos, const char *title, PopupMenu *submenu)
 {
+    for(S32 i = 0;i < mSubmenus->size();i++)
+    {
+        if(submenu == (*mSubmenus)[i])
+        {
+            Con::errorf("PopupMenu::insertSubMenu - Attempting to add submenu twice");
+            return -1;
+        }
+    }
+
+    NSMenuItem *newItem;
+
+    newItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]]
+            initWithTitle:[NSString stringWithUTF8String:title] action:NULL
+            keyEquivalent:[NSString stringWithUTF8String:""]];
+
+    [newItem setSubmenu:[submenu->mData->mController menu]];
+    [newItem setTarget:submenu->mData->mController];
+    [newItem setAction:@selector(handleSelect:)];
+
+    [[mData->mController menu] insertItem:newItem atIndex:pos];
+
+    [newItem release];
+
+    mSubmenus->addObject(submenu);
+
     return 0;
 }
 
