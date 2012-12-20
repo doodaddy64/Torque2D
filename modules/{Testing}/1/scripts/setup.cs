@@ -62,7 +62,8 @@ function escapeQuit(%val)
 
 function createTestBindings()
 {
-    new ActionMap(moveMap);
+    if (!isObject(moveMap))
+        new ActionMap(moveMap);
     
     moveMap.bind(keyboard, escape, "escapeQuit");
 }
