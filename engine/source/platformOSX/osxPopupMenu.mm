@@ -3,62 +3,8 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 #include "platformOSX/platformOSX.h"
-#include "platform/menus/popupMenu.h"
-#include "memory/safeDelete.h"
+#include "platformOSX/osxCocoaUtilities.h"
 #include "gui/guiCanvas.h"
-
-@interface osxPopupMenuController : NSObject
-{
-    NSMenu* _menu;
-    NSMenuItem* _menuItem;
-    PopupMenu* _owner;
-}
-
-@property NSMenu* menu;
-@property NSMenuItem* menuItem;
-@property PopupMenu* owner;
-
--(void)handleSelect:(id)sender;
-
-@end
-
-@implementation osxPopupMenuController
-
-@synthesize menu = _menu;
-@synthesize menuItem = _menuItem;
-@synthesize owner = _owner;
-
--(id) init
-{
-    self = [super init];
-
-    if (self)
-    {
-        _owner = NULL;
-        _menu = [[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@"New Menu"];
-        _menuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"New Menu Item" action:NULL keyEquivalent:@""];
-        [_menuItem setSubmenu:_menu];
-    }
-}
-
--(void) dealloc
-{
-    if (_menu)
-        [_menu release];
-
-    if (_menuItem)
-        [_menuItem release];
-
-    [super dealloc];
-}
-
--(void)handleSelect:(id)sender
-{
-    if(_owner)
-        _owner->handleSelect(3, [[_menu title] UTF8String]);
-}
-
-@end
 
 class PlatformPopupMenuData
 {
@@ -126,7 +72,7 @@ S32 PopupMenu::insertItem(S32 pos, const char *title, const char *accel)
     [newItem setTarget:mData->mController];
     [newItem setAction:@selector(handleSelect:)];
 
-    [[mData->mController menu] addItem:newItem];
+    [[mData->mController menu] insertItem:newItem atIndex:pos];
 
     [newItem release];
 
@@ -144,37 +90,72 @@ S32 PopupMenu::insertSubMenu(S32 pos, const char *title, PopupMenu *submenu)
 #pragma message ("PopupMenu::removeItem not yet implemented")
 void PopupMenu::removeItem(S32 itemPos)
 {
+    [[mData->mController menu] removeItemAtIndex:itemPos];
 }
 
 //-----------------------------------------------------------------------------
 #pragma message ("PopupMenu::enableItem not yet implemented")
 void PopupMenu::enableItem(S32 pos, bool enable)
 {
+    [[[mData->mController menu] itemAtIndex:pos] setEnabled:enable];
 }
 
 //-----------------------------------------------------------------------------
 #pragma message ("PopupMenu::checkItem not yet implemented")
 void PopupMenu::checkItem(S32 pos, bool checked)
 {
+    [[[mData->mController menu] itemAtIndex:pos] setState:(checked ? NSOnState : NSOffState)];
 }
 
 //-----------------------------------------------------------------------------
 #pragma message ("PopupMenu::checkRadioItem not yet implemented")
 void PopupMenu::checkRadioItem(S32 firstPos, S32 lastPos, S32 checkPos)
 {
+    for(int i = firstPos; i <= lastPos; i++)
+        checkItem( i, false);
+
+    // check the selected item
+    checkItem( checkPos, true);
 }
 
 //-----------------------------------------------------------------------------
 #pragma message ("PopupMenu::isItemChecked not yet implemented")
 bool PopupMenu::isItemChecked(S32 pos)
 {
-    return false;
+    S32 state = [[[mData->mController menu] itemAtIndex:pos] state];
+
+    return (state == NSOnState);
 }
 
 //-----------------------------------------------------------------------------
 #pragma message ("PopupMenu::canHandleID not yet implemented")
 bool PopupMenu::canHandleID(U32 iD)
 {
+//    for(S32 i = 0;i < mSubmenus->size();i++)
+//    {
+//        PopupMenu *subM = dynamic_cast<PopupMenu *>((*mSubmenus)[i]);
+//        if(subM == NULL)
+//            continue;
+//
+//        if(subM->canHandleID(iD))
+//            return true;
+//    }
+
+//    S32 index;
+//    U32 itemCount = [[mData->mController menu] numberOfItems];
+
+//    for (int i = 0; i <= itemCount; i++)
+//    {
+
+//    }
+    //U32 nItems = CountMenuItems(mData->mMenu);
+//    for(int i = 1; i <= nItems; i++)
+//    {
+//        GetMenuItemRefCon(mData->mMenu, i, &refcon);
+//        if(refcon == iD)
+//            return true;
+//    }
+
     return false;
 }
 
@@ -182,7 +163,7 @@ bool PopupMenu::canHandleID(U32 iD)
 #pragma message ("PopupMenu::handleSelect not yet implemented")
 bool PopupMenu::handleSelect(U32 command, const char *text /* = NULL */)
 {
-    //return dAtob(Con::executef(this, 4, "onSelectItem", Con::getIntArg(pos - 1), text ? text : ""));
+    return dAtob(Con::executef(this, 4, "onSelectItem", command, text ? text : ""));
 }
 
 //-----------------------------------------------------------------------------
