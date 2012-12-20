@@ -139,15 +139,6 @@ bool GBitmap::readPNG(Stream& io_rStream)
       return false;
    }
 
-   // Enable optimizations if appropriate.
-//#if defined(PNG_LIBPNG_VER) && (PNG_LIBPNG_VER >= 10200)
-//   png_uint_32 mask, flags;
-//
-//   flags = png_get_asm_flags(png_ptr);
-//   mask = png_get_asm_flagmask(PNG_SELECT_READ | PNG_SELECT_WRITE);
-//   png_set_asm_flags(png_ptr, flags | mask);
-//#endif
-
    png_infop info_ptr = png_create_info_struct(png_ptr);
    if (info_ptr == NULL) {
       png_destroy_read_struct(&png_ptr,
@@ -239,6 +230,7 @@ bool GBitmap::readPNG(Stream& io_rStream)
 
    // Update the info pointer with the result of the transformations
    //  above...
+   png_set_interlace_handling(png_ptr);
    png_read_update_info(png_ptr, info_ptr);
 
    png_uint_32 rowBytes = png_get_rowbytes(png_ptr, info_ptr);
