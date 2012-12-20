@@ -1,0 +1,10 @@
+<AssetManifest>
+	<AssetManifest.Search>
+		<Location		
+			Path="^{Testing}/assets/images"
+			Extension="asset.taml"/>
+		<Location
+			Path="^{Testing}/assets/animations"
+			Extension="asset.taml"/>
+	</AssetManifest.Search>
+</AssetManifest>
