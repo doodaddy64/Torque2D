@@ -49,4 +49,4 @@ ModuleDatabase.LoadExplicit( "{EditorBoot}" );
 //-----------------------------------------------------------------------------
 
 // MM: This is a test and will be removed!
-//ModuleDatabase.schedule( 1, LoadExplicit, "{MelvTesting}" );
+//ModuleDatabase.schedule( 1, LoadExplicit, "{Testing}" );
