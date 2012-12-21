@@ -28,6 +28,9 @@ bool FileDialog::Execute()
         return false;
     }
 
+    if ([nsFileArray count] < 1)
+        return false;
+
     // If multiple file selection was allowed and the dialog did grab multiple files
     // loop through and add them
     if ((mData.mStyle & FileDialogData::FDS_MULTIPLEFILES) && [nsFileArray count] >= 1)

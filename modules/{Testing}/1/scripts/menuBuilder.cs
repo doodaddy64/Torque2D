@@ -115,8 +115,6 @@ function MenuBuilder::addItem(%this, %pos, %item)
 
 function MenuBuilder::onAdd(%this)
 {
-    echo("% MenuBuilder::onAdd");
-
    for(%i = 0;%this.item[%i] !$= "";%i++)
    {
       %this.addItem(%i);
@@ -132,8 +130,6 @@ function MenuBuilder::onAdd(%this)
 
 function MenuBuilder::onRemove(%this)
 {
-    echo("% MenuBuilder::onRemove");
-
    for(%i = 0;%this.item[%i] !$= "";%i++)
    {
       %name = getField(%this.item[%i], 0);
@@ -147,8 +143,6 @@ function MenuBuilder::onRemove(%this)
 
 function MenuBuilder::onSelectItem(%this, %id, %text)
 {
-    echo("% MenuBuilder::onSelectItem");
-
    %cmd = getField(%this.item[%id], 2);
    if(%cmd !$= "")
    {
@@ -166,8 +160,6 @@ function MenuBuilder::onSelectItem(%this, %id, %text)
 
 function MenuBuilder::attachToMenuBar( %this )
 {
-    echo("% MenuBuilder::attachToMenuBar");
-
    if( %this.barName $= "" )
    {
       error("MenuBuilder::attachToMenuBar - Menu property 'barName' not specified!");
