@@ -240,6 +240,8 @@
         _menuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"New Menu Item" action:NULL keyEquivalent:@""];
         [_menuItem setSubmenu:_menu];
     }
+
+    return self;
 }
 
 -(void) dealloc

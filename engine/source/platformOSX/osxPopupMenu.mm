@@ -55,6 +55,7 @@ void PopupMenu::deletePlatformPopupMenuData()
 void PopupMenu::createPlatformMenu()
 {
     mData->mController = [[osxPopupMenuController alloc] init];
+
     [mData->mController setOwner:this];
 }
 
@@ -188,7 +189,7 @@ bool PopupMenu::canHandleID(U32 iD)
 #pragma message ("PopupMenu::handleSelect not yet implemented")
 bool PopupMenu::handleSelect(U32 command, const char *text /* = NULL */)
 {
-    return dAtob(Con::executef(this, 4, "onSelectItem", command, text ? text : ""));
+    return dAtob(Con::executef(this, 4, "onSelectItem", Con::getIntArg(command), text ? text : ""));
 }
 
 //-----------------------------------------------------------------------------
