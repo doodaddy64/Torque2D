@@ -18,27 +18,94 @@ function buildFileDialogMenu()
     //set up %cmdctrl variable so that it matches OS standards
     %cmdCtrl = $platform $= "macos" ? "Cmd" : "Ctrl";
 
-    %editmenu = new PopupMenu()
+    %fileMenu = new PopupMenu()
     {
         superClass = "MenuBuilder";
         barPosition = 1;
-        barName = "File Dialogs";
+        barName = "File";
+    };
+    %saveMenu = new PopupMenu()
+    {
+        superClass = "MenuBuilder";
+        barPosition = 1;
+        barName = "Save...";
 
-        item[0] = "Open Image" TAB %cmdCtrl SPC "O" TAB "openImageAsset();";
-        item[1] = "Save Image" TAB %cmdCtrl @ "S" TAB "saveImageAsset();";
+        item[0] = "Last opened file" TAB %cmdCtrl SPC "O" TAB "saveTamlFile();";
     };
 
-    if (!isObject(%editMenu))
+    %openMenu = new PopupMenu()
     {
-        error("### Could not create PopupMenu!");
-    }
-    else
-    {
-        %editMenu.attachToMenuBar();
-    }
+        superClass = "MenuBuilder";
+        barPosition = 1;
+        barName = "Open...";
+
+        item[0] = "Open One" TAB %cmdCtrl SPC "O" TAB "openOneTamlFile();";
+        item[1] = "Open Multiple" TAB %cmdCtrl SPC "M" TAB "openMultipleTamlFiles();";
+    };
+
+    %fileMenu.attachToMenuBar();
+    %fileMenu.insertSubMenu(0, "Open...", %openMenu);
+    %fileMenu.insertSubMenu(1, "Save...", %saveMenu);
+    //%openMenu.attachToMenuBar();
 }
 
-function openImageAsset()
+function openMultipleTamlFiles()
+{
+    %assetFileSpec = "Asset Files (*.taml)|*.taml|";
+
+        echo("Opening a file");
+
+        %dlg = new OpenFileDialog()
+        {
+            Filters = %assetFileSpec;
+            ChangePath = false;
+            MustExist = true;
+            MultipleFiles = true;
+        };
+
+        if (!isObject(%dlg))
+        {
+            error("Could not create OpenFileDialog");
+            return;
+        }
+
+        echo("Executing OpenFileDialog");
+
+        if (%dlg.Execute())
+        {
+            echo("Successfully picked a file");
+
+            for (%i = 0; %i < %dlg.fileCount; %i++)
+            {
+                %file = %dlg.files[%i];
+                %fileOnlyName = fileName(%file);
+                %fileOnlyBase = fileBase(%file);
+                %fileOnlyExtension = fileExt(%file);
+
+                echo("File: " @ %file);
+                echo("Name: " @ %fileOnlyName);
+                echo("Base: " @ %fileOnlyBase);
+                echo("Extension: " @ %fileOnlyExtension);
+
+                %fileExists = isFile(%file);
+
+                if (%fileExists)
+                {
+                    echo("isFile successful on: " @ %fileOnlyName);
+                    $LastOpenedFile = %file;
+                }
+                else
+                {
+                    echo("Did not properly find the file path");
+                }
+            }
+        }
+        else
+        {
+            error("Could not execute OpenFileDialog");
+        }
+}
+function openOneTamlFile()
 {
     %assetFileSpec = "Asset Files (*.taml)|*.taml|";
 
@@ -64,7 +131,7 @@ function openImageAsset()
     {
         echo("Successfully picked a file");
 
-        %file = %dlg.files[0];
+        %file = %dlg.fileName;
         %fileOnlyName = fileName(%file);
         %fileOnlyBase = fileBase(%file);
         %fileOnlyExtension = fileExt(%file);
@@ -78,12 +145,12 @@ function openImageAsset()
 
         if (%fileExists)
         {
-            echo("File does exist. Let's save it to another location");
+            echo("isFile successful on: " @ %fileOnlyName);
             $LastOpenedFile = %file;
         }
         else
         {
-            echo("Did not properly find the file");
+            echo("Did not properly find the file path");
         }
     }
     else
@@ -92,7 +159,7 @@ function openImageAsset()
     }
 }
 
-function saveImageAsset()
+function saveTamlFile()
 {
     if ($LastOpenedFile $= "")
             return;

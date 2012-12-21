@@ -34,8 +34,7 @@ bool FileDialog::Execute()
     {
         for(U32 i = 0; i < [nsFileArray count]; i++)
         {
-            NSURL* fileURL =
-                    [nsFileArray objectAtIndex:i];
+            NSURL* fileURL = [nsFileArray objectAtIndex:i];
 
             const UTF8* file = [[fileURL path] UTF8String];
             setDataField(StringTable->insert("files"), Con::getIntArg(i), StringTable->insert(file));
