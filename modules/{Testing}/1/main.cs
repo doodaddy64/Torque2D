@@ -11,7 +11,8 @@ function startTesting(%scopeSet)
     exec("./scripts/setup.cs");
     exec("./scripts/spriteTests.cs");
     exec("./scripts/menuBuilder.cs");
-    
+    exec("./scripts/fileDialogTests.cs");
+
     //-----------------------------------------------------------------------------
     // Load GUIs
     //----------------------------------------------------------------------------- 
@@ -24,9 +25,9 @@ function startTesting(%scopeSet)
     createDefaultCanvas();
     createTestBindings();
 
-    runSpriteTests();
+    //runSpriteTests();
     
-    //runDialogTests();
+    runDialogTests();
     //runGUITests();
     //runRandomTests();
     
