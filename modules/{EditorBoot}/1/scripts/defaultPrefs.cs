@@ -33,7 +33,7 @@ $pref::loadLastLevel = 1;
 // iOS constants
 $iOS::constant::iPhone = 0;
 $iOS::constant::iPad = 1;
-$iOS::constant::iPhone4 = 2;
+$iOS::constant::iPhone5 = 2;
 $iOS::constant::Landscape = 0;
 $iOS::constant::Portrait = 1;
 $iOS::constant::ResolutionFull = 0;
@@ -44,6 +44,8 @@ $iOS::constant::iPhone4Width = 960;
 $iOS::constant::iPhone4Height = 640;
 $iOS::constant::iPadWidth = 1024;
 $iOS::constant::iPadHeight = 768;
+$iOS::constant::iPhone5Width = 1136;
+$iOS::constant::iPhone5Height = 640;
 
 // iOS settings
 $pref::iOS::DeviceType = $iOS::constant::iPad;

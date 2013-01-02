@@ -113,7 +113,7 @@ struct AsciiData
 static AsciiData AsciiTable[NUM_KEYS];
 
 #pragma message ("Need to implement the next six functions")
-/*
+
 void Input::enableMouse()
 {
     
@@ -143,7 +143,7 @@ bool Input::isKeyboardEnabled()
 {
     
 }
- */
+ 
 //--------------------------------------------------------------------------
 void Input::init()
 {

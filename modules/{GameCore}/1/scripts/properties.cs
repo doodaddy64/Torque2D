@@ -5,8 +5,7 @@
 
 $iOS::constant::iPhone = 0;
 $iOS::constant::iPad = 1;
-$iOS::constant::iPhone4 = 2;
-$iOS::constant::iPad3 = 3;
+$iOS::constant::iPhone5 = 2;
 
 $iOS::constant::Landscape = 0;
 $iOS::constant::Portrait = 1;
@@ -24,6 +23,9 @@ $iOS::constant::iPadHeight = 768;
 
 $iOS::constant::NewiPadWidth = 2048;
 $iOS::constant::NewiPadHeight = 1536;
+
+$iOS::constant::iPhone5Width = 1136;
+$iOS::constant::iPhone5Height = 640;
 
 $iOS::constant::OrientationUnknown				= 0;
 $iOS::constant::OrientationLandscapeLeft		= 1;

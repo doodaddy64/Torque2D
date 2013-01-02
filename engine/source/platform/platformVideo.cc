@@ -404,12 +404,12 @@ bool Video::setScreenMode( U32 width, U32 height, U32 bpp, bool fullScreen )
          height = IOS_DEFAULT_RESOLUTION_Y;
       if(bpp == 0)
          bpp = IOS_DEFAULT_RESOLUTION_BIT_DEPTH;
-       
-      if(retinaEnabled)
-      {
-          width *=2;
-          height *=2;
-      }
+      
+      //if(retinaEnabled)
+      //{
+      //    width *=2;
+      //    height *=2;
+      //}
        
 #else
       if(width == 0)

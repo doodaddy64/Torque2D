@@ -102,6 +102,11 @@ void Platform::setWindowTitle(const char *title)
 void Platform::init()
 {
     Con::setVariable("$platform", "iOS");
+    
+    if ([[UIScreen mainScreen] scale] == 2)
+        Con::setBoolVariable("$pref::iOS::RetinaEnabled", true);
+    else
+        Con::setBoolVariable("$pref::iOS::RetinaEnabled", false);
 
     // Set the platform variable for the scripts
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -113,15 +118,15 @@ void Platform::init()
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
 
         if (screenBounds.size.height == 568)
+        {
             Con::setIntVariable("$pref::iOS::DeviceType", 2);
+            Con::setBoolVariable("$pref::iOS::RetinaEnabled", false);
+        }
         else
+        {
             Con::setIntVariable("$pref::iOS::DeviceType", 0);
+        }
     }
-
-    if ([[UIScreen mainScreen] scale] == 2)
-        Con::setBoolVariable("$pref::iOS::RetinaEnabled", true);
-    else
-        Con::setBoolVariable("$pref::iOS::RetinaEnabled", false);
 
     iOSConsole::create();
 

@@ -10,6 +10,7 @@
 #import "platform/threads/thread.h"
 #import "platform/platformSemaphore.h"
 #import "platform/threads/mutex.h"
+#import "console/console.h"
 
 //-----------------------------------------------------------------------------
 
@@ -161,4 +162,97 @@ U32 ThreadManager::getCurrentThreadId()
 bool ThreadManager::compare( U32 threadId_1, U32 threadId_2 )
 {
    return (bool)pthread_equal((pthread_t)threadId_1, (pthread_t)threadId_2);
+}
+
+class ExecuteThread : public Thread
+{
+    const char* zargs;
+    const char* directory;
+    const char* executable;
+public:
+    ExecuteThread(const char *_executable, const char *_args /* = NULL */, const char *_directory /* = NULL */) : Thread(0, NULL, false, true)
+    {
+        zargs = dStrdup(_args);
+        directory = dStrdup(_directory);
+        executable = dStrdup(_executable);
+        start();
+    }
+    static U32 runNoThread(const char *_executable, const char *_args /* = NULL */, const char *_directory /* = NULL */);
+    virtual void run(void* arg);
+};
+
+static char* _unDoubleQuote(char* arg)
+{
+    U32 len = dStrlen(arg);
+    if(!len)
+        return arg;
+    
+    if(arg[0] == '"' && arg[len-1] == '"')
+    {
+        arg[len - 1] = '\0';
+        return arg + 1;
+    }
+    return arg;
+}
+
+// this is an externably callable blocking shellExecute!!!
+U32 ExecuteThread::runNoThread( const char* executable, const char* zargs, const char* directory  )
+{
+    printf("creating nstask\n");
+    NSTask *aTask = [[NSTask alloc] init];
+    NSMutableArray *array = [NSMutableArray array];
+    
+    // scan the args list, breaking it up, space delimited, backslash escaped.
+    U32 len = dStrlen(zargs);
+    char args[len+1];
+    dStrncpy(args, zargs, len+1);
+    char *lastarg = args;
+    bool escaping = false;
+    for(int i = 0; i< len; i++)
+    {
+        char c = args[i];
+        // a backslash escapes the next character
+        if(escaping)
+            continue;
+        if(c == '\\')
+            escaping = true;
+        
+        if(c == ' ')
+        {
+            args[i] = '\0';
+            if(*lastarg)
+                [array addObject:[NSString stringWithUTF8String: _unDoubleQuote(lastarg)]];
+            lastarg = args + i + 1;
+        }
+    }
+    if(*lastarg)
+        [array addObject:[NSString stringWithUTF8String: _unDoubleQuote(lastarg)]];
+    
+    [aTask setArguments: array];
+    
+    [aTask setCurrentDirectoryPath:[NSString stringWithUTF8String: directory]];
+    [aTask setLaunchPath:[NSString stringWithUTF8String:executable]];
+    [aTask launch];
+    [aTask waitUntilExit];
+    U32 ret = [aTask terminationStatus];
+    return ret;
+}
+
+void ExecuteThread::run(void* arg)
+{
+    // call the common run, but since we're in a thread, this won't block other processes
+    U32 ret = runNoThread( this->executable, this->zargs, this->directory );
+    Con::executef(2, "onExecuteDone", Con::getIntArg(ret));
+    printf("done nstask\n");
+}
+
+ConsoleFunction(shellExecute, bool, 2, 4, "(executable, [args], [directory])")
+{
+    ExecuteThread *et = new ExecuteThread(argv[1], argc > 2 ? argv[2] : NULL, argc > 3 ? argv[3] : NULL);
+    return true; // Bug: BPNC error: need feedback on whether the command was sucessful
+}
+
+ConsoleFunction(shellExecuteBlocking, int, 2, 4, "(executable, [args], [directory])")
+{
+    return (int)ExecuteThread::runNoThread( argv[1], argc > 2 ? argv[2] : NULL, argc > 3 ? argv[3] : NULL );
 }

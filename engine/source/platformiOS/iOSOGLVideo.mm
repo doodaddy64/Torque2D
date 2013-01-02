@@ -369,7 +369,6 @@ DisplayDevice *OpenGLDevice::create()
     platState.multipleTouchesEnabled = true;
     [self setMultipleTouchEnabled:YES];
 
-
     retinaEnabled = false;
 
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2)
