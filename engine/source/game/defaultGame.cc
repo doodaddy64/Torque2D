@@ -226,9 +226,7 @@ bool initializeGame(int argc, const char **argv)
     Sim::getActiveActionMapSet()->pushObject(globalMap);
 
     // Let the remote debugger process the command-line.
-    const S32 usedArgs = RemoteDebuggerBridge::processCommandLine( argc, argv );
-    argv += usedArgs;
-    argc -= usedArgs;
+    RemoteDebuggerBridge::processCommandLine( argc, argv );
 
     if(argc > 2 && dStricmp(argv[1], "-project") == 0)
     {

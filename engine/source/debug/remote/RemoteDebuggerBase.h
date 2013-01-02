@@ -51,7 +51,6 @@ public:
     virtual ~RemoteDebuggerBase();
 
     bool login( const char* pPassword );
-    bool logout( const char* pPassword );
     inline bool isClientAuthenticated( void ) { return mClientAuthenticated; }
 
     /// Virtual functionality.
@@ -72,7 +71,6 @@ protected:
     virtual void advanceTime( F32 timeDelta ) {}
 
     virtual void onClientLogin( void ) {}
-    virtual void onClientLogout( void ) {}
 
 private:
     void receiveCommand( const char* pCommand );

@@ -108,11 +108,3 @@ void RemoteDebugger1::onClientLogin( void )
     Parent::onClientLogin();
 }
 
-//-----------------------------------------------------------------------------
-
-void RemoteDebugger1::onClientLogout( void )
-{
-    // Call parent.
-    Parent::onClientLogout();
-}
-

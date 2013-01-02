@@ -48,7 +48,6 @@ public:
 
 protected:
     virtual void onClientLogin( void );
-    virtual void onClientLogout( void );
 };
 
 #endif // _REMOTE_DEBUGGER1_H_

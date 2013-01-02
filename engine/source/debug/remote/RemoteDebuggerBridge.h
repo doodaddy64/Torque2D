@@ -12,11 +12,8 @@
 
 //-----------------------------------------------------------------------------
 
-#define REMOTE_DEBUGGER_COMMAND_LINE_ARG    "-RemoteDebugger"
-
-//-----------------------------------------------------------------------------
-
-class RemoteDebuggerBase;
+#define REMOTE_DEBUGGER_COMMAND_LINE_ARG            "-RemoteDebugger"
+#define REMOTE_DEBUGGER_COMMAND_LINE_ARG_SEPARATOR  ","
 
 //-----------------------------------------------------------------------------
 
@@ -41,12 +38,15 @@ public:
         LoggedOn
     };
 
+    // Constants.
+    static const S32 IdleWaitPeriod = 100;
+
 public:
     RemoteDebuggerBridge() {}
     virtual ~RemoteDebuggerBridge() {}
 
     /// Direct bridge control.
-    static S32 processCommandLine( S32 argc, const char **argv );
+    static void processCommandLine( S32 argc, const char **argv );
     static bool open( const S32 debuggerVersion, const S32 port, const char* pPassword );
     static bool close( void );
     static ConnectionState getConnectionState( void );
@@ -54,6 +54,7 @@ public:
     
 private:
     static void WaitForClientConnection( void );
+    static void WaitForClientLogin( void );
 };
 
 #endif // _REMOTE_DEBUGGER_BRIDGE_H_

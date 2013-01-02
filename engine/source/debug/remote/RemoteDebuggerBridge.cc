@@ -11,8 +11,12 @@
 #include "debug/remote/RemoteDebuggerBase.h"
 #endif
 
-#ifndef _SIM_OBJECT_PTR_H_
-#include "sim/simObjectPtr.h"
+#ifndef _SIMBASE_H_
+#include "sim/simBase.h"
+#endif
+
+#ifndef _STRINGUNIT_H_
+#include "string/stringUnit.h"
 #endif
 
 #ifndef _EVENT_H_
@@ -33,46 +37,46 @@ static RemoteDebuggerBridge::ConnectionState BridgeState = RemoteDebuggerBridge:
 
 //-----------------------------------------------------------------------------
 
-S32 RemoteDebuggerBridge::processCommandLine( S32 argc, const char **argv )
+void RemoteDebuggerBridge::processCommandLine( S32 argc, const char **argv )
 {
-    // Fetch the remote debugger argument length.
-    const S32 remoteDebuggerArgLength = dStrlen( REMOTE_DEBUGGER_COMMAND_LINE_ARG );
-
     // Find if the remote debugger is specified on the command-line.
     for( S32 argIndex = 0; argIndex < argc; ++argIndex )
     {
+        // Fetch argument.
+        const char* pArg = argv[argIndex];
+
         // Skip if this is this the remote debugger argument.
-        if ( dStrnicmp( argv[argIndex], REMOTE_DEBUGGER_COMMAND_LINE_ARG, remoteDebuggerArgLength ) != 0 )
+        if ( dStrnicmp( pArg, REMOTE_DEBUGGER_COMMAND_LINE_ARG, dStrlen( REMOTE_DEBUGGER_COMMAND_LINE_ARG ) ) != 0 )
             continue;
 
+        // Fetch debugger argument count.
+        const U32 debuggerArgumentCount = StringUnit::getUnitCount( pArg, REMOTE_DEBUGGER_COMMAND_LINE_ARG_SEPARATOR );
+        
         // Are there enough arguments for opening the remote bridge?
-        if ( argIndex+3 >= argc )
+        if ( debuggerArgumentCount != 3 && debuggerArgumentCount != 4 )
         {
             // No, so warn.
-            Con::warnf( "Found the debugger command-line however not enough arguments were specified." );
-
-            // No arguments consumed.
-            return 0;
+            Con::warnf( "Found the debugger command-line of '%s' however invalid arguments were specified.  Format is '%s%s<Version>%s<Port>[%s<Password>]'.",
+                pArg,
+                REMOTE_DEBUGGER_COMMAND_LINE_ARG,
+                REMOTE_DEBUGGER_COMMAND_LINE_ARG_SEPARATOR,
+                REMOTE_DEBUGGER_COMMAND_LINE_ARG_SEPARATOR,
+                REMOTE_DEBUGGER_COMMAND_LINE_ARG_SEPARATOR );
+            return;
         }
 
         // Fetch debugger version.
-        const S32 debuggerVersion = dAtoi(argv[argIndex+1]);
+        const S32 debuggerVersion = dAtoi( StringUnit::getUnit( pArg, 1, REMOTE_DEBUGGER_COMMAND_LINE_ARG_SEPARATOR ) );
 
         // Fetch port.
-        const S32 port = dAtoi(argv[argIndex+2]);
+        const S32 port = dAtoi( StringUnit::getUnit( pArg, 2, REMOTE_DEBUGGER_COMMAND_LINE_ARG_SEPARATOR ) );
 
         // Fetch password.
-        const char* pPassword = argv[argIndex+3];
+        const char* pPassword = debuggerArgumentCount == 4 ? StringUnit::getUnit( pArg, 3, REMOTE_DEBUGGER_COMMAND_LINE_ARG_SEPARATOR ) : "";
 
         // Open remote debugger with port and password.
         RemoteDebuggerBridge::open( debuggerVersion, port, pPassword );
-
-        // Four arguments used.
-        return 4;
     }
-
-    // No arguments consumed.
-    return 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -80,6 +84,8 @@ S32 RemoteDebuggerBridge::processCommandLine( S32 argc, const char **argv )
 bool RemoteDebuggerBridge::open( const S32 debuggerVersion, const S32 port, const char* pPassword )
 {
     // Sanity!
+    AssertFatal( debuggerVersion > 0, "Debugger version must be >0 ." );
+    AssertFatal( port > 0, "Debugger port must be >0." );
     AssertFatal( pPassword != NULL, "Debugger password cannot be NULL." );
 
     // Is the bridge closed?
@@ -113,19 +119,11 @@ bool RemoteDebuggerBridge::open( const S32 debuggerVersion, const S32 port, cons
         return false;
     }
 
-    // Is the password valid?
-    if ( dStrlen(pPassword) == 0 )
-    {
-        // No, so warn.
-        Con::warnf( "Debugger password cannot be empty." );
-        return false;
-    }
-
     // Create debugger.
-    RemoteDebuggerBase* pRemoteDebuggerBase = dynamic_cast<RemoteDebuggerBase*>( pDebuggerRep->create() );
+    RemoteDebuggerBase* pRemoteDebugger = dynamic_cast<RemoteDebuggerBase*>( pDebuggerRep->create() );
 
     // Did we create the debugger?
-    if ( pRemoteDebuggerBase == NULL )
+    if ( pRemoteDebugger == NULL )
     {
         // No, so warn.
         Con::warnf( "Failed to create debugger version '%d' (%s).", debuggerVersion, debuggerClassBuffer );
@@ -133,7 +131,17 @@ bool RemoteDebuggerBridge::open( const S32 debuggerVersion, const S32 port, cons
     }
 
     // Register the debugger.
-    pRemoteDebuggerBase->registerObject( REMOTE_DEBUGGER_NAME );
+    if ( !pRemoteDebugger->registerObject( REMOTE_DEBUGGER_NAME ) )
+    {
+        // Failed to register the debugger so warn.
+        Con::warnf( "Failed to register debugger version '%d' (%s).", debuggerVersion, debuggerClassBuffer );
+
+        // Delete the remove debugger.
+        pRemoteDebugger->deleteObject();
+        pRemoteDebugger = NULL;
+
+        return false;
+    }
 
     // Set debugger, its version, port and password.
     DebuggerVersion = debuggerVersion;
@@ -163,7 +171,11 @@ bool RemoteDebuggerBridge::open( const S32 debuggerVersion, const S32 port, cons
     WaitForClientConnection();
 
     // Set debugger client socket.
-    pRemoteDebuggerBase->mClientSocket = ClientSocket;
+    // NOTE:    This signals the debugger that it can now start receiving commands from the specified socket.
+    pRemoteDebugger->mClientSocket = ClientSocket;
+
+    // Wait for the client log-in.
+    WaitForClientLogin();
 
     return true;
 }
@@ -196,11 +208,14 @@ void RemoteDebuggerBridge::WaitForClientConnection( void )
     // Sanity!
     AssertFatal( BridgeState == Open, "Invalid bridge state waiting for connection." );
 
+    // Info.
+    Con::warnf( "Debugger version #%d waiting for client to connect on port %d...", DebuggerVersion, DebuggerPort );
+
     // Wait for connection.
     while( BridgeState == Open )
     {
         // Wait a while.
-        Platform::sleep( 100 );
+        Platform::sleep( IdleWaitPeriod );
 
         NetAddress address;
         NetSocket socket = Net::accept( ServerSocket, &address );
@@ -223,5 +238,32 @@ void RemoteDebuggerBridge::WaitForClientConnection( void )
 
         // Set bridge state.
         BridgeState = Connected;
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+void RemoteDebuggerBridge::WaitForClientLogin( void )
+{
+    // Sanity!
+    AssertFatal( BridgeState == Connected, "Invalid bridge state waiting for client log-in." );
+
+    // Find remote debugger.
+    RemoteDebuggerBase* pRemoteDebugger = Sim::findObject<RemoteDebuggerBase>( REMOTE_DEBUGGER_NAME );
+
+    // Sanity!
+    AssertFatal( pRemoteDebugger != NULL, "Could not find remote debugger waiting for client log-in." );
+
+    // Info.
+    Con::warnf( "Debugger version #%d waiting for client to authenticate on port %d...", DebuggerVersion, DebuggerPort );
+
+    // Wait until the client has authenticated.
+    while( !pRemoteDebugger->isClientAuthenticated() )
+    {
+        // Process the remote debugger explicitly.
+        pRemoteDebugger->processTick();
+
+        // Wait a while.
+        Platform::sleep( IdleWaitPeriod );
     }
 }

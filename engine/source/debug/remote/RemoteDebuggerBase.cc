@@ -54,32 +54,22 @@ bool RemoteDebuggerBase::login( const char* pPassword )
     // Set client authentication.
     mClientAuthenticated = ( dStrcmp( RemoteDebuggerBridge::getConnectionPassword(), pPassword ) == 0 );
 
-    // Perform callback if the client is authenticated.
+    // Was the client authenticated?
     if ( mClientAuthenticated )
+    {
+        // Yes, so perform the client log-in callback.
         onClientLogin();
 
+        // Info.
+        Con::printf( "Client authenticated on remote debugger." );
+    }
+    else
+    {
+        // No, so warn.
+        Con::warnf( "Client failed authentication on remote debugger." );
+    }
+
     return mClientAuthenticated;
-}
-
-//-----------------------------------------------------------------------------
-
-bool RemoteDebuggerBase::logout( const char* pPassword )
-{
-    // Finish if client is authenticated.
-    if ( !mClientAuthenticated )
-        return true;
-
-    // Finish if not authenticated.
-    if ( dStrcmp( RemoteDebuggerBridge::getConnectionPassword(), pPassword ) != 0 )
-        return false;
-
-    // Logged out.
-    mClientAuthenticated = false;
-
-    // Perform callback.
-    onClientLogout();
-
-    return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -89,6 +79,28 @@ bool RemoteDebuggerBase::addCodeBlock( CodeBlock* pCodeBlock )
     // Finish if client it not authenticated.
     if ( !isClientAuthenticated() )
         return false;
+
+#if 1
+        Con::printf( "+ AddCodeBlock: [%s] %s", pCodeBlock->name, pCodeBlock->fullPath );
+
+        //Con::printSeparator();
+        //for( U32 breakEntry = 0, breakIndex = 0; breakEntry < pCodeBlock->lineBreakPairCount; breakEntry++, breakIndex += 2 )
+        //{
+        //    Con::printf( "Line: %d, IP: %d", pCodeBlock->lineBreakPairs[breakIndex] >> 8, pCodeBlock->lineBreakPairs[breakIndex+1] );
+        //}
+#else
+    for( CodeBlock* pCodeBlock = CodeBlock::getCodeBlockList(); pCodeBlock != NULL; pCodeBlock = pCodeBlock->nextFile )
+    {
+        Con::printf( "%s", pCodeBlock->fullPath );
+        Con::printSeparator();
+        for( U32 breakEntry = 0, breakIndex = 0; breakEntry < pCodeBlock->lineBreakPairCount; breakEntry++, breakIndex += 2 )
+        {
+
+            Con::printf( "Line: %d, IP: %d", pCodeBlock->lineBreakPairs[breakIndex] >> 8, pCodeBlock->lineBreakPairs[breakIndex+1] );
+        }
+        Con::printSeparator();
+    }
+#endif
 
     return true;
 }
@@ -100,6 +112,8 @@ bool RemoteDebuggerBase::removeCodeBlock( CodeBlock* pCodeBlock )
     // Finish if client it not authenticated.
     if ( !isClientAuthenticated() )
         return false;
+
+    Con::printf( "- RemoveCodeBlock: [%s] %s", pCodeBlock->name, pCodeBlock->fullPath );
 
     return true;
 }
@@ -234,14 +248,14 @@ void RemoteDebuggerBase::receiveCommand( const char* pCommand )
     // Sanity!
     AssertFatal( pCommand != NULL, "Remote debugger command cannot be NULL." );
 
-    // Finish if no command available.
-    if ( dStrlen(pCommand) == 0 )
-        return;
-
     // Is the client authenticated?
     if ( mClientAuthenticated )
     {
-        // Yes, so evaluate the command.
+        // Yes, so finish if no command available.
+        if ( dStrlen(pCommand) == 0 )
+            return;
+
+        // Evaluate the command.
         const char* pReturnValue = Con::evaluatef( pCommand );
 
         // Send the return value if it exists.
