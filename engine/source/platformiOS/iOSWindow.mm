@@ -18,10 +18,10 @@
 #include "platformiOS/iOSWindow.h"
 #import <OpenGLES/EAGLDrawable.h>
 
-bool setScreenOrientation( bool, bool );
+bool setScreenOrientation(bool, bool);
 bool getStatusBarHidden();
-bool setStatusBarHidden( bool );
-void setStatusBarType( S32 );
+bool setStatusBarHidden(bool);
+void setStatusBarType(S32);
 
 //------------------------------------------------------------------------------
 #pragma mark ---- PlatState ----
@@ -30,35 +30,35 @@ iOSPlatState platState;
 iOSPlatState::iOSPlatState()
 {
 
-   
-   captureDisplay = true;
-   fadeWindows    = true;
-   backgrounded   = false;
-   minimized      = false;
-   
-   quit           = false;
-	
-	portrait			= true;//-Mat iOS is in portrait mode by default
+
+    captureDisplay = true;
+    fadeWindows = true;
+    backgrounded = false;
+    minimized = false;
+
+    quit = false;
+
+    portrait = true;//-Mat iOS is in portrait mode by default
 
 
-   // start with something reasonable.
-   desktopBitsPixel  = IOS_DEFAULT_RESOLUTION_BIT_DEPTH;
-   desktopWidth      = IOS_DEFAULT_RESOLUTION_X;
-   desktopHeight     = IOS_DEFAULT_RESOLUTION_Y;
-   fullscreen		= true;
+    // start with something reasonable.
+    desktopBitsPixel = IOS_DEFAULT_RESOLUTION_BIT_DEPTH;
+    desktopWidth = IOS_DEFAULT_RESOLUTION_X;
+    desktopHeight = IOS_DEFAULT_RESOLUTION_Y;
+    fullscreen = true;
 
-   osVersion = 0;
-   
-   dStrcpy(appWindowTitle, "iOS Torque Game Engine");
-   
-   // Semaphore for alerts. We put the app in a modal state by blocking the main 
-   alertSemaphore = Semaphore::createSemaphore(0);
-   
-   // directory that contains main.cs . This will help us detect whether we are 
-   // running with the scripts in the bundle or not.
-   mainDotCsDir = NULL;
-   
-   mainLoopTimer = NULL;
+    osVersion = 0;
+
+    dStrcpy(appWindowTitle, "iOS Torque Game Engine");
+
+    // Semaphore for alerts. We put the app in a modal state by blocking the main
+    alertSemaphore = Semaphore::createSemaphore(0);
+
+    // directory that contains main.cs . This will help us detect whether we are
+    // running with the scripts in the bundle or not.
+    mainDotCsDir = NULL;
+
+    mainLoopTimer = NULL;
 }
 
 
@@ -66,33 +66,33 @@ iOSPlatState::iOSPlatState()
 // DGL, the Gui, and TS use this for various purposes.
 const Point2I &Platform::getWindowSize()
 {
-   return platState.windowSize;
+    return platState.windowSize;
 }
 
 
 //------------------------------------------------------------------------------
 // save the window size, for DGL's use
-void Platform::setWindowSize( U32 newWidth, U32 newHeight )
+void Platform::setWindowSize(U32 newWidth, U32 newHeight)
 {
-   platState.windowSize.set( newWidth, newHeight );
+    platState.windowSize.set(newWidth, newHeight);
 }
 
 //------------------------------------------------------------------------------
 // Issue a minimize event. The standard handler will handle it.
 void Platform::minimizeWindow()
 {
-	//no minimizing on iOS
+    //no minimizing on iOS
 }
 
 void Platform::restoreWindow()
 {
-	//no minimizing on iOS
+    //no minimizing on iOS
 }
 
 //------------------------------------------------------------------------------
-void Platform::setWindowTitle(const char* title )
+void Platform::setWindowTitle(const char *title)
 {
-	//no window titles on iOS
+    //no window titles on iOS
 }
 
 
@@ -101,55 +101,64 @@ void Platform::setWindowTitle(const char* title )
 //------------------------------------------------------------------------------
 void Platform::init()
 {
-   Con::setVariable("$platform", "iOS");
-    
-   // Set the platform variable for the scripts
-   if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-       Con::setIntVariable("$pref::iOS::DeviceType", 1);
-   else
-       Con::setIntVariable("$pref::iOS::DeviceType", 0);
-    
-   if([[UIScreen mainScreen] scale] == 2)
-       Con::setBoolVariable("$pref::iOS::RetinaEnabled", true);
-   else
-       Con::setBoolVariable("$pref::iOS::RetinaEnabled", false);
-   
-   iOSConsole::create();
-    
-   //if ( !iOSConsole::isEnabled() )
-   Input::init();
+    Con::setVariable("$platform", "iOS");
 
-   // allow users to specify whether to capture the display or not when going fullscreen
-   Con::addVariable("pref::mac::captureDisplay", TypeBool, &platState.captureDisplay);
-   Con::addVariable("pref::mac::fadeWindows", TypeBool, &platState.fadeWindows);
-   
-   // create the opengl display device
-   DisplayDevice *dev = NULL;
-   Con::printf( "Video Init:" );
-   Video::init();
-   dev = OpenGLDevice::create();
-   if(dev)
-      Con::printf( "   Accelerated OpenGL display device detected." );
-   else
-      Con::printf( "   Accelerated OpenGL display device not detected." );
+    // Set the platform variable for the scripts
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        Con::setIntVariable("$pref::iOS::DeviceType", 1);
+    }
+    else
+    {
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
 
-   // and now we can install the device.
-   Video::installDevice(dev);
-   Con::printf( "" );
+        if (screenBounds.size.height == 568)
+            Con::setIntVariable("$pref::iOS::DeviceType", 2);
+        else
+            Con::setIntVariable("$pref::iOS::DeviceType", 0);
+    }
+
+    if ([[UIScreen mainScreen] scale] == 2)
+        Con::setBoolVariable("$pref::iOS::RetinaEnabled", true);
+    else
+        Con::setBoolVariable("$pref::iOS::RetinaEnabled", false);
+
+    iOSConsole::create();
+
+    //if ( !iOSConsole::isEnabled() )
+    Input::init();
+
+    // allow users to specify whether to capture the display or not when going fullscreen
+    Con::addVariable("pref::mac::captureDisplay", TypeBool, &platState.captureDisplay);
+    Con::addVariable("pref::mac::fadeWindows", TypeBool, &platState.fadeWindows);
+
+    // create the opengl display device
+    DisplayDevice *dev = NULL;
+    Con::printf("Video Init:");
+    Video::init();
+    dev = OpenGLDevice::create();
+    if (dev)
+        Con::printf("   Accelerated OpenGL display device detected.");
+    else
+        Con::printf("   Accelerated OpenGL display device not detected.");
+
+    // and now we can install the device.
+    Video::installDevice(dev);
+    Con::printf("");
 }
 
 //------------------------------------------------------------------------------
 void Platform::shutdown()
 {
-   setMouseLock( false );
-   Video::destroy();
-   Input::destroy();
-   iOSConsole::destroy();
+    setMouseLock(false);
+    Video::destroy();
+    Input::destroy();
+    iOSConsole::destroy();
 }
 
 
 //Hidden by Default. 1 Black Opaque, 2 Black Translucent
-S32 gStatusBarType = 0; 
+S32 gStatusBarType = 0;
 bool gStatusBarHidden = true;
 
 //Landscape by default. 0 Landscape, 1 Portrait
@@ -160,222 +169,261 @@ bool gScreenUpsideDown = true;
 //------------------------------------------------------------------------------
 void Platform::initWindow(const Point2I &initialSize, const char *name)
 {
-   dSprintf(platState.appWindowTitle, sizeof(platState.appWindowTitle), name);
-	
-	platState.windowSize.x = IOS_DEFAULT_RESOLUTION_X;
-	platState.windowSize.y = IOS_DEFAULT_RESOLUTION_Y;
-	
+    S32 resolutionWidth = IOS_DEFAULT_RESOLUTION_X;
+    S32 resolutionHeight = IOS_DEFAULT_RESOLUTION_Y;
+
+    // First fetch the values from the prefs.
+    U32 iDeviceType = (U32) Con::getIntVariable("$pref::iOS::DeviceType");
+    U32 iDeviceOrientation = (U32) Con::getIntVariable("$pref::iOS::ScreenOrientation");
+    bool retinaEnabled = Con::getBoolVariable("$pref::iOS::RetinaEnabled");
+
+    // 0: iPhone
+    // 1: iPad
+    // 2: iPhone 5
+    if (iDeviceType == 2)
+    {
+        resolutionWidth = 1136;
+        resolutionHeight = 640;
+    }
+    else
+    {
+        U32 scaleFactor = retinaEnabled ? 2 : 1;
+
+        resolutionWidth = iDeviceType ? (1024 * scaleFactor) : (480 * scaleFactor);
+        resolutionHeight = iDeviceType ? (768 * scaleFactor) : (320 * scaleFactor);
+    }
+
+    Point2I startRes;
+
+    if (!iDeviceOrientation)
+    {
+        startRes.x = resolutionWidth;
+        startRes.y = resolutionHeight;
+    }
+    else
+    {
+        //portrait, swap width height.
+        startRes.x = resolutionHeight;
+        startRes.y = resolutionWidth;
+    }
+
+    dSprintf(platState.appWindowTitle, sizeof(platState.appWindowTitle), name);
+
+    platState.windowSize.x = startRes.x;
+    platState.windowSize.y = startRes.y;
+
     //Get screen orientation prefs //Based on 0 Landscape, 1 Portrait
-	gScreenOrientation = Con::getIntVariable( "$pref::iOS::ScreenOrientation" );
-	gScreenUpsideDown = Con::getBoolVariable( "$pref::iOS::ScreenUpsideDown" );
+    gScreenOrientation = iDeviceOrientation;
+    gScreenUpsideDown = Con::getBoolVariable("$pref::iOS::ScreenUpsideDown");
 
-    platState.windowSize = initialSize;
-    
-	//Default to landscape, and run into portrait if requested.
-	platState.portrait = false;
-	
-	if( gScreenOrientation != 0) //fuzzytodo :add a constant
-	{
-		//Could handle other options here, later.
-		platState.portrait = true;
-	}
+    //Default to landscape, and run into portrait if requested.
+    platState.portrait = false;
 
-	//We should now have a good windowSize, it will be default if initial size was bad
-	iOSOGLVideo *glView;
-	CGRect rect;
+    if (gScreenOrientation != 0) //fuzzytodo :add a constant
+    {
+        //Could handle other options here, later.
+        platState.portrait = true;
+    }
 
-	rect.origin.x = 0;
-	rect.origin.y = 0;
-	
-	rect.size.width = platState.windowSize.x;
-	rect.size.height = platState.windowSize.y;
-	
-	glView = [[iOSOGLVideo alloc] initWithFrame: rect];
-	
-    if([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2)
+    //We should now have a good windowSize, it will be default if initial size was bad
+    iOSOGLVideo *glView;
+    CGRect rect;
+
+    rect.origin.x = 0;
+    rect.origin.y = 0;
+
+    rect.size.width = platState.windowSize.x;
+    rect.size.height = platState.windowSize.y;
+
+    glView = [[iOSOGLVideo alloc] initWithFrame:rect];
+
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2)
         glView.contentScaleFactor = [[UIScreen mainScreen] scale];
-    
-    UIScreen* mainscr = [UIScreen mainScreen];
-    CGSize screenSize = mainscr.currentMode.size;
-    
-	//set this as our platfromState glView context
-	[platState.Window addSubview: glView];
-	
-	platState.ctx = glView;
 
-	//get status bar pref // 0 Hidden , 1 BlackOpaque , 2 BlackTranslucent
-	
-	S32 tempType = Con::getIntVariable( "$pref::iOS::StatusBarType" );  
-	setStatusBarType( tempType );
-	
-	//set screen orientation
-	setScreenOrientation( platState.portrait, gScreenUpsideDown );
-	
-	bool fullScreen;
-	U32 bpp = Con::getIntVariable( "$pref::iOS::ScreenDepth" ); //iOS_DEFAULT_RESOLUTION_BIT_DEPTH;
-	if(!bpp)
-	{
-		Con::printf("Default BPP Chosen , $pref::iOS::ScreenDepth was not found.");
-		bpp = IOS_DEFAULT_RESOLUTION_BIT_DEPTH;
-	}
-	
-	fullScreen = true;
-	//
-	DisplayDevice::init();
-	
-	// this will create a rendering context & window
-	bool ok = Video::setDevice( "OpenGL", platState.windowSize.x, platState.windowSize.y, bpp, fullScreen );
-	if ( ! ok )
-	{
+    UIScreen *mainscr = [UIScreen mainScreen];
+
+    //set this as our platfromState glView context
+    [platState.Window addSubview:glView];
+
+    platState.ctx = glView;
+
+    //get status bar pref // 0 Hidden , 1 BlackOpaque , 2 BlackTranslucent
+
+    S32 tempType = Con::getIntVariable("$pref::iOS::StatusBarType");
+    setStatusBarType(tempType);
+
+    //set screen orientation
+    setScreenOrientation(platState.portrait, gScreenUpsideDown);
+
+    bool fullScreen;
+    U32 bpp = Con::getIntVariable("$pref::iOS::ScreenDepth"); //iOS_DEFAULT_RESOLUTION_BIT_DEPTH;
+    if (!bpp)
+    {
+        Con::printf("Default BPP Chosen , $pref::iOS::ScreenDepth was not found.");
+        bpp = IOS_DEFAULT_RESOLUTION_BIT_DEPTH;
+    }
+
+    fullScreen = true;
+    //
+    DisplayDevice::init();
+
+    // this will create a rendering context & window
+    bool ok = Video::setDevice("OpenGL", platState.windowSize.x, platState.windowSize.y, bpp, fullScreen);
+    if (!ok)
+    {
         AssertFatal( false, "Could not find a compatible display device!" );
-	}
+    }
 
-	//Luma:	Clear frame buffer to BLACK to start with
-	//NOTE:	This should probably be set by the user to be the color closest to Default.png in order to minimize any popping effect... $pref:: anyone? Are $pref::s even valid at this point in the Init process?
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);	
+    //Luma:	Clear frame buffer to BLACK to start with
+    //NOTE:	This should probably be set by the user to be the color closest to Default.png in order to minimize any popping effect... $pref:: anyone? Are $pref::s even valid at this point in the Init process?
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 //--------------------------------------
 // run app function: not applicable to iOS
 //--------------------------------------
 // run other apps
-int runApp( const char* fileName, const char* batchArgs, bool blocking = false ) {
-	return 0;
-}
-
-bool appIsRunning( int batchId ) {
-	return false;
-}
-
-bool Platform::openWebBrowser( const char* webAddress )
+int runApp(const char *fileName, const char *batchArgs, bool blocking = false)
 {
-	NSString *string = [[NSString alloc] initWithUTF8String: webAddress];
-	NSURL *url = [[NSURL alloc] initWithString: string];
-	bool ret = [platState.application openURL: url];
-	[string release];
-	[url release];
-	
-	return ret;// this bails on the application, switching to Safari
+    return 0;
 }
 
-bool isStatusBarHidden() 
+bool appIsRunning(int batchId)
 {
-	if( platState.application.statusBarHidden == YES ) 
-	{
-		return true;
-	} 
-	else 
-	{
-		return false;
-	}
+    return false;
 }
 
-bool setStatusBarHidden( bool hidden )
+bool Platform::openWebBrowser(const char *webAddress)
 {
-	if( hidden ) 
-	{
-		platState.application.statusBarHidden = YES;
-		gStatusBarHidden = true;
-		
-		return true;
-	} 
-	else 
-	{
-		platState.application.statusBarHidden = NO;
-		gStatusBarHidden = false;
-		
-		return false;
-	}
+    NSString *string = [[NSString alloc] initWithUTF8String:webAddress];
+    NSURL *url = [[NSURL alloc] initWithString:string];
+    bool ret = [platState.application openURL:url];
+    [string release];
+    [url release];
+
+    return ret;// this bails on the application, switching to Safari
 }
 
-void setStatusBarType( S32 type ) 
+bool isStatusBarHidden()
 {
-	switch(type)
-	{
-		case 0: //Hidden
-			setStatusBarHidden(true);
-			break;
-		case 1: //Black Opaque
-			platState.application.statusBarStyle = UIStatusBarStyleBlackOpaque;
-			setStatusBarHidden(false);
-			break;
-		case 2: //Black Transparent
-			platState.application.statusBarStyle = UIStatusBarStyleBlackTranslucent;
-			setStatusBarHidden(false);
-			break;
-		default:
-			platState.application.statusBarStyle = UIStatusBarStyleDefault;
-	}
-	
-	gStatusBarType = type;
+    if (platState.application.statusBarHidden == YES)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool setStatusBarHidden(bool hidden)
+{
+    if (hidden)
+    {
+        platState.application.statusBarHidden = YES;
+        gStatusBarHidden = true;
+
+        return true;
+    }
+    else
+    {
+        platState.application.statusBarHidden = NO;
+        gStatusBarHidden = false;
+
+        return false;
+    }
+}
+
+void setStatusBarType(S32 type)
+{
+    switch (type)
+    {
+        case 0: //Hidden
+            setStatusBarHidden(true);
+            break;
+        case 1: //Black Opaque
+            platState.application.statusBarStyle = UIStatusBarStyleBlackOpaque;
+            setStatusBarHidden(false);
+            break;
+        case 2: //Black Transparent
+            platState.application.statusBarStyle = UIStatusBarStyleBlackTranslucent;
+            setStatusBarHidden(false);
+            break;
+        default:
+            platState.application.statusBarStyle = UIStatusBarStyleDefault;
+    }
+
+    gStatusBarType = type;
 }
 
 
-bool setScreenOrientation( bool portrait, bool upsidedown ) 
+bool setScreenOrientation(bool portrait, bool upsidedown)
 {
-	bool success = false;
+    bool success = false;
 
-	CGPoint point;
-	if( platState.portrait ) 
-	{
-		point.x = platState.windowSize.x / 2; 
-		point.y = platState.windowSize.y / 2;
-	} 
-	else
-	{
-		point.x = platState.windowSize.y / 2;
-		point.y = platState.windowSize.x / 2; 
-	}
-	
+    CGPoint point;
+    if (platState.portrait)
+    {
+        point.x = platState.windowSize.x / 2;
+        point.y = platState.windowSize.y / 2;
+    }
+    else
+    {
+        point.x = platState.windowSize.y / 2;
+        point.y = platState.windowSize.x / 2;
+    }
 
-	[platState.ctx centerOnPoint: point ];	
-	
-	if( portrait ) {//normal upright
-		if( upsidedown ) {//button on top
-			[platState.ctx rotateToAngle: M_PI + (M_PI / 2.0) ];//rotate to 90 degrees
-			platState.application.statusBarOrientation = UIInterfaceOrientationPortraitUpsideDown ;
-			success = true;
-		} else {//button on bottom
-			[platState.ctx rotateToAngle: (M_PI / 2.0) ];//rotate to 270 degrees
-			platState.application.statusBarOrientation = UIInterfaceOrientationPortrait;
-			success = true;
-		}
-	} else {//landscape/ sideways
-		if( upsidedown ) {//button on left
-			[platState.ctx rotateToAngle: 0 ];//rotate to -180 (0) degrees
-			platState.application.statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
-			success = true;
-		} else {//button on right
-			[platState.ctx rotateToAngle: (M_PI) ];//rotate to 180 degrees
-			platState.application.statusBarOrientation = UIInterfaceOrientationLandscapeRight;
-			success = true;
-		}	
-	}
-	
-	return success;
+
+    [platState.ctx centerOnPoint:point];
+
+    if (portrait)
+    {//normal upright
+        if (upsidedown)
+        {//button on top
+            [platState.ctx rotateToAngle:M_PI + (M_PI / 2.0)];//rotate to 90 degrees
+            platState.application.statusBarOrientation = UIInterfaceOrientationPortraitUpsideDown;
+            success = true;
+        } else
+        {//button on bottom
+            [platState.ctx rotateToAngle:(M_PI / 2.0)];//rotate to 270 degrees
+            platState.application.statusBarOrientation = UIInterfaceOrientationPortrait;
+            success = true;
+        }
+    } else
+    {//landscape/ sideways
+        if (upsidedown)
+        {//button on left
+            [platState.ctx rotateToAngle:0];//rotate to -180 (0) degrees
+            platState.application.statusBarOrientation = UIInterfaceOrientationLandscapeLeft;
+            success = true;
+        } else
+        {//button on right
+            [platState.ctx rotateToAngle:(M_PI)];//rotate to 180 degrees
+            platState.application.statusBarOrientation = UIInterfaceOrientationLandscapeRight;
+            success = true;
+        }
+    }
+
+    return success;
 }
 
 ConsoleFunction(setScreenOrientation, bool, 3, 3, "Sets the orientation of the screen ( portrait/landscape, upside down or right-side up )\n"
-				"@(bool portrait, bool upside_down)")
-{
-	return setScreenOrientation( dAtob(argv[1]), dAtob(argv[2]) );
+        "@(bool portrait, bool upside_down)"){
+    return setScreenOrientation(dAtob(argv[1]), dAtob(argv[2]));
 }
 
 
 ConsoleFunction(getStatusBarHidden, bool, 1, 1, " Checks whether the status bar is hidden\n"
-				"@return Returns true if hidden and false if not")
-{
-	return isStatusBarHidden();
+        "@return Returns true if hidden and false if not"){
+    return isStatusBarHidden();
 }
 
 ConsoleFunction(setStatusBarHidden, bool, 2, 2, " Hides/unhides the iOS status bar \n"
-				"@return true == status bar is hidden, false == status bar is visible")
-{
-	return setStatusBarHidden( dAtob(argv[1]) );
+        "@return true == status bar is hidden, false == status bar is visible"){
+    return setStatusBarHidden(dAtob(argv[1]));
 }
 
-ConsoleFunction(setStatusBarType, void, 2, 2, " Set the status bar type. 0 hidden, 1 Black Opaque, 2 Black Translucent \n")
-{
-	return setStatusBarType( dAtoi(argv[1]) );
+ConsoleFunction(setStatusBarType, void, 2, 2, " Set the status bar type. 0 hidden, 1 Black Opaque, 2 Black Translucent \n"){
+    return setStatusBarType(dAtoi(argv[1]));
 }

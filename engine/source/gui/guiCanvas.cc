@@ -335,46 +335,18 @@ ConsoleFunction( createCanvas, bool, 2, 2, "( WindowTitle ) Use the createCanvas
                                                                 "@return Returns true on success, false on failure.\n"
                                                                 "@sa createEffectCanvas")
 {
-   AssertISV(!Canvas, "CreateCanvas: canvas has already been instantiated");
+    AssertISV(!Canvas, "CreateCanvas: canvas has already been instantiated");
 
-#ifdef TORQUE_OS_IOS
-    
-    // First fetch the values from the prefs.
-    U32 iDeviceType = Con::getIntVariable("$pref::iOS::DeviceType");
-    U32 iDeviceOrientation = Con::getIntVariable("$pref::iOS::ScreenOrientation");
-    bool retinaEnabled = Con::getBoolVariable("$pref::iOS::RetinaEnabled");
-        
-    U32 scaleFactor = retinaEnabled ? 2 : 1;
-    
-    U32 resolutionWidth = iDeviceType ? (1024 * scaleFactor) : (480 * scaleFactor);
-    U32 resolutionHeight = iDeviceType ? (768 * scaleFactor) : (320 * scaleFactor);
-    
-    Point2I startRes = Point2I(IOS_DEFAULT_RESOLUTION_X, IOS_DEFAULT_RESOLUTION_Y);
-    
-    if (!iDeviceOrientation) 
-    {
-        startRes.x = resolutionWidth;
-        startRes.y = resolutionHeight;
-    }	
-    else 
-    {
-        //portrait, swap width height.
-        startRes.x = resolutionHeight;
-        startRes.y = resolutionWidth;
-    }
-
-   Platform::initWindow(startRes, argv[1]);
-#else
     Platform::initWindow(Point2I(MIN_RESOLUTION_X, MIN_RESOLUTION_Y), argv[1]);
-#endif
 
-   if (!Video::getResolutionList())
-      return false;
 
-   // create the canvas, and add it to the manager
-   Canvas = new GuiCanvas();
-   Canvas->registerObject("Canvas"); // automatically adds to GuiGroup
-   return true;
+    if (!Video::getResolutionList())
+        return false;
+
+    // create the canvas, and add it to the manager
+    Canvas = new GuiCanvas();
+    Canvas->registerObject("Canvas"); // automatically adds to GuiGroup
+    return true;
 }
 
 ConsoleFunction( setCanvasTitle, void, 2, 2, "(string windowTitle) Sets the title to the provided string\n" 
