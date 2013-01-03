@@ -111,6 +111,8 @@ function createNewProject(%name, %template, %openImmediately)
     
     // iOS loading screen
     pathCopy($ProjectFilesLocation @ "Default.png", %gameLocation @ "Default.png");
+    pathCopy($ProjectFilesLocation @ "Default@2x.png", %gameLocation @ "Default@2x.png");
+    pathCopy($ProjectFilesLocation @ "Default-568h@2x.png", %gameLocation @ "Default-568h@2x.png");
 
     // Set the new game's executables to match the name the user provided
     copyProjectGameBinaries(%gameLocation, %directory);
