@@ -15,7 +15,7 @@
 #include "platformiOS/iOSUtil.h"
 #include "platform/threads/thread.h"
 #include "game/gameInterface.h"
-#include "io/fileio.h"
+#include "io/fileObject.h"
 
 extern void clearPendingMultitouchEvents( void );
 
@@ -28,7 +28,7 @@ bool appIsRunning = true;
 
 int _iOSRunTorqueMain( id appID, UIView *Window, UIApplication *app )
 {
-	platState.appID = appID;	
+	platState.appID = appID;
 	platState.firstThreadId = ThreadManager::getCurrentThreadId();
 	platState.Window = Window;
 	platState.application = app;
@@ -42,7 +42,7 @@ int _iOSRunTorqueMain( id appID, UIView *Window, UIApplication *app )
     
 	platState.lastTimeTick = Platform::getRealMilliseconds();
     
-	if(!Game->mainInit(platState.argc, platState.argv))
+	if(!Game->mainInitialize(platState.argc, platState.argv))
 	{
 		return 0;
 	}
@@ -63,12 +63,12 @@ int _iOSRunTorqueMain( id appID, UIView *Window, UIApplication *app )
     }
     else
     {
-        /* 
+        /*
          We can use the CADisplayLink to update the game now. The magic number 1 below is because of what the docs say.
          
 		 The default value is 1, which results in your application being notified at the refresh rate of the display.
 		 If the value is set to a value larger than 1, the display link notifies your application at a fraction of the
-		 native refresh rate. For example, setting the interval to 2 causes the display link to fire every other frame, 
+		 native refresh rate. For example, setting the interval to 2 causes the display link to fire every other frame,
 		 providing half the frame rate.
          
 		 Setting this value to less than 1 results in undefined behavior and is a programmer error.
@@ -153,7 +153,7 @@ void _iOSGameChangeOrientation(S32 newOrientation)
     // The rotation matching the project orientation must be allowed for any to occur
     if (Con::getBoolVariable("$pref::iOS::EnableOrientationRotation"))
     {
-        // Start "collecting animations" 
+        // Start "collecting animations"
         [UIView beginAnimations: nil context: nil];
         
         //  If the project is designed for landscape or it allows landscape rotation
@@ -186,7 +186,7 @@ void _iOSGameChangeOrientation(S32 newOrientation)
             if (newOrientation == UIDeviceOrientationPortrait)
             {
                 platState.Window.transform = CGAffineTransformMakeRotation(mDegToRad(270.0f));
-                Con::executef(1, "oniOSOrientationToPortrait");     
+                Con::executef(1, "oniOSOrientationToPortrait");
                 //  Show animations
                 [UIView commitAnimations];
                 
@@ -195,7 +195,7 @@ void _iOSGameChangeOrientation(S32 newOrientation)
             
             if (newOrientation == UIDeviceOrientationPortraitUpsideDown)
             {
-                platState.Window.transform = CGAffineTransformMakeRotation(mDegToRad(90.0f));	
+                platState.Window.transform = CGAffineTransformMakeRotation(mDegToRad(90.0f));
                 Con::executef(1, "oniOSOrientationToPortraitUpsideDown");
                 //  Show animations
                 [UIView commitAnimations];
@@ -219,7 +219,7 @@ void iOSRunEventLoopTimer(S32 intervalMs)
             intervalMs = 4;
         
         // EventTimerInterval is a double.
-		NSTimeInterval interval = intervalMs / 1000.0; 
+		NSTimeInterval interval = intervalMs / 1000.0;
         
 		platState.mainLoopTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:platState.appID selector:@selector(runMainLoop) userInfo:nil repeats:NO];
         
@@ -235,7 +235,7 @@ static void _iOSGetTxtFileArgs(int &argc, char** argv, int maxargc)
     
     U32 textLen;
     
-    char* text = new char[kMaxTextLen];   
+    char* text = new char[kMaxTextLen];
     
     // Open the file, kick out if we can't
     File cmdfile;
@@ -295,7 +295,7 @@ int main(int argc, char *argv[])
         
         const char *strVersion = [nsStrVersion UTF8String ];
         
-        platState.osVersion = dAtof( strVersion); 
+        platState.osVersion = dAtof( strVersion);
         
         // Find Main.cs .
         const char* cwd = Platform::getMainDotCsDir();
