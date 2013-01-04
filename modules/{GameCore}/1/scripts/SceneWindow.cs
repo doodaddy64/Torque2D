@@ -137,9 +137,6 @@ function SceneWindow::endLevel(%sceneWindow)
 
     if (isObject(%scene))
     {
-        if (isObject(%scene.getGlobalTileMap()) )
-            %scene.getGlobalTileMap().delete();
-
         %scene.delete();
     }
 

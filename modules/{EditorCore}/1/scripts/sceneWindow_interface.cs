@@ -151,12 +151,7 @@ function SceneWindow::endLevel(%sceneWindow)
         %this.lockedObjectSet.clear();
 
     if (isObject(%scene))
-    {
-        if (isObject(%scene.getGlobalTileMap()) )
-            %scene.getGlobalTileMap().delete();
-
         %scene.delete();
-    }
 
     $lastLoadedScene = "";
 }

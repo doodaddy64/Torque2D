@@ -43,15 +43,7 @@ function Scene::endLevel(%scene)
             %scene.onLevelEnded();
     }
 
-    %globalTileMap = %scene.getGlobalTileMap();
-    
-    if (isObject(%globalTileMap))
-        %scene.removeFromScene(%globalTileMap);
-
     %scene.clearScene(true);
-
-    if (isObject(%globalTileMap))
-        %scene.addToScene(%globalTileMap);
 
     $lastLoadedScene = "";
 }
@@ -149,24 +141,6 @@ function Scene::addToLevel(%scene, %levelFile, %dbFileName)
                 %obj.setSize(%oldSize);
                 %obj.playEffect();
             }
-            else if (%obj.getClassName() $= "TileLayer")
-            {
-                %oldPosition = %obj.getPosition();
-                %oldSize = %obj.getSize();
-                %tileMap = %newScene.getGlobalTileMap();
-
-                if (isObject(%tileMap))
-                {
-                    %tileMap.addTileLayer(%obj);
-                    %obj.loadTileLayer(%obj.layerFile);
-                    %obj.setPosition(%oldPosition);
-                    %obj.setSize(%oldSize);
-                }
-                else
-                {
-                    error("Unable to find scene's global tile map.");
-                }
-            }
         }
 
         $LevelManagement::newObjects = %object;
@@ -188,23 +162,6 @@ function Scene::addToLevel(%scene, %levelFile, %dbFileName)
                 %obj.setSize(%oldSize);
                 %obj.playEffect();
             }
-            else if (%obj.getClassName() $= "TileLayer")
-            {
-                %oldPosition = %obj.getPosition();
-                %oldSize = %obj.getSize();
-                %tileMap = %newScene.getGlobalTileMap();
-                if (isObject(%tileMap))
-                {
-                    %tileMap.addTileLayer(%obj);
-                    %obj.loadTileLayer(%obj.layerFile);
-                    %obj.setPosition(%oldPosition);
-                    %obj.setSize(%oldSize);
-                }
-                else
-                {
-                    error("Unable to find scene's global tile map.");
-                }
-            }
         }
         
         $LevelManagement::newObjects = %object;
@@ -225,18 +182,6 @@ function Scene::addToLevel(%scene, %levelFile, %dbFileName)
         {
             %oldPosition = %object.getPosition();
             %oldSize = %object.getSize();
-            %tileMap = %newScene.getGlobalTileMap();
-            if (isObject(%tileMap))
-            {
-                %tileMap.addTileLayer(%object);
-                %object.loadTileLayer(%object.layerFile);
-                %object.setPosition(%oldPosition);
-                %object.setSize(%oldSize);
-            }
-            else
-            {
-                error("Unable to find scene's global tile map.");
-            }
         }
         else
         {
@@ -263,9 +208,6 @@ function Scene::addToLevel(%scene, %levelFile, %dbFileName)
             %fromScene = %object;
             %toScene = %newScene;
         }
-
-        if (isObject(%fromScene.getGlobalTileMap()))
-            %fromScene.getGlobalTileMap().delete();
 
         // If the existing scene has objects in it, then the new stuff should probably be
         // organized nicely in its own group.
