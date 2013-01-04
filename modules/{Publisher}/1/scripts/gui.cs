@@ -248,25 +248,3 @@ function openProjectFolder()
    echo("Opening Project Folder At " @ expandPath("^project/")) ;
    openFolder(expandPath("^project/"));   
 }
-
-//-----------------------------------------------------------------------------
-
-function openXCodeProject()
-{
-    if($platform $= "macos")
-    {
-        %pathToProject = expandPath("^project/../../buildFiles/XCode/3StepStudio.xcodeproj");
-        %batchFile = expandPath("./openXcode.sh");
-        %cmds = expandPath("./openXcode.sh") @ "; " @ %pathToProject;
-
-        echo("Doing : " @ %cmds);
-
-        runBatchFile("sh", %cmds, true);
-        echo("Finished running batchfile");   
-    }
-    else
-    {
-        messageBox("Error", "Cannot open XCode projects on Windows, Sorry!");
-    }
-}
-

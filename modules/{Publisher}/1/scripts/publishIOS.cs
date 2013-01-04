@@ -64,12 +64,11 @@ function openiOSCodeProject(%xCodePath)
     if($platform $= "macos")
     {
         %batchFile = expandPath("./openXcode.sh");
-        %cmds = expandPath("./openXcode.sh") @ "; " @ %xCodePath;
+        %cmds = expandPath("./openXcode.sh") @ " " @ %xCodePath;
 
-        echo("Doing : " @ %cmds);
+        %binPath = expandPath("/bin");
 
-        runBatchFile("sh", %cmds, true);
-        echo("Finished running batchfile");   
+        shellExecute(%binPath @ "/sh", %cmds, %binPath);
     }
     else
     {
