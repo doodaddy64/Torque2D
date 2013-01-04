@@ -89,6 +89,8 @@ struct tDeleteRequest
     bool            mSafeDeleteReady;
 };
 
+///-----------------------------------------------------------------------------
+
 struct TickContact
 {
     TickContact()

@@ -10,16 +10,12 @@
 #include "assetDefinition.h"
 #endif
 
-#ifndef _SIMBASE_H_
-#include "sim/simBase.h"
-#endif
-
 #ifndef _STRINGUNIT_H_
 #include "string/stringUnit.h"
 #endif
 
 #ifndef _ASSET_FIELD_TYPES_H
-#include "assetFieldTypes.h"
+#include "assets/assetFieldTypes.h"
 #endif
 
 //-----------------------------------------------------------------------------
