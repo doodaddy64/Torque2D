@@ -284,3 +284,105 @@ ConsoleMethod(ImageAsset, getFrameSize, const char*, 3, 3,    "(int frame) - Get
     return pBuffer;
 }
 
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ImageAsset, clearExplicitCells, bool, 2, 2,   "() Clears all explicit cells.\n"
+                                                            "The image asset stays in explicit mode however with no explicit cells a single full-frame cell becomes default.\n"
+                                                            "@return Whether the operation was successful or not.")
+{
+    return object->clearExplicitCells();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ImageAsset, addExplicitCell, bool, 6, 6,      "(int cellOffsetX, int cellOffsetY, int cellWidth, int cellHeight) Add an explicit cell.\n"
+                                                            "@param cellOffsetX The offset in the X axis to the top-left of the cell.\n"
+                                                            "@param cellOffsetY The offset in the Y axis to the top-left of the cell.\n"
+                                                            "@param cellWidth The width of the cell.\n"
+                                                            "@param cellHeight The height of the cell.\n"
+                                                            "The image asset must be in explicit mode for this operation to succeed.\n"
+                                                            "@return Whether the operation was successful or not.")
+{
+    // Fetch offsets.
+    const S32 cellOffsetX = dAtoi( argv[2] );
+    const S32 cellOffsetY = dAtoi( argv[3] );
+
+    // Fetch dimensions.
+    const S32 cellWidth = dAtoi( argv[4] );
+    const S32 cellHeight = dAtoi (argv[5] );
+
+    return object->addExplicitCell( cellOffsetX, cellOffsetY, cellWidth, cellHeight );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ImageAsset, insertExplicitCell, bool, 7, 7,   "(int cellIndex, int cellOffsetX, int cellOffsetY, int cellWidth, int cellHeight) Insert an explicit cell at the specified index.\n"
+                                                            "@param cellIndex The zero-based index to insert the cell.  This will work when no cells are present.  If the index is beyond the cell count then the cell is simply added.\n"
+                                                            "@param cellOffsetX The offset in the X axis to the top-left of the cell.\n"
+                                                            "@param cellOffsetY The offset in the Y axis to the top-left of the cell.\n"
+                                                            "@param cellWidth The width of the cell.\n"
+                                                            "@param cellHeight The height of the cell.\n"
+                                                            "The image asset must be in explicit mode for this operation to succeed.\n"
+                                                            "@return Whether the operation was successful or not.")
+{
+    // Fetch cell index.
+    const S32 cellIndex = dAtoi( argv[2] );
+
+    // Fetch offsets.
+    const S32 cellOffsetX = dAtoi( argv[3] );
+    const S32 cellOffsetY = dAtoi( argv[4] );
+
+    // Fetch dimensions.
+    const S32 cellWidth = dAtoi( argv[5] );
+    const S32 cellHeight = dAtoi (argv[6] );
+
+    return object->insertExplicitCell( cellIndex, cellOffsetX, cellOffsetY, cellWidth, cellHeight );
+}
+
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ImageAsset, removeExplicitCell, bool, 7, 7,   "(int cellIndex) Remove an explicit cell from the specified index.\n"
+                                                            "@param cellIndex The zero-based index to remove the cell from.\n"
+                                                            "@return Whether the operation was successful or not.")
+{
+    // Fetch cell index.
+    const S32 cellIndex = dAtoi( argv[2] );
+
+    return object->removeExplicitCell( cellIndex );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ImageAsset, setExplicitCell, bool, 7, 7,      "(int cellIndex, int cellOffsetX, int cellOffsetY, int cellWidth, int cellHeight) Set an explicit cell at the specified index.\n"
+                                                            "@param cellIndex The zero-based index to insert the cell.  This will work when no cells are present.  If the index is beyond the cell count then the cell is simply added.\n"
+                                                            "@param cellOffsetX The offset in the X axis to the top-left of the cell.\n"
+                                                            "@param cellOffsetY The offset in the Y axis to the top-left of the cell.\n"
+                                                            "@param cellWidth The width of the cell.\n"
+                                                            "@param cellHeight The height of the cell.\n"
+                                                            "The image asset must be in explicit mode for this operation to succeed.\n"
+                                                            "@return Whether the operation was successful or not.")
+{
+    // Fetch cell index.
+    const S32 cellIndex = dAtoi( argv[2] );
+
+    // Fetch offsets.
+    const S32 cellOffsetX = dAtoi( argv[3] );
+    const S32 cellOffsetY = dAtoi( argv[4] );
+
+    // Fetch dimensions.
+    const S32 cellWidth = dAtoi( argv[5] );
+    const S32 cellHeight = dAtoi (argv[6] );
+
+    return object->setExplicitCell( cellIndex, cellOffsetX, cellOffsetY, cellWidth, cellHeight );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ImageAsset, getExplicitCellCount, S32, 2, 2,  "() Gets the explicit cell count.\n"
+                                                            "@return The explicit cell count.")
+{
+    return object->getExplicitCellCount();
+}
+
+
