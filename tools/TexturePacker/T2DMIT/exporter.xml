@@ -32,7 +32,7 @@
     <supportsTrimming>true</supportsTrimming>
 
     <!-- target framework supports rotated sprites -->
-    <supportsRotation>true</supportsRotation>
+    <supportsRotation>false</supportsRotation>
 
     <!-- rotated sprites direction (cw/ccw) -->
     <rotationDirection>cw</rotationDirection>
@@ -44,7 +44,7 @@
     <supportsTrimSpriteNames>yes</supportsTrimSpriteNames>
 
     <!-- supports texure subpath -->
-    <supportsTextureSubPath>yes</supportsTextureSubPath>
+    <supportsTextureSubPath>false</supportsTextureSubPath>
 
 </exporter>
 

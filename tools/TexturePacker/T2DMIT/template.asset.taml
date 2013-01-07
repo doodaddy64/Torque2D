@@ -2,11 +2,7 @@
     AssetName="{{texture.trimmedName}}"
     ImageFile="@assetFile=#{{texture.fullName}}">	
 	<ImageAsset.Cells>
-{% for sprite in allSprites %}	
-		<Cell Offset="{{sprite.frameRect.x}} {{sprite.frameRect.y}}" Width="{{sprite.frameRect.width}}" Height="{{sprite.frameRect.height}}"/>
-		<Cell Offset="512 0" Width="512" Height="512"/>
-		<Cell Offset="0 512" Width="512" Height="512"/>
-		<Cell Offset="512 512" Width="512" Height="512"/>
-{% endfor %}		
+		{% for sprite in allSprites %}<Cell Offset="{{sprite.frameRect.x}} {{sprite.frameRect.y}}" Width="{{sprite.frameRect.width}}" Height="{{sprite.frameRect.height}}"/>
+		{% endfor %}
 	</ImageAsset.Cells>
 </ImageAsset>
