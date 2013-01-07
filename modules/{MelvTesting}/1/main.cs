@@ -119,14 +119,16 @@ function startMelvTesting()
     %scroller.repeatX = 4;
     %scroller.repeatY = 3;
     //%scroller.setScrollPositionX( 20 );
-    %scroller.imageMap = "{PhysicsLauncherAssets}:PL_GorillaProjectileImageMap";
+    //%scroller.imageMap = "{PhysicsLauncherAssets}:PL_GorillaProjectileImageMap";
+    %scroller.imageMap = "{MelvTesting}:ChoppyImage";
+    %scroller.frame = 1;
     //%scroller.imageMap = "";
     //%scroller.Animation = "{PhysicsLauncherAssets}:MiniTileMapAnim";
     //%scroller.frame = 80;
     //%scroller.imageMap = "{PhysicsLauncherAssets}:CreditsImageImageMap";
     
-	%scroller.blendMode = true;
-	%scroller.blendColor = "HotPink";
+	//%scroller.blendMode = true;
+	//%scroller.blendColor = "HotPink";
     
     //AssetDatabase.IgnoreAutoUnload = false;
     
