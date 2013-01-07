@@ -91,6 +91,24 @@ public:
         }
     }
 
+    inline void getFieldValue( Point2I& fieldValue ) const
+    {
+        if ( dSscanf( mFieldValue, "%d %d", &fieldValue.x, &fieldValue.y ) != 2 )
+        {
+            // Warn.
+            Con::warnf( "TamlPropertyField - Reading point2I but it has an incorrect format: '%s'.", mFieldValue );
+        }
+    }
+
+    inline void getFieldValue( Point2F& fieldValue ) const
+    {
+        if ( dSscanf( mFieldValue, "%g %g", &fieldValue.x, &fieldValue.y ) != 2 )
+        {
+            // Warn.
+            Con::warnf( "TamlPropertyField - Reading point2F but it has an incorrect format: '%s'.", mFieldValue );
+        }
+    }
+
     inline void getFieldValue( b2Vec2& fieldValue ) const
     {
         if ( dSscanf( mFieldValue, "%g %g", &fieldValue.x, &fieldValue.y ) != 2 )
@@ -216,6 +234,20 @@ public:
     {
         char fieldValueBuffer[64];
         dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%g %g %g %g", fieldValue.red, fieldValue.green, fieldValue.blue, fieldValue.alpha );
+        return addPropertyField( pFieldName, fieldValueBuffer );
+    }
+
+    TamlPropertyField* addPropertyField( const char* pFieldName, const Point2I& fieldValue )
+    {
+        char fieldValueBuffer[32];
+        dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%d %d", fieldValue.x, fieldValue.y );
+        return addPropertyField( pFieldName, fieldValueBuffer );
+    }
+
+    TamlPropertyField* addPropertyField( const char* pFieldName, const Point2F& fieldValue )
+    {
+        char fieldValueBuffer[32];
+        dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%g %g", fieldValue.x, fieldValue.y );
         return addPropertyField( pFieldName, fieldValueBuffer );
     }
 
