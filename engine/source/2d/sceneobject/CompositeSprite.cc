@@ -49,6 +49,7 @@ void CompositeSprite::initPersistFields()
     addProtectedField("DefaultSpriteAngle", TypeF32, Offset(mDefaultSpriteSize, CompositeSprite), &setDefaultSpriteAngle, &getDefaultSpriteAngle, &writeDefaultSpriteAngle, "");
     addField( "BatchIsolated", TypeBool, Offset(mBatchIsolated, CompositeSprite), &writeBatchIsolated, "");
     addField( "BatchSortMode", TypeEnum, Offset(mSortMode, CompositeSprite), &writeBatchSortMode, 1, &SceneRenderQueue::renderSortTable, "");
+    addProtectedField( "BatchCulling", TypeBool, Offset(mSpriteCulling, CompositeSprite), setBatchCulling, &defaultProtectedGetFn, &writeBatchCulling, "");
 }
 
 //-----------------------------------------------------------------------------
@@ -128,6 +129,122 @@ void CompositeSprite::copyTo(SimObject* object)
 
     // Call sprite batch.
     SpriteBatch::copyTo( dynamic_cast<SpriteBatch*>(object) );
+}
+
+//------------------------------------------------------------------------------
+
+SpriteBatchItem* CompositeSprite::createSprite( const LogicalPosition& logicalPosition )
+{
+    // Handle layout type appropriately.
+    switch( mLayoutType )
+    {
+        // No layout.
+        case None:
+            return SpriteBatch::createSprite( logicalPosition );
+
+        // Rectilinear layout.
+        case Rectilinear:
+            return createSpriteRectilinearLayout( logicalPosition );
+
+        // Isometric layout.
+        case Isometric:
+            return createSpriteIsometricLayout( logicalPosition );
+
+        default:
+            // Sanity!
+            AssertFatal( false, "CompositeSprite::createSprite() - Unknown layout type encountered." );
+            return SpriteBatch::createSprite( logicalPosition );
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+SpriteBatchItem* CompositeSprite::createSpriteRectilinearLayout( const SpriteBatch::LogicalPosition& logicalPosition )
+{
+    // Do we have a valid logical position?
+    if ( logicalPosition.mArgCount != 2 )
+    {
+        // No, so warn.
+        Con::warnf( "Invalid logical position specified for composite sprite." );
+        return NULL;
+    }
+
+    // Fetch logical position.
+    Vector2 position( dAtof(logicalPosition.mArgs[0]), dAtof(logicalPosition.mArgs[1]) );
+
+    // Fetch sprite key.
+    const StringTableEntry spriteKey = SpriteBatch::getSpriteKey( logicalPosition );
+
+    // Does the sprite already exist?
+    if ( findSpriteKey( spriteKey ) != NULL )
+    {
+        // Yes, so warn.
+        Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", spriteKey );
+        return NULL;
+    }
+
+    // Create the sprite.
+    SpriteBatchItem* pSpriteBatchItem = SpriteBatch::createSprite();
+
+    // Set sprite key.
+    pSpriteBatchItem->setKey( spriteKey );
+
+    // Set the sprite default position.
+    pSpriteBatchItem->setLocalPosition( position.mult( getDefaultSpriteStride() ) );
+
+    // Set the sprite default size and angle.
+    pSpriteBatchItem->setSize( SpriteBatch::getDefaultSpriteSize() );
+    pSpriteBatchItem->setLocalAngle( SpriteBatch::getDefaultSpriteAngle() );
+
+    return pSpriteBatchItem;
+}
+
+//-----------------------------------------------------------------------------
+
+SpriteBatchItem* CompositeSprite::createSpriteIsometricLayout( const SpriteBatch::LogicalPosition& logicalPosition )
+{
+    // Do we have a valid logical position?
+    if ( logicalPosition.mArgCount != 2 )
+    {
+        // No, so warn.
+        Con::warnf( "Invalid logical position specified for composite rectilinear sprite." );
+        return NULL;
+    }
+
+    // Fetch sprite key.
+    const StringTableEntry spriteKey = getSpriteKey( logicalPosition );
+
+    // Does the sprite already exist?
+    if ( findSpriteKey( spriteKey ) != NULL )
+    {
+        // Yes, so warn.
+        Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", spriteKey );
+        return NULL;
+    }
+
+    // Create the sprite.
+    SpriteBatchItem* pSpriteBatchItem = SpriteBatch::createSprite();
+
+    // Set sprite key.
+    pSpriteBatchItem->setKey( spriteKey );
+
+    // Fetch sprite stride.
+    const Vector2 spriteStride = getDefaultSpriteStride();
+
+    // Fetch logical coordinates.
+    Vector2 position( dAtof(logicalPosition.mArgs[0]), dAtof(logicalPosition.mArgs[1]) );
+
+    // Calculate position.
+    position.Set( (position.x * spriteStride.x) + (position.y * spriteStride.x), (position.x * spriteStride.y) + (position.y * -spriteStride.y) );
+
+    // Set the sprite default position.
+    pSpriteBatchItem->setLocalPosition( position );
+
+    // Set the sprite default size and angle.
+    pSpriteBatchItem->setSize( getDefaultSpriteSize() );
+    pSpriteBatchItem->setLocalAngle( SpriteBatch::getDefaultSpriteAngle() );
+
+    return pSpriteBatchItem;
 }
 
 //-----------------------------------------------------------------------------

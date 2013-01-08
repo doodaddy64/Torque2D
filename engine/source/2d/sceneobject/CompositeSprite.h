@@ -35,7 +35,7 @@ public:
     };
 
 private:
-
+    LayoutType  mLayoutType;
 
 public:
     CompositeSprite();
@@ -59,15 +59,22 @@ public:
     DECLARE_CONOBJECT( CompositeSprite );
 
 protected:
+    virtual SpriteBatchItem* createSprite( const LogicalPosition& logicalPosition );
+    virtual SpriteBatchItem* createSpriteRectilinearLayout( const SpriteBatch::LogicalPosition& logicalPosition );
+    virtual SpriteBatchItem* createSpriteIsometricLayout( const SpriteBatch::LogicalPosition& logicalPosition );
+
     virtual void onTamlCustomWrite( TamlCollection& customCollection );
     virtual void onTamlCustomRead( const TamlCollection& customCollection );
 
 protected:
-    static bool         setDefaultSpriteAngle(void* obj, const char* data)                  { STATIC_VOID_CAST_TO(CompositeSprite,SpriteBatch, obj)->setDefaultSpriteAngle(mDegToRad(dAtof(data))); return false; }
-    static const char*  getDefaultSpriteAngle(void* obj, const char* data)                  { return Con::getFloatArg( mRadToDeg(STATIC_VOID_CAST_TO(CompositeSprite,SpriteBatch, obj)->getDefaultSpriteAngle()) ); }
+    static bool         setDefaultSpriteAngle(void* obj, const char* data)                  { STATIC_VOID_CAST_TO(CompositeSprite, SpriteBatch, obj)->setDefaultSpriteAngle(mDegToRad(dAtof(data))); return false; }
+    static const char*  getDefaultSpriteAngle(void* obj, const char* data)                  { return Con::getFloatArg( mRadToDeg(STATIC_VOID_CAST_TO(CompositeSprite, SpriteBatch, obj)->getDefaultSpriteAngle()) ); }
     static bool         writeDefaultSpriteAngle( void* obj, StringTableEntry pFieldName )   { PREFAB_WRITE_CHECK(CompositeSprite); return mNotZero( static_cast<SpriteBatch*>(pCastObject)->getDefaultSpriteAngle() ); }
     static bool         writeBatchIsolated( void* obj, StringTableEntry pFieldName )        { PREFAB_WRITE_CHECK(CompositeSprite); return pCastObject->getBatchIsolated(); }
     static bool         writeBatchSortMode( void* obj, StringTableEntry pFieldName )        { PREFAB_WRITE_CHECK(CompositeSprite); return pCastObject->getSortMode() != SceneRenderQueue::RENDER_SORT_OFF; }
+
+    static bool         setBatchCulling(void* obj, const char* data)                        { STATIC_VOID_CAST_TO(CompositeSprite, SpriteBatch, obj)->setSpriteCulling(dAtob(data)); return false; }
+    static bool         writeBatchCulling( void* obj, StringTableEntry pFieldName )         { PREFAB_WRITE_CHECK(CompositeSprite); return !pCastObject->getSpriteCulling(); }
 };
 
 #endif // _COMPOSITE_SPRITE_H_

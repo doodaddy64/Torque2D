@@ -91,14 +91,13 @@ protected:
     typeSpriteKeyHash               mSpriteLookup;
     SpriteBatchItem*                mSelectedSprite;
     SceneRenderQueue::RenderSort    mSortMode;
+    bool                            mSpriteCulling;
     Vector2                         mDefaultSpriteStride;
     Vector2                         mDefaultSpriteSize;
     F32                             mDefaultSpriteAngle;
 
-    bool                            mSpriteCulling;
-    SpriteBatchTree*                mpSpriteBatchTree;
-
 private:
+    SpriteBatchTree*                mpSpriteBatchTree;
     U32                             mMasterBatchId;
 
     b2Transform                     mBatchTransform;
@@ -138,6 +137,9 @@ public:
 
     inline void setSortMode( SceneRenderQueue::RenderSort sortMode ) { mSortMode = sortMode; }
     inline SceneRenderQueue::RenderSort getSortMode( void ) const { return mSortMode; }
+
+    void setSpriteCulling( const bool spriteCulling );
+    inline bool getSpriteCulling( void ) { return mSpriteCulling; }
 
     inline void setDefaultSpriteStride( const Vector2& defaultStride ) { mDefaultSpriteStride = defaultStride; }
     inline Vector2 getDefaultSpriteStride( void ) const { return mDefaultSpriteStride; }

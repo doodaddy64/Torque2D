@@ -272,6 +272,21 @@ void SpriteBatch::clearSprites( void )
 
 //------------------------------------------------------------------------------
 
+void SpriteBatch::setSpriteCulling( const bool spriteCulling )
+{
+    // Finish if no change.
+    if ( mSpriteCulling == spriteCulling )
+        return;
+
+    // Create/destroy sprite batch tree appropriately.
+    if ( mSpriteCulling )
+        createSpriteBatchTree();
+    else
+        destroySpriteBatchTree();
+}
+
+//------------------------------------------------------------------------------
+
 bool SpriteBatch::selectSprite( const LogicalPosition& logicalPosition )
 {
     // Fetch sprite key.
@@ -829,7 +844,7 @@ SpriteBatchItem* SpriteBatch::createSprite( const LogicalPosition& logicalPositi
     pSpriteBatchItem->setKey( spriteKey );
 
     // Set the sprite default position.
-    pSpriteBatchItem->setLocalPosition( position.mult( getDefaultSpriteStride() ) );
+    pSpriteBatchItem->setLocalPosition( position );
 
     // Set the sprite default size and angle.
     pSpriteBatchItem->setSize( getDefaultSpriteSize() );

@@ -1281,9 +1281,6 @@
     <ClCompile Include="..\..\source\2d\scene\SceneRenderQueue.cpp">
       <Filter>Source Files\2d\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\2d\sceneobject\IsoCompositeSprite.cc">
-      <Filter>Source Files\2d\sceneobject</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\2d\gui\SceneWindow.cc">
       <Filter>Source Files\2d\gui</Filter>
     </ClCompile>
@@ -2602,9 +2599,6 @@
     </ClInclude>
     <ClInclude Include="..\..\source\2d\scene\WorldQueryResult.h">
       <Filter>Source Files\2d\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\2d\sceneobject\IsoCompositeSprite.h">
-      <Filter>Source Files\2d\sceneobject</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\algorithm\md5.h">
       <Filter>Source Files\algorithm</Filter>
