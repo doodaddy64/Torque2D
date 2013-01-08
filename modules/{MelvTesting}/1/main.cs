@@ -64,35 +64,35 @@ function startMelvTesting()
     testScene.setDebugOn( 0, 2, 3 );
     
     
-	//%composite = new CompositeSprite();
-	//testScene.addToScene( %composite );
-	//%composite.BatchIsolated = "true";
-//
-    //%composite.setDefaultSpriteStride( 2, 2 );
-    //%composite.setDefaultSpriteSize( 1 );
-    //
-    ////%composite.setAngle( 30.0001 );
-	//
-	//%frame = 0;
-	//
-    //for ( %y = -10; %y <= 10; %y++ )
-	//{
-	    //for ( %x = -10; %x <= 10; %x++ )
-        //{
-            //%composite.addSprite( %x, %y );
-            ////%composite.setSpriteImage( "{MelvTesting}:isotiles2", getRandom(0,4) );
-            //%composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", %frame );
-            ////%composite.setSpriteAngle( getRandom(0,360) );
-            ////%composite.setSpriteVisible( getRandom(1,10) < 5 );
-            //
-            //%frame++;
-            //if ( %frame == 16 ) %frame = 0;
-        //}
-	//}
+	%composite = new CompositeSprite();
+	testScene.addToScene( %composite );
+	%composite.BatchIsolated = "true";
+
+    %composite.setDefaultSpriteStride( 5, 5 );
+    %composite.setDefaultSpriteSize( 5 );
+    
+    %composite.setAngle( 30.0001 );
+	
+	%frame = 0;
+	
+    for ( %y = -500; %y <= 500; %y++ )
+	{
+	    for ( %x = -500; %x <= 500; %x++ )
+        {
+            %composite.addSprite( %x, %y );
+            //%composite.setSpriteImage( "{MelvTesting}:isotiles2", getRandom(0,4) );
+            %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", %frame );
+            %composite.setSpriteAngle( getRandom(0,360) );
+            //%composite.setSpriteVisible( getRandom(1,10) < 5 );
+            
+            %frame++;
+            if ( %frame == 16 ) %frame = 0;
+        }
+	}
 	//
 	//testSceneWindow2D.setCurrentCameraPosition( 0, 0 );
 	//testScene.setDebugSceneObject( %composite );
-	//%composite.setAngularVelocity( 20 );
+	%composite.setAngularVelocity( 20 );
 	
     //%assetTags = AssetDatabase.getAssetTags();    
     //%assetTags.createtag( "Test" );
@@ -112,16 +112,16 @@ function startMelvTesting()
 
     //AssetDatabase.IgnoreAutoUnload = true;
     // Scroller.
-    %scroller = new Scroller();
-    %scroller.setSize( 100, 75 );
-    %scroller.scrollX = -30;
-    %scroller.scrollY = 15;
-    %scroller.repeatX = 4;
-    %scroller.repeatY = 3;
+    //%scroller = new Scroller();
+    //%scroller.setSize( 100, 75 );
+    //%scroller.scrollX = -30;
+    //%scroller.scrollY = 15;
+    //%scroller.repeatX = 4;
+    //%scroller.repeatY = 3;
     //%scroller.setScrollPositionX( 20 );
     //%scroller.imageMap = "{PhysicsLauncherAssets}:PL_GorillaProjectileImageMap";
-    %scroller.imageMap = "{MelvTesting}:ChoppyImage";
-    %scroller.frame = 1;
+    //%scroller.imageMap = "{MelvTesting}:ChoppyImage";
+    //%scroller.frame = 1;
     //%scroller.imageMap = "";
     //%scroller.Animation = "{PhysicsLauncherAssets}:MiniTileMapAnim";
     //%scroller.frame = 80;
@@ -132,7 +132,7 @@ function startMelvTesting()
     
     //AssetDatabase.IgnoreAutoUnload = false;
     
-    testScene.addToScene( %scroller );        
+    //testScene.addToScene( %scroller );        
 
     //TamlWrite( testScene, "testScene.taml" );
     //%scene = TamlRead( "testScene.taml" );

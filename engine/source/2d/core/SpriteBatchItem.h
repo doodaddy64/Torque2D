@@ -51,12 +51,14 @@ protected:
     F32                 mAlphaTest;
 
     Vector2             mLocalOOBB[4];
+    b2AABB              mLocalAABB;
+    bool                mLocalTransformDirty;
+
     Vector2             mRenderOOBB[4];
     b2AABB              mRenderAABB;
-
-    b2Transform         mLocalTransform;
-    bool                mLocalTransformDirty;
-    bool                mWorldTransformDirty;
+    Vector2             mRenderPosition;
+    U32                 mLastBatchTransformId;
+   
 
 public:
     SpriteBatchItem();
@@ -76,14 +78,14 @@ public:
 
     inline void setLocalPosition( const Vector2& localPosition ) { mLocalPosition = localPosition; mLocalTransformDirty = true; }
     inline Vector2 getLocalPosition( void ) const { return mLocalPosition; }
-    inline Vector2 getWorldPosition( void ) { if ( mLocalTransformDirty || mWorldTransformDirty ) updateTransform(); return mRenderAABB.GetCenter(); }
-    inline const b2AABB& getAABB( void ) { if ( mLocalTransformDirty || mWorldTransformDirty ) updateTransform(); return mRenderAABB; }
 
     inline void setLocalAngle( const F32 localAngle ) { mLocalAngle = localAngle; mLocalTransformDirty = true; }
     inline F32 getLocalAngle( void ) const { return mLocalAngle; }
 
     inline void setSize( const Vector2& size ) { mSize = size; mLocalTransformDirty = true; }
     inline Vector2 getSize( void ) const { return mSize; }
+
+    inline const b2AABB& getLocalAABB( void ) { if ( mLocalTransformDirty ) updateLocalTransform(); return mLocalAABB; }
 
     void setDepth( const F32 depth ) { mDepth = depth; }
     F32 getDepth( void ) const { return mDepth; }
@@ -112,18 +114,16 @@ public:
     inline void setAlphaTest( const F32 alphaTest ) { mAlphaTest = alphaTest; }
     inline F32 getAlphaTest( void ) const { return mAlphaTest; }
 
-    /// World transform dirty control.
-    void setWorldTransformDirty( void ) { mWorldTransformDirty = true; }
-
     virtual void copyTo( SpriteBatchItem* pSpriteBatchItem ) const;
 
-    void prepareRender( SceneRenderRequest* pSceneRenderRequest );
-    void render( BatchRender* pBatchRenderer );
+    void prepareRender( SceneRenderRequest* pSceneRenderRequest, const U32 batchTransformId );
+    void render( BatchRender* pBatchRenderer, const U32 batchTransformId );
 
 protected:
     void setBatchParent( SpriteBatch* pSpriteBatch, const U32 batchId );
     inline void setProxyId( const S32 proxyId ) { mProxyId = proxyId; }
-    void updateTransform( void );
+    void updateLocalTransform( void );
+    void updateWorldTransform( const U32 batchTransformId );
 
     void onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias );
     void onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteTypeAlias );

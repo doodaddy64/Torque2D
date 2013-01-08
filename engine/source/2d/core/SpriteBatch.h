@@ -70,12 +70,15 @@ protected:
 
 private:
     U32                             mMasterBatchId;
-    b2Transform                     mWorldTransform;
-    typeSpriteItemVector            mRenderQuery;
-    bool                            mRenderAABBDirty;
-    b2AABB                          mRenderAABB;
-    bool                            mLocalExtentsDirty;
+
+    b2Transform                     mBatchTransform;
+    bool                            mBatchTransformDirty;
+    U32                             mBatchTransformId;
+
     Vector2                         mLocalExtents;
+    bool                            mLocalExtentsDirty;
+
+    typeSpriteItemVector            mRenderQuery;
 
 public:
     SpriteBatch();
@@ -84,15 +87,15 @@ public:
     void prepareRender( SceneRenderObject* pSceneRenderObject, const SceneRenderState* pSceneRenderState, SceneRenderQueue* pSceneRenderQueue );
     void render( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer );
 
-    inline void setRenderAABBDirty( void ) { mRenderAABBDirty = true; }
-    inline bool getRenderAABBDirty( void ) const { return mRenderAABBDirty; }
-    inline const b2AABB& getRenderAABB( void ) { if ( mRenderAABBDirty ) updateRenderAABB(); return mRenderAABB; }
+    inline void setBatchTransformDirty( void ) { mBatchTransformDirty = true; mBatchTransformId++; }
+    inline bool getBatchTransformDirty( void ) const { return mBatchTransformDirty; }
+    inline U32 getBatchTransformId( void ) { return mBatchTransformId; }
+    const b2Transform& getBatchTransform( void ) const { return mBatchTransform; }
 
     inline void setLocalExtentsDirty( void ) { mLocalExtentsDirty = true; }
     inline bool getLocalExtentsDirty( void ) const { return mLocalExtentsDirty; }
     inline const Vector2& getLocalExtents( void ) { if ( getLocalExtentsDirty() ) updateLocalExtents(); return mLocalExtents; }
 
-    const b2Transform& getBatchTransform( void ) const { return mWorldTransform; }
     virtual void copyTo( SpriteBatch* pSpriteBatch ) const;
 
     inline U32 getSpriteCount( void ) { return (U32)mSprites.size(); }
@@ -167,17 +170,14 @@ public:
     virtual StringTableEntry getSpriteKey( const LogicalPosition& logicalPosition ) const;
 
 protected:
-    void setBatchTransform( const b2Transform& worldTransform );
-
     SpriteBatchItem* createSprite( void );
-
     SpriteBatchItem* findSpriteKey( const StringTableEntry key );
     SpriteBatchItem* findSpriteId( const U32 batchId );
 
-    void updateRenderAABB( void );
-    void updateLocalExtents( void );
-
     virtual SpriteBatchItem* createSprite( const LogicalPosition& logicalPosition );
+
+    void setBatchTransform( const b2Transform& batchTransform );
+    void updateLocalExtents( void );
 
     void onTamlCustomWrite( TamlCollectionProperty* pSpritesProperty );
     void onTamlCustomRead( const TamlCollectionProperty* pSpritesProperty );
@@ -185,6 +185,8 @@ protected:
 private:
     bool destroySprite( const U32 batchId );
     bool checkSpriteSelected( void ) const;
+
+    b2AABB calculateLocalAABB( const b2AABB& renderAABB );
 
     // Render query.
     inline bool QueryCallback( S32 proxyId )

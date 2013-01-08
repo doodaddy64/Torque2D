@@ -58,7 +58,7 @@ void CompositeSprite::preIntegrate( const F32 totalTime, const F32 elapsedTime, 
     // Are the spatials dirty?
     if ( getSpatialDirty() )
     {
-        // Yes, so update the batch world transform.
+        // Yes, so update the world transform.
         setBatchTransform( getRenderTransform() );
     }
 

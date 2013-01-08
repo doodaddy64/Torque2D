@@ -18,32 +18,30 @@ namespace CoreMath
 
 MRandomLCG gRandomGenerator;
 
-//-----------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------
 
-void mCalculateAABB( const b2Vec2* const pAABBVertices, const b2Transform& xf, b2AABB* pAABB )
+/// Returns a point on the given line ab that is closest to 'point'.
+/// @param a The start of the line.
+/// @param b The end of the line.
+/// @param point The point to test with
+/// @return A Point2F of the nearest point that lies on the line
+Vector2 mGetClosestPointOnLine( Vector2 &a, Vector2 &b, Vector2 &point)
 {
-    b2Vec2 lower = b2Mul(xf, pAABBVertices[0]);
-    b2Vec2 upper = lower;
+   // Get the vector from a to the point
+   Vector2 c = point - a;
 
-    for ( S32 i = 1; i < 4; ++i)
-    {
-        b2Vec2 v = b2Mul( xf, pAABBVertices[i] );
-        lower = b2Min(lower, v);
-        upper = b2Max(upper, v);
-    }
-    
-    pAABB->lowerBound = lower;
-    pAABB->upperBound = upper;
-}
+   // The line's vector
+   Vector2 v = b - a;
+   v.Normalize();
 
-//-----------------------------------------------------------------------------
+   // Intersection point distance from a
+   F32 t = v.dot(c);
 
-void mCalculateOOBB( const b2Vec2* const pAABBVertices, const b2Transform& xf, b2Vec2* pOOBBVertices )
-{
-    pOOBBVertices[0] = b2Mul( xf, pAABBVertices[0] );
-    pOOBBVertices[1] = b2Mul( xf, pAABBVertices[1] );
-    pOOBBVertices[2] = b2Mul( xf, pAABBVertices[2] );
-    pOOBBVertices[3] = b2Mul( xf, pAABBVertices[3] );
+   // The distance to move from point a
+   v *= t;
+
+   // The actual point starting at a
+   return a + v;
 }
 
 //---------------------------------------------------------------------------------------------
@@ -125,30 +123,4 @@ bool mLineRectangleIntersect( const Vector2& startPoint, const Vector2& endPoint
     return true;
 }
 
-//---------------------------------------------------------------------------------------------
-
-/// Returns a point on the given line ab that is closest to 'point'.
-/// @param a The start of the line.
-/// @param b The end of the line.
-/// @param point The point to test with
-/// @return A Point2F of the nearest point that lies on the line
-Vector2 mGetClosestPointOnLine( Vector2 &a, Vector2 &b, Vector2 &point)
-{
-   // Get the vector from a to the point
-   Vector2 c = point - a;
-
-   // The line's vector
-   Vector2 v = b - a;
-   v.Normalize();
-
-   // Intersection point distance from a
-   F32 t = v.dot(c);
-
-   // The distance to move from point a
-   v *= t;
-
-   // The actual point starting at a
-   return a + v;
-}
-
-} // Namespace Math
+} // Namespace CoreMath

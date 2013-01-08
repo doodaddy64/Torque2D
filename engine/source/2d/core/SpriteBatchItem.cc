@@ -100,13 +100,10 @@ void SpriteBatchItem::resetState( void )
 
     mVisible = true;
 
-    mLocalTransform.SetIdentity();
     mLocalPosition.SetZero();
     mDepth = 0.0f;
     mLocalAngle = 0.0f;
     setSize( Vector2( 1.0f, 1.0f ) );
-    mRenderAABB.lowerBound.Set( -0.5f, -0.5f );
-    mRenderAABB.upperBound.Set( 0.5f, 0.5f );
 
     mFlipX = false;
     mFlipY = false;
@@ -118,9 +115,15 @@ void SpriteBatchItem::resetState( void )
     mDstBlendFactor = GL_ONE_MINUS_SRC_ALPHA;
     mBlendColor = ColorF(1.0f,1.0f,1.0f,1.0f);
     mAlphaTest = -1.0f;
-    
+
     mLocalTransformDirty = true;
-    mWorldTransformDirty = true;
+    mLocalAABB.lowerBound.Set( -0.5f, -0.5f );
+    mLocalAABB.upperBound.Set( 0.5f, 0.5f );
+
+    mRenderAABB.lowerBound.Set( -0.5f, -0.5f );
+    mRenderAABB.upperBound.Set( 0.5f, 0.5f );
+    mRenderPosition.setZero();
+    mLastBatchTransformId = 0;
 
     // Require self ticking.
     mSelfTick = true;
@@ -140,7 +143,7 @@ void SpriteBatchItem::setBatchParent( SpriteBatch* pSpriteBatch, const U32 batch
     mBatchId = batchId;
 
     // Create proxy.
-    mProxyId = mSpriteBatch->CreateProxy( mRenderAABB, this );
+    mProxyId = mSpriteBatch->CreateProxy( mLocalAABB, this );
 }
 
 //------------------------------------------------------------------------------
@@ -164,17 +167,19 @@ void SpriteBatchItem::copyTo( SpriteBatchItem* pSpriteBatchItem ) const
     pSpriteBatchItem->setDstBlendFactor( getDstBlendFactor() );
     pSpriteBatchItem->setBlendColor( getBlendColor() );
     pSpriteBatchItem->setAlphaTest( getAlphaTest() );
-    pSpriteBatchItem->setWorldTransformDirty();
 }
 
 //------------------------------------------------------------------------------
 
-void SpriteBatchItem::prepareRender( SceneRenderRequest* pSceneRenderRequest )
+void SpriteBatchItem::prepareRender( SceneRenderRequest* pSceneRenderRequest, const U32 batchTransformId )
 {
     // Sanity!
     AssertFatal( pSceneRenderRequest != NULL, "Cannot prepare a sprite batch with a NULL scene render request." );
 
-    pSceneRenderRequest->mWorldPosition = getWorldPosition();
+    // Update the world transform.
+    updateWorldTransform( batchTransformId );
+
+    pSceneRenderRequest->mWorldPosition = mRenderPosition;
     pSceneRenderRequest->mDepth = getDepth();
     pSceneRenderRequest->mSortPoint = getSortPoint();
     pSceneRenderRequest->mSerialId = getBatchId();
@@ -187,11 +192,10 @@ void SpriteBatchItem::prepareRender( SceneRenderRequest* pSceneRenderRequest )
 
 //------------------------------------------------------------------------------
 
-void SpriteBatchItem::render( BatchRender* pBatchRenderer )
+void SpriteBatchItem::render( BatchRender* pBatchRenderer, const U32 batchTransformId )
 {
-    // Ensure the transform is up-to-date.
-    if ( mLocalTransformDirty || mWorldTransformDirty )
-        updateTransform();
+    // Update the world transform.
+    updateWorldTransform( batchTransformId );
 
     // Render.
     Parent::render( mFlipX, mFlipY,
@@ -204,48 +208,58 @@ void SpriteBatchItem::render( BatchRender* pBatchRenderer )
 
 //------------------------------------------------------------------------------
 
-void SpriteBatchItem::updateTransform( void )
+void SpriteBatchItem::updateLocalTransform( void )
+{
+    // Sanity!
+    AssertFatal( mSpriteBatch != NULL, "Cannot update local transform with a NULL sprite batch." );
+    AssertFatal( mProxyId != -1, "Cannot update local transform without a proxy Id." );
+
+    // Finish if local transform is not dirty.
+    if ( !mLocalTransformDirty )
+        return;
+
+    // Set local transform.
+    b2Transform localTransform;
+    localTransform.p = mLocalPosition;
+    localTransform.q.Set( mLocalAngle );
+
+    // Calculate half size.
+    const F32 halfWidth = mSize.x * 0.5f;
+    const F32 halfHeight = mSize.y * 0.5f;
+
+    // Set local size vertices.
+    mLocalOOBB[0].Set( -halfWidth, -halfHeight );
+    mLocalOOBB[1].Set( +halfWidth, -halfHeight );
+    mLocalOOBB[2].Set( +halfWidth, +halfHeight );
+    mLocalOOBB[3].Set( -halfWidth, +halfHeight );
+
+    // Calculate local OOBB.
+    CoreMath::mCalculateOOBB( mLocalOOBB, localTransform, mLocalOOBB );
+
+    // Calculate local AABB.
+    CoreMath::mOOBBtoAABB( mLocalOOBB, mLocalAABB );
+
+    // Move proxy.
+    mSpriteBatch->MoveProxy( mProxyId, mLocalAABB, b2Vec2(0.0f, 0.0f) );
+
+    // Flag local transform as NOT dirty.
+    mLocalTransformDirty = false;
+}
+
+//------------------------------------------------------------------------------
+
+void SpriteBatchItem::updateWorldTransform( const U32 batchTransformId )
 {
     // Sanity!
     AssertFatal( mSpriteBatch != NULL, "Cannot update transform with a NULL sprite batch." );
     AssertFatal( mProxyId != -1, "Cannot update transform without a proxy Id." );
 
-    // Early-out if nothing to do.
-    if ( !mLocalTransformDirty && !mWorldTransformDirty )
-        return;
-
-    // Set the sprite batch render AABB as dirty.
-    mSpriteBatch->setRenderAABBDirty();
-    
-    // Is the local transform dirty?
+    // Update the local transform if needed.
     if ( mLocalTransformDirty )
-    {
-        // Yes, so flag the world transform as dirty as well.
-        mWorldTransformDirty = true;
+        updateLocalTransform();
 
-        // Update local transform.
-        mLocalTransform.p = mLocalPosition;
-        mLocalTransform.q.Set( mLocalAngle );
-
-        // Calculate half size.
-        const F32 halfWidth = mSize.x * 0.5f;
-        const F32 halfHeight = mSize.y * 0.5f;
-
-        // Set local size vertices.
-        mLocalOOBB[0].Set( -halfWidth, -halfHeight );
-        mLocalOOBB[1].Set( +halfWidth, -halfHeight );
-        mLocalOOBB[2].Set( +halfWidth, +halfHeight );
-        mLocalOOBB[3].Set( -halfWidth, +halfHeight );
-
-        // Calculate local OOBB.
-        CoreMath::mCalculateOOBB( mLocalOOBB, mLocalTransform, mLocalOOBB );
-
-        // Flag local transform as NOT dirty.
-        mLocalTransformDirty = false;
-    }
-
-    // Finish if the world transform is not dirty.
-    if ( !mWorldTransformDirty )
+    // Finish if the batch transform is up-to-date.
+    if ( batchTransformId == mLastBatchTransformId )
         return;
 
     // Fetch world transform.
@@ -254,23 +268,14 @@ void SpriteBatchItem::updateTransform( void )
     // Calculate world OOBB.
     CoreMath::mCalculateOOBB( mLocalOOBB, worldTransform, mRenderOOBB );
 
-    // Calculate AABB.
-    b2Vec2 lower = mRenderOOBB[0];
-    b2Vec2 upper = lower;
-    for ( U32 index = 1; index < 4; ++index )
-    {
-        const b2Vec2 v = mRenderOOBB[index];
-        lower = b2Min(lower, v);
-        upper = b2Max(upper, v);
-    }
-    mRenderAABB.lowerBound = lower;
-    mRenderAABB.upperBound = upper;
+    // Calculate render AABB.
+    CoreMath::mOOBBtoAABB( mRenderOOBB, mRenderAABB );
 
-    // Move proxy.
-    mSpriteBatch->MoveProxy( mProxyId, mRenderAABB, b2Vec2(0.0f, 0.0f) );
+    // Calculate the render position.
+    mRenderPosition = mRenderAABB.GetCenter();
 
-    // Flag world transform as NOT dirty.
-    mWorldTransformDirty = false;
+    // Note the last batch transform Id.
+    mLastBatchTransformId = batchTransformId;
 }
 
 //------------------------------------------------------------------------------

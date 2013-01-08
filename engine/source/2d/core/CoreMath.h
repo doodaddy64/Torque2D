@@ -38,20 +38,6 @@ namespace CoreMath
 {
 extern MRandomLCG gRandomGenerator;
 
-/// Returns a point on the given line AB that is closest to 'point'.
-Vector2 mGetClosestPointOnLine( Vector2 &a, Vector2 &b, Vector2 &point);
-
-/// Convert RectF to AABB.
-inline b2AABB mRectFtoAABB( const RectF& rect )
-{
-    b2AABB aabb;
-    b2Vec2 lower(rect.point.x, rect.point.y);
-    b2Vec2 upper(lower.x + rect.len_x(), lower.y + rect.len_y() );
-    aabb.lowerBound = lower;
-    aabb.upperBound = upper;
-    return aabb;
-}
-
 /// Random Float Range.
 inline F32 mGetRandomF( F32 from, F32 to ) { return gRandomGenerator.randF( from, to ); }
 
@@ -64,10 +50,84 @@ inline S32 mGetRandomI( U32 from, U32 to ) { return gRandomGenerator.randI( from
 /// Random Integer.
 inline S32 mGetRandomI( void ) { return gRandomGenerator.randI(); }
 
-// Geometric helpers.
-void mCalculateAABB( const b2Vec2* const pAABBVertices, const b2Transform& xf, b2AABB* pAABB );
-void mCalculateOOBB( const b2Vec2* const pAABBVertices, const b2Transform& xf, b2Vec2* pOOBBVertices );
+// Calculate an AABB.
+inline void mCalculateAABB( const b2Vec2* const pAABBVertices, const b2Transform& xf, b2AABB* pAABB )
+{
+    b2Vec2 lower = b2Mul(xf, pAABBVertices[0]);
+    b2Vec2 upper = lower;
+
+    for ( S32 i = 1; i < 4; ++i)
+    {
+        b2Vec2 v = b2Mul( xf, pAABBVertices[i] );
+        lower = b2Min(lower, v);
+        upper = b2Max(upper, v);
+    }
+    
+    pAABB->lowerBound = lower;
+    pAABB->upperBound = upper;
+}
+
+/// Calculate an OOBB.
+inline void mCalculateOOBB( const b2Vec2* const pAABBVertices, const b2Transform& xf, b2Vec2* pOOBBVertices )
+{
+    pOOBBVertices[0] = b2Mul( xf, pAABBVertices[0] );
+    pOOBBVertices[1] = b2Mul( xf, pAABBVertices[1] );
+    pOOBBVertices[2] = b2Mul( xf, pAABBVertices[2] );
+    pOOBBVertices[3] = b2Mul( xf, pAABBVertices[3] );
+}
+
+/// Calculate an OOBB.
+inline void mCalculateInverseOOBB( const b2Vec2* const pAABBVertices, const b2Transform& xf, b2Vec2* pOOBBVertices )
+{
+    pOOBBVertices[0] = b2MulT( xf, pAABBVertices[0] );
+    pOOBBVertices[1] = b2MulT( xf, pAABBVertices[1] );
+    pOOBBVertices[2] = b2MulT( xf, pAABBVertices[2] );
+    pOOBBVertices[3] = b2MulT( xf, pAABBVertices[3] );
+}
+
+/// Convert RectF to AABB.
+inline b2AABB mRectFtoAABB( const RectF& rect )
+{
+    b2AABB aabb;
+    b2Vec2 lower(rect.point.x, rect.point.y);
+    b2Vec2 upper(lower.x + rect.len_x(), lower.y + rect.len_y() );
+    aabb.lowerBound = lower;
+    aabb.upperBound = upper;
+    return aabb;
+}
+
+/// Convert AABB to OOBB.
+inline void mAABBtoOOBB( const b2AABB& aabb, b2Vec2* pOOBBVertices )
+{
+    pOOBBVertices[0].Set( aabb.lowerBound.x, aabb.lowerBound.y );
+    pOOBBVertices[1].Set( aabb.upperBound.x, aabb.lowerBound.y );
+    pOOBBVertices[2].Set( aabb.upperBound.x, aabb.upperBound.y );
+    pOOBBVertices[3].Set( aabb.lowerBound.x, aabb.upperBound.y );
+}
+
+/// Convert OOBB to AABB.
+inline void mOOBBtoAABB( b2Vec2* pOOBBVertices, b2AABB& aabb )
+{
+    // Calculate AABB.
+    b2Vec2 lower = pOOBBVertices[0];
+    b2Vec2 upper = lower;
+    for ( U32 index = 1; index < 4; ++index )
+    {
+        const b2Vec2 v = pOOBBVertices[index];
+        lower = b2Min(lower, v);
+        upper = b2Max(upper, v);
+    }
+    aabb.lowerBound = lower;
+    aabb.upperBound = upper;
+}
+
+/// Returns a point on the given line AB that is closest to 'point'.
+Vector2 mGetClosestPointOnLine( Vector2 &a, Vector2 &b, Vector2 &point);
+
+/// Calculate point in rectangle.
 bool mPointInRectangle( const Vector2& point, const Vector2& rectMin, const Vector2& rectMax );
+
+/// Calculate line/rectangle intersection.
 bool mLineRectangleIntersect( const Vector2& startPoint, const Vector2& endPoint, const Vector2& rectMin, const Vector2& rectMax, F32* pTime = NULL );
 
 } // Namespace CoreMath.

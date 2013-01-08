@@ -22,10 +22,12 @@ SpriteBatch::SpriteBatch() :
     mDefaultSpriteAngle( 0.0f )
 
 {
-    mWorldTransform.SetIdentity();
-    mRenderAABB.lowerBound.Set(-0.5f, -0.5f);
-    mRenderAABB.upperBound.Set(0.5f, 0.5f);
-    mRenderAABBDirty = true;
+    // Reset batch transform.
+    mBatchTransform.SetIdentity();
+    mBatchTransformDirty = true;
+    mBatchTransformId = 0;
+
+    // Reset local extents.
     mLocalExtents.SetZero();
     mLocalExtentsDirty = true;
 }
@@ -44,9 +46,12 @@ void SpriteBatch::prepareRender( SceneRenderObject* pSceneRenderObject, const Sc
     // Set the sort mode.
     pSceneRenderQueue->setSortMode( getSortMode() );
 
+    // Calculate local AABB.
+    const b2AABB localAABB = calculateLocalAABB( pSceneRenderState->mRenderAABB );
+
     // Perform render query.
     mRenderQuery.clear();
-    Query( this, pSceneRenderState->mRenderAABB );
+    Query( this, localAABB );
 
     // Iterate the sprite batch.
     for( typeSpriteItemVector::iterator spriteItr = mRenderQuery.begin(); spriteItr != mRenderQuery.end(); ++spriteItr )
@@ -62,7 +67,7 @@ void SpriteBatch::prepareRender( SceneRenderObject* pSceneRenderObject, const Sc
         SceneRenderRequest* pSceneRenderRequest = pSceneRenderQueue->createRenderRequest();
 
         // Prepare batch item.
-        pSpriteBatchItem->prepareRender( pSceneRenderRequest );
+        pSpriteBatchItem->prepareRender( pSceneRenderRequest, mBatchTransformId );
 
         // Set identity.
         pSceneRenderRequest->mpSceneRenderObject = pSceneRenderObject;
@@ -83,7 +88,7 @@ void SpriteBatch::render( const SceneRenderState* pSceneRenderState, const Scene
     SpriteBatchItem* pSpriteBatchItem = (SpriteBatchItem*)pSceneRenderRequest->mpCustomData1;
 
     // Batch render.
-    pSpriteBatchItem->render( pBatchRenderer );
+    pSpriteBatchItem->render( pBatchRenderer, mBatchTransformId );
 }
 
 //------------------------------------------------------------------------------
@@ -129,6 +134,9 @@ U32 SpriteBatch::addSprite( const LogicalPosition& logicalPosition )
     // Insert into look-up.
     mSpriteLookup.insert( mSelectedSprite->getKey(), mSelectedSprite->getBatchId() );
 
+    // Flag local extents as dirty.
+    setLocalExtentsDirty();
+
     return mSelectedSprite->getBatchId();
 }
 
@@ -148,6 +156,9 @@ bool SpriteBatch::removeSprite( void )
 
     // Reset the selected sprite.
     mSelectedSprite = NULL;
+
+    // Flag local extents as dirty.
+    setLocalExtentsDirty();
 
     return true;
 }
@@ -169,6 +180,9 @@ void SpriteBatch::clearSprites( void )
     }
     mSprites.clear();
     mMasterBatchId = 0;
+
+    // Flag local extents as dirty.
+    setLocalExtentsDirty();
 }
 
 //------------------------------------------------------------------------------
@@ -332,6 +346,9 @@ void SpriteBatch::setSpriteLocalPosition( const Vector2& localPosition )
 
     // Set local position.
     mSelectedSprite->setLocalPosition( localPosition );
+
+    // Flag local extents as dirty.
+    setLocalExtentsDirty();
 }
 
 //------------------------------------------------------------------------------
@@ -356,6 +373,9 @@ void SpriteBatch::setSpriteAngle( const F32 localAngle )
 
     // Set local angle.
     mSelectedSprite->setLocalAngle( localAngle );
+
+    // Flag local extents as dirty.
+    setLocalExtentsDirty();
 }
 
 //------------------------------------------------------------------------------
@@ -404,6 +424,9 @@ void SpriteBatch::setSpriteSize( const Vector2& size )
 
     // Set size.
     mSelectedSprite->setSize( size );
+
+    // Flag local extents as dirty.
+    setLocalExtentsDirty();
 }
 
 //------------------------------------------------------------------------------
@@ -636,23 +659,6 @@ F32 SpriteBatch::getSpriteAlphaTest( void ) const
 
 //------------------------------------------------------------------------------
 
-void SpriteBatch::setBatchTransform( const b2Transform& worldTransform )
-{
-    // Update world transform.
-    mWorldTransform = worldTransform;
-
-    // Flag all sprite world transforms as dirty.
-    for( typeSpriteBatchHash::iterator spriteItr = mSprites.begin(); spriteItr != mSprites.end(); ++spriteItr )
-    {
-        spriteItr->value->setWorldTransformDirty();
-    }
-
-    // Set the render AABB dirty.
-    setRenderAABBDirty();
-}
-
-//------------------------------------------------------------------------------
-
 SpriteBatchItem* SpriteBatch::createSprite( void )
 {
     // Allocate batch Id.
@@ -688,73 +694,6 @@ SpriteBatchItem* SpriteBatch::findSpriteId( const U32 batchId )
     typeSpriteBatchHash::iterator spriteItr = mSprites.find( batchId );
 
     return spriteItr != mSprites.end() ? spriteItr->value : NULL;
-}
-
-//------------------------------------------------------------------------------
-
-void SpriteBatch::updateRenderAABB( void )
-{
-    // Finish if render AABB is not dirty.
-    if ( !mRenderAABBDirty )
-        return;
-
-    // Do we have any sprites?
-    if ( mSprites.size() == 0 )
-    {
-        // No, so reset render AABB.
-        mRenderAABB.lowerBound.Set(-0.5f, -0.5f);
-        mRenderAABB.upperBound.Set(0.5f, 0.5f);
-
-        return;
-    }
-    else
-    {
-        // Fetch first sprite.
-        typeSpriteBatchHash::iterator spriteItr = mSprites.begin();
-
-        // Set render AABB to this sprite.
-        mRenderAABB = spriteItr->value->getAABB();
-
-        // Combine with the rest of the sprites.
-        for( ; spriteItr != mSprites.end(); ++spriteItr )
-        {
-            mRenderAABB.Combine( spriteItr->value->getAABB() );
-        }
-    }
-
-    // Flag as NOT dirty.
-    mRenderAABBDirty = false;
-}
-
-//------------------------------------------------------------------------------
-
-void SpriteBatch::updateLocalExtents( void )
-{
-    // Finish if the local extents are not dirty.
-    if ( !mLocalExtentsDirty )
-        return;
-
-    // Yes, so fetch the render AABB.
-    const b2AABB& renderAABB = getRenderAABB();
-    
-    // Fetch batch transform.
-    const b2Transform& batchTransform = getBatchTransform();
-
-    // Calculate local render extents.
-    b2Vec2 localLowerExtent = b2MulT( batchTransform, renderAABB.lowerBound );
-    b2Vec2 localUpperExtent = b2MulT( batchTransform, renderAABB.upperBound );
-
-    // Calculate maximum extents.
-    const F32 lowerExtentX = mFabs(localLowerExtent.x);
-    const F32 lowerExtentY = mFabs(localLowerExtent.y);
-    const F32 upperExtentX = mFabs(localUpperExtent.x);
-    const F32 upperExtentY = mFabs(localUpperExtent.y);
-
-    // Calculate local extents.
-    mLocalExtents.Set( mFabs(lowerExtentX > upperExtentX ? lowerExtentX : upperExtentX) * 2.0f, mFabs(lowerExtentY > upperExtentY ? lowerExtentY : upperExtentY) * 2.0f );
-
-    // Flag as NOT dirty.
-    mLocalExtentsDirty = false;
 }
 
 //------------------------------------------------------------------------------
@@ -812,6 +751,63 @@ SpriteBatchItem* SpriteBatch::createSprite( const LogicalPosition& logicalPositi
     pSpriteBatchItem->setLocalAngle( getDefaultSpriteAngle() );
 
     return pSpriteBatchItem;
+}
+
+//------------------------------------------------------------------------------
+
+void SpriteBatch::setBatchTransform( const b2Transform& batchTransform )
+{
+    // Update world transform.
+    mBatchTransform = batchTransform;
+
+    // Flag the batch transform as dirty.
+    setBatchTransformDirty();
+}
+
+//------------------------------------------------------------------------------
+
+void SpriteBatch::updateLocalExtents( void )
+{
+    // Finish if the local extents are not dirty.
+    if ( !mLocalExtentsDirty )
+        return;
+
+    // Flag as NOT dirty.
+    mLocalExtentsDirty = false;
+
+    // Do we have any sprites?
+    if ( mSprites.size() == 0 )
+    {
+        // No, so reset local extents.
+        mLocalExtents.setOne();
+
+        return;
+    }
+
+    // Fetch first sprite.
+    typeSpriteBatchHash::iterator spriteItr = mSprites.begin();
+
+    // Set render AABB to this sprite.
+    b2AABB localAABB = spriteItr->value->getLocalAABB();
+
+    // Combine with the rest of the sprites.
+    for( ; spriteItr != mSprites.end(); ++spriteItr )
+    {
+        localAABB.Combine( spriteItr->value->getLocalAABB() );
+    }
+
+    // Fetch local render extents.
+    const b2Vec2& localLowerExtent = localAABB.lowerBound;
+    const b2Vec2& localUpperExtent = localAABB.upperBound;
+
+    // Calculate maximum extents.
+    const F32 lowerExtentX = mFabs(localLowerExtent.x);
+    const F32 lowerExtentY = mFabs(localLowerExtent.y);
+    const F32 upperExtentX = mFabs(localUpperExtent.x);
+    const F32 upperExtentY = mFabs(localUpperExtent.y);
+
+    // Calculate local extents.
+    mLocalExtents.Set( mFabs(lowerExtentX > upperExtentX ? lowerExtentX : upperExtentX) * 2.0f, mFabs(lowerExtentY > upperExtentY ? lowerExtentY : upperExtentY) * 2.0f );
 }
 
 //------------------------------------------------------------------------------
@@ -903,4 +899,20 @@ bool SpriteBatch::checkSpriteSelected( void ) const
     Con::warnf( "Cannot perform sprite operation no sprite is selected." );
 
     return false;
+}
+
+//------------------------------------------------------------------------------
+
+b2AABB SpriteBatch::calculateLocalAABB( const b2AABB& renderAABB )
+{
+    // Calculate local OOBB.
+    b2Vec2 localOOBB[4];
+    CoreMath::mAABBtoOOBB( renderAABB, localOOBB );
+    CoreMath::mCalculateInverseOOBB( localOOBB, mBatchTransform, localOOBB );
+
+    // Calculate local AABB.
+    b2AABB localAABB;
+    CoreMath::mOOBBtoAABB( localOOBB, localAABB );
+    
+    return localAABB;
 }
