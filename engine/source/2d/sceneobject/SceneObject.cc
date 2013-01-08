@@ -711,20 +711,28 @@ void SceneObject::interpolateObject( const F32 timeDelta )
         if ( timeDelta < 1.0f )
         {
             // Calculate render position.
-            b2Vec2 position    = getPosition();
-            b2Vec2 renderDelta = position - mPreTickPosition;
-            renderDelta       *= timeDelta;
-            mRenderPosition    = position - renderDelta;
+            const b2Vec2 position        = getPosition();
+            b2Vec2 positionDelta         = position - mPreTickPosition;
+            positionDelta               *= timeDelta;
+            mRenderPosition              = position - positionDelta;
+
+            // Calculate render angle.
+            const F32 angle              = getAngle();
+            F32 relativeAngle            = angle - mPreTickAngle;
+            if ( relativeAngle > b2_pi )
+                relativeAngle -= b2_pi * 2.0f;
+            else if ( relativeAngle < -b2_pi )
+                relativeAngle += b2_pi * 2.0f;
+            mRenderAngle             = angle - (relativeAngle * timeDelta);
         }
         else
         {
             mRenderPosition = mPreTickPosition;
+            mRenderAngle    = mPreTickAngle;
         }
-
-        // NOTE: We should really be interpolating the rotation here as well.
-
+     
         // Calculate render transform.
-        b2Transform renderXF( mRenderPosition, b2Rot(getAngle()) );
+        b2Transform renderXF( mRenderPosition, b2Rot(mRenderAngle) );
 
         // Calculate render OOBB.
         CoreMath::mCalculateOOBB( mLocalSizeVertices, renderXF, mRenderOOBB );
