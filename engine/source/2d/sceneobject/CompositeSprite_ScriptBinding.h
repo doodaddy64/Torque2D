@@ -40,6 +40,36 @@ ConsoleMethod(CompositeSprite, getSpriteCount, S32, 2, 2,   "() - Gets a count o
     return object->getSpriteCount();
 }
 
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(CompositeSprite, setBatchLayout, void, 3, 3,      "(batchLayoutType) - Sets the batch layout type.\n"
+                                                                "The render sort mode is used when isolated batch mode is on.\n"
+                                                                "@param batchLayoutType 'none', 'rect' or 'iso' layout types are valid.\n"
+                                                                "@return No return value." )
+{
+    // Fetch the batch layout type/
+    CompositeSprite::BatchLayoutType batchLayoutType = getBatchLayoutTypeEnum( argv[2] );
+
+    // Sanity!
+    if ( batchLayoutType == CompositeSprite::INVALID_LAYOUT )
+    {
+        // Warn.
+        Con::warnf( "CompositeSprite::setBatchLayout() - Unknown batch layout type of '%s'.", argv[2] );
+        return;
+    }
+
+    object->setBatchLayout( batchLayoutType );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(CompositeSprite, getBatchLayout, const char*, 2, 2, "() - Gets the batch layout type.\n"
+                                                                    "@return The batch layout type." )
+{
+    return getBatchLayoutTypeDescription( object->getBatchLayout() );
+}
+
 //-----------------------------------------------------------------------------
 
 ConsoleMethod(CompositeSprite, setBatchIsolated, void, 3, 3,    "(bool batchIsolated) - Sets whether the sprites are rendered, isolated from other renderings as one batch or not.\n"
@@ -62,30 +92,30 @@ ConsoleMethod(CompositeSprite, getBatchIsolated, bool, 2, 2,    "() - Gets wheth
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(CompositeSprite, setSortMode, void, 3, 3,     "(renderSortMode) - Sets the render sort mode.\n"
-                                                            "The render sort mode is used when isolated batch mode is on.\n"
-                                                            "@return No return value." )
+ConsoleMethod(CompositeSprite, setBatchSortMode, void, 3, 3,    "(renderSortMode) - Sets the batch render sort mode.\n"
+                                                                "The render sort mode is used when isolated batch mode is on.\n"
+                                                                "@return No return value." )
 {
     // Fetch render sort mode.
-    SceneRenderQueue::RenderSort sortMode = SceneRenderQueue::getRenderSortEnum( argv[2] );
+    SceneRenderQueue::RenderSort batchSortMode = SceneRenderQueue::getRenderSortEnum( argv[2] );
 
     // Sanity!
-    if ( sortMode == SceneRenderQueue::RENDER_SORT_INVALID )
+    if ( batchSortMode == SceneRenderQueue::RENDER_SORT_INVALID )
     {
         // Warn.
-        Con::warnf( "CompositeSprite::setSortMode() - Unknown sort mode of '%s'.", argv[2] );
+        Con::warnf( "CompositeSprite::setBatchSortMode() - Unknown batch sort mode of '%s'.", argv[2] );
         return;
     }
 
-    object->setSortMode( sortMode );
+    object->setBatchSortMode( batchSortMode );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(CompositeSprite, getSortMode, const char*, 2, 2,  "() - Gets the render sort mode.\n"
-                                                                "@return The render sort mode." )
+ConsoleMethod(CompositeSprite, getBatchSortMode, const char*, 2, 2, "() - Gets the batch render sort mode.\n"
+                                                                    "@return The render sort mode." )
 {
-    return SceneRenderQueue::getRenderSortDescription( object->getSortMode() );
+    return SceneRenderQueue::getRenderSortDescription( object->getBatchSortMode() );
 }
 
 //-----------------------------------------------------------------------------

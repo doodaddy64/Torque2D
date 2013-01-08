@@ -16,12 +16,12 @@
 SpriteBatch::SpriteBatch() :
     mMasterBatchId( 1 ),
     mSelectedSprite( NULL ),
-    mSortMode( SceneRenderQueue::RENDER_SORT_OFF ),
+    mBatchSortMode( SceneRenderQueue::RENDER_SORT_OFF ),
     mDefaultSpriteStride( 1.0f, 1.0f),
     mDefaultSpriteSize( 1.0f, 1.0f ),
     mDefaultSpriteAngle( 0.0f ),
     mpSpriteBatchTree( NULL ),
-    mSpriteCulling( true )
+    mBatchCulling( true )
 {
     // Reset batch transform.
     mBatchTransform.SetIdentity();
@@ -52,7 +52,7 @@ SpriteBatch::~SpriteBatch()
 void SpriteBatch::prepareRender( SceneRenderObject* pSceneRenderObject, const SceneRenderState* pSceneRenderState, SceneRenderQueue* pSceneRenderQueue )
 {
     // Set the sort mode.
-    pSceneRenderQueue->setSortMode( getSortMode() );
+    pSceneRenderQueue->setSortMode( getBatchSortMode() );
 
     // Calculate local AABB.
     const b2AABB localAABB = calculateLocalAABB( pSceneRenderState->mRenderAABB );
@@ -186,8 +186,8 @@ void SpriteBatch::copyTo( SpriteBatch* pSpriteBatch ) const
     // Set master sprite Id.
     pSpriteBatch->mMasterBatchId = mMasterBatchId;
 
-    // Set sort mode.
-    pSpriteBatch->setSortMode( getSortMode() );
+    // Set batch sort mode.
+    pSpriteBatch->setBatchSortMode( getBatchSortMode() );
 
     // Set sprite default size and angle.
     pSpriteBatch->setDefaultSpriteStride( getDefaultSpriteStride() );
@@ -272,14 +272,14 @@ void SpriteBatch::clearSprites( void )
 
 //------------------------------------------------------------------------------
 
-void SpriteBatch::setSpriteCulling( const bool spriteCulling )
+void SpriteBatch::setBatchCulling( const bool batchCulling )
 {
     // Finish if no change.
-    if ( mSpriteCulling == spriteCulling )
+    if ( mBatchCulling == batchCulling )
         return;
 
     // Create/destroy sprite batch tree appropriately.
-    if ( mSpriteCulling )
+    if ( mBatchCulling )
         createSpriteBatchTree();
     else
         destroySpriteBatchTree();
@@ -914,8 +914,8 @@ void SpriteBatch::updateLocalExtents( void )
 
 void SpriteBatch::createSpriteBatchTree( void )
 {
-    // Finish if sprite culling is off or there is already a sprite batch tree.
-    if ( !mSpriteCulling || mpSpriteBatchTree != NULL )
+    // Finish if batch culling is off or there is already a sprite batch tree.
+    if ( !mBatchCulling || mpSpriteBatchTree != NULL )
         return;
 
     // Set the sprite batch tree appropriately.

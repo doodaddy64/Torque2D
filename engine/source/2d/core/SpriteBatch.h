@@ -90,8 +90,8 @@ protected:
     typeSpriteBatchHash             mSprites;
     typeSpriteKeyHash               mSpriteLookup;
     SpriteBatchItem*                mSelectedSprite;
-    SceneRenderQueue::RenderSort    mSortMode;
-    bool                            mSpriteCulling;
+    SceneRenderQueue::RenderSort    mBatchSortMode;
+    bool                            mBatchCulling;
     Vector2                         mDefaultSpriteStride;
     Vector2                         mDefaultSpriteSize;
     F32                             mDefaultSpriteAngle;
@@ -135,11 +135,11 @@ public:
     bool removeSprite( void );
     virtual void clearSprites( void );
 
-    inline void setSortMode( SceneRenderQueue::RenderSort sortMode ) { mSortMode = sortMode; }
-    inline SceneRenderQueue::RenderSort getSortMode( void ) const { return mSortMode; }
+    inline void setBatchSortMode( SceneRenderQueue::RenderSort sortMode ) { mBatchSortMode = sortMode; }
+    inline SceneRenderQueue::RenderSort getBatchSortMode( void ) const { return mBatchSortMode; }
 
-    void setSpriteCulling( const bool spriteCulling );
-    inline bool getSpriteCulling( void ) { return mSpriteCulling; }
+    void setBatchCulling( const bool batchCulling );
+    inline bool getBatchCulling( void ) { return mBatchCulling; }
 
     inline void setDefaultSpriteStride( const Vector2& defaultStride ) { mDefaultSpriteStride = defaultStride; }
     inline Vector2 getDefaultSpriteStride( void ) const { return mDefaultSpriteStride; }

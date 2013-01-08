@@ -24,7 +24,8 @@ IMPLEMENT_CONOBJECT(CompositeSprite);
 
 //------------------------------------------------------------------------------
 
-CompositeSprite::CompositeSprite()
+CompositeSprite::CompositeSprite() :
+    mBatchLayoutType( RECTILINEAR_LAYOUT )
 {
     // Set as auto-sizing.
     mAutoSizing = true;
@@ -47,9 +48,10 @@ void CompositeSprite::initPersistFields()
     addProtectedField("DefaultSpriteStride", TypeVector2, Offset(mDefaultSpriteStride, CompositeSprite), &defaultProtectedSetFn, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
     addProtectedField("DefaultSpriteSize", TypeVector2, Offset(mDefaultSpriteSize, CompositeSprite), &defaultProtectedSetFn, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
     addProtectedField("DefaultSpriteAngle", TypeF32, Offset(mDefaultSpriteSize, CompositeSprite), &setDefaultSpriteAngle, &getDefaultSpriteAngle, &writeDefaultSpriteAngle, "");
+    addProtectedField( "BatchLayout", TypeEnum, Offset(mBatchLayoutType, CompositeSprite), &setBatchLayout, &defaultProtectedGetFn, &writeBatchLayout, 1, &batchLayoutTypeTable, "");
+    addProtectedField( "BatchCulling", TypeBool, Offset(mBatchCulling, CompositeSprite), &setBatchCulling, &defaultProtectedGetFn, &writeBatchCulling, "");
     addField( "BatchIsolated", TypeBool, Offset(mBatchIsolated, CompositeSprite), &writeBatchIsolated, "");
-    addField( "BatchSortMode", TypeEnum, Offset(mSortMode, CompositeSprite), &writeBatchSortMode, 1, &SceneRenderQueue::renderSortTable, "");
-    addProtectedField( "BatchCulling", TypeBool, Offset(mSpriteCulling, CompositeSprite), setBatchCulling, &defaultProtectedGetFn, &writeBatchCulling, "");
+    addField( "BatchSortMode", TypeEnum, Offset(mBatchSortMode, CompositeSprite), &writeBatchSortMode, 1, &SceneRenderQueue::renderSortTable, "");
 }
 
 //-----------------------------------------------------------------------------
@@ -133,21 +135,41 @@ void CompositeSprite::copyTo(SimObject* object)
 
 //------------------------------------------------------------------------------
 
+void CompositeSprite::setBatchLayout( const BatchLayoutType& batchLayoutType )
+{
+    // Finish if no change.
+    if ( mBatchLayoutType == batchLayoutType )
+        return;
+
+    // Do we already have some sprites?
+    if ( getSpriteCount() > 0 )
+    {
+        // Yes, so warn.
+        Con::warnf( "CompositeSprite::setBatchLayout() - Changing the batch layout with existing sprites is not allowed.  Clear the sprites first." );
+        return;
+    }
+
+    // Set layout type.
+    mBatchLayoutType = batchLayoutType;
+}
+
+//------------------------------------------------------------------------------
+
 SpriteBatchItem* CompositeSprite::createSprite( const LogicalPosition& logicalPosition )
 {
     // Handle layout type appropriately.
-    switch( mLayoutType )
+    switch( mBatchLayoutType )
     {
         // No layout.
-        case None:
+        case NO_LAYOUT:
             return SpriteBatch::createSprite( logicalPosition );
 
         // Rectilinear layout.
-        case Rectilinear:
+        case RECTILINEAR_LAYOUT:
             return createSpriteRectilinearLayout( logicalPosition );
 
         // Isometric layout.
-        case Isometric:
+        case ISOMETRIC_LAYOUT:
             return createSpriteIsometricLayout( logicalPosition );
 
         default:
@@ -296,11 +318,55 @@ void CompositeSprite::onTamlCustomRead( const TamlCollection& customCollection )
 
 //-----------------------------------------------------------------------------
 
-static EnumTable::Enums compositeLayoutTypeLookup[] =
+static EnumTable::Enums batchLayoutTypeLookup[] =
                 {
-                    { CompositeSprite::None,        "none"    },
-                    { CompositeSprite::Rectilinear, "rect" },
-                    { CompositeSprite::Isometric,   "iso"   },
+                    { CompositeSprite::NO_LAYOUT,            "none"    },
+                    { CompositeSprite::RECTILINEAR_LAYOUT,   "rect" },
+                    { CompositeSprite::ISOMETRIC_LAYOUT,     "iso"   },
                 };
 
-EnumTable compositeLayoutTypeTable(sizeof(compositeLayoutTypeLookup) / sizeof(EnumTable::Enums), &compositeLayoutTypeLookup[0]);
+EnumTable batchLayoutTypeTable(sizeof(batchLayoutTypeLookup) / sizeof(EnumTable::Enums), &batchLayoutTypeLookup[0]);
+
+//-----------------------------------------------------------------------------
+
+CompositeSprite::BatchLayoutType getBatchLayoutTypeEnum(const char* label)
+{
+    // Search for Mnemonic.
+    for (U32 i = 0; i < (sizeof(batchLayoutTypeLookup) / sizeof(EnumTable::Enums)); i++)
+    {
+        if( dStricmp(batchLayoutTypeLookup[i].label, label) == 0)
+            return (CompositeSprite::BatchLayoutType)batchLayoutTypeLookup[i].index;
+    }
+
+    // Warn!
+    Con::warnf("CompositeSprite::getBatchLayoutTypeEnum() - Invalid batch layout type of '%s'", label );
+
+    // Bah!
+    return CompositeSprite::INVALID_LAYOUT;
+}
+
+//-----------------------------------------------------------------------------
+
+const char* getBatchLayoutTypeDescription(const CompositeSprite::BatchLayoutType batchLayoutType )
+{
+    // Search for Mnemonic.
+    for (U32 i = 0; i < (sizeof(batchLayoutTypeLookup) / sizeof(EnumTable::Enums)); i++)
+    {
+        if( batchLayoutTypeLookup[i].index == batchLayoutType )
+            return batchLayoutTypeLookup[i].label;
+    }
+
+    // Fatal!
+    AssertFatal(false, "CompositeSprite::getBatchLayoutTypeDescription() - Invalid batch layout type.");
+
+    // Bah!
+    return StringTable->EmptyString;
+}
+
+//-----------------------------------------------------------------------------
+
+bool CompositeSprite::setBatchLayout(void* obj, const char* data)
+{
+    STATIC_VOID_CAST_TO(CompositeSprite, SpriteBatch, obj)->setBatchCulling( getBatchLayoutTypeEnum(data) );
+    return false;
+}

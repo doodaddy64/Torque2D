@@ -4238,7 +4238,7 @@ b2BodyType getBodyTypeEnum(const char* label)
     }
 
     // Warn!
-    Con::warnf("SceneObject::getBodyTypeDescription() - Invalid body type of '%s'", label );
+    Con::warnf("SceneObject::getBodyTypeEnum() - Invalid body type of '%s'", label );
 
     // Bah!
     return (b2BodyType)-1;
