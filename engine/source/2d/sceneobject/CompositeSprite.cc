@@ -177,3 +177,13 @@ void CompositeSprite::onTamlCustomRead( const TamlCollection& customCollection )
     SpriteBatch::onTamlCustomRead( pSpritesProperty );
 }
 
+//-----------------------------------------------------------------------------
+
+static EnumTable::Enums compositeLayoutTypeLookup[] =
+                {
+                    { CompositeSprite::None,        "none"    },
+                    { CompositeSprite::Rectilinear, "rect" },
+                    { CompositeSprite::Isometric,   "iso"   },
+                };
+
+EnumTable compositeLayoutTypeTable(sizeof(compositeLayoutTypeLookup) / sizeof(EnumTable::Enums), &compositeLayoutTypeLookup[0]);

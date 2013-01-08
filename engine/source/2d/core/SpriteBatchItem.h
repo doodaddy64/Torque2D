@@ -58,7 +58,6 @@ protected:
     b2AABB              mRenderAABB;
     Vector2             mRenderPosition;
     U32                 mLastBatchTransformId;
-   
 
 public:
     SpriteBatchItem();

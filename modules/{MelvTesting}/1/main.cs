@@ -75,12 +75,11 @@ function startMelvTesting()
 	
 	%frame = 0;
 	
-    for ( %y = -500; %y <= 500; %y++ )
+    for ( %y = -50; %y <= 50; %y++ )
 	{
-	    for ( %x = -500; %x <= 500; %x++ )
+	    for ( %x = -50; %x <= 50; %x++ )
         {
             %composite.addSprite( %x, %y );
-            //%composite.setSpriteImage( "{MelvTesting}:isotiles2", getRandom(0,4) );
             %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", %frame );
             %composite.setSpriteAngle( getRandom(0,360) );
             //%composite.setSpriteVisible( getRandom(1,10) < 5 );

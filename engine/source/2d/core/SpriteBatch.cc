@@ -19,8 +19,9 @@ SpriteBatch::SpriteBatch() :
     mSortMode( SceneRenderQueue::RENDER_SORT_OFF ),
     mDefaultSpriteStride( 1.0f, 1.0f),
     mDefaultSpriteSize( 1.0f, 1.0f ),
-    mDefaultSpriteAngle( 0.0f )
-
+    mDefaultSpriteAngle( 0.0f ),
+    mpSpriteBatchTree( NULL ),
+    mSpriteCulling( true )
 {
     // Reset batch transform.
     mBatchTransform.SetIdentity();
@@ -30,13 +31,20 @@ SpriteBatch::SpriteBatch() :
     // Reset local extents.
     mLocalExtents.SetZero();
     mLocalExtentsDirty = true;
+
+    // Create the sprite batch tree if sprite clipping is on.
+    createSpriteBatchTree();
 }
 
 //------------------------------------------------------------------------------
 
 SpriteBatch::~SpriteBatch()
 {
+    // Clear the sprites.
     clearSprites();
+
+    // Delete the sprite batch tree.
+    destroySpriteBatchTree();
 }
 
 //-----------------------------------------------------------------------------
@@ -49,35 +57,67 @@ void SpriteBatch::prepareRender( SceneRenderObject* pSceneRenderObject, const Sc
     // Calculate local AABB.
     const b2AABB localAABB = calculateLocalAABB( pSceneRenderState->mRenderAABB );
 
-    // Perform render query.
-    mRenderQuery.clear();
-    Query( this, localAABB );
-
-    // Iterate the sprite batch.
-    for( typeSpriteItemVector::iterator spriteItr = mRenderQuery.begin(); spriteItr != mRenderQuery.end(); ++spriteItr )
+    // Do we have a sprite batch tree?
+    if ( mpSpriteBatchTree != NULL )
     {
-        // Fetch sprite batch Item.
-        SpriteBatchItem* pSpriteBatchItem = *spriteItr;
+        // Yes, so fetch sprite batch query.
+        SpriteBatchTree::typeSpriteItemVector& batchQuery = mpSpriteBatchTree->mBatchQuery;
+        batchQuery.clear();
 
-        // Skip if not visible.
-        if ( !pSpriteBatchItem->getVisible() )
-            continue;
+        // Perform sprite batch query.
+        mpSpriteBatchTree->Query( mpSpriteBatchTree, localAABB );
 
-        // Create a render request.
-        SceneRenderRequest* pSceneRenderRequest = pSceneRenderQueue->createRenderRequest();
+        // Iterate the sprite batch query results.
+        for( SpriteBatchTree::typeSpriteItemVector::iterator spriteItr = batchQuery.begin(); spriteItr != batchQuery.end(); ++spriteItr )
+        {
+            // Fetch sprite batch Item.
+            SpriteBatchItem* pSpriteBatchItem = *spriteItr;
 
-        // Prepare batch item.
-        pSpriteBatchItem->prepareRender( pSceneRenderRequest, mBatchTransformId );
+            // Skip if not visible.
+            if ( !pSpriteBatchItem->getVisible() )
+                continue;
 
-        // Set identity.
-        pSceneRenderRequest->mpSceneRenderObject = pSceneRenderObject;
+            // Create a render request.
+            SceneRenderRequest* pSceneRenderRequest = pSceneRenderQueue->createRenderRequest();
 
-        // Set custom data.
-        pSceneRenderRequest->mpCustomData1 = pSpriteBatchItem;
+            // Prepare batch item.
+            pSpriteBatchItem->prepareRender( pSceneRenderRequest, mBatchTransformId );
+
+            // Set identity.
+            pSceneRenderRequest->mpSceneRenderObject = pSceneRenderObject;
+
+            // Set custom data.
+            pSceneRenderRequest->mpCustomData1 = pSpriteBatchItem;
+        }
+
+        // Clear sprite batch query.
+        batchQuery.clear();
     }
+    else
+    {
+        // No, so perform a render request for all the sprites.
+        for( typeSpriteBatchHash::iterator spriteItr = mSprites.begin(); spriteItr != mSprites.end(); ++spriteItr )
+        {
+            // Fetch sprite batch Item.
+            SpriteBatchItem* pSpriteBatchItem = spriteItr->value;
 
-    // Clear render query.
-    mRenderQuery.clear();
+            // Skip if not visible.
+            if ( !pSpriteBatchItem->getVisible() )
+                continue;
+
+            // Create a render request.
+            SceneRenderRequest* pSceneRenderRequest = pSceneRenderQueue->createRenderRequest();
+
+            // Prepare batch item.
+            pSpriteBatchItem->prepareRender( pSceneRenderRequest, mBatchTransformId );
+
+            // Set identity.
+            pSceneRenderRequest->mpSceneRenderObject = pSceneRenderObject;
+
+            // Set custom data.
+            pSceneRenderRequest->mpCustomData1 = pSpriteBatchItem;
+        }
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -89,6 +129,51 @@ void SpriteBatch::render( const SceneRenderState* pSceneRenderState, const Scene
 
     // Batch render.
     pSpriteBatchItem->render( pBatchRenderer, mBatchTransformId );
+}
+
+//------------------------------------------------------------------------------
+
+void SpriteBatch::createTreeProxy( const b2AABB& localAABB, SpriteBatchItem* spriteBatchItem )
+{
+    // Finish if the batch tree is not available.
+    if ( mpSpriteBatchTree == NULL )
+        return;
+
+    // Create proxy.
+    spriteBatchItem->mProxyId = mpSpriteBatchTree->CreateProxy( localAABB, spriteBatchItem );    
+}
+
+//------------------------------------------------------------------------------
+
+void SpriteBatch::destroyTreeProxy( SpriteBatchItem* spriteBatchItem )
+{
+    // Finish if the batch tree is not available.
+    if ( mpSpriteBatchTree == NULL )
+        return;
+
+    // Fetch sprite proxy Id.
+    const S32 proxyId = spriteBatchItem->getProxyId();
+
+    // Destroy proxy.
+    mpSpriteBatchTree->DestroyProxy( proxyId );
+
+    // Remove proxy reference.
+    spriteBatchItem->mProxyId = INVALID_SPRITE_PROXY;
+}
+
+//------------------------------------------------------------------------------
+
+void SpriteBatch::moveTreeProxy( SpriteBatchItem* spriteBatchItem, const b2AABB& localAABB )
+{
+    // Finish if the batch tree is not available.
+    if ( mpSpriteBatchTree == NULL )
+        return;
+
+    // Fetch sprite proxy Id.
+    const S32 proxyId = spriteBatchItem->getProxyId();
+
+    // Move proxy.
+    mpSpriteBatchTree->MoveProxy( proxyId, localAABB, b2Vec2(0.0f, 0.0f) );
 }
 
 //------------------------------------------------------------------------------
@@ -808,6 +893,55 @@ void SpriteBatch::updateLocalExtents( void )
 
     // Calculate local extents.
     mLocalExtents.Set( mFabs(lowerExtentX > upperExtentX ? lowerExtentX : upperExtentX) * 2.0f, mFabs(lowerExtentY > upperExtentY ? lowerExtentY : upperExtentY) * 2.0f );
+}
+
+//------------------------------------------------------------------------------
+
+void SpriteBatch::createSpriteBatchTree( void )
+{
+    // Finish if sprite culling is off or there is already a sprite batch tree.
+    if ( !mSpriteCulling || mpSpriteBatchTree != NULL )
+        return;
+
+    // Set the sprite batch tree appropriately.
+    mpSpriteBatchTree = new SpriteBatchTree();
+
+    // Finish if there are no sprites.
+    if ( mSprites.size() == 0 )
+        return;
+
+    // Add proxies for all the sprites.
+    for( typeSpriteBatchHash::iterator spriteItr = mSprites.begin(); spriteItr != mSprites.end(); ++spriteItr )
+    {
+        // Fetch sprite batch item.
+        SpriteBatchItem* pSpriteBatchItem = spriteItr->value;
+
+        // Create tree proxy for sprite.
+        createTreeProxy( pSpriteBatchItem->getLocalAABB(), pSpriteBatchItem );
+    }
+}
+
+//------------------------------------------------------------------------------
+
+void SpriteBatch::destroySpriteBatchTree( void )
+{
+    // Finish if there is no sprite batch tree.
+    if ( mpSpriteBatchTree == NULL )
+        return;
+
+    // Are there any sprites?
+    if ( mSprites.size() > 0 )
+    {
+        // Yes, so destroy proxies of all the sprites.
+        for( typeSpriteBatchHash::iterator spriteItr = mSprites.begin(); spriteItr != mSprites.end(); ++spriteItr )
+        {
+            // Destroy tree proxy for sprite.
+            destroyTreeProxy( spriteItr->value );
+        }
+    }
+
+    // Finish if sprite clipping 
+    delete mpSpriteBatchTree;
 }
 
 //------------------------------------------------------------------------------

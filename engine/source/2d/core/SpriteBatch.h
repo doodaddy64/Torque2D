@@ -20,10 +20,8 @@
 
 //------------------------------------------------------------------------------  
 
-class SpriteBatch : public b2DynamicTree
+class SpriteBatch
 {
-    friend class b2DynamicTree;
-
 public:
     struct LogicalPosition
     {
@@ -56,9 +54,38 @@ public:
     };
 
 protected:
+    /// Sprite batch tree.
+    class SpriteBatchTree : public b2DynamicTree
+    {
+        friend class b2DynamicTree;
+
+    public:
+        // Render query.
+        inline bool QueryCallback( S32 proxyId )
+        {    
+            // Fetch sprite batch item.    
+            SpriteBatchItem* pSpriteBatchItem = static_cast<SpriteBatchItem*>( GetUserData( proxyId ) );
+
+            // Ignore if not visible.
+            if ( !pSpriteBatchItem->getVisible() )
+                return true;
+
+            // Use sprite batch item.
+            mBatchQuery.push_back( pSpriteBatchItem );
+
+            return true;
+        }
+
+        typedef Vector< SpriteBatchItem* > typeSpriteItemVector;
+        typeSpriteItemVector mBatchQuery;
+    };
+
+public:
+    static const S32                INVALID_SPRITE_PROXY = -1;  
+
+protected:
     typedef HashMap< U32, SpriteBatchItem* > typeSpriteBatchHash;
     typedef HashMap< StringTableEntry, U32 > typeSpriteKeyHash;
-    typedef Vector< SpriteBatchItem* > typeSpriteItemVector;
 
     typeSpriteBatchHash             mSprites;
     typeSpriteKeyHash               mSpriteLookup;
@@ -67,6 +94,9 @@ protected:
     Vector2                         mDefaultSpriteStride;
     Vector2                         mDefaultSpriteSize;
     F32                             mDefaultSpriteAngle;
+
+    bool                            mSpriteCulling;
+    SpriteBatchTree*                mpSpriteBatchTree;
 
 private:
     U32                             mMasterBatchId;
@@ -77,8 +107,6 @@ private:
 
     Vector2                         mLocalExtents;
     bool                            mLocalExtentsDirty;
-
-    typeSpriteItemVector            mRenderQuery;
 
 public:
     SpriteBatch();
@@ -95,6 +123,10 @@ public:
     inline void setLocalExtentsDirty( void ) { mLocalExtentsDirty = true; }
     inline bool getLocalExtentsDirty( void ) const { return mLocalExtentsDirty; }
     inline const Vector2& getLocalExtents( void ) { if ( getLocalExtentsDirty() ) updateLocalExtents(); return mLocalExtents; }
+
+    void createTreeProxy( const b2AABB& localAABB, SpriteBatchItem* spriteBatchItem );
+    void destroyTreeProxy( SpriteBatchItem* spriteBatchItem );
+    void moveTreeProxy( SpriteBatchItem* spriteBatchItem, const b2AABB& localAABB );         
 
     virtual void copyTo( SpriteBatch* pSpriteBatch ) const;
 
@@ -179,6 +211,9 @@ protected:
     void setBatchTransform( const b2Transform& batchTransform );
     void updateLocalExtents( void );
 
+    void createSpriteBatchTree( void );
+    void destroySpriteBatchTree( void );
+
     void onTamlCustomWrite( TamlCollectionProperty* pSpritesProperty );
     void onTamlCustomRead( const TamlCollectionProperty* pSpritesProperty );
 
@@ -187,22 +222,6 @@ private:
     bool checkSpriteSelected( void ) const;
 
     b2AABB calculateLocalAABB( const b2AABB& renderAABB );
-
-    // Render query.
-    inline bool QueryCallback( S32 proxyId )
-    {    
-        // Fetch sprite batch item.    
-        SpriteBatchItem* pSpriteBatchItem = static_cast<SpriteBatchItem*>( GetUserData( proxyId ) );
-
-        // Ignore if not visible.
-        if ( !pSpriteBatchItem->getVisible() )
-            return true;
-
-        // Use sprite batch item.
-        mRenderQuery.push_back( pSpriteBatchItem );
-
-        return true;
-    }
 };
 
 #endif // _SPRITE_BATCH_H_

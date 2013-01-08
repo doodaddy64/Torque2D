@@ -40,7 +40,7 @@ static StringTableEntry spriteAlphaTest;
 
 //------------------------------------------------------------------------------
 
-SpriteBatchItem::SpriteBatchItem() : mProxyId( -1 )
+SpriteBatchItem::SpriteBatchItem() : mProxyId( SpriteBatch::INVALID_SPRITE_PROXY )
 {
     // Are the sprite batch item properties initialized?
     if ( !spriteBatchItemPropertiesInitialized )
@@ -84,14 +84,13 @@ void SpriteBatchItem::resetState( void )
     Parent::resetState();
 
     // Do we have a proxy.
-    if ( mProxyId != -1 )
+    if ( mProxyId != SpriteBatch::INVALID_SPRITE_PROXY )
     {
         // Sanity!
         AssertFatal( mSpriteBatch != NULL, "Cannot remove proxy with NULL sprite batch." );
 
         // Destroy proxy.
-        mSpriteBatch->DestroyProxy( mProxyId );
-        mProxyId = -1;
+        mSpriteBatch->destroyTreeProxy( this );
     }
 
     mSpriteBatch = NULL;
@@ -143,7 +142,7 @@ void SpriteBatchItem::setBatchParent( SpriteBatch* pSpriteBatch, const U32 batch
     mBatchId = batchId;
 
     // Create proxy.
-    mProxyId = mSpriteBatch->CreateProxy( mLocalAABB, this );
+    mSpriteBatch->createTreeProxy( mLocalAABB, this );
 }
 
 //------------------------------------------------------------------------------
@@ -212,7 +211,6 @@ void SpriteBatchItem::updateLocalTransform( void )
 {
     // Sanity!
     AssertFatal( mSpriteBatch != NULL, "Cannot update local transform with a NULL sprite batch." );
-    AssertFatal( mProxyId != -1, "Cannot update local transform without a proxy Id." );
 
     // Finish if local transform is not dirty.
     if ( !mLocalTransformDirty )
@@ -239,8 +237,8 @@ void SpriteBatchItem::updateLocalTransform( void )
     // Calculate local AABB.
     CoreMath::mOOBBtoAABB( mLocalOOBB, mLocalAABB );
 
-    // Move proxy.
-    mSpriteBatch->MoveProxy( mProxyId, mLocalAABB, b2Vec2(0.0f, 0.0f) );
+    // Move tree proxy.
+    mSpriteBatch->moveTreeProxy( this, mLocalAABB );
 
     // Flag local transform as NOT dirty.
     mLocalTransformDirty = false;
@@ -252,7 +250,6 @@ void SpriteBatchItem::updateWorldTransform( const U32 batchTransformId )
 {
     // Sanity!
     AssertFatal( mSpriteBatch != NULL, "Cannot update transform with a NULL sprite batch." );
-    AssertFatal( mProxyId != -1, "Cannot update transform without a proxy Id." );
 
     // Update the local transform if needed.
     if ( mLocalTransformDirty )

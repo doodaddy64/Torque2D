@@ -16,10 +16,26 @@
 
 //------------------------------------------------------------------------------  
 
+extern EnumTable compositeLayoutTypeTable;
+
+//------------------------------------------------------------------------------  
+
 class CompositeSprite : public SceneObject, public SpriteBatch
 {
 protected:
     typedef SceneObject Parent;
+
+public:
+    // Layout type.
+    enum LayoutType
+    {
+        None,
+        Rectilinear,
+        Isometric
+    };
+
+private:
+
 
 public:
     CompositeSprite();
