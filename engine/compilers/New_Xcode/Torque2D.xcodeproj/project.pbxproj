@@ -309,7 +309,6 @@
 		861F8707167FC164004E5816 /* SceneRenderQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EAF16518D4600D96ADF /* SceneRenderQueue.cpp */; };
 		861F8708167FC164004E5816 /* BitmapFontObject.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EB816518D4600D96ADF /* BitmapFontObject.cc */; };
 		861F8709167FC164004E5816 /* CompositeSprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EBB16518D4600D96ADF /* CompositeSprite.cc */; };
-		861F870A167FC164004E5816 /* IsoCompositeSprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EBE16518D4600D96ADF /* IsoCompositeSprite.cc */; };
 		861F870B167FC164004E5816 /* Path.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EC016518D4600D96ADF /* Path.cc */; };
 		861F870C167FC164004E5816 /* SceneObject.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EC316518D4600D96ADF /* SceneObject.cc */; };
 		861F870D167FC164004E5816 /* SceneObjectGroup.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EC616518D4600D96ADF /* SceneObjectGroup.cc */; };
@@ -658,7 +657,6 @@
 		86D76F8E165686B00046D71F /* SceneRenderQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EAF16518D4600D96ADF /* SceneRenderQueue.cpp */; };
 		86D76F8F165686B00046D71F /* BitmapFontObject.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EB816518D4600D96ADF /* BitmapFontObject.cc */; };
 		86D76F90165686B00046D71F /* CompositeSprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EBB16518D4600D96ADF /* CompositeSprite.cc */; };
-		86D76F91165686B00046D71F /* IsoCompositeSprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EBE16518D4600D96ADF /* IsoCompositeSprite.cc */; };
 		86D76F92165686B00046D71F /* Path.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EC016518D4600D96ADF /* Path.cc */; };
 		86D76F93165686B00046D71F /* SceneObject.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EC316518D4600D96ADF /* SceneObject.cc */; };
 		86D76F94165686B00046D71F /* SceneObjectGroup.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EC616518D4600D96ADF /* SceneObjectGroup.cc */; };
@@ -1292,8 +1290,6 @@
 		86BC7EBB16518D4600D96ADF /* CompositeSprite.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompositeSprite.cc; sourceTree = "<group>"; };
 		86BC7EBC16518D4600D96ADF /* CompositeSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeSprite.h; sourceTree = "<group>"; };
 		86BC7EBD16518D4600D96ADF /* CompositeSprite_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeSprite_ScriptBinding.h; sourceTree = "<group>"; };
-		86BC7EBE16518D4600D96ADF /* IsoCompositeSprite.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IsoCompositeSprite.cc; sourceTree = "<group>"; };
-		86BC7EBF16518D4600D96ADF /* IsoCompositeSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsoCompositeSprite.h; sourceTree = "<group>"; };
 		86BC7EC016518D4600D96ADF /* Path.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Path.cc; sourceTree = "<group>"; };
 		86BC7EC116518D4600D96ADF /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Path.h; sourceTree = "<group>"; };
 		86BC7EC216518D4600D96ADF /* Path_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Path_ScriptBinding.h; sourceTree = "<group>"; };
@@ -2573,8 +2569,6 @@
 				86BC7EBB16518D4600D96ADF /* CompositeSprite.cc */,
 				86BC7EBC16518D4600D96ADF /* CompositeSprite.h */,
 				86BC7EBD16518D4600D96ADF /* CompositeSprite_ScriptBinding.h */,
-				86BC7EBE16518D4600D96ADF /* IsoCompositeSprite.cc */,
-				86BC7EBF16518D4600D96ADF /* IsoCompositeSprite.h */,
 				86BC7EC016518D4600D96ADF /* Path.cc */,
 				86BC7EC116518D4600D96ADF /* Path.h */,
 				86BC7EC216518D4600D96ADF /* Path_ScriptBinding.h */,
@@ -4057,7 +4051,6 @@
 				861F8707167FC164004E5816 /* SceneRenderQueue.cpp in Sources */,
 				861F8708167FC164004E5816 /* BitmapFontObject.cc in Sources */,
 				861F8709167FC164004E5816 /* CompositeSprite.cc in Sources */,
-				861F870A167FC164004E5816 /* IsoCompositeSprite.cc in Sources */,
 				861F870B167FC164004E5816 /* Path.cc in Sources */,
 				861F870C167FC164004E5816 /* SceneObject.cc in Sources */,
 				861F870D167FC164004E5816 /* SceneObjectGroup.cc in Sources */,
@@ -4533,7 +4526,6 @@
 				86D76F8E165686B00046D71F /* SceneRenderQueue.cpp in Sources */,
 				86D76F8F165686B00046D71F /* BitmapFontObject.cc in Sources */,
 				86D76F90165686B00046D71F /* CompositeSprite.cc in Sources */,
-				86D76F91165686B00046D71F /* IsoCompositeSprite.cc in Sources */,
 				86D76F92165686B00046D71F /* Path.cc in Sources */,
 				86D76F93165686B00046D71F /* SceneObject.cc in Sources */,
 				86D76F94165686B00046D71F /* SceneObjectGroup.cc in Sources */,

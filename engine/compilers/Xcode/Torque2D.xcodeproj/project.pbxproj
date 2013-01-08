@@ -1505,14 +1505,6 @@
 		2ABB542E161DE790000ACE92 /* WorldQueryResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ABB5428161DE790000ACE92 /* WorldQueryResult.h */; };
 		2ABB542F161DE790000ACE92 /* WorldQueryResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ABB5428161DE790000ACE92 /* WorldQueryResult.h */; };
 		2ABB5430161DE790000ACE92 /* WorldQueryResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ABB5428161DE790000ACE92 /* WorldQueryResult.h */; };
-		2ABCB9FF161EF6AF007EC49D /* IsoCompositeSprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ABCB9FD161EF6AF007EC49D /* IsoCompositeSprite.cc */; };
-		2ABCBA00161EF6AF007EC49D /* IsoCompositeSprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ABCB9FD161EF6AF007EC49D /* IsoCompositeSprite.cc */; };
-		2ABCBA01161EF6AF007EC49D /* IsoCompositeSprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ABCB9FD161EF6AF007EC49D /* IsoCompositeSprite.cc */; };
-		2ABCBA02161EF6AF007EC49D /* IsoCompositeSprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ABCB9FD161EF6AF007EC49D /* IsoCompositeSprite.cc */; };
-		2ABCBA03161EF6AF007EC49D /* IsoCompositeSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ABCB9FE161EF6AF007EC49D /* IsoCompositeSprite.h */; };
-		2ABCBA04161EF6AF007EC49D /* IsoCompositeSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ABCB9FE161EF6AF007EC49D /* IsoCompositeSprite.h */; };
-		2ABCBA05161EF6AF007EC49D /* IsoCompositeSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ABCB9FE161EF6AF007EC49D /* IsoCompositeSprite.h */; };
-		2ABCBA06161EF6AF007EC49D /* IsoCompositeSprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ABCB9FE161EF6AF007EC49D /* IsoCompositeSprite.h */; };
 		2ABE57B81629B7E6008A7586 /* RemoteDebugger1.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ABE57AF1629B7E6008A7586 /* RemoteDebugger1.cc */; };
 		2ABE57B91629B7E6008A7586 /* RemoteDebugger1.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ABE57AF1629B7E6008A7586 /* RemoteDebugger1.cc */; };
 		2ABE57BA1629B7E6008A7586 /* RemoteDebugger1.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ABE57AF1629B7E6008A7586 /* RemoteDebugger1.cc */; };
@@ -3733,8 +3725,6 @@
 		2ABB5422161DAAE8000ACE92 /* SceneRenderQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneRenderQueue.cpp; path = ../../source/2d/scene/SceneRenderQueue.cpp; sourceTree = "<group>"; };
 		2ABB5427161DE790000ACE92 /* WorldQueryFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WorldQueryFilter.h; path = ../../source/2d/scene/WorldQueryFilter.h; sourceTree = "<group>"; };
 		2ABB5428161DE790000ACE92 /* WorldQueryResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WorldQueryResult.h; path = ../../source/2d/scene/WorldQueryResult.h; sourceTree = "<group>"; };
-		2ABCB9FD161EF6AF007EC49D /* IsoCompositeSprite.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IsoCompositeSprite.cc; path = ../../source/2d/sceneobject/IsoCompositeSprite.cc; sourceTree = "<group>"; };
-		2ABCB9FE161EF6AF007EC49D /* IsoCompositeSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IsoCompositeSprite.h; path = ../../source/2d/sceneobject/IsoCompositeSprite.h; sourceTree = "<group>"; };
 		2ABE57AF1629B7E6008A7586 /* RemoteDebugger1.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RemoteDebugger1.cc; path = ../../source/debug/remote/RemoteDebugger1.cc; sourceTree = "<group>"; };
 		2ABE57B01629B7E6008A7586 /* RemoteDebugger1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemoteDebugger1.h; path = ../../source/debug/remote/RemoteDebugger1.h; sourceTree = "<group>"; };
 		2ABE57B11629B7E6008A7586 /* RemoteDebuggerBase.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RemoteDebuggerBase.cc; path = ../../source/debug/remote/RemoteDebuggerBase.cc; sourceTree = "<group>"; };
@@ -5243,8 +5233,6 @@
 		2AB078FB161454DE0008C9C5 /* sceneobject */ = {
 			isa = PBXGroup;
 			children = (
-				2ABCB9FD161EF6AF007EC49D /* IsoCompositeSprite.cc */,
-				2ABCB9FE161EF6AF007EC49D /* IsoCompositeSprite.h */,
 				2AB079E2161455220008C9C5 /* BitmapFontObject_ScriptBinding.h */,
 				2AB079E3161455220008C9C5 /* BitmapFontObject.cc */,
 				2AB079E4161455220008C9C5 /* BitmapFontObject.h */,
@@ -6186,7 +6174,6 @@
 				2ABB541E161DA061000ACE92 /* SceneRenderFactories.h in Headers */,
 				2ABB542A161DE790000ACE92 /* WorldQueryFilter.h in Headers */,
 				2ABB542E161DE790000ACE92 /* WorldQueryResult.h in Headers */,
-				2ABCBA04161EF6AF007EC49D /* IsoCompositeSprite.h in Headers */,
 				2A3E173C1622DBAA00BA1CDC /* md5.h in Headers */,
 				2ACCAC601626D53F008BAA8D /* SceneWindow_ScriptBinding.h in Headers */,
 				2ACCAC681626D53F008BAA8D /* SceneWindow.h in Headers */,
@@ -6474,7 +6461,6 @@
 				2ABB541F161DA061000ACE92 /* SceneRenderFactories.h in Headers */,
 				2ABB542B161DE790000ACE92 /* WorldQueryFilter.h in Headers */,
 				2ABB542F161DE790000ACE92 /* WorldQueryResult.h in Headers */,
-				2ABCBA05161EF6AF007EC49D /* IsoCompositeSprite.h in Headers */,
 				2A3E173D1622DBAA00BA1CDC /* md5.h in Headers */,
 				2ACCAC611626D53F008BAA8D /* SceneWindow_ScriptBinding.h in Headers */,
 				2ACCAC691626D53F008BAA8D /* SceneWindow.h in Headers */,
@@ -6761,7 +6747,6 @@
 				2ABB5420161DA061000ACE92 /* SceneRenderFactories.h in Headers */,
 				2ABB542C161DE790000ACE92 /* WorldQueryFilter.h in Headers */,
 				2ABB5430161DE790000ACE92 /* WorldQueryResult.h in Headers */,
-				2ABCBA06161EF6AF007EC49D /* IsoCompositeSprite.h in Headers */,
 				2A3E173E1622DBAA00BA1CDC /* md5.h in Headers */,
 				2ACCAC621626D53F008BAA8D /* SceneWindow_ScriptBinding.h in Headers */,
 				2ACCAC6A1626D53F008BAA8D /* SceneWindow.h in Headers */,
@@ -7133,7 +7118,6 @@
 				2ABB541D161DA061000ACE92 /* SceneRenderFactories.h in Headers */,
 				2ABB5429161DE790000ACE92 /* WorldQueryFilter.h in Headers */,
 				2ABB542D161DE790000ACE92 /* WorldQueryResult.h in Headers */,
-				2ABCBA03161EF6AF007EC49D /* IsoCompositeSprite.h in Headers */,
 				2A3E173B1622DBAA00BA1CDC /* md5.h in Headers */,
 				2ACCAC5B1626D524008BAA8D /* guiWebViewCtrl.h in Headers */,
 				2ACCAC5F1626D53F008BAA8D /* SceneWindow_ScriptBinding.h in Headers */,
@@ -7812,7 +7796,6 @@
 				2A5B7CF11614E26500F0A1EB /* CoreMath.cc in Sources */,
 				2ABB541A161DA061000ACE92 /* SceneRenderFactories.cpp in Sources */,
 				2ABB5424161DAAE8000ACE92 /* SceneRenderQueue.cpp in Sources */,
-				2ABCBA00161EF6AF007EC49D /* IsoCompositeSprite.cc in Sources */,
 				2ACCAC641626D53F008BAA8D /* SceneWindow.cc in Sources */,
 				2ABE57B91629B7E6008A7586 /* RemoteDebugger1.cc in Sources */,
 				2ABE57C11629B7E6008A7586 /* RemoteDebuggerBase.cc in Sources */,
@@ -8260,7 +8243,6 @@
 				2A5B7CF21614E26500F0A1EB /* CoreMath.cc in Sources */,
 				2ABB541B161DA061000ACE92 /* SceneRenderFactories.cpp in Sources */,
 				2ABB5425161DAAE8000ACE92 /* SceneRenderQueue.cpp in Sources */,
-				2ABCBA01161EF6AF007EC49D /* IsoCompositeSprite.cc in Sources */,
 				2ACCAC651626D53F008BAA8D /* SceneWindow.cc in Sources */,
 				2ABE57BA1629B7E6008A7586 /* RemoteDebugger1.cc in Sources */,
 				2ABE57C21629B7E6008A7586 /* RemoteDebuggerBase.cc in Sources */,
@@ -8705,7 +8687,6 @@
 				2A5B7CF31614E26500F0A1EB /* CoreMath.cc in Sources */,
 				2ABB541C161DA061000ACE92 /* SceneRenderFactories.cpp in Sources */,
 				2ABB5426161DAAE8000ACE92 /* SceneRenderQueue.cpp in Sources */,
-				2ABCBA02161EF6AF007EC49D /* IsoCompositeSprite.cc in Sources */,
 				2ACCAC661626D53F008BAA8D /* SceneWindow.cc in Sources */,
 				2ABE57BB1629B7E6008A7586 /* RemoteDebugger1.cc in Sources */,
 				2ABE57C31629B7E6008A7586 /* RemoteDebuggerBase.cc in Sources */,
@@ -9178,7 +9159,6 @@
 				2A5B7CF01614E26500F0A1EB /* CoreMath.cc in Sources */,
 				2ABB5419161DA061000ACE92 /* SceneRenderFactories.cpp in Sources */,
 				2ABB5423161DAAE8000ACE92 /* SceneRenderQueue.cpp in Sources */,
-				2ABCB9FF161EF6AF007EC49D /* IsoCompositeSprite.cc in Sources */,
 				2ACCAC5A1626D524008BAA8D /* guiWebViewCtrl.cc in Sources */,
 				2ACCAC631626D53F008BAA8D /* SceneWindow.cc in Sources */,
 				2ABE57B81629B7E6008A7586 /* RemoteDebugger1.cc in Sources */,
