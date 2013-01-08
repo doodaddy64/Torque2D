@@ -2,6 +2,7 @@
 ###################
 *.xcworkspace
 *.xcuserdatad
+.LSOverride
 /tmp/*
 *.dso
 *.edso
