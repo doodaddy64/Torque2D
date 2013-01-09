@@ -439,7 +439,7 @@ void SpriteBatchItem::onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteType
             if ( dStrlen( pSpriteKey ) == 0 )
             {
                 // No, so warn.
-                Con::warnf( "Encountered an empty sprite key.  This tile will no longer be addressable by logical position." );
+                Con::warnf( "Encountered an empty sprite key.  This sprite will no longer be addressable by logical position." );
                 continue;
             }
 
