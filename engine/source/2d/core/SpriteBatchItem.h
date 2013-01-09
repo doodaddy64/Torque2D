@@ -105,7 +105,7 @@ public:
     inline void setDstBlendFactor( GLenum dstBlendFactor ) { mDstBlendFactor = dstBlendFactor; }
     inline GLenum getDstBlendFactor( void ) const { return mDstBlendFactor; }
     inline void setBlendColor( const ColorF& blendColor ) { mBlendColor = blendColor; }
-    inline ColorF getBlendColor( void ) const { return mBlendColor; }
+    inline const ColorF& getBlendColor( void ) const { return mBlendColor; }
     inline void setBlendAlpha( const F32 alpha ) { mBlendColor.alpha = alpha; }
     inline F32 getBlendAlpha( void ) const { return mBlendColor.alpha; }
 

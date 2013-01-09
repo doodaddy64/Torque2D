@@ -407,7 +407,7 @@ void ShapeVector::setPolyCustom( const U32 polyVertexCount, const char* pCustomP
     }
 
     // Fetch Custom Polygon Value Count.
-    const U32 customCount =Utility::mGetStringElementCount(pCustomPolygon);
+    const U32 customCount = Utility::mGetStringElementCount(pCustomPolygon);
 
     // Validate Polygon Custom Length.
     if ( customCount != polyVertexCount*2 )
@@ -581,7 +581,7 @@ void ShapeVector::generateLocalPoly( void )
 void ShapeVector::setLineColorString( const char* lineColour )
 {
     // Calculate Element Count.
-    const U32 elementCount =Utility::mGetStringElementCount( lineColour );
+    const U32 elementCount = Utility::mGetStringElementCount( lineColour );
 
     // Check we've got enough arguments.
     if ( elementCount < 3 )
@@ -637,7 +637,7 @@ void ShapeVector::setLineAlpha( const F32 alpha )
 void ShapeVector::setFillColorString( const char* fillColour )
 {
     // Calculate Element Count.
-    const U32 elementCount =Utility::mGetStringElementCount( fillColour );
+    const U32 elementCount = Utility::mGetStringElementCount( fillColour );
 
     // Check we've got enough arguments.
     if ( elementCount < 3 )

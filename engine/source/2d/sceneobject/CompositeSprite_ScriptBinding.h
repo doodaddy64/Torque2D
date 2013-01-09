@@ -632,7 +632,7 @@ ConsoleMethod(CompositeSprite, getSpriteDstBlendFactor, const char*, 2, 2,  "() 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(CompositeSprite, setSpriteBlendColor, void, 3, 6, "(float red, float green, float blue, [float alpha = 1.0]) - Sets the sprite blend color."
+ConsoleMethod(CompositeSprite, setSpriteBlendColor, void, 3, 6, "(float red, float green, float blue, [float alpha = 1.0]) or ( stockColorName ) - Sets the sprite blend color."
                                                                 "@param red The red value.\n"
                                                                 "@param green The green value.\n"
                                                                 "@param blue The blue value.\n"
@@ -645,12 +645,27 @@ ConsoleMethod(CompositeSprite, setSpriteBlendColor, void, 3, 6, "(float red, flo
     F32 blue;
     F32 alpha = 1.0f;
 
-    // Grab the element count.
-    const U32 elementCount = Utility::mGetStringElementCount(argv[2]);
-
     // Space separated.
-    if (argc < 4)
+    if (argc == 3 )
     {
+        // Grab the element count.
+        const U32 elementCount = Utility::mGetStringElementCount(argv[2]);
+
+        // Has a single argument been specified?
+        if ( elementCount == 1 )
+        {
+            // Is a sprite selected?
+            if ( !object->isSpriteSelected() )
+            {
+                // No, so warn.
+                Con::warnf("CompositeSprite::setSpriteBlendColor() - Cannot set sprite blend color as no sprite is selected." );
+                return;
+            }
+
+            Con::setData( TypeColorF, &const_cast<ColorF&>(object->getSpriteBlendColor()), 0, 1, &(argv[2]) );
+            return;
+        }
+
         // ("R G B [A]")
         if ((elementCount == 3) || (elementCount == 4))
         {
@@ -661,13 +676,13 @@ ConsoleMethod(CompositeSprite, setSpriteBlendColor, void, 3, 6, "(float red, flo
 
             // Grab the alpha if it's there.
             if (elementCount > 3)
-            alpha = dAtof(Utility::mGetStringElement(argv[2], 3));
+                alpha = dAtof(Utility::mGetStringElement(argv[2], 3));
         }
 
         // Invalid.
         else
         {
-            Con::warnf("CompositeSprite::setSpriteBlendColor() - Invalid Number of parameters!");
+            Con::warnf("SceneObject::setBlendColor() - Invalid Number of parameters!");
             return;
         }
     }
@@ -687,7 +702,7 @@ ConsoleMethod(CompositeSprite, setSpriteBlendColor, void, 3, 6, "(float red, flo
     // Invalid.
     else
     {
-        Con::warnf("CompositeSprite::setSpriteBlendColor() - Invalid Number of parameters!");
+        Con::warnf("SceneObject::setBlendColor() - Invalid Number of parameters!");
         return;
     }
 

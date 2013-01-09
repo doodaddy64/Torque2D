@@ -699,11 +699,11 @@ void SpriteBatch::setSpriteBlendColor( const ColorF& blendColor )
 
 //------------------------------------------------------------------------------
 
-ColorF SpriteBatch::getSpriteBlendColor( void ) const
+const ColorF& SpriteBatch::getSpriteBlendColor( void ) const
 {
     // Finish if a sprite is not selected.
     if ( !checkSpriteSelected() )
-        return ColorF(1.0f, 1.0f, 1.0f);
+        return ColorF::StockColor("White");
 
     // Get blend color.
     return mSelectedSprite->getBlendColor();

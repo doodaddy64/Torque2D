@@ -74,21 +74,19 @@ public:
     inline void getFieldValue( ColorF& fieldValue ) const
     {
         fieldValue.set( 1.0f, 1.0f, 1.0f, 1.0f );
-        if ( dSscanf( mFieldValue, "%g %g %g %g", &fieldValue.red, &fieldValue.green, &fieldValue.blue, &fieldValue.alpha ) < 3 )
-        {
-            // Warn.
-            Con::warnf( "TamlPropertyField - Reading colorF but it has an incorrect format: '%s'.", mFieldValue );
-        }
+
+        // Set color.
+        const char* argv = (char*)mFieldValue;
+        Con::setData( TypeColorF, &fieldValue, 0, 1, &argv );
     }
 
     inline void getFieldValue( ColorI& fieldValue ) const
     {
         fieldValue.set( 255, 255, 255, 255 );
-        if ( dSscanf( mFieldValue, "%c %c %c %c", &fieldValue.red, &fieldValue.green, &fieldValue.blue, &fieldValue.alpha ) < 3 )
-        {
-            // Warn.
-            Con::warnf( "TamlPropertyField - Reading colorI but it has an incorrect format: '%s'.", mFieldValue );
-        }
+
+        // Set color.
+        const char* argv = (char*)mFieldValue;
+        Con::setData( TypeColorI, &fieldValue, 0, 1, &argv );
     }
 
     inline void getFieldValue( Point2I& fieldValue ) const
@@ -225,16 +223,34 @@ public:
 
     TamlPropertyField* addPropertyField( const char* pFieldName, const ColorI& fieldValue )
     {
-        char fieldValueBuffer[64];
-        dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%d %d %d %d", fieldValue.red, fieldValue.green, fieldValue.blue, fieldValue.alpha );
-        return addPropertyField( pFieldName, fieldValueBuffer );
+        // Fetch the field value.
+        const char* pFieldValue = Con::getData( TypeColorI, &const_cast<ColorI&>(fieldValue), 0 );
+
+        // Did we get a field value?
+        if ( pFieldValue == NULL )
+        {
+            // No, so warn.
+            Con::warnf( "Taml: Failed to add property field name '%s' with ColorI value.", pFieldName );
+            pFieldValue = StringTable->EmptyString;
+        }
+
+        return addPropertyField( pFieldName, pFieldValue );
     }
 
     TamlPropertyField* addPropertyField( const char* pFieldName, const ColorF& fieldValue )
     {
-        char fieldValueBuffer[64];
-        dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%g %g %g %g", fieldValue.red, fieldValue.green, fieldValue.blue, fieldValue.alpha );
-        return addPropertyField( pFieldName, fieldValueBuffer );
+        // Fetch the field value.
+        const char* pFieldValue = Con::getData( TypeColorF, &const_cast<ColorF&>(fieldValue), 0 );
+
+        // Did we get a field value?
+        if ( pFieldValue == NULL )
+        {
+            // No, so warn.
+            Con::warnf( "Taml: Failed to add property field name '%s' with ColorF value.", pFieldName );
+            pFieldValue = StringTable->EmptyString;
+        }
+
+        return addPropertyField( pFieldName, pFieldValue );
     }
 
     TamlPropertyField* addPropertyField( const char* pFieldName, const Point2I& fieldValue )

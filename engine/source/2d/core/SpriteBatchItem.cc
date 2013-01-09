@@ -314,19 +314,19 @@ void SpriteBatchItem::onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias
         pSpriteTypeAlias->addPropertyField( spriteBlendModeName, mBlendMode );
 
     // Write source blend factor.
-    if ( mSrcBlendFactor != GL_SRC_ALPHA )
+    if ( mBlendMode && mSrcBlendFactor != GL_SRC_ALPHA )
         pSpriteTypeAlias->addPropertyField( spriteBlendModeName, getSrcBlendFactorDescription(mSrcBlendFactor) );
         
     // Write destination blend factor.
-    if ( mDstBlendFactor != GL_ONE_MINUS_SRC_ALPHA )
+    if ( mBlendMode && mDstBlendFactor != GL_ONE_MINUS_SRC_ALPHA )
         pSpriteTypeAlias->addPropertyField( spriteDstBlendFactorName, getDstBlendFactorDescription(mDstBlendFactor) );
 
     // Write blend color.
-    if ( mBlendColor != ColorF(1.0f, 1.0f, 1.0f, 1.0f) )
+    if ( mBlendMode && mBlendColor != ColorF(1.0f, 1.0f, 1.0f, 1.0f) )
         pSpriteTypeAlias->addPropertyField( spriteBlendColor, mBlendColor );
 
     // Write alpha test.
-    if ( mAlphaTest >= 0.0f )
+    if ( mBlendMode && mAlphaTest >= 0.0f )
         pSpriteTypeAlias->addPropertyField( spriteAlphaTest, mAlphaTest );
 
     // Write key.

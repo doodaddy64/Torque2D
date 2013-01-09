@@ -89,7 +89,7 @@ protected:
     static bool setPolyList(void* obj, const char* data)
     {
        //Vector2 poly[b2_maxPolygonVertices];
-       U32 count =Utility::mGetStringElementCount(data) >> 1;
+       U32 count = Utility::mGetStringElementCount(data) >> 1;
        //for (U32 i = 0; i < count; i++)
        //   poly[i] = Utility::mGetStringElementVector(data, i * 2);
 

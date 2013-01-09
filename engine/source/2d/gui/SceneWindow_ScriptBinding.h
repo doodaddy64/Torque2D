@@ -89,10 +89,10 @@ ConsoleMethod(SceneWindow, setCurrentCameraArea, void, 3, 6, "(x1 / y1 / x2 / y2
    Vector2 v2;
 
    // Grab the number of elements in the first two parameters.
-   U32 elementCount1 =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount1 = Utility::mGetStringElementCount(argv[2]);
    U32 elementCount2 = 1;
    if (argc > 3)
-      elementCount2 =Utility::mGetStringElementCount(argv[3]);
+      elementCount2 = Utility::mGetStringElementCount(argv[3]);
 
    // ("x1 y1 x2 y2")
    if ((elementCount1 == 4) && (argc == 3))
@@ -175,10 +175,10 @@ ConsoleMethod(SceneWindow, setCurrentCameraPosition, void, 3, 6, "(x / y / [widt
    F32 height = object->getCurrentCameraHeight();
 
    // Grab the number of elements in the first two parameters.
-   U32 elementCount1 =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount1 = Utility::mGetStringElementCount(argv[2]);
    U32 elementCount2 = 1;
    if (argc > 3)
-      elementCount2 =Utility::mGetStringElementCount(argv[3]);
+      elementCount2 = Utility::mGetStringElementCount(argv[3]);
 
    // ("x1 y1 width height")
    if ((elementCount1 == 4) && (argc == 3))
@@ -298,10 +298,10 @@ ConsoleMethod(SceneWindow, setTargetCameraArea, void, 3, 6, "(x / y / width / he
    Vector2 v2;
 
    // Grab the number of elements in the first two parameters.
-   U32 elementCount1 =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount1 = Utility::mGetStringElementCount(argv[2]);
    U32 elementCount2 = 1;
    if (argc > 3)
-      elementCount2 =Utility::mGetStringElementCount(argv[3]);
+      elementCount2 = Utility::mGetStringElementCount(argv[3]);
 
    // ("x1 y1 x2 y2")
    if ((elementCount1 == 4) && (argc == 3))
@@ -351,10 +351,10 @@ ConsoleMethod(SceneWindow, setTargetCameraPosition, void, 3, 6, "(x / y / [width
    F32 height = object->getCurrentCameraHeight();
 
    // Grab the number of elements in the first two parameters.
-   U32 elementCount1 =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount1 = Utility::mGetStringElementCount(argv[2]);
    U32 elementCount2 = 1;
    if (argc > 3)
-      elementCount2 =Utility::mGetStringElementCount(argv[3]);
+      elementCount2 = Utility::mGetStringElementCount(argv[3]);
 
    // ("x1 y1 width height")
    if ((elementCount1 == 4) && (argc == 3))
@@ -543,7 +543,7 @@ ConsoleMethod(SceneWindow, mount, void, 3, 7, "(SceneObject, [offsetX / offsetY]
     if (argc > 3)
     {
         // Fetch Element Count.
-        elementCount =Utility::mGetStringElementCount(argv[3]);
+        elementCount = Utility::mGetStringElementCount(argv[3]);
 
         // (object, "offsetX offsetY", ...)
         if ((elementCount == 2) && (argc < 7))
@@ -616,10 +616,10 @@ ConsoleMethod(SceneWindow, setViewLimitOn, void, 3, 6, "([minX / minY / maxX / m
    Vector2 v2;
 
    // Grab the number of elements in the first two parameters.
-   U32 elementCount1 =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount1 = Utility::mGetStringElementCount(argv[2]);
    U32 elementCount2 = 1;
    if (argc > 3)
-      elementCount2 =Utility::mGetStringElementCount(argv[3]);
+      elementCount2 = Utility::mGetStringElementCount(argv[3]);
 
    // ("x1 y1 x2 y2")
    if ((elementCount1 == 4) && (argc == 3))
@@ -685,7 +685,7 @@ ConsoleMethod(SceneWindow, setRenderGroups, void, 3, 2 + MASK_BITCOUNT, "(groups
    U32 mask = 0;
 
    // Grab the element count of the first parameter.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // Make sure we get at least one number.
    if (elementCount < 1)
@@ -745,7 +745,7 @@ ConsoleMethod(SceneWindow, setRenderLayers, void, 3, 2 + MASK_BITCOUNT, "(layers
    U32 mask = 0;
 
    // Grab the element count of the first parameter.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // Make sure we get at least one number.
    if (elementCount < 1)
@@ -868,7 +868,7 @@ ConsoleMethod(SceneWindow, setObjectInputEventGroupFilter, void, 3, 2 + MASK_BIT
    U32 mask = 0;
 
    // Grab the element count of the first parameter.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // Make sure we get at least one number.
    if (elementCount < 1)
@@ -929,7 +929,7 @@ ConsoleMethod(SceneWindow, setObjectInputEventLayerFilter, void, 3, 2 + MASK_BIT
    U32 mask = 0;
 
    // Grab the element count of the first parameter.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // Make sure we get at least one number.
    if (elementCount < 1)
@@ -1024,7 +1024,7 @@ ConsoleMethod(SceneWindow, setMousePosition, void, 3, 4, "(x/y) Sets Current Mou
    Vector2 position;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("x y")
    if ((elementCount == 2) && (argc == 3))
@@ -1073,7 +1073,7 @@ ConsoleMethod(SceneWindow, getWorldPoint, const char*, 3, 4, "(X / Y) - Returns 
    Vector2 srcPoint;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("x y")
    if ((elementCount == 2) && (argc == 3))
@@ -1109,7 +1109,7 @@ ConsoleMethod(SceneWindow, getWindowPoint, const char*, 3, 4, "(X / Y) - Returns
    Vector2 srcPoint;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("x y")
    if ((elementCount == 2) && (argc == 3))
@@ -1145,7 +1145,7 @@ ConsoleMethod(SceneWindow, getCanvasPoint, const char*, 3, 4, "(X / Y) - Returns
    Point2I srcPoint;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("x y")
    if ((elementCount == 2) && (argc == 3))
@@ -1186,7 +1186,7 @@ ConsoleMethod(SceneWindow, getIsWindowPoint, bool, 3, 4, "(X / Y) Checks if Worl
    Vector2 srcPoint;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("x y")
    if ((elementCount == 2) && (argc == 3))

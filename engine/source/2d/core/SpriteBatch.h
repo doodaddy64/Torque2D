@@ -194,7 +194,7 @@ public:
     void setSpriteDstBlendFactor( GLenum dstBlendFactor );
     GLenum getSpriteDstBlendFactor( void ) const;
     void setSpriteBlendColor( const ColorF& blendColor );
-    ColorF getSpriteBlendColor( void ) const;
+    const ColorF& getSpriteBlendColor( void ) const;
     void setSpriteBlendAlpha( const F32 alpha );
     F32  getSpriteBlendAlpha( void ) const;
     

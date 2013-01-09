@@ -140,7 +140,7 @@ ConsoleMethod(Scroller, setScroll, void, 3, 4, "(offsetX / offsetY) Sets the Scr
    F32 scrollY;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("scrollX scrollY")
    if ((elementCount == 2) && (argc == 3))
@@ -194,7 +194,7 @@ ConsoleMethod(Scroller, setScrollPosition, void, 3, 4, "(positionX / positionY) 
    F32 scrollY;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("positionX positionY")
    if ((elementCount == 2) && (argc == 3))

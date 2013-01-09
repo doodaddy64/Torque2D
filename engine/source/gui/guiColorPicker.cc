@@ -914,7 +914,7 @@ ConsoleMethod(GuiColorPickerCtrl, getSelectorPosForColor, const char*, 3, 6, "(f
     F32 alpha = 1.0f;
 
     // Grab the element count.
-    U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+    U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
     // Space separated.
     if (argc < 4)

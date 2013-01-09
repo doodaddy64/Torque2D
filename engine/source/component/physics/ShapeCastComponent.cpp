@@ -198,7 +198,7 @@ ConsoleMethod(ShapeCastComponent, castShape, const char*, 4, 6, "(endX/Y, shapeI
     Vector2 endPoint;
 
     // Grab the number of elements in the first parameter.
-    U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+    U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
     // ("x y")
     S32 nextArg = 2;

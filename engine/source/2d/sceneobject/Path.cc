@@ -1182,7 +1182,7 @@ void Path::onTamlPostRead( const TamlCollection& customCollection )
         char pathMode[32];
 
         // For backwards compatibility.
-        S32 count =Utility::mGetStringElementCount(objectData);
+        S32 count = Utility::mGetStringElementCount(objectData);
         if (count == 8)
             dSscanf(objectData, "%d %d %d %g %d %d %d %s", &mountID, &start, &end, &speed, &direction, &orient, &loops, &pathMode);
         else

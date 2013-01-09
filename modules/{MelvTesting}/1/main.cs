@@ -14,7 +14,7 @@ function startMelvTesting()
 	
 	testScreen();
 
-    Canvas.BackgroundColor = "CornflowerBlue";
+    Canvas.BackgroundColor = "SteelBlue";
     Canvas.UseBackgroundColor = true;
 
     //testScene.BackgroundColor = "HotPink";
@@ -27,11 +27,17 @@ function startMelvTesting()
 	
 	//%sprite1 = new Sprite();
 	//testScene.addToScene( %sprite1 );
-	//%sprite1.setSize( 15, 15 );
-	//%sprite1.ImageMap = "{MelvTesting}:isotiles2";
+	//%sprite1.setSize( 50, 50 );
+	//%sprite1.ImageMap = "{MelvTesting}:MiniTileMapImage";
 	//%sprite1.Frame = 0;
+	//%sprite1.setBlendColor( "Red" );
+	//%sprite1.setAngularVelocity( -90 );
+	//%sprite1.setLinearVelocity( 10, 0 );
 	//%sprite1.setSceneLayer( 31 );
 	//%sprite1.setSceneLayerDepth( 0 );
+	
+	//TamlWrite( %sprite1, "sprite1.xml" );
+	//%readSprite = TamlRead( "sprite1.xml" );	
 //
 	//%sprite2 = new Sprite();
 	//testScene.addToScene( %sprite2 );
@@ -82,6 +88,7 @@ function startMelvTesting()
             %composite.addSprite( %x, %y );
             %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", %frame );
             %composite.setSpriteAngle( getRandom(0,360) );
+            %composite.setSpriteBlendColor( "HotPink" );
             //%composite.setSpriteVisible( getRandom(1,10) < 5 );
             
             %frame++;
@@ -92,6 +99,9 @@ function startMelvTesting()
 	//testSceneWindow2D.setCurrentCameraPosition( 0, 0 );
 	//testScene.setDebugSceneObject( %composite );
 	%composite.setAngularVelocity( 20 );
+	
+	//TamlWrite( %composite, "composite.xml" );
+	//%newComposite = TamlRead( "composite.xml" );
 	
     //%assetTags = AssetDatabase.getAssetTags();    
     //%assetTags.createtag( "Test" );
@@ -213,7 +223,7 @@ function testScreen()
 
         // fill color
         opaque = false;
-        fillColor = "255 255 255 48";
+        fillColor = "0 0 0 128";
         
         // font
         fontType = $platform $= "windows" ? "lucida console" : "monaco";

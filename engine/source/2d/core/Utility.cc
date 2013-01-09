@@ -28,7 +28,7 @@ ConsoleFunction( t2dGetCommonElements, const char*, 3, 3, "(set1, set2) - Return
     }
 
     // Grab the element count of the first set.
-    const U32 elementCount1 =Utility::mGetStringElementCount(argv[1]);
+    const U32 elementCount1 = Utility::mGetStringElementCount(argv[1]);
 
     // Make sure we get at least one number.
     if (elementCount1 < 1)
@@ -37,7 +37,7 @@ ConsoleFunction( t2dGetCommonElements, const char*, 3, 3, "(set1, set2) - Return
     }
 
     // Grab the element count of the second set.
-    const U32 elementCount2 =Utility::mGetStringElementCount(argv[2]);
+    const U32 elementCount2 = Utility::mGetStringElementCount(argv[2]);
 
     // Make sure we get at least one number.
     if (elementCount2 < 1)
@@ -91,7 +91,7 @@ const char* mGetFirstNonWhitespace( const char* inString )
 // NOTE:-   You must verify that elements (index/index+1) are valid first!
 Vector2 mGetStringElementVector( const char* inString, const U32 index )
 {
-    if ((index + 1) >=Utility::mGetStringElementCount(inString))
+    if ((index + 1) >= Utility::mGetStringElementCount(inString))
        return Vector2::getZero();
 
     // Get String Element Vector.
@@ -103,7 +103,7 @@ Vector2 mGetStringElementVector( const char* inString, const U32 index )
 // NOTE:-   You must verify that elements (index/index+1/index+2) are valid first!
 VectorF mGetStringElementVector3D( const char* inString, const U32 index )
 {
-    if ((index + 2) >=Utility::mGetStringElementCount(inString))
+    if ((index + 2) >= Utility::mGetStringElementCount(inString))
        return VectorF(0.0f, 0.0f, 0.0f);
 
     // Get String Element Vector.

@@ -187,10 +187,10 @@ ConsoleMethod(SceneObject, setArea, void, 3, 6, "(float x1, float y1, float x2, 
    Vector2 v1, v2;
 
    // Grab the number of elements in the first two parameters.
-   U32 elementCount1 =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount1 = Utility::mGetStringElementCount(argv[2]);
    U32 elementCount2 = 1;
    if (argc > 3)
-      elementCount2 =Utility::mGetStringElementCount(argv[3]);
+      elementCount2 = Utility::mGetStringElementCount(argv[3]);
 
    // ("x1 y1 x2 y2")
    if ((elementCount1 == 4) && (argc == 3))
@@ -445,7 +445,7 @@ ConsoleMethod(SceneObject, setPosition, void, 3, 4, "(float x, float y) - Sets t
     b2Vec2 position;
 
     // Elements in the first argument.
-    U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+    U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
     // ("x y")
     if ((elementCount == 2) && (argc == 3))
@@ -597,7 +597,7 @@ ConsoleMethod(SceneObject, getLocalPoint, const char*, 3, 4, "(float worldPointX
    Vector2 worldPoint;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("x y")
    if ((elementCount == 2) && (argc == 3))
@@ -631,7 +631,7 @@ ConsoleMethod(SceneObject, getWorldPoint, const char*, 3, 4, "(float localPointX
    Vector2 localPoint;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("x y")
    if ((elementCount == 2) && (argc == 3))
@@ -665,7 +665,7 @@ ConsoleMethod(SceneObject, getLocalVector, const char*, 3, 4,    "(float worldVe
    Vector2 worldVector;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("x y")
    if ((elementCount == 2) && (argc == 3))
@@ -699,7 +699,7 @@ ConsoleMethod(SceneObject, getWorldVector, const char*, 3, 4,    "(float localVe
    Vector2 localVector;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("x y")
    if ((elementCount == 2) && (argc == 3))
@@ -730,7 +730,7 @@ ConsoleMethod(SceneObject, getIsPointInOOBB, bool, 3, 4,     "(worldPointX/Y) - 
 {
    Vector2 worldPoint;
 
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("X Y")
    if ((elementCount == 2) && (argc == 3))
@@ -774,7 +774,7 @@ ConsoleMethod(SceneObject, getIsPointInCollisionShape, bool, 4, 5,   "(int shape
     // Fetch shape index.
     Vector2 worldPoint;
 
-    U32 elementCount =Utility::mGetStringElementCount(argv[3]);
+    U32 elementCount = Utility::mGetStringElementCount(argv[3]);
 
     // ("X Y")
     if ((elementCount == 2) && (argc == 4))
@@ -1108,7 +1108,7 @@ ConsoleMethod(SceneObject, setCollisionLayers, void, 3, 2 + MASK_BITCOUNT, "(lay
    U32 mask = 0;
 
    // Grab the element count of the first parameter.
-   const U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   const U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // Make sure we get at least one number.
    if (elementCount < 1)
@@ -1168,7 +1168,7 @@ ConsoleMethod(SceneObject, setCollisionGroups, void, 3, 2 + MASK_BITCOUNT, "(gro
    U32 mask = 0;
 
    // Grab the element count of the first parameter.
-   const U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   const U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // Make sure we get at least one number.
    if (elementCount < 1)
@@ -1359,7 +1359,7 @@ ConsoleMethod(SceneObject, setLinearVelocity, void, 3, 4, "(float velocityX, flo
    Vector2 velocity;
 
    // Grab the element count.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // (x, y)
    if ((elementCount == 1) && (argc > 3))
@@ -1476,7 +1476,7 @@ ConsoleMethod(SceneObject, getLinearVelocityFromWorldPoint, const char*, 3, 4,  
                                                                                     "@return (float linearVelocityX/Y) The linear velocity at the world point.")
 {
     // World point.
-    const U32 worldPointElementCount =Utility::mGetStringElementCount(argv[2]);
+    const U32 worldPointElementCount = Utility::mGetStringElementCount(argv[2]);
 
     Vector2 worldPoint;
 
@@ -1508,7 +1508,7 @@ ConsoleMethod(SceneObject, getLinearVelocityFromLocalPoint, const char*, 3, 4,  
                                                                                     "@return (float linearVelocityX/Y) The linear velocity at the local point.")
 {
     // Local point.
-    const U32 localPointElementCount =Utility::mGetStringElementCount(argv[2]);
+    const U32 localPointElementCount = Utility::mGetStringElementCount(argv[2]);
 
     Vector2 localPoint;
 
@@ -1602,7 +1602,7 @@ ConsoleMethod(SceneObject, moveTo, bool, 3, 6,           "(worldPoint X/Y, [time
                                                             "@return Whether the move could be started or not.")
 {
     // World point.
-    const U32 worldPointElementCount =Utility::mGetStringElementCount(argv[2]);
+    const U32 worldPointElementCount = Utility::mGetStringElementCount(argv[2]);
 
     Vector2 worldPoint;
 
@@ -1733,7 +1733,7 @@ ConsoleMethod(SceneObject, applyForce, void, 4, 6,       "(worldForce X/Y, [worl
                                                             "@return No return Value.")
 {
     // World force.
-    const U32 worldForceElementCount =Utility::mGetStringElementCount(argv[2]);
+    const U32 worldForceElementCount = Utility::mGetStringElementCount(argv[2]);
 
     b2Vec2 worldForce;
 
@@ -1761,7 +1761,7 @@ ConsoleMethod(SceneObject, applyForce, void, 4, 6,       "(worldForce X/Y, [worl
     }
 
     // World point.
-    const U32 worldPointElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 worldPointElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 worldPoint;
 
@@ -1808,7 +1808,7 @@ ConsoleMethod(SceneObject, applyLinearImpulse, void, 4, 6,   "(worldImpulse X/Y,
                                                                 "@return No return Value.")
 {
     // World impulse.
-    const U32 worldImpulseElementCount =Utility::mGetStringElementCount(argv[2]);
+    const U32 worldImpulseElementCount = Utility::mGetStringElementCount(argv[2]);
 
     b2Vec2 worldImpulse;
 
@@ -1836,7 +1836,7 @@ ConsoleMethod(SceneObject, applyLinearImpulse, void, 4, 6,   "(worldImpulse X/Y,
     }
 
     // World point.
-    const U32 worldPointElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 worldPointElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 worldPoint;
 
@@ -2243,7 +2243,7 @@ ConsoleMethod( SceneObject, createCircleCollisionShape, S32, 3, 5,   "(radius, [
     b2Vec2 localPosition;
 
     // Fetch local position element count.
-    const U32 elementCount =Utility::mGetStringElementCount(argv[3]);
+    const U32 elementCount = Utility::mGetStringElementCount(argv[3]);
 
     if ( elementCount == 2 && argc == 4 )
     {
@@ -2326,7 +2326,7 @@ ConsoleMethod( SceneObject, createPolygonCollisionShape, S32, 3, 3,  "(localPoin
                                                                         "@param localPointsX/Y A space separated list of local points for the convex polygon collision shape (must be at least three points)."
                                                                         "@return (int shapeIndex) The index of the collision shape or (-1) if not created.")
 {
-    const U32 pointElements =Utility::mGetStringElementCount(argv[2]);
+    const U32 pointElements = Utility::mGetStringElementCount(argv[2]);
 
     // Check even number of elements and at least 6 (3 points) exist.
     if ( ( pointElements % 2 ) != 0 || pointElements < 6 || pointElements > (2*b2_maxPolygonVertices) )
@@ -2355,7 +2355,7 @@ ConsoleMethod( SceneObject, createPolygonBoxCollisionShape, S32, 3, 7,  "(width,
                                                                             "@return (int shapeIndex) The index of the collision shape or (-1) if not created.")
 {
     // Width and height.
-    const U32 widthHeightElementCount =Utility::mGetStringElementCount(argv[2]);
+    const U32 widthHeightElementCount = Utility::mGetStringElementCount(argv[2]);
 
     F32 width;
     F32 height;
@@ -2386,7 +2386,7 @@ ConsoleMethod( SceneObject, createPolygonBoxCollisionShape, S32, 3, 7,  "(width,
     }
 
     // Local centroid.
-    const U32 localCentroidElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 localCentroidElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 localCentroid;
     if ( localCentroidElementCount == 1 && argc > (nextArg+1) )
@@ -2496,7 +2496,7 @@ ConsoleMethod( SceneObject, createChainCollisionShape, S32, 3, 7,    "(localPoin
                                                                         "@param adjacentLocalPositionEndXY The adjacent local position of the end of the edge."
                                                                         "@return (int shapeIndex) The index of the collision shape or (-1) if not created.")
 {
-    const U32 pointElements =Utility::mGetStringElementCount(argv[2]);
+    const U32 pointElements = Utility::mGetStringElementCount(argv[2]);
 
     // Check even number of elements and at least 4 (2 points) exist.
     if ( ( pointElements % 2 ) != 0 || pointElements < 4 )
@@ -2521,7 +2521,7 @@ ConsoleMethod( SceneObject, createChainCollisionShape, S32, 3, 7,    "(localPoin
     S32 nextArg = 3;
 
     // Adjacent local position start.
-    const U32 adjacentLocalPositionStartElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 adjacentLocalPositionStartElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 adjacentLocalPositionStart;
     if ( adjacentLocalPositionStartElementCount == 1 && argc > (nextArg+1) )
@@ -2548,7 +2548,7 @@ ConsoleMethod( SceneObject, createChainCollisionShape, S32, 3, 7,    "(localPoin
     }
 
     // Adjacent local position end.
-    const U32 adjacentLocalPositionEndElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 adjacentLocalPositionEndElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     if ( adjacentLocalPositionEndElementCount == 1 && argc > (nextArg+1) )
     {
@@ -2767,7 +2767,7 @@ ConsoleMethod(SceneObject, createEdgeCollisionShape, S32, 4, 10, "(localPosition
                                                                     "@return (int shapeIndex) The index of the collision shape or (-1) if not created.")
 {
     // Local position start.
-    const U32 localPositionStartElementCount =Utility::mGetStringElementCount(argv[2]);
+    const U32 localPositionStartElementCount = Utility::mGetStringElementCount(argv[2]);
 
     b2Vec2 localPositionStart;
     S32 nextArg = 3;
@@ -2788,7 +2788,7 @@ ConsoleMethod(SceneObject, createEdgeCollisionShape, S32, 4, 10, "(localPosition
     }
 
     // Local position end.
-    const U32 localPositionEndElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 localPositionEndElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 localPositionEnd;
     if ( localPositionEndElementCount == 1 && argc > (nextArg+1) )
@@ -2813,7 +2813,7 @@ ConsoleMethod(SceneObject, createEdgeCollisionShape, S32, 4, 10, "(localPosition
     }
 
     // Adjacent local position start.
-    const U32 adjacentLocalPositionStartElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 adjacentLocalPositionStartElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 adjacentLocalPositionStart;
     if ( adjacentLocalPositionStartElementCount == 1 && argc > (nextArg+1) )
@@ -2840,7 +2840,7 @@ ConsoleMethod(SceneObject, createEdgeCollisionShape, S32, 4, 10, "(localPosition
     }
 
     // Adjacent local position end.
-    const U32 adjacentLocalPositionEndElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 adjacentLocalPositionEndElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     if ( adjacentLocalPositionEndElementCount == 1 && argc > (nextArg+1) )
     {
@@ -3234,7 +3234,8 @@ ConsoleMethod(SceneObject, setBlendColor, void, 3, 6,   "(float red, float green
         // Has a single argument been specified?
         if ( elementCount == 1 )
         {
-            object->setDataField( StringTable->insert("BlendColor"), NULL, argv[2] );
+            // Set color.
+            Con::setData( TypeColorF, &const_cast<ColorF&>(object->getBlendColor()), 0, 1, &(argv[2]) );
             return;
         }
 
@@ -3354,7 +3355,7 @@ ConsoleMethod(SceneObject, setSortPoint, void, 3, 4, "(float x, float y) Sets th
    Vector2 sortPt;
 
    // Elements in the first argument.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("x y")
    if ((elementCount == 2) && (argc == 3))
@@ -3506,7 +3507,7 @@ ConsoleMethod(SceneObject, setDebugOn, void, 3, 2 + DEBUG_MODE_COUNT, "(debugMod
    U32 mask = 0;
 
    // Grab the element count of the first parameter.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // Make sure we get at least one number.
    if ((elementCount < 1) || (elementCount > DEBUG_MODE_COUNT))
@@ -3567,7 +3568,7 @@ ConsoleMethod(SceneObject, setDebugOff, void, 3, 2 + DEBUG_MODE_COUNT, "(debugMa
    U32 mask = 0;
 
    // Grab the element count of the first parameter.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // Make sure we get at least one number.
    if (elementCount < 1)

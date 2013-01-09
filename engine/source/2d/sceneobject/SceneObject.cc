@@ -2905,7 +2905,7 @@ S32 SceneObject::formatEdgeCollisionShape( const U32 shapeIndex, char* pBuffer, 
 S32 SceneObject::parseCollisionShape( const char* pBuffer )
 {
     // Fetch element count.
-    const U32 elementCount =Utility::mGetStringElementCount( pBuffer );
+    const U32 elementCount = Utility::mGetStringElementCount( pBuffer );
 
     // Sanity!
     if ( elementCount < 6 )
@@ -2953,7 +2953,7 @@ S32 SceneObject::parseCollisionShape( const char* pBuffer )
 S32 SceneObject::parseCircleCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef )
 {
     // Fetch element count.
-    const U32 elementCount =Utility::mGetStringElementCount( pBuffer );
+    const U32 elementCount = Utility::mGetStringElementCount( pBuffer );
 
     // Sanity!
     if ( elementCount != 3 )
@@ -2984,7 +2984,7 @@ S32 SceneObject::parseCircleCollisionShape( const char *pBuffer, b2FixtureDef& f
 S32 SceneObject::parsePolygonCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef )
 {
     // Fetch element count.
-    const U32 elementCount =Utility::mGetStringElementCount( pBuffer );
+    const U32 elementCount = Utility::mGetStringElementCount( pBuffer );
 
     // Sanity!
     // NOTE:-   Must contain at least the vertex count plus three vertices.
@@ -3039,7 +3039,7 @@ S32 SceneObject::parsePolygonCollisionShape( const char *pBuffer, b2FixtureDef& 
 S32 SceneObject::parseChainCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef )
 {
     // Fetch element count.
-    const U32 elementCount =Utility::mGetStringElementCount( pBuffer );
+    const U32 elementCount = Utility::mGetStringElementCount( pBuffer );
 
     // Sanity!
     // NOTE:-   Must contain at least the vertex count plus three vertices.
@@ -3118,7 +3118,7 @@ S32 SceneObject::parseChainCollisionShape( const char *pBuffer, b2FixtureDef& fi
 S32 SceneObject::parseEdgeCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef )
 {
     // Fetch element count.
-    const U32 elementCount =Utility::mGetStringElementCount( pBuffer );
+    const U32 elementCount = Utility::mGetStringElementCount( pBuffer );
 
     // Sanity!
     if ( elementCount < 4 )
@@ -3188,7 +3188,7 @@ void SceneObject::setFlip( const bool flipX, const bool flipY )
 
 void SceneObject::setBlendColorString(const char* color)
 {
-   U32 elementCount =Utility::mGetStringElementCount(color);
+   U32 elementCount = Utility::mGetStringElementCount(color);
    
    // ("R G B [A]")
    if ((elementCount == 3) || (elementCount == 4))

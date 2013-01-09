@@ -8,7 +8,7 @@ ConsoleMethod(ShapeVector, setPolyScale, void, 3, 3, "(widthScale / [heightScale
               "@return No return value.")
 {
     // Calculate Element Count.
-    const U32 elementCount =Utility::mGetStringElementCount( argv[2] );
+    const U32 elementCount = Utility::mGetStringElementCount( argv[2] );
 
     // Check Parameters.
     if ( elementCount < 1 )

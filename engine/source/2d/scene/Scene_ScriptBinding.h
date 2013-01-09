@@ -24,7 +24,7 @@ ConsoleMethod(Scene, setGravity, void, 3, 4, "(forceX / forceY) The gravity forc
    Vector2 force;
 
    // Grab the element count.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // ("forceX forceY")
    if (elementCount == 1)
@@ -495,7 +495,7 @@ ConsoleMethod(Scene, createDistanceJoint, S32, 4, 12,   "(sceneObjectA, sceneObj
     }
 
     // Local anchor A.
-    const U32 anchorAElementCount =Utility::mGetStringElementCount(argv[4]);
+    const U32 anchorAElementCount = Utility::mGetStringElementCount(argv[4]);
 
     b2Vec2 localAnchorA;
 
@@ -517,7 +517,7 @@ ConsoleMethod(Scene, createDistanceJoint, S32, 4, 12,   "(sceneObjectA, sceneObj
     }
 
     // Local anchor B.
-    const U32 anchorBElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 anchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 localAnchorB;
 
@@ -704,7 +704,7 @@ ConsoleMethod(Scene, createRopeJoint, S32, 4, 10,       "(sceneObjectA, sceneObj
     }
 
     // Local anchor A.
-    const U32 anchorAElementCount =Utility::mGetStringElementCount(argv[4]);
+    const U32 anchorAElementCount = Utility::mGetStringElementCount(argv[4]);
 
     b2Vec2 localAnchorA;
 
@@ -726,7 +726,7 @@ ConsoleMethod(Scene, createRopeJoint, S32, 4, 10,       "(sceneObjectA, sceneObj
     }
 
     // Local anchor B.
-    const U32 anchorBElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 anchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 localAnchorB;
 
@@ -836,7 +836,7 @@ ConsoleMethod(Scene, createRevoluteJoint, S32, 4, 9,    "(sceneObjectA, sceneObj
     }
 
     // Local anchor A.
-    const U32 anchorAElementCount =Utility::mGetStringElementCount(argv[4]);
+    const U32 anchorAElementCount = Utility::mGetStringElementCount(argv[4]);
 
     b2Vec2 localAnchorA;
 
@@ -858,7 +858,7 @@ ConsoleMethod(Scene, createRevoluteJoint, S32, 4, 9,    "(sceneObjectA, sceneObj
     }
 
     // Local anchor B.
-    const U32 anchorBElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 anchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 localAnchorB;
 
@@ -1026,7 +1026,7 @@ ConsoleMethod(Scene, createWeldJoint, S32, 4, 11,       "(sceneObjectA, sceneObj
     }
 
     // Local anchor A.
-    const U32 anchorAElementCount =Utility::mGetStringElementCount(argv[4]);
+    const U32 anchorAElementCount = Utility::mGetStringElementCount(argv[4]);
 
     b2Vec2 localAnchorA;
 
@@ -1048,7 +1048,7 @@ ConsoleMethod(Scene, createWeldJoint, S32, 4, 11,       "(sceneObjectA, sceneObj
     }
 
     // Local anchor B.
-    const U32 anchorBElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 anchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 localAnchorB;
 
@@ -1192,7 +1192,7 @@ ConsoleMethod(Scene, createWheelJoint, S32, 7, 11,      "(sceneObjectA, sceneObj
     }
 
     // Local anchor A.
-    const U32 anchorAElementCount =Utility::mGetStringElementCount(argv[4]);
+    const U32 anchorAElementCount = Utility::mGetStringElementCount(argv[4]);
 
     b2Vec2 localAnchorA;
 
@@ -1214,7 +1214,7 @@ ConsoleMethod(Scene, createWheelJoint, S32, 7, 11,      "(sceneObjectA, sceneObj
     }
 
     // Local anchor B.
-    const U32 anchorBElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 anchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 localAnchorB;
 
@@ -1235,7 +1235,7 @@ ConsoleMethod(Scene, createWheelJoint, S32, 7, 11,      "(sceneObjectA, sceneObj
     }
 
     // World axis.
-    const U32 worldAxisElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 worldAxisElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 worldAxis;
 
@@ -1411,7 +1411,7 @@ ConsoleMethod(Scene, createFrictionJoint, S32, 4, 11,   "(sceneObjectA, sceneObj
     }
 
     // Local anchor A.
-    const U32 anchorAElementCount =Utility::mGetStringElementCount(argv[4]);
+    const U32 anchorAElementCount = Utility::mGetStringElementCount(argv[4]);
 
     b2Vec2 localAnchorA;
 
@@ -1433,7 +1433,7 @@ ConsoleMethod(Scene, createFrictionJoint, S32, 4, 11,   "(sceneObjectA, sceneObj
     }
 
     // Local anchor B.
-    const U32 anchorBElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 anchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 localAnchorB;
 
@@ -1577,7 +1577,7 @@ ConsoleMethod(Scene, createPrismaticJoint, S32, 7, 11,  "(sceneObjectA, sceneObj
     }
 
     // Local anchor A.
-    const U32 anchorAElementCount =Utility::mGetStringElementCount(argv[4]);
+    const U32 anchorAElementCount = Utility::mGetStringElementCount(argv[4]);
 
     b2Vec2 localAnchorA;
 
@@ -1599,7 +1599,7 @@ ConsoleMethod(Scene, createPrismaticJoint, S32, 7, 11,  "(sceneObjectA, sceneObj
     }
 
     // Local anchor B.
-    const U32 anchorBElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 anchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 localAnchorB;
 
@@ -1620,7 +1620,7 @@ ConsoleMethod(Scene, createPrismaticJoint, S32, 7, 11,  "(sceneObjectA, sceneObj
     }
 
     // World axis.
-    const U32 worldAxisElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 worldAxisElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 worldAxis;
 
@@ -1784,7 +1784,7 @@ ConsoleMethod(Scene, createPulleyJoint, S32, 9, 16,     "(sceneObjectA, sceneObj
     }
 
     // Local anchor A.
-    const U32 anchorAElementCount =Utility::mGetStringElementCount(argv[4]);
+    const U32 anchorAElementCount = Utility::mGetStringElementCount(argv[4]);
 
     b2Vec2 localAnchorA;
 
@@ -1806,7 +1806,7 @@ ConsoleMethod(Scene, createPulleyJoint, S32, 9, 16,     "(sceneObjectA, sceneObj
     }
 
     // Local anchor B.
-    const U32 anchorBElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 anchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 localAnchorB;
 
@@ -1827,7 +1827,7 @@ ConsoleMethod(Scene, createPulleyJoint, S32, 9, 16,     "(sceneObjectA, sceneObj
     }
 
     // World ground anchor A.
-    const U32 worldGroundAnchorAElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 worldGroundAnchorAElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 worldGroundAnchorA;
 
@@ -1848,7 +1848,7 @@ ConsoleMethod(Scene, createPulleyJoint, S32, 9, 16,     "(sceneObjectA, sceneObj
     }
 
     // World ground anchor B.
-    const U32 worldGroundAnchorBElementCount =Utility::mGetStringElementCount(argv[nextArg]);
+    const U32 worldGroundAnchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
     b2Vec2 worldGroundAnchorB;
 
@@ -1906,7 +1906,7 @@ ConsoleMethod(Scene, createTargetJoint, S32, 5, 9,      "(sceneObject, worldTarg
     }
 
     // World target.
-    const U32 worldTargetElementCount =Utility::mGetStringElementCount(argv[3]);
+    const U32 worldTargetElementCount = Utility::mGetStringElementCount(argv[3]);
 
     b2Vec2 worldTarget;
 
@@ -1968,7 +1968,7 @@ ConsoleMethod(Scene, setTargetJointTarget, void, 4, 5,      "(jointId, worldTarg
     const U32 jointId = dAtoi(argv[2]);
 
     // World target.
-    const U32 worldTargetElementCount =Utility::mGetStringElementCount(argv[3]);
+    const U32 worldTargetElementCount = Utility::mGetStringElementCount(argv[3]);
 
     b2Vec2 worldTarget;
 
@@ -2109,7 +2109,7 @@ ConsoleMethod(Scene, createMotorJoint, S32, 4, 11,      "(sceneObjectA, sceneObj
     }
 
     // Linear offset.
-    const U32 linearOffsetElementCount =Utility::mGetStringElementCount(argv[4]);
+    const U32 linearOffsetElementCount = Utility::mGetStringElementCount(argv[4]);
 
     b2Vec2 linearOffset;
 
@@ -2176,7 +2176,7 @@ ConsoleMethod(Scene, setMotorJointLinearOffset, void, 4, 5,     "(jointId, linea
     const U32 jointId = dAtoi(argv[2]);
 
     // Linear offset.
-    const U32 linearOffsetElementCount =Utility::mGetStringElementCount(argv[3]);
+    const U32 linearOffsetElementCount = Utility::mGetStringElementCount(argv[3]);
 
     b2Vec2 linearOffset;
 
@@ -2320,10 +2320,10 @@ ConsoleMethod(Scene, pickArea, const char*, 4, 9, "(startx/y, endx/y, [sceneGrou
     U32 firstArg;
 
     // Grab the number of elements in the first two parameters.
-    U32 elementCount1 =Utility::mGetStringElementCount(argv[2]);
+    U32 elementCount1 = Utility::mGetStringElementCount(argv[2]);
     U32 elementCount2 = 1;
     if (argc > 3)
-        elementCount2 =Utility::mGetStringElementCount(argv[3]);
+        elementCount2 = Utility::mGetStringElementCount(argv[3]);
 
     // ("x1 y1 x2 y2")
     if ((elementCount1 == 4) && (argc < 9))
@@ -2466,10 +2466,10 @@ ConsoleMethod(Scene, pickRay, const char*, 4, 9, "(startx/y, endx/y, [sceneGroup
     U32 firstArg;
 
     // Grab the number of elements in the first two parameters.
-    U32 elementCount1 =Utility::mGetStringElementCount(argv[2]);
+    U32 elementCount1 = Utility::mGetStringElementCount(argv[2]);
     U32 elementCount2 = 1;
     if (argc > 3)
-        elementCount2 =Utility::mGetStringElementCount(argv[3]);
+        elementCount2 = Utility::mGetStringElementCount(argv[3]);
 
     // ("x1 y1 x2 y2")
     if ((elementCount1 == 4) && (argc < 9))
@@ -2612,10 +2612,10 @@ ConsoleMethod(Scene, pickRayCollision, const char*, 4, 8, "(startx/y, endx/y, [s
     U32 firstArg;
 
     // Grab the number of elements in the first two parameters.
-    U32 elementCount1 =Utility::mGetStringElementCount(argv[2]);
+    U32 elementCount1 = Utility::mGetStringElementCount(argv[2]);
     U32 elementCount2 = 1;
     if (argc > 3)
-        elementCount2 =Utility::mGetStringElementCount(argv[3]);
+        elementCount2 = Utility::mGetStringElementCount(argv[3]);
 
     // ("x1 y1 x2 y2")
     if ((elementCount1 == 4) && (argc < 9))
@@ -2736,7 +2736,7 @@ ConsoleMethod(Scene, pickPoint, const char*, 3, 7, "(x / y, [sceneGroupMask], [s
     U32 firstArg;
 
     // Grab the number of elements in the first parameter.
-    U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+    U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
     // ("x y")
     if ((elementCount == 2) && (argc < 8))
@@ -2855,7 +2855,7 @@ ConsoleMethod(Scene, setDebugOn, void, 3, 2 + DEBUG_MODE_COUNT, "(debugMask) Set
    U32 mask = 0;
 
    // Grab the element count of the first parameter.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // Make sure we get at least one number.
    if (elementCount < 1)
@@ -2914,7 +2914,7 @@ ConsoleMethod(Scene, setDebugOff, void, 3, 2 + DEBUG_MODE_COUNT, "(debugMask) Se
    U32 mask = 0;
 
    // Grab the element count of the first parameter.
-   U32 elementCount =Utility::mGetStringElementCount(argv[2]);
+   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
    // Make sure we get at least one number.
    if (elementCount < 1)
