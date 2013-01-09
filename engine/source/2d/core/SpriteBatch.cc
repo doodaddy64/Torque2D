@@ -128,7 +128,7 @@ void SpriteBatch::render( const SceneRenderState* pSceneRenderState, const Scene
     SpriteBatchItem* pSpriteBatchItem = (SpriteBatchItem*)pSceneRenderRequest->mpCustomData1;
 
     // Batch render.
-    pSpriteBatchItem->render( pBatchRenderer, mBatchTransformId );
+    pSpriteBatchItem->render( pBatchRenderer, pSceneRenderRequest, mBatchTransformId );
 }
 
 //------------------------------------------------------------------------------

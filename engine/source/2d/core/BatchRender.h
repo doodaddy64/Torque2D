@@ -37,6 +37,10 @@
 
 //-----------------------------------------------------------------------------
 
+class SceneRenderRequest;
+
+//-----------------------------------------------------------------------------
+
 class BatchRender
 {
 public:
@@ -92,6 +96,9 @@ public:
         mBlendMode = false;
     }
 
+    // Set blend mode using a specific scene render request.
+    void setBlendMode( const SceneRenderRequest* pSceneRenderRequest );
+
     /// Set alpha-test mode.
     inline void setAlphaTestMode( const F32 alphaTestMode )
     {
@@ -120,6 +127,9 @@ public:
 
         mBatchEnabled = enabled;
     }
+
+    // Set alpha test mode using a specific scene render request.
+    void setAlphaTestMode( const SceneRenderRequest* pSceneRenderRequest );
 
     /// Gets the batch enabled mode.
     inline bool getBatchEnabled( void ) const { return mBatchEnabled; }

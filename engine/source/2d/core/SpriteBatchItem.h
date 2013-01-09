@@ -116,7 +116,7 @@ public:
     virtual void copyTo( SpriteBatchItem* pSpriteBatchItem ) const;
 
     void prepareRender( SceneRenderRequest* pSceneRenderRequest, const U32 batchTransformId );
-    void render( BatchRender* pBatchRenderer, const U32 batchTransformId );
+    void render( BatchRender* pBatchRenderer, const SceneRenderRequest* pSceneRenderRequest, const U32 batchTransformId );
 
 protected:
     void setBatchParent( SpriteBatch* pSpriteBatch, const U32 batchId );

@@ -1084,23 +1084,11 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                     // Yes, so is the object batch rendered?
                     if ( pSceneRenderObject->isBatchRendered() )
                     {
-                        // Yes, so are we blending?
-                        if ( pSceneRenderRequest->mBlendMode )
-                        {
-                            // Yes, so set blending to standard alpha-blending.
-                            mBatchRenderer.setBlendMode(
-                                pSceneRenderRequest->mSrcBlendFactor,
-                                pSceneRenderRequest->mDstBlendFactor,
-                                pSceneRenderRequest->mBlendColor );                            
-                        }
-                        else
-                        {
-                            // No, so turn-off blending.
-                            mBatchRenderer.setBlendOff();
-                        }
+                        // Yes, so set the blend mode.
+                        mBatchRenderer.setBlendMode( pSceneRenderRequest );
 
-                        // Set alpha-test mode.
-                        mBatchRenderer.setAlphaTestMode( pSceneRenderRequest->mAlphaTest );
+                        // Set the alpha test mode.
+                        mBatchRenderer.setAlphaTestMode( pSceneRenderRequest );
                     }
 
                     // Set batch strict order mode.

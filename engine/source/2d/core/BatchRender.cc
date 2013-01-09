@@ -55,6 +55,34 @@ BatchRender::~BatchRender()
 
 //-----------------------------------------------------------------------------
 
+void BatchRender::setBlendMode( const SceneRenderRequest* pSceneRenderRequest )
+{
+    // Are we blending?
+    if ( pSceneRenderRequest->mBlendMode )
+    {
+        // Yes, so set blending to standard alpha-blending.
+        setBlendMode(
+            pSceneRenderRequest->mSrcBlendFactor,
+            pSceneRenderRequest->mDstBlendFactor,
+            pSceneRenderRequest->mBlendColor );                            
+    }
+    else
+    {
+        // No, so turn-off blending.
+        setBlendOff();
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+void BatchRender::setAlphaTestMode( const SceneRenderRequest* pSceneRenderRequest )
+{
+    // Set alpha-test mode.
+    setAlphaTestMode( pSceneRenderRequest->mAlphaTest );
+}
+
+//-----------------------------------------------------------------------------
+
 void BatchRender::SubmitQuad(
         const Vector2& vertexPos0,
         const Vector2& vertexPos1,

@@ -191,10 +191,16 @@ void SpriteBatchItem::prepareRender( SceneRenderRequest* pSceneRenderRequest, co
 
 //------------------------------------------------------------------------------
 
-void SpriteBatchItem::render( BatchRender* pBatchRenderer, const U32 batchTransformId )
+void SpriteBatchItem::render( BatchRender* pBatchRenderer, const SceneRenderRequest* pSceneRenderRequest, const U32 batchTransformId )
 {
     // Update the world transform.
     updateWorldTransform( batchTransformId );
+
+    // Set the blend mode.
+    pBatchRenderer->setBlendMode( pSceneRenderRequest );
+
+    // Set the alpha test mode.
+    pBatchRenderer->setAlphaTestMode( pSceneRenderRequest );
 
     // Render.
     Parent::render( mFlipX, mFlipY,
