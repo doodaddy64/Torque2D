@@ -14,7 +14,7 @@ function startMelvTesting()
 	
 	testScreen();
 
-    Canvas.BackgroundColor = "SteelBlue";
+    Canvas.BackgroundColor = "Navy";
     Canvas.UseBackgroundColor = true;
 
     //testScene.BackgroundColor = "HotPink";
@@ -74,10 +74,10 @@ function startMelvTesting()
 	testScene.addToScene( %composite );
 	%composite.BatchIsolated = "true";
 
-    %composite.setDefaultSpriteStride( 5, 5 );
+    %composite.setDefaultSpriteStride( 6, 6 );
     %composite.setDefaultSpriteSize( 5 );
     
-    %composite.setAngle( 30.0001 );
+    //%composite.setAngle( 30.0001 );
 	
 	%frame = 0;
 	
@@ -86,19 +86,26 @@ function startMelvTesting()
 	    for ( %x = -5; %x <= 5; %x++ )
         {
             %composite.addSprite( %x SPC %y );
-            %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", %frame );
             //%composite.setSpriteAngle( getRandom(0,360) );
+            if ( getRandom(1,10) < 5 )
+            {
+                %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", %frame );
+                %frame++;
+                if ( %frame == 16 ) %frame = 0;
+            }
+            else
+            {
+                %composite.setSpriteAnimation( "{MelvTesting}:MiniTileMapAnim" );
+            }
             //%composite.setSpriteBlendColor( "HotPink" );
             //%composite.setSpriteVisible( getRandom(1,10) < 5 );
             
-            %frame++;
-            if ( %frame == 16 ) %frame = 0;
         }
 	}
 	//
 	//testSceneWindow2D.setCurrentCameraPosition( 0, 0 );
 	//testScene.setDebugSceneObject( %composite );
-	%composite.setAngularVelocity( 60 );
+	%composite.setAngularVelocity( 40 );
 	
 	//TamlWrite( %composite, "composite.xml" );
 	//%newComposite1 = TamlRead( "composite.xml" );
