@@ -149,21 +149,11 @@ function refreshLauncherPreviewLauncherObject(%sceneWindow, %launcherSceneObject
     %sceneWindow.launcher.setPosition(%position);
     %sceneWindow.launcher.setSize(Vector2Scale(%launcherObject.getSize(), %scale));
 
-    %sceneWindow.launcher.clearCollisionShapes();
+    %launcherObject.copyAllCollisionShapes( %sceneWindow.launcher );
 
-    for (%i = 0; %i < %launcherObject.getCollisionShapeCount(); %i++)
+    for (%i = 0; %i < %sceneWindow.launcher.getCollisionShapeCount(); %i++)
     {
-        // Get the collision shape format string
-        %shapeString = %launcherObject.formatCollisionShape(%i);
-        
-        // Create a new collision shape on the proxy from the format string
-        %shapeIndex = %sceneWindow.launcher.parseCollisionShape(%shapeString);
-        %sceneWindow.launcher.setCollisionShapeIsSensor(%shapeIndex, true);
-        
-        if (%shapeIndex == -1)
-        {
-            warn("Lt_PreviewWindow::refreshLauncher -- failed to set a collision shape on the launcher object.");
-        }
+        %sceneWindow.launcher.setCollisionShapeIsSensor(%i, true);
     } 
     
     //%sceneWindow.launcher.setDebugOn(5);   
@@ -311,21 +301,11 @@ function Lt_PreviewWindow::refreshCollisionShapes(%this, %launcherSceneObjectGro
     %this.collisionObject.setPosition(%this.launcher.getPosition());
     %this.collisionObject.setSize(Vector2Scale(%collisionObject.getSize(), %this.collisionObject.scale));
 
-    %this.collisionObject.clearCollisionShapes();
+    %collisionObject.copyAllCollisionShapes( %this.collisionObject );
 
-    for (%i = 0; %i < %collisionObject.getCollisionShapeCount(); %i++)
+    for (%i = 0; %i < %this.collisionObject.getCollisionShapeCount(); %i++)
     {
-        // Get the collision shape format string
-        %shapeString = %collisionObject.formatCollisionShape(%i);
-        
-        // Create a new collision shape on the proxy from the format string
-        %shapeIndex = %this.collisionObject.parseCollisionShape(%shapeString);
-        %this.collisionObject.setCollisionShapeIsSensor(%shapeIndex, true);
-        
-        if (%shapeIndex == -1)
-        {
-            warn("Lt_PreviewWindow::refreshLauncher -- failed to set a collision shape on the launcher object.");
-        }
+        %this.collisionObject.setCollisionShapeIsSensor(%i, true);
     } 
     
     // Add bounding box shape

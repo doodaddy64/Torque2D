@@ -135,72 +135,50 @@ function PhysicsLauncherTools::createObjectFromTemplate(%template, %className, %
 
 function PhysicsLauncherTools::copyCollisionShapes(%sourceObject, %modifiedObject)
 {
-    %modifiedObject.clearCollisionShapes();    
-    
-    for (%i = 0; %i < %sourceObject.getCollisionShapeCount(); %i++)
-    {
-        // Get the collision shape format string
-        %shapeString = %sourceObject.formatCollisionShape(%i);
-        
-        // Create a new collision shape on the modified object from the format string
-        %shapeIndex = %modifiedObject.parseCollisionShape(%shapeString);
-        
-        if (%shapeIndex == -1)
-        {
-            warn("PhysicsLauncherTools::copyCollisionShapes -- failed to set a collision shape on the object.");
-        }
-    } 
+    %sourceObject.copyAllCollisionShapes( %modifiedObject );
 }
 
 function PhysicsLauncherTools::scaleCollisionShapes(%object, %scaleX, %scaleY)
 {
+    // Copy all the collision shapes.
+    %objectTarget = new SceneObject();
+    
+    // Fetch the collision shape count.
     %count = %object.getCollisionShapeCount(); 
-    
-    // Get current collision shapes
-    for (%i = 0; %i < %count; %i++)
-    {
-        // Get the collision shape format string
-        %shapeString[%i] = %object.formatCollisionShape(%i);
-    } 
-    
-    // Clear current collision shapes
-    %object.clearCollisionShapes(); 
-    
+         
     // Set scaled collision shapes
     for (%i = 0; %i < %count; %i++)
     {
         // Scale the shape format string
-        %shapeType = getWord(%shapeString[%i], 0);
+        %shapeType = %object.getCollisionShapeType( %i )
         switch$(%shapeType) 
         {
             case "circle":
-                %shapeString[%i] = PhysicsLauncherTools::scaleCircleCollisionShapeString(%shapeString[%i], %scaleX, %scaleY);
+                PhysicsLauncherTools::scaleCircleCollisionShapeString(%object, %objectTarget, %i, %scaleX, %scaleY);
             
             case "polygon":
-                %shapeString[%i] = PhysicsLauncherTools::scalePolygonCollisionShapeString(%shapeString[%i], %scaleX, %scaleY);
+                PhysicsLauncherTools::scalePolygonCollisionShapeString(%object, %objectTarget, %i, %scaleX, %scaleY);
             
             //case "edge":
-                //%shapeString[%i] = PhysicsLauncherTools::scaleEdgeCollisionShapeString(%shapeString[%i], %scaleX, %scaleY);
+                PhysicsLauncherTools::scaleEdgeCollisionShapeString(%object, %objectTarget, %i, %scaleX, %scaleY);
             //
             //case "chain":  
-                //%shapeString[%i] = PhysicsLauncherTools::scaleChainCollisionShapeString(%shapeString[%i], %scaleX, %scaleY);
+                PhysicsLauncherTools::scaleChainCollisionShapeString(%object, %objectTarget, %i, %scaleX, %scaleY);
             
             default: 
                 warn ("PhysicsLauncherTools::scaleCollisionShapes -- invalid shape type: " @ %shapeType);
                 return;
-        }
-        
-        // Create a new collision shape on the object from the format string
-        %shapeIndex = %object.parseCollisionShape(%shapeString[%i]);
-        
-        if (%shapeIndex == -1)
-        {
-            warn("PhysicsLauncherTools::scaleCollisionShapes -- failed to set a collision shape on the object.");
-        }
+        }       
     } 
+    
+    // Copy the new scale objects.
+    %objectCopy.copyAllCollisionShapes( %object );
+    
+    // Remove the temporary copy.
+    %objectCopy.delete();
 }
 
-function PhysicsLauncherTools::scaleCircleCollisionShapeString(%formatString, %scaleX, %scaleY)
+function PhysicsLauncherTools::scaleCircleCollisionShapeString(%object, %objectTarget, %i, %scaleX, %scaleY)
 {
     if (getWordCount(%formatString) != 8) 
     {
@@ -208,38 +186,36 @@ function PhysicsLauncherTools::scaleCircleCollisionShapeString(%formatString, %s
         return %formatString;   
     }
     
-    %radius = getWord(%formatString, 5) * mGetMin(%scaleX, %scaleY);
-    %posX = getWord(%formatString, 6) * %scaleX;
-    %poxY = getWord(%formatString, 7) * %scaleY;
+    %scaledRadius = %object.getCircleCollisionShapeRadius(%i) * mGetMin(%scaleX, %scaleY);
+
+    %localPosition = %object.getCircleCollisionShapeLocalPosition(%i);
+    %scaledLocalPositionX = getWord(%localPosition, 0) * %scaleX;
+    %scaledLocalPositionY = getWord(%localPosition, 1) * %scaleY;
     
-    %formatString = setWord(%formatString, 5, %radius);
-    %formatString = setWord(%formatString, 6, %posX);
-    %formatString = setWord(%formatString, 7, %poxY);
+    return %objectTarget.createCircleCollisionShape( %scaledRadius, %scaledLocalPositionX, %scaledLocalPositionY );
 }
 
-function PhysicsLauncherTools::scalePolygonCollisionShapeString(%formatString, %scaleX, %scaleY)
+function PhysicsLauncherTools::scalePolygonCollisionShapeString(%object, %objectTarget, %i, %scaleX, %scaleY)
 {
-    %localPointCountIndex = 5;
-    %localPointCount = getWord(%formatString, %localPointCountIndex);
-    
+    %localPointCount = %object.getPolygonCollisionShapePointCount(%i);
     for (%i = 0; %i < %localPointCount; %i++)
     {
-        %index = %localPointCountIndex + 1 + %i * 2;
-  
-        %posX = getWord(%formatString, %index) * %scaleX;
-        %posY = getWord(%formatString, %index + 1) * %scaleY;
-        
-        %formatString = setWord(%formatString, %index, %posX);
-        %formatString = setWord(%formatString, %index + 1, %posY);
+        %localPoint = %object.getPolygonCollisionShapeLocalPoint(%i);
+        %scaledLocalPointX = getWord(%localPoint, 0) * %scaleX;
+        %scaledLocalPointY = getWord(%localPoint, 1) * %scaleY;
+                
+        %localPoints = %localPoints SPC %scaledLocalPointX SPC %scaledLocalPointY;
     }
+    
+    return %objectTarget.createPolygonCollisionShape( %localPoints );
 }
 
-function PhysicsLauncherTools::scaleEdgeCollisionShapeString(%formatString, %scale)
+function PhysicsLauncherTools::scaleEdgeCollisionShapeString(%object, %objectTarget, %i, %scaleX, %scaleY)
 {
     //TODO
 }
 
-function PhysicsLauncherTools::scaleChainCollisionShapeString(%formatString, %scale)
+function PhysicsLauncherTools::scaleChainCollisionShapeString(%%object, %objectTarget, %i, %scaleX, %scaleY)
 {
     //TODO
 }

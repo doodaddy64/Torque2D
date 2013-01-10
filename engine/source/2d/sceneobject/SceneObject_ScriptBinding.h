@@ -3037,6 +3037,64 @@ ConsoleMethod( SceneObject, getEdgeCollisionShapeAdjacentEnd, const char*, 3, 3,
 
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(SceneObject, copyAllCollisionShapes, void, 4, 4,  "(targetObject [, clearTargetShapes?] ) - Copies all collision shapes to the target object.\n"
+                                                                "@param targetObject - The target object to receive the collision shapes.\n"
+                                                                "@param clearTargetShapes - Whether to clear the current collision shapes on the target or not.  Optional: Defaults to true.\n"
+                                                                "@return No return value.")
+{
+    // Fetch target object.
+    SceneObject* pSceneObject = Sim::findObject<SceneObject>( argv[2] );
+
+    // Sanity!
+    if ( pSceneObject == NULL )
+    {
+        Con::warnf( "SceneObject::copyAllCollisionShapes() - Invalid target object." );
+        return;
+    }
+
+    // Fetch clear target shapes flag.
+    const bool clearTargetShapes = argc >= 4 ? dAtob( argv[3] ) : true;
+    
+    // Copy collision shapes.
+    object->copyCollisionShapes( pSceneObject, clearTargetShapes );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneObject, copyCollisionShape, S32, 4, 4,   "(int shapeIndex, targetObject) - Copies a collision shape at the specified index to the target object.\n"
+                                                            "@param shapeIndex - The index of the collision shape.\n"
+                                                            "@param targetObject - The target object to receive the collision shape copy.\n"
+                                                            "@return The shape index of the copied collision shape on the target object or (-1) if not copied.")
+{
+    // Fetch shape index.
+    const U32 shapeIndex = dAtoi(argv[2]);
+
+    // Fetch shape count.
+    const U32 shapeCount = object->getCollisionShapeCount();
+
+    // Sanity!
+    if ( shapeIndex >= shapeCount )
+    {
+        Con::warnf( "SceneObject::copyCollisionShape() - Invalid shape index of %d.", shapeIndex );
+        return INVALID_COLLISION_SHAPE_INDEX;
+    }
+
+    // Fetch target object.
+    SceneObject* pSceneObject = Sim::findObject<SceneObject>( argv[3] );
+
+    // Sanity!
+    if ( pSceneObject == NULL )
+    {
+        Con::warnf( "SceneObject::copyCollisionShape() - Invalid target object." );
+        return INVALID_COLLISION_SHAPE_INDEX;
+    }
+    
+    // Copy collision shape.
+    return object->copyCollisionShapes( pSceneObject, false, shapeIndex );
+}
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(SceneObject, setVisible, void, 3, 3, "(bool status) - Show or hide the object.\n"
                                                       "@param status Whether to enable or disable visibility on the object."
                                                       "@return No return value.")

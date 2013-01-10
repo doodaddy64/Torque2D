@@ -2886,7 +2886,7 @@ void SceneObject::copyTo( SimObject* obj )
     pSceneObject->setGravityScale( getGravityScale() );
 
     /// Collision shapes.
-    copyCollisionShapesTo( pSceneObject );
+    copyCollisionShapes( pSceneObject, true );
 
     /// Render visibility.
     pSceneObject->setVisible( getVisible() );
@@ -2921,26 +2921,43 @@ void SceneObject::copyTo( SimObject* obj )
 
 //-----------------------------------------------------------------------------
 
-void SceneObject::copyCollisionShapesTo( SceneObject* pSceneObject )
+S32 SceneObject::copyCollisionShapes( SceneObject* pSceneObject, const bool clearTargetShapes, const S32 shapeIndex )
 {
-    pSceneObject->clearCollisionShapes();
+    // Sanity!
+    AssertFatal( pSceneObject != NULL, "SceneObject::copyCollisionShapes() - Cannot copy to a NULL scene object." );
+
+    // Clear the collision shapes.
+    if ( clearTargetShapes )
+        pSceneObject->clearCollisionShapes();
 
     // Fetch collision shape count.
     const U32 collisionShapeCount = getCollisionShapeCount();
 
-    // Finish if there are not collision shapes?
+    // If a shape index is specified, is it valid?
+    if ( shapeIndex < 0 && shapeIndex >= (S32)collisionShapeCount )
+    {
+        // No, so warn.
+        Con::warnf( "SceneObject::copyCollisionShapes() - Invalid shape index '%d'.", shapeIndex );
+        return INVALID_COLLISION_SHAPE_INDEX;
+    }
+
+    // Finish if there are not collision shapes.
     if ( collisionShapeCount == 0 )
-        return;
+        return INVALID_COLLISION_SHAPE_INDEX;
+
+    // Calculate shape range.
+    const U32 startShapeIndex = shapeIndex >= 0 ? 0 : shapeIndex;
+    const U32 endShapeIndex = shapeIndex >= 0 ? collisionShapeCount : shapeIndex;
 
     // Iterate collision shapes.
-    for ( U32 shapeIndex = 0; shapeIndex < collisionShapeCount; ++shapeIndex )
+    for ( U32 index = startShapeIndex; index < endShapeIndex; ++index )
     {
         b2FixtureDef fixtureDef;
 
         if ( mpScene )
         {
             // Fetch fixture.
-            b2Fixture* pFixture = mCollisionFixtures[shapeIndex];
+            b2Fixture* pFixture = mCollisionFixtures[index];
 
             // Fetch common details.
             fixtureDef.density     = pFixture->GetDensity();
@@ -2952,11 +2969,13 @@ void SceneObject::copyCollisionShapesTo( SceneObject* pSceneObject )
         else
         {
             // Fetch fixture def.
-            b2FixtureDef* pFixtureDef = mCollisionFixtureDefs[shapeIndex];
+            b2FixtureDef* pFixtureDef = mCollisionFixtureDefs[index];
 
             // Fetch common details.
             fixtureDef = *pFixtureDef;
         }
+
+        S32 newShapeIndex;
 
         // Fetch shape type.
         const b2Shape::Type shapeType = fixtureDef.shape->GetType();
@@ -2965,30 +2984,52 @@ void SceneObject::copyCollisionShapesTo( SceneObject* pSceneObject )
         switch( shapeType )
         {
             case b2Shape::e_circle:
-                copyCircleCollisionShapeTo( pSceneObject, fixtureDef );
+                newShapeIndex = copyCircleCollisionShapeTo( pSceneObject, fixtureDef );
+
+                // Return the new shape if we're copying a specific index.
+                if ( shapeIndex < 0 )
+                    return newShapeIndex;
+
                 continue;
 
             case b2Shape::e_polygon:
-                copyPolygonCollisionShapeTo( pSceneObject, fixtureDef );
+                newShapeIndex = copyPolygonCollisionShapeTo( pSceneObject, fixtureDef );
+
+                // Return the new shape if we're copying a specific index.
+                if ( shapeIndex < 0 )
+                    return newShapeIndex;
+
                 continue;
 
             case b2Shape::e_chain:
-                copyChainCollisionShapeTo( pSceneObject, fixtureDef );
+                newShapeIndex = copyChainCollisionShapeTo( pSceneObject, fixtureDef );
+
+                // Return the new shape if we're copying a specific index.
+                if ( shapeIndex < 0 )
+                    return newShapeIndex;
+
                 continue;
 
             case b2Shape::e_edge:
-                copyEdgeCollisionShapeTo( pSceneObject, fixtureDef );
+                newShapeIndex = copyEdgeCollisionShapeTo( pSceneObject, fixtureDef );
+
+                // Return the new shape if we're copying a specific index.
+                if ( shapeIndex < 0 )
+                    return newShapeIndex;
+
                 continue;
 
             default:
-                AssertFatal( false, "SceneObject::copyCollisionShapesTo() - Unsupported collision shape type encountered." );
+                AssertFatal( false, "SceneObject::copyCollisionShapes() - Unsupported collision shape type encountered." );
         }
     }
+
+    return INVALID_COLLISION_SHAPE_INDEX;
 }
 
 //-----------------------------------------------------------------------------
 
-void SceneObject::copyCircleCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
+S32 SceneObject::copyCircleCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
 {
     // Fetch shape.
     const b2CircleShape* pShape = dynamic_cast<const b2CircleShape*>( fixtureDef.shape );
@@ -2997,7 +3038,7 @@ void SceneObject::copyCircleCollisionShapeTo( SceneObject* pSceneObject, const b
     if ( !pShape )
     {
         Con::errorf("SceneObject::copyCircleCollisionShapeTo() - Invalid shape.");
-        return;
+        return INVALID_COLLISION_SHAPE_INDEX;
     }
 
     // Fetch shape details.
@@ -3013,11 +3054,13 @@ void SceneObject::copyCircleCollisionShapeTo( SceneObject* pSceneObject, const b
         // Yes, so configure shape.
         pSceneObject->setCollisionShapeDefinition( shapeIndex, fixtureDef );
     }
+
+    return shapeIndex;
 }
 
 //-----------------------------------------------------------------------------
 
-void SceneObject::copyPolygonCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
+S32 SceneObject::copyPolygonCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
 {
     // Fetch shape.
     const b2PolygonShape* pShape = dynamic_cast<const b2PolygonShape*>( fixtureDef.shape );
@@ -3026,7 +3069,7 @@ void SceneObject::copyPolygonCollisionShapeTo( SceneObject* pSceneObject, const 
     if ( !pShape )
     {
         Con::errorf("SceneObject::copyPolygonCollisionShapeTo() - Invalid shape.");
-        return;
+        return INVALID_COLLISION_SHAPE_INDEX;
     }
 
     // Fetch point count.
@@ -3044,11 +3087,13 @@ void SceneObject::copyPolygonCollisionShapeTo( SceneObject* pSceneObject, const 
         // Yes, so configure shape.
         pSceneObject->setCollisionShapeDefinition( shapeIndex, fixtureDef );
     }
+
+    return shapeIndex;
 }
 
 //-----------------------------------------------------------------------------
 
-void SceneObject::copyChainCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
+S32 SceneObject::copyChainCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
 {
     // Fetch shape.
     const b2ChainShape* pShape = dynamic_cast<const b2ChainShape*>( fixtureDef.shape );
@@ -3057,7 +3102,7 @@ void SceneObject::copyChainCollisionShapeTo( SceneObject* pSceneObject, const b2
     if ( !pShape )
     {
         Con::errorf("SceneObject::copyChainCollisionShapeTo() - Invalid shape.");
-        return;
+        return INVALID_COLLISION_SHAPE_INDEX;
     }
 
     // Fetch point count.
@@ -3084,11 +3129,13 @@ void SceneObject::copyChainCollisionShapeTo( SceneObject* pSceneObject, const b2
         // Yes, so configure shape.
         pSceneObject->setCollisionShapeDefinition( shapeIndex, fixtureDef );
     }
+
+    return shapeIndex;
 }
 
 //-----------------------------------------------------------------------------
 
-void SceneObject::copyEdgeCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
+S32 SceneObject::copyEdgeCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
 {
     // Fetch shape.
     const b2EdgeShape* pShape = dynamic_cast<const b2EdgeShape*>( fixtureDef.shape );
@@ -3097,7 +3144,7 @@ void SceneObject::copyEdgeCollisionShapeTo( SceneObject* pSceneObject, const b2F
     if ( !pShape )
     {
         Con::errorf("SceneObject::copyEdgeCollisionShapeTo() - Invalid shape.");
-        return;
+        return INVALID_COLLISION_SHAPE_INDEX;
     }
 
     // Fetch positions.
@@ -3120,6 +3167,8 @@ void SceneObject::copyEdgeCollisionShapeTo( SceneObject* pSceneObject, const b2F
         // Yes, so configure shape.
         pSceneObject->setCollisionShapeDefinition( shapeIndex, fixtureDef );
     }
+
+    return shapeIndex;
 }
 
 //-----------------------------------------------------------------------------

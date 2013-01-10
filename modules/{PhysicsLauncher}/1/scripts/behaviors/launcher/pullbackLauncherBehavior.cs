@@ -362,24 +362,12 @@ function PullbackLauncherBehavior::setProxy(%this, %object)
         return;
     }    
     
-    // Clear the proxy object collision shapes
-    %this.loadedObjectProxy.clearCollisionShapes();
+    %object.copyAllCollisionShapes( %this.loadedObjectProxy );
 
-    // Copy collision shapes from the loaded object
-    for (%i = 0; %i < %object.getCollisionShapeCount(); %i++)
+    for (%i = 0; %i < %this.loadedObjectProxy.getCollisionShapeCount(); %i++)
     {
-        // Get the collision shape format string
-        %shapeString = %object.formatCollisionShape(%i);
-        
-        // Create a new collision shape on the proxy from the format string
-        %shapeIndex = %this.loadedObjectProxy.parseCollisionShape(%shapeString);
-        %this.loadedObjectProxy.setCollisionShapeIsSensor(%shapeIndex, true);
-        
-        if (%shapeIndex == -1)
-        {
-            warn("PullbackLauncherBehavior::setProxy -- failed to set a collision shape on the proxy.");
-        }
-    }
+        %this.loadedObjectProxy.setCollisionShapeIsSensor(%i, true);
+    } 
     
     // Set proxy object properties
     %this.loadedObjectProxy.setSceneLayer(%object.getSceneLayer());

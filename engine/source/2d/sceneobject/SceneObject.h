@@ -86,6 +86,7 @@ typedef Vector<tDestroyNotification> typeDestroyNotificationVector;
 //-----------------------------------------------------------------------------
 
 const S32 GL_INVALID_BLEND_FACTOR = -1;
+const S32 INVALID_COLLISION_SHAPE_INDEX = -1;
 
 //-----------------------------------------------------------------------------
 
@@ -548,14 +549,7 @@ public:
     /// Cloning.
     virtual void            copyFrom( SceneObject* pSceneObject, const bool copyDynamicFields );
     virtual void            copyTo( SimObject* object );
-
-    // Collision shape parsing.
-    S32                     parseCollisionShape( const char* pBuffer );
-    S32                     parseCircleCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
-    S32                     parsePolygonCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
-    S32                     parseChainCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
-    S32                     parseEdgeCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
-
+    S32                     copyCollisionShapes( SceneObject* pSceneObject, const bool clearTargetShapes = true, const S32 shapeIndex = -1 );
 
     /// Safe deletion.
     inline void             setSafeDelete( const bool status )          { mSafeDeleteReady = status; }
@@ -595,11 +589,10 @@ public:
     DECLARE_CONOBJECT( SceneObject );
 
 protected:
-    void                    copyCollisionShapesTo( SceneObject* pSceneObject );
-    void                    copyCircleCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
-    void                    copyPolygonCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
-    void                    copyChainCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
-    void                    copyEdgeCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
+    S32                     copyCircleCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
+    S32                     copyPolygonCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
+    S32                     copyChainCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
+    S32                     copyEdgeCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
 
 protected:
     /// Lifetime.
