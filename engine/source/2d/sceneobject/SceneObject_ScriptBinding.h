@@ -3037,42 +3037,6 @@ ConsoleMethod( SceneObject, getEdgeCollisionShapeAdjacentEnd, const char*, 3, 3,
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneObject, formatCollisionShape, const char*, 3, 3,  "(int shapeIndex) - Formats a collision shape at the specified index to a string.  It can then be recreated using 'parseCollisionShape'.\n"
-                                                                        "@param shapeIndex - The index of the collision shape."
-                                                                        "@return (char) Formatted collision shape at the specified index.  This can be used to recreated the collision shape using 'parseCollisionShape'.")
-{
-    // Fetch shape count.
-    const U32 shapeCount = object->getCollisionShapeCount();
-
-    // Fetch shape index.
-    const U32 shapeIndex = dAtoi(argv[2]);
-
-    // Sanity!
-    if ( shapeIndex >= shapeCount )
-    {
-        Con::warnf("SceneObject::formatCollisionShape() - Invalid shape index of %d.", shapeIndex);
-        return NULL;
-    }
-
-    // Format collision shape.
-    const U32 bufferSize = 1024;
-    char* pBuffer = Con::getReturnBuffer( bufferSize );
-    object->formatCollisionShape( shapeIndex, pBuffer, bufferSize );
-
-    return pBuffer;
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod( SceneObject, parseCollisionShape, S32, 3, 3,  "(formattedCollisionShape) - Creates a collision shape by parsing a string formatted using 'formatCollisionShape'\n"
-                                                                "@param formattedCollisionShape The collision shape formatted using 'formatCollisionShape'."
-                                                                "@return (int shapeIndex) The index of the collision shape or (-1) if not created.")
-{
-    return object->parseCollisionShape( argv[2] );
-}
-
-//-----------------------------------------------------------------------------
-
 ConsoleMethod(SceneObject, setVisible, void, 3, 3, "(bool status) - Show or hide the object.\n"
                                                       "@param status Whether to enable or disable visibility on the object."
                                                       "@return No return value.")

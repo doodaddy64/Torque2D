@@ -2589,590 +2589,6 @@ Vector2 SceneObject::getEdgeCollisionShapeAdjacentEnd( const U32 shapeIndex ) co
 
 //-----------------------------------------------------------------------------
 
-S32 SceneObject::formatCollisionShape( const U32 shapeIndex, char* pBuffer, U32 bufferSize ) const
-{
-    // Sanity!
-    AssertFatal( shapeIndex < getCollisionShapeCount(), "SceneObject::formatCollisionShape() - Invalid shape index." );
-
-    F32 density;
-    F32 friction;
-    F32 restitution;
-    bool isSensor;
-
-    if ( mpScene )
-    {
-        // Fetch fixture.
-        b2Fixture* pFixture = mCollisionFixtures[shapeIndex];
-
-        // Fetch common details.
-        density     = pFixture->GetDensity();
-        friction    = pFixture->GetFriction();
-        restitution = pFixture->GetRestitution();
-        isSensor    = pFixture->IsSensor();
-    }
-    else
-    {
-        // Fetch fixture def.
-        b2FixtureDef* pFixtureDef = mCollisionFixtureDefs[shapeIndex];
-
-        // Fetch common details.
-        density     = pFixtureDef->density;
-        friction    = pFixtureDef->friction;
-        restitution = pFixtureDef->restitution;
-        isSensor    = pFixtureDef->isSensor;
-    }
-
-    // Fetch shape type.
-    const b2Shape::Type shapeType = getCollisionShapeType( shapeIndex );
-
-    // Fetch shape type description.
-    const char* pShapeTypeDescription = getCollisionShapeTypeDescription( shapeType );
-
-    // Format prefix.
-    S32 offset = dSprintf( pBuffer, bufferSize, "%s %g %g %g %d ", pShapeTypeDescription, density, friction, restitution, isSensor );
-    pBuffer += offset;
-    bufferSize -= offset;
-
-    // Format appropriate shape.
-    switch( shapeType )
-    {
-        case b2Shape::e_circle:
-            offset += formatCircleCollisionShape( shapeIndex, pBuffer, bufferSize );
-            break;
-
-        case b2Shape::e_polygon:
-            offset += formatPolygonCollisionShape( shapeIndex, pBuffer, bufferSize );
-            break;
-
-        case b2Shape::e_chain:
-            offset += formatChainCollisionShape( shapeIndex, pBuffer, bufferSize );
-            break;
-
-        case b2Shape::e_edge:
-            offset += formatEdgeCollisionShape( shapeIndex, pBuffer, bufferSize );
-            break;
-
-        default:
-            AssertFatal( false, "SceneObject::formatCollisionShape() - Unsupported collision shape type encountered." );
-    }
-
-    return offset;
-}
-
-//-----------------------------------------------------------------------------
-
-S32 SceneObject::formatCircleCollisionShape( const U32 shapeIndex, char* pBuffer, U32 bufferSize ) const
-{
-    // Sanity!
-    AssertFatal( shapeIndex < getCollisionShapeCount(), "SceneObject::formatCircleCollisionShape() - Invalid shape index." );
-
-    const b2CircleShape* pShape;
-
-    if ( mpScene )
-    {
-        // Fetch fixture.
-        b2Fixture* pFixture = mCollisionFixtures[shapeIndex];
-
-        // Fetch shape.
-        pShape = dynamic_cast<b2CircleShape*>( pFixture->GetShape() );
-    }
-    else
-    {
-        // Fetch fixture def.
-        b2FixtureDef* pFixtureDef = mCollisionFixtureDefs[shapeIndex];
-
-        // Fetch shape.
-        pShape = dynamic_cast<b2CircleShape*>( const_cast<b2Shape*>(pFixtureDef->shape) );
-    }
-
-    // Check shape.
-    if ( !pShape )
-    {
-        Con::errorf("SceneObject::formatCircleCollisionShape() - Invalid shape.");
-        return 0;
-    }
-
-    // Fetch shape details.
-    const F32 radius           = pShape->m_radius;
-    const b2Vec2 localPosition = pShape->m_p;
-
-    // Format output.
-    return dSprintf( pBuffer, bufferSize, "%g %g %g ", radius, localPosition.x, localPosition.y );
-}
-
-//-----------------------------------------------------------------------------
-
-S32 SceneObject::formatPolygonCollisionShape( const U32 shapeIndex, char* pBuffer, U32 bufferSize ) const
-{
-    // Sanity!
-    AssertFatal( shapeIndex < getCollisionShapeCount(), "SceneObject::formatPolygonCollisionShape() - Invalid shape index." );
-
-    const b2PolygonShape* pShape;
-
-    if ( mpScene )
-    {
-        // Fetch fixture.
-        b2Fixture* pFixture = mCollisionFixtures[shapeIndex];
-
-        // Fetch shape.
-        pShape = dynamic_cast<b2PolygonShape*>( pFixture->GetShape() );
-    }
-    else
-    {
-        // Fetch fixture def.
-        b2FixtureDef* pFixtureDef = mCollisionFixtureDefs[shapeIndex];
-
-        // Fetch shape.
-        pShape = dynamic_cast<b2PolygonShape*>( const_cast<b2Shape*>(pFixtureDef->shape) );
-    }
-
-    // Check shape.
-    if ( !pShape )
-    {
-        Con::errorf("SceneObject::formatPolygonCollisionShape() - Invalid shape.");
-        return 0;
-    }
-
-    // Fetch point count.
-    const U32 pointCount = pShape->GetVertexCount();
-
-    // Format point count.
-    S32 mainOffset = dSprintf( pBuffer, bufferSize, "%d ", pointCount );
-    pBuffer       += mainOffset;
-    bufferSize    -= mainOffset;
-
-    // Format points.
-    for ( S32 index = 0; index < (S32)pointCount; ++index )
-    {
-        // Fetch point.
-        const b2Vec2& point = pShape->GetVertex( index );
-
-        // Format point count.
-        const S32 offset = dSprintf( pBuffer, bufferSize, "%g %g ", point.x, point.y );
-        mainOffset      += offset;
-        pBuffer         += offset;
-        bufferSize      -= offset;
-    }
-
-    return mainOffset;
-}
-
-//-----------------------------------------------------------------------------
-
-S32 SceneObject::formatChainCollisionShape( const U32 shapeIndex, char* pBuffer, U32 bufferSize ) const
-{
-    // Sanity!
-    AssertFatal( shapeIndex < getCollisionShapeCount(), "SceneObject::formatChainCollisionShape() - Invalid shape index." );
-
-    const b2ChainShape* pShape;
-
-    if ( mpScene )
-    {
-        // Fetch fixture.
-        b2Fixture* pFixture = mCollisionFixtures[shapeIndex];
-
-        // Fetch shape.
-        pShape = dynamic_cast<b2ChainShape*>( pFixture->GetShape() );
-    }
-    else
-    {
-        // Fetch fixture def.
-        b2FixtureDef* pFixtureDef = mCollisionFixtureDefs[shapeIndex];
-
-        // Fetch shape.
-        pShape = dynamic_cast<b2ChainShape*>( const_cast<b2Shape*>(pFixtureDef->shape) );
-    }
-
-    // Check shape.
-    if ( !pShape )
-    {
-        Con::errorf("SceneObject::formatChainCollisionShape() - Invalid shape.");
-        return 0;
-    }
-
-    // Fetch point count.
-    const U32 pointCount = pShape->m_count;
-
-    // Format point count.
-    S32 mainOffset = dSprintf( pBuffer, bufferSize, "%d ", pointCount );
-    pBuffer       += mainOffset;
-    bufferSize    -= mainOffset;
-
-    // Format points.
-    b2Vec2* pVertices = pShape->m_vertices;
-    for ( U32 index = 0; index < pointCount; ++index )
-    {
-        // Fetch point.
-        const b2Vec2* pVertex = pVertices + index;
-
-        // Format point count.
-        const S32 offset = dSprintf( pBuffer, bufferSize, "%g %g ", pVertex->x, pVertex->y );
-        mainOffset      += offset;
-        pBuffer         += offset;
-        bufferSize      -= offset;
-    }
-
-    // Fetch adjacent positions.
-    const bool hasAdjacentLocalPositionStart = pShape->m_hasPrevVertex;
-    const bool hasAdjacentLocalPositionEnd   = pShape->m_hasNextVertex;
-    const b2Vec2 adjacentLocalPositionStart  = pShape->m_prevVertex;
-    const b2Vec2 adjacentLocalPositionEnd    = pShape->m_nextVertex;
-
-    // Adjacent positions?
-    if ( hasAdjacentLocalPositionStart || hasAdjacentLocalPositionEnd )
-    {
-        // Format with adjacent positions.
-        const S32 offset = dSprintf(
-            pBuffer, bufferSize,
-            "%d %d %g %g %g %g ",
-            hasAdjacentLocalPositionStart, hasAdjacentLocalPositionEnd,
-            adjacentLocalPositionStart.x, adjacentLocalPositionStart.y,
-            adjacentLocalPositionEnd.x, adjacentLocalPositionEnd.y );
-
-        mainOffset += offset;
-        pBuffer    += offset;
-        bufferSize -= offset;
-    }
-
-    return mainOffset;
-}
-
-//-----------------------------------------------------------------------------
-
-S32 SceneObject::formatEdgeCollisionShape( const U32 shapeIndex, char* pBuffer, U32 bufferSize ) const
-{
-    // Sanity!
-    AssertFatal( shapeIndex < getCollisionShapeCount(), "SceneObject::formatEdgeCollisionShape() - Invalid shape index." );
-
-    const b2EdgeShape* pShape;
-
-    if ( mpScene )
-    {
-        // Fetch fixture.
-        b2Fixture* pFixture = mCollisionFixtures[shapeIndex];
-
-        // Fetch shape.
-        pShape = dynamic_cast<b2EdgeShape*>( pFixture->GetShape() );
-    }
-    else
-    {
-        // Fetch fixture def.
-        b2FixtureDef* pFixtureDef = mCollisionFixtureDefs[shapeIndex];
-
-        // Fetch shape.
-        pShape = dynamic_cast<b2EdgeShape*>( const_cast<b2Shape*>(pFixtureDef->shape) );
-    }
-
-    // Check shape.
-    if ( !pShape )
-    {
-        Con::errorf("SceneObject::formatEdgeCollisionShape() - Invalid shape.");
-        return 0;
-    }
-
-    // Fetch positions.
-    const b2Vec2 localPosition1          = pShape->m_vertex1;
-    const b2Vec2 localPosition2          = pShape->m_vertex2;
-    const bool hasAdjacentLocalPosition1 = pShape->m_hasVertex0;
-    const bool hasAdjacentLocalPosition2 = pShape->m_hasVertex3;
-    const b2Vec2 adjacentLocalPosition1  = pShape->m_vertex0;
-    const b2Vec2 adjacentLocalPosition2  = pShape->m_vertex3;
-
-    // Adjacent positions?
-    if ( hasAdjacentLocalPosition1 || hasAdjacentLocalPosition2 )
-    {
-        // Format with adjacent positions.
-        return dSprintf(
-            pBuffer, bufferSize,
-            "%g %g %g %g %d %d %g %g %g %g ",
-            localPosition1.x, localPosition1.y,
-            localPosition2.x, localPosition2.y,
-            hasAdjacentLocalPosition1, hasAdjacentLocalPosition2,
-            adjacentLocalPosition1.x, adjacentLocalPosition1.y,
-            adjacentLocalPosition2.x, adjacentLocalPosition2.y );
-    }
-
-    // Format without adjacent positions.
-    return dSprintf(
-        pBuffer, bufferSize,
-        "%g %g %g %g ",
-        localPosition1.x, localPosition1.y,
-        localPosition2.x, localPosition2.y );
-}
-
-//-----------------------------------------------------------------------------
-
-S32 SceneObject::parseCollisionShape( const char* pBuffer )
-{
-    // Fetch element count.
-    const U32 elementCount = Utility::mGetStringElementCount( pBuffer );
-
-    // Sanity!
-    if ( elementCount < 6 )
-    {
-        Con::errorf("SceneObject::parseCollisionShape() - Found %d elements which is incorrect for parsing the shape.", elementCount );
-        return -1;
-    }
-
-    // Fetch common arguments.
-    b2FixtureDef fixtureDef;
-
-    const b2Shape::Type shapeType = getCollisionShapeTypeEnum( Utility::mGetStringElement(pBuffer, 0) );
-    fixtureDef.density            = dAtof( Utility::mGetStringElement(pBuffer, 1) );
-    fixtureDef.friction           = dAtof( Utility::mGetStringElement(pBuffer, 2) );
-    fixtureDef.restitution        = dAtof( Utility::mGetStringElement(pBuffer, 3) );
-    fixtureDef.isSensor           = dAtob( Utility::mGetStringElement(pBuffer, 4) );
-
-    // Fetch position of next argument.
-    pBuffer = Utility::mGetStringElement(pBuffer, 5, false );
-
-    // Parse appropriate shape.
-    switch( shapeType )
-    {
-        case b2Shape::e_circle:
-            return parseCircleCollisionShape( pBuffer, fixtureDef );
-
-        case b2Shape::e_polygon:
-            return parsePolygonCollisionShape( pBuffer, fixtureDef );
-
-        case b2Shape::e_chain:
-            return parseChainCollisionShape( pBuffer, fixtureDef );
-
-        case b2Shape::e_edge:
-            return parseEdgeCollisionShape( pBuffer, fixtureDef );
-
-        default:
-            Con::errorf("SceneObject::parseCollisionShape() - Unsupported collision shape type encountered." );
-    }
-
-    return -1;
-}
-
-//-----------------------------------------------------------------------------
-
-S32 SceneObject::parseCircleCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef )
-{
-    // Fetch element count.
-    const U32 elementCount = Utility::mGetStringElementCount( pBuffer );
-
-    // Sanity!
-    if ( elementCount != 3 )
-    {
-        Con::errorf("SceneObject::parseCircleCollisionShape() - Found %d elements which is incorrect for parsing the shape.", elementCount );
-        return -1;
-    }
-
-    // Parse arguments.
-    const F32 radius           = dAtof(Utility::mGetStringElement(pBuffer, 0));
-    const b2Vec2 localPosition = Utility::mGetStringElementVector(pBuffer, 1);
-
-    // Create shape.
-    const S32 shapeIndex = createCircleCollisionShape( radius, localPosition );
-
-    // Was shape created.
-    if ( shapeIndex != -1 )
-    {
-        // Yes, so configure shape.
-        setCollisionShapeDefinition( shapeIndex, fixtureDef );
-    }
-
-    return shapeIndex;
-}
-
-//-----------------------------------------------------------------------------
-
-S32 SceneObject::parsePolygonCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef )
-{
-    // Fetch element count.
-    const U32 elementCount = Utility::mGetStringElementCount( pBuffer );
-
-    // Sanity!
-    // NOTE:-   Must contain at least the vertex count plus three vertices.
-    if ( elementCount < (1 + (3 * 2)) )
-    {
-        Con::errorf("SceneObject::parsePolygonCollisionShape() - Found %d elements which is incorrect for parsing the shape.", elementCount );
-        return -1;
-    }
-
-    // Parse arguments.
-    U32 pointCount = dAtoi(Utility::mGetStringElement(pBuffer, 0));
-
-    // Clamp vertex count.
-    if ( pointCount > b2_maxPolygonVertices )
-    {
-        Con::warnf("Polygon vertex count of %d exceeds the maximum vertex count of %d.  Ignoring excess vertices.", pointCount, b2_maxPolygonVertices);
-        pointCount = b2_maxPolygonVertices;
-    }
-
-    // Sanity!
-    // NOTE:-   Must contain the vertex count plus all the specified vertex pairs.
-    if ( elementCount != (1 + (pointCount * 2)) )
-    {
-        Con::errorf("SceneObject::parsePolygonCollisionShape() - Found %d elements which is incorrect for parsing the shape.", elementCount );
-        return -1;
-    }
-
-    // Fetch position of vertex pairs.
-    pBuffer = Utility::mGetStringElement(pBuffer, 1, false);
-
-    b2Vec2 localPoints[b2_maxPolygonVertices];
-    for ( U32 vertexIndex = 0, elementIndex = 0; vertexIndex < pointCount; ++vertexIndex, elementIndex += 2 )
-    {
-        localPoints[vertexIndex] = Utility::mGetStringElementVector(pBuffer, elementIndex);
-    }
-
-    // Create shape.
-    const S32 shapeIndex = createPolygonCollisionShape( pointCount, localPoints );
-
-    // Was shape created.
-    if ( shapeIndex != -1 )
-    {
-        // Yes, so configure shape.
-        setCollisionShapeDefinition( shapeIndex, fixtureDef );
-    }
-
-    return shapeIndex;
-}
-
-//-----------------------------------------------------------------------------
-
-S32 SceneObject::parseChainCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef )
-{
-    // Fetch element count.
-    const U32 elementCount = Utility::mGetStringElementCount( pBuffer );
-
-    // Sanity!
-    // NOTE:-   Must contain at least the vertex count plus three vertices.
-    if ( elementCount < (1 + (3 * 2)) )
-    {
-        Con::errorf("SceneObject::parseChainCollisionShape() - Found %d elements which is incorrect for parsing the shape.", elementCount );
-        return -1;
-    }
-
-    // Parse arguments.
-    U32 pointCount = dAtoi(Utility::mGetStringElement(pBuffer, 0));
-
-    // Clamp vertex count.
-    if ( pointCount > b2_maxPolygonVertices )
-    {
-        Con::warnf("Polygon vertex count of %d exceeds the maximum vertex count of %d.  Ignoring excess vertices.", pointCount, b2_maxPolygonVertices);
-        pointCount = b2_maxPolygonVertices;
-    }
-
-    // Sanity!
-    // NOTE:-   Must contain the vertex count plus all the specified vertex pairs.
-    if ( elementCount != (1 + (pointCount * 2)) )
-    {
-        Con::errorf("SceneObject::parseChainCollisionShape() - Found %d elements which is incorrect for parsing the shape.", elementCount );
-        return -1;
-    }
-
-    b2Vec2 localPoints[b2_maxPolygonVertices];
-    for ( U32 vertexIndex = 0, elementIndex = 1; vertexIndex < pointCount; ++vertexIndex, elementIndex += 2 )
-    {
-        localPoints[vertexIndex] = Utility::mGetStringElementVector(pBuffer, elementIndex);
-    }
-
-    bool hasAdjacentLocalPositionStart = false;
-    bool hasAdjacentLocalPositionEnd   = false;
-    b2Vec2 adjacentLocalPositionStart( 0.0f, 0.0f );
-    b2Vec2 adjacentLocalPositionEnd( 0.0f, 0.0f );
-
-    // Adjacent arguments?    
-    if ( elementCount > (1 + (pointCount * 2)) )
-    {
-        // Yes, so sanity!
-        if ( elementCount != ((1 + (pointCount * 2)) + 6 ) )
-        {
-            Con::errorf("SceneObject::parseChainCollisionShape() - Found %d elements which is incorrect for parsing the shape.", elementCount );
-            return -1;
-        }
-
-        // Fetch position of adjacent arguments.
-        pBuffer = Utility::mGetStringElement(pBuffer, 1 + (pointCount * 2), false );
-
-        hasAdjacentLocalPositionStart = dAtob(Utility::mGetStringElement( pBuffer, 0 ));
-        hasAdjacentLocalPositionEnd   = dAtob(Utility::mGetStringElement( pBuffer, 1 ));
-        adjacentLocalPositionStart    = Utility::mGetStringElementVector( pBuffer, 2 );
-        adjacentLocalPositionEnd      = Utility::mGetStringElementVector( pBuffer, 4 );
-    }
-
-    // Create shape.
-    const S32 shapeIndex = createChainCollisionShape(
-        pointCount, localPoints,
-        hasAdjacentLocalPositionStart, hasAdjacentLocalPositionEnd,
-        adjacentLocalPositionStart, adjacentLocalPositionEnd);
-
-    // Was shape created.
-    if ( shapeIndex != -1 )
-    {
-        // Yes, so configure shape.
-        setCollisionShapeDefinition( shapeIndex, fixtureDef );
-    }
-
-    return shapeIndex;
-}
-
-//-----------------------------------------------------------------------------
-
-S32 SceneObject::parseEdgeCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef )
-{
-    // Fetch element count.
-    const U32 elementCount = Utility::mGetStringElementCount( pBuffer );
-
-    // Sanity!
-    if ( elementCount < 4 )
-    {
-        Con::errorf("SceneObject::parseEdgeCollisionShape() - Found %d elements which is incorrect for parsing the shape.", elementCount );
-        return -1;
-    }
-
-    // Parse arguments.
-    const b2Vec2 localPosition1 = Utility::mGetStringElementVector(pBuffer, 0);
-    const b2Vec2 localPosition2 = Utility::mGetStringElementVector(pBuffer, 2);
-
-    bool hasAdjacentLocalPosition1 = false;
-    bool hasAdjacentLocalPosition2 = false;
-    b2Vec2 adjacentLocalPosition1( 0.0f, 0.0f );
-    b2Vec2 adjacentLocalPosition2( 0.0f, 0.0f );
-
-    // Adjacent arguments?    
-    if ( elementCount > 4 )
-    {
-        // Yes, so sanity!
-        if ( elementCount != 10 )
-        {
-            Con::errorf("SceneObject::parseEdgeCollisionShape() - Found %d elements which is incorrect for parsing the shape.", elementCount );
-            return -1;
-        }
-
-        // Fetch position of adjacent arguments.
-        pBuffer = Utility::mGetStringElement(pBuffer, 4, false );
-
-        hasAdjacentLocalPosition1 = dAtob(Utility::mGetStringElement( pBuffer, 0 ));
-        hasAdjacentLocalPosition2 = dAtob(Utility::mGetStringElement( pBuffer, 1 ));
-        adjacentLocalPosition1    = Utility::mGetStringElementVector( pBuffer, 2 );
-        adjacentLocalPosition2    = Utility::mGetStringElementVector( pBuffer, 4 );
-    }
-
-    // Create shape.
-    const S32 shapeIndex = createEdgeCollisionShape(
-        localPosition1, localPosition2,
-        hasAdjacentLocalPosition1, hasAdjacentLocalPosition2,
-        adjacentLocalPosition1, adjacentLocalPosition2 );
-
-    // Was shape created.
-    if ( shapeIndex != -1 )
-    {
-        // Yes, so configure shape.
-        setCollisionShapeDefinition( shapeIndex, fixtureDef );
-    }
-
-    return shapeIndex;
-}
-
-//-----------------------------------------------------------------------------
-
 void SceneObject::setFlip( const bool flipX, const bool flipY )
 {
    // If nothing's changed, we don't update anything. (JDD)
@@ -3422,96 +2838,288 @@ void SceneObject::copyTo( SimObject* obj )
     Parent::copyTo(obj);
 
     // Fetch object.
-    SceneObject* object = dynamic_cast<SceneObject*>(obj);
+    SceneObject* pSceneObject = dynamic_cast<SceneObject*>(obj);
 
     // Sanity!
-    AssertFatal(object != NULL, "SceneObject::copyTo() - Object is not the correct type.");
+    AssertFatal(pSceneObject != NULL, "SceneObject::copyTo() - Object is not the correct type.");
 
     /// Lifetime.
-    object->setLifetime( getLifetime() );
+    pSceneObject->setLifetime( getLifetime() );
 
     /// Scene Layers.
-    object->setSceneLayer( getSceneLayer() );
+    pSceneObject->setSceneLayer( getSceneLayer() );
 
     /// Scene groups.
-    object->setSceneGroup( getSceneGroup() );
+    pSceneObject->setSceneGroup( getSceneGroup() );
 
     /// Area.
-    object->setSize( getSize() );
+    pSceneObject->setSize( getSize() );
 
     /// Position / Angle.
-    object->setPosition( getPosition() );
-    object->setAngle( getAngle() );
-    object->setFixedAngle( getFixedAngle() );
+    pSceneObject->setPosition( getPosition() );
+    pSceneObject->setAngle( getAngle() );
+    pSceneObject->setFixedAngle( getFixedAngle() );
 
     /// Body.
-    object->setBodyType( getBodyType() );
-    object->setActive( getActive() );
-    object->setAwake( getAwake() );
-    object->setBullet( getBullet() );
-    object->setSleepingAllowed( getSleepingAllowed() );
+    pSceneObject->setBodyType( getBodyType() );
+    pSceneObject->setActive( getActive() );
+    pSceneObject->setAwake( getAwake() );
+    pSceneObject->setBullet( getBullet() );
+    pSceneObject->setSleepingAllowed( getSleepingAllowed() );
 
     /// Collision control.
-    object->setCollisionGroups( getCollisionGroupMask() );
-    object->setCollisionLayers( getCollisionLayerMask() );
-    object->setCollisionSuppress( getCollisionSuppress() );
-    object->setGatherContacts( getGatherContacts() );
-    object->setDefaultDensity( getDefaultDensity() );
-    object->setDefaultFriction( getDefaultFriction() );
-    object->setDefaultRestitution( getDefaultRestitution() );
+    pSceneObject->setCollisionGroups( getCollisionGroupMask() );
+    pSceneObject->setCollisionLayers( getCollisionLayerMask() );
+    pSceneObject->setCollisionSuppress( getCollisionSuppress() );
+    pSceneObject->setGatherContacts( getGatherContacts() );
+    pSceneObject->setDefaultDensity( getDefaultDensity() );
+    pSceneObject->setDefaultFriction( getDefaultFriction() );
+    pSceneObject->setDefaultRestitution( getDefaultRestitution() );
 
     /// Velocities.
-    object->setLinearVelocity( getLinearVelocity() );
-    object->setAngularVelocity( getAngularVelocity() );
-    object->setLinearDamping( getLinearDamping() );
-    object->setAngularDamping( getAngularDamping() );
+    pSceneObject->setLinearVelocity( getLinearVelocity() );
+    pSceneObject->setAngularVelocity( getAngularVelocity() );
+    pSceneObject->setLinearDamping( getLinearDamping() );
+    pSceneObject->setAngularDamping( getAngularDamping() );
 
     /// Gravity scaling.
-    object->setGravityScale( getGravityScale() );
+    pSceneObject->setGravityScale( getGravityScale() );
 
     /// Collision shapes.
-    object->clearCollisionShapes();
-    const U32 collisionShapeCount = getCollisionShapeCount();
-    if ( collisionShapeCount > 0 )
-    {
-        // Write collision shapes using string formatting for now.
-        char collisionShapeBuffer[256];
-        for ( U32 index = 0; index < collisionShapeCount; ++index )
-        {
-            formatCollisionShape( index, collisionShapeBuffer, 256 );
-            object->parseCollisionShape( collisionShapeBuffer );
-        }
-    }
+    copyCollisionShapesTo( pSceneObject );
 
     /// Render visibility.
-    object->setVisible( getVisible() );
+    pSceneObject->setVisible( getVisible() );
 
     /// Render flipping.
-    object->setFlip( getFlipX(), getFlipY() );
+    pSceneObject->setFlip( getFlipX(), getFlipY() );
 
     /// Render blending.
-    object->setBlendMode( getBlendMode() );
-    object->setSrcBlendFactor( getSrcBlendFactor() );
-    object->setDstBlendFactor( getDstBlendFactor() );
-    object->setBlendColor( getBlendColor() );
-    object->setAlphaTest( getAlphaTest() );
+    pSceneObject->setBlendMode( getBlendMode() );
+    pSceneObject->setSrcBlendFactor( getSrcBlendFactor() );
+    pSceneObject->setDstBlendFactor( getDstBlendFactor() );
+    pSceneObject->setBlendColor( getBlendColor() );
+    pSceneObject->setAlphaTest( getAlphaTest() );
 
     /// Render sorting.
-    object->setSortPoint( getSortPoint() );
+    pSceneObject->setSortPoint( getSortPoint() );
 
     /// Input events.
-    object->setUseInputEvents( getUseInputEvents() );
+    pSceneObject->setUseInputEvents( getUseInputEvents() );
 
     // Script callbacks.
-    object->setUpdateCallback( getUpdateCallback() );   
-    object->setCollisionCallback( getCollisionCallback() );
-    object->setSleepingCallback( getSleepingCallback() );
+    pSceneObject->setUpdateCallback( getUpdateCallback() );   
+    pSceneObject->setCollisionCallback( getCollisionCallback() );
+    pSceneObject->setSleepingCallback( getSleepingCallback() );
 
     /// Misc.
-    object->setBatchIsolated( getBatchIsolated() );
+    pSceneObject->setBatchIsolated( getBatchIsolated() );
    
     /// Debug mode.
     setDebugOn( getDebugMask() );
+}
+
+//-----------------------------------------------------------------------------
+
+void SceneObject::copyCollisionShapesTo( SceneObject* pSceneObject )
+{
+    pSceneObject->clearCollisionShapes();
+
+    // Fetch collision shape count.
+    const U32 collisionShapeCount = getCollisionShapeCount();
+
+    // Finish if there are not collision shapes?
+    if ( collisionShapeCount == 0 )
+        return;
+
+    // Iterate collision shapes.
+    for ( U32 shapeIndex = 0; shapeIndex < collisionShapeCount; ++shapeIndex )
+    {
+        b2FixtureDef fixtureDef;
+
+        if ( mpScene )
+        {
+            // Fetch fixture.
+            b2Fixture* pFixture = mCollisionFixtures[shapeIndex];
+
+            // Fetch common details.
+            fixtureDef.density     = pFixture->GetDensity();
+            fixtureDef.friction    = pFixture->GetFriction();
+            fixtureDef.restitution = pFixture->GetRestitution();
+            fixtureDef.isSensor    = pFixture->IsSensor();
+            fixtureDef.shape       = pFixture->GetShape();
+        }
+        else
+        {
+            // Fetch fixture def.
+            b2FixtureDef* pFixtureDef = mCollisionFixtureDefs[shapeIndex];
+
+            // Fetch common details.
+            fixtureDef = *pFixtureDef;
+        }
+
+        // Fetch shape type.
+        const b2Shape::Type shapeType = fixtureDef.shape->GetType();
+
+        // Copy appropriate shape type.
+        switch( shapeType )
+        {
+            case b2Shape::e_circle:
+                copyCircleCollisionShapeTo( pSceneObject, fixtureDef );
+                continue;
+
+            case b2Shape::e_polygon:
+                copyPolygonCollisionShapeTo( pSceneObject, fixtureDef );
+                continue;
+
+            case b2Shape::e_chain:
+                copyChainCollisionShapeTo( pSceneObject, fixtureDef );
+                continue;
+
+            case b2Shape::e_edge:
+                copyEdgeCollisionShapeTo( pSceneObject, fixtureDef );
+                continue;
+
+            default:
+                AssertFatal( false, "SceneObject::copyCollisionShapesTo() - Unsupported collision shape type encountered." );
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+void SceneObject::copyCircleCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
+{
+    // Fetch shape.
+    const b2CircleShape* pShape = dynamic_cast<const b2CircleShape*>( fixtureDef.shape );
+
+    // Check shape.
+    if ( !pShape )
+    {
+        Con::errorf("SceneObject::copyCircleCollisionShapeTo() - Invalid shape.");
+        return;
+    }
+
+    // Fetch shape details.
+    const F32 radius           = pShape->m_radius;
+    const b2Vec2 localPosition = pShape->m_p;
+
+    // Copy shape.
+    const S32 shapeIndex = pSceneObject->createCircleCollisionShape( radius, localPosition );
+
+    // Was shape created.
+    if ( shapeIndex != -1 )
+    {
+        // Yes, so configure shape.
+        pSceneObject->setCollisionShapeDefinition( shapeIndex, fixtureDef );
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+void SceneObject::copyPolygonCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
+{
+    // Fetch shape.
+    const b2PolygonShape* pShape = dynamic_cast<const b2PolygonShape*>( fixtureDef.shape );
+
+    // Check shape.
+    if ( !pShape )
+    {
+        Con::errorf("SceneObject::copyPolygonCollisionShapeTo() - Invalid shape.");
+        return;
+    }
+
+    // Fetch point count.
+    const U32 pointCount = pShape->GetVertexCount();
+
+    // Fetch local points.
+    const b2Vec2* plocalPoints = pShape->m_vertices;
+
+    // Copy shape.
+    const S32 shapeIndex = pSceneObject->createPolygonCollisionShape( pointCount, plocalPoints );
+
+    // Was shape created.
+    if ( shapeIndex != -1 )
+    {
+        // Yes, so configure shape.
+        pSceneObject->setCollisionShapeDefinition( shapeIndex, fixtureDef );
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+void SceneObject::copyChainCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
+{
+    // Fetch shape.
+    const b2ChainShape* pShape = dynamic_cast<const b2ChainShape*>( fixtureDef.shape );
+
+    // Check shape.
+    if ( !pShape )
+    {
+        Con::errorf("SceneObject::copyChainCollisionShapeTo() - Invalid shape.");
+        return;
+    }
+
+    // Fetch point count.
+    const U32 pointCount = pShape->m_count;
+
+    // Fetch local points.
+    b2Vec2* localPoints = pShape->m_vertices;
+
+    // Fetch adjacent positions.
+    const bool hasAdjacentLocalPositionStart = pShape->m_hasPrevVertex;
+    const bool hasAdjacentLocalPositionEnd   = pShape->m_hasNextVertex;
+    const b2Vec2 adjacentLocalPositionStart  = pShape->m_prevVertex;
+    const b2Vec2 adjacentLocalPositionEnd    = pShape->m_nextVertex;
+
+    // Create shape.
+    const S32 shapeIndex = pSceneObject->createChainCollisionShape(
+        pointCount, localPoints,
+        hasAdjacentLocalPositionStart, hasAdjacentLocalPositionEnd,
+        adjacentLocalPositionStart, adjacentLocalPositionEnd);
+
+    // Was shape created.
+    if ( shapeIndex != -1 )
+    {
+        // Yes, so configure shape.
+        pSceneObject->setCollisionShapeDefinition( shapeIndex, fixtureDef );
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+void SceneObject::copyEdgeCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const
+{
+    // Fetch shape.
+    const b2EdgeShape* pShape = dynamic_cast<const b2EdgeShape*>( fixtureDef.shape );
+
+    // Check shape.
+    if ( !pShape )
+    {
+        Con::errorf("SceneObject::copyEdgeCollisionShapeTo() - Invalid shape.");
+        return;
+    }
+
+    // Fetch positions.
+    const b2Vec2 localPosition1          = pShape->m_vertex1;
+    const b2Vec2 localPosition2          = pShape->m_vertex2;
+    const bool hasAdjacentLocalPosition1 = pShape->m_hasVertex0;
+    const bool hasAdjacentLocalPosition2 = pShape->m_hasVertex3;
+    const b2Vec2 adjacentLocalPosition1  = pShape->m_vertex0;
+    const b2Vec2 adjacentLocalPosition2  = pShape->m_vertex3;
+
+    // Create shape.
+    const S32 shapeIndex = pSceneObject->createEdgeCollisionShape(
+        localPosition1, localPosition2,
+        hasAdjacentLocalPosition1, hasAdjacentLocalPosition2,
+        adjacentLocalPosition1, adjacentLocalPosition2 );
+
+    // Was shape created.
+    if ( shapeIndex != -1 )
+    {
+        // Yes, so configure shape.
+        pSceneObject->setCollisionShapeDefinition( shapeIndex, fixtureDef );
+    }
 }
 
 //-----------------------------------------------------------------------------

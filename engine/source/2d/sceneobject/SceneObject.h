@@ -481,20 +481,6 @@ public:
     Vector2                 getEdgeCollisionShapeAdjacentStart( const U32 shapeIndex ) const;
     Vector2                 getEdgeCollisionShapeAdjacentEnd( const U32 shapeIndex ) const;
 
-    /// Collision shape formatting.
-    S32                     formatCollisionShape( const U32 shapeIndex, char* pBuffer, U32 bufferSize ) const;
-    S32                     formatCircleCollisionShape( const U32 shapeIndex, char* pBuffer, U32 bufferSize ) const;
-    S32                     formatPolygonCollisionShape( const U32 shapeIndex, char* pBuffer, U32 bufferSize ) const;
-    S32                     formatChainCollisionShape( const U32 shapeIndex, char* pBuffer, U32 bufferSize ) const;
-    S32                     formatEdgeCollisionShape( const U32 shapeIndex, char* pBuffer, U32 bufferSize ) const;
-
-    // Collision shape parsing.
-    S32                     parseCollisionShape( const char* pBuffer );
-    S32                     parseCircleCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
-    S32                     parsePolygonCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
-    S32                     parseChainCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
-    S32                     parseEdgeCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
-
     /// Render visibility.
     inline void             setVisible( const bool status )             { mVisible = status; }
     inline bool             getVisible(void) const                      { return mVisible; }
@@ -563,6 +549,14 @@ public:
     virtual void            copyFrom( SceneObject* pSceneObject, const bool copyDynamicFields );
     virtual void            copyTo( SimObject* object );
 
+    // Collision shape parsing.
+    S32                     parseCollisionShape( const char* pBuffer );
+    S32                     parseCircleCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
+    S32                     parsePolygonCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
+    S32                     parseChainCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
+    S32                     parseEdgeCollisionShape( const char *pBuffer, b2FixtureDef& fixtureDef );
+
+
     /// Safe deletion.
     inline void             setSafeDelete( const bool status )          { mSafeDeleteReady = status; }
     inline bool             getSafeDelete( void ) const                 { return mSafeDeleteReady; }
@@ -599,6 +593,13 @@ public:
 
     /// Declare Console Object.
     DECLARE_CONOBJECT( SceneObject );
+
+protected:
+    void                    copyCollisionShapesTo( SceneObject* pSceneObject );
+    void                    copyCircleCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
+    void                    copyPolygonCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
+    void                    copyChainCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
+    void                    copyEdgeCollisionShapeTo( SceneObject* pSceneObject, const b2FixtureDef& fixtureDef ) const;
 
 protected:
     /// Lifetime.
