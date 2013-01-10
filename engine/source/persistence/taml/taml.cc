@@ -218,8 +218,9 @@ bool Taml::write( FileStream& stream, SimObject* pSimObject )
         }
     }
 
-	Con::warnf("Taml::write() - Unknown error.");
-	return false;
+    // Warn.
+    Con::warnf("Taml::write() - Unknown format.");
+    return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -258,8 +259,9 @@ SimObject* Taml::read( FileStream& stream )
         }
     }
 
-	Con::warnf("Taml::write() - Unknown error.");
-	return NULL;
+    // Warn.
+    Con::warnf("Taml::read() - Unknown format.");
+    return NULL;
 }
 
 //-----------------------------------------------------------------------------
