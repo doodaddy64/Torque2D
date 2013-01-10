@@ -71,7 +71,7 @@ function startMelvTesting()
     
     
 	%composite = new CompositeSprite();
-	testScene.addToScene( %composite );
+	//testScene.addToScene( %composite );
 	%composite.BatchIsolated = "true";
 
     %composite.setDefaultSpriteStride( 5, 5 );
@@ -81,11 +81,11 @@ function startMelvTesting()
 	
 	%frame = 0;
 	
-    for ( %y = -50; %y <= 50; %y++ )
+    for ( %y = 0; %y < 1; %y++ )
 	{
-	    for ( %x = -50; %x <= 50; %x++ )
+	    for ( %x = 0; %x < 2; %x++ )
         {
-            %composite.addSprite( %x, %y );
+            %composite.addSprite( %x SPC %y );
             %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", %frame );
             %composite.setSpriteAngle( getRandom(0,360) );
             %composite.setSpriteBlendColor( "HotPink" );
@@ -100,8 +100,13 @@ function startMelvTesting()
 	//testScene.setDebugSceneObject( %composite );
 	%composite.setAngularVelocity( 20 );
 	
-	//TamlWrite( %composite, "composite.xml" );
-	//%newComposite = TamlRead( "composite.xml" );
+	TamlWrite( %composite, "composite.xml" );
+	%newComposite1 = TamlRead( "composite.xml" );
+	testScene.addToScene( %newComposite1 );
+
+	//TamlWrite( %composite, "composite.bin", "binary" );
+	//%newComposite2 = TamlRead( "composite.bin" );
+	//testScene.addToScene( %newComposite2 );
 	
     //%assetTags = AssetDatabase.getAssetTags();    
     //%assetTags.createtag( "Test" );

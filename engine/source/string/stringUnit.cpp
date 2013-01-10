@@ -3,14 +3,20 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#include "stringUnit.h"
 #include "console/console.h"
+#include "string/stringUnit.h"
+#include "string/stringTable.h"
 
 namespace StringUnit
 {
    static char _returnBuffer[4096];
 
-   const char *getUnit(const char *string, U32 index, const char *set)
+   StringTableEntry getStringTableUnit(const char* string, U32 index, const char* set)
+   {
+       return StringTable->insert( getUnit( string, index, set ) );
+   }
+
+   const char* getUnit(const char* string, U32 index, const char* set)
    {
       U32 sz;
       while(index--)
@@ -34,7 +40,7 @@ namespace StringUnit
       return ret;
    }
 
-   const char *getUnits(const char *string, S32 startIndex, S32 endIndex, const char *set)
+   const char* getUnits(const char* string, S32 startIndex, S32 endIndex, const char* set)
    {
       // [neo, 5/11/2007 - #2998]
       // Range check

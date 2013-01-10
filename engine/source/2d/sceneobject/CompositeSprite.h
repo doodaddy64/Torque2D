@@ -60,9 +60,9 @@ public:
     DECLARE_CONOBJECT( CompositeSprite );
 
 protected:
-    virtual SpriteBatchItem* createSprite( LogicalPosition& logicalPosition );
-    virtual SpriteBatchItem* createSpriteRectilinearLayout( SpriteBatch::LogicalPosition& logicalPosition );
-    virtual SpriteBatchItem* createSpriteIsometricLayout( SpriteBatch::LogicalPosition& logicalPosition );
+    virtual SpriteBatchItem* createSprite( const SpriteBatchItem::LogicalPosition& logicalPosition );
+    virtual SpriteBatchItem* createSpriteRectilinearLayout( const SpriteBatchItem::LogicalPosition& logicalPosition );
+    virtual SpriteBatchItem* createSpriteIsometricLayout( const SpriteBatchItem::LogicalPosition& logicalPosition );
 
     virtual void onTamlCustomWrite( TamlCollection& customCollection );
     virtual void onTamlCustomRead( const TamlCollection& customCollection );

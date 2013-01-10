@@ -27,11 +27,141 @@ class SpriteBatchItem : public SpriteProxyBase
 
     typedef SpriteProxyBase Parent;
 
+public:
+    // Represents a logical position.
+    struct LogicalPosition : public IFactoryObjectReset
+    {
+        const static S32 MAX_ARGUMENTS = 6;
+
+        LogicalPosition() :
+            mArgCount( 0 ),
+            mArgString( StringTable->EmptyString ) {}
+
+        LogicalPosition( const char* pLogicalPositionArgs ) :
+            mArgString( StringTable->EmptyString )
+        {
+            // Fetch argument count.
+            const char* pLogicalPositionSeparator = ",\t ";
+            mArgCount = (S32)StringUnit::getUnitCount( pLogicalPositionArgs, pLogicalPositionSeparator );
+
+            // Do we have a valid argument count?
+            if ( mArgCount > MAX_ARGUMENTS )
+            {
+                // No, so warn.
+                Con::warnf( "LogicalPosition: Encountered an invalid logical position of '%s'.", pLogicalPositionArgs );
+
+                // Set no arguments.
+                mArgCount = 0;
+
+                return;
+            }
+
+            // Set arguments.
+            for ( S32 index = 0; index < mArgCount; ++index )
+            {
+                mArgs[index] = StringUnit::getStringTableUnit( pLogicalPositionArgs, index, pLogicalPositionSeparator );
+            }
+
+            // Set argument string.
+            mArgString = StringTable->insert( pLogicalPositionArgs );
+        }
+
+        inline bool isValid( void ) const { return mArgCount != 0; }
+
+        inline S32 getArgCount( void ) const { return mArgCount; }
+
+        inline StringTableEntry getArg( const S32 argIndex ) const
+        {
+            // Is the argument index valid?
+            if ( argIndex < 0 || argIndex > 5 )
+            {
+                // No, so warn.
+                Con::warnf( "LogicalPosition::getArg() - Cannot get a logical position argument; index '%d' out of range.", argIndex );
+                return StringTable->EmptyString;
+            }
+
+            return mArgs[argIndex];
+        }
+
+        inline Vector2 getAsVector2( void ) const
+        {
+            // Do we have enough arguments?
+            if ( mArgCount != 2 )
+            {
+                // No, so warn.
+                Con::warnf( "LogicalPosition::getAsVector2() - Cannot get a logical position as Vector2; not enough arguments." );
+                return Vector2::getZero();
+            }
+
+            return Vector2( getFloatArg(0), getFloatArg(1) );
+        }
+
+        inline F32 getFloatArg( const S32 argIndex ) const { return dAtof( getArg(argIndex) ); }
+        inline S32 getIntArg( const S32 argIndex ) const { return dAtoi( getArg(argIndex) ); }
+        inline bool getBoolArg( const S32 argIndex ) const { return dAtob( getArg(argIndex) ); }
+
+        inline StringTableEntry getString( void ) const { return mArgString; }
+
+        virtual void resetState( void )
+        {
+            mArgCount = 0;
+            dMemset( mArgs, 0, sizeof(mArgs) );
+            mArgString = StringTable->EmptyString;
+        }
+
+        // This should be as unique as possible as it is used for hashing.
+        operator const U32() const
+        {
+            return (U32)(2654435761);
+        }
+
+        /// Value equality check for hashing.
+        bool operator==( const LogicalPosition& logicalPosition ) const
+        {
+            // Not equal if argument counts are different.
+            if ( mArgCount != logicalPosition.getArgCount() )
+                return false;
+
+            // Not equal if arguments are different.
+            for ( S32 index = 0; index < mArgCount; ++index )
+            {
+                if ( mArgs[index] != logicalPosition.getArg(index) )
+                    return false;
+            }
+
+            // Equal.
+            return true;
+        }
+
+        /// Value inequality check.
+        bool operator!=( const LogicalPosition& logicalPosition ) const
+        {
+            // Not equal if argument counts are different.
+            if ( mArgCount != logicalPosition.getArgCount() )
+                return true;
+
+            // Not equal if arguments are different.
+            for ( S32 index = 0; index < mArgCount; ++index )
+            {
+                if ( mArgs[index] != logicalPosition.getArg(index) )
+                    return true;
+            }
+
+            // Equal.
+            return false;
+        }
+
+    private:
+        S32                 mArgCount;
+        StringTableEntry    mArgs[MAX_ARGUMENTS];
+        StringTableEntry    mArgString;
+    };
+
 protected:
     SpriteBatch*        mSpriteBatch;
     U32                 mBatchId;
     S32                 mProxyId;
-    StringTableEntry    mKey;
+    LogicalPosition     mLogicalPosition;
 
     bool                mVisible;
 
@@ -69,8 +199,8 @@ public:
     inline U32 getBatchId( void ) const { return mBatchId; }
     inline S32 getProxyId( void ) const { return mProxyId; }
 
-    inline void setKey( StringTableEntry key ) { mKey = key; }
-    inline StringTableEntry getKey( void ) const { return mKey; }
+    inline void setLogicalPosition( const LogicalPosition& logicalPosition ) { mLogicalPosition = logicalPosition; }
+    inline const LogicalPosition& getLogicalPosition( void ) const { return mLogicalPosition; }
 
     inline void setVisible( const bool visible ) { mVisible = visible; }
     inline bool getVisible( void ) const { return mVisible; }

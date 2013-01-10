@@ -155,7 +155,7 @@ void CompositeSprite::setBatchLayout( const BatchLayoutType& batchLayoutType )
 
 //------------------------------------------------------------------------------
 
-SpriteBatchItem* CompositeSprite::createSprite( LogicalPosition& logicalPosition )
+SpriteBatchItem* CompositeSprite::createSprite( const SpriteBatchItem::LogicalPosition& logicalPosition )
 {
     // Handle layout type appropriately.
     switch( mBatchLayoutType )
@@ -181,7 +181,7 @@ SpriteBatchItem* CompositeSprite::createSprite( LogicalPosition& logicalPosition
 
 //-----------------------------------------------------------------------------
 
-SpriteBatchItem* CompositeSprite::createSpriteRectilinearLayout( SpriteBatch::LogicalPosition& logicalPosition )
+SpriteBatchItem* CompositeSprite::createSpriteRectilinearLayout( const SpriteBatchItem::LogicalPosition& logicalPosition )
 {
     // Do we have a valid logical position?
     if ( logicalPosition.getArgCount() != 2 )
@@ -191,28 +191,22 @@ SpriteBatchItem* CompositeSprite::createSpriteRectilinearLayout( SpriteBatch::Lo
         return NULL;
     }
 
-    // Fetch logical position.
-    Vector2 position = logicalPosition.getAsVector2();
-
-    // Fetch sprite key.
-    const StringTableEntry spriteKey = logicalPosition.getArgKey();
-
-    // Does the sprite already exist?
-    if ( findSpriteKey( spriteKey ) != NULL )
+    // Does the sprite position already exist?
+    if ( findSpritePosition( logicalPosition ) != NULL )
     {
         // Yes, so warn.
-        Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", spriteKey );
+        Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", logicalPosition.getString() );
         return NULL;
     }
 
     // Create the sprite.
     SpriteBatchItem* pSpriteBatchItem = SpriteBatch::createSprite();
 
-    // Set sprite key.
-    pSpriteBatchItem->setKey( spriteKey );
+    // Set sprite logical position.
+    pSpriteBatchItem->setLogicalPosition( logicalPosition );
 
     // Set the sprite default position.
-    pSpriteBatchItem->setLocalPosition( position.mult( getDefaultSpriteStride() ) );
+    pSpriteBatchItem->setLocalPosition( logicalPosition.getAsVector2().mult( getDefaultSpriteStride() ) );
 
     // Set the sprite default size and angle.
     pSpriteBatchItem->setSize( SpriteBatch::getDefaultSpriteSize() );
@@ -223,7 +217,7 @@ SpriteBatchItem* CompositeSprite::createSpriteRectilinearLayout( SpriteBatch::Lo
 
 //-----------------------------------------------------------------------------
 
-SpriteBatchItem* CompositeSprite::createSpriteIsometricLayout( SpriteBatch::LogicalPosition& logicalPosition )
+SpriteBatchItem* CompositeSprite::createSpriteIsometricLayout( const SpriteBatchItem::LogicalPosition& logicalPosition )
 {
     // Do we have a valid logical position?
     if ( logicalPosition.getArgCount() != 2 )
@@ -233,22 +227,19 @@ SpriteBatchItem* CompositeSprite::createSpriteIsometricLayout( SpriteBatch::Logi
         return NULL;
     }
 
-    // Fetch sprite key.
-    const StringTableEntry spriteKey = logicalPosition.getArgKey();
-
-    // Does the sprite already exist?
-    if ( findSpriteKey( spriteKey ) != NULL )
+    // Does the sprite position already exist?
+    if ( findSpritePosition( logicalPosition ) != NULL )
     {
         // Yes, so warn.
-        Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", spriteKey );
+        Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", logicalPosition.getString() );
         return NULL;
     }
 
     // Create the sprite.
     SpriteBatchItem* pSpriteBatchItem = SpriteBatch::createSprite();
 
-    // Set sprite key.
-    pSpriteBatchItem->setKey( spriteKey );
+    // Set sprite logical position.
+    pSpriteBatchItem->setLogicalPosition( logicalPosition );
 
     // Fetch sprite stride.
     const Vector2 spriteStride = getDefaultSpriteStride();

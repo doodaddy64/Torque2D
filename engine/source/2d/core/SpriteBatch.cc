@@ -207,7 +207,7 @@ void SpriteBatch::copyTo( SpriteBatch* pSpriteBatch ) const
 
 //------------------------------------------------------------------------------
 
-U32 SpriteBatch::addSprite( LogicalPosition& logicalPosition )
+U32 SpriteBatch::addSprite( const SpriteBatchItem::LogicalPosition& logicalPosition )
 {
     // Create sprite layout.
     mSelectedSprite = createSprite( logicalPosition );
@@ -216,8 +216,8 @@ U32 SpriteBatch::addSprite( LogicalPosition& logicalPosition )
     if ( mSelectedSprite == NULL )
         return 0;
 
-    // Insert into look-up.
-    mSpriteLookup.insert( mSelectedSprite->getKey(), mSelectedSprite->getBatchId() );
+    // Insert into sprite positions.
+    mSpritePositions.insert( logicalPosition, mSelectedSprite );
 
     // Flag local extents as dirty.
     setLocalExtentsDirty();
@@ -233,8 +233,8 @@ bool SpriteBatch::removeSprite( void )
     if ( !checkSpriteSelected() )
         return false;
 
-    // Remove the sprite.
-    mSpriteLookup.erase( mSelectedSprite->getKey() );
+    // Remove the sprite position.
+    mSpritePositions.erase( mSelectedSprite->getLogicalPosition() );
 
     // Destroy the sprite.
     destroySprite( mSelectedSprite->getBatchId() );
@@ -255,8 +255,8 @@ void SpriteBatch::clearSprites( void )
     // Deselect any sprite.
     deselectSprite();
 
-    // Clear sprite look-up.
-    mSpriteLookup.clear();
+    // Clear sprite positions.
+    mSpritePositions.clear();
 
     // Cache all sprites.
     for( typeSpriteBatchHash::iterator spriteItr = mSprites.begin(); spriteItr != mSprites.end(); ++spriteItr )
@@ -287,20 +287,17 @@ void SpriteBatch::setBatchCulling( const bool batchCulling )
 
 //------------------------------------------------------------------------------
 
-bool SpriteBatch::selectSprite( LogicalPosition& logicalPosition )
+bool SpriteBatch::selectSprite( const SpriteBatchItem::LogicalPosition& logicalPosition )
 {
-    // Fetch sprite key.
-    const StringTableEntry spriteKey = logicalPosition.getArgKey();
-
     // Select sprite.
-    mSelectedSprite = findSpriteKey( spriteKey );
+    mSelectedSprite = findSpritePosition( logicalPosition );
 
     // Finish if we selected the sprite.
     if ( mSelectedSprite != NULL )
         return true;
 
     // Not selected so warn.
-    Con::warnf( "Cannot select sprite at logical position '%s' as one does not exist.", spriteKey );
+    Con::warnf( "Cannot select sprite at logical position '%s' as one does not exist.", logicalPosition.getString() );
 
     return false;
 }
@@ -778,12 +775,12 @@ SpriteBatchItem* SpriteBatch::createSprite( void )
 
 //------------------------------------------------------------------------------
 
-SpriteBatchItem* SpriteBatch::findSpriteKey( const StringTableEntry key )
+SpriteBatchItem* SpriteBatch::findSpritePosition( const SpriteBatchItem::LogicalPosition& logicalPosition )
 {
     // Find sprite.
-    typeSpriteKeyHash::iterator spriteItr = mSpriteLookup.find( key );
+    typeSpritePositionHash::iterator spriteItr = mSpritePositions.find( logicalPosition );
 
-    return spriteItr == mSpriteLookup.end() ? NULL : findSpriteId( spriteItr->value );
+    return spriteItr == mSpritePositions.end() ? NULL : spriteItr->value;
 }
 
 //------------------------------------------------------------------------------
@@ -798,7 +795,7 @@ SpriteBatchItem* SpriteBatch::findSpriteId( const U32 batchId )
 
 //------------------------------------------------------------------------------
 
-SpriteBatchItem* SpriteBatch::createSprite( LogicalPosition& logicalPosition )
+SpriteBatchItem* SpriteBatch::createSprite( const SpriteBatchItem::LogicalPosition& logicalPosition )
 {
     // Do we have a valid logical position?
     if ( logicalPosition.getArgCount() != 2 )
@@ -808,17 +805,11 @@ SpriteBatchItem* SpriteBatch::createSprite( LogicalPosition& logicalPosition )
         return NULL;
     }
 
-    // Fetch logical position.
-    Vector2 position = logicalPosition.getAsVector2();
-
-    // Fetch sprite key.
-    const StringTableEntry spriteKey = logicalPosition.getArgKey();
-
     // Does the sprite already exist?
-    if ( findSpriteKey( spriteKey ) != NULL )
+    if ( findSpritePosition( logicalPosition ) != NULL )
     {
         // Yes, so warn.
-        Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", spriteKey );
+        Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", logicalPosition.getString() );
         return NULL;
     }
 
@@ -826,10 +817,10 @@ SpriteBatchItem* SpriteBatch::createSprite( LogicalPosition& logicalPosition )
     SpriteBatchItem* pSpriteBatchItem = createSprite();
 
     // Set sprite key.
-    pSpriteBatchItem->setKey( spriteKey );
+    pSpriteBatchItem->setLogicalPosition( logicalPosition );
 
     // Set the sprite default position.
-    pSpriteBatchItem->setLocalPosition( position );
+    pSpriteBatchItem->setLocalPosition( logicalPosition.getAsVector2() );
 
     // Set the sprite default size and angle.
     pSpriteBatchItem->setSize( getDefaultSpriteSize() );
@@ -992,14 +983,14 @@ void SpriteBatch::onTamlCustomRead( const TamlCollectionProperty* pSpritesProper
         // Read type with sprite item.
         pSpriteBatchItem->onTamlCustomRead( pSpriteTypeAlias );
 
-        // Fetch sprite key.
-        const StringTableEntry spriteKey = pSpriteBatchItem->getKey();
+        // Fetch logical position.
+        const SpriteBatchItem::LogicalPosition& logicalPosition = pSpriteBatchItem->getLogicalPosition();
 
-        // Did we get a sprite key?
-        if ( spriteKey != NULL )
+        // Did we get a logical position?
+        if ( logicalPosition.isValid() )
         {
-            // Yes, so insert into look-up
-            mSpriteLookup.insert( pSpriteBatchItem->getKey(), pSpriteBatchItem->getBatchId() );
+            // Yes, so insert into sprite positions.
+            mSpritePositions.insert( logicalPosition, pSpriteBatchItem );
         }
     }
 }

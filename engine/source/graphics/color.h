@@ -67,13 +67,16 @@ class ColorF
 
    ColorF  operator-() const;
 
+   // This should be as unique as possible as it is used for hashing.
+   operator const U32() const { return getRGBAPack(); }
+
+   // Value equality check for hashing.
    bool operator==(const ColorF&) const;
+
+   // Value inequality check.
    bool operator!=(const ColorF&) const;
 
    const F32* address( void ) const { return &red; }
-
-   // This MUST be unique for the RGBA state as it is used as a hash key.
-   operator const U32() const { return getRGBAPack(); }
 
    U32 getARGBPack() const;
    U32 getRGBAPack() const;
@@ -125,8 +128,18 @@ class ColorI
    ColorI& operator*=(const F32 in_mul);
    ColorI  operator*(const F32 in_mul) const;
 
+   operator ColorF() const;
+
+   // This should be as unique as possible as it is used for hashing.
+   operator const U32() const { return getRGBAPack(); }
+
+   // Value equality check for hashing.
    bool operator==(const ColorI&) const;
+
+   // Value inequality check.
    bool operator!=(const ColorI&) const;
+
+   const U8* address( void ) const { return &red; }
 
    void interpolate(const ColorI& in_rC1,
                     const ColorI& in_rC2,
@@ -144,13 +157,6 @@ class ColorI
 
    U16 get565()  const;
    U16 get4444() const;
-
-   operator ColorF() const;
-
-   const U8* address( void ) const { return &red; }
-
-   // This MUST be unique for the RGBA state as it is used as a hash key.
-   operator const U32() const { return getRGBAPack(); }
 };
 
 //-----------------------------------------------------------------------------

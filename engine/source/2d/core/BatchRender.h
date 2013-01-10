@@ -103,7 +103,7 @@ public:
     inline void setAlphaTestMode( const F32 alphaTestMode )
     {
         // Ignore no change.
-        if ( mAlphaTestMode == alphaTestMode )
+        if ( mIsEqual( mAlphaTestMode, alphaTestMode ) )
             return;
 
         // Flush.

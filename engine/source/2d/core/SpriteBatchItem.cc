@@ -23,7 +23,7 @@
 
 static bool spriteBatchItemPropertiesInitialized = false;
 
-static StringTableEntry spriteKeyName;
+static StringTableEntry spriteLogicalPositionName;
 static StringTableEntry spriteVisibleName;
 static StringTableEntry spriteLocalPositionName;
 static StringTableEntry spriteLocalAngleName;
@@ -47,7 +47,7 @@ SpriteBatchItem::SpriteBatchItem() : mProxyId( SpriteBatch::INVALID_SPRITE_PROXY
     {
         // No, so initialize...
 
-        spriteKeyName              = StringTable->insert("Key");
+        spriteLogicalPositionName  = StringTable->insert("LogicalPosition");
         spriteVisibleName          = StringTable->insert("Visible");
         spriteLocalPositionName    = StringTable->insert("Position");
         spriteLocalAngleName       = StringTable->insert("Angle");
@@ -95,7 +95,7 @@ void SpriteBatchItem::resetState( void )
 
     mSpriteBatch = NULL;
     mBatchId = 0;
-    mKey = NULL;
+    mLogicalPosition.resetState();
 
     mVisible = true;
 
@@ -216,7 +216,7 @@ void SpriteBatchItem::render( BatchRender* pBatchRenderer, const SceneRenderRequ
 void SpriteBatchItem::updateLocalTransform( void )
 {
     // Sanity!
-    AssertFatal( mSpriteBatch != NULL, "Cannot update local transform with a NULL sprite batch." );
+    AssertFatal( mSpriteBatch != NULL, "SpriteBatchItem::updateLocalTransform() - Cannot update local transform with a NULL sprite batch." );
 
     // Finish if local transform is not dirty.
     if ( !mLocalTransformDirty )
@@ -255,7 +255,7 @@ void SpriteBatchItem::updateLocalTransform( void )
 void SpriteBatchItem::updateWorldTransform( const U32 batchTransformId )
 {
     // Sanity!
-    AssertFatal( mSpriteBatch != NULL, "Cannot update transform with a NULL sprite batch." );
+    AssertFatal( mSpriteBatch != NULL, "SpriteBatchItem::updateWorldTransform() - Cannot update transform with a NULL sprite batch." );
 
     // Update the local transform if needed.
     if ( mLocalTransformDirty )
@@ -335,8 +335,9 @@ void SpriteBatchItem::onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias
     if ( mBlendMode && mAlphaTest >= 0.0f )
         pSpriteTypeAlias->addPropertyField( spriteAlphaTest, mAlphaTest );
 
-    // Write key.
-    pSpriteTypeAlias->addPropertyField( spriteKeyName, getKey() );
+    // Write logical position.
+    if ( getLogicalPosition().isValid() )
+        pSpriteTypeAlias->addPropertyField( spriteLogicalPositionName, getLogicalPosition().getString() );
 }
 
 //------------------------------------------------------------------------------
@@ -344,7 +345,7 @@ void SpriteBatchItem::onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias
 void SpriteBatchItem::onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteTypeAlias )
 {
     // Sanity!
-    AssertFatal( mSpriteBatch != NULL, "Cannot read sprite batch item with sprite batch." );
+    AssertFatal( mSpriteBatch != NULL, "SpriteBatchItem::onTamlCustomRead() - Cannot read sprite batch item with sprite batch." );
 
     // Iterate property fields.
     for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pSpriteTypeAlias->begin(); propertyFieldItr != pSpriteTypeAlias->end(); ++propertyFieldItr )
@@ -429,41 +430,22 @@ void SpriteBatchItem::onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteType
             pSpriteField->getFieldValue( alphaTest );
             setAlphaTest( alphaTest );
         }
-        // Key.
-        else if ( fieldName == spriteKeyName )
+        // Logical position.
+        else if ( fieldName == spriteLogicalPositionName )
         {
-            // Fetch sprite key.
-            const char* pSpriteKey = pSpriteField->getFieldValue();
+            // Fetch logical position.
+            const char* pLogicalPositionArgs = pSpriteField->getFieldValue();
 
-            // Is there any key data?
-            if ( dStrlen( pSpriteKey ) == 0 )
+            // Is there any data?
+            if ( dStrlen( pLogicalPositionArgs ) == 0 )
             {
                 // No, so warn.
-                Con::warnf( "Encountered an empty sprite key.  This sprite will no longer be addressable by logical position." );
+                Con::warnf( "SpriteBatchItem::onTamlCustomRead() - Encountered an empty sprite key.  This sprite will no longer be addressable by logical position." );
                 continue;
             }
 
-            // Fetch argument count.
-            const char* pLogicalPositionSeparator = ",\t ";
-            const S32 argCount = (S32)StringUnit::getUnitCount( pSpriteKey, pLogicalPositionSeparator );
-
-            // Do we have a valid argument count?
-            if ( argCount > 6 )
-            {
-                // No, so warn.
-                Con::warnf( "Encountered an invalid logical position in sprite key '%s'.", pSpriteKey );
-                continue;
-            }
-
-            // Format arguments.
-            const char* args[6];
-            for ( S32 index = 0; index < argCount; ++index )
-            {
-                args[index] = StringUnit::getUnit( pSpriteKey, index, pLogicalPositionSeparator );
-            }
-
-            // Set sprite key.
-            setKey( SpriteBatch::LogicalPosition( argCount, args ).getArgKey() );
+            // Set logical position.
+            setLogicalPosition( LogicalPosition( pLogicalPositionArgs ) );
         }
     }
 }

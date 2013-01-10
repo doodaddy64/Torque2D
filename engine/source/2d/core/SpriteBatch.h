@@ -18,89 +18,6 @@
 
 class SpriteBatch
 {
-public:
-
-    // Represents a logical position.
-    struct LogicalPosition
-    {
-        LogicalPosition( const S32 argCount, const char* args[] )
-        {
-            // Sanity!
-            AssertFatal( argCount > 0 && argCount <= 6, "Cannot set a logical position with no arguments." );
-
-            // Set argument count.
-            mArgCount = argCount;
-
-            // Transfer arguments.
-            for( S32 index = 0; index < mArgCount; ++index )
-            {
-                mArgs[index] = StringTable->insert( args[index] );
-            }
-
-            mArgKey = NULL;
-        }
-
-        inline S32 getArgCount( void ) { return mArgCount; }
-
-        inline StringTableEntry getArg( const S32 argIndex )
-        {
-            // Is the argument index valid?
-            if ( argIndex < 0 || argIndex > 5 )
-            {
-                // No, so warn.
-                Con::warnf( "LogicalPosition::getArg() - Cannot get a logical position argument; index '%d' out of range.", argIndex );
-                return StringTable->EmptyString;
-            }
-
-            return mArgs[argIndex];
-        }
-
-        inline Vector2 getAsVector2( void )
-        {
-            // Do we have enough arguments?
-            if ( mArgCount != 2 )
-            {
-                // No, so warn.
-                Con::warnf( "LogicalPosition::getAsVector2() - Cannot get a logical position as Vector2; not enough arguments." );
-                return Vector2::getZero();
-            }
-
-            return Vector2( getFloatArg(0), getFloatArg(1) );
-        }
-
-        inline F32 getFloatArg( const S32 argIndex ) { return dAtof( getArg(argIndex) ); }
-        inline S32 getIntArg( const S32 argIndex ) { return dAtoi( getArg(argIndex) ); }
-        inline bool getBoolArg( const S32 argIndex ) { return dAtob( getArg(argIndex) ); }
-
-        inline StringTableEntry getArgKey( void )
-        {
-            // Return argument key if it already exists.
-            if ( mArgKey != NULL )
-                return mArgKey;
-
-            // Format key buffer.
-            char keyBuffer[4096];
-            char* pKeyBuffer = keyBuffer;
-            S32 bufferLength = sizeof(keyBuffer);
-            for( S32 index = 0; index < mArgCount; ++index )
-            {
-                const S32 offset = dSprintf(pKeyBuffer, bufferLength, index == 0 ? "%s" : " %s", mArgs[index] );
-                pKeyBuffer += offset;
-                bufferLength -= offset;
-            }
-
-            // Set argument key.
-            mArgKey = StringTable->insert( keyBuffer );
-
-            return mArgKey;
-        }
-
-    private:
-        S32                 mArgCount;
-        StringTableEntry    mArgs[6];
-        StringTableEntry    mArgKey;
-    };
-
 protected:
     /// Sprite batch tree.
     class SpriteBatchTree : public b2DynamicTree
@@ -133,10 +50,10 @@ public:
 
 protected:
     typedef HashMap< U32, SpriteBatchItem* > typeSpriteBatchHash;
-    typedef HashMap< StringTableEntry, U32 > typeSpriteKeyHash;
+    typedef HashMap< SpriteBatchItem::LogicalPosition, SpriteBatchItem* > typeSpritePositionHash;
 
     typeSpriteBatchHash             mSprites;
-    typeSpriteKeyHash               mSpriteLookup;
+    typeSpritePositionHash          mSpritePositions;
     SpriteBatchItem*                mSelectedSprite;
     SceneRenderQueue::RenderSort    mBatchSortMode;
     bool                            mBatchCulling;
@@ -179,7 +96,7 @@ public:
 
     inline U32 getSpriteCount( void ) { return (U32)mSprites.size(); }
 
-    U32 addSprite( LogicalPosition& logicalPosition );
+    U32 addSprite( const SpriteBatchItem::LogicalPosition& logicalPosition );
     bool removeSprite( void );
     virtual void clearSprites( void );
 
@@ -198,7 +115,7 @@ public:
     inline void setDefaultSpriteAngle( const F32 defaultAngle ) { mDefaultSpriteAngle = defaultAngle; }
     inline F32 getDefaultSpriteAngle( void ) const { return mDefaultSpriteAngle; }
 
-    bool selectSprite( LogicalPosition& logicalPosition );
+    bool selectSprite( const SpriteBatchItem::LogicalPosition& logicalPosition );
     bool selectSpriteId( const U32 batchId );
     inline void deselectSprite( void ) { mSelectedSprite = NULL; }
     bool isSpriteSelected( void ) const { return mSelectedSprite != NULL; }
@@ -251,10 +168,10 @@ public:
 
 protected:
     SpriteBatchItem* createSprite( void );
-    SpriteBatchItem* findSpriteKey( const StringTableEntry key );
+    SpriteBatchItem* findSpritePosition( const SpriteBatchItem::LogicalPosition& logicalPosition );
     SpriteBatchItem* findSpriteId( const U32 batchId );
 
-    virtual SpriteBatchItem* createSprite( LogicalPosition& logicalPosition );
+    virtual SpriteBatchItem* createSprite( const SpriteBatchItem::LogicalPosition& logicalPosition );
 
     void setBatchTransform( const b2Transform& batchTransform );
     void updateLocalExtents( void );

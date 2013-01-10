@@ -3,17 +3,12 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(CompositeSprite, addSprite, S32, 4, 8,    "( a, b, [c], [d], [e], [f] ) - Adds a sprite at the specified logical position.\n"
+ConsoleMethod(CompositeSprite, addSprite, S32, 3, 3,    "( a b [c] [d] [e] [f] ) - Adds a sprite at the specified logical position.\n"
                                                         "The created sprite will be automatically selected.\n"
-                                                        "@param a Logical position #1.\n"
-                                                        "@param b Logical position #2.\n"
-                                                        "@param c Logical position #3.\n"
-                                                        "@param d Logical position #4.\n"
-                                                        "@param e Logical position #5.\n"
-                                                        "@param f Logical position #6.\n"
+                                                        "@param a b c d e f Logical positions #1 & #2 and four additional and optional arguments.\n"
                                                         "@return The batch Id of the added sprite or zero if not successful." )
 {
-    return object->addSprite( CompositeSprite::LogicalPosition(argc-2, argv+2) );
+    return object->addSprite( SpriteBatchItem::LogicalPosition(argv[2]) );
 }
 
 //-----------------------------------------------------------------------------
@@ -232,16 +227,11 @@ ConsoleMethod(CompositeSprite, getDefaultSpriteAngle, F32, 3, 3,   "() - Gets th
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(CompositeSprite, selectSprite, bool, 4, 8,    "( a, b, [c], [d], [e], [f] ) - Selects a sprite at the specified logical position.\n"
-                                                            "@param a Logical position #1.\n"
-                                                            "@param b Logical position #2.\n"
-                                                            "@param c Logical position #3.\n"
-                                                            "@param d Logical position #4.\n"
-                                                            "@param e Logical position #5.\n"
-                                                            "@param f Logical position #6.\n"
+ConsoleMethod(CompositeSprite, selectSprite, bool, 3, 3,    "( a b [c] [d] [e] [f] ) - Selects a sprite at the specified logical position.\n"
+                                                            "@param a b c d e f Logical positions #1 & #2 and four additional and optional arguments.\n"
                                                             "@return Whether the sprite was selected or not." )
 {
-    return object->selectSprite( CompositeSprite::LogicalPosition(argc-2, argv+2) );
+    return object->selectSprite( SpriteBatchItem::LogicalPosition(argv[2]) );
 }
 
 //-----------------------------------------------------------------------------
