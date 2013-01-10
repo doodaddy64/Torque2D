@@ -800,14 +800,6 @@ SpriteBatchItem* SpriteBatch::findSpriteId( const U32 batchId )
 
 StringTableEntry SpriteBatch::getSpriteKey( const LogicalPosition& logicalPosition ) const
 {
-    // Do we have a valid logical position?
-    if ( logicalPosition.mArgCount != 2 )
-    {
-        // No, so warn.
-        Con::warnf( "Invalid logical position specified for composite sprite." );
-        return 0;
-    }
-
     return logicalPosition.getKey();
 }
 
