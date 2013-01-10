@@ -207,7 +207,7 @@ void SpriteBatch::copyTo( SpriteBatch* pSpriteBatch ) const
 
 //------------------------------------------------------------------------------
 
-U32 SpriteBatch::addSprite( const LogicalPosition& logicalPosition )
+U32 SpriteBatch::addSprite( LogicalPosition& logicalPosition )
 {
     // Create sprite layout.
     mSelectedSprite = createSprite( logicalPosition );
@@ -287,10 +287,10 @@ void SpriteBatch::setBatchCulling( const bool batchCulling )
 
 //------------------------------------------------------------------------------
 
-bool SpriteBatch::selectSprite( const LogicalPosition& logicalPosition )
+bool SpriteBatch::selectSprite( LogicalPosition& logicalPosition )
 {
     // Fetch sprite key.
-    const StringTableEntry spriteKey = getSpriteKey( logicalPosition );
+    const StringTableEntry spriteKey = logicalPosition.getArgKey();
 
     // Select sprite.
     mSelectedSprite = findSpriteKey( spriteKey );
@@ -798,17 +798,10 @@ SpriteBatchItem* SpriteBatch::findSpriteId( const U32 batchId )
 
 //------------------------------------------------------------------------------
 
-StringTableEntry SpriteBatch::getSpriteKey( const LogicalPosition& logicalPosition ) const
-{
-    return logicalPosition.getKey();
-}
-
-//------------------------------------------------------------------------------
-
-SpriteBatchItem* SpriteBatch::createSprite( const LogicalPosition& logicalPosition )
+SpriteBatchItem* SpriteBatch::createSprite( LogicalPosition& logicalPosition )
 {
     // Do we have a valid logical position?
-    if ( logicalPosition.mArgCount != 2 )
+    if ( logicalPosition.getArgCount() != 2 )
     {
         // No, so warn.
         Con::warnf( "Invalid logical position specified for composite sprite." );
@@ -816,10 +809,10 @@ SpriteBatchItem* SpriteBatch::createSprite( const LogicalPosition& logicalPositi
     }
 
     // Fetch logical position.
-    Vector2 position( dAtof(logicalPosition.mArgs[0]), dAtof(logicalPosition.mArgs[1]) );
+    Vector2 position = logicalPosition.getAsVector2();
 
     // Fetch sprite key.
-    const StringTableEntry spriteKey = getSpriteKey( logicalPosition );
+    const StringTableEntry spriteKey = logicalPosition.getArgKey();
 
     // Does the sprite already exist?
     if ( findSpriteKey( spriteKey ) != NULL )

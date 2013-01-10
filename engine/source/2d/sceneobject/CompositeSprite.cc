@@ -155,7 +155,7 @@ void CompositeSprite::setBatchLayout( const BatchLayoutType& batchLayoutType )
 
 //------------------------------------------------------------------------------
 
-SpriteBatchItem* CompositeSprite::createSprite( const LogicalPosition& logicalPosition )
+SpriteBatchItem* CompositeSprite::createSprite( LogicalPosition& logicalPosition )
 {
     // Handle layout type appropriately.
     switch( mBatchLayoutType )
@@ -181,10 +181,10 @@ SpriteBatchItem* CompositeSprite::createSprite( const LogicalPosition& logicalPo
 
 //-----------------------------------------------------------------------------
 
-SpriteBatchItem* CompositeSprite::createSpriteRectilinearLayout( const SpriteBatch::LogicalPosition& logicalPosition )
+SpriteBatchItem* CompositeSprite::createSpriteRectilinearLayout( SpriteBatch::LogicalPosition& logicalPosition )
 {
     // Do we have a valid logical position?
-    if ( logicalPosition.mArgCount != 2 )
+    if ( logicalPosition.getArgCount() != 2 )
     {
         // No, so warn.
         Con::warnf( "Invalid logical position specified for composite sprite." );
@@ -192,10 +192,10 @@ SpriteBatchItem* CompositeSprite::createSpriteRectilinearLayout( const SpriteBat
     }
 
     // Fetch logical position.
-    Vector2 position( dAtof(logicalPosition.mArgs[0]), dAtof(logicalPosition.mArgs[1]) );
+    Vector2 position = logicalPosition.getAsVector2();
 
     // Fetch sprite key.
-    const StringTableEntry spriteKey = SpriteBatch::getSpriteKey( logicalPosition );
+    const StringTableEntry spriteKey = logicalPosition.getArgKey();
 
     // Does the sprite already exist?
     if ( findSpriteKey( spriteKey ) != NULL )
@@ -223,10 +223,10 @@ SpriteBatchItem* CompositeSprite::createSpriteRectilinearLayout( const SpriteBat
 
 //-----------------------------------------------------------------------------
 
-SpriteBatchItem* CompositeSprite::createSpriteIsometricLayout( const SpriteBatch::LogicalPosition& logicalPosition )
+SpriteBatchItem* CompositeSprite::createSpriteIsometricLayout( SpriteBatch::LogicalPosition& logicalPosition )
 {
     // Do we have a valid logical position?
-    if ( logicalPosition.mArgCount != 2 )
+    if ( logicalPosition.getArgCount() != 2 )
     {
         // No, so warn.
         Con::warnf( "Invalid logical position specified for composite rectilinear sprite." );
@@ -234,7 +234,7 @@ SpriteBatchItem* CompositeSprite::createSpriteIsometricLayout( const SpriteBatch
     }
 
     // Fetch sprite key.
-    const StringTableEntry spriteKey = getSpriteKey( logicalPosition );
+    const StringTableEntry spriteKey = logicalPosition.getArgKey();
 
     // Does the sprite already exist?
     if ( findSpriteKey( spriteKey ) != NULL )
@@ -254,7 +254,7 @@ SpriteBatchItem* CompositeSprite::createSpriteIsometricLayout( const SpriteBatch
     const Vector2 spriteStride = getDefaultSpriteStride();
 
     // Fetch logical coordinates.
-    Vector2 position( dAtof(logicalPosition.mArgs[0]), dAtof(logicalPosition.mArgs[1]) );
+    Vector2 position = logicalPosition.getAsVector2();
 
     // Calculate position.
     position.Set( (position.x * spriteStride.x) + (position.y * spriteStride.x), (position.x * spriteStride.y) + (position.y * -spriteStride.y) );

@@ -443,14 +443,9 @@ void SpriteBatchItem::onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteType
                 continue;
             }
 
+            // Fetch argument count.
             const char* pLogicalPositionSeparator = ",\t ";
             const S32 argCount = (S32)StringUnit::getUnitCount( pSpriteKey, pLogicalPositionSeparator );
-
-            if ( argCount == 1 )
-            {
-                setKey( StringTable->insert( pSpriteKey ) );
-                continue;
-            }
 
             // Do we have a valid argument count?
             if ( argCount > 6 )
@@ -468,7 +463,7 @@ void SpriteBatchItem::onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteType
             }
 
             // Set sprite key.
-            setKey( mSpriteBatch->getSpriteKey( SpriteBatch::LogicalPosition( argCount, args ) ) );
+            setKey( SpriteBatch::LogicalPosition( argCount, args ).getArgKey() );
         }
     }
 }
