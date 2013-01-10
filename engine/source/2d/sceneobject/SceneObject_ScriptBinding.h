@@ -1958,7 +1958,7 @@ ConsoleMethod(SceneObject, getCollisionShapeType, const char*, 3, 3, "(int shape
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneObject, getCollisionShapeArea, F32, 3, 3, "(int shapeIndex) - Gets the area of collision shape at the specified index.\n"
+ConsoleMethod(SceneObject, getCollisionShapeArea, F32, 3, 3,    "(int shapeIndex) - Gets the area of collision shape at the specified index.\n"
                                                                 "@param shapeIndex - The index of the collision shape."
                                                                 "@return (area) The area of collision shape at the specified index.")
 {
