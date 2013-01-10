@@ -82,28 +82,33 @@ function startMelvTesting()
 	
 	%frame = 0;
 	
-    for ( %y = -10; %y <= 10; %y++ )
+    for ( %y = 0; %y < 1; %y++ )
 	{
-	    for ( %x = -500; %x <= 500; %x++ )
+	    for ( %x = 0; %x < 1; %x++ )
         {
             %composite.addSprite( %x SPC %y );
-            %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", %frame );
+            %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", getRandom(0,15) );
             //%composite.setSpriteAngle( getRandom(0,360) );
             //%composite.setSpriteBlendColor( "HotPink" );
             //%composite.setSpriteVisible( getRandom(1,10) < 5 );
+            %dataObject = new ScriptObject();
+            %dataObject.Breakable = true;
+            %dataObject.BreakLife = 3;
+            %composite.setDataObject( %dataObject );
             
-            %frame++;
-            if ( %frame == 16 ) %frame = 0;
+            //%frame++;
+            //if ( %frame == 16 ) %frame = 0;
             
         }
 	}
 	//
 	//testSceneWindow2D.setCurrentCameraPosition( 0, 0 );
 	//testScene.setDebugSceneObject( %composite );
-	%composite.setAngularVelocity( 180 );
+	//%composite.setAngularVelocity( 90 );
+	//%composite.setLinearVelocity( -200, 0 );
 	
-	//TamlWrite( %composite, "composite.xml" );
-	//%newComposite1 = TamlRead( "composite.xml" );
+	TamlWrite( %composite, "composite.xml" );
+	%newComposite1 = TamlRead( "composite.xml" );
 	//testScene.addToScene( %newComposite1 );
 
 	//TamlWrite( %composite, "composite.bin", "binary" );
@@ -234,7 +239,7 @@ function testScreen()
         
         // font
         fontType = $platform $= "windows" ? "lucida console" : "monaco";
-        fontSize = 10;
+        fontSize = 14;
         fontColor = "255 255 255 255";
 
         // border color
