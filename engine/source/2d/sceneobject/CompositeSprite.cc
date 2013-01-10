@@ -311,7 +311,7 @@ void CompositeSprite::onTamlCustomRead( const TamlCollection& customCollection )
 
 static EnumTable::Enums batchLayoutTypeLookup[] =
                 {
-                    { CompositeSprite::NO_LAYOUT,            "none"    },
+                    { CompositeSprite::NO_LAYOUT,            "off"    },
                     { CompositeSprite::RECTILINEAR_LAYOUT,   "rect" },
                     { CompositeSprite::ISOMETRIC_LAYOUT,     "iso"   },
                 };
@@ -358,6 +358,6 @@ const char* getBatchLayoutTypeDescription(const CompositeSprite::BatchLayoutType
 
 bool CompositeSprite::setBatchLayout(void* obj, const char* data)
 {
-    STATIC_VOID_CAST_TO(CompositeSprite, SpriteBatch, obj)->setBatchCulling( getBatchLayoutTypeEnum(data) );
+    static_cast<CompositeSprite*>(obj)->setBatchLayout( getBatchLayoutTypeEnum(data) );
     return false;
 }

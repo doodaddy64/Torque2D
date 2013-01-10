@@ -68,33 +68,35 @@ function startMelvTesting()
     //testScene.layerSortMode30 = "z axis";
     
     //testScene.setDebugOn( 0, 2, 3 );
-    testScene.setDebugOn( 0 );
+    //testScene.setDebugOn( 0 );
     
     
 	%composite = new CompositeSprite();
 	testScene.addToScene( %composite );
 	%composite.BatchIsolated = "true";
 
-    %composite.setDefaultSpriteStride( 5, 5 );
-    %composite.setDefaultSpriteSize( 5 );
+    %composite.setDefaultSpriteStride( 8, 8 );
+    %composite.setDefaultSpriteSize( 4 );
+    
+    %composite.setBatchLayout( "rect" );
     
     //%composite.setAngle( 30.0001 );
 	
 	%frame = 0;
 	
-    for ( %y = 0; %y < 1; %y++ )
+    for ( %y = -5; %y <= 5; %y++ )
 	{
-	    for ( %x = 0; %x < 1; %x++ )
+	    for ( %x = -5; %x <= 5; %x++ )
         {
             %composite.addSprite( %x SPC %y );
             %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", getRandom(0,15) );
-            //%composite.setSpriteAngle( getRandom(0,360) );
+            //%composite.setSpriteAngle( 45 );
             //%composite.setSpriteBlendColor( "HotPink" );
             //%composite.setSpriteVisible( getRandom(1,10) < 5 );
-            %dataObject = new ScriptObject();
-            %dataObject.Breakable = true;
-            %dataObject.BreakLife = 3;
-            %composite.setDataObject( %dataObject );
+            //%dataObject = new ScriptObject();
+            //%dataObject.Breakable = true;
+            //%dataObject.BreakLife = 3;
+            //%composite.setDataObject( %dataObject );
             
             //%frame++;
             //if ( %frame == 16 ) %frame = 0;
@@ -104,11 +106,11 @@ function startMelvTesting()
 	//
 	//testSceneWindow2D.setCurrentCameraPosition( 0, 0 );
 	//testScene.setDebugSceneObject( %composite );
-	//%composite.setAngularVelocity( 90 );
+	%composite.setAngularVelocity( 90 );
 	//%composite.setLinearVelocity( -200, 0 );
 	
-	TamlWrite( %composite, "composite.xml" );
-	%newComposite1 = TamlRead( "composite.xml" );
+	//TamlWrite( %composite, "composite.xml" );
+	//%newComposite1 = TamlRead( "composite.xml" );
 	//testScene.addToScene( %newComposite1 );
 
 	//TamlWrite( %composite, "composite.bin", "binary" );
