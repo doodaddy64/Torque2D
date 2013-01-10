@@ -1502,292 +1502,11 @@ void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
 
-#if 0
-    // Force on debug rendering.
-    pScene->setDebugOn( 0xFFFFFFFF );
-#endif
-
-    // Output Debug Statistics?
-    if (    ( pScene->getDebugMask() & Scene::SCENE_DEBUG_STATISTICS) && 
-            mProfile != NULL && !mProfile->mFont.isNull() )
-    {
-        // Yes, so fetch font.
-        const Resource<GFont>& font = mProfile->mFont;
-
-        // Blending for banner background.
-        glEnable        ( GL_BLEND );
-        glBlendFunc     ( GL_SRC_ALPHA , GL_ONE_MINUS_SRC_ALPHA );
-
-        // Set banner background colour.
-        const ColorI& fillColor = mProfile->mFillColor;
-        const F32 colorScale = 1.0f / 255.0f;
-        glColor4f( fillColor.red * colorScale, fillColor.green * colorScale, fillColor.blue * colorScale, fillColor.alpha * colorScale );
-
-        // Fetch debug scene object.
-        SceneObject* pDebugSceneObject = pScene->getDebugSceneObject();
-
-        // Calculate Banner Height.
-        F32 bannerLineHeight = 17.0f;
-
-        // Add an extra line if we're monitoring a scene object.
-        if ( pDebugSceneObject != NULL )
-            bannerLineHeight += 5.0f;
-
-        U32 bannerHeight = (U32)((bannerLineHeight * (F32)font->getHeight()));
-
-        // Calculate Debug Banner Offset.
-        Point2I bannerOffset = updateRect.point + Point2I(8,8);
-
-        // Draw Banner Background.
-        glBegin(GL_TRIANGLE_STRIP);
-            glVertex2i( updateRect.point.x, updateRect.point.y );
-            glVertex2i( updateRect.point.x + updateRect.extent.x, updateRect.point.y );
-            glVertex2i( updateRect.point.x, updateRect.point.y + bannerHeight + 16);
-            glVertex2i( updateRect.point.x + updateRect.extent.x, updateRect.point.y + bannerHeight + 16);
-        glEnd();
-
-        // Disable Banner Blending.
-        glDisable       ( GL_BLEND );
-        
-        // Set Debug Text Colour.
-        dglSetBitmapModulation( mProfile->mFontColor );
-
-        // ****************************************************************
-        // Draw Banner Text.
-        // ****************************************************************
-
-        F32 linePositionY = 0.25f;
-        F32 linePositionOffsetY = font->getHeight() * 1.25f;
-
-        // Scene.
-        dSprintf( mDebugText, sizeof( mDebugText ), "Scene     : Count=%d, Index=%d, Time=%0.1fs, Objects=%d<%d>(Global=%d), Enabled=%d<%d>, Visible=%d<%d>, Awake=%d<%d>",
-            Scene::getGlobalSceneCount(), pScene->getSceneIndex(),
-            pScene->getSceneTime(),
-            debugStats.objectsCount, debugStats.maxObjectsCount, SceneObject::getGlobalSceneObjectCount(),
-            debugStats.objectsEnabled, debugStats.maxObjectsEnabled,
-            debugStats.objectsVisible, debugStats.maxObjectsVisible,
-            debugStats.objectsAwake, debugStats.maxObjectsAwake );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Camera Window #1.
-        Vector2 cameraPosition = getCurrentCameraPosition();
-        dSprintf( mDebugText, sizeof( mDebugText ), "Camera    : Pos=(%0.1f,%0.1f), Size=(%0.1f,%0.1f), Zoom=%0.1f, Lower=(%0.1f,%0.1f), Upper=(%0.1f,%0.1f)", 
-            cameraPosition.x,
-            cameraPosition.y,
-            mCameraCurrent.mSourceArea.extent.x,
-            mCameraCurrent.mSourceArea.extent.y,
-            mCameraCurrent.mCameraZoom,
-            mCameraCurrent.mSourceArea.point.x,
-            mCameraCurrent.mSourceArea.point.y,
-            mCameraCurrent.mSourceArea.point.x + mCameraCurrent.mSourceArea.extent.x,
-            mCameraCurrent.mSourceArea.point.y + mCameraCurrent.mSourceArea.extent.y );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Camera Window #2.
-        Point2I windowExtent = getExtent();
-        Vector2 windowScale = getCurrentCameraWindowScale();
-        dSprintf( mDebugText, sizeof( mDebugText ), "             : Window=(%d,%d), WorldScale=(%0.3f,%0.3f), RenderScale=(%0.3f,%0.3f)", 
-            windowExtent.x, windowExtent.y,
-            windowScale.x, windowScale.y,
-            1.0f / windowScale.x, 1.0f / windowScale.y);
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Rendering.
-        dSprintf( mDebugText, sizeof( mDebugText ), "Render    : Frames=%u, FPS=%4.1f<%4.1f/%4.1f>, Picked=%d<%d>, RenderRequests=%d<%d>, RenderFallbacks=%d<%d>",
-            debugStats.frameCount,
-            debugStats.fps, debugStats.minFPS, debugStats.maxFPS,
-            debugStats.renderPicked, debugStats.maxRenderPicked,
-            debugStats.renderRequests, debugStats.maxRenderRequests,
-            debugStats.renderFallbacks, debugStats.maxRenderFallbacks );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Batching #1.
-        dSprintf( mDebugText, sizeof( mDebugText ), "Batching : %sTris=%d<%d>, MaxTriDraw=%d, MaxVerts=%d, Single=%d<%d>, Mult=%d<%d>, Sorted=%d<%d>",
-            pScene->getBatchingEnabled() ? "" : "(OFF) ",
-            debugStats.batchTrianglesSubmitted, debugStats.maxBatchTrianglesSubmitted,
-            debugStats.batchMaxTriangleDrawn,
-            debugStats.batchMaxVertexBuffer,
-            debugStats.batchDrawCallsStrictSingle, debugStats.maxBatchDrawCallsStrictSingle,
-            debugStats.batchDrawCallsStrictMultiple, debugStats.maxBatchDrawCallsStrictMultiple,
-            debugStats.batchDrawCallsSorted, debugStats.maxBatchDrawCallsSorted                   
-            );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Batching #2.
-        dSprintf( mDebugText, sizeof( mDebugText ), "               Flush=%d<%d>, BlendFlush=%d<%d>, ColorFlush=%d<%d>, AlphaFlush=%d<%d>, TexFlush=%d<%d>",
-            debugStats.batchFlushes, debugStats.maxBatchFlushes,
-            debugStats.batchBlendStateFlush, debugStats.maxBatchBlendStateFlush,
-            debugStats.batchColorStateFlush, debugStats.maxBatchColorStateFlush,
-            debugStats.batchAlphaStateFlush, debugStats.maxBatchAlphaStateFlush,
-            debugStats.batchTextureChangeFlush, debugStats.maxBatchTextureChangeFlushes
-            );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Batching #3.
-        dSprintf( mDebugText, sizeof( mDebugText ), "               IsolatedFlush=%d<%d>, FullFlush=%d<%d>, LayerFlush=%d<%d>, NoBatchFlush=%d<%d>, AnonFlush=%d<%d>",
-            debugStats.batchIsolatedFlush, debugStats.maxBatchIsolatedFlush,
-            debugStats.batchBufferFullFlush, debugStats.maxBatchBufferFullFlush,
-            debugStats.batchLayerFlush, debugStats.maxBatchLayerFlush,
-            debugStats.batchNoBatchFlush, debugStats.maxBatchNoBatchFlush,
-            debugStats.batchAnonymousFlush, debugStats.maxBatchAnonymousFlush
-            );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Textures.
-        dSprintf( mDebugText, sizeof( mDebugText ), "Textures : TextureCount=%d, TextureSize=%d, TextureWaste=%d, BitmapSize=%d",
-            TextureManager::getTextureResidentCount(),
-            TextureManager::getTextureResidentSize(),
-            TextureManager::getTextureResidentWasteSize(),
-            TextureManager::getBitmapResidentSize()
-            );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Physics.
-        dSprintf( mDebugText, sizeof( mDebugText ), "Physics  : Bodies=%d<%d>, Joints=%d<%d>, Contacts=%d<%d>, Proxies=%d<%d>",
-            debugStats.bodyCount, debugStats.maxBodyCount,
-            debugStats.jointCount, debugStats.maxJointCount,
-            debugStats.contactCount, debugStats.maxContactCount,
-            debugStats.proxyCount, debugStats.maxProxyCount );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        const b2Profile& worldProfile = debugStats.worldProfile;
-        const b2Profile& maxWorldProfile = debugStats.maxWorldProfile;
-
-        // Physics timings #1.
-        dSprintf( mDebugText, sizeof( mDebugText ), "Timings  : Step=%0.0f<%0.0f>, Collide=%0.0f<%0.0f>, BroadPhase=%0.0f<%0.0f>",
-            worldProfile.step, maxWorldProfile.step,
-            worldProfile.collide, maxWorldProfile.collide,
-            worldProfile.broadphase, maxWorldProfile.broadphase );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Physics timings #2.
-        dSprintf( mDebugText, sizeof( mDebugText ), "              Solve=%0.0f<%0.0f>, SolveInit=%0.0f<%0.0f>, SolveVel=%0.0f<%0.0f>, SolvePos=%0.0f<%0.0f>, SolveTOI=%0.0f<%0.0f>",
-            worldProfile.solve, maxWorldProfile.solve,
-            worldProfile.solveInit, maxWorldProfile.solveInit,
-            worldProfile.solveVelocity, maxWorldProfile.solveVelocity,
-            worldProfile.solvePosition, maxWorldProfile.solvePosition,
-            worldProfile.solveTOI, maxWorldProfile.solveTOI );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Physics spatial tree.
-        const b2World* pWorld = pScene->getWorld();
-        const S32 treeBalance = pWorld->GetTreeBalance();
-        const S32 treeHeight = pWorld->GetTreeHeight();
-        const F32 treeQuality = pWorld->GetTreeQuality();
-        dSprintf( mDebugText, sizeof( mDebugText ), "Tree       : Balance=%d, Height=%d, Quality=%0.2f",
-            treeBalance,
-            treeHeight,
-            treeQuality );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Particles.
-        dSprintf( mDebugText, sizeof( mDebugText ), "Particles: Alloc=%d, Free=%d, Used=%d<%d>",
-            debugStats.particlesAlloc,
-            debugStats.particlesFree,
-            debugStats.particlesUsed, debugStats.maxParticlesUsed );
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Asset Manager.
-        dSprintf( mDebugText, sizeof( mDebugText ), "Assets    : Declared=%d, Referenced=%d, LoadedInternal=%d<%d>, LoadedExternal=%d<%d>, LoadedPrivate=%d<%d>",
-            AssetDatabase.getDeclaredAssetCount(),
-            AssetDatabase.getReferencedAssetCount(),
-            AssetDatabase.getLoadedInternalAssetCount(), AssetDatabase.getMaxLoadedInternalAssetCount(),
-            AssetDatabase.getLoadedExternalAssetCount(), AssetDatabase.getMaxLoadedExternalAssetCount(),
-            AssetDatabase.getLoadedPrivateAssetCount(), AssetDatabase.getMaxLoadedPrivateAssetCount());
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Monitored scene object.
-        if ( pDebugSceneObject != NULL )
-        {
-            // SceneObject #1.
-            const b2Vec2 position = pDebugSceneObject->getRenderPosition();
-            const F32 angle = mRadToDeg( pDebugSceneObject->getRenderAngle() );
-            const Vector2 size = pDebugSceneObject->getSize();
-            const U32 sceneLayer = pDebugSceneObject->getSceneLayer();
-            const U32 sceneGroup = pDebugSceneObject->getSceneGroup();
-            const U32 serialId = pDebugSceneObject->getSerialId();
-            dSprintf( mDebugText, sizeof( mDebugText ), "SceneObject: Id=%d, Pos=(%0.3f,%0.3f), Angle=%0.3f, Size=(%0.3f,%0.3f), Layer=%d, Group=%d, SerialId=%d",
-                pDebugSceneObject->getId(),
-                position.x, position.y,
-                angle,
-                size.x, size.y,
-                sceneLayer,
-                sceneGroup,
-                serialId
-                );
-            dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-            linePositionY += linePositionOffsetY;
-
-            // SceneObject #2.
-            const char* pBodyType = getBodyTypeDescription(pDebugSceneObject->getBodyType());
-            const bool enabled = pDebugSceneObject->isEnabled();
-            const bool active = pDebugSceneObject->getActive();
-            const bool visible = pDebugSceneObject->getVisible();
-            const bool isBullet = pDebugSceneObject->getBullet();
-            const bool awake = pDebugSceneObject->getAwake();
-            const bool sleepingAllowed = pDebugSceneObject->getSleepingAllowed();
-            dSprintf( mDebugText, sizeof( mDebugText ), "                 Body=%s, Enabled=%d, Active=%d, Visible=%d, Bullet=%d, Awake=%d, CanSleep=%d",
-                pBodyType,
-                enabled,
-                active,
-                visible,
-                isBullet,
-                awake,
-                sleepingAllowed
-                );
-            dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-            linePositionY += linePositionOffsetY;
-
-            // SceneObject #3.
-            const Vector2 linearVelocity = pDebugSceneObject->getLinearVelocity();
-            const F32 angularVelocity = pDebugSceneObject->getAngularVelocity();
-            const F32 linearDamping = pDebugSceneObject->getLinearDamping();
-            const F32 angularDamping = pDebugSceneObject->getAngularDamping();
-            const Vector2 localCenter = pDebugSceneObject->getLocalCenter();
-            dSprintf( mDebugText, sizeof( mDebugText ), "                 LinVel=(%0.3f,%0.3f), AngVel=%0.3f, LinDamp=%0.3f, AngDamp=%0.3f, Com=(%0.3f,%0.3f)",
-                linearVelocity.x, linearVelocity.y,
-                angularVelocity,
-                linearDamping,
-                angularDamping,
-                localCenter.x, localCenter.y
-                );
-            dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-            linePositionY += linePositionOffsetY;
-            
-            // SceneObject #4.
-            const bool collisionSuppress = pDebugSceneObject->getCollisionSuppress();
-            const U32 collisionLayerMask = pDebugSceneObject->getCollisionLayerMask();
-            const U32 collisionGroupMask = pDebugSceneObject->getCollisionGroupMask();
-            const U32 collisionShapeCount = pDebugSceneObject->getCollisionShapeCount();
-            dSprintf( mDebugText, sizeof( mDebugText ), "                 Shapes=%d, ColSuppress=%d, ColLayer=%0.8x, ColGroup=%0.8x",
-                collisionShapeCount,
-                collisionSuppress,
-                collisionLayerMask,
-                collisionGroupMask
-                );
-            dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), mDebugText, NULL );
-        }
-
-        // Clear Bitmap Modulation.
-        dglClearBitmapModulation();
-    }
-
     // Render Children.
-    renderChildControls(offset, updateRect);
+    renderChildControls( offset, updateRect );
+
+    // Render the metrics.
+    renderMetricsOverlay( offset, updateRect );
 
     // Update Window.
     setUpdate();
@@ -1796,4 +1515,314 @@ void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
 #ifdef TORQUE_ENABLE_PROFILER
         PROFILE_END();   // SceneWindow_Render
 #endif
+}
+
+//------------------------------------------------------------------------------
+
+void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect )
+{
+    // Fetch scene.
+    Scene* pScene = getScene();
+
+#if 0
+    // Force on debug rendering.
+    pScene->setDebugOn( 0xFFFFFFFF );
+#endif
+
+    // Finish if should not or cannot render.
+    if ( ( pScene->getDebugMask() & Scene::SCENE_DEBUG_STATISTICS ) == 0 || 
+            mProfile == NULL ||
+            mProfile->mFont.isNull() )
+            return;
+
+    // Fetch the font.
+    Resource<GFont>& font = mProfile->mFont;    
+
+    // Blending for banner background.
+    glEnable        ( GL_BLEND );
+    glBlendFunc     ( GL_SRC_ALPHA , GL_ONE_MINUS_SRC_ALPHA );
+
+    // Set banner background colour.
+    const ColorI& fillColor = mProfile->mFillColor;
+    const F32 colorScale = 1.0f / 255.0f;
+    glColor4f( fillColor.red * colorScale, fillColor.green * colorScale, fillColor.blue * colorScale, fillColor.alpha * colorScale );
+
+    // Fetch debug scene object.
+    SceneObject* pDebugSceneObject = pScene->getDebugSceneObject();
+
+    // Get Debug Stats.
+    DebugStats& debugStats = pScene->getDebugStats();
+
+    // Set metrics offset
+    const S32 metricsOffset = (S32)font->getStrWidth( "WWWWWWWWWW" );;
+
+    // Set Banner Height.
+    F32 bannerLineHeight = 17.0f;
+
+    // Add an extra line if we're monitoring a scene object.
+    if ( pDebugSceneObject != NULL )
+        bannerLineHeight += 5.0f;
+
+    U32 bannerHeight = (U32)((bannerLineHeight * (F32)font->getHeight()));
+
+    // Calculate Debug Banner Offset.
+    Point2I bannerOffset = updateRect.point + Point2I(8,8);
+
+    // Draw Banner Background.
+    glBegin(GL_TRIANGLE_STRIP);
+        glVertex2i( updateRect.point.x, updateRect.point.y );
+        glVertex2i( updateRect.point.x + updateRect.extent.x, updateRect.point.y );
+        glVertex2i( updateRect.point.x, updateRect.point.y + bannerHeight + 16);
+        glVertex2i( updateRect.point.x + updateRect.extent.x, updateRect.point.y + bannerHeight + 16);
+    glEnd();
+
+    // Disable Banner Blending.
+    glDisable       ( GL_BLEND );
+        
+    // Set Debug Text Colour.
+    dglSetBitmapModulation( mProfile->mFontColor );
+
+    // ****************************************************************
+    // Draw Banner Text.
+    // ****************************************************************
+
+    F32 linePositionY = 0.25f;
+    F32 linePositionOffsetY = font->getHeight() * 1.25f;
+
+    // Scene.
+    dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Scene", NULL );
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Count=%d, Index=%d, Time=%0.1fs, Objects=%d<%d>(Global=%d), Enabled=%d<%d>, Visible=%d<%d>, Awake=%d<%d>",
+        Scene::getGlobalSceneCount(), pScene->getSceneIndex(),
+        pScene->getSceneTime(),
+        debugStats.objectsCount, debugStats.maxObjectsCount, SceneObject::getGlobalSceneObjectCount(),
+        debugStats.objectsEnabled, debugStats.maxObjectsEnabled,
+        debugStats.objectsVisible, debugStats.maxObjectsVisible,
+        debugStats.objectsAwake, debugStats.maxObjectsAwake );        
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Camera Window #1.
+    dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Camera", NULL );
+    Vector2 cameraPosition = getCurrentCameraPosition();
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Pos=(%0.1f,%0.1f), Size=(%0.1f,%0.1f), Zoom=%0.1f, Lower=(%0.1f,%0.1f), Upper=(%0.1f,%0.1f)", 
+        cameraPosition.x,
+        cameraPosition.y,
+        mCameraCurrent.mSourceArea.extent.x,
+        mCameraCurrent.mSourceArea.extent.y,
+        mCameraCurrent.mCameraZoom,
+        mCameraCurrent.mSourceArea.point.x,
+        mCameraCurrent.mSourceArea.point.y,
+        mCameraCurrent.mSourceArea.point.x + mCameraCurrent.mSourceArea.extent.x,
+        mCameraCurrent.mSourceArea.point.y + mCameraCurrent.mSourceArea.extent.y );
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Camera Window #2.
+    Point2I windowExtent = getExtent();
+    Vector2 windowScale = getCurrentCameraWindowScale();
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Window=(%d,%d), WorldScale=(%0.3f,%0.3f), RenderScale=(%0.3f,%0.3f)", 
+        windowExtent.x, windowExtent.y,
+        windowScale.x, windowScale.y,
+        1.0f / windowScale.x, 1.0f / windowScale.y);
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Rendering.
+    dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Render", NULL );
+    dSprintf( mDebugText, sizeof( mDebugText ), "- FPS=%4.1f<%4.1f/%4.1f>, Frames=%u, Picked=%d<%d>, RenderRequests=%d<%d>, RenderFallbacks=%d<%d>",
+        debugStats.fps, debugStats.minFPS, debugStats.maxFPS,
+        debugStats.frameCount,
+        debugStats.renderPicked, debugStats.maxRenderPicked,
+        debugStats.renderRequests, debugStats.maxRenderRequests,
+        debugStats.renderFallbacks, debugStats.maxRenderFallbacks );
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Batching #1.
+    dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Batching", NULL );
+    dSprintf( mDebugText, sizeof( mDebugText ), "- %sTris=%d<%d>, MaxTriDraw=%d, MaxVerts=%d, Single=%d<%d>, Mult=%d<%d>, Sorted=%d<%d>",
+        pScene->getBatchingEnabled() ? "" : "(OFF) ",
+        debugStats.batchTrianglesSubmitted, debugStats.maxBatchTrianglesSubmitted,
+        debugStats.batchMaxTriangleDrawn,
+        debugStats.batchMaxVertexBuffer,
+        debugStats.batchDrawCallsStrictSingle, debugStats.maxBatchDrawCallsStrictSingle,
+        debugStats.batchDrawCallsStrictMultiple, debugStats.maxBatchDrawCallsStrictMultiple,
+        debugStats.batchDrawCallsSorted, debugStats.maxBatchDrawCallsSorted                   
+        );
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Batching #2.
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Flush=%d<%d>, BlendFlush=%d<%d>, ColorFlush=%d<%d>, AlphaFlush=%d<%d>, TexFlush=%d<%d>",
+        debugStats.batchFlushes, debugStats.maxBatchFlushes,
+        debugStats.batchBlendStateFlush, debugStats.maxBatchBlendStateFlush,
+        debugStats.batchColorStateFlush, debugStats.maxBatchColorStateFlush,
+        debugStats.batchAlphaStateFlush, debugStats.maxBatchAlphaStateFlush,
+        debugStats.batchTextureChangeFlush, debugStats.maxBatchTextureChangeFlushes
+        );
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Batching #3.
+    dSprintf( mDebugText, sizeof( mDebugText ), "- IsolatedFlush=%d<%d>, FullFlush=%d<%d>, LayerFlush=%d<%d>, NoBatchFlush=%d<%d>, AnonFlush=%d<%d>",
+        debugStats.batchIsolatedFlush, debugStats.maxBatchIsolatedFlush,
+        debugStats.batchBufferFullFlush, debugStats.maxBatchBufferFullFlush,
+        debugStats.batchLayerFlush, debugStats.maxBatchLayerFlush,
+        debugStats.batchNoBatchFlush, debugStats.maxBatchNoBatchFlush,
+        debugStats.batchAnonymousFlush, debugStats.maxBatchAnonymousFlush
+        );
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Textures.
+    dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Textures", NULL );
+    dSprintf( mDebugText, sizeof( mDebugText ), "- TextureCount=%d, TextureSize=%d, TextureWaste=%d, BitmapSize=%d",
+        TextureManager::getTextureResidentCount(),
+        TextureManager::getTextureResidentSize(),
+        TextureManager::getTextureResidentWasteSize(),
+        TextureManager::getBitmapResidentSize()
+        );
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Physics.
+    dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Physics", NULL );
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Bodies=%d<%d>, Joints=%d<%d>, Contacts=%d<%d>, Proxies=%d<%d>",
+        debugStats.bodyCount, debugStats.maxBodyCount,
+        debugStats.jointCount, debugStats.maxJointCount,
+        debugStats.contactCount, debugStats.maxContactCount,
+        debugStats.proxyCount, debugStats.maxProxyCount );
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    const b2Profile& worldProfile = debugStats.worldProfile;
+    const b2Profile& maxWorldProfile = debugStats.maxWorldProfile;
+
+    // Physics timings #1.
+    dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Timings", NULL );
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Step=%0.0f<%0.0f>, Collide=%0.0f<%0.0f>, BroadPhase=%0.0f<%0.0f>",
+        worldProfile.step, maxWorldProfile.step,
+        worldProfile.collide, maxWorldProfile.collide,
+        worldProfile.broadphase, maxWorldProfile.broadphase );
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Physics timings #2.
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Solve=%0.0f<%0.0f>, SolveInit=%0.0f<%0.0f>, SolveVel=%0.0f<%0.0f>, SolvePos=%0.0f<%0.0f>, SolveTOI=%0.0f<%0.0f>",
+        worldProfile.solve, maxWorldProfile.solve,
+        worldProfile.solveInit, maxWorldProfile.solveInit,
+        worldProfile.solveVelocity, maxWorldProfile.solveVelocity,
+        worldProfile.solvePosition, maxWorldProfile.solvePosition,
+        worldProfile.solveTOI, maxWorldProfile.solveTOI );
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Physics spatial tree.
+    dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Partition", NULL );
+    const b2World* pWorld = pScene->getWorld();
+    const S32 treeBalance = pWorld->GetTreeBalance();
+    const S32 treeHeight = pWorld->GetTreeHeight();
+    const F32 treeQuality = pWorld->GetTreeQuality();
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Balance=%d, Height=%d, Quality=%0.2f",
+        treeBalance,
+        treeHeight,
+        treeQuality );
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Particles.
+    dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Particles", NULL );
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Alloc=%d, Free=%d, Used=%d<%d>",
+        debugStats.particlesAlloc,
+        debugStats.particlesFree,
+        debugStats.particlesUsed, debugStats.maxParticlesUsed );
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Asset Manager.
+    dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Assets", NULL );
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Declared=%d, Referenced=%d, LoadedInternal=%d<%d>, LoadedExternal=%d<%d>, LoadedPrivate=%d<%d>",
+        AssetDatabase.getDeclaredAssetCount(),
+        AssetDatabase.getReferencedAssetCount(),
+        AssetDatabase.getLoadedInternalAssetCount(), AssetDatabase.getMaxLoadedInternalAssetCount(),
+        AssetDatabase.getLoadedExternalAssetCount(), AssetDatabase.getMaxLoadedExternalAssetCount(),
+        AssetDatabase.getLoadedPrivateAssetCount(), AssetDatabase.getMaxLoadedPrivateAssetCount());
+    dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    linePositionY += linePositionOffsetY;
+
+    // Monitored scene object.
+    if ( pDebugSceneObject != NULL )
+    {
+        // SceneObject #1.
+        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "SceneObject", NULL );
+        const b2Vec2 position = pDebugSceneObject->getRenderPosition();
+        const F32 angle = mRadToDeg( pDebugSceneObject->getRenderAngle() );
+        const Vector2 size = pDebugSceneObject->getSize();
+        const U32 sceneLayer = pDebugSceneObject->getSceneLayer();
+        const U32 sceneGroup = pDebugSceneObject->getSceneGroup();
+        const U32 serialId = pDebugSceneObject->getSerialId();
+        dSprintf( mDebugText, sizeof( mDebugText ), "- Id=%d, Pos=(%0.3f,%0.3f), Angle=%0.3f, Size=(%0.3f,%0.3f), Layer=%d, Group=%d, SerialId=%d",
+            pDebugSceneObject->getId(),
+            position.x, position.y,
+            angle,
+            size.x, size.y,
+            sceneLayer,
+            sceneGroup,
+            serialId
+            );
+        dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+        linePositionY += linePositionOffsetY;
+
+        // SceneObject #2.
+        const char* pBodyType = getBodyTypeDescription(pDebugSceneObject->getBodyType());
+        const bool enabled = pDebugSceneObject->isEnabled();
+        const bool active = pDebugSceneObject->getActive();
+        const bool visible = pDebugSceneObject->getVisible();
+        const bool isBullet = pDebugSceneObject->getBullet();
+        const bool awake = pDebugSceneObject->getAwake();
+        const bool sleepingAllowed = pDebugSceneObject->getSleepingAllowed();
+        dSprintf( mDebugText, sizeof( mDebugText ), " - Body=%s, Enabled=%d, Active=%d, Visible=%d, Bullet=%d, Awake=%d, CanSleep=%d",
+            pBodyType,
+            enabled,
+            active,
+            visible,
+            isBullet,
+            awake,
+            sleepingAllowed
+            );
+        dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+        linePositionY += linePositionOffsetY;
+
+        // SceneObject #3.
+        const Vector2 linearVelocity = pDebugSceneObject->getLinearVelocity();
+        const F32 angularVelocity = pDebugSceneObject->getAngularVelocity();
+        const F32 linearDamping = pDebugSceneObject->getLinearDamping();
+        const F32 angularDamping = pDebugSceneObject->getAngularDamping();
+        const Vector2 localCenter = pDebugSceneObject->getLocalCenter();
+        dSprintf( mDebugText, sizeof( mDebugText ), "- LinVel=(%0.3f,%0.3f), AngVel=%0.3f, LinDamp=%0.3f, AngDamp=%0.3f, Com=(%0.3f,%0.3f)",
+            linearVelocity.x, linearVelocity.y,
+            angularVelocity,
+            linearDamping,
+            angularDamping,
+            localCenter.x, localCenter.y
+            );
+        dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+        linePositionY += linePositionOffsetY;
+            
+        // SceneObject #4.
+        const bool collisionSuppress = pDebugSceneObject->getCollisionSuppress();
+        const U32 collisionLayerMask = pDebugSceneObject->getCollisionLayerMask();
+        const U32 collisionGroupMask = pDebugSceneObject->getCollisionGroupMask();
+        const U32 collisionShapeCount = pDebugSceneObject->getCollisionShapeCount();
+        dSprintf( mDebugText, sizeof( mDebugText ), "- Shapes=%d, ColSuppress=%d, ColLayer=%0.8x, ColGroup=%0.8x",
+            collisionShapeCount,
+            collisionSuppress,
+            collisionLayerMask,
+            collisionGroupMask
+            );
+        dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+    }
+
+    // Clear Bitmap Modulation.
+    dglClearBitmapModulation();
 }

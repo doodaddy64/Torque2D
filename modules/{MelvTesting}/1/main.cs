@@ -14,7 +14,7 @@ function startMelvTesting()
 	
 	testScreen();
 
-    Canvas.BackgroundColor = "Navy";
+    Canvas.BackgroundColor = "DimGray";
     Canvas.UseBackgroundColor = true;
 
     //testScene.BackgroundColor = "HotPink";
@@ -67,45 +67,40 @@ function startMelvTesting()
     //testScene.layerSortMode31 = "z axis";
     //testScene.layerSortMode30 = "z axis";
     
-    testScene.setDebugOn( 0, 2, 3 );
+    //testScene.setDebugOn( 0, 2, 3 );
+    testScene.setDebugOn( 0 );
     
     
 	%composite = new CompositeSprite();
 	testScene.addToScene( %composite );
 	%composite.BatchIsolated = "true";
 
-    %composite.setDefaultSpriteStride( 6, 6 );
+    %composite.setDefaultSpriteStride( 5, 5 );
     %composite.setDefaultSpriteSize( 5 );
     
     //%composite.setAngle( 30.0001 );
 	
 	%frame = 0;
 	
-    for ( %y = -5; %y <= 5; %y++ )
+    for ( %y = -10; %y <= 10; %y++ )
 	{
-	    for ( %x = -5; %x <= 5; %x++ )
+	    for ( %x = -500; %x <= 500; %x++ )
         {
             %composite.addSprite( %x SPC %y );
+            %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", %frame );
             //%composite.setSpriteAngle( getRandom(0,360) );
-            if ( getRandom(1,10) < 5 )
-            {
-                %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", %frame );
-                %frame++;
-                if ( %frame == 16 ) %frame = 0;
-            }
-            else
-            {
-                %composite.setSpriteAnimation( "{MelvTesting}:MiniTileMapAnim" );
-            }
             //%composite.setSpriteBlendColor( "HotPink" );
             //%composite.setSpriteVisible( getRandom(1,10) < 5 );
+            
+            %frame++;
+            if ( %frame == 16 ) %frame = 0;
             
         }
 	}
 	//
 	//testSceneWindow2D.setCurrentCameraPosition( 0, 0 );
 	//testScene.setDebugSceneObject( %composite );
-	%composite.setAngularVelocity( 40 );
+	%composite.setAngularVelocity( 180 );
 	
 	//TamlWrite( %composite, "composite.xml" );
 	//%newComposite1 = TamlRead( "composite.xml" );

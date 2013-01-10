@@ -276,6 +276,7 @@ public:
     bool onMouseWheelDown( const GuiEvent &event );
     bool onMouseWheelUp( const GuiEvent &event );
     virtual void onRender( Point2I offset, const RectI& updateRect );
+    void renderMetricsOverlay( Point2I offset, const RectI& updateRect );
 
     /// Declare Console Object.
     DECLARE_CONOBJECT(SceneWindow);
