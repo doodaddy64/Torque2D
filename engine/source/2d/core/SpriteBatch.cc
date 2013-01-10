@@ -756,6 +756,30 @@ F32 SpriteBatch::getSpriteAlphaTest( void ) const
 
 //------------------------------------------------------------------------------
 
+void SpriteBatch::setDataObject( SimObject* pDataObject )
+{
+    // Finish if a sprite is not selected.
+    if ( !checkSpriteSelected() )
+        return;
+
+    // Set data object.
+    mSelectedSprite->setDataObject( pDataObject );
+}
+
+//------------------------------------------------------------------------------
+
+SimObject* SpriteBatch::getDataObject( void ) const
+{
+    // Finish if a sprite is not selected.
+    if ( !checkSpriteSelected() )
+        return NULL;
+
+    // Get data object.
+    return mSelectedSprite->getDataObject();
+}
+
+//------------------------------------------------------------------------------
+
 SpriteBatchItem* SpriteBatch::createSprite( void )
 {
     // Allocate batch Id.

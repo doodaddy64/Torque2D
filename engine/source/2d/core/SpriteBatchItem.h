@@ -10,6 +10,10 @@
 #include "2d/core/SpriteProxyBase.h"
 #endif
 
+#ifndef _SIM_OBJECT_PTR_H_
+#include "sim/simObjectPtr.h"
+#endif
+
 #ifndef _FACTORY_CACHE_H_
 #include "memory/factoryCache.h"
 #endif
@@ -180,6 +184,8 @@ protected:
     ColorF              mBlendColor;
     F32                 mAlphaTest;
 
+    SimObjectPtr<SimObject> mDataObject;
+
     Vector2             mLocalOOBB[4];
     b2AABB              mLocalAABB;
     bool                mLocalTransformDirty;
@@ -239,9 +245,11 @@ public:
     inline void setBlendAlpha( const F32 alpha ) { mBlendColor.alpha = alpha; }
     inline F32 getBlendAlpha( void ) const { return mBlendColor.alpha; }
 
-    /// Set alpha-test de.
     inline void setAlphaTest( const F32 alphaTest ) { mAlphaTest = alphaTest; }
     inline F32 getAlphaTest( void ) const { return mAlphaTest; }
+
+    inline void setDataObject( SimObject* pDataObject ) { mDataObject = pDataObject; }
+    inline SimObject* getDataObject( void ) const { return mDataObject; }
 
     virtual void copyTo( SpriteBatchItem* pSpriteBatchItem ) const;
 

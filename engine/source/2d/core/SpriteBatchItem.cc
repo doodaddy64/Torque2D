@@ -121,6 +121,8 @@ void SpriteBatchItem::resetState( void )
     mBlendColor = ColorF(1.0f,1.0f,1.0f,1.0f);
     mAlphaTest = -1.0f;
 
+    mDataObject = NULL;
+
     mLocalTransformDirty = true;
     mLocalAABB.lowerBound.Set( -0.5f, -0.5f );
     mLocalAABB.upperBound.Set( 0.5f, 0.5f );

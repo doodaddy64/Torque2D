@@ -739,7 +739,8 @@ ConsoleMethod(CompositeSprite, getSpriteBlendAlpha, F32, 2, 2,  "() - Gets the s
 //-----------------------------------------------------------------------------
 
 ConsoleMethod(CompositeSprite, setSpriteAlphaTest, void, 3, 3,  "(float alpha) - Set the sprite alpha test.\n"
-                                                                "@param value Numeric value of 0.0 to 1.0 to turn on alpha testing. Less than zero to disable alpha testing.")
+                                                                "@param value Numeric value of 0.0 to 1.0 to turn on alpha testing. Less than zero to disable alpha testing."
+                                                                "@return No return Value.")
 {
     object->setSpriteAlphaTest(dAtof(argv[2]));
 }
@@ -750,4 +751,22 @@ ConsoleMethod(CompositeSprite, getSpriteAlphaTest, F32, 2, 2,   "() - Gets the s
                                                                 "@return (S32) A value of 0 to 255 if alpha testing is enabled. <0 represents disabled alpha testing.")
 {
     return object->getSpriteAlphaTest();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(CompositeSprite, setDataObject, void, 3, 3,   "(object) - Set the sprite data object.\n"
+                                                            "NOTE: This object will be persisted alongside the composite sprite.\n"
+                                                            "To clear the object you can pass an empty string.\n"
+                                                            "@return No return Value.")
+{
+    object->setDataObject( Sim::findObject( argv[2] ) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(CompositeSprite, getDataObject, const char*, 2, 2,   "() - Gets the sprite data object.\n"
+                                                                    "@return The sprite data object.")
+{
+    return object->getDataObject()->getIdString();
 }

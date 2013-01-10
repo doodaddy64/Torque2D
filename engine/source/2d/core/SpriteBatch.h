@@ -166,6 +166,9 @@ public:
     void setSpriteAlphaTest( const F32 alphaTestMode );
     F32 getSpriteAlphaTest( void ) const;
 
+    void setDataObject( SimObject* pDataObject );
+    SimObject* getDataObject( void ) const;
+
 protected:
     SpriteBatchItem* createSprite( void );
     SpriteBatchItem* findSpritePosition( const SpriteBatchItem::LogicalPosition& logicalPosition );
