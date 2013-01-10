@@ -272,8 +272,9 @@ bool SpriteProxyBase::setImage( const char* pImageAssetId, const U32 frame )
     // Set asset.
     mImageAsset = pImageAssetId;
 
-    // Set frame.
-    setImageFrame( frame );
+    // Set the image frame if the image asset was set.
+    if ( mImageAsset.notNull() )
+        setImageFrame( frame );
 
     // Destroy animation controller if required.
     if ( mpAnimationController != NULL )
