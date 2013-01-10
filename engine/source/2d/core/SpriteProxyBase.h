@@ -78,10 +78,10 @@ public:
     // Image.
     inline bool setImage( const char* pImageAssetId ) { return setImage( pImageAssetId, mImageFrame ); }
     bool setImage( const char* pImageAssetId, const U32 frame );
-    inline StringTableEntry getImage( void ) const { return mImageAsset.getAssetId(); };
+    inline StringTableEntry getImage( void ) const { return mImageAsset.getAssetId(); }
     bool setImageFrame( const U32 frame );
-    inline U32 getImageFrame( void ) const { return mImageFrame; };
-    inline StringTableEntry getAnimation( void ) const { if ( mAnimationAsset.notNull() ) return mAnimationAsset.getAssetId(); else return StringTable->EmptyString; };
+    inline U32 getImageFrame( void ) const { return mImageFrame; }
+    inline StringTableEntry getAnimation( void ) const { return mAnimationAsset.getAssetId(); }
 
     /// Animation.
     bool setAnimation( const char* pAnimationAssetId, const bool autoRestore = false );

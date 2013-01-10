@@ -35,8 +35,11 @@ static StringTableEntry spriteSortPointName;
 static StringTableEntry spriteBlendModeName;
 static StringTableEntry spriteSrcBlendFactorName;
 static StringTableEntry spriteDstBlendFactorName;
-static StringTableEntry spriteBlendColor;
-static StringTableEntry spriteAlphaTest;
+static StringTableEntry spriteBlendColorName;
+static StringTableEntry spriteAlphaTestName;
+static StringTableEntry spriteImageName;
+static StringTableEntry spriteImageFrameName;
+static StringTableEntry spriteAnimationName;
 
 //------------------------------------------------------------------------------
 
@@ -59,8 +62,11 @@ SpriteBatchItem::SpriteBatchItem() : mProxyId( SpriteBatch::INVALID_SPRITE_PROXY
         spriteBlendModeName        = StringTable->insert("BlendMode");
         spriteSrcBlendFactorName   = StringTable->insert("SrcBlendFactor");
         spriteDstBlendFactorName   = StringTable->insert("DstBlendFactor");
-        spriteBlendColor           = StringTable->insert("BlendColor");
-        spriteAlphaTest            = StringTable->insert("AlphaTest");
+        spriteBlendColorName       = StringTable->insert("BlendColor");
+        spriteAlphaTestName        = StringTable->insert("AlphaTest");
+        spriteImageName            = StringTable->insert("Image");
+        spriteImageFrameName       = StringTable->insert("ImageFrame");
+        spriteAnimationName        = StringTable->insert("Animation");
 
         // Flag as initialized.
         spriteBatchItemPropertiesInitialized = true;
@@ -285,6 +291,36 @@ void SpriteBatchItem::updateWorldTransform( const U32 batchTransformId )
 
 void SpriteBatchItem::onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias )
 {
+    // Write asset.
+    if ( isStaticMode() )
+    {
+        // Fetch image asset Id.
+        StringTableEntry assetId = getImage();
+
+        // Do we have an image?
+        if ( assetId != StringTable->EmptyString )
+        {
+            // Yes, so write image asset Id.
+            pSpriteTypeAlias->addPropertyField( spriteImageName, assetId );
+
+            // Write image frame.
+            pSpriteTypeAlias->addPropertyField( spriteImageFrameName, getImageFrame() );
+        }
+    }
+    else
+    {
+        // Fetch animation asset Id.
+        StringTableEntry assetId = getAnimation();
+
+        // Do we have an animation?
+        if ( assetId != StringTable->EmptyString )
+        {
+            // Yes, so write animation asset Id.
+            pSpriteTypeAlias->addPropertyField( spriteAnimationName, assetId );
+
+        }
+    }
+
     // Write visible.
     if ( !mVisible )
         pSpriteTypeAlias->addPropertyField( spriteVisibleName, mVisible );
@@ -329,11 +365,11 @@ void SpriteBatchItem::onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias
 
     // Write blend color.
     if ( mBlendMode && mBlendColor != ColorF(1.0f, 1.0f, 1.0f, 1.0f) )
-        pSpriteTypeAlias->addPropertyField( spriteBlendColor, mBlendColor );
+        pSpriteTypeAlias->addPropertyField( spriteBlendColorName, mBlendColor );
 
     // Write alpha test.
     if ( mBlendMode && mAlphaTest >= 0.0f )
-        pSpriteTypeAlias->addPropertyField( spriteAlphaTest, mAlphaTest );
+        pSpriteTypeAlias->addPropertyField( spriteAlphaTestName, mAlphaTest );
 
     // Write logical position.
     if ( getLogicalPosition().isValid() )
@@ -356,7 +392,31 @@ void SpriteBatchItem::onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteType
         // Fetch sprite field name.
         StringTableEntry fieldName = pSpriteField->getFieldName();
 
-        if ( fieldName == spriteVisibleName )
+        // Reset image frame.
+        S32 imageFrame = -1;
+
+        if ( fieldName == spriteImageName )
+        {
+            setImage( pSpriteField->getFieldValue() );
+
+            // Set image frame if it's available.
+            if ( imageFrame != -1 )
+                setImageFrame( imageFrame );
+
+        }
+        else if ( fieldName == spriteImageFrameName )
+        {
+            pSpriteField->getFieldValue( imageFrame );
+
+            // Set image frame if image is available.
+            if ( getImage() != StringTable->EmptyString )
+                setImageFrame( imageFrame );
+        }
+        else if ( fieldName == spriteAnimationName )
+        {
+            setAnimation( pSpriteField->getFieldValue() );
+        }
+        else if ( fieldName == spriteVisibleName )
         {
             bool visible;
             pSpriteField->getFieldValue( visible );
@@ -418,13 +478,13 @@ void SpriteBatchItem::onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteType
         {
             setDstBlendFactor( (GLenum)getDstBlendFactorEnum( pSpriteField->getFieldValue() ) );
         }
-        else if ( fieldName == spriteBlendColor )
+        else if ( fieldName == spriteBlendColorName )
         {
             ColorF blendColor;
             pSpriteField->getFieldValue( blendColor );
             setBlendColor( blendColor );
         }
-        else if ( fieldName == spriteAlphaTest )
+        else if ( fieldName == spriteAlphaTestName )
         {
             F32 alphaTest;
             pSpriteField->getFieldValue( alphaTest );
