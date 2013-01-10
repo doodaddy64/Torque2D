@@ -17,6 +17,7 @@
 *.cache
 *.exports
 *.opt
+*.tmp
 moc_QtNetworkManager.cc
 moc_WebRender.cc
 moc_QtCookieJar.cc
