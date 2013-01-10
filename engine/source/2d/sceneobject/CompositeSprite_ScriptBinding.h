@@ -708,14 +708,8 @@ ConsoleMethod(CompositeSprite, getSpriteBlendColor, const char*, 2, 2,  "Gets th
     // Get Blend Colour.
     ColorF blendColor = object->getSpriteBlendColor();
 
-    // Create Returnable Buffer.
-    char* pBuffer = Con::getReturnBuffer(64);
-
-    // Format Buffer.
-    dSprintf(pBuffer, 64, "%g %g %g %g", blendColor.red, blendColor.green, blendColor.blue, blendColor.alpha );
-
-    // Return buffer.
-    return pBuffer;
+    // Fetch the field value.
+    return Con::getData( TypeColorF, &blendColor, 0 );
 }
 
 //-----------------------------------------------------------------------------

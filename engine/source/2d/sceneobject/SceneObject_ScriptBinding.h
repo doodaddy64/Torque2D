@@ -3289,23 +3289,10 @@ ConsoleMethod(SceneObject, getBlendColor, const char*, 2, 2, "Gets the Rendering
                                                                 "@return (float red / float green / float blue / float alpha) The sprite blend color.")
 {
     // Get Blend Colour.
-    const ColorF& color = object->getBlendColor();
+    ColorF blendColor = object->getBlendColor();
 
-    // Fetch color name.
-    StringTableEntry colorName = StockColor::name( color );
-
-    // Return the color name if it's valid.
-    if ( colorName != StringTable->EmptyString )
-        return colorName;
-
-    // Create Returnable Buffer.
-    char* pBuffer = Con::getReturnBuffer(64);
-
-    // Format Buffer.
-    dSprintf(pBuffer, 64, "%g %g %g %g", color.red, color.green, color.blue, color.alpha );
-
-    // Return buffer.
-    return pBuffer;
+    // Fetch the field value.
+    return Con::getData( TypeColorF, &blendColor, 0 );
 }
 
 //-----------------------------------------------------------------------------
