@@ -129,6 +129,15 @@ void CompositeSprite::copyTo(SimObject* object)
     // Call to parent.
     Parent::copyTo(object); 
 
+    // Fetch object.
+    CompositeSprite* pCompositeSprite = dynamic_cast<CompositeSprite*>(object);
+
+    // Sanity!
+    AssertFatal(pCompositeSprite != NULL, "CompositeSprite::copyTo() - Object is not the correct type.");
+
+    // Copy batch layout.
+    pCompositeSprite->setBatchLayout( getBatchLayout() );
+
     // Call sprite batch.
     SpriteBatch::copyTo( dynamic_cast<SpriteBatch*>(object) );
 }

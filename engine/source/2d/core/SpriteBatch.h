@@ -104,7 +104,7 @@ public:
     inline SceneRenderQueue::RenderSort getBatchSortMode( void ) const { return mBatchSortMode; }
 
     void setBatchCulling( const bool batchCulling );
-    inline bool getBatchCulling( void ) { return mBatchCulling; }
+    inline bool getBatchCulling( void ) const { return mBatchCulling; }
 
     inline void setDefaultSpriteStride( const Vector2& defaultStride ) { mDefaultSpriteStride = defaultStride; }
     inline Vector2 getDefaultSpriteStride( void ) const { return mDefaultSpriteStride; }

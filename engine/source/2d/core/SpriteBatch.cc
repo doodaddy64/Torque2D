@@ -189,6 +189,9 @@ void SpriteBatch::copyTo( SpriteBatch* pSpriteBatch ) const
     // Set batch sort mode.
     pSpriteBatch->setBatchSortMode( getBatchSortMode() );
 
+    // Set batch culling.
+    pSpriteBatch->setBatchCulling( getBatchCulling() );
+
     // Set sprite default size and angle.
     pSpriteBatch->setDefaultSpriteStride( getDefaultSpriteStride() );
     pSpriteBatch->setDefaultSpriteSize( getDefaultSpriteSize() );
