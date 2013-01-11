@@ -51,6 +51,9 @@ SpriteBatch::~SpriteBatch()
 
 void SpriteBatch::prepareRender( SceneRenderObject* pSceneRenderObject, const SceneRenderState* pSceneRenderState, SceneRenderQueue* pSceneRenderQueue )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_PrepareRender);
+
     // Set the sort mode.
     pSceneRenderQueue->setSortMode( getBatchSortMode() );
 
@@ -60,12 +63,18 @@ void SpriteBatch::prepareRender( SceneRenderObject* pSceneRenderObject, const Sc
     // Do we have a sprite batch tree?
     if ( mpSpriteBatchTree != NULL )
     {
+        // Debug Profiling.
+        PROFILE_START(SpriteBatch_PrepareRenderQuery);
+
         // Yes, so fetch sprite batch query.
         SpriteBatchTree::typeSpriteItemVector& batchQuery = mpSpriteBatchTree->mBatchQuery;
         batchQuery.clear();
 
         // Perform sprite batch query.
         mpSpriteBatchTree->Query( mpSpriteBatchTree, localAABB );
+
+        // Debug Profiling.
+        PROFILE_END(); // SpriteBatch_PrepareRenderQuery
 
         // Iterate the sprite batch query results.
         for( SpriteBatchTree::typeSpriteItemVector::iterator spriteItr = batchQuery.begin(); spriteItr != batchQuery.end(); ++spriteItr )
@@ -135,6 +144,9 @@ void SpriteBatch::render( const SceneRenderState* pSceneRenderState, const Scene
 
 void SpriteBatch::createTreeProxy( const b2AABB& localAABB, SpriteBatchItem* spriteBatchItem )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_CreateTreeProxy);
+
     // Finish if the batch tree is not available.
     if ( mpSpriteBatchTree == NULL )
         return;
@@ -147,6 +159,9 @@ void SpriteBatch::createTreeProxy( const b2AABB& localAABB, SpriteBatchItem* spr
 
 void SpriteBatch::destroyTreeProxy( SpriteBatchItem* spriteBatchItem )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_DestroyTreeProxy);
+
     // Finish if the batch tree is not available.
     if ( mpSpriteBatchTree == NULL )
         return;
@@ -165,6 +180,9 @@ void SpriteBatch::destroyTreeProxy( SpriteBatchItem* spriteBatchItem )
 
 void SpriteBatch::moveTreeProxy( SpriteBatchItem* spriteBatchItem, const b2AABB& localAABB )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_MoveTreeProxy);
+
     // Finish if the batch tree is not available.
     if ( mpSpriteBatchTree == NULL )
         return;
@@ -200,11 +218,17 @@ void SpriteBatch::copyTo( SpriteBatch* pSpriteBatch ) const
     // Copy sprites.   
     for( typeSpriteBatchHash::const_iterator spriteItr = mSprites.begin(); spriteItr != mSprites.end(); ++spriteItr )
     {        
-        // Create sprite batch item.        
-        SpriteBatchItem* pSpriteBatchItem = pSpriteBatch->createSprite();
+        // Fetch sprite.
+        SpriteBatchItem* pSpriteBatchItem = spriteItr->value;
+
+        // Add a sprite.
+        const U32 spriteBatchId = pSpriteBatch->addSprite( pSpriteBatchItem->getLogicalPosition() );
+        
+        // Fetch new sprite.
+        SpriteBatchItem* pNewSpriteBatchItem = pSpriteBatch->findSpriteId( spriteBatchId );
 
         // Push a copy to it.
-        spriteItr->value->copyTo( pSpriteBatchItem );
+        pSpriteBatchItem->copyTo( pNewSpriteBatchItem );
     }
 }
 
@@ -212,6 +236,9 @@ void SpriteBatch::copyTo( SpriteBatch* pSpriteBatch ) const
 
 U32 SpriteBatch::addSprite( const SpriteBatchItem::LogicalPosition& logicalPosition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_AddSprite);
+
     // Create sprite layout.
     mSelectedSprite = createSprite( logicalPosition );
 
@@ -232,6 +259,9 @@ U32 SpriteBatch::addSprite( const SpriteBatchItem::LogicalPosition& logicalPosit
 
 bool SpriteBatch::removeSprite( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_RemoveSprite);
+
     // Finish if a sprite is not selected.
     if ( !checkSpriteSelected() )
         return false;
@@ -255,6 +285,9 @@ bool SpriteBatch::removeSprite( void )
 
 void SpriteBatch::clearSprites( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_ClearSprites);
+
     // Deselect any sprite.
     deselectSprite();
 
@@ -326,6 +359,9 @@ bool SpriteBatch::selectSpriteId( const U32 batchId )
 
 void SpriteBatch::setSpriteImage( const char* pAssetId, const U32 imageFrame )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_SetSpriteImage);
+
     // Sanity!
     AssertFatal( pAssetId, "Cannot set sprite image using a NULL asset Id." );
 
@@ -377,6 +413,9 @@ U32 SpriteBatch::getSpriteImageFrame( void ) const
 
 void SpriteBatch::setSpriteAnimation( const char* pAssetId, const bool autoRestore )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_SetSpriteAnimation);
+
     // Sanity!
     AssertFatal( pAssetId, "Cannot set sprite animation using a NULL asset Id." );
 
@@ -785,6 +824,9 @@ SimObject* SpriteBatch::getDataObject( void ) const
 
 SpriteBatchItem* SpriteBatch::createSprite( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_CreateSprite);
+
     // Allocate batch Id.
     const U32 batchId = mMasterBatchId++;
 
@@ -804,6 +846,9 @@ SpriteBatchItem* SpriteBatch::createSprite( void )
 
 SpriteBatchItem* SpriteBatch::findSpritePosition( const SpriteBatchItem::LogicalPosition& logicalPosition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_FindSpritePosition);
+
     // Find sprite.
     typeSpritePositionHash::iterator spriteItr = mSpritePositions.find( logicalPosition );
 
@@ -814,6 +859,9 @@ SpriteBatchItem* SpriteBatch::findSpritePosition( const SpriteBatchItem::Logical
 
 SpriteBatchItem* SpriteBatch::findSpriteId( const U32 batchId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_FindSpriteId);
+
     // Find sprite.
     typeSpriteBatchHash::iterator spriteItr = mSprites.find( batchId );
 
@@ -824,6 +872,9 @@ SpriteBatchItem* SpriteBatch::findSpriteId( const U32 batchId )
 
 SpriteBatchItem* SpriteBatch::createSprite( const SpriteBatchItem::LogicalPosition& logicalPosition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_CreateSpriteAtLogicalPosition);
+
     // Do we have a valid logical position?
     if ( logicalPosition.getArgCount() != 2 )
     {
@@ -871,6 +922,9 @@ void SpriteBatch::setBatchTransform( const b2Transform& batchTransform )
 
 void SpriteBatch::updateLocalExtents( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_UpdateLocalExtents);
+
     // Finish if the local extents are not dirty.
     if ( !mLocalExtentsDirty )
         return;
@@ -917,6 +971,9 @@ void SpriteBatch::updateLocalExtents( void )
 
 void SpriteBatch::createSpriteBatchTree( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_CreateSpriteBatchTree);
+
     // Finish if batch culling is off or there is already a sprite batch tree.
     if ( !mBatchCulling || mpSpriteBatchTree != NULL )
         return;
@@ -943,6 +1000,9 @@ void SpriteBatch::createSpriteBatchTree( void )
 
 void SpriteBatch::destroySpriteBatchTree( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_DestroySpriteBatchTree);
+
     // Finish if there is no sprite batch tree.
     if ( mpSpriteBatchTree == NULL )
         return;
@@ -966,6 +1026,9 @@ void SpriteBatch::destroySpriteBatchTree( void )
 
 void SpriteBatch::onTamlCustomWrite( TamlCollectionProperty* pSpritesProperty )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_TamlCustomWrite);
+
     // Fetch property names.
     StringTableEntry spriteItemTypeName = StringTable->insert( "Sprite" );
 
@@ -984,6 +1047,9 @@ void SpriteBatch::onTamlCustomWrite( TamlCollectionProperty* pSpritesProperty )
 
 void SpriteBatch::onTamlCustomRead( const TamlCollectionProperty* pSpritesProperty )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_TamlCustomRead);
+
     // Fetch property names.
     StringTableEntry spriteItemTypeName = StringTable->insert( "Sprite" );
 
@@ -1026,6 +1092,9 @@ void SpriteBatch::onTamlCustomRead( const TamlCollectionProperty* pSpritesProper
 
 bool SpriteBatch::destroySprite( const U32 batchId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_DestroySprite);
+
     // Find sprite.    
     SpriteBatchItem* pSpriteBatchItem = findSpriteId( batchId );
 
@@ -1057,6 +1126,9 @@ bool SpriteBatch::checkSpriteSelected( void ) const
 
 b2AABB SpriteBatch::calculateLocalAABB( const b2AABB& renderAABB )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_CalculateLocalAABB);
+
     // Calculate local OOBB.
     b2Vec2 localOOBB[4];
     CoreMath::mAABBtoOOBB( renderAABB, localOOBB );

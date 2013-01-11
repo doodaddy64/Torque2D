@@ -6,10 +6,16 @@
 #include "graphics/dgl.h"
 #include "2d/scene/DebugDraw.h"
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 void DebugDraw::DrawAABB( const b2AABB& aabb )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(DebugDraw_DrawAABB);
+
     // Calculate AABB vertices.
     b2Vec2 aabbVertex[4];
     aabbVertex[0].Set(aabb.lowerBound.x, aabb.lowerBound.y);
@@ -24,6 +30,9 @@ void DebugDraw::DrawAABB( const b2AABB& aabb )
 
 void DebugDraw::DrawOOBB( const b2Vec2* pOOBB )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(DebugDraw_DrawOOBB);
+
     DrawPolygon( pOOBB, 4, b2Color(0.9f, 0.9f, 1.0f) );
 }
 
@@ -31,6 +40,9 @@ void DebugDraw::DrawOOBB( const b2Vec2* pOOBB )
 
 void DebugDraw::DrawAsleep( const b2Vec2* pOOBB )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(DebugDraw_DrawAsleep);
+
     DrawSegment( pOOBB[0], pOOBB[2], b2Color( 0.0f, 1.0f, 0.0f ) );
     DrawSegment( pOOBB[1], pOOBB[3], b2Color( 0.0f, 1.0f, 0.0f ) );
 }
@@ -39,6 +51,9 @@ void DebugDraw::DrawAsleep( const b2Vec2* pOOBB )
 
 void DebugDraw::DrawCollisionShapes( b2Body* pBody )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(DebugDraw_DrawCollisionShapes);
+
     // Fetch transform.
     const b2Transform& xf = pBody->GetTransform();
 
@@ -77,6 +92,9 @@ void DebugDraw::DrawCollisionShapes( b2Body* pBody )
 
 void DebugDraw::DrawSortPoint( const b2Vec2& worldPosition, const b2Vec2& size, const b2Vec2& localSortPoint )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(DebugDraw_DrawSortPoint);
+
     // Calculate sort point marker size based upon the object size.
     const b2Vec2 halfSize( size.x * 0.5f, size.y * 0.5f );
     const b2Vec2 objectSize( size.x * 0.2f, size.y * 0.2f );
@@ -100,6 +118,9 @@ void DebugDraw::DrawSortPoint( const b2Vec2& worldPosition, const b2Vec2& size, 
 
 void DebugDraw::DrawShape( b2Fixture* fixture, const b2Transform& xf, const b2Color& color )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(DebugDraw_DrawShape);
+
     switch (fixture->GetType())
     {
     case b2Shape::e_circle:
@@ -165,6 +186,9 @@ void DebugDraw::DrawShape( b2Fixture* fixture, const b2Transform& xf, const b2Co
 
 void DebugDraw::DrawJoints( b2World* pWorld )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(DebugDraw_Joints);
+
     // Draw all joints in world.
     for ( b2Joint* pJoint = pWorld->GetJointList(); pJoint; pJoint = pJoint->GetNext() )
     {
@@ -223,6 +247,9 @@ void DebugDraw::DrawJoints( b2World* pWorld )
 
 void DebugDraw::DrawPolygon( const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(DebugDraw_DrawPolygon);
+
     glColor3f(color.r, color.g, color.b);
     glBegin(GL_LINE_LOOP);
     for (int32 i = 0; i < vertexCount; ++i)
@@ -236,6 +263,9 @@ void DebugDraw::DrawPolygon( const b2Vec2* vertices, int32 vertexCount, const b2
 
 void DebugDraw::DrawSolidPolygon( const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(DebugDraw_DrawSolidPolygon);
+
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glColor4f(0.5f * color.r, 0.5f * color.g, 0.5f * color.b, 0.15f);
@@ -260,6 +290,9 @@ void DebugDraw::DrawSolidPolygon( const b2Vec2* vertices, int32 vertexCount, con
 
 void DebugDraw::DrawCircle( const b2Vec2& center, float32 radius, const b2Color& color)
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(DebugDraw_DrawCircle);
+
     const float32 k_segments = 16.0f;
     const float32 k_increment = 2.0f * b2_pi / k_segments;
     float32 theta = 0.0f;
@@ -278,6 +311,9 @@ void DebugDraw::DrawCircle( const b2Vec2& center, float32 radius, const b2Color&
 
 void DebugDraw::DrawSolidCircle( const b2Vec2& center, float32 radius, const b2Vec2& axis, const b2Color& color)
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(DebugDraw_DrawSolidCircle);
+
     const float32 k_segments = 16.0f;
     const float32 k_increment = 2.0f * b2_pi / k_segments;
     float32 theta = 0.0f;

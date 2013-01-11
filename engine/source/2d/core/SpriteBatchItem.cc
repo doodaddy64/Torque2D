@@ -163,6 +163,7 @@ void SpriteBatchItem::copyTo( SpriteBatchItem* pSpriteBatchItem ) const
     Parent::copyTo( pSpriteBatchItem );
 
     // Set sprite batch item.
+    pSpriteBatchItem->setLogicalPosition( getLogicalPosition() );
     pSpriteBatchItem->setVisible( getVisible() );
     pSpriteBatchItem->setLocalPosition( getLocalPosition() );
     pSpriteBatchItem->setDepth( getDepth() );
@@ -182,6 +183,9 @@ void SpriteBatchItem::copyTo( SpriteBatchItem* pSpriteBatchItem ) const
 
 void SpriteBatchItem::prepareRender( SceneRenderRequest* pSceneRenderRequest, const U32 batchTransformId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatchItem_PrepareRender);
+
     // Sanity!
     AssertFatal( pSceneRenderRequest != NULL, "Cannot prepare a sprite batch with a NULL scene render request." );
 
@@ -203,6 +207,9 @@ void SpriteBatchItem::prepareRender( SceneRenderRequest* pSceneRenderRequest, co
 
 void SpriteBatchItem::render( BatchRender* pBatchRenderer, const SceneRenderRequest* pSceneRenderRequest, const U32 batchTransformId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatchItem_Render);
+
     // Update the world transform.
     updateWorldTransform( batchTransformId );
 
@@ -225,6 +232,9 @@ void SpriteBatchItem::render( BatchRender* pBatchRenderer, const SceneRenderRequ
 
 void SpriteBatchItem::updateLocalTransform( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatchItem_UpdateLocalTransform);
+
     // Sanity!
     AssertFatal( mSpriteBatch != NULL, "SpriteBatchItem::updateLocalTransform() - Cannot update local transform with a NULL sprite batch." );
 
@@ -264,6 +274,9 @@ void SpriteBatchItem::updateLocalTransform( void )
 
 void SpriteBatchItem::updateWorldTransform( const U32 batchTransformId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatchItem_UpdateWorldTransform);
+
     // Sanity!
     AssertFatal( mSpriteBatch != NULL, "SpriteBatchItem::updateWorldTransform() - Cannot update transform with a NULL sprite batch." );
 

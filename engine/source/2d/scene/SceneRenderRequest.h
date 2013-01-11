@@ -18,6 +18,9 @@
 #include "graphics/color.h"
 #endif
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 class SceneRenderObject;
@@ -66,6 +69,9 @@ public:
     /// Reset request state.
     virtual void resetState( void )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(SceneRenderRequest_ResetState);
+
         mpSceneRenderObject = NULL;
         mWorldPosition.SetZero();
         mDepth = 0.0f;

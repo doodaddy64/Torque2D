@@ -885,7 +885,7 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
     }
 
     // Debug Profiling.
-    PROFILE_START(Scene_RenderSceneQuery);
+    PROFILE_START(Scene_RenderSceneVisibleQuery);
 
     // Clear world query.
     mpWorldQuery->clearQuery();
@@ -898,7 +898,7 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
     mpWorldQuery->renderQueryArea( pSceneRenderState->mRenderAABB );
 
     // Debug Profiling.
-    PROFILE_END();  //Scene_RenderSceneQuery
+    PROFILE_END();  //Scene_RenderSceneVisibleQuery
 
     // Are there any query results?
     if ( mpWorldQuery->getQueryResultsCount() > 0 )

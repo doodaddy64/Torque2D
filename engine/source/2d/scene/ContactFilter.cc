@@ -6,10 +6,16 @@
 #include "ContactFilter.h"
 #include "2d/sceneobject/SceneObject.h"
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 bool ContactFilter::ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB)
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(ContactFilter_ShouldCollide);
+
     PhysicsProxy* pPhysicsProxyA = static_cast<PhysicsProxy*>(fixtureA->GetBody()->GetUserData());
     PhysicsProxy* pPhysicsProxyB = static_cast<PhysicsProxy*>(fixtureB->GetBody()->GetUserData());
 

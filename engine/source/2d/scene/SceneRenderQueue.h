@@ -10,6 +10,9 @@
 #include "2d/scene/SceneRenderRequest.h"
 #endif
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 class SceneRenderQueue : public IFactoryObjectReset
@@ -62,6 +65,9 @@ public:
 
     virtual void resetState( void )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(SceneRenderQueue_ResetState);
+
         // Cache request.
         for( typeRenderRequestVector::iterator itr = mRenderRequests.begin(); itr != mRenderRequests.end(); ++itr )
         {
@@ -78,6 +84,9 @@ public:
 
     inline SceneRenderRequest* createRenderRequest( void )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(SceneRenderQueue_CreateRenderRequest);
+
         // Create scene render request.
         SceneRenderRequest* pSceneRenderRequest = SceneRenderRequestFactory.createObject();
 
@@ -101,46 +110,93 @@ public:
         switch( mSortMode )
         {
             case RENDER_SORT_OFF:
-                return;
+                {
+                    return;
+                }
 
             case RENDER_SORT_NEWEST:
-                dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredNewFrontSort );
-                return;
+                {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(SceneRenderQueue_SortNewest);
+
+                    dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredNewFrontSort );
+                    return;
+                }
 
             case RENDER_SORT_OLDEST:
-                dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredOldFrontSort );
-                return;
+                {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(SceneRenderQueue_SortOldest);
+
+                    dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredOldFrontSort );
+                    return;
+                }
 
             case RENDER_SORT_BATCH:
-                dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layerBatchOrderSort );
+                {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(SceneRenderQueue_SortBatch);
 
-                // Batching means we don't need strict order.
-                mStrictOrderMode = false;
-                return;
+                    dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layerBatchOrderSort );
+
+                    // Batching means we don't need strict order.
+                    mStrictOrderMode = false;
+                    return;
+                }
 
             case RENDER_SORT_XAXIS:
-                dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredXSortPointSort);
-                return;
+                {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(SceneRenderQueue_SortXAxis);
+
+                    dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredXSortPointSort);
+                    return;
+                }
 
             case RENDER_SORT_YAXIS:
-                dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredYSortPointSort );
-                return;
+                {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(SceneRenderQueue_SortYAxis);
+
+                    dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredYSortPointSort );
+                    return;
+                }
 
             case RENDER_SORT_ZAXIS:
-                dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredDepthSort );
-                return;
+                {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(SceneRenderQueue_SortZAxis);
+
+                    dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredDepthSort );
+                    return;
+                }
 
             case RENDER_SORT_INVERSE_XAXIS:
-                dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredInverseXSortPointSort );
-                return;
+                {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(SceneRenderQueue_SortInverseXAxis);
+
+                    dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredInverseXSortPointSort );
+                    return;
+                }
 
             case RENDER_SORT_INVERSE_YAXIS:
-                dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredInverseYSortPointSort );
-                return;
+                {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(SceneRenderQueue_SortInverseYAxis);
+
+                    dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredInverseYSortPointSort );
+                    return;
+                }
 
             case RENDER_SORT_INVERSE_ZAXIS:
-                dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredInverseDepthSort );
-                return;
+                {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(SceneRenderQueue_SortInverseZAxis);
+
+                    dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layeredInverseDepthSort );
+                    return;
+                }
 
             default:
                 // Sanity!
