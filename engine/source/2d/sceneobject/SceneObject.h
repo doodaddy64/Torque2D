@@ -500,7 +500,6 @@ public:
     inline S32              getSrcBlendFactor( void ) const             { return mSrcBlendFactor; }
     inline void             setDstBlendFactor( const S32 blendFactor )  { mDstBlendFactor = blendFactor; }
     inline S32              getDstBlendFactor( void ) const             { return mDstBlendFactor; }
-    void                    setBlendColorString( const char* string );
     inline void             setBlendColor( const ColorF& blendColor )   { mBlendColor = blendColor; }
     inline const ColorF&    getBlendColor( void ) const                 { return mBlendColor; }
     inline void             setBlendAlpha( const F32 alpha )            { mBlendColor.alpha = alpha; }

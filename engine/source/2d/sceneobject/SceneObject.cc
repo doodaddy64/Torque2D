@@ -593,6 +593,9 @@ void SceneObject::resetTickSpatials( const bool resize )
 
 void SceneObject::preIntegrate( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_PreIntegrate);
+
    // Finish if nothing is dirty.
     if ( !mSpatialDirty )
         return;
@@ -612,6 +615,9 @@ void SceneObject::preIntegrate( const F32 totalTime, const F32 elapsedTime, Debu
 
 void SceneObject::integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_IntegrateObject);
+
     // Fetch position.
     const b2Vec2 position = getPosition();
 
@@ -661,48 +667,58 @@ void SceneObject::integrateObject( const F32 totalTime, const F32 elapsedTime, D
 
 void SceneObject::postIntegrate(const F32 totalTime, const F32 elapsedTime, DebugStats *pDebugStats)
 {
-   if( getScene() )
-   {
-        // Notify components.
-        notifyComponentsUpdate();
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_PostIntegrate);
 
-        // Script "onUpdate".
-        if ( mUpdateCallback )
+    // Finish if no scene.
+    if( !getScene() )
+        return;
+
+    // Notify components.
+    notifyComponentsUpdate();
+
+    // Script "onUpdate".
+    if ( mUpdateCallback )
+    {
+        PROFILE_SCOPE(SceneObject_onUpdateCallback);
+        Con::executef(this, 1, "onUpdate");
+    }
+
+    // Are we using the sleeping callback?
+    if ( mSleepingCallback )
+    {
+        PROFILE_SCOPE(SceneObject_onWakeSleepCallback);
+
+        // Yes, so fetch the current awake state.
+        const bool currentAwakeState = getAwake();
+
+        // Did we change awake state?
+        if ( currentAwakeState != mLastAwakeState )
         {
-            PROFILE_SCOPE(SceneObject_onUpdateCallback);
-            Con::executef(this, 1, "onUpdate");
+            // Yes, so update last awake state.
+            mLastAwakeState = currentAwakeState;
+
+            // Perform the appropriate callback.
+            if ( currentAwakeState )
+                Con::executef(this, 1, "onWake");
+            else
+                Con::executef(this, 1, "onSleep");
         }
-
-        // Are we using the sleeping callback?
-        if ( mSleepingCallback )
-        {
-            PROFILE_SCOPE(SceneObject_onWakeSleepCallback);
-
-            // Yes, so fetch the current awake state.
-            const bool currentAwakeState = getAwake();
-
-            // Did we change awake state?
-            if ( currentAwakeState != mLastAwakeState )
-            {
-                // Yes, so update last awake state.
-                mLastAwakeState = currentAwakeState;
-
-                // Perform the appropriate callback.
-                if ( currentAwakeState )
-                    Con::executef(this, 1, "onWake");
-                else
-                    Con::executef(this, 1, "onSleep");
-            }
-        }
-   }
+    }
 }
 
 //-----------------------------------------------------------------------------
 
 void SceneObject::interpolateObject( const F32 timeDelta )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_InterpolateObject);
+
     if ( mSpatialDirty )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(SceneObject_InterpolatePositionAngle);
+
         if ( timeDelta < 1.0f )
         {
             // Calculate render position.
@@ -751,6 +767,9 @@ void SceneObject::interpolateObject( const F32 timeDelta )
 
 void SceneObject::sceneRenderFallback( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_SceneRenderFallback);
+
     // Fetch the default "NoImageRenderProxy".
     RenderProxy* pNoImageRenderProxy = Sim::findObject<RenderProxy>( Con::getVariable( NO_IMAGE_RENDER_PROXY_NAME) );
 
@@ -772,6 +791,9 @@ void SceneObject::sceneRenderFallback( const SceneRenderState* pSceneRenderState
 
 void SceneObject::sceneRenderOverlay( const SceneRenderState* sceneRenderState )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_SceneRenderOverlay);
+
     // Get Scene.
     Scene* pScene = getScene();
 
@@ -865,6 +887,9 @@ void SceneObject::setEnabled( const bool enabled )
 
 bool SceneObject::synchronizePrefab( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_SynchronizePrefab);
+
     // Snapshot the current objects state that we don't want to change.
     const Vector2 position   = getPosition();
     const Vector2 size       = getSize();
@@ -1178,6 +1203,9 @@ void SceneObject::setSceneGroup( const U32 sceneGroup )
 
 void SceneObject::setArea( const Vector2& corner1, const Vector2& corner2 )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_SetArea);
+
    // Calculate Normalized region.
    const Vector2 topLeft((corner1.x <= corner2.x) ? corner1.x : corner2.x, (corner1.y <= corner2.y) ? corner1.y : corner2.y);
    const Vector2 bottomRight((corner1.x > corner2.x) ? corner1.x : corner2.x, (corner1.y > corner2.y) ? corner1.y : corner2.y);
@@ -1200,6 +1228,9 @@ void SceneObject::setArea( const Vector2& corner1, const Vector2& corner2 )
 
 void SceneObject::setSize( const Vector2& size )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_SetSize);
+
     mSize = size;
 
     // Calculate half size.
@@ -1223,6 +1254,9 @@ void SceneObject::setSize( const Vector2& size )
   
 void SceneObject::setPosition( const Vector2& position )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_SetPosition);
+
     if ( mpScene )
     {
         mpBody->SetTransform( position, mpBody->GetAngle() );
@@ -1240,6 +1274,9 @@ void SceneObject::setPosition( const Vector2& position )
 
 void SceneObject::setAngle( const F32 radians )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_SetAngle);
+
     if ( mpScene )
     {
         mpBody->SetTransform( mpBody->GetPosition(), radians );
@@ -2074,6 +2111,9 @@ void SceneObject::clearCollisionShapes( void )
 
 S32 SceneObject::createCircleCollisionShape( const F32 radius )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_CreateCircleCollisionShape);
+
     return createCircleCollisionShape( radius, b2Vec2(0.0f, 0.0f) );
 }
 
@@ -2137,6 +2177,9 @@ Vector2 SceneObject::getCircleCollisionShapeLocalPosition( const U32 shapeIndex 
 
 S32 SceneObject::createPolygonCollisionShape( const U32 pointCount, const b2Vec2* localPoints )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_CreatePolygonCollisionShape);
+
     // Sanity!
     if ( pointCount < 3 || pointCount > b2_maxPolygonVertices )
     {
@@ -2172,6 +2215,9 @@ S32 SceneObject::createPolygonCollisionShape( const U32 pointCount, const b2Vec2
 
 S32 SceneObject::createPolygonBoxCollisionShape( const F32 width, const F32 height )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_CreatePolygonBoxCollisionShapeWidthHeight);
+
     // Sanity!
     if ( width <= 0.0f )
     {
@@ -2212,6 +2258,9 @@ S32 SceneObject::createPolygonBoxCollisionShape( const F32 width, const F32 heig
 
 S32 SceneObject::createPolygonBoxCollisionShape( const F32 width, const F32 height, const b2Vec2& localCentroid )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_CreatePolygonBoxCollisionShapeWidthHeightCentroid);
+
     // Sanity!
     if ( width <= 0.0f )
     {
@@ -2252,6 +2301,9 @@ S32 SceneObject::createPolygonBoxCollisionShape( const F32 width, const F32 heig
 
 S32 SceneObject::createPolygonBoxCollisionShape( const F32 width, const F32 height, const b2Vec2& localCentroid, const F32 rotation )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_CreatePolygonBoxCollisionShapeWidthHeightCentroidRotation);
+
     // Sanity!
     if ( width <= 0.0f )
     {
@@ -2315,6 +2367,9 @@ Vector2 SceneObject::getPolygonCollisionShapeLocalPoint( const U32 shapeIndex, c
 
 S32 SceneObject::createChainCollisionShape( const U32 pointCount, const b2Vec2* localPoints )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_CreateChainCollisionShape);
+
     // Sanity!
     if ( pointCount < 2 )
     {
@@ -2352,6 +2407,9 @@ S32 SceneObject::createChainCollisionShape(  const U32 pointCount, const b2Vec2*
                                                 const bool hasAdjacentLocalPositionStart, const bool hasAdjacentLocalPositionEnd,
                                                 const b2Vec2& adjacentLocalPositionStart, const b2Vec2& adjacentLocalPositionEnd )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_CreateChainCollisionShapeAdjacents);
+
     // Sanity!
     if ( pointCount < 2 )
     {
@@ -2457,6 +2515,9 @@ Vector2 SceneObject::getChainCollisionShapeAdjacentEnd( const U32 shapeIndex ) c
 
 S32 SceneObject::createEdgeCollisionShape( const b2Vec2& localPositionStart, const b2Vec2& localPositionEnd )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_CreateEdgeCollisionShape);
+
     // Configure fixture definition.
     b2FixtureDef* pFixtureDef = new b2FixtureDef( mDefaultFixture );
     b2EdgeShape* pShape       = new b2EdgeShape();
@@ -2487,6 +2548,9 @@ S32 SceneObject::createEdgeCollisionShape(   const b2Vec2& localPositionStart, c
                                                 const bool hasAdjacentLocalPositionStart, const bool hasAdjacentLocalPositionEnd,
                                                 const b2Vec2& adjacentLocalPositionStart, const b2Vec2& adjacentLocalPositionEnd )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_CreateEdgeCollisionShapeAdjacents);
+
     // Configure fixture definition.
     b2FixtureDef* pFixtureDef = new b2FixtureDef( mDefaultFixture );
     b2EdgeShape* pShape       = new b2EdgeShape();
@@ -2590,30 +2654,6 @@ void SceneObject::setFlip( const bool flipX, const bool flipY )
 
 //-----------------------------------------------------------------------------
 
-void SceneObject::setBlendColorString(const char* color)
-{
-   U32 elementCount = Utility::mGetStringElementCount(color);
-   
-   // ("R G B [A]")
-   if ((elementCount == 3) || (elementCount == 4))
-   {
-      // Extract the color.
-      F32 red   = dAtof(Utility::mGetStringElement(color, 0));
-      F32 green = dAtof(Utility::mGetStringElement(color, 1));
-      F32 blue  = dAtof(Utility::mGetStringElement(color, 2));
-      F32 alpha = 1.0f;
-
-      // Grab the alpha if it's there.
-      if (elementCount > 3)
-         alpha = dAtof(Utility::mGetStringElement(color, 3));
-      
-
-      setBlendColor(ColorF(red, green, blue, alpha));
-   }
-}
-
-//-----------------------------------------------------------------------------
-
 void SceneObject::setBlendOptions( void )
 {
     // Set Blend Status.
@@ -2666,6 +2706,9 @@ void SceneObject::resetBlendOptions( void )
 
 void SceneObject::onInputEvent( StringTableEntry name, const GuiEvent& event, const Vector2& worldMousePosition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_OnInputEvent);
+
     // Argument Buffers.
     char argBuffer[3][32];
 
@@ -2815,6 +2858,9 @@ void SceneObject::copyFrom( SceneObject* pSceneObject, const bool copyDynamicFie
 
 void SceneObject::copyTo( SimObject* obj )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_CopyTo);
+
     // Call parent.
     Parent::copyTo(obj);
 
@@ -3244,6 +3290,9 @@ void SceneObject::processDestroyNotifications( void )
 
 void SceneObject::notifyComponentsAddToScene( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_NotifyComponentsAddToScene);
+
     // Notify components.
     VectorPtr<SimComponent*>& componentList = lockComponentList();
     for( SimComponentIterator itr = componentList.begin(); itr != componentList.end(); ++itr )
@@ -3259,6 +3308,9 @@ void SceneObject::notifyComponentsAddToScene( void )
 
 void SceneObject::notifyComponentsRemoveFromScene( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_NotifyComponentsRemoveFromScene);
+
     // Notify components.
     VectorPtr<SimComponent*>& componentList = lockComponentList();
     for( SimComponentIterator itr = componentList.begin(); itr != componentList.end(); ++itr )
@@ -3274,6 +3326,9 @@ void SceneObject::notifyComponentsRemoveFromScene( void )
 
 void SceneObject::notifyComponentsUpdate( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_NotifyComponentsUpdate);
+
     // Notify components.
     VectorPtr<SimComponent*>& componentList = lockComponentList();
     for( SimComponentIterator itr = componentList.begin(); itr != componentList.end(); ++itr )
@@ -3289,22 +3344,25 @@ void SceneObject::notifyComponentsUpdate( void )
 
 BehaviorInstance* SceneObject::behavior(const char *name)
 {
-   StringTableEntry stName = StringTable->insert(name);
-   VectorPtr<SimComponent *>&componentList = lockComponentList();
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_BehaviorName);
 
-   for( SimComponentIterator nItr = componentList.begin(); nItr != componentList.end(); nItr++ )
-   {
-      BehaviorInstance* pComponent = dynamic_cast<BehaviorInstance*>(*nItr);
-      if( pComponent && StringTable->insert(pComponent->getTemplateName()) == stName )
-      {
-         unlockComponentList();
-         return pComponent;
-      }
-   }
+    StringTableEntry stName = StringTable->insert(name);
+    VectorPtr<SimComponent *>&componentList = lockComponentList();
 
-   unlockComponentList();
+    for( SimComponentIterator nItr = componentList.begin(); nItr != componentList.end(); nItr++ )
+    {
+        BehaviorInstance* pComponent = dynamic_cast<BehaviorInstance*>(*nItr);
+        if( pComponent && StringTable->insert(pComponent->getTemplateName()) == stName )
+        {
+            unlockComponentList();
+            return pComponent;
+        }
+    }
 
-   return NULL;
+    unlockComponentList();
+
+    return NULL;
 }
 
 //-----------------------------------------------------------------------------
@@ -3318,6 +3376,9 @@ U32 SceneObject::getGlobalSceneObjectCount( void )
 
 void SceneObject::onTamlCustomWrite( TamlCollection& customCollection )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_OnTamlCustomWrite);
+
     // Call parent.
     Parent::onTamlCustomWrite( customCollection );
 
@@ -3479,6 +3540,9 @@ void SceneObject::onTamlCustomWrite( TamlCollection& customCollection )
 
 void SceneObject::onTamlCustomRead( const TamlCollection& customCollection )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_OnTamlCustomRead);
+
     // Call parent.
     Parent::onTamlCustomRead( customCollection );
 
