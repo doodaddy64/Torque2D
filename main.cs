@@ -3,6 +3,9 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
+// Set profiler.
+profilerEnable( false );
+
 // Set log mode.
 setLogMode(2);
 
