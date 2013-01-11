@@ -255,6 +255,7 @@ private:
     /// Miscellaneous.
     S32                         mIsEditorScene;
     bool                        mUpdateCallback;
+    bool                        mRenderCallback;
     typeContactHash             mBeginContacts;
     typeContactVector           mEndContacts;
     U32                         mSceneIndex;
@@ -651,7 +652,10 @@ public:
     inline void             setIsEditorScene( bool status )             { mIsEditorScene += (status ? 1 : -1); }
     static U32              getGlobalSceneCount( void );
     inline U32              getSceneIndex( void ) const                 { return mSceneIndex; }
+    inline void             setUpdateCallback( const bool callback )    { mUpdateCallback = callback; }
     inline bool             getUpdateCallback( void ) const             { return mUpdateCallback; }
+    inline void             setRenderCallback( const bool callback )    { mRenderCallback = callback; }
+    inline bool             getRenderCallback( void ) const             { return mRenderCallback; }
 
     /// Declare Console Object.
     DECLARE_CONOBJECT(Scene);
@@ -681,6 +685,7 @@ protected:
 
     // Callbacks.
     static bool writeUpdateCallback( void* obj, StringTableEntry pFieldName )       { return static_cast<Scene*>(obj)->getUpdateCallback(); }
+    static bool writeRenderCallback( void* obj, StringTableEntry pFieldName )       { return static_cast<Scene*>(obj)->getRenderCallback(); }
 
 public:
     static SimObjectPtr<Scene> LoadingScene;

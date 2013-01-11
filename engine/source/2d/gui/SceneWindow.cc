@@ -21,10 +21,7 @@
 #include "SceneWindow_ScriptBinding.h"
 
 // Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
 #include "debug/profiler.h"
-#endif
-
 
 //-----------------------------------------------------------------------------
 
@@ -1413,10 +1410,8 @@ void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
     if ( !pScene )
         return;
 
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_START(SceneWindow_Render);
-#endif
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneWindow_Render);
 
     // Calculate current camera View ( if needed ).
     calculateCameraView( &mCameraCurrent );
@@ -1510,11 +1505,6 @@ void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
 
     // Update Window.
     setUpdate();
-
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_END();   // SceneWindow_Render
-#endif
 }
 
 //------------------------------------------------------------------------------

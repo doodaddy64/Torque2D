@@ -59,9 +59,7 @@
 #include "SceneObject_ScriptBinding.h"
 
 // Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
 #include "debug/profiler.h"
-#endif
 
 //-----------------------------------------------------------------------------
 
@@ -665,20 +663,21 @@ void SceneObject::postIntegrate(const F32 totalTime, const F32 elapsedTime, Debu
 {
    if( getScene() )
    {
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_START(SceneObject_onUpdate);
-#endif
-
         // Notify components.
         notifyComponentsUpdate();
 
         // Script "onUpdate".
         if ( mUpdateCallback )
+        {
+            PROFILE_SCOPE(SceneObject_onUpdateCallback);
             Con::executef(this, 1, "onUpdate");
+        }
 
         // Are we using the sleeping callback?
         if ( mSleepingCallback )
         {
+            PROFILE_SCOPE(SceneObject_onWakeSleepCallback);
+
             // Yes, so fetch the current awake state.
             const bool currentAwakeState = getAwake();
 
@@ -695,10 +694,6 @@ void SceneObject::postIntegrate(const F32 totalTime, const F32 elapsedTime, Debu
                     Con::executef(this, 1, "onSleep");
             }
         }
-
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_END();   // SceneObject_onUpdate
-#endif
    }
 }
 
@@ -894,10 +889,8 @@ bool SceneObject::synchronizePrefab( void )
 
 void SceneObject::setLifetime( const F32 lifetime )
 {
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(SceneObject_setLifetime);
-#endif
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_setLifetime);
 
     // Usage Flag.
     mLifetimeActive = mGreaterThanZero( lifetime );
@@ -913,11 +906,6 @@ void SceneObject::setLifetime( const F32 lifetime )
         // No, so reset it to be safe.
         mLifetime = 0.0f;
     }
-
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // SceneObject_setLifetime
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2752,6 +2740,9 @@ void SceneObject::detachGui( void )
 
 void SceneObject::updateAttachedGui( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneObject_updateAttachedGui);
+
     // Finish if either Gui Control or Window is invalid.
     if ( !mpAttachedGui || !mpAttachedGuiSceneWindow )
         return;
@@ -2766,11 +2757,6 @@ void SceneObject::updateAttachedGui( void )
         // Finish Here.
         return;
     }
-
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(SceneObject_updateAttachedGui);
-#endif
 
     // Calculate the GUI Controls' dimensions.
     Point2I topLeftI, extentI;
@@ -2811,11 +2797,6 @@ void SceneObject::updateAttachedGui( void )
 
     // Set Control Dimensions.
     mpAttachedGui->resize( topLeftI, extentI );
-
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // SceneObject_updateAttachedGui
-#endif
 }
 
 //-----------------------------------------------------------------------------

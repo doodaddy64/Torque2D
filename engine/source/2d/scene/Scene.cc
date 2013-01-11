@@ -35,9 +35,7 @@
 #include "Scene_ScriptBinding.h"
 
 // Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
 #include "debug/profiler.h"
-#endif
 
 //------------------------------------------------------------------------------
 
@@ -151,6 +149,7 @@ Scene::Scene() :
     /// Miscellaneous.
     mIsEditorScene(0),
     mUpdateCallback(false),
+    mRenderCallback(false),
     mSceneIndex(0)
 {
     // Initialize joint property names.
@@ -371,6 +370,7 @@ void Scene::initPersistFields()
 
     // Callbacks.
     addField("UpdateCallback", TypeBool, Offset(mUpdateCallback, Scene), &writeUpdateCallback, "");
+    addField("RenderCallback", TypeBool, Offset(mRenderCallback, Scene), &writeRenderCallback, "");
 }
 
 //-----------------------------------------------------------------------------
@@ -381,9 +381,7 @@ void Scene::BeginContact( b2Contact* pContact )
     if ( !pContact->IsTouching() )
         return;
 
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_BeginContact);
-#endif
+    PROFILE_SCOPE(Scene_BeginContact);
 
     // Fetch fixtures.
     b2Fixture* pFixtureA = pContact->GetFixtureA();
@@ -397,9 +395,6 @@ void Scene::BeginContact( b2Contact* pContact )
     if (    pPhysicsProxyA->getPhysicsProxyType() != PhysicsProxy::PHYSIC_PROXY_SCENEOBJECT ||
             pPhysicsProxyB->getPhysicsProxyType() != PhysicsProxy::PHYSIC_PROXY_SCENEOBJECT )
     {
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();  //Scene_BeginContact
-#endif
             return;
     }
 
@@ -413,19 +408,13 @@ void Scene::BeginContact( b2Contact* pContact )
 
     // Add contact.
     mBeginContacts.insert( pContact, tickContact );
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();  //Scene_BeginContact
-#endif
 }
 
 //-----------------------------------------------------------------------------
 
 void Scene::EndContact( b2Contact* pContact )
 {
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_EndContact);
-#endif
+    PROFILE_SCOPE(Scene_EndContact);
 
     // Fetch fixtures.
     b2Fixture* pFixtureA = pContact->GetFixtureA();
@@ -439,9 +428,6 @@ void Scene::EndContact( b2Contact* pContact )
     if (    pPhysicsProxyA->getPhysicsProxyType() != PhysicsProxy::PHYSIC_PROXY_SCENEOBJECT ||
             pPhysicsProxyB->getPhysicsProxyType() != PhysicsProxy::PHYSIC_PROXY_SCENEOBJECT )
     {
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();  //Scene_EndContact
-#endif
             return;
     }
 
@@ -455,10 +441,6 @@ void Scene::EndContact( b2Contact* pContact )
 
     // Add contact.
     mEndContacts.push_back( tickContact );
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();  //Scene_EndContact
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -487,6 +469,9 @@ void Scene::PostSolve( b2Contact* pContact, const b2ContactImpulse* pImpulse )
 
 void Scene::forwardContacts( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Scene_ForwardContacts);
+
     // Iterate end contacts.
     for( typeContactVector::iterator contactItr = mEndContacts.begin(); contactItr != mEndContacts.end(); ++contactItr )
     {
@@ -514,6 +499,9 @@ void Scene::forwardContacts( void )
 
 void Scene::dispatchBeginContactCallbacks( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Scene_DispatchBeginContactCallbacks);
+
     // Sanity!
     AssertFatal( b2_maxManifoldPoints == 2, "Scene::dispatchBeginContactCallbacks() - Invalid assumption about max manifold points." );
 
@@ -528,10 +516,6 @@ void Scene::dispatchBeginContactCallbacks( void )
     Namespace* pNamespace = getNamespace();
     if ( pNamespace != NULL && pNamespace->lookup( StringTable->insert( "onCollision" ) ) == NULL )
         return;
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_DispatchBeginContactCallbacks);
-#endif
 
     // Iterate all contacts.
     for ( typeContactHash::iterator contactItr = mBeginContacts.begin(); contactItr != mBeginContacts.end(); ++contactItr )
@@ -607,16 +591,15 @@ void Scene::dispatchBeginContactCallbacks( void )
             pSceneObjectBuffer,
             pMiscInfoBuffer );
     }
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();  //Scene_DispatchBeginContactCallbacks
-#endif
 }
 
 //-----------------------------------------------------------------------------
 
 void Scene::dispatchEndContactCallbacks( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Scene_DispatchEndContactCallbacks);
+
     // Sanity!
     AssertFatal( b2_maxManifoldPoints == 2, "Scene::dispatchEndContactCallbacks() - Invalid assumption about max manifold points." );
 
@@ -631,10 +614,6 @@ void Scene::dispatchEndContactCallbacks( void )
     Namespace* pNamespace = getNamespace();
     if ( pNamespace != NULL && pNamespace->lookup( StringTable->insert( "onEndCollision" ) ) == NULL )
         return;
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_DispatchEndContactCallback);
-#endif
 
     // Iterate all contacts.
     for ( typeContactVector::iterator contactItr = mEndContacts.begin(); contactItr != mEndContacts.end(); ++contactItr )
@@ -678,19 +657,14 @@ void Scene::dispatchEndContactCallbacks( void )
             pSceneObjectBBuffer,
             pMiscInfoBuffer );
     }
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();  //Scene_DispatchEndContactCallback
-#endif
 }
 
 //-----------------------------------------------------------------------------
 
 void Scene::processTick( void )
 {
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_ProcessTick);
-#endif
+    // Debug Profiling.
+    PROFILE_SCOPE(Scene_ProcessTick);
 
     // Process Delete Requests.
     processDeleteRequests(false);
@@ -762,10 +736,6 @@ void Scene::processTick( void )
         // Debug Status Reference.
         DebugStats* pDebugStats = &mDebugStats;
 
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_START(Scene_PreIntegrate);
-#endif
-
         // ****************************************************
         // Pre-integrate objects.
         // ****************************************************
@@ -773,17 +743,15 @@ void Scene::processTick( void )
         // Iterate ticked scene objects.
         for ( S32 n = 0; n < mTickedSceneObjects.size(); ++n )
         {
+            // Debug Profiling.
+            PROFILE_SCOPE(Scene_PreIntegrate);
+
             // Pre-integrate.
             mTickedSceneObjects[n]->preIntegrate( mSceneTime, Tickable::smTickSec, pDebugStats );
         }
 
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_END();   // Scene_PreIntegrate
-#endif
-
-#ifdef TORQUE_ENABLE_PROFILER
-PROFILE_START(Scene_IntegratePhysics);
-#endif
+        // Debug Profiling.
+        PROFILE_START(Scene_IntegratePhysicsSystem);
 
         // Reset contacts.
         mBeginContacts.clear();
@@ -796,16 +764,13 @@ PROFILE_START(Scene_IntegratePhysics);
             mpWorld->Step( Tickable::smTickSec, mVelocityIterations, mPositionIterations );
         }
 
+        // Debug Profiling.
+        PROFILE_END();   // Scene_IntegratePhysicsSystem
+
         // Forward the contacts.
         forwardContacts();
 
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_END();   // Scene_IntegratePhysics
-#endif
 
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_START(Scene_IntegrateObject);
-#endif
         // ****************************************************
         // Integrate objects.
         // ****************************************************
@@ -813,17 +778,13 @@ PROFILE_START(Scene_IntegratePhysics);
         // Iterate ticked scene objects.
         for ( S32 n = 0; n < mTickedSceneObjects.size(); ++n )
         {
+            // Debug Profiling.
+            PROFILE_SCOPE(Scene_IntegrateObject);
+
             // Integrate.
             mTickedSceneObjects[n]->integrateObject( mSceneTime, Tickable::smTickSec, pDebugStats );
         }
 
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_END();   // Scene_IntegrateObject
-#endif
-
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_START(Scene_PostIntegrate);
-#endif
         // ****************************************************
         // Post-Integrate Stage.
         // ****************************************************
@@ -831,25 +792,21 @@ PROFILE_START(Scene_IntegratePhysics);
         // Iterate ticked scene objects.
         for ( S32 n = 0; n < mTickedSceneObjects.size(); ++n )
         {
+            // Debug Profiling.
+            PROFILE_SCOPE(Scene_PostIntegrate);
+
             // Post-integrate.
             mTickedSceneObjects[n]->postIntegrate( mSceneTime, Tickable::smTickSec, pDebugStats );
         }
 
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_END();   // Scene_PostIntegrate
-#endif
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_OnSceneUpdatetCallback);
-#endif
-
         // Scene update callback.
         if( mUpdateCallback )
-            Con::executef( this, 1, "onSceneUpdate" );
+        {
+            // Debug Profiling.
+            PROFILE_SCOPE(Scene_OnSceneUpdatetCallback);
 
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();  //Scene_OnSceneUpdatetCallback
-#endif
+            Con::executef( this, 1, "onSceneUpdate" );
+        }
 
         // Only dispatch contacts if a "normal" scene.
         if ( isNormalScene )
@@ -865,10 +822,6 @@ PROFILE_START(Scene_IntegratePhysics);
 
     // Update debug stat ranges.
     mDebugStats.updateRanges();
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // Scene_ProcessTick
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -878,9 +831,8 @@ void Scene::interpolateTick( F32 timeDelta )
     // Finish if scene is paused.
     if ( getScenePause() ) return;
 
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_InterpolateTick);
-#endif
+    // Debug Profiling.
+    PROFILE_SCOPE(Scene_InterpolateTick);
 
     // Iterate scene objects.
     for( S32 n = 0; n < mSceneObjects.size(); ++n )
@@ -894,19 +846,14 @@ void Scene::interpolateTick( F32 timeDelta )
 
         pSceneObject->interpolateObject( timeDelta );
     }
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // Scene_InterpolateTick
-#endif
 }
 
 //-----------------------------------------------------------------------------
 
 void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
 {
-#ifdef TORQUE_ENABLE_PROFILER
-        PROFILE_START(Scene_RenderView);
-#endif
+    // Debug Profiling.
+    PROFILE_SCOPE(Scene_RenderSceneTotal);
 
     // Fetch debug stats.
     DebugStats* pDebugStats = pSceneRenderState->mpDebugStats;
@@ -937,6 +884,9 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
         glClear(GL_COLOR_BUFFER_BIT);	
     }
 
+    // Debug Profiling.
+    PROFILE_START(Scene_RenderSceneQuery);
+
     // Clear world query.
     mpWorldQuery->clearQuery();
 
@@ -947,9 +897,15 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
     // Query render AABB.
     mpWorldQuery->renderQueryArea( pSceneRenderState->mRenderAABB );
 
+    // Debug Profiling.
+    PROFILE_END();  //Scene_RenderSceneQuery
+
     // Are there any query results?
     if ( mpWorldQuery->getQueryResultsCount() > 0 )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(Scene_RenderSceneCompileRenderRequests);
+
         // Fetch the primary scene render queue.
         SceneRenderQueue* pSceneRenderQueue = SceneRenderQueueFactory.createObject();      
 
@@ -1037,6 +993,9 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                 // Do we have more than a single render request?
                 if ( renderRequestCount > 1 )
                 {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(Scene_RenderSceneLayerSorting);
+
                     // Yes, so fetch layer sort mode.
                     SceneRenderQueue::RenderSort& mode = mLayerSortModes[layer];
 
@@ -1044,32 +1003,25 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                     if ( !mBatchRenderer.getBatchEnabled() && mode == SceneRenderQueue::RENDER_SORT_BATCH )
                         mode = SceneRenderQueue::RENDER_SORT_NEWEST;
 
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_LayerSorting);
-#endif
                     // Set render queue mode.
                     pSceneRenderQueue->setSortMode( mode );
 
                     // Sort the render requests.
                     pSceneRenderQueue->sort();
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END(); // Scene_LayerSorting
-#endif
                 }
 
                 // Iterate render requests.
                 for( SceneRenderQueue::typeRenderRequestVector::iterator renderRequestItr = sceneRenderRequests.begin(); renderRequestItr != sceneRenderRequests.end(); ++renderRequestItr )
                 {
+                     // Debug Profiling.
+                    PROFILE_SCOPE(Scene_RenderSceneRequests);
+
                     // Fetch render request.
                     SceneRenderRequest* pSceneRenderRequest = *renderRequestItr;
 
                     // Fetch scene render object.
                     SceneRenderObject* pSceneRenderObject = pSceneRenderRequest->mpSceneRenderObject;
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_RenderObjects);
-#endif                   
+             
                     // Flush if the object is not render batched and we're in strict order mode.
                     if ( !pSceneRenderObject->isBatchRendered() && mBatchRenderer.getStrictOrderMode() )
                     {
@@ -1151,31 +1103,24 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                             pDebugStats->renderFallbacks++;
                         }
                     }
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // Scene_RenderObjects
-#endif
                 }
 
                 // Flush.
                 // NOTE:    We cannot batch between layers as we adhere to a strict layer render order.
                 mBatchRenderer.flush( pDebugStats->batchLayerFlush );
 
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_RenderObjectOverlays);
-#endif
                 // Iterate query results.
                 for( typeWorldQueryResultVector::iterator worldQueryItr = layerResults.begin(); worldQueryItr != layerResults.end(); ++worldQueryItr )
                 {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(Scene_RenderObjectOverlays);
+
                     // Fetch scene object.
                     SceneObject* pSceneObject = worldQueryItr->mpSceneObject;
 
                     // Render object overlay.
                     pSceneObject->sceneRenderOverlay( pSceneRenderState );
                 }
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // Scene_RenderObjectOverlays
-#endif
             }
 
             // Reset render queue.
@@ -1184,38 +1129,29 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
 
         // Cache render queue..
         SceneRenderQueueFactory.cacheObject( pSceneRenderQueue );
-
     }
 
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_RenderJointOverlays);
-#endif
     // Draw Joints.
     if ( getDebugMask() & Scene::SCENE_DEBUG_JOINTS )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(Scene_RenderSceneJointOverlays);
+
         mDebugDraw.DrawJoints( mpWorld );
     }
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // Scene_RenderJointOverlays
-#endif
 
     // Update debug stat ranges.
     mDebugStats.updateRanges();
 
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Scene_OnSceneRendertCallback);
-#endif
+    // Are we using the render callback?
+    if( mRenderCallback )
+    {
+        // Debug Profiling.
+        PROFILE_SCOPE(Scene_OnSceneRendertCallback);
 
-    if( mUpdateCallback )
+        // Yes, so perform callback.
         Con::executef( this, 1, "onSceneRender" );
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();  //Scene_OnSceneRendertCallback
-#endif
-
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // Scene_RenderView
-#endif
+    }
 }
 
 //-----------------------------------------------------------------------------

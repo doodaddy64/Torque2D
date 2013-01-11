@@ -23,6 +23,9 @@ public:
 
     inline void updateRanges( void )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(DebugStats_UpdateRanges);
+
         // Frames per-second.
         if ( fps > 0.0f )
         {

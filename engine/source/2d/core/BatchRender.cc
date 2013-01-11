@@ -10,9 +10,7 @@
 #endif
 
 // Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
 #include "debug/profiler.h"
-#endif
 
 //-----------------------------------------------------------------------------
 
@@ -98,9 +96,7 @@ void BatchRender::SubmitQuad(
     // Sanity!
     AssertFatal( mpDebugStats != NULL, "Debug stats have not been configured." );
 
-#ifdef TORQUE_ENABLE_PROFILER
     PROFILE_START(BatchRender_SubmitQuad);
-#endif
 
     // Do we have anything batched?
     if ( mQuadCount > 0 )
@@ -226,9 +222,7 @@ void BatchRender::SubmitQuad(
         flushInternal();
     }
 
-#ifdef TORQUE_ENABLE_PROFILER
     PROFILE_END();   // BatchRender_SubmitQuad
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -269,9 +263,7 @@ void BatchRender::flushInternal( void )
     if ( mQuadCount == 0 )
         return;
 
-#ifdef TORQUE_ENABLE_PROFILER
     PROFILE_START(T2D_BatchRender_flush);
-#endif
 
     // Stats.
     mpDebugStats->batchFlushes++;
@@ -430,9 +422,7 @@ void BatchRender::flushInternal( void )
     mIndexCount = 0;
     mColorCount = 0;
 
-#ifdef TORQUE_ENABLE_PROFILER
     PROFILE_END();   // T2D_BatchRender_flush
-#endif
 }
 
 //-----------------------------------------------------------------------------

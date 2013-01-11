@@ -16,8 +16,7 @@ struct ProfilerRootData;
 /// All values outputted by the profiler are percentages of the time that it takes
 /// to run entire main loop.
 ///
-/// First, you must #define TORQUE_ENABLE_PROFILER in profiler.h in order to
-/// active it.  Examples of script use:
+/// Examples of script use:
 /// @code
 /// //enables or disables profiling.  Data is only gathered when the profiler is enabled.
 /// profilerEnable(bool enable);

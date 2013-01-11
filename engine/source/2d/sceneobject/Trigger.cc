@@ -12,9 +12,7 @@
 #include "Trigger_ScriptBinding.h"
 
 // Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
 #include "debug/profiler.h"
-#endif
 
 //------------------------------------------------------------------------------
 
@@ -84,28 +82,19 @@ void Trigger::integrateObject( const F32 totalTime, const F32 elapsedTime, Debug
     // Call Parent.
     Parent::integrateObject(totalTime, elapsedTime, pDebugStats);
 
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Trigger_IntegrateObject);
-#endif
+    // Debug Profiling.
+    PROFILE_SCOPE(Trigger_IntegrateObject);
 
     // Perform "OnEnter" callback.
     if ( mEnterCallback && mEnterColliders.size() > 0 )
     {
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Trigger_OnEnterCallback);
-#endif
+        // Debug Profiling.
+        PROFILE_SCOPE(Trigger_OnEnterCallback);
 
-    for ( collideCallbackType::iterator contactItr = mEnterColliders.begin(); contactItr != mEnterColliders.end(); ++contactItr )
-    {
-        Con::executef(this, 2, "onEnter", (*contactItr)->getIdString());
-    }
-
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // Trigger_OnEnterCallback
-#endif
+        for ( collideCallbackType::iterator contactItr = mEnterColliders.begin(); contactItr != mEnterColliders.end(); ++contactItr )
+        {
+            Con::executef(this, 2, "onEnter", (*contactItr)->getIdString());
+        }
     }
 
     // Fetch current contacts.
@@ -117,48 +106,29 @@ void Trigger::integrateObject( const F32 totalTime, const F32 elapsedTime, Debug
     // Perform "OnStay" callback.
     if ( mStayCallback && pCurrentContacts->size() > 0 )
     {
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Trigger_OnStayCallback);
-#endif
+        // Debug Profiling.
+        PROFILE_SCOPE(Trigger_OnStayCallback);
 
-    for ( typeContactVector::const_iterator contactItr = pCurrentContacts->begin(); contactItr != pCurrentContacts->end(); ++contactItr )
-    {
-        // Fetch colliding object.
-        SceneObject* pCollideWidth = contactItr->getCollideWith( this );
+        for ( typeContactVector::const_iterator contactItr = pCurrentContacts->begin(); contactItr != pCurrentContacts->end(); ++contactItr )
+        {
+            // Fetch colliding object.
+            SceneObject* pCollideWidth = contactItr->getCollideWith( this );
 
-        Con::executef(this, 2, "onStay", pCollideWidth->getIdString());
-    }
-
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // Trigger_OnStayCallback
-#endif
+            Con::executef(this, 2, "onStay", pCollideWidth->getIdString());
+        }
     }
 
     // Perform "OnLeave" callback.
     if ( mLeaveCallback && mLeaveColliders.size() > 0 )
     {
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_START(Trigger_OnLeaveCallback);
-#endif
+        // Debug Profiling.
+        PROFILE_SCOPE(Trigger_OnLeaveCallback);
 
-    for ( collideCallbackType::iterator contactItr = mLeaveColliders.begin(); contactItr != mLeaveColliders.end(); ++contactItr )
-    {
-        Con::executef(this, 2, "onLeave", (*contactItr)->getIdString());
+        for ( collideCallbackType::iterator contactItr = mLeaveColliders.begin(); contactItr != mLeaveColliders.end(); ++contactItr )
+        {
+            Con::executef(this, 2, "onLeave", (*contactItr)->getIdString());
+        }
     }
-
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // Trigger_OnLeaveCallback
-#endif
-    }
-
-// Debug Profiling.
-#ifdef TORQUE_ENABLE_PROFILER
-    PROFILE_END();   // Trigger_IntegrateObject
-#endif
 }
 
 //-----------------------------------------------------------------------------
