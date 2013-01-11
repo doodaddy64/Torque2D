@@ -39,7 +39,7 @@ void AnimationAsset::initPersistFields()
     // Call parent.
     Parent::initPersistFields();
 
-    addProtectedField("ImageMap", TypeImageAssetPtr, Offset(mImageAsset, AnimationAsset), &setImageMap, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
+    addProtectedField("ImageMap", TypeImageAssetPtr, Offset(mImageAsset, AnimationAsset), &setImage, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
     addProtectedField("AnimationFrames", TypeS32Vector, Offset(mAnimationFrames, AnimationAsset), &setAnimationFrames, &defaultProtectedGetFn, &writeAnimationFrames, "");
     addProtectedField("AnimationTime", TypeF32, Offset(mAnimationTime, AnimationAsset), &setAnimationTime, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
     addProtectedField("AnimationCycle", TypeBool, Offset(mAnimationCycle, AnimationAsset), &setAnimationCycle, &defaultProtectedGetFn, &writeAnimationCycle, "");
@@ -80,7 +80,7 @@ void AnimationAsset::onAssetRefresh( void )
 
 //------------------------------------------------------------------------------
 
-void AnimationAsset::setImageMap( const char* pAssetId )
+void AnimationAsset::setImage( const char* pAssetId )
 {
     // Ignore no change.
     if ( mImageAsset.getAssetId() == StringTable->insert( pAssetId ) )

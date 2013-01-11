@@ -3,25 +3,25 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(AnimationAsset, setImageMap, void, 3, 3,           "(assetId) Sets the image-map asset Id.\n"
-                                                                        "@return No return value.")
+ConsoleMethod(AnimationAsset, setImageMap, void, 3, 3,  "(assetId) Sets the image asset Id.\n"
+                                                        "@return No return value.")
 {
-    object->setImageMap( argv[2] );
+    object->setImage( argv[2] );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(AnimationAsset, getImageMap, const char*, 2, 2,    "() Gets the image-map asset Id.\n"
-                                                                        "@return The image-map asset Id.")
+ConsoleMethod(AnimationAsset, getImageMap, const char*, 2, 2,   "() Gets the image asset Id.\n"
+                                                                "@return The image asset Id.")
 {
-    return object->getImageMap().getAssetId();
+    return object->getImage().getAssetId();
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(AnimationAsset, setAnimationFrames, void, 3, 3,    "(animationFrames) Sets the image-map frames that compose the animation.\n"
-                                                                        "@param animationFrames A set of image-map frames that compose the animation.\n"
-                                                                        "@return No return value.")
+ConsoleMethod(AnimationAsset, setAnimationFrames, void, 3, 3,   "(animationFrames) Sets the image-map frames that compose the animation.\n"
+                                                                "@param animationFrames A set of image-map frames that compose the animation.\n"
+                                                                "@return No return value.")
 {
     object->setAnimationFrames( argv[2] );
 }

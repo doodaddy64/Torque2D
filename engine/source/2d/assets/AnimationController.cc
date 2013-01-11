@@ -10,6 +10,8 @@
 #include "2d/assets/AnimationAsset.h"
 #include "AnimationController.h"
 
+// Debug Profiling.
+#include "debug/profiler.h"
 
 //-----------------------------------------------------------------------------
 
@@ -58,7 +60,7 @@ const ImageAsset::FrameArea& AnimationController::getCurrentImageFrameArea( void
     AssertFatal( mAnimationAsset.notNull(), "Animation controller requested image frame but no animation asset assigned." );
 
     // Fetch image asset.
-    const AssetPtr<ImageAsset>& imageAsset = mAnimationAsset->getImageMap();
+    const AssetPtr<ImageAsset>& imageAsset = mAnimationAsset->getImage();
 
     // Sanity!
     AssertFatal( imageAsset.notNull(), "Animation controller requested image frame but no image asset assigned." );
@@ -101,7 +103,7 @@ bool AnimationController::isAnimationValid( void ) const
         return false;
 
     // Fetch image asset.
-    const AssetPtr<ImageAsset>& imageAsset = mAnimationAsset->getImageMap();
+    const AssetPtr<ImageAsset>& imageAsset = mAnimationAsset->getImage();
 
     // Not valid if no image asset.
     if ( imageAsset.isNull() )
@@ -122,6 +124,9 @@ bool AnimationController::isAnimationValid( void ) const
 
 bool AnimationController::playAnimation( const AssetPtr<AnimationAsset>& animationAsset, const bool autoRestore )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AnimationController_PlayAnimation);
+
     // Stop animation.
     stopAnimation();
 
@@ -194,8 +199,11 @@ void AnimationController::stopAnimation( void )
 
 bool AnimationController::updateAnimation( const F32 elapsedTime )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AnimationController_UpdateAnimation);
+
     // Finish if animation asset is not valid.
-    if ( mAnimationAsset.isNull() || mAnimationAsset->getImageMap().isNull() )
+    if ( mAnimationAsset.isNull() || mAnimationAsset->getImage().isNull() )
         return false;
 
     // Finish if animation has finished.
@@ -244,7 +252,7 @@ bool AnimationController::updateAnimation( const F32 elapsedTime )
     S32 frame = validatedFrames[mCurrentFrameIndex];
 
     // Fetch image frame count.
-    const S32 imageFrameCount = mAnimationAsset->getImageMap()->getFrameCount();
+    const S32 imageFrameCount = mAnimationAsset->getImage()->getFrameCount();
 
     // Clamp frames.
     if ( frame < 0 )

@@ -38,8 +38,8 @@ public:
     virtual bool onAdd();
     virtual void onRemove();
 
-    void            setImageMap( const char* pAssetId );
-    const AssetPtr<ImageAsset>& getImageMap( void ) const     { return mImageAsset; }
+    void            setImage( const char* pAssetId );
+    const AssetPtr<ImageAsset>& getImage( void ) const     { return mImageAsset; }
 
     void            setAnimationFrames( const char* pAnimationFrames );
     inline const Vector<S32>& getSpecifiedAnimationFrames( void ) const { return mAnimationFrames; }
@@ -66,7 +66,7 @@ protected:
     virtual void onAssetRefresh( void );
 
 protected:
-    static bool setImageMap( void* obj, const char* data )                      { static_cast<AnimationAsset*>(obj)->setImageMap( data ); return false; }
+    static bool setImage( void* obj, const char* data )                         { static_cast<AnimationAsset*>(obj)->setImage( data ); return false; }
     static bool writeImageMap( void* obj, StringTableEntry pFieldName )         { return static_cast<AnimationAsset*>(obj)->mImageAsset.notNull(); }
     static bool setAnimationFrames( void* obj, const char* data )               { static_cast<AnimationAsset*>(obj)->setAnimationFrames( data ); return false; }    
     static bool writeAnimationFrames( void* obj, StringTableEntry pFieldName )  { return static_cast<AnimationAsset*>(obj)->mAnimationFrames.size() > 0; }
