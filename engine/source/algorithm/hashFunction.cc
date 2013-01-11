@@ -8,6 +8,9 @@
 
 #include "platform/platform.h"
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 #include "algorithm/hashFunction.h"
 
 #define hashsize(n) ((U32)1<<(n))
@@ -82,6 +85,9 @@ acceptable.  Do NOT use for cryptographic purposes.
 
 U32 hash(register U8 *k, register U32 length, register U32 initval)
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(HashFunction);
+
    register U32 a,b,c,len;
 
    /* Set up the internal state */
