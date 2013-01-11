@@ -75,8 +75,8 @@ function startMelvTesting()
 	testScene.addToScene( %composite );
 	%composite.BatchIsolated = "true";
 
-    %composite.setDefaultSpriteStride( 8, 8 );
-    %composite.setDefaultSpriteSize( 4 );
+    %composite.setDefaultSpriteStride( 2, 2 );
+    %composite.setDefaultSpriteSize( 2 );
     
     %composite.setBatchLayout( "rect" );
     
@@ -84,9 +84,10 @@ function startMelvTesting()
 	
 	%frame = 0;
 	
-    for ( %y = -5; %y <= 5; %y++ )
+    //for ( %y = 0; %y <= 0; %y++ )
+    for ( %y = -50; %y <= 50; %y++ )
 	{
-	    for ( %x = -5; %x <= 5; %x++ )
+	    for ( %x = -50; %x <= 50; %x++ )
         {
             %composite.addSprite( %x SPC %y );
             %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", getRandom(0,15) );
@@ -103,10 +104,13 @@ function startMelvTesting()
             
         }
 	}
+	
+	schedule( 10000, 0, profileDump );
+	
 	//
 	//testSceneWindow2D.setCurrentCameraPosition( 0, 0 );
 	//testScene.setDebugSceneObject( %composite );
-	%composite.setAngularVelocity( 90 );
+	%composite.setAngularVelocity( 72 );
 	//%composite.setLinearVelocity( -200, 0 );
 	
 	//TamlWrite( %composite, "composite.xml" );
@@ -218,6 +222,12 @@ function startMelvTesting()
 	//%asset.refreshAsset();
 	//refreshTextureManager();
 	
+}
+
+function profileDump()
+{
+	profilerDumpToFile( "dump.log" );
+	quit();    
 }
 
 function testScreen()
