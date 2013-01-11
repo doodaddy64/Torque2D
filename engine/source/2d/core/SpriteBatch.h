@@ -51,9 +51,11 @@ public:
 protected:
     typedef HashMap< U32, SpriteBatchItem* > typeSpriteBatchHash;
     typedef HashMap< SpriteBatchItem::LogicalPosition, SpriteBatchItem* > typeSpritePositionHash;
+    typedef HashMap< StringTableEntry, SpriteBatchItem* > typeSpriteNameHash;
 
     typeSpriteBatchHash             mSprites;
     typeSpritePositionHash          mSpritePositions;
+    typeSpriteNameHash              mSpriteNames;
     SpriteBatchItem*                mSelectedSprite;
     SceneRenderQueue::RenderSort    mBatchSortMode;
     bool                            mBatchCulling;
@@ -117,6 +119,7 @@ public:
 
     bool selectSprite( const SpriteBatchItem::LogicalPosition& logicalPosition );
     bool selectSpriteId( const U32 batchId );
+    bool selectSpriteName( const char* pName );
     inline void deselectSprite( void ) { mSelectedSprite = NULL; }
     bool isSpriteSelected( void ) const { return mSelectedSprite != NULL; }
 
@@ -166,13 +169,17 @@ public:
     void setSpriteAlphaTest( const F32 alphaTestMode );
     F32 getSpriteAlphaTest( void ) const;
 
-    void setDataObject( SimObject* pDataObject );
-    SimObject* getDataObject( void ) const;
+    void setSpriteDataObject( SimObject* pDataObject );
+    SimObject* getSpriteDataObject( void ) const;
+
+    void setSpriteName( const char* pName );
+    StringTableEntry getSpriteName( void ) const;
 
 protected:
     SpriteBatchItem* createSprite( void );
     SpriteBatchItem* findSpritePosition( const SpriteBatchItem::LogicalPosition& logicalPosition );
     SpriteBatchItem* findSpriteId( const U32 batchId );
+    SpriteBatchItem* findSpriteName( const char* pName );
 
     virtual SpriteBatchItem* createSprite( const SpriteBatchItem::LogicalPosition& logicalPosition );
 

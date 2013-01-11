@@ -165,6 +165,7 @@ protected:
     SpriteBatch*        mSpriteBatch;
     U32                 mBatchId;
     S32                 mProxyId;
+    StringTableEntry    mName;
     LogicalPosition     mLogicalPosition;
 
     bool                mVisible;
@@ -204,6 +205,7 @@ public:
     inline SpriteBatch* getBatchParent( void ) const { return mSpriteBatch; }
     inline U32 getBatchId( void ) const { return mBatchId; }
     inline S32 getProxyId( void ) const { return mProxyId; }
+    inline StringTableEntry getName( void ) const { return mName; }
 
     inline void setLogicalPosition( const LogicalPosition& logicalPosition ) { mLogicalPosition = logicalPosition; }
     inline const LogicalPosition& getLogicalPosition( void ) const { return mLogicalPosition; }
@@ -259,6 +261,7 @@ public:
 protected:
     void setBatchParent( SpriteBatch* pSpriteBatch, const U32 batchId );
     inline void setProxyId( const S32 proxyId ) { mProxyId = proxyId; }
+    inline void setName( const char* pName ) { mName = StringTable->insert( pName ); }
     void updateLocalTransform( void );
     void updateWorldTransform( const U32 batchTransformId );
 

@@ -229,6 +229,8 @@ void SpriteBatch::copyTo( SpriteBatch* pSpriteBatch ) const
 
         // Push a copy to it.
         pSpriteBatchItem->copyTo( pNewSpriteBatchItem );
+
+
     }
 }
 
@@ -269,6 +271,11 @@ bool SpriteBatch::removeSprite( void )
     // Remove the sprite position.
     mSpritePositions.erase( mSelectedSprite->getLogicalPosition() );
 
+    // Fetch and remove any sprite name.
+    StringTableEntry spriteName = mSelectedSprite->getName();
+    if ( spriteName != StringTable->EmptyString )
+        mSpriteNames.erase( spriteName );
+
     // Destroy the sprite.
     destroySprite( mSelectedSprite->getBatchId() );
 
@@ -293,6 +300,9 @@ void SpriteBatch::clearSprites( void )
 
     // Clear sprite positions.
     mSpritePositions.clear();
+
+    // Clear sprite names.
+    mSpriteNames.clear();
 
     // Cache all sprites.
     for( typeSpriteBatchHash::iterator spriteItr = mSprites.begin(); spriteItr != mSprites.end(); ++spriteItr )
@@ -351,6 +361,27 @@ bool SpriteBatch::selectSpriteId( const U32 batchId )
 
     // Not selected so warn.
     Con::warnf( "Cannot select sprite Id '%d' as it does not exist.", batchId );
+
+    return false;
+}
+
+//------------------------------------------------------------------------------
+
+bool SpriteBatch::selectSpriteName( const char* pName )
+{
+    // Fail if no name specified.
+    if ( pName == NULL || pName == StringTable->EmptyString )
+        return false;
+
+    // Select sprite.
+    mSelectedSprite = findSpriteName( pName );
+
+    // Finish if we selected the sprite.
+    if ( mSelectedSprite != NULL )
+        return true;
+
+    // Not selected so warn.
+    Con::warnf( "Cannot select sprite name '%s' as it does not exist.", pName );
 
     return false;
 }
@@ -798,7 +829,7 @@ F32 SpriteBatch::getSpriteAlphaTest( void ) const
 
 //------------------------------------------------------------------------------
 
-void SpriteBatch::setDataObject( SimObject* pDataObject )
+void SpriteBatch::setSpriteDataObject( SimObject* pDataObject )
 {
     // Finish if a sprite is not selected.
     if ( !checkSpriteSelected() )
@@ -810,7 +841,7 @@ void SpriteBatch::setDataObject( SimObject* pDataObject )
 
 //------------------------------------------------------------------------------
 
-SimObject* SpriteBatch::getDataObject( void ) const
+SimObject* SpriteBatch::getSpriteDataObject( void ) const
 {
     // Finish if a sprite is not selected.
     if ( !checkSpriteSelected() )
@@ -818,6 +849,34 @@ SimObject* SpriteBatch::getDataObject( void ) const
 
     // Get data object.
     return mSelectedSprite->getDataObject();
+}
+
+//------------------------------------------------------------------------------
+
+void SpriteBatch::setSpriteName( const char* pName )
+{
+    // Finish if a sprite is not selected.
+    if ( !checkSpriteSelected() )
+        return;
+
+    // Finish if the sprite name already exists.
+    if ( findSpriteName( pName ) )
+        return;
+
+    // Set name.
+    mSelectedSprite->setName( pName );
+}
+
+//------------------------------------------------------------------------------
+
+StringTableEntry SpriteBatch::getSpriteName( void ) const
+{
+    // Finish if a sprite is not selected.
+    if ( !checkSpriteSelected() )
+        return StringTable->EmptyString;
+
+    // Get name.
+    return mSelectedSprite->getName();
 }
 
 //------------------------------------------------------------------------------
@@ -866,6 +925,23 @@ SpriteBatchItem* SpriteBatch::findSpriteId( const U32 batchId )
     typeSpriteBatchHash::iterator spriteItr = mSprites.find( batchId );
 
     return spriteItr != mSprites.end() ? spriteItr->value : NULL;
+}
+
+//------------------------------------------------------------------------------
+
+SpriteBatchItem* SpriteBatch::findSpriteName( const char* pName )
+{
+    // Debug Profiling.
+    PROFILE_SCOPE(SpriteBatch_FindSpriteName);
+
+    // Finish if no name specified.
+    if ( pName == NULL || pName == StringTable->EmptyString )
+        return NULL;
+
+    // Find sprite.
+    typeSpriteNameHash::iterator spriteItr = mSpriteNames.find( StringTable->insert(pName) );
+
+    return spriteItr != mSpriteNames.end() ? spriteItr->value : NULL;
 }
 
 //------------------------------------------------------------------------------
