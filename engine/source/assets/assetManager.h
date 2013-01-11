@@ -135,9 +135,6 @@ public:
     /// Asset acquisition.
     template<typename T> T* acquireAsset( const char* pAssetId )
     {
-        // Debug Profiling.
-        PROFILE_SCOPE(AssetManager_AcquireAsset);
-
         // Sanity!
         AssertFatal( pAssetId != NULL, "Cannot acquire NULL asset Id." );
 
@@ -272,6 +269,11 @@ public:
 
         return pAcquiredAsset;
     }
+
+    inline AssetBase* acquireAsset( const char* pAssetId )
+    {
+    }
+
     bool releaseAsset( const char* pAssetId );
     void purgeAssets( void );
 
