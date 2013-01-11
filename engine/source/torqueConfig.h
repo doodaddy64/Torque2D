@@ -70,10 +70,7 @@
 #define TORQUE_MULTITHREAD
 #endif
 
-#define MICH_AND_MELV_DEV_WORK
-
 // Define me if this build is a tools build
-
 #ifndef TORQUE_PLAYER
 #  define TORQUE_TOOLS
 #else
