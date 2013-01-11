@@ -46,6 +46,9 @@
 #include "assets/assetFieldTypes.h"
 #endif
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 class AssetPtrCallback;
@@ -132,6 +135,9 @@ public:
     /// Asset acquisition.
     template<typename T> T* acquireAsset( const char* pAssetId )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(AssetManager_AcquireAsset);
+
         // Sanity!
         AssertFatal( pAssetId != NULL, "Cannot acquire NULL asset Id." );
 

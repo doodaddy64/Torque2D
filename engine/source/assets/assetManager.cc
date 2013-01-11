@@ -99,6 +99,9 @@ void AssetManager::initPersistFields()
 
 bool AssetManager::compileReferencedAssets( ModuleDefinition* pModuleDefinition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_CompileReferencedAsset);
+
     // Sanity!
     AssertFatal( pModuleDefinition != NULL, "Cannot add declared assets using a NULL module definition" );
 
@@ -145,6 +148,9 @@ bool AssetManager::compileReferencedAssets( ModuleDefinition* pModuleDefinition 
 
 bool AssetManager::addDeclaredAssets( ModuleDefinition* pModuleDefinition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_AddDeclaredAssets);
+
     // Sanity!
     AssertFatal( pModuleDefinition != NULL, "Cannot add declared assets using a NULL module definition" );
 
@@ -199,6 +205,9 @@ bool AssetManager::addDeclaredAssets( ModuleDefinition* pModuleDefinition )
 
 bool AssetManager::addSingleDeclaredAsset( ModuleDefinition* pModuleDefinition, const char* pAssetFilePath )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_AddSingleDeclaredAsset);
+
     // Sanity!
     AssertFatal( pModuleDefinition != NULL, "Cannot add single declared asset using a NULL module definition" );
     AssertFatal( pAssetFilePath != NULL, "Cannot add single declared asset using a NULL asset file-path." );
@@ -241,6 +250,9 @@ bool AssetManager::addSingleDeclaredAsset( ModuleDefinition* pModuleDefinition, 
 
 StringTableEntry AssetManager::addPrivateAsset( AssetBase* pAssetBase )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_AddPrivateAsset);
+
     // Sanity!
     AssertFatal( pAssetBase != NULL, "Cannot add a NULL private asset." );
 
@@ -301,6 +313,9 @@ StringTableEntry AssetManager::addPrivateAsset( AssetBase* pAssetBase )
 
 bool AssetManager::removeDeclaredAssets( ModuleDefinition* pModuleDefinition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_RemoveDeclaredAssets);
+
     // Sanity!
     AssertFatal( pModuleDefinition != NULL, "Cannot remove declared assets using a NULL module definition" );
 
@@ -328,6 +343,9 @@ bool AssetManager::removeDeclaredAssets( ModuleDefinition* pModuleDefinition )
 
 bool AssetManager::removeSingleDeclaredAsset( const char* pAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_RemoveSingleDeclaredAsset);
+
     // Sanity!
     AssertFatal( pAssetId != NULL, "Cannot remove single declared asset using NULL asset Id." );
 
@@ -488,6 +506,9 @@ StringTableEntry AssetManager::getAssetFilePath( const char* pAssetId )
 
 StringTableEntry AssetManager::getAssetPath( const char* pAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_GetAssetPath);
+
     // Fetch asset file-path.
     StringTableEntry assetFilePath = getAssetFilePath( pAssetId );
 
@@ -589,6 +610,9 @@ bool AssetManager::isDeclaredAsset( const char* pAssetId )
 
 bool AssetManager::doesAssetDependOn( const char* pAssetId, const char* pDependsOnAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_DoesAssetDependOn);
+
     // Sanity!
     AssertFatal( pAssetId != NULL, "Cannot use NULL asset Id." );
     AssertFatal( pDependsOnAssetId != NULL, "Cannot use NULL depends-on asset Id." );
@@ -620,6 +644,9 @@ bool AssetManager::doesAssetDependOn( const char* pAssetId, const char* pDepends
 
 bool AssetManager::isAssetDependedOn( const char* pAssetId, const char* pDependedOnByAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_IsAssetDependedOn);
+
     // Sanity!
     AssertFatal( pAssetId != NULL, "Cannot use NULL asset Id." );
     AssertFatal( pDependedOnByAssetId != NULL, "Cannot use NULL depended-on-by asset Id." );
@@ -651,6 +678,9 @@ bool AssetManager::isAssetDependedOn( const char* pAssetId, const char* pDepende
 
 bool AssetManager::isReferencedAsset( const char* pAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_IsReferencedAsset);
+
     // Sanity!
     AssertFatal( pAssetId != NULL, "Cannot check if NULL asset Id is referenced." );
 
@@ -672,6 +702,9 @@ bool AssetManager::isReferencedAsset( const char* pAssetId )
 
 bool AssetManager::renameDeclaredAsset( const char* pAssetIdFrom, const char* pAssetIdTo )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_RenameDeclaredAsset);
+
     // Sanity!
     AssertFatal( pAssetIdFrom != NULL, "Cannot rename from NULL asset Id." );
     AssertFatal( pAssetIdTo != NULL, "Cannot rename to NULL asset Id." );
@@ -790,6 +823,9 @@ bool AssetManager::renameDeclaredAsset( const char* pAssetIdFrom, const char* pA
 
 bool AssetManager::renameReferencedAsset( const char* pAssetIdFrom, const char* pAssetIdTo )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_RenameReferencedAsset);
+
     // Sanity!
     AssertFatal( pAssetIdFrom != NULL, "Cannot rename from NULL asset Id." );
     AssertFatal( pAssetIdTo != NULL, "Cannot rename to NULL asset Id." );
@@ -836,6 +872,9 @@ bool AssetManager::renameReferencedAsset( const char* pAssetIdFrom, const char* 
 
 bool AssetManager::releaseAsset( const char* pAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_ReleaseAsset);
+
     // Sanity!
     AssertFatal( pAssetId != NULL, "Cannot release NULL asset Id." );
 
@@ -944,6 +983,9 @@ bool AssetManager::releaseAsset( const char* pAssetId )
 
 void AssetManager::purgeAssets( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_PurgeAssets);
+
     // Info.
     if ( mEchoInfo )
     {
@@ -983,6 +1025,9 @@ void AssetManager::purgeAssets( void )
 
 bool AssetManager::getAssetSnapshot( AssetSnapshot* pAssetSnapshot, const char* pAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_GetAssetSnapshot);
+
     // Sanity!
     AssertFatal( pAssetSnapshot != NULL, "cannot get asset snapshot using NULL asset snapshot." );
     AssertFatal( pAssetId != NULL, "Cannot get asset snapshot NULL asset Id." );
@@ -1052,6 +1097,9 @@ bool AssetManager::getAssetSnapshot( AssetSnapshot* pAssetSnapshot, const char* 
 
 bool AssetManager::setAssetSnapshot( AssetSnapshot* pAssetSnapshot, const char* pAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_SetAssetSnapshot);
+
     // Sanity!
     AssertFatal( pAssetSnapshot != NULL, "cannot get asset snapshot using NULL asset snapshot." );
     AssertFatal( pAssetId != NULL, "Cannot get asset snapshot NULL asset Id." );
@@ -1127,6 +1175,9 @@ bool AssetManager::setAssetSnapshot( AssetSnapshot* pAssetSnapshot, const char* 
 
 bool AssetManager::deleteAsset( const char* pAssetId, const bool deleteLooseFiles, const bool deleteDependencies )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_DeleteAsset);
+
     // Sanity!
     AssertFatal( pAssetId != NULL, "Cannot delete NULL asset Id." );
 
@@ -1242,6 +1293,9 @@ bool AssetManager::deleteAsset( const char* pAssetId, const bool deleteLooseFile
 
 bool AssetManager::refreshAsset( const char* pAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_RefreshAsset);
+
     // Sanity!
     AssertFatal( pAssetId != NULL, "Cannot refresh NULL asset Id." );
 
@@ -1408,6 +1462,9 @@ bool AssetManager::refreshAsset( const char* pAssetId )
 
 void AssetManager::refreshAllAssets( const bool includeUnloaded )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_RefreshAllAssets);
+
     // Info.
     if ( mEchoInfo )
     {
@@ -1599,6 +1656,9 @@ bool AssetManager::restoreAssetTags( void )
 
 S32 QSORT_CALLBACK descendingAssetDefinitionLoadCount(const void* a, const void* b)
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_DescendingAssetDefinitionLoadCount);
+
     // Fetch asset definitions.
     const AssetDefinition* pAssetDefinitionA  = *(AssetDefinition**)a;
     const AssetDefinition* pAssetDefinitionB  = *(AssetDefinition**)b;
@@ -1657,6 +1717,9 @@ void AssetManager::dumpDeclaredAssets( void ) const
 
 S32 AssetManager::findAllAssets( AssetQuery* pAssetQuery, const bool ignoreInternal, const bool ignorePrivate )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindAllAssets);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
 
@@ -1691,6 +1754,9 @@ S32 AssetManager::findAllAssets( AssetQuery* pAssetQuery, const bool ignoreInter
 
 S32 AssetManager::findAssetName( AssetQuery* pAssetQuery, const char* pAssetName, const bool partialName )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindAssetName);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
     AssertFatal( pAssetName != NULL, "Cannot use NULL asset name." );
@@ -1755,6 +1821,9 @@ S32 AssetManager::findAssetName( AssetQuery* pAssetQuery, const char* pAssetName
 
 S32 AssetManager::findAssetCategory( AssetQuery* pAssetQuery, const char* pAssetCategory, const bool assetQueryAsSource )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindAssetCategory);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
     AssertFatal( pAssetCategory != NULL, "Cannot use NULL asset category." );
@@ -1816,6 +1885,9 @@ S32 AssetManager::findAssetCategory( AssetQuery* pAssetQuery, const char* pAsset
 
 S32 AssetManager::findAssetAutoUnload( AssetQuery* pAssetQuery, const bool assetAutoUnload, const bool assetQueryAsSource )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindAssetAutoUnload);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
 
@@ -1875,6 +1947,9 @@ S32 AssetManager::findAssetAutoUnload( AssetQuery* pAssetQuery, const bool asset
 
 S32 AssetManager::findAssetInternal( AssetQuery* pAssetQuery, const bool assetInternal, const bool assetQueryAsSource )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindAssetInternal);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
 
@@ -1934,6 +2009,9 @@ S32 AssetManager::findAssetInternal( AssetQuery* pAssetQuery, const bool assetIn
 
 S32 AssetManager::findAssetPrivate( AssetQuery* pAssetQuery, const bool assetPrivate, const bool assetQueryAsSource )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindAssetPrivate);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
 
@@ -1993,6 +2071,9 @@ S32 AssetManager::findAssetPrivate( AssetQuery* pAssetQuery, const bool assetPri
 
 S32 AssetManager::findAssetType( AssetQuery* pAssetQuery, const char* pAssetType, const bool assetQueryAsSource )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindAssetType);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
     AssertFatal( pAssetType != NULL, "Cannot use NULL asset type." );
@@ -2056,6 +2137,9 @@ S32 AssetManager::findAssetType( AssetQuery* pAssetQuery, const char* pAssetType
 
 S32 AssetManager::findAssetDependsOn( AssetQuery* pAssetQuery, const char* pAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindAssetDependsOn);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
     AssertFatal( pAssetId != NULL, "Cannot use NULL asset Id." );
@@ -2089,6 +2173,9 @@ S32 AssetManager::findAssetDependsOn( AssetQuery* pAssetQuery, const char* pAsse
 
 S32 AssetManager::findAssetIsDependedOn( AssetQuery* pAssetQuery, const char* pAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindAssetIsDependedOn);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
     AssertFatal( pAssetId != NULL, "Cannot use NULL asset Id." );
@@ -2122,6 +2209,9 @@ S32 AssetManager::findAssetIsDependedOn( AssetQuery* pAssetQuery, const char* pA
 
 S32 AssetManager::findInvalidAssetReferences( AssetQuery* pAssetQuery )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindInvalidAssetReferences);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
 
@@ -2152,6 +2242,9 @@ S32 AssetManager::findInvalidAssetReferences( AssetQuery* pAssetQuery )
 
 S32 AssetManager::findTaggedAssets( AssetQuery* pAssetQuery, const char* pAssetTagNames, const bool assetQueryAsSource )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindTaggedAssets);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
     AssertFatal( pAssetTagNames != NULL, "Cannot use NULL asset tag name(s)." );
@@ -2289,6 +2382,9 @@ S32 AssetManager::findTaggedAssets( AssetQuery* pAssetQuery, const char* pAssetT
 
 S32 AssetManager::findAssetLooseFile( AssetQuery* pAssetQuery, const char* pLooseFile, const bool assetQueryAsSource )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindAssetLooseFile);
+
     // Sanity!
     AssertFatal( pAssetQuery != NULL, "Cannot use NULL asset query." );
     AssertFatal( pLooseFile != NULL, "Cannot use NULL loose file." );
@@ -2381,6 +2477,9 @@ S32 AssetManager::findAssetLooseFile( AssetQuery* pAssetQuery, const char* pLoos
 
 bool AssetManager::scanDeclaredAssets( const char* pPath, const char* pExtension, const bool recurse, ModuleDefinition* pModuleDefinition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_ScanDeclaredAssets);
+
     // Sanity!
     AssertFatal( pPath != NULL, "Cannot scan declared assets with NULL path." );
     AssertFatal( pExtension != NULL, "Cannot scan declared assets with NULL extension." );
@@ -2582,6 +2681,9 @@ bool AssetManager::scanDeclaredAssets( const char* pPath, const char* pExtension
 
 bool AssetManager::scanReferencedAssets( const char* pPath, const char* pExtension )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_ScanReferencedAssets);
+
     // Sanity!
     AssertFatal( pPath != NULL, "Cannot scan referenced assets with NULL path." );
     AssertFatal( pExtension != NULL, "Cannot scan referenced assets with NULL extension." );
@@ -2694,6 +2796,9 @@ bool AssetManager::scanReferencedAssets( const char* pPath, const char* pExtensi
 
 AssetDefinition* AssetManager::findAsset( const char* pAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_FindAsset);
+
     // Sanity!
     AssertFatal( pAssetId != NULL, "Cannot find NULL asset Id." );
 
@@ -2714,6 +2819,9 @@ AssetDefinition* AssetManager::findAsset( const char* pAssetId )
 
 void AssetManager::addReferencedAsset( StringTableEntry assetId, StringTableEntry referenceFilePath )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_AddReferencedAsset);
+
     // Sanity!
     AssertFatal( assetId != NULL, "Cannot add referenced asset with NULL asset Id." );
     AssertFatal( referenceFilePath != NULL, "Cannot add referenced asset with NULL reference file-path." );
@@ -2755,6 +2863,9 @@ void AssetManager::addReferencedAsset( StringTableEntry assetId, StringTableEntr
 
 void AssetManager::renameAssetReferences( StringTableEntry assetIdFrom, StringTableEntry assetIdTo )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_RenameAssetReferences);
+
     // Sanity!
     AssertFatal( assetIdFrom != NULL, "Cannot rename asset references using NULL asset Id from." );
     AssertFatal( assetIdTo != NULL, "Cannot rename asset references using NULL asset Id to." );
@@ -2804,6 +2915,9 @@ void AssetManager::renameAssetReferences( StringTableEntry assetIdFrom, StringTa
 
 void AssetManager::removeAssetReferences( StringTableEntry assetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_RemoveAssetReferences);
+
     // Sanity!
     AssertFatal( assetId != NULL, "Cannot rename asset references using NULL asset Id." );
 
@@ -2855,6 +2969,9 @@ void AssetManager::removeAssetReferences( StringTableEntry assetId )
 
 void AssetManager::renameAssetDependencies( StringTableEntry assetIdFrom, StringTableEntry assetIdTo )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_RenameAssetDependencies);
+
     // Sanity!
     AssertFatal( assetIdFrom != NULL, "Cannot rename asset dependencies using NULL asset Id from." );
     AssertFatal( assetIdTo != NULL, "Cannot rename asset dependencies using NULL asset Id to." );
@@ -2936,6 +3053,9 @@ void AssetManager::renameAssetDependencies( StringTableEntry assetIdFrom, String
 
 void AssetManager::removeAssetDependencies( const char* pAssetId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_RemvoeAsetDependencies);
+
     // Sanity!
     AssertFatal( pAssetId != NULL, "Cannot remove asset dependencies using NULL asset Id." );
 
@@ -2977,6 +3097,9 @@ void AssetManager::removeAssetDependencies( const char* pAssetId )
 
 void AssetManager::unloadAsset( AssetDefinition* pAssetDefinition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_UnloadAsset);
+
     // Destroy the asset.
     pAssetDefinition->mpAssetBase->deleteObject();
 
@@ -3010,6 +3133,9 @@ void AssetManager::unloadAsset( AssetDefinition* pAssetDefinition )
 
 void AssetManager::onModulePreLoad( ModuleDefinition* pModuleDefinition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_OnModulePreLoad);
+
     // Is a declared asset manifest specified?
     if ( pModuleDefinition->getDeclaredAssetManifest() != StringTable->EmptyString )
     {
@@ -3029,6 +3155,9 @@ void AssetManager::onModulePreLoad( ModuleDefinition* pModuleDefinition )
 
 void AssetManager::onModulePreUnload( ModuleDefinition* pModuleDefinition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_OnModulePreUnload);
+
     // Is an asset tags manifest specified?
     if ( pModuleDefinition->getAssetTagsManifest() != StringTable->EmptyString )
     {
@@ -3049,6 +3178,9 @@ void AssetManager::onModulePreUnload( ModuleDefinition* pModuleDefinition )
 
 void AssetManager::onModulePostUnload( ModuleDefinition* pModuleDefinition )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetManager_OnModulePostUnload);
+
     // Is a declared asset manifest specified?
     if ( pModuleDefinition->getDeclaredAssetManifest() != StringTable->EmptyString )
     {

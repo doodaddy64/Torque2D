@@ -18,6 +18,9 @@
 // Script bindings.
 #include "assetBase_ScriptBinding.h"
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 IMPLEMENT_CONOBJECT( AssetBase );
@@ -129,6 +132,9 @@ void AssetBase::setAssetInternal( const bool assetInternal )
 
 StringTableEntry AssetBase::expandAssetFilePath( const char* pAssetFilePath ) const
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetBase_ExpandAssetFilePath);
+
     // Sanity!
     AssertFatal( pAssetFilePath != NULL, "Cannot expand a NULL asset path." );
 
@@ -184,6 +190,9 @@ StringTableEntry AssetBase::expandAssetFilePath( const char* pAssetFilePath ) co
 
 StringTableEntry AssetBase::collapseAssetFilePath( const char* pAssetFilePath ) const
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetBase_CollapseAssetFilePath);
+
     // Sanity!
     AssertFatal( pAssetFilePath != NULL, "Cannot collapse a NULL asset path." );
 
@@ -239,6 +248,9 @@ StringTableEntry AssetBase::collapseAssetFilePath( const char* pAssetFilePath ) 
 
 void AssetBase::refreshAsset( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetBase_RefreshAsset);
+
     // Finish if asset is not owned or is not initialized.
     if ( mpOwningAssetManager == NULL || !mAssetInitialized )
         return;
@@ -279,6 +291,9 @@ bool AssetBase::releaseAssetReference( void )
 
 void AssetBase::setOwned( AssetManager* pAssetManager, AssetDefinition* pAssetDefinition )
 {  
+    // Debug Profiling.
+    PROFILE_SCOPE(AssetBase_setOwned);
+
     // Sanity!
     AssertFatal( pAssetManager != NULL, "Cannot set asset ownership with NULL asset manager." );
     AssertFatal( mpOwningAssetManager == NULL, "Cannot set asset ownership if it is already owned." );
