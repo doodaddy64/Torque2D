@@ -22,6 +22,9 @@
 #include "assetBase.h"
 #endif
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 class TamlAssetDeclaredVisitor : public TamlXmlVisitor
@@ -29,6 +32,9 @@ class TamlAssetDeclaredVisitor : public TamlXmlVisitor
 protected:
     virtual bool visit( TiXmlElement* pXmlElement, TamlXmlParser& xmlParser )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(TamlAssetDeclaredVisitor_VisitElement);
+
         // Finish if this is not the root element.
         if ( pXmlElement != pXmlElement->GetDocument()->RootElement() )
             return true;
@@ -104,6 +110,9 @@ protected:
 
     virtual bool visit( TiXmlAttribute* pAttribute, TamlXmlParser& xmlParser )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(TamlAssetDeclaredVisitor_VisitAttribute);
+
         // Sanity!
         AssertFatal( mAssetDefinition.mAssetName != StringTable->EmptyString, "Cannot generate asset dependencies without asset name." );
 

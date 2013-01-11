@@ -22,6 +22,9 @@
 #include "assets/assetFieldTypes.h"
 #endif
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 class TamlAssetReferencedUpdateVisitor : public TamlXmlVisitor
@@ -31,6 +34,9 @@ protected:
 
     virtual bool visit( TiXmlAttribute* pAttribute, TamlXmlParser& xmlParser )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(TamlAssetReferencedUpdateVisitor_VisitAttribute);
+
         // Fetch attribute value.
         const char* pAttributeValue = pAttribute->Value();
 

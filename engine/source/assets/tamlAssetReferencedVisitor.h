@@ -14,6 +14,9 @@
 #include "assets/assetFieldTypes.h"
 #endif
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 class TamlAssetReferencedVisitor : public TamlXmlVisitor
@@ -23,6 +26,9 @@ protected:
 
     virtual bool visit( TiXmlAttribute* pAttribute, TamlXmlParser& xmlParser )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(TamlAssetReferencedVisitor_VisitAttribute);
+
         // Fetch asset reference.
         const char* pAssetReference = pAttribute->Value();
 

@@ -22,6 +22,9 @@
 #include "assets/assetFieldTypes.h"
 #endif
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 class TamlAssetDeclaredUpdateVisitor : public TamlXmlVisitor
@@ -29,6 +32,9 @@ class TamlAssetDeclaredUpdateVisitor : public TamlXmlVisitor
 protected:
     virtual bool visit( TiXmlElement* pXmlElement, TamlXmlParser& xmlParser )
     {
+        // Debug Profiling.
+        PROFILE_SCOPE(TamlAssetDeclaredUpdateVisitor_VisitElement);
+
         // Finish if this is not the root element.
         if ( pXmlElement != pXmlElement->GetDocument()->RootElement() )
             return true;
