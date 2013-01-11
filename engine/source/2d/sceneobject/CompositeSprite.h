@@ -29,7 +29,8 @@ public:
 
         NO_LAYOUT,
         RECTILINEAR_LAYOUT,
-        ISOMETRIC_LAYOUT
+        ISOMETRIC_LAYOUT,
+        CUSTOM_LAYOUT
     };
 
 private:
@@ -63,6 +64,7 @@ protected:
     virtual SpriteBatchItem* createSprite( const SpriteBatchItem::LogicalPosition& logicalPosition );
     virtual SpriteBatchItem* createSpriteRectilinearLayout( const SpriteBatchItem::LogicalPosition& logicalPosition );
     virtual SpriteBatchItem* createSpriteIsometricLayout( const SpriteBatchItem::LogicalPosition& logicalPosition );
+    virtual SpriteBatchItem* createCustomLayout( const SpriteBatchItem::LogicalPosition& logicalPosition );
 
     virtual void onTamlCustomWrite( TamlCollection& customCollection );
     virtual void onTamlCustomRead( const TamlCollection& customCollection );

@@ -181,6 +181,9 @@ SpriteBatchItem* CompositeSprite::createSprite( const SpriteBatchItem::LogicalPo
         case ISOMETRIC_LAYOUT:
             return createSpriteIsometricLayout( logicalPosition );
 
+        case CUSTOM_LAYOUT:
+            return createCustomLayout( logicalPosition );
+
         default:
             // Sanity!
             AssertFatal( false, "CompositeSprite::createSprite() - Unknown layout type encountered." );
@@ -271,6 +274,45 @@ SpriteBatchItem* CompositeSprite::createSpriteIsometricLayout( const SpriteBatch
 
 //-----------------------------------------------------------------------------
 
+SpriteBatchItem* CompositeSprite::createCustomLayout( const SpriteBatchItem::LogicalPosition& logicalPosition )
+{
+    // Does the sprite position already exist?
+    if ( findSpritePosition( logicalPosition ) != NULL )
+    {
+        // Yes, so warn.
+        Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", logicalPosition.getString() );
+        return NULL;
+    }
+
+    // Retrieve the local position from the custom layout callback.
+    const char* pLocalPosition = Con::executef(this, 2, "onCustomLayout", logicalPosition.getString() );
+
+    // Finish if no local position returned.
+    if ( pLocalPosition == NULL )
+        return NULL;
+
+    // Create the sprite.
+    SpriteBatchItem* pSpriteBatchItem = SpriteBatch::createSprite();
+
+    // Set sprite logical position.
+    pSpriteBatchItem->setLogicalPosition( logicalPosition );
+
+    // Set the local position.
+    Vector2 position(0.0f, 0.0f);
+    Con::setData( TypeVector2, &position, 0, 1, &pLocalPosition );
+
+    // Set the sprite default position.
+    pSpriteBatchItem->setLocalPosition( position );
+
+    // Set the sprite default size and angle.
+    pSpriteBatchItem->setSize( getDefaultSpriteSize() );
+    pSpriteBatchItem->setLocalAngle( SpriteBatch::getDefaultSpriteAngle() );
+
+    return pSpriteBatchItem;
+}
+
+//-----------------------------------------------------------------------------
+
 void CompositeSprite::onTamlCustomWrite( TamlCollection& customCollection )
 {
     // Call parent.
@@ -320,9 +362,10 @@ void CompositeSprite::onTamlCustomRead( const TamlCollection& customCollection )
 
 static EnumTable::Enums batchLayoutTypeLookup[] =
                 {
-                    { CompositeSprite::NO_LAYOUT,            "off"    },
-                    { CompositeSprite::RECTILINEAR_LAYOUT,   "rect" },
-                    { CompositeSprite::ISOMETRIC_LAYOUT,     "iso"   },
+                    { CompositeSprite::NO_LAYOUT,           "off"    },
+                    { CompositeSprite::RECTILINEAR_LAYOUT,  "rect" },
+                    { CompositeSprite::ISOMETRIC_LAYOUT,    "iso"   },
+                    { CompositeSprite::CUSTOM_LAYOUT,       "custom"   },
                 };
 
 EnumTable batchLayoutTypeTable(sizeof(batchLayoutTypeLookup) / sizeof(EnumTable::Enums), &batchLayoutTypeLookup[0]);
