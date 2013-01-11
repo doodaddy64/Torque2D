@@ -17,7 +17,7 @@
 SimObject* TamlBinaryReader::read( FileStream& stream )
 {
     // Debug Profiling.
-    PROFILE_SCOPE(TamlBinaryReader_Rad);
+    PROFILE_SCOPE(TamlBinaryReader_Read);
 
     // Sanity!
     AssertFatal( mpTaml->getFormatMode() == Taml::BinaryFormat, "Cannot read with a binary reader using a non-binary format mode." );

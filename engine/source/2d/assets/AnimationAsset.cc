@@ -10,6 +10,9 @@
 // Script bindings.
 #include "AnimationAsset_ScriptBinding.h"
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //------------------------------------------------------------------------------
 
 IMPLEMENT_CONOBJECT(AnimationAsset);
@@ -100,6 +103,9 @@ void AnimationAsset::setImage( const char* pAssetId )
 
 void AnimationAsset::setAnimationFrames( const char* pAnimationFrames )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AnimationAsset_SetAnimationFrames);
+
     // Clear any existing frames.
     mAnimationFrames.clear();
 
@@ -169,6 +175,9 @@ void AnimationAsset::setRandomStart( const bool randomStart )
 
 void AnimationAsset::validateFrames( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(AnimationAsset_ValidateFrames);
+
     // Clear validated frames.
     mValidatedFrames.clear();
 

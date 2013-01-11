@@ -38,6 +38,9 @@
 // Script bindings.
 #include "ImageAsset_ScriptBinding.h"
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //------------------------------------------------------------------------------
 
 IMPLEMENT_CONOBJECT(ImageAsset);
@@ -808,6 +811,9 @@ void ImageAsset::onTamlPostWrite( void )
 
 void ImageAsset::onTamlCustomWrite( TamlCollection& customCollection )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(ImageAsset_OnTamlCustomWrite);
+
     // Call parent.
     Parent::onTamlCustomWrite( customCollection );
 
@@ -838,6 +844,9 @@ void ImageAsset::onTamlCustomWrite( TamlCollection& customCollection )
 
 void ImageAsset::onTamlCustomRead( const TamlCollection& customCollection )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(ImageAsset_OnTamlCustomRead);
+
     // Call parent.
     Parent::onTamlCustomRead( customCollection );
 
@@ -936,6 +945,9 @@ void ImageAsset::onTamlCustomRead( const TamlCollection& customCollection )
 
 void ImageAsset::calculateImageMap( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(ImageAsset_CalculateImageMap);
+
     // Clear frames.
     mFrames.clear();
 
@@ -987,6 +999,9 @@ void ImageAsset::calculateImageMap( void )
 
 void ImageAsset::calculateImplicitMode( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(ImageAsset_CalculateImplicitMode);
+
     // Sanity!
     AssertFatal( !mExplicitMode, "Cannot calculate implicit cells when in explicit mode." );
 
@@ -1142,6 +1157,9 @@ void ImageAsset::calculateImplicitMode( void )
 
 void ImageAsset::calculateExplicitMode( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(ImageAsset_CalculateExplicitMode);
+
     // Sanity!
     AssertFatal( mExplicitMode, "Cannot calculate explicit cells when not in explicit mode." );
 
