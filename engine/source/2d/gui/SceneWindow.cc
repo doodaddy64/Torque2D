@@ -812,6 +812,9 @@ void SceneWindow::sceneToWindowPoint( const Vector2& srcPoint, Vector2& dstPoint
 
 void SceneWindow::dispatchInputEvent( StringTableEntry name, const GuiEvent& event )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneWindow_DispatchInputEvent);
+
     // Dispatch input event to window if appropriate.
     if ( getUseWindowInputEvents() )
         sendWindowInputEvent( name, event );
@@ -825,6 +828,9 @@ void SceneWindow::dispatchInputEvent( StringTableEntry name, const GuiEvent& eve
 
 void SceneWindow::sendWindowInputEvent( StringTableEntry name, const GuiEvent& event )
 {       
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneWindow_SendWindowInputEvent);
+
     Vector2   worldMousePoint;
 
     // Calculate Current Camera View.
@@ -866,6 +872,9 @@ void SceneWindow::sendWindowInputEvent( StringTableEntry name, const GuiEvent& e
 
 void SceneWindow::sendObjectInputEvent( StringTableEntry name, const GuiEvent& event )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneWindow_SendObjectInputEvent);
+
     // Finish if we're not bound to a scene?
     if ( !getScene() ) return;
 
@@ -1128,6 +1137,9 @@ bool SceneWindow::onMouseWheelDown( const GuiEvent& event )
 
 void SceneWindow::calculateCameraMount( const F32 elapsedTime )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneWindow_CalculateCameraMount);
+
     // Fetch Mount Position.
     const Vector2& mountPos = mpMountedTo->getBody()->GetWorldPoint( mMountOffset );
 
@@ -1177,6 +1189,9 @@ void SceneWindow::calculateCameraMount( const F32 elapsedTime )
 
 void SceneWindow::calculateCameraView( CameraView* pCameraView )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneWindow_CalculateCameraView);
+
     // Calculate Zoom Reciprocal.
     const F32 zoomRecip = pCameraView->mCameraZoom > 0.0f ? 1.0f / pCameraView->mCameraZoom : pCameraView->mCameraZoom;
 
@@ -1290,6 +1305,9 @@ void SceneWindow::resize(const Point2I &newPosition, const Point2I &newExtent)
 
 void SceneWindow::processTick( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneWindow_ProcessTick);
+
     // Are we moving the camera.
     if ( mMovingCamera )
     {
@@ -1403,15 +1421,15 @@ void SceneWindow::resetTickCameraPosition( void )
 
 void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneWindow_onRender);
+
     // Fetch scene.
     Scene* pScene = getScene();
 
     // Cannot render without scene!
     if ( !pScene )
         return;
-
-    // Debug Profiling.
-    PROFILE_SCOPE(SceneWindow_Render);
 
     // Calculate current camera View ( if needed ).
     calculateCameraView( &mCameraCurrent );
@@ -1511,6 +1529,9 @@ void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
 
 void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(SceneWindow_RenderMetricsOverlay);
+
     // Fetch scene.
     Scene* pScene = getScene();
 
