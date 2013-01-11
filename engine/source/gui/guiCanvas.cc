@@ -1706,11 +1706,11 @@ void GuiCanvas::renderFrame(bool preRenderOnly, bool bufferSwap /* = true */)
    if( bufferSwap )
       swapBuffers();
     
-#if defined(TORQUE_OS_WIN32)
-   PROFILE_START(glFinish);
-   glFinish(); // This was changed to work with the D3D layer -pw
-   PROFILE_END();
-#endif
+//#if defined(TORQUE_OS_WIN32)
+//   PROFILE_START(glFinish);
+//   glFinish(); // This was changed to work with the D3D layer -pw
+//   PROFILE_END();
+//#endif
 
 }
 
