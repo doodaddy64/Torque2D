@@ -132,11 +132,12 @@ struct ProfilerData
    F64 mSubTime;
 };
 
-
+#undef PROFILE_START
 #define PROFILE_START(name) \
 static ProfilerRootData pdata##name##obj (#name); \
 if(gProfiler) gProfiler->hashPush(& pdata##name##obj )
 
+#undef PROFILE_END
 #define PROFILE_END() if(gProfiler) gProfiler->hashPop()
 
 class ScopedProfiler {
@@ -149,14 +150,11 @@ public:
    }
 };
 
+#undef PROFILE_SCOPE
 #define PROFILE_SCOPE(name) \
    static ProfilerRootData pdata##name##obj (#name); \
    ScopedProfiler scopedProfiler##name##obj(&pdata##name##obj);
 
-#else
-#define PROFILE_START(x)
-#define PROFILE_END()
-#define PROFILE_SCOPE(x)
 #endif
 
 #endif

@@ -330,6 +330,11 @@ void Profiler::hashPush(ProfilerRootData *root)
 void Profiler::enable(bool enabled)
 {
    mNextEnable = enabled;
+
+   if ( enabled )
+       Con::printf( "Profiler is on." );
+   else
+       Con::printf("Profiler is off." );
 }
 
 void Profiler::dumpToConsole()

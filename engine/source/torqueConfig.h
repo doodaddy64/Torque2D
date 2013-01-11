@@ -81,6 +81,10 @@
 ///    See also the TORQUE_SHIPPING block below
 //#define TORQUE_ENABLE_PROFILER
 
+#define PROFILE_START(name) #name
+#define PROFILE_END()
+#define PROFILE_SCOPE(name) #name
+
 /// Define me to enable unicode support.
 #define TORQUE_UNICODE
 
