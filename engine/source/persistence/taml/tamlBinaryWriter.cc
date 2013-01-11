@@ -9,10 +9,16 @@
 #include "io/zip/zipSubStream.h"
 #endif
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 bool TamlBinaryWriter::write( FileStream& stream, const TamlWriteNode* pTamlWriteNode, const bool compressed )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlBinaryWriter_Write);
+
     // Sanity!
     AssertFatal( mpTaml->getFormatMode() == Taml::BinaryFormat, "Cannot write with a binary writer using a non-binary format mode." );
    
@@ -51,6 +57,9 @@ bool TamlBinaryWriter::write( FileStream& stream, const TamlWriteNode* pTamlWrit
 
 void TamlBinaryWriter::writeElement( Stream& stream, const TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlBinaryWriter_WriteElement);
+
     // Fetch object.
     SimObject* pSimObject = pTamlWriteNode->mpSimObject;
 
@@ -105,6 +114,9 @@ void TamlBinaryWriter::writeElement( Stream& stream, const TamlWriteNode* pTamlW
 
 void TamlBinaryWriter::writeCustomElements( Stream& stream, const TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlBinaryWriter_WriteCustomElements);
+
     // Fetch custom collection.
     const TamlCollection& customCollection = pTamlWriteNode->mCustomCollection;
 
@@ -185,6 +197,9 @@ void TamlBinaryWriter::writeCustomElements( Stream& stream, const TamlWriteNode*
 
 void TamlBinaryWriter::writeAttributes( Stream& stream, const TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlBinaryWriter_WriteAttributes);
+
     // Fetch fields.
     const Vector<TamlWriteNode::FieldValuePair*>& fields = pTamlWriteNode->mFields;
 
@@ -209,6 +224,9 @@ void TamlBinaryWriter::writeAttributes( Stream& stream, const TamlWriteNode* pTa
 
 void TamlBinaryWriter::writeChildren( Stream& stream, const TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlBinaryWriter_WriteChildren);
+
     // Fetch children.
     Vector<TamlWriteNode*>* pChildren = pTamlWriteNode->mChildren;
 

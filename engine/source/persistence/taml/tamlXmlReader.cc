@@ -5,10 +5,16 @@
 
 #include "tamlXmlReader.h"
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 SimObject* TamlXmlReader::read( FileStream& stream )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlReader_Read);
+
     // Sanity!
     AssertFatal( mpTaml->getFormatMode() == Taml::XmlFormat, "Cannot read with  a XML reader using a non-XML format mode." );
 
@@ -36,6 +42,9 @@ SimObject* TamlXmlReader::read( FileStream& stream )
 
 void TamlXmlReader::resetParse( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlReader_ResetParse);
+
     // Clear object reference map.
     mObjectReferenceMap.clear();
 }
@@ -44,6 +53,9 @@ void TamlXmlReader::resetParse( void )
 
 SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlReader_ParseElement);
+
     SimObject* pSimObject = NULL;
 
     // Fetch element name.
@@ -174,6 +186,9 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
 
 void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCollection& collection )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlReader_ParseCustomElement);
+
     // Is this a standard child element?
     const char* pPeriod = dStrchr( pXmlElement->Value(), '.' );
 
@@ -240,6 +255,9 @@ void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCollectio
 
 void TamlXmlReader::parseAttributes( TiXmlElement* pXmlElement, SimObject* pSimObject )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlReader_ParseAttributes);
+
     // Sanity!
     AssertFatal( pSimObject != NULL, "Taml: Cannot parse attributes on a NULL object." );
 
@@ -265,6 +283,9 @@ void TamlXmlReader::parseAttributes( TiXmlElement* pXmlElement, SimObject* pSimO
 
 U32 TamlXmlReader::getTamlRefId( TiXmlElement* pXmlElement )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlReader_GetTamlRefId);
+
     // Iterate attributes.
     for ( TiXmlAttribute* pAttribute = pXmlElement->FirstAttribute(); pAttribute; pAttribute = pAttribute->Next() )
     {
@@ -287,6 +308,9 @@ U32 TamlXmlReader::getTamlRefId( TiXmlElement* pXmlElement )
 
 U32 TamlXmlReader::getTamlRefToId( TiXmlElement* pXmlElement )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlReader_GetTamlRefToId);
+
     // Iterate attributes.
     for ( TiXmlAttribute* pAttribute = pXmlElement->FirstAttribute(); pAttribute; pAttribute = pAttribute->Next() )
     {
@@ -309,6 +333,9 @@ U32 TamlXmlReader::getTamlRefToId( TiXmlElement* pXmlElement )
 
 const char* TamlXmlReader::getTamlObjectName( TiXmlElement* pXmlElement )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlReader_GetTamlObjectName);
+
     // Iterate attributes.
     for ( TiXmlAttribute* pAttribute = pXmlElement->FirstAttribute(); pAttribute; pAttribute = pAttribute->Next() )
     {

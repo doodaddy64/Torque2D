@@ -9,10 +9,16 @@
 #include "io/zip/zipSubStream.h"
 #endif
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 SimObject* TamlBinaryReader::read( FileStream& stream )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlBinaryReader_Rad);
+
     // Sanity!
     AssertFatal( mpTaml->getFormatMode() == Taml::BinaryFormat, "Cannot read with a binary reader using a non-binary format mode." );
 
@@ -63,6 +69,9 @@ SimObject* TamlBinaryReader::read( FileStream& stream )
 
 void TamlBinaryReader::resetParse( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlBinaryReader_ResetParse);
+
     // Clear object reference map.
     mObjectReferenceMap.clear();
 }
@@ -71,6 +80,9 @@ void TamlBinaryReader::resetParse( void )
 
 SimObject* TamlBinaryReader::parseElement( Stream& stream, const U32 versionId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlBinaryReader_ParseElement);
+
     SimObject* pSimObject = NULL;
 
     // Fetch element name.    
@@ -155,6 +167,9 @@ SimObject* TamlBinaryReader::parseElement( Stream& stream, const U32 versionId )
 
 void TamlBinaryReader::parseCustomElement( Stream& stream, TamlCallbacks* pCallbacks, TamlCollection& customCollection, const U32 versionId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlBinaryReader_ParseCustomElement);
+
     // Read custom element count.
     U32 customPropertyCount;
     stream.read( &customPropertyCount );
@@ -248,6 +263,9 @@ void TamlBinaryReader::parseCustomElement( Stream& stream, TamlCallbacks* pCallb
 
 void TamlBinaryReader::parseAttributes( Stream& stream, SimObject* pSimObject, const U32 versionId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlBinaryReader_ParseAttributes);
+
     // Sanity!
     AssertFatal( pSimObject != NULL, "Taml: Cannot parse attributes on a NULL object." );
 
@@ -277,6 +295,9 @@ void TamlBinaryReader::parseAttributes( Stream& stream, SimObject* pSimObject, c
 
 void TamlBinaryReader::parseChildren( Stream& stream, TamlCallbacks* pCallbacks, SimObject* pSimObject, const U32 versionId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlBinaryReader_ParseChildren);
+
     // Sanity!
     AssertFatal( pSimObject != NULL, "Taml: Cannot parse children on a NULL object." );
 

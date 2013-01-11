@@ -5,10 +5,16 @@
 
 #include "tamlXmlWriter.h"
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 bool TamlXmlWriter::write( FileStream& stream, const TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlWriter_Write);
+
     // Sanity!
     AssertFatal( mpTaml->getFormatMode() == Taml::XmlFormat, "Cannot write with a XML writer using a non-XML format mode." );
 
@@ -26,6 +32,9 @@ bool TamlXmlWriter::write( FileStream& stream, const TamlWriteNode* pTamlWriteNo
 
 TiXmlNode* TamlXmlWriter::compileElement( const TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlWriter_CompileElement);
+
     // Fetch object.
     SimObject* pSimObject = pTamlWriteNode->mpSimObject;
 
@@ -112,6 +121,9 @@ TiXmlNode* TamlXmlWriter::compileElement( const TamlWriteNode* pTamlWriteNode )
 
 void TamlXmlWriter::compileCustomElements( TiXmlElement* pXmlElement, const TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlWriter_CompileCustomElements);
+
     // Fetch custom collection.
     const TamlCollection& customCollection = pTamlWriteNode->mCustomCollection;
 
@@ -178,6 +190,9 @@ void TamlXmlWriter::compileCustomElements( TiXmlElement* pXmlElement, const Taml
 
 void TamlXmlWriter::compileAttributes( TiXmlElement* pXmlElement, const TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlWriter_CompileAttributes);
+
     // Fetch fields.
     const Vector<TamlWriteNode::FieldValuePair*>& fields = pTamlWriteNode->mFields;
 

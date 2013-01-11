@@ -40,6 +40,9 @@
 // Script bindings.
 #include "taml_ScriptBinding.h"
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 IMPLEMENT_CONOBJECT( Taml );
@@ -104,6 +107,9 @@ void Taml::initPersistFields()
 
 bool Taml::write( SimObject* pSimObject, const char* pFilename )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Taml_Write);
+
     // Sanity!
     AssertFatal( pSimObject != NULL, "Cannot write a NULL object." );
     AssertFatal( pFilename != NULL, "Cannot write to a NULL filename." );
@@ -140,6 +146,9 @@ bool Taml::write( SimObject* pSimObject, const char* pFilename )
 
 SimObject* Taml::read( const char* pFilename )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Taml_Read);
+
     // Sanity!
     AssertFatal( pFilename != NULL, "Cannot read from a NULL filename." );
 
@@ -268,6 +277,9 @@ SimObject* Taml::read( FileStream& stream )
 
 void Taml::resetCompilation( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Taml_ResetCompilation);
+
     // Clear compiled nodes.
     for( typeNodeVector::iterator itr = mCompiledNodes.begin(); itr != mCompiledNodes.end(); ++itr )
     {
@@ -293,6 +305,9 @@ void Taml::resetCompilation( void )
 
 TamlWriteNode* Taml::compileObject( SimObject* pSimObject )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Taml_CompileObject);
+
     // Sanity!
     AssertFatal( pSimObject != NULL, "Cannot compile a NULL object." );
 
@@ -372,6 +387,9 @@ TamlWriteNode* Taml::compileObject( SimObject* pSimObject )
 
 void Taml::compileStaticFields( TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Taml_CompileStaticFields);
+
     // Sanity!
     AssertFatal( pTamlWriteNode != NULL, "Cannot compile static fields on a NULL node." );
     AssertFatal( pTamlWriteNode->mpSimObject != NULL, "Cannot compile static fields on a node with no object." );
@@ -449,15 +467,21 @@ void Taml::compileStaticFields( TamlWriteNode* pTamlWriteNode )
 
 static S32 QSORT_CALLBACK compareFieldEntries(const void* a,const void* b)
 {
-   SimFieldDictionary::Entry *fa = *((SimFieldDictionary::Entry **)a);
-   SimFieldDictionary::Entry *fb = *((SimFieldDictionary::Entry **)b);
-   return dStricmp(fa->slotName, fb->slotName);
+    // Debug Profiling.
+    PROFILE_SCOPE(Taml_CompareFieldEntries);
+
+    SimFieldDictionary::Entry *fa = *((SimFieldDictionary::Entry **)a);
+    SimFieldDictionary::Entry *fb = *((SimFieldDictionary::Entry **)b);
+    return dStricmp(fa->slotName, fb->slotName);
 }
 
 //-----------------------------------------------------------------------------
 
 void Taml::compileDynamicFields( TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Taml_CompileDynamicFields);
+
      // Sanity!
     AssertFatal( pTamlWriteNode != NULL, "Cannot compile dynamic fields on a NULL node." );
     AssertFatal( pTamlWriteNode->mpSimObject != NULL, "Cannot compile dynamic fields on a node with no object." );
@@ -525,6 +549,9 @@ void Taml::compileDynamicFields( TamlWriteNode* pTamlWriteNode )
 
 void Taml::compileChildren( TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Taml_CompileChildren);
+
     // Sanity!
     AssertFatal( pTamlWriteNode != NULL, "Cannot compile children on a NULL node." );
     AssertFatal( pTamlWriteNode->mpSimObject != NULL, "Cannot compile children on a node with no object." );
@@ -557,6 +584,9 @@ void Taml::compileChildren( TamlWriteNode* pTamlWriteNode )
 
 void Taml::compileCollection( TamlWriteNode* pTamlWriteNode )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Taml_CompileCollection);
+
     // Sanity!
     AssertFatal( pTamlWriteNode != NULL, "Cannot compile collections on a NULL node." );
     AssertFatal( pTamlWriteNode->mpSimObject != NULL, "Cannot compile collections on a node with no object." );
@@ -611,6 +641,9 @@ void Taml::compileCollection( TamlWriteNode* pTamlWriteNode )
 
 SimObject* Taml::createType( StringTableEntry typeName )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(Taml_CreateType);
+
     typedef HashMap<StringTableEntry, AbstractClassRep*> typeClassHash;
     static typeClassHash mClassMap;
 

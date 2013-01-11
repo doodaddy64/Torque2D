@@ -9,10 +9,16 @@
 #include "tamlCollection.h"
 #endif
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 void TamlWriteNode::resetNode( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlWriteNode_ResetNode);
+
     // Clear fields.
     for( Vector<TamlWriteNode::FieldValuePair*>::iterator itr = mFields.begin(); itr != mFields.end(); ++itr )
     {

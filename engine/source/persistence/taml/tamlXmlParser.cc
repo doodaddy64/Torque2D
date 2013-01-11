@@ -5,10 +5,16 @@
 
 #include "tamlXmlParser.h"
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 bool TamlXmlParser::parse( const char* pFilename, TamlXmlVisitor& visitor, const bool writeDocument )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlParser_Parse);
+
     // Sanity!
     AssertFatal( pFilename != NULL, "Cannot parse a NULL filename." );
 
@@ -77,6 +83,9 @@ bool TamlXmlParser::parse( const char* pFilename, TamlXmlVisitor& visitor, const
 
 bool TamlXmlParser::parseElement( TiXmlElement* pXmlElement, TamlXmlVisitor& visitor )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlParser_ParseElement);
+
     // Visit this element (stop processing if instructed).
     if ( !visitor.visit( pXmlElement, *this ) )
         return false;
@@ -107,6 +116,9 @@ bool TamlXmlParser::parseElement( TiXmlElement* pXmlElement, TamlXmlVisitor& vis
 
 bool TamlXmlParser::parseAttributes( TiXmlElement* pXmlElement, TamlXmlVisitor& visitor )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(TamlXmlParser_ParseAttribute);
+
     // Iterate attributes.
     for ( TiXmlAttribute* pAttribute = pXmlElement->FirstAttribute(); pAttribute; pAttribute = pAttribute->Next() )
     {
