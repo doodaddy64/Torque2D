@@ -480,7 +480,7 @@ void ParticleEffect::clearGraphSelections( void )
 
 //-----------------------------------------------------------------------------
 
-void ParticleEffect::addGraphSelection( const char* graphName, ParticleGraphField* pGraphObject )
+void ParticleEffect::addGraphSelection( const char* graphName, ParticleAssetField* pGraphObject )
 {
    // Generate new Graph Selection.
    tGraphSelection* pGraphSelection = new tGraphSelection;
@@ -495,7 +495,7 @@ void ParticleEffect::addGraphSelection( const char* graphName, ParticleGraphFiel
 
 //-----------------------------------------------------------------------------
 
-ParticleGraphField* ParticleEffect::findGraphSelection( const char* graphName ) const
+ParticleAssetField* ParticleEffect::findGraphSelection( const char* graphName ) const
 {
    // Search For Selected Graph and return if found.
    for ( U32 n = 0; n < (U32)mGraphSelectionList.size(); n++ )
@@ -1662,7 +1662,7 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEffect, 1 )
    for ( U32 n = 0; n < (U32)graphCount; n++ )
    {
       // Load/Find Graph Name.
-      ParticleGraphField* pGraphField = object->findGraphSelection( stream.readSTString() );
+      ParticleAssetField* pGraphField = object->findGraphSelection( stream.readSTString() );
       // Check Graph Field.
       if ( !pGraphField )
          return false;
@@ -1803,7 +1803,7 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEffect, 2 )
    for ( U32 n = 0; n < (U32)graphCount; n++ )
    {
       // Load/Find Graph Name.
-      ParticleGraphField* pGraphField = object->findGraphSelection( stream.readSTString() );
+      ParticleAssetField* pGraphField = object->findGraphSelection( stream.readSTString() );
       // Check Graph Field.
       if ( !pGraphField )
          return false;
@@ -1952,7 +1952,7 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEffect, 3 )
    for ( U32 n = 0; n < (U32)graphCount; n++ )
    {
       // Load/Find Graph Name.
-      ParticleGraphField* pGraphField = object->findGraphSelection( stream.readSTString() );
+      ParticleAssetField* pGraphField = object->findGraphSelection( stream.readSTString() );
       // Check Graph Field.
       if ( !pGraphField )
          return false;

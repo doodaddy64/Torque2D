@@ -10,8 +10,8 @@
 #include "2d/sceneobject/SceneObject.h"
 #endif
 
-#ifndef _PARTICLE_GRAPH_FIELD_H_
-#include "ParticleGraphField.h"
+#ifndef _PARTICLE_ASSET_FIELD_H_
+#include "ParticleAssetField.h"
 #endif
 
 #ifndef _PARTICLE_EMITTER_H_
@@ -64,33 +64,33 @@ private:
     struct tGraphSelection
     {
         StringTableEntry        mGraphName;
-        ParticleGraphField*          mpGraphObject;
+        ParticleAssetField*          mpGraphObject;
     };
 
-    ParticleGraphField*              mpCurrentGraph;
+    ParticleAssetField*              mpCurrentGraph;
     StringTableEntry            mCurrentGraphName;
     Vector<tGraphSelection*>    mGraphSelectionList;
 
     /// Graph Selection.
     void clearGraphSelections( void );
-    void addGraphSelection( const char* graphName, ParticleGraphField* pGraphObject );
-    ParticleGraphField* findGraphSelection( const char* graphName ) const;
+    void addGraphSelection( const char* graphName, ParticleAssetField* pGraphObject );
+    ParticleAssetField* findGraphSelection( const char* graphName ) const;
 
 
 public:
     /// Graph Properties.
-    ParticleGraphField_B     mParticleLife;
-    ParticleGraphField_B     mQuantity;
-    ParticleGraphField_B     mSizeX;
-    ParticleGraphField_B     mSizeY;
-    ParticleGraphField_B     mSpeed;
-    ParticleGraphField_B     mSpin;
-    ParticleGraphField_B     mFixedForce;
-    ParticleGraphField_B     mRandomMotion;
-    ParticleGraphField_BV    mEmissionForce;
-    ParticleGraphField_BV    mEmissionAngle;
-    ParticleGraphField_BV    mEmissionArc;
-    ParticleGraphField_B     mVisibility;
+    ParticleAssetField_B     mParticleLife;
+    ParticleAssetField_B     mQuantity;
+    ParticleAssetField_B     mSizeX;
+    ParticleAssetField_B     mSizeY;
+    ParticleAssetField_B     mSpeed;
+    ParticleAssetField_B     mSpin;
+    ParticleAssetField_B     mFixedForce;
+    ParticleAssetField_B     mRandomMotion;
+    ParticleAssetField_BV    mEmissionForce;
+    ParticleAssetField_BV    mEmissionAngle;
+    ParticleAssetField_BV    mEmissionArc;
+    ParticleAssetField_B     mVisibility;
 
     /// Effect Life Mode.
     enum eEffectLifeMode

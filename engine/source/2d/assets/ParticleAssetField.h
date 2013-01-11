@@ -3,42 +3,46 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _PARTICLE_GRAPH_FIELD_H_
-#define _PARTICLE_GRAPH_FIELD_H_
+#ifndef _PARTICLE_ASSET_FIELD_H_
+#define _PARTICLE_ASSET_FIELD_H_
 
 #ifndef _VECTOR_H_
 #include "collection/vector.h"
 #endif
 
+#ifndef _TAML_COLLECTION_H_
+#include "persistence/taml/tamlCollection.h"
+#endif
+
 ///-----------------------------------------------------------------------------
 
-class ParticleGraphField
+class ParticleAssetField
 {
 public:
     /// Data Key Node.
-    struct tDataKeyNode
+    struct DataKey
     {
         F32     mTime;
         F32     mValue;
     };
 
 private:
-    Vector<tDataKeyNode>    mDataKeys;
+    Vector<DataKey> mDataKeys;
 
-    F32                     mValueScale;
-    F32                     mTimeScale;
-    F32                     mMaxTime;
-    F32                     mMinValue;
-    F32                     mMaxValue;
-    F32                     mDefaultValue;
+    F32 mValueScale;
+    F32 mTimeScale;
+    F32 mMaxTime;
+    F32 mMinValue;
+    F32 mMaxValue;
+    F32 mDefaultValue;
 
 public:
-    ParticleGraphField();
-    virtual ~ParticleGraphField();
+    ParticleAssetField();
+    virtual ~ParticleAssetField();
 
-    virtual void copyTo(ParticleGraphField& graph);
+    virtual void copyTo(ParticleAssetField& graph);
 
-    const tDataKeyNode getDataKeyNode( const U32 index ) const;
+    const DataKey getDataKeyNode( const U32 index ) const;
     void resetDataKeys( void );
     bool setTimeRepeat( const F32 timeRepeat );
     bool setValueScale( const F32 valueScale );
@@ -59,72 +63,72 @@ public:
     F32 getValueScale( void ) const { return mValueScale; };
 
     // Calculate Graph Variants.
-    static F32 calcGraphBV( const ParticleGraphField& base, const ParticleGraphField& variation, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
-    static F32 calcGraphBVE( const ParticleGraphField& base, const ParticleGraphField& variation, const ParticleGraphField& effect, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
-    static F32 calcGraphBVLE( const ParticleGraphField& base, const ParticleGraphField& variation, const ParticleGraphField& overlife, const ParticleGraphField& effect, const F32 effectTime, const F32 particleAge, const bool modulate = false, const F32 modulo = 0.0f );
+    static F32 calcGraphBV( const ParticleAssetField& base, const ParticleAssetField& variation, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
+    static F32 calcGraphBVE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& effect, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
+    static F32 calcGraphBVLE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& overlife, const ParticleAssetField& effect, const F32 effectTime, const F32 particleAge, const bool modulate = false, const F32 modulo = 0.0f );
+
+protected:
+    void onTamlCustomWrite( TamlCollection& customCollection );
+    void onTamlCustomRead( const TamlCollection& customCollection );
 };
 
 
 ///-----------------------------------------------------------------------------
 /// Base-Only Graph.
 ///-----------------------------------------------------------------------------
-struct ParticleGraphField_B
+struct ParticleAssetField_B
 {
-   ParticleGraphField       GraphField_Base;
+   ParticleAssetField       GraphField_Base;
 
-   virtual void copyTo(ParticleGraphField_B& graph)
+   virtual void copyTo(ParticleAssetField_B& graph)
    {
       GraphField_Base.copyTo(graph.GraphField_Base);
    };
-
 };
 
 ///-----------------------------------------------------------------------------
 /// Life-Only Graph.
 ///-----------------------------------------------------------------------------
-struct GraphField_L
+struct ParticleAssetField_L
 {
-   ParticleGraphField       GraphField_OverLife;
+   ParticleAssetField       GraphField_OverLife;
 
-   void copyTo(GraphField_L& graph)
+   void copyTo(ParticleAssetField_L& graph)
    {
       GraphField_OverLife.copyTo(graph.GraphField_OverLife);
    };
-
 };
 
 ///-----------------------------------------------------------------------------
 /// Base & Variation Graphs.
 ///-----------------------------------------------------------------------------
-struct ParticleGraphField_BV
+struct ParticleAssetField_BV
 {
-    ParticleGraphField       GraphField_Base;
-    ParticleGraphField       GraphField_Variation;
+    ParticleAssetField       GraphField_Base;
+    ParticleAssetField       GraphField_Variation;
 
-    void copyTo(ParticleGraphField_BV& graph)
+    void copyTo(ParticleAssetField_BV& graph)
     {
        GraphField_Base.copyTo(graph.GraphField_Base);
        GraphField_Variation.copyTo(graph.GraphField_Variation);
     };
-
 };
 
 ///-----------------------------------------------------------------------------
 /// Base, Variation and Over-Time Graphs.
 ///-----------------------------------------------------------------------------
-struct ParticleGraphField_BVL
+struct ParticleAssetField_BVL
 {
-    ParticleGraphField       GraphField_Base;
-    ParticleGraphField       GraphField_Variation;
-    ParticleGraphField       GraphField_OverLife;
+    ParticleAssetField       GraphField_Base;
+    ParticleAssetField       GraphField_Variation;
+    ParticleAssetField       GraphField_OverLife;
 
-    void copyTo(ParticleGraphField_BVL& graph)
+    void copyTo(ParticleAssetField_BVL& graph)
     {
        GraphField_Base.copyTo(graph.GraphField_Base);
        GraphField_Variation.copyTo(graph.GraphField_Variation);
        GraphField_OverLife.copyTo(graph.GraphField_OverLife);
     };
-
 };
 
-#endif // _PARTICLE_GRAPH_FIELD_H_
+#endif // _PARTICLE_ASSET_FIELD_H_

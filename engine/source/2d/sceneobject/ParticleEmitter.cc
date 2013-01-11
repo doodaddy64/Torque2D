@@ -627,7 +627,7 @@ void ParticleEmitter::clearGraphSelections( void )
 
 //------------------------------------------------------------------------------
 
-void ParticleEmitter::addGraphSelection( const char* graphName, ParticleGraphField* pGraphObject )
+void ParticleEmitter::addGraphSelection( const char* graphName, ParticleAssetField* pGraphObject )
 {
     // Generate new Graph Selection.
     tGraphSelection* pGraphSelection = new tGraphSelection;
@@ -642,7 +642,7 @@ void ParticleEmitter::addGraphSelection( const char* graphName, ParticleGraphFie
 
 //------------------------------------------------------------------------------
 
-ParticleGraphField* ParticleEmitter::findGraphSelection( const char* graphName ) const
+ParticleAssetField* ParticleEmitter::findGraphSelection( const char* graphName ) const
 {
     // Search For Selected Graph and return if found.
     for ( U32 n = 0; n < (U32)mGraphSelectionList.size(); n++ )
@@ -1875,7 +1875,7 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     // Calculate Particle Lifetime.
     // **********************************************************************************************************************
     pParticleNode->mParticleAge = 0.0f;
-    pParticleNode->mParticleLifetime = ParticleGraphField::calcGraphBVE( mParticleLife.GraphField_Base,
+    pParticleNode->mParticleLifetime = ParticleAssetField::calcGraphBVE( mParticleLife.GraphField_Base,
                                                                         mParticleLife.GraphField_Variation,
                                                                         pParentEffectObject->mParticleLife.GraphField_Base,
                                                                         effectAge );
@@ -1884,7 +1884,7 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     // **********************************************************************************************************************
     // Calculate Particle Size-X.
     // **********************************************************************************************************************
-    pParticleNode->mSize.x = ParticleGraphField::calcGraphBVE(  mSizeX.GraphField_Base,
+    pParticleNode->mSize.x = ParticleAssetField::calcGraphBVE(  mSizeX.GraphField_Base,
                                                             mSizeX.GraphField_Variation,
                                                             pParentEffectObject->mSizeX.GraphField_Base,
                                                             effectAge );
@@ -1898,7 +1898,7 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     else
     {
         // No, so calculate Particle Size-Y.
-        pParticleNode->mSize.y = ParticleGraphField::calcGraphBVE(  mSizeY.GraphField_Base,
+        pParticleNode->mSize.y = ParticleAssetField::calcGraphBVE(  mSizeY.GraphField_Base,
                                                                 mSizeY.GraphField_Variation,
                                                                 pParentEffectObject->mSizeY.GraphField_Base,
                                                                 effectAge );
@@ -1915,7 +1915,7 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     // Ignore if we're using Single-Particle.
     if ( !mSingleParticle )
     {
-        pParticleNode->mSpeed = ParticleGraphField::calcGraphBVE(    mSpeed.GraphField_Base,
+        pParticleNode->mSpeed = ParticleAssetField::calcGraphBVE(    mSpeed.GraphField_Base,
                                                                 mSpeed.GraphField_Variation,
                                                                 pParentEffectObject->mSpeed.GraphField_Base,
                                                                 effectAge );
@@ -1925,7 +1925,7 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     // **********************************************************************************************************************
     // Calculate Spin.
     // **********************************************************************************************************************
-    pParticleNode->mSpin = ParticleGraphField::calcGraphBVE( mSpin.GraphField_Base,
+    pParticleNode->mSpin = ParticleAssetField::calcGraphBVE( mSpin.GraphField_Base,
                                                             mSpin.GraphField_Variation,
                                                             pParentEffectObject->mSpin.GraphField_Base,
                                                             effectAge );
@@ -1934,7 +1934,7 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     // **********************************************************************************************************************
     // Calculate Fixed-Force.
     // **********************************************************************************************************************
-    pParticleNode->mFixedForce = ParticleGraphField::calcGraphBVE(   mFixedForce.GraphField_Base,
+    pParticleNode->mFixedForce = ParticleAssetField::calcGraphBVE(   mFixedForce.GraphField_Base,
                                                                 mFixedForce.GraphField_Variation,
                                                                 pParentEffectObject->mFixedForce.GraphField_Base,
                                                                 effectAge );
@@ -1947,7 +1947,7 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     // Ignore if we're using Single-Particle.
     if ( !mSingleParticle )
     {
-        pParticleNode->mRandomMotion = ParticleGraphField::calcGraphBVE( mRandomMotion.GraphField_Base,
+        pParticleNode->mRandomMotion = ParticleAssetField::calcGraphBVE( mRandomMotion.GraphField_Base,
                                                                         mRandomMotion.GraphField_Variation,
                                                                         pParentEffectObject->mRandomMotion.GraphField_Base,
                                                                         effectAge );
@@ -1972,18 +1972,18 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
             // Yes, so calculate emission from effect...
 
             // Calculate Emission Force.
-            emissionForce = ParticleGraphField::calcGraphBV( pParentEffectObject->mEmissionForce.GraphField_Base,
+            emissionForce = ParticleAssetField::calcGraphBV( pParentEffectObject->mEmissionForce.GraphField_Base,
                                                             pParentEffectObject->mEmissionForce.GraphField_Variation,
                                                             effectAge);
 
             // Calculate Emission Angle.
-            emissionAngle = ParticleGraphField::calcGraphBV( pParentEffectObject->mEmissionAngle.GraphField_Base,
+            emissionAngle = ParticleAssetField::calcGraphBV( pParentEffectObject->mEmissionAngle.GraphField_Base,
                                                             pParentEffectObject->mEmissionAngle.GraphField_Variation,
                                                             effectAge);
 
             // Calculate Emission Arc.
             // NOTE:-   We're actually interested in half the emission arc!
-            emissionArc = ParticleGraphField::calcGraphBV(   pParentEffectObject->mEmissionArc.GraphField_Base,
+            emissionArc = ParticleAssetField::calcGraphBV(   pParentEffectObject->mEmissionArc.GraphField_Base,
                                                         pParentEffectObject->mEmissionArc.GraphField_Variation,
                                                         effectAge ) * 0.5f;
         }
@@ -1992,18 +1992,18 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
             // No, so calculate emission from emitter...
 
             // Calculate Emission Force.
-            emissionForce = ParticleGraphField::calcGraphBV( mEmissionForce.GraphField_Base,
+            emissionForce = ParticleAssetField::calcGraphBV( mEmissionForce.GraphField_Base,
                                                             mEmissionForce.GraphField_Variation,
                                                             effectAge);
 
             // Calculate Emission Angle.
-            emissionAngle = ParticleGraphField::calcGraphBV( mEmissionAngle.GraphField_Base,
+            emissionAngle = ParticleAssetField::calcGraphBV( mEmissionAngle.GraphField_Base,
                                                         mEmissionAngle.GraphField_Variation,
                                                         effectAge );
 
             // Calculate Emission Arc.
             // NOTE:-   We're actually interested in half the emission arc!
-            emissionArc = ParticleGraphField::calcGraphBV(   mEmissionArc.GraphField_Base,
+            emissionArc = ParticleAssetField::calcGraphBV(   mEmissionArc.GraphField_Base,
                                                         mEmissionArc.GraphField_Variation,
                                                         effectAge ) * 0.5f;
         }
@@ -2370,7 +2370,7 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 3 )
     for ( U32 n = 0; n < (U32)graphCount; n++ )
     {
         // Load/Find Graph Name.
-        ParticleGraphField* pGraphField = object->findGraphSelection( stream.readSTString() );
+        ParticleAssetField* pGraphField = object->findGraphSelection( stream.readSTString() );
         // Check Graph Field.
         if ( !pGraphField )
             return false;
@@ -2594,7 +2594,7 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 4 )
     for ( U32 n = 0; n < (U32)graphCount; n++ )
     {
         // Load/Find Graph Name.
-        ParticleGraphField* pGraphField = object->findGraphSelection( stream.readSTString() );
+        ParticleAssetField* pGraphField = object->findGraphSelection( stream.readSTString() );
         // Check Graph Field.
         if ( !pGraphField )
             return false;

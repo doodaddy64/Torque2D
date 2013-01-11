@@ -10,8 +10,8 @@
 #include "2d/sceneobject/SceneObject.h"
 #endif
 
-#ifndef _PARTICLE_GRAPH_FIELD_H_
-#include "ParticleGraphField.h"
+#ifndef _PARTICLE_ASSET_FIELD_H_
+#include "ParticleAssetField.h"
 #endif
 
 #ifndef _IMAGE_ASSET_H_
@@ -53,10 +53,10 @@ private:
     struct tGraphSelection
     {
         StringTableEntry    mGraphName;
-        ParticleGraphField*      mpGraphObject;
+        ParticleAssetField*      mpGraphObject;
     };
 
-    ParticleGraphField*              mpCurrentGraph;
+    ParticleAssetField*              mpCurrentGraph;
     StringTableEntry            mCurrentGraphName;
     Vector<tGraphSelection*>    mGraphSelectionList;
 
@@ -113,21 +113,21 @@ private:
 
 
     // Graph Properties.
-    ParticleGraphField_BV        mParticleLife;
-    ParticleGraphField_BV        mQuantity;
-    ParticleGraphField_BVL       mSizeX;
-    ParticleGraphField_BVL       mSizeY;
-    ParticleGraphField_BVL       mSpeed;
-    ParticleGraphField_BVL       mSpin;
-    ParticleGraphField_BVL       mFixedForce;
-    ParticleGraphField_BVL       mRandomMotion;
-    ParticleGraphField_BV        mEmissionForce;
-    ParticleGraphField_BV        mEmissionAngle;
-    ParticleGraphField_BV        mEmissionArc;
-    GraphField_L         mColourRed;
-    GraphField_L         mColourGreen;
-    GraphField_L         mColourBlue;
-    GraphField_L         mVisibility;
+    ParticleAssetField_BV        mParticleLife;
+    ParticleAssetField_BV        mQuantity;
+    ParticleAssetField_BVL       mSizeX;
+    ParticleAssetField_BVL       mSizeY;
+    ParticleAssetField_BVL       mSpeed;
+    ParticleAssetField_BVL       mSpin;
+    ParticleAssetField_BVL       mFixedForce;
+    ParticleAssetField_BVL       mRandomMotion;
+    ParticleAssetField_BV        mEmissionForce;
+    ParticleAssetField_BV        mEmissionAngle;
+    ParticleAssetField_BV        mEmissionArc;
+    ParticleAssetField_L         mColourRed;
+    ParticleAssetField_L         mColourGreen;
+    ParticleAssetField_L         mColourBlue;
+    ParticleAssetField_L         mVisibility;
 
     /// Other Properties.
     bool                    mFixedAspect;
@@ -167,8 +167,8 @@ private:
 
 
     void clearGraphSelections( void );
-    void addGraphSelection( const char* graphName, ParticleGraphField* pGraphObject );
-    ParticleGraphField* findGraphSelection( const char* graphName ) const;
+    void addGraphSelection( const char* graphName, ParticleAssetField* pGraphObject );
+    ParticleAssetField* findGraphSelection( const char* graphName ) const;
 
 public:
     ParticleEmitter();

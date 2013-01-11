@@ -3,23 +3,58 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
+#include "2d/assets/ParticleAssetField.h"
+
+#ifndef _CORE_MATH_H_
+#include "2d/core/coreMath.h"
+#endif
+
+#ifndef _MMATH_H_
 #include "math/mMath.h"
+#endif
+
+#ifndef _SIMBASE_H_
 #include "sim/simBase.h"
-#include "2d/sceneobject/SceneObject.h"
-#include "2d/sceneobject/ParticleGraphField.h"
+#endif
 
 //-----------------------------------------------------------------------------
 
-ParticleGraphField::ParticleGraphField() :  mTimeScale(1.0f),
+static bool particleAssetFieldPropertiesInitialized = false;
+
+static StringTableEntry particleAssetFieldCollectionName;
+static StringTableEntry particleAssetFieldTimeScaleName;
+static StringTableEntry particleAssetFieldValueScaleName;
+static StringTableEntry particleAssetFieldMaxTimeName;
+static StringTableEntry particleAssetFieldMinValueName;
+static StringTableEntry particleAssetFieldMaxValueName;
+static StringTableEntry particleAssetFieldDefaultValueName;
+
+static StringTableEntry particleAssetFieldDataKeyName;
+static StringTableEntry particleAssetFieldDataKeyTimeName;
+static StringTableEntry particleAssetFieldDataKeyValueName;
+
+//-----------------------------------------------------------------------------
+
+ParticleAssetField::ParticleAssetField() :
+                            mTimeScale(1.0f),
                             mValueScale(1.0f)
 {
     // Set Vector Associations.
     VECTOR_SET_ASSOCIATION( mDataKeys );
+
+    // Initialize names.
+    if ( !particleAssetFieldPropertiesInitialized )
+    {
+        particleAssetFieldCollectionName      = StringTable->insert( "Cells" );
+
+        // Flag as initialized.
+        particleAssetFieldPropertiesInitialized = true;
+    }
 }
 
 //-----------------------------------------------------------------------------
 
-ParticleGraphField::~ParticleGraphField()
+ParticleAssetField::~ParticleAssetField()
 {
     // Clear Data Keys.
     mDataKeys.clear();
@@ -27,7 +62,7 @@ ParticleGraphField::~ParticleGraphField()
 
 //-----------------------------------------------------------------------------
 
-void ParticleGraphField::copyTo(ParticleGraphField& graph)
+void ParticleAssetField::copyTo(ParticleAssetField& graph)
 {
    graph.mTimeScale = mTimeScale;
    graph.mValueScale = mValueScale;
@@ -38,14 +73,14 @@ void ParticleGraphField::copyTo(ParticleGraphField& graph)
 
    for (S32 i = 0; i < mDataKeys.size(); i++)
    {
-      tDataKeyNode key = mDataKeys[i];
+      DataKey key = mDataKeys[i];
       graph.addDataKey(key.mTime, key.mValue);
    }
 }
 
 //-----------------------------------------------------------------------------
 
-void ParticleGraphField::resetDataKeys(void)
+void ParticleAssetField::resetDataKeys(void)
 {
     // Clear Data Keys.
     mDataKeys.clear();
@@ -56,13 +91,14 @@ void ParticleGraphField::resetDataKeys(void)
 
 //-----------------------------------------------------------------------------
 
-void ParticleGraphField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue, F32 defaultValue )
+void ParticleAssetField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue, F32 defaultValue )
 {
     // Check Max Time.
     if ( maxTime <= 0.0f )
     {
         // Warn.
-        Con::warnf("ParticleGraphField::setBounds() - Max Time is not valid! (maxTime:%f", maxTime );
+        Con::warnf("ParticleAssetField::setBounds() - Max Time is not valid! (maxTime:%f", maxTime );
+
         // Set Default Max Time.
         maxTime = 1.0f;
     }
@@ -74,7 +110,7 @@ void ParticleGraphField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue
     if ( minValue > maxValue )
     {
         // Warn.
-        Con::warnf("ParticleGraphField::setBounds() - Value Range is not normalised! (minValue:%f / maxValue:%f)", minValue, maxValue );
+        Con::warnf("ParticleAssetField::setBounds() - Value Range is not normalised! (minValue:%f / maxValue:%f)", minValue, maxValue );
 
         // Normalise Y-Axis.
         F32 temp = minValue;
@@ -85,7 +121,7 @@ void ParticleGraphField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue
     else if ( minValue == maxValue )
     {
         // Warn.
-        Con::warnf("ParticleGraphField::setBounds() - Value Range has no scale! (minValue:%f / maxValue:%f)", minValue, maxValue );
+        Con::warnf("ParticleAssetField::setBounds() - Value Range has no scale! (minValue:%f / maxValue:%f)", minValue, maxValue );
 
         // Insert some Y-Axis Scale.
         maxValue = minValue + 0.001f;
@@ -99,7 +135,8 @@ void ParticleGraphField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue
     if ( defaultValue < minValue || defaultValue > maxValue )
     {
         // Warn.
-        Con::warnf("ParticleGraphField::setBounds() - Default Value is out of range! (minValue:%f / maxValue:%f / defaultValue:%f)", minValue, maxValue, defaultValue );
+        Con::warnf("ParticleAssetField::setBounds() - Default Value is out of range! (minValue:%f / maxValue:%f / defaultValue:%f)", minValue, maxValue, defaultValue );
+
         // Clamp at lower value.
         defaultValue = minValue;
     }
@@ -113,13 +150,14 @@ void ParticleGraphField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue
 
 //-----------------------------------------------------------------------------
 
-bool ParticleGraphField::setTimeRepeat( const F32 timeRepeat )
+bool ParticleAssetField::setTimeRepeat( const F32 timeRepeat )
 {
     // Check Time Repeat.
     if ( timeRepeat < 0.0f )
     {
         // Warn.
-        Con::warnf("ParticleGraphField::setTimeRepeat() - Invalid Time Repeat! (%f)", timeRepeat );
+        Con::warnf("ParticleAssetField::setTimeRepeat() - Invalid Time Repeat! (%f)", timeRepeat );
+
         // Return Error.
         return false;
     }
@@ -136,13 +174,14 @@ bool ParticleGraphField::setTimeRepeat( const F32 timeRepeat )
 
 //-----------------------------------------------------------------------------
 
-bool ParticleGraphField::setValueScale( const F32 valueScale )
+bool ParticleAssetField::setValueScale( const F32 valueScale )
 {
     // Check Value Scale.
     if ( valueScale < 0.0f )
     {
         // Warn.
-        Con::warnf("ParticleGraphField::setValueScale() - Invalid Value Scale! (%f)", valueScale );
+        Con::warnf("ParticleAssetField::setValueScale() - Invalid Value Scale! (%f)", valueScale );
+
         // Return Error.
         return false;
     }
@@ -157,13 +196,14 @@ bool ParticleGraphField::setValueScale( const F32 valueScale )
 
 //-----------------------------------------------------------------------------
 
-S32 ParticleGraphField::addDataKey( const F32 time, const F32 value )
+S32 ParticleAssetField::addDataKey( const F32 time, const F32 value )
 {
     // Check Max Time.
     if ( time > mMaxTime )
     {
         // Warn.
-        Con::warnf("ParticleGraphField::addDataKey() - Time is out of bounds! (time:%f)", time );
+        Con::warnf("ParticleAssetField::addDataKey() - Time is out of bounds! (time:%f)", time );
+
         // Return Error.
         return -1;
     }
@@ -200,7 +240,7 @@ S32 ParticleGraphField::addDataKey( const F32 time, const F32 value )
 
 //-----------------------------------------------------------------------------
 
-bool ParticleGraphField::removeDataKey( const U32 index )
+bool ParticleAssetField::removeDataKey( const U32 index )
 {
     // Cannot Remove First Node!
     if ( index == 0 )
@@ -227,7 +267,7 @@ bool ParticleGraphField::removeDataKey( const U32 index )
 
 //-----------------------------------------------------------------------------
 
-void ParticleGraphField::clearDataKeys( void )
+void ParticleAssetField::clearDataKeys( void )
 {
     // Reset Data Keys.
     resetDataKeys();
@@ -235,14 +275,14 @@ void ParticleGraphField::clearDataKeys( void )
 
 //-----------------------------------------------------------------------------
 
-const ParticleGraphField::tDataKeyNode ParticleGraphField::getDataKeyNode( const U32 index ) const
+const ParticleAssetField::DataKey ParticleAssetField::getDataKeyNode( const U32 index ) const
 {
     // Check Index.
     if ( index >= getDataKeyCount() )
     {
         // Warn.
         Con::warnf("getDataKeyNode() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
-        return tDataKeyNode();
+        return DataKey();
     }
 
     // Return Data-Key.
@@ -251,7 +291,7 @@ const ParticleGraphField::tDataKeyNode ParticleGraphField::getDataKeyNode( const
 
 //-----------------------------------------------------------------------------
 
-bool ParticleGraphField::setDataKeyValue( const U32 index, const F32 value )
+bool ParticleAssetField::setDataKeyValue( const U32 index, const F32 value )
 {
     // Check Index.
     if ( index >= getDataKeyCount() )
@@ -270,7 +310,7 @@ bool ParticleGraphField::setDataKeyValue( const U32 index, const F32 value )
 
 //-----------------------------------------------------------------------------
 
-F32 ParticleGraphField::getDataKeyValue( const U32 index ) const
+F32 ParticleAssetField::getDataKeyValue( const U32 index ) const
 {
     // Check Index.
     if ( index >= getDataKeyCount() )
@@ -286,7 +326,7 @@ F32 ParticleGraphField::getDataKeyValue( const U32 index ) const
 
 //-----------------------------------------------------------------------------
 
-F32 ParticleGraphField::getDataKeyTime( const U32 index ) const
+F32 ParticleAssetField::getDataKeyTime( const U32 index ) const
 {
     // Check Index.
     if ( index >= getDataKeyCount() )
@@ -302,7 +342,7 @@ F32 ParticleGraphField::getDataKeyTime( const U32 index ) const
 
 //-----------------------------------------------------------------------------
 
-U32 ParticleGraphField::getDataKeyCount( void ) const
+U32 ParticleAssetField::getDataKeyCount( void ) const
 {
     // Return Data Key Count.
     return mDataKeys.size();
@@ -310,7 +350,7 @@ U32 ParticleGraphField::getDataKeyCount( void ) const
 
 //-----------------------------------------------------------------------------
 
-F32 ParticleGraphField::getGraphValue( F32 time ) const
+F32 ParticleAssetField::getGraphValue( F32 time ) const
 {
     // Return First Entry if it's the only one or we're using zero time.
     if ( mIsZero(time) || getDataKeyCount() < 2)
@@ -383,7 +423,7 @@ F32 ParticleGraphField::getGraphValue( F32 time ) const
 
 //-----------------------------------------------------------------------------
 
-F32 ParticleGraphField::calcGraphBV( const ParticleGraphField& base, const ParticleGraphField& variation, const F32 effectAge, const bool modulate, const F32 modulo )
+F32 ParticleAssetField::calcGraphBV( const ParticleAssetField& base, const ParticleAssetField& variation, const F32 effectAge, const bool modulate, const F32 modulo )
 {
     // Fetch Graph Components.
     const F32 baseValue   = base.getGraphValue( effectAge );
@@ -400,7 +440,7 @@ F32 ParticleGraphField::calcGraphBV( const ParticleGraphField& base, const Parti
 
 //-----------------------------------------------------------------------------
 
-F32 ParticleGraphField::calcGraphBVE( const ParticleGraphField& base, const ParticleGraphField& variation, const ParticleGraphField& effect, const F32 effectAge, const bool modulate, const F32 modulo )
+F32 ParticleAssetField::calcGraphBVE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& effect, const F32 effectAge, const bool modulate, const F32 modulo )
 {
     // Fetch Graph Components.
     const F32 baseValue   = base.getGraphValue( effectAge );
@@ -418,7 +458,7 @@ F32 ParticleGraphField::calcGraphBVE( const ParticleGraphField& base, const Part
 
 //-----------------------------------------------------------------------------
 
-F32 ParticleGraphField::calcGraphBVLE( const ParticleGraphField& base, const ParticleGraphField& variation, const ParticleGraphField& overlife, const ParticleGraphField& effect, const F32 effectAge, const F32 particleAge, const bool modulate, const F32 modulo )
+F32 ParticleAssetField::calcGraphBVLE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& overlife, const ParticleAssetField& effect, const F32 effectAge, const F32 particleAge, const bool modulate, const F32 modulo )
 {
     // Fetch Graph Components.
     const F32 baseValue   = base.getGraphValue( effectAge );
@@ -435,105 +475,29 @@ F32 ParticleGraphField::calcGraphBVLE( const ParticleGraphField& base, const Par
         return mClampF( (baseValue + CoreMath::mGetRandomF(-varValue, varValue)) * effectValue * lifeValue, base.getMinValue(), base.getMaxValue() );
 }
 
+//------------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------
-// Serialisation.
-//-----------------------------------------------------------------------------
-
-// Register Handlers.
-REGISTER_SERIALISE_START( ParticleGraphField )
-    REGISTER_SERIALISE_VERSION( ParticleGraphField, 1, false )
-    REGISTER_SERIALISE_VERSION( ParticleGraphField, 2, false )
-REGISTER_SERIALISE_END()
-
-// Implement Leaf Serialisation.
-IMPLEMENT_SERIALISE_LEAF( ParticleGraphField, 2 )
-
-
-//-----------------------------------------------------------------------------
-// Load v1
-//-----------------------------------------------------------------------------
-IMPLEMENT_2D_LOAD_METHOD( ParticleGraphField, 1 )
+void ParticleAssetField::onTamlCustomWrite( TamlCollection& customCollection )
 {
-    F32 timeScale;
-    F32 maxTime;
-    F32 minValue;
-    F32 maxValue;
-    F32 defaultValue;
+    // Debug Profiling.
+    PROFILE_SCOPE(ParticleAssetField_OnTamlCustomWrite);
 
-    // Object Info.
-    if  (   !stream.read( &timeScale ) ||
-            !stream.read( &maxTime ) ||
-            !stream.read( &minValue ) ||
-            !stream.read( &maxValue ) ||
-            !stream.read( &defaultValue ) )
-        return false;
 
-    // Reset Value-scale (Added in Version#2).
-    object->mValueScale = 1.0f;
-
-    // Set Value Bounds.
-    object->setValueBounds( maxTime, minValue, maxValue, defaultValue );
-
-    // Set Time Scale Directly.
-    object->mTimeScale = timeScale;
-
-    // Read Data-Key Count.
-    S32 keyCount;
-    if ( !stream.read( &keyCount ) )
-        return false;
-
-    // Read Data-Keys.
-    F32 time;
-    F32 value;
-    for ( U32 n = 0; n < (U32)keyCount; n++ )
-    {
-        // Read Time/Value.
-        if (    !stream.read( &time ) ||
-                !stream.read( &value ) )
-                return false;
-
-        // Add Data-Key.
-        // NOTE:-   We'll simply overwrite the default key at t=0.0!
-        object->addDataKey( time, value );
-    }
-
-    // Return Okay.
-    return true;
 }
 
 //-----------------------------------------------------------------------------
-// Save v1
-//-----------------------------------------------------------------------------
-IMPLEMENT_2D_SAVE_METHOD( ParticleGraphField, 1 )
+
+void ParticleAssetField::onTamlCustomRead( const TamlCollection& customCollection )
 {
-    // Object Info.
-    if  (   !stream.write( object->mTimeScale ) ||
-            !stream.write( object->mMaxTime ) ||
-            !stream.write( object->mMinValue ) ||
-            !stream.write( object->mMaxValue ) ||
-            !stream.write( object->mDefaultValue ) )
-        return false;
+    // Debug Profiling.
+    PROFILE_SCOPE(ParticleAssetField_OnTamlCustomRead);
 
-    // Write Data-Key Count.
-    if ( !stream.write( object->mDataKeys.size() ) )
-        return false;
 
-    // Write Data-Keys.
-    for ( U32 n = 0; n < (U32)object->mDataKeys.size(); n++ )
-        if (    !stream.write( object->mDataKeys[n].mTime ) ||
-                !stream.write( object->mDataKeys[n].mValue ) )
-            return false;
 
-    // Return Okay.
-    return true;
 }
 
-
-//-----------------------------------------------------------------------------
-// Load v2
-//-----------------------------------------------------------------------------
-IMPLEMENT_2D_LOAD_METHOD( ParticleGraphField, 2 )
+/*
+IMPLEMENT_2D_LOAD_METHOD( ParticleAssetField, 2 )
 {
     F32 valueScale;
     F32 timeScale;
@@ -581,10 +545,7 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleGraphField, 2 )
     return true;
 }
 
-//-----------------------------------------------------------------------------
-// Save v2
-//-----------------------------------------------------------------------------
-IMPLEMENT_2D_SAVE_METHOD( ParticleGraphField, 2 )
+IMPLEMENT_2D_SAVE_METHOD( ParticleAssetField, 2 )
 {
     // Object Info.
     if  (   !stream.write( object->mTimeScale ) ||
@@ -608,3 +569,4 @@ IMPLEMENT_2D_SAVE_METHOD( ParticleGraphField, 2 )
     // Return Okay.
     return true;
 }
+*/
