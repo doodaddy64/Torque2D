@@ -21,7 +21,7 @@
 #include "sim/simBase.h"
 #endif
 
-#ifndef _ASSET_BASE_H
+#ifndef _ASSET_BASE_H_
 #include "assets/assetBase.h"
 #endif
 

@@ -1179,14 +1179,6 @@ void Scene::addToScene( SceneObject* pSceneObject )
     if ( pSceneObject == NULL )
         return;
 
-    // Is the scene-object an asset?
-    if ( pSceneObject->getAssetId() != StringTable->EmptyString )
-    {
-        // Yes, so warn.
-        Con::warnf( "Scene::addToScene() - Cannot add a scene object asset to the scene." );
-        return;
-    }
-
     // Fetch current scene.
     Scene* pCurrentScene = pSceneObject->getScene();
 

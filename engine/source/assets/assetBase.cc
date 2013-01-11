@@ -3,7 +3,7 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _ASSET_BASE_H
+#ifndef _ASSET_BASE_H_
 #include "assetBase.h"
 #endif
 

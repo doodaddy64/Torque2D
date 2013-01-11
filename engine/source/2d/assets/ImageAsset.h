@@ -6,7 +6,7 @@
 #ifndef _IMAGE_ASSET_H_
 #define _IMAGE_ASSET_H_
 
-#ifndef _ASSET_BASE_H
+#ifndef _ASSET_BASE_H_
 #include "assets/assetBase.h"
 #endif
 
