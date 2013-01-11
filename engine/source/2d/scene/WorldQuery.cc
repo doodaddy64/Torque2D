@@ -13,6 +13,9 @@
 #include "2d/sceneobject/SceneObject.h"
 #endif
 
+// Debug Profiling.
+#include "debug/profiler.h"
+
 //-----------------------------------------------------------------------------
 
 WorldQuery::WorldQuery( Scene* pScene ) :
@@ -37,6 +40,9 @@ WorldQuery::WorldQuery( Scene* pScene ) :
 
 S32 WorldQuery::add( SceneObject* pSceneObject )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_Add);
+
     return CreateProxy( pSceneObject->getAABB(), static_cast<PhysicsProxy*>(pSceneObject) );
 }
 
@@ -44,6 +50,9 @@ S32 WorldQuery::add( SceneObject* pSceneObject )
 
 void WorldQuery::remove( SceneObject* pSceneObject )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_Remove);
+
     DestroyProxy( pSceneObject->getWorldProxy() );
 }
 
@@ -51,6 +60,9 @@ void WorldQuery::remove( SceneObject* pSceneObject )
 
 bool WorldQuery::update( SceneObject* pSceneObject, const b2AABB& aabb, const b2Vec2& displacement )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_Update);
+
     return MoveProxy( pSceneObject->getWorldProxy(), aabb, displacement );
 }
 
@@ -58,6 +70,9 @@ bool WorldQuery::update( SceneObject* pSceneObject, const b2AABB& aabb, const b2
 
 void WorldQuery::addAlwaysInScope( SceneObject* pSceneObject )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_AddAlwaysInScope);
+
     // Sanity!
     for( typeSceneObjectVector::iterator itr = mAlwaysInScopeSet.begin(); itr != mAlwaysInScopeSet.end(); ++itr )
     {
@@ -75,6 +90,9 @@ void WorldQuery::addAlwaysInScope( SceneObject* pSceneObject )
 
 void WorldQuery::removeAlwaysInScope( SceneObject* pSceneObject )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_RemoveAlwaysInScope);
+
     // Remove from always-in-scope.
     for( typeSceneObjectVector::iterator itr = mAlwaysInScopeSet.begin(); itr != mAlwaysInScopeSet.end(); ++itr )
     {
@@ -97,6 +115,9 @@ void WorldQuery::removeAlwaysInScope( SceneObject* pSceneObject )
 
 U32 WorldQuery::fixtureQueryArea( const b2AABB& aabb )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_FixtureQueryArea);
+
     mMasterQueryKey++;
 
     // Flag as not a ray-cast query result.
@@ -115,6 +136,9 @@ U32 WorldQuery::fixtureQueryArea( const b2AABB& aabb )
 
 U32 WorldQuery::fixtureQueryRay( const Vector2& point1, const Vector2& point2 )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_FixtureQueryRay);
+
     mMasterQueryKey++;
 
     // Flag as a ray-cast query result.
@@ -133,6 +157,9 @@ U32 WorldQuery::fixtureQueryRay( const Vector2& point1, const Vector2& point2 )
 
 U32 WorldQuery::fixtureQueryPoint( const Vector2& point )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_FixtureQueryPoint);
+
     mMasterQueryKey++;
 
     // Flag as not a ray-cast query result.
@@ -157,6 +184,9 @@ U32 WorldQuery::fixtureQueryPoint( const Vector2& point )
 
 U32 WorldQuery::renderQueryArea( const b2AABB& aabb )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_RenderQueryArea);
+
     mMasterQueryKey++;
 
     // Flag as not a ray-cast query result.
@@ -175,6 +205,9 @@ U32 WorldQuery::renderQueryArea( const b2AABB& aabb )
 
 U32 WorldQuery::renderQueryRay( const Vector2& point1, const Vector2& point2 )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_RenderQueryRay);
+
     mMasterQueryKey++;
 
     // Flag as a ray-cast query result.
@@ -199,6 +232,9 @@ U32 WorldQuery::renderQueryRay( const Vector2& point1, const Vector2& point2 )
 
 U32 WorldQuery::renderQueryPoint( const Vector2& point )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_RenderQueryPoint);
+
     mMasterQueryKey++;
 
     // Flag as not a ray-cast query result.
@@ -222,6 +258,9 @@ U32 WorldQuery::renderQueryPoint( const Vector2& point )
 
 U32 WorldQuery::anyQueryArea( const b2AABB& aabb )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_AnyQueryAreaAABB);
+
     // Query.
     renderQueryArea( aabb );
     mMasterQueryKey--;
@@ -237,6 +276,9 @@ U32 WorldQuery::anyQueryArea( const b2AABB& aabb )
 
 U32 WorldQuery::anyQueryArea( const Vector2& lowerBound, const Vector2& upperBound )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_AnyQueryAreaBounds);
+
     // Calculate AABB.
     b2AABB aabb;
     aabb.lowerBound.Set( getMin( lowerBound.x, upperBound.x ), getMin( lowerBound.x, upperBound.x ) );
@@ -250,6 +292,9 @@ U32 WorldQuery::anyQueryArea( const Vector2& lowerBound, const Vector2& upperBou
 
 U32 WorldQuery::anyQueryRay( const Vector2& point1, const Vector2& point2 )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_AnyQueryRay);
+
     // Query.
     renderQueryRay( point1, point2 );
     mMasterQueryKey--;
@@ -265,6 +310,9 @@ U32 WorldQuery::anyQueryRay( const Vector2& point1, const Vector2& point2 )
 
 U32 WorldQuery::anyQueryPoint( const Vector2& point )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_AnyQueryPoint);
+
     // Query.
     renderQueryPoint( point );
     mMasterQueryKey--;
@@ -280,6 +328,9 @@ U32 WorldQuery::anyQueryPoint( const Vector2& point )
 
 void WorldQuery::clearQuery( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_ClearQuery);
+
     for ( U32 n = 0; n < MAX_LAYERS_SUPPORTED; n++ )
     {
         mLayeredQueryResults[n].clear();
@@ -302,6 +353,9 @@ typeWorldQueryResultVector& WorldQuery::getLayeredQueryResults( const U32 layer 
 
 void WorldQuery::sortRaycastQueryResult( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_SortRayCastQueryResult);
+
     // Ignore if not a ray-cast query result or there are not results to sort.
     if ( !getIsRaycastQueryResult() || getQueryResultsCount() == 0 )
         return;
@@ -327,6 +381,9 @@ void WorldQuery::sortRaycastQueryResult( void )
 
 bool WorldQuery::ReportFixture( b2Fixture* fixture )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_ReportFixture);
+
     // If not the correct proxy then ignore.
     PhysicsProxy* pPhysicsProxy = static_cast<PhysicsProxy*>(fixture->GetBody()->GetUserData());
     if ( pPhysicsProxy->getPhysicsProxyType() != PhysicsProxy::PHYSIC_PROXY_SCENEOBJECT )
@@ -377,6 +434,9 @@ bool WorldQuery::ReportFixture( b2Fixture* fixture )
 
 F32 WorldQuery::ReportFixture( b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, F32 fraction )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_ReportFixtureRay);
+
     // If not the correct proxy then ignore.
     PhysicsProxy* pPhysicsProxy = static_cast<PhysicsProxy*>(fixture->GetBody()->GetUserData());
     if ( pPhysicsProxy->getPhysicsProxyType() != PhysicsProxy::PHYSIC_PROXY_SCENEOBJECT )
@@ -429,6 +489,9 @@ F32 WorldQuery::ReportFixture( b2Fixture* fixture, const b2Vec2& point, const b2
 
 bool WorldQuery::QueryCallback( S32 proxyId )
 {    
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_QueryCallback);
+
     // If not the correct proxy then ignore.
     PhysicsProxy* pPhysicsProxy = static_cast<PhysicsProxy*>(GetUserData( proxyId ));
     if ( pPhysicsProxy->getPhysicsProxyType() != PhysicsProxy::PHYSIC_PROXY_SCENEOBJECT )
@@ -475,6 +538,9 @@ bool WorldQuery::QueryCallback( S32 proxyId )
 
 F32 WorldQuery::RayCastCallback( const b2RayCastInput& input, S32 proxyId )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_RayCastCallback);
+
     // If not the correct proxy then ignore.
     PhysicsProxy* pPhysicsProxy = static_cast<PhysicsProxy*>(GetUserData( proxyId ));
     if ( pPhysicsProxy->getPhysicsProxyType() != PhysicsProxy::PHYSIC_PROXY_SCENEOBJECT )
@@ -521,6 +587,9 @@ F32 WorldQuery::RayCastCallback( const b2RayCastInput& input, S32 proxyId )
 
 void WorldQuery::injectAlwaysInScope( void )
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_InjectAlwaysInScope);
+
     // Finish if filtering always-in-scope.
     if ( mQueryFilter.mAlwaysInScopeFilter )
         return;
@@ -567,6 +636,9 @@ void WorldQuery::injectAlwaysInScope( void )
 
 S32 QSORT_CALLBACK WorldQuery::rayCastFractionSort(const void* a, const void* b)
 {
+    // Debug Profiling.
+    PROFILE_SCOPE(WorldQuery_RayCastFractionSort);
+
     // Fetch scene objects.
     WorldQueryResult* pQueryResultA  = (WorldQueryResult*)a;
     WorldQueryResult* pQueryResultB  = (WorldQueryResult*)b;
