@@ -150,7 +150,7 @@ function PhysicsLauncherTools::scaleCollisionShapes(%object, %scaleX, %scaleY)
     for (%i = 0; %i < %count; %i++)
     {
         // Scale the shape format string
-        %shapeType = %object.getCollisionShapeType( %i )
+        %shapeType = %object.getCollisionShapeType( %i );
         switch$(%shapeType) 
         {
             case "circle":
@@ -215,7 +215,7 @@ function PhysicsLauncherTools::scaleEdgeCollisionShapeString(%object, %objectTar
     //TODO
 }
 
-function PhysicsLauncherTools::scaleChainCollisionShapeString(%%object, %objectTarget, %i, %scaleX, %scaleY)
+function PhysicsLauncherTools::scaleChainCollisionShapeString(%object, %objectTarget, %i, %scaleX, %scaleY)
 {
     //TODO
 }
