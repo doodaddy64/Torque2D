@@ -1565,7 +1565,7 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
     DebugStats& debugStats = pScene->getDebugStats();
 
     // Set metrics offset
-    const S32 metricsOffset = (S32)font->getStrWidth( "WWWWWWWWWW" );;
+    const S32 metricsOffset = (S32)font->getStrWidth( "WWWWWWWWWWWW" );
 
     // Set Banner Height.
     F32 bannerLineHeight = 17.0f;
@@ -1792,7 +1792,7 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
         const bool isBullet = pDebugSceneObject->getBullet();
         const bool awake = pDebugSceneObject->getAwake();
         const bool sleepingAllowed = pDebugSceneObject->getSleepingAllowed();
-        dSprintf( mDebugText, sizeof( mDebugText ), " - Body=%s, Enabled=%d, Active=%d, Visible=%d, Bullet=%d, Awake=%d, CanSleep=%d",
+        dSprintf( mDebugText, sizeof( mDebugText ), "- Body=%s, Enabled=%d, Active=%d, Visible=%d, Bullet=%d, Awake=%d, CanSleep=%d",
             pBodyType,
             enabled,
             active,

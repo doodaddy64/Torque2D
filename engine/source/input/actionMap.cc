@@ -1624,7 +1624,7 @@ ConsoleMethod( ActionMap, save, void, 2, 4, "( [ fileName ] [ , append ] ) Use t
 }
 
 //------------------------------------------------------------------------------
-ConsoleMethod( ActionMap, push, void, 2, 2, "() Use the pop method to activate an ActionMap and place it at the top of the non-global ActionMap stack.\n"
+ConsoleMethod( ActionMap, push, void, 2, 2, "() Use the push method to activate an ActionMap and place it at the top of the non-global ActionMap stack.\n"
                                                                 "@return No return value.\n"
                                                                 "@sa pop")
 {

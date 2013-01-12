@@ -200,7 +200,7 @@ public:
     };
 
     /// Debug drawing.
-    DebugDraw                mDebugDraw;
+    DebugDraw                   mDebugDraw;
 
 private:
     typedef SimSet Parent;
