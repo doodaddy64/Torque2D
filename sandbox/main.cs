@@ -39,7 +39,7 @@ AssetDatabase.EchoInfo = false;
 ModuleDatabase.scanModules( "modules" );
 
 // Load sandbox module.
-ModuleDatabase.LoadExplicit( "{Sandbox}" );
+ModuleDatabase.LoadExplicit( "Sandbox" );
 //ModuleDatabase.UnloadExplicit( "{Sandbox}" );
 //quit();
 
