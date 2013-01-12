@@ -2,6 +2,7 @@
 // 3 Step Studio
 // Copyright GarageGames, LLC 2012
 //-----------------------------------------------------------------------------
+
 function ConsoleEntry::eval()
 {
     %text = trim(ConsoleEntry.getValue());
@@ -28,25 +29,27 @@ function ConsoleEntry::eval()
 
 }
 
-function ToggleConsole(%make)
-{
-    if (%make)
-    {
-        if (ConsoleDialog.isAwake())
-        {
-            // Deactivate the console.
-            if ( $enableDirectInput )
-                activateKeyboard();
+//-----------------------------------------------------------------------------
 
-            Canvas.popDialog(ConsoleDialog);
-        }
-        else
-        {
-            if ( $enableDirectInput )
-                deactivateKeyboard();
-            
-            Canvas.pushDialog(ConsoleDialog, 2);         
-            ConsoleEntry.setFirstResponder();
-        }
+function ToggleConsole( %make )
+{
+    // Finish if being released.
+    if ( !%make )
+        return;
+        
+    // Is the console awake?
+    if ( ConsoleDialog.isAwake() )
+    {
+        // Yes, so deactivate it.
+        if ( $enableDirectInput )
+            activateKeyboard();
+        Canvas.popDialog(ConsoleDialog);    
+        return;
     }
+    
+    // Activate it.
+    if ( $enableDirectInput )
+        deactivateKeyboard();    
+    Canvas.pushDialog(ConsoleDialog, 2);         
+    ConsoleEntry.setFirstResponder();
 }

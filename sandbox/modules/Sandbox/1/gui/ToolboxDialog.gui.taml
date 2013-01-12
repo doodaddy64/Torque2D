@@ -1,0 +1,11 @@
+<GuiControl
+    Name="ToolboxDialog"
+    Profile="GuiToolboxProfile"
+    HorizSizing="relative"
+    VertSizing="relative"
+    Position="0 0"
+    Extent="640 480"
+    MinExtent="8 8"
+    Visible="1"
+	HelpTag="0">
+</GuiControl>

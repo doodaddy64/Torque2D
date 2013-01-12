@@ -8,8 +8,9 @@ function createSandbox( %scopeSet )
     // Load system scripts
     exec( "./scripts/defaultPrefs.cs" );
     exec( "./scripts/canvas.cs" );
-    exec( "./scripts/openal.cs" );  
-    exec( "./scripts/console.cs" );   
+    exec( "./scripts/openal.cs" );
+    exec( "./scripts/console.cs" );
+    exec( "./scripts/toolbox.cs" );
 
     // Initialize the canvas.
     initializeCanvas("Sandbox");
@@ -27,11 +28,13 @@ function createSandbox( %scopeSet )
     // Load GUI profiles.
     exec("./gui/guiProfiles.cs");
     
-    // Load and configure console.
+    // Load and configure the console.
     %scopeSet.add( TamlRead("./gui/ConsoleDialog.gui.taml") );
     GlobalActionMap.bind( keyboard, "ctrl tilde", toggleConsole );
-    GlobalActionMap.bindcmd( keyboard, "alt k", "cls();",  "" );
-    GlobalActionMap.bindcmd( keyboard, "#", toggleToolbox, "" );
+    
+    // Load and configure the toolbox.
+    %scopeSet.add( TamlRead("./gui/ToolboxDialog.gui.taml") );
+    GlobalActionMap.bind( keyboard, "#", toggleToolbox );
 
     // Create the sandbox window.
     CreateSandboxWindow();
@@ -46,6 +49,9 @@ function createSandbox( %scopeSet )
 
 function destroySandbox( %scopeSet )
 {
+    // Unload the active toy.
+    unloadToy();
+    
     // Destroy the sandbox window.
     destroySandboxWindow();
 }
