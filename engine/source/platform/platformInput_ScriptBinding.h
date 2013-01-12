@@ -2,8 +2,9 @@
 // Torque
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
-#import "console/console.h"
-#import "platform/platformInput.h"
+
+#include "console/console.h"
+#include "platform/platformInput.h"
 
 //------------------------------------------------------------------------------
 ConsoleFunction( activateKeyboard, bool, 1, 1, "() Use the activateKeyboard function to enable directInput polling of the keyboard.\n"
@@ -22,8 +23,8 @@ ConsoleFunction( deactivateKeyboard, void, 1, 1, "() Use the deactivateKeyboard 
 }
 
 //------------------------------------------------------------------------------
-ConsoleFunction( enableMouse, bool, 1, 1, "() Use the enableMouse function to enable mouse input.\n"
-																"@return Returns true if a mouse is present and it was enabled, false otherwise.\n"
+ConsoleFunction( enableMouse, void, 1, 1, "() Use the enableMouse function to enable mouse input.\n"
+																"@return No return value.\n"
 																"@sa disableMouse")
 {
 	Input::enableMouse();
