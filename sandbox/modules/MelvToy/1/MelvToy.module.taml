@@ -1,0 +1,12 @@
+<ModuleDefinition
+	ModuleId="MelvToy"
+	VersionId="1"
+	Description="Melv's testing toy."
+	Type="toy"
+	ScriptFile="main.cs"
+	ScopeSet="MelvToySet"
+	CreateFunction="createMelvToy"
+	DestroyFunction="destroyMelvToy"
+	DeclaredAssetManifest="^MelvToy/DeclaredAssets.Manifest.taml"
+	/>
+

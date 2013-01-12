@@ -106,7 +106,7 @@ function initializeTruckWorld()
    createPyramid( 2, $floorLevel + 0.25, 19, true );   
    createForegroundWall( 1, 9, -6 );
    createPyramid( 2+21, $floorLevel + 0.25, 13, true );
-   createForegroundBrickWall( 38, 9, -7 );
+   createForegroundBrickWall( 1, 9, -7 );
    
    
    // ************************************************************************   

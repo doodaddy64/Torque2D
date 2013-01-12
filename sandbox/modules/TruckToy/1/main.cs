@@ -27,7 +27,4 @@ function destroyTruckToy( %scopeSet )
     // Delete the input map.
     truckToyMap.pop();
     truckToyMap.delete();
-    
-    // Destroy the truck tou
-    destroySandboxWindow();
 }

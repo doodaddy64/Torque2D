@@ -34,8 +34,8 @@ if(!isObject(GuiDefaultProfile)) new GuiControlProfile (GuiDefaultProfile)
     borderColorNA = "64 64 64";
 
     // font
-    fontType = "Arial";
-    fontSize = 14;
+    fontType = ($platform $= "macos") ? "monaco" : "lucida console";
+    fontSize = 12;
 
     fontColor = "0 0 0";
     fontColorHL = "32 100 100";
@@ -59,6 +59,101 @@ if(!isObject(GuiDefaultProfile)) new GuiControlProfile (GuiDefaultProfile)
     // sounds
     soundButtonDown = $ButtonSound.fileName;
     soundButtonOver = "";
+};
+
+
+// ----------------------------------------------------------------------------
+
+if (!isObject(GuiToolTipProfile)) new GuiControlProfile (GuiToolTipProfile : GuiDefaultProfile)
+{
+    fillColor = "246 220 165 255";
+    
+    fontType = ($platform $= "macos") ? "monaco" : "lucida console";
+    fontSize = 12;
+};
+
+// ----------------------------------------------------------------------------
+
+if (!isObject(GuiPopUpMenuDefault)) new GuiControlProfile (GuiPopUpMenuDefault)
+{
+    tab = false;
+    canKeyFocus = false;
+    hasBitmapArray = false;
+    mouseOverSelected = false;
+
+    // fill color
+    opaque = false;
+    fillColor = "232 240 248 255";
+    fillColorHL = "251 170 0 255";
+    fillColorNA = "244 244 244 255";
+
+    // border color
+    border = 1;
+    borderColor    = "100 100 100 255";
+    borderColorHL = "128 128 128 255";
+    borderColorNA = "226 226 226 52";
+
+    // font
+    fontType = ($platform $= "macos") ? "monaco" : "lucida console";
+    fontSize = 12;
+
+    fontColor = "27 59 95 255";
+    fontColorHL = "232 240 248 255";
+    fontColorNA = "255 255 255 52";
+    fontColorSEL= "255 255 255 255";
+
+    // bitmap information
+    bitmap = "^Sandbox/gui/images/dropDown";
+    bitmapBase = "";
+    textOffset = "0 0";
+
+    // used by guiTextControl
+    modal = true;
+    justify = "left";
+    autoSizeWidth = false;
+    autoSizeHeight = false;
+    returnTab = false;
+    numbersOnly = false;
+    cursorColor = "0 0 0 255";
+
+    //profileForChildren = GuiPopupMenuItemBorder;
+    // sounds
+    soundButtonDown = "";
+    soundButtonOver = "";
+};
+
+// ----------------------------------------------------------------------------
+
+if (!isObject(GuiPopUpMenuProfile)) new GuiControlProfile (GuiPopUpMenuProfile : GuiPopUpMenuDefault)
+{
+    textOffset = "6 3";
+    justify = "center";
+    bitmap = "^Sandbox/gui/images/dropDown";
+    hasBitmapArray = true;
+    border = -3;
+    profileForChildren = GuiPopUpMenuDefault;
+    opaque = true;
+};
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(GuiTextProfile)) new GuiControlProfile (GuiTextProfile)
+{
+    border=false;
+
+    // font
+    fontType = "Open Sans";
+    fontSize = 19;
+
+    fontColor = "white";
+
+    modal = true;
+    justify = "left";
+    autoSizeWidth = false;
+    autoSizeHeight = false;
+    returnTab = false;
+    numbersOnly = false;
+    cursorColor = "0 0 0 255";
 };
 
 //-----------------------------------------------------------------------------

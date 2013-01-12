@@ -27,5 +27,20 @@ function toggleToolbox(%make)
     if ( $enableDirectInput )
         deactivateKeyboard();    
     Canvas.pushDialog(ToolboxDialog, 2);         
-    //ConsoleEntry.setFirstResponder();
+    ToySelectList.setFirstResponder();
+}
+
+//-----------------------------------------------------------------------------
+
+function ToySelectList::onSelect(%this)
+{
+    // Fetch the index.
+    %index = %this.getSelected();
+    
+    // Finish if already selected.
+    if ( %index == $activeToy )
+        return;
+    
+    // Load the selected toy.
+    loadToy( %index );
 }

@@ -21,6 +21,9 @@ function scanForToys()
     
     // Clear the sandbox toys.
     SandboxToys.clear();
+
+    // Clear the toy GUI list.    
+    ToySelectList.clear();
     
     // Fetch toy module count.
     %toyModuleCount = getWordCount( %toyModules );
@@ -28,8 +31,18 @@ function scanForToys()
     // Add toys.
     for ( %i = 0; %i < %toyModuleCount; %i++ )
     {
-        SandboxToys.add( getWord( %toyModules, %i ) );
+        // Fetch module definition.
+        %moduleDefinition = getWord( %toyModules, %i );
+        
+        // Add to toy sandbox toys.
+        SandboxToys.add( %moduleDefinition );
+        
+        // Add to toy GUI list.
+        ToySelectList.add( %moduleDefinition.moduleId, %moduleDefinition.getId() );        
     }
+    
+    // Select the first toy.
+    ToySelectList.setFirstSelected(); 
 }
 
 //-----------------------------------------------------------------------------
@@ -57,7 +70,7 @@ function loadToy( %moduleDefinition )
     }
     
     // Set active toy.
-    $activeToy = %moduleDefinition.ModuleId;
+    $activeToy = %moduleDefinition;
 }
 
 //-----------------------------------------------------------------------------
@@ -69,14 +82,11 @@ function unloadToy()
         return;
         
     // Unload the toy.
-    if ( !ModuleDatabase.addFieldFilter( $activeToy ) )
+    if ( !ModuleDatabase.unloadExplicit( $activeToy.moduleId ) )
     {
         error( "Failed to unload the toy '" @ $activeToy.ModuleId @ "'." );
     }
     
-    // Destroy the sandbox scene.
-    destroySandboxWindow();
-    
     // Reset active toy.
-    $activeToy = "";    
+    $activeToy = "";     
 }

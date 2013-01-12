@@ -16,7 +16,8 @@ function createSandbox( %scopeSet )
     initializeCanvas("Sandbox");
     
     // Set the canvas color.
-    Canvas.UseBackgroundColor = false;
+    Canvas.BackgroundColor = "CornflowerBlue";
+    Canvas.UseBackgroundColor = true;
     
     // Initialize audio.
     initializeOpenAL();    
@@ -42,7 +43,7 @@ function createSandbox( %scopeSet )
     // Scan for toys.
     scanForToys();
     
-    loadToy( SandboxToys.getObject(0) );
+    //loadToy( SandboxToys.getObject(0) );
 }
 
 //-----------------------------------------------------------------------------
