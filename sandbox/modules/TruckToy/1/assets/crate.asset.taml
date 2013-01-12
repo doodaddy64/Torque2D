@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="crate"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#crate.png" />

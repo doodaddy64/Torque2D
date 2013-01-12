@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="brickPile"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#brickPile.png" />

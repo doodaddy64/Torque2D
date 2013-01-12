@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="woodPile"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#woodPile.png" />

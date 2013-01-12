@@ -40,8 +40,6 @@ ModuleDatabase.scanModules( "modules" );
 
 // Load sandbox module.
 ModuleDatabase.LoadExplicit( "Sandbox" );
-//ModuleDatabase.UnloadExplicit( "{Sandbox}" );
-//quit();
 
 //-----------------------------------------------------------------------------
 

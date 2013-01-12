@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="cable"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#cable.png" />

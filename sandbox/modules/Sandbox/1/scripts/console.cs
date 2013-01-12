@@ -32,20 +32,20 @@ function ToggleConsole(%make)
 {
     if (%make)
     {
-        if (ConsoleDlg.isAwake())
+        if (ConsoleDialog.isAwake())
         {
             // Deactivate the console.
             if ( $enableDirectInput )
                 activateKeyboard();
 
-            Canvas.popDialog(ConsoleDlg);
+            Canvas.popDialog(ConsoleDialog);
         }
         else
         {
             if ( $enableDirectInput )
                 deactivateKeyboard();
             
-            Canvas.pushDialog(ConsoleDlg, 2);         
+            Canvas.pushDialog(ConsoleDialog, 2);         
             ConsoleEntry.setFirstResponder();
         }
     }

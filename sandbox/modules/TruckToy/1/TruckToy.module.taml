@@ -1,0 +1,12 @@
+<ModuleDefinition
+	ModuleId="TruckToy"
+	VersionId="1"
+	Description="A monster truck toy."
+	Type="toy"
+	ScriptFile="main.cs"
+	ScopeSet="TruckToySet"
+	CreateFunction="createTruckToy"
+	DestroyFunction="destroyTruckToy"
+	DeclaredAssetManifest="^TruckToy/DeclaredAssets.Manifest.taml"
+	/>
+

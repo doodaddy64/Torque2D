@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="wreckedCar_hood"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#wreckedCar_hood.png" />

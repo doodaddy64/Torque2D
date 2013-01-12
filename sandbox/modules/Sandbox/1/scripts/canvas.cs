@@ -49,10 +49,3 @@ function resetCanvas()
     if (isObject(Canvas))
         Canvas.repaint();
 }
-
-new GuiCursor(DefaultCursor)
-{
-    hotSpot = "4 4";
-    renderOffset = "0 0";
-    bitmapName = "^{GameCore}/gui/images/defaultCursor";
-};

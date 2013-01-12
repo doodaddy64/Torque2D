@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="background_nightStars"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#background_nightStars.png" />

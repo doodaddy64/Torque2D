@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="motorPile"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#motorPile.png" />

@@ -3,6 +3,13 @@
 // Copyright GarageGames, LLC 2012
 //-----------------------------------------------------------------------------
 
+new GuiCursor(DefaultCursor)
+{
+    hotSpot = "4 4";
+    renderOffset = "0 0";
+    bitmapName = "^Sandbox/gui/images/defaultCursor";
+};
+
 //---------------------------------------------------------------------------------------------
 // GuiDefaultProfile is a special profile that all other profiles inherit defaults from. It
 // must exist.
@@ -54,6 +61,8 @@ if(!isObject(GuiDefaultProfile)) new GuiControlProfile (GuiDefaultProfile)
    soundButtonOver = "";
 };
 
+//-----------------------------------------------------------------------------
+
 if(!isObject(GuiConsoleProfile)) new GuiControlProfile (GuiConsoleProfile)
 {
    fontType = ($platform $= "macos") ? "Monaco" : "Lucida Console";
@@ -66,6 +75,8 @@ if(!isObject(GuiConsoleProfile)) new GuiControlProfile (GuiConsoleProfile)
     fontColors[8] = "0 0 100";
     fontColors[9] = "0 100 0";
 };
+
+//-----------------------------------------------------------------------------
 
 if(!isObject(GuiTextEditProfile)) new GuiControlProfile (GuiTextEditProfile)
 {
@@ -87,11 +98,15 @@ if(!isObject(GuiTextEditProfile)) new GuiControlProfile (GuiTextEditProfile)
    
 };
 
+//-----------------------------------------------------------------------------
+
 if(!isObject(GuiConsoleTextEditProfile)) new GuiControlProfile (GuiConsoleTextEditProfile : GuiTextEditProfile)
 {
    fontType = ($platform $= "macos") ? "Monaco" : "Lucida Console";
    fontSize = ($platform $= "macos") ? 13 : 12;
 };
+
+//-----------------------------------------------------------------------------
 
 if(!isObject(GuiScrollProfile)) new GuiControlProfile (GuiScrollProfile)
 {
@@ -103,6 +118,8 @@ if(!isObject(GuiScrollProfile)) new GuiControlProfile (GuiScrollProfile)
    hasBitmapArray = true;
 };
 
+//-----------------------------------------------------------------------------
+
 if(!isObject(ConsoleScrollProfile)) new GuiControlProfile( ConsoleScrollProfile : GuiScrollProfile )
 {
 	opaque = true;
@@ -111,3 +128,17 @@ if(!isObject(ConsoleScrollProfile)) new GuiControlProfile( ConsoleScrollProfile 
 	borderThickness = 0;
 	borderColor = "0 0 0";
 };
+
+//-----------------------------------------------------------------------------
+
+if(!isObject(SandboxWindowProfile)) new GuiControlProfile (SandboxWindowProfile : GuiDefaultProfile)
+{
+    // fill color
+    opaque = false;
+    fillColor = "0 0 0 64";
+    
+    // font
+    fontType = ($platform $= "macos") ? "Monaco" : "Lucida Console";
+    fontSize = 12;
+    fontColor = "255 255 255 255";
+}; 

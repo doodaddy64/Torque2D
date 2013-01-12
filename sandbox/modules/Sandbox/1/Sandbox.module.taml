@@ -2,11 +2,9 @@
 	ModuleId="Sandbox"
 	VersionId="1"
 	Description="A sandbox for testing and prototyping."
-	Group="sandbox"
-	Dependencies=""
 	ScriptFile="main.cs"
 	ScopeSet="SandboxSet"
-	CreateFunction="initializeSandbox"
+	CreateFunction="createSandbox"
 	DestroyFunction="destroySandbox"
 	/>
 

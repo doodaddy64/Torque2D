@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="industrial_lowOpacity"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#industrial_lowOpacity.png" />

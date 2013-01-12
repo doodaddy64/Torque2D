@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="tires"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#tires.png" />
