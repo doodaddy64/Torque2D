@@ -83,8 +83,6 @@ typedef unsigned long long  U64;
 #  define TORQUE_SUPPORTS_NASM
 #endif
 #  include "platform/types.ppc.h"
-// for the moment:
-#  include "platformMacCarb/macCarb_common_prefix.h"
 #else 
 #  error "GCC: Unsupported Operating System"
 #endif

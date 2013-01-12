@@ -10,6 +10,8 @@
 #include "platform/event.h"
 #include "console/console.h"
 
+#include "platform/platformInput_ScriptBinding.h"
+
 // Static class variables:
 InputManager*  Input::smManager;
 bool           Input::smActive;
