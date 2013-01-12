@@ -245,6 +245,16 @@ ConsoleMethod(CompositeSprite, selectSpriteId, bool, 3, 3,  "( int batchId ) - S
 
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(CompositeSprite, selectSpriteName, bool, 3, 3,    "( name ) - Selects a sprite with the specified name.\n"
+                                                                "@param name The name of the sprite.\n"
+                                                                "@return Whether the sprite was selected or not." )
+{
+    return object->selectSpriteName( argv[2] );
+}
+
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(CompositeSprite, deselectSprite, void, 2, 2,  "() - Deselects any selected sprite.\n"
                                                             "This is not required but can be used to stop accidental changes to sprites.\n"
                                                             "@return No return value." )
@@ -749,18 +759,36 @@ ConsoleMethod(CompositeSprite, getSpriteAlphaTest, F32, 2, 2,   "() - Gets the s
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(CompositeSprite, setDataObject, void, 3, 3,   "(object) - Set the sprite data object.\n"
-                                                            "NOTE: This object will be persisted alongside the composite sprite.\n"
-                                                            "To clear the object you can pass an empty string.\n"
-                                                            "@return No return Value.")
+ConsoleMethod(CompositeSprite, setSpriteDataObject, void, 3, 3, "(object) - Set the sprite data object.\n"
+                                                                "NOTE: This object will be persisted alongside the composite sprite.\n"
+                                                                "To clear the object you can pass an empty string.\n"
+                                                                "@return No return Value.")
 {
-    object->setDataObject( Sim::findObject( argv[2] ) );
+    object->setSpriteDataObject( Sim::findObject( argv[2] ) );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(CompositeSprite, getDataObject, const char*, 2, 2,   "() - Gets the sprite data object.\n"
-                                                                    "@return The sprite data object.")
+ConsoleMethod(CompositeSprite, getSpriteDataObject, const char*, 2, 2,  "() - Gets the sprite data object.\n"
+                                                                        "@return The sprite data object.")
 {
-    return object->getDataObject()->getIdString();
+    return object->getSpriteDataObject()->getIdString();
 }
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(CompositeSprite, setSpriteName, void, 3, 3,   "(name) - Set the sprite name.\n"
+                                                            "This must be unique within this composite sprite instance.  To clear the name you can pass an empty string.\n"
+                                                            "@return No return Value.")
+{
+    object->setSpriteName( argv[2] );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(CompositeSprite, getSpriteName, const char*, 2, 2,    "() - Gets the sprite name.\n"
+                                                                    "@return The sprite name.")
+{
+    return object->getSpriteName();
+}
+

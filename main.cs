@@ -7,7 +7,7 @@
 setLogMode(2);
 
 // Set profiler.
-profilerEnable( false );
+//profilerEnable( true );
 
 // Controls whether the execution or script files or compiled DSOs are echoed to the console or not.
 // Being able to turn this off means far less spam in the console during typical development.

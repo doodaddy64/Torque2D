@@ -3,8 +3,8 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _ASSET_BASE_H
-#define _ASSET_BASE_H
+#ifndef _ASSET_BASE_H_
+#define _ASSET_BASE_H_
 
 #ifndef _ASSET_DEFINITION_H
 #include "assetDefinition.h"
@@ -117,5 +117,5 @@ private:
     void                    setOwned( AssetManager* pAssetManager, AssetDefinition* pAssetDefinition );
 };
 
-#endif // _ASSET_BASE_H
+#endif // _ASSET_BASE_H_
 

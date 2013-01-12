@@ -41,6 +41,7 @@ static StringTableEntry spriteImageName;
 static StringTableEntry spriteImageFrameName;
 static StringTableEntry spriteAnimationName;
 static StringTableEntry spriteDataObjectName;
+static StringTableEntry spriteNameName;
 
 //------------------------------------------------------------------------------
 
@@ -51,6 +52,7 @@ SpriteBatchItem::SpriteBatchItem() : mProxyId( SpriteBatch::INVALID_SPRITE_PROXY
     {
         // No, so initialize...
 
+        spriteNameName              = StringTable->insert("Name");
         spriteLogicalPositionName   = StringTable->insert("LogicalPosition");
         spriteVisibleName           = StringTable->insert("Visible");
         spriteLocalPositionName     = StringTable->insert("Position");
@@ -103,6 +105,7 @@ void SpriteBatchItem::resetState( void )
 
     mSpriteBatch = NULL;
     mBatchId = 0;
+    mName = StringTable->EmptyString;
     mLogicalPosition.resetState();
 
     mVisible = true;
@@ -164,6 +167,7 @@ void SpriteBatchItem::copyTo( SpriteBatchItem* pSpriteBatchItem ) const
 
     // Set sprite batch item.
     pSpriteBatchItem->setLogicalPosition( getLogicalPosition() );
+    pSpriteBatchItem->setName( getName() );
     pSpriteBatchItem->setVisible( getVisible() );
     pSpriteBatchItem->setLocalPosition( getLocalPosition() );
     pSpriteBatchItem->setDepth( getDepth() );
@@ -308,6 +312,10 @@ void SpriteBatchItem::updateWorldTransform( const U32 batchTransformId )
 
 void SpriteBatchItem::onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias )
 {
+    // Write name.
+    if ( getName() != StringTable->EmptyString )
+        pSpriteTypeAlias->addPropertyField( spriteNameName, getName() );
+
     // Write asset.
     if ( isStaticMode() )
     {
@@ -416,7 +424,11 @@ void SpriteBatchItem::onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteType
         // Reset image frame.
         S32 imageFrame = -1;
 
-        if ( fieldName == spriteImageName )
+        if ( fieldName == spriteNameName )
+        {
+            setName( pSpriteField->getFieldValue() );
+        }
+        else if ( fieldName == spriteImageName )
         {
             setImage( pSpriteField->getFieldValue() );
 

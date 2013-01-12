@@ -10,19 +10,15 @@
 #include "sim/simBase.h"
 #endif
 
-#ifndef _ASSET_BASE_H
-#include "assets/assetBase.h"
-#endif
-
 #ifndef _STREAM_H_
 #include "io/stream.h"
 #endif
 
 //-----------------------------------------------------------------------------
 
-class SimComponent : public AssetBase
+class SimComponent : public SimObject
 {
-   typedef AssetBase Parent;
+   typedef SimObject Parent;
 
 private:
    VectorPtr<SimComponent *> mComponentList; ///< The Component List

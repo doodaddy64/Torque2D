@@ -1,3 +1,8 @@
+//-----------------------------------------------------------------------------
+// Torque
+// Copyright GarageGames, LLC 2011
+//-----------------------------------------------------------------------------
+
 //OpenRemoteDebugger( 1, 1010, "abc" );
 
 function startMelvTesting()
@@ -75,29 +80,30 @@ function startMelvTesting()
 	testScene.addToScene( %composite );
 	%composite.BatchIsolated = "true";
 
-    %composite.setDefaultSpriteStride( 2, 2 );
-    %composite.setDefaultSpriteSize( 2 );
+    %composite.setDefaultSpriteStride( 5, 5 );
+    %composite.setDefaultSpriteSize( 4 );
     
-    %composite.setBatchLayout( "rect" );
+    %composite.setBatchLayout( "custom" );
     
     //%composite.setAngle( 30.0001 );
 	
 	%frame = 0;
 	
     //for ( %y = 0; %y <= 0; %y++ )
-    for ( %y = -50; %y <= 50; %y++ )
+    for ( %y = -10; %y <= 10; %y++ )
 	{
-	    for ( %x = -50; %x <= 50; %x++ )
+	    for ( %x = -10; %x <= 10; %x++ )
         {
             %composite.addSprite( %x SPC %y );
             %composite.setSpriteImage( "{MelvTesting}:MiniTileMapImage", getRandom(0,15) );
+            %composite.setSpriteName( "My Name is" SPC %x SPC %y );
             //%composite.setSpriteAngle( 45 );
             //%composite.setSpriteBlendColor( "HotPink" );
             //%composite.setSpriteVisible( getRandom(1,10) < 5 );
-            //%dataObject = new ScriptObject();
-            //%dataObject.Breakable = true;
-            //%dataObject.BreakLife = 3;
-            //%composite.setDataObject( %dataObject );
+            %dataObject = new ScriptObject();
+            %dataObject.Breakable = true;
+            %dataObject.BreakLife = 3;
+            %composite.setSpriteDataObject( %dataObject );
             
             //%frame++;
             //if ( %frame == 16 ) %frame = 0;
@@ -105,7 +111,7 @@ function startMelvTesting()
         }
 	}
 	
-	schedule( 10000, 0, profileDump );
+	//schedule( 10000, 0, profileDump );
 	
 	//
 	//testSceneWindow2D.setCurrentCameraPosition( 0, 0 );
@@ -113,7 +119,7 @@ function startMelvTesting()
 	%composite.setAngularVelocity( 72 );
 	//%composite.setLinearVelocity( -200, 0 );
 	
-	//TamlWrite( %composite, "composite.xml" );
+	TamlWrite( %composite, "composite.xml" );
 	//%newComposite1 = TamlRead( "composite.xml" );
 	//testScene.addToScene( %newComposite1 );
 
@@ -222,6 +228,14 @@ function startMelvTesting()
 	//%asset.refreshAsset();
 	//refreshTextureManager();
 	
+}
+
+function CompositeSprite::onCustomLayout( %this, %args )
+{
+    %x = getWord( %args, 0 );
+    %y = getWord( %args, 1 );
+    
+    return (%x * 10) SPC (%y * 10);
 }
 
 function profileDump()
