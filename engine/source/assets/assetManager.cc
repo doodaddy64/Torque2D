@@ -3118,7 +3118,7 @@ void AssetManager::unloadAsset( AssetDefinition* pAssetDefinition )
         mLoadedExternalAssetsCount--;
     }
 
-    // Is the asset private.
+    // Is the asset private?
     if ( pAssetDefinition->mAssetPrivate )
     {
         // Yes, so decrease private loaded asset count.
