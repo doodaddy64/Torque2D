@@ -24,10 +24,10 @@ ConsoleSetType( TypeVector2 )
     // "x y".
     if( argc == 1 )
     {
-        if ( dSscanf(argv[0], "%g %g", &(pVector->x), &(pVector->y)) == 1 )
-        {
-            pVector->y = pVector->x;
-        }
+        if ( dSscanf(argv[0], "%g %g", &(pVector->x), &(pVector->y)) == 2 )
+            return;
+
+        pVector->y = pVector->x;
         return;
     }
 
