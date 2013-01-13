@@ -837,7 +837,7 @@ void SceneObject::sceneRenderOverlay( const SceneRenderState* sceneRenderState )
     // Collision Shapes.
     if ( debugMask & Scene::SCENE_DEBUG_COLLISION_SHAPES )
     {
-        pScene->mDebugDraw.DrawCollisionShapes( getBody() );
+        pScene->mDebugDraw.DrawCollisionShapes( getRenderTransform(), getBody() );
     }
 
     // Position and local center of mass.
