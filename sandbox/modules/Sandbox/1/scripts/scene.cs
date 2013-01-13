@@ -97,11 +97,7 @@ function setSceneToWindow()
     SandboxWindow.setLockMouse( false );
     SandboxWindow.setCurrentCameraPosition( 0, 0, 100, 75 );
     SandboxWindow.setCurrentCameraZoom( 1 );
-        
-    // Set the scene color.
-    SandboxScene.BackgroundColor = "DimGray";
-    SandboxScene.UseBackgroundColor = true;
     
-    // Set the debugging options.
-    SandboxScene.setDebugOn( 0 );    
+    // Update the toolbox options.
+    updateToolboxOptions();
 }

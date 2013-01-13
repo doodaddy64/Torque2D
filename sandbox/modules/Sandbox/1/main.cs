@@ -17,7 +17,7 @@ function createSandbox( %scopeSet )
     
     // Set the canvas color.
     Canvas.BackgroundColor = "CornflowerBlue";
-    Canvas.UseBackgroundColor = true;
+    Canvas.UseBackgroundColor = false;
     
     // Initialize audio.
     initializeOpenAL();    
@@ -28,6 +28,9 @@ function createSandbox( %scopeSet )
         
     // Load GUI profiles.
     exec("./gui/guiProfiles.cs");
+
+    // Create the sandbox window.
+    CreateSandboxWindow();
     
     // Load and configure the console.
     %scopeSet.add( TamlRead("./gui/ConsoleDialog.gui.taml") );
@@ -37,13 +40,11 @@ function createSandbox( %scopeSet )
     %scopeSet.add( TamlRead("./gui/ToolboxDialog.gui.taml") );
     GlobalActionMap.bind( keyboard, "#", toggleToolbox );
 
-    // Create the sandbox window.
-    CreateSandboxWindow();
-    
     // Scan for toys.
     scanForToys();
-    
-    //loadToy( SandboxToys.getObject(0) );
+
+    // Initialize the toolbox.    
+    initializeToolbox();    
 }
 
 //-----------------------------------------------------------------------------

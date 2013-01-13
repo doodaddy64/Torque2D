@@ -74,6 +74,14 @@ if (!isObject(GuiToolTipProfile)) new GuiControlProfile (GuiToolTipProfile : Gui
 
 // ----------------------------------------------------------------------------
 
+if (!isObject(GuiPopupMenuItemBorder)) new GuiControlProfile (GuiPopupMenuItemBorder : GuiDefaultProfile)
+{
+    bitmap = "^Sandbox/gui/images/scroll";
+    hasBitmapArray = true;
+};
+
+// ----------------------------------------------------------------------------
+
 if (!isObject(GuiPopUpMenuDefault)) new GuiControlProfile (GuiPopUpMenuDefault)
 {
     tab = false;
@@ -83,15 +91,15 @@ if (!isObject(GuiPopUpMenuDefault)) new GuiControlProfile (GuiPopUpMenuDefault)
 
     // fill color
     opaque = false;
-    fillColor = "232 240 248 255";
-    fillColorHL = "251 170 0 255";
-    fillColorNA = "244 244 244 255";
+    fillColor = "255 255 255 128";
+    fillColorHL = "255 0 0 192";
+    fillColorNA = "0 0 255 255";
 
     // border color
     border = 1;
     borderColor    = "100 100 100 255";
-    borderColorHL = "128 128 128 255";
-    borderColorNA = "226 226 226 52";
+    borderColorHL = "0 128 0 255";
+    borderColorNA = "0 226 226 52";
 
     // font
     fontType = ($platform $= "macos") ? "monaco" : "lucida console";
@@ -99,11 +107,12 @@ if (!isObject(GuiPopUpMenuDefault)) new GuiControlProfile (GuiPopUpMenuDefault)
 
     fontColor = "27 59 95 255";
     fontColorHL = "232 240 248 255";
-    fontColorNA = "255 255 255 52";
+    fontColorNA = "0 0 0 255";
     fontColorSEL= "255 255 255 255";
 
     // bitmap information
-    bitmap = "^Sandbox/gui/images/dropDown";
+    bitmap = "^Sandbox/gui/images/scroll";
+    hasBitmapArray = true;
     bitmapBase = "";
     textOffset = "0 0";
 
@@ -116,7 +125,7 @@ if (!isObject(GuiPopUpMenuDefault)) new GuiControlProfile (GuiPopUpMenuDefault)
     numbersOnly = false;
     cursorColor = "0 0 0 255";
 
-    //profileForChildren = GuiPopupMenuItemBorder;
+    profileForChildren = GuiPopupMenuItemBorder;
     // sounds
     soundButtonDown = "";
     soundButtonOver = "";
@@ -154,6 +163,22 @@ if (!isObject(GuiTextProfile)) new GuiControlProfile (GuiTextProfile)
     returnTab = false;
     numbersOnly = false;
     cursorColor = "0 0 0 255";
+};
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(GuiCheckBoxProfile)) new GuiControlProfile (GuiCheckBoxProfile)
+{
+    opaque = false;
+    fillColor = "232 232 232 255";
+    border = false;
+    borderColor = "0 0 0 255";
+    fontType = "Arial";
+    fontSize = 16;
+    fixedExtent = true;
+    justify = "left";
+    bitmap = "^Sandbox/gui/images/checkBox";
+    hasBitmapArray = true;
 };
 
 //-----------------------------------------------------------------------------
