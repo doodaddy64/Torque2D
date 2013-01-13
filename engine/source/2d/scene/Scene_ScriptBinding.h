@@ -857,6 +857,11 @@ ConsoleMethod(Scene, createRevoluteJoint, S32, 4, 9,    "(sceneObjectA, sceneObj
         return -1;
     }
 
+    if ( argc <= nextArg )
+    {
+        return object->createRevoluteJoint( pSceneObjectA, pSceneObjectB, localAnchorA );
+    }
+
     // Local anchor B.
     const U32 anchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
