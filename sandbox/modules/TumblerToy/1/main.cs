@@ -37,16 +37,21 @@ function createTumblerBall()
 {
     // Reset the event schedule.
     $createTumblerBallSchedule = "";
-       
+
+    // Fetch the stock color count.
+    %stockColorCount = getStockColorCount();
+    
+    // Create some balls.
     for( %n = 0; %n < 5; %n++ )
     {      
         // Create the ball.
         %ball = new Sprite();
         %ball.Position = getRandom(-10,10) SPC "0";
         %ball.Size = "1";
-        %ball.ImageMap = "TumblerToy:FootballImage";
+        %ball.ImageMap = "TumblerToy:FootballImage";        
+        %ball.BlendColor = getStockColorName(getRandom(0,%stockColorCount-1));
         %ball.setDefaultRestitution( 0.6 );
-        %collisionId = %ball.createCircleCollisionShape( 0.5 );
+        %collisionId = %ball.createCircleCollisionShape( 0.5 );        
         SandboxScene.addToScene( %ball );
 
         // Increase ball count.

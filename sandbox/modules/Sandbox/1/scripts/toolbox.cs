@@ -5,6 +5,7 @@
 
 $metricsOption = true;
 $jointsOption = false;
+$wireframeOption = false;
 $aabbOption = false;
 $oobbOption = false;
 $sleepOption = false;
@@ -97,6 +98,7 @@ function initializeToolbox()
     // Set the options check-boxe.
     MetricsOptionCheckBox.setStateOn( $metricsOption );
     JointsOptionCheckBox.setStateOn( $jointsOption );
+    WireframeOptionCheckBox.setStateOn( $wireframeOption );
     AABBOptionCheckBox.setStateOn( $aabbOption );
     OOBBOptionCheckBox.setStateOn( $oobbOption );
     SleepOptionCheckBox.setStateOn( $sleepOption );
@@ -212,51 +214,57 @@ function updateToolboxOptions()
     
     // Set option.
     if ( $metricsOption )
-        SandboxScene.setDebugOn( 0 );
+        SandboxScene.setDebugOn( "metrics" );
     else
-        SandboxScene.setDebugOff( 0 );
+        SandboxScene.setDebugOff( "metrics" );
 
     // Set option.
     if ( $jointsOption )
-        SandboxScene.setDebugOn( 1 );
+        SandboxScene.setDebugOn( "joints" );
     else
-        SandboxScene.setDebugOff( 1 );        
+        SandboxScene.setDebugOff( "joints" );
 
     // Set option.
-    if ( $aabbOption )
-        SandboxScene.setDebugOn( 2 );
+    if ( $wireframeOption )
+        SandboxScene.setDebugOn( "wireframe" );
     else
-        SandboxScene.setDebugOff( 2 );
+        SandboxScene.setDebugOff( "wireframe" );
+        
+    // Set option.
+    if ( $aabbOption )
+        SandboxScene.setDebugOn( "aabb" );
+    else
+        SandboxScene.setDebugOff( "aabb" );
 
     // Set option.
     if ( $oobbOption )
-        SandboxScene.setDebugOn( 3 );
+        SandboxScene.setDebugOn( "oobb" );
     else
-        SandboxScene.setDebugOff( 3 );
+        SandboxScene.setDebugOff( "oobb" );
         
     // Set option.
     if ( $sleepOption )
-        SandboxScene.setDebugOn( 4 );
+        SandboxScene.setDebugOn( "sleep" );
     else
-        SandboxScene.setDebugOff( 4 );                
+        SandboxScene.setDebugOff( "sleep" );                
 
     // Set option.
     if ( $collisionOption )
-        SandboxScene.setDebugOn( 5 );
+        SandboxScene.setDebugOn( "collision" );
     else
-        SandboxScene.setDebugOff( 5 );
+        SandboxScene.setDebugOff( "collision" );
         
     // Set option.
     if ( $positionOption )
-        SandboxScene.setDebugOn( 6 );
+        SandboxScene.setDebugOn( "position" );
     else
-        SandboxScene.setDebugOff( 6 );
+        SandboxScene.setDebugOff( "position" );
         
     // Set option.
     if ( $sortOption )
-        SandboxScene.setDebugOn( 7 );
+        SandboxScene.setDebugOn( "sort" );
     else
-        SandboxScene.setDebugOff( 7 );                                       
+        SandboxScene.setDebugOff( "sort" );
 }
 
 //-----------------------------------------------------------------------------
@@ -272,6 +280,14 @@ function setMetricsOption( %flag )
 function setJointsOption( %flag )
 {
     $jointsOption = %flag;
+    updateToolboxOptions();
+}
+
+//-----------------------------------------------------------------------------
+
+function setWireframeOption( %flag )
+{
+    $wireframeOption = %flag;
     updateToolboxOptions();
 }
 
