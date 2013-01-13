@@ -3,13 +3,13 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-$metricsOption = true;
+$metricsOption = false;
 $jointsOption = false;
 $wireframeOption = false;
 $aabbOption = false;
 $oobbOption = false;
 $sleepOption = false;
-$collisionOption = true;
+$collisionOption = false;
 $positionOption = false;
 $sortOption = false;
 
@@ -82,29 +82,7 @@ function initializeToolbox()
         
         // Set the fullscreen flag.
         $sandboxFullscreen = $pref::Video::fullScreen;
-        
-        // Set the fullscreen check-box.
-        FullscreenOptionCheckBox.setStateOn( $sandboxFullscreen );    
     }
-    else
-    {
-        //No, so make the screen controls visible.
-        ResolutionSelectLabel.setVisible( false );
-        ResolutionSelectList.setVisible( false );
-        FullscreenOptionLabel.setVisible( false );
-        FullscreenOptionCheckBox.setVisible( false );
-    }
-          
-    // Set the options check-boxe.
-    MetricsOptionCheckBox.setStateOn( $metricsOption );
-    JointsOptionCheckBox.setStateOn( $jointsOption );
-    WireframeOptionCheckBox.setStateOn( $wireframeOption );
-    AABBOptionCheckBox.setStateOn( $aabbOption );
-    OOBBOptionCheckBox.setStateOn( $oobbOption );
-    SleepOptionCheckBox.setStateOn( $sleepOption );
-    CollisionOptionCheckBox.setStateOn( $collisionOption );
-    PositionOptionCheckBox.setStateOn( $positionOption );
-    SortOptionCheckBox.setStateOn( $sortOption );
 }
 
 //-----------------------------------------------------------------------------
@@ -265,6 +243,32 @@ function updateToolboxOptions()
         SandboxScene.setDebugOn( "sort" );
     else
         SandboxScene.setDebugOff( "sort" );
+                  
+    // Set the options check-boxe.
+    MetricsOptionCheckBox.setStateOn( $metricsOption );
+    JointsOptionCheckBox.setStateOn( $jointsOption );
+    WireframeOptionCheckBox.setStateOn( $wireframeOption );
+    AABBOptionCheckBox.setStateOn( $aabbOption );
+    OOBBOptionCheckBox.setStateOn( $oobbOption );
+    SleepOptionCheckBox.setStateOn( $sleepOption );
+    CollisionOptionCheckBox.setStateOn( $collisionOption );
+    PositionOptionCheckBox.setStateOn( $positionOption );
+    SortOptionCheckBox.setStateOn( $sortOption ); 
+    
+    // Is this on the desktop?
+    if ( $platform $= "windows" || $platform $= "macos" )
+    {
+        // Set the fullscreen check-box.
+        FullscreenOptionCheckBox.setStateOn( $sandboxFullscreen );    
+    }
+    else
+    {
+        // No, so make the screen controls visible.
+        ResolutionSelectLabel.setVisible( false );
+        ResolutionSelectList.setVisible( false );
+        FullscreenOptionLabel.setVisible( false );
+        FullscreenOptionCheckBox.setVisible( false );
+    }    
 }
 
 //-----------------------------------------------------------------------------

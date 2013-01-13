@@ -4,7 +4,10 @@
 //-----------------------------------------------------------------------------
 
 function createTruckToy( %scopeSet )
-{       
+{
+    // Turn-off the sandbox auto-camera.
+    setSandboxAutoCamera( false );
+    
     // Load scripts.
     exec( "./scripts/truck.cs" );
 

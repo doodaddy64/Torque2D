@@ -8,7 +8,7 @@ $Game::CompanyName              = "GarageGames LLC";
 $Game::ProductName              = "Torque 2D Sandbox";
 
 // Sandbox.
-$DefaultSandboxToyId            = "TumblerToy";
+$DefaultSandboxToyId            = "MelvToy";
 
 /// iOS
 $pref::iOS::ScreenOrientation   = $iOS::constant::Landscape;

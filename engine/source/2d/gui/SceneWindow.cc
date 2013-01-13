@@ -54,25 +54,25 @@ SceneWindow::CameraInterpolationMode getInterpolationMode(const char* label)
 
 //-----------------------------------------------------------------------------
 
-SceneWindow::SceneWindow() :  mpScene(NULL),
-                                    mLockMouse(false),
-                                    mWindowDirty(true),
-                                    mRenderLayerMask(MASK_ALL),
-                                    mRenderGroupMask(MASK_ALL),
-                                    mCameraInterpolationMode(SIGMOID),
-                                    mMaxQueueItems(64),
-                                    mCameraTransitionTime(2.0f),
-                                    mMovingCamera(false),
-                                    mpMountedTo(NULL),
-                                    mCameraMounted(false),
-                                    mCameraShaking(false),
-                                    mCameraShakeOffset(0.0f,0.0f),
-                                    mViewLimitActive(false),
-                                    mUseWindowInputEvents(true),
-                                    mUseObjectInputEvents(false),
-                                    mInputEventGroupMaskFilter(MASK_ALL),
-                                    mInputEventLayerMaskFilter(MASK_ALL),
-                                    mInputEventInvisibleFilter( true )
+SceneWindow::SceneWindow() :    mpScene(NULL),
+                                mLockMouse(false),
+                                mWindowDirty(true),
+                                mRenderLayerMask(MASK_ALL),
+                                mRenderGroupMask(MASK_ALL),
+                                mCameraInterpolationMode(SIGMOID),
+                                mMaxQueueItems(64),
+                                mCameraTransitionTime(2.0f),
+                                mMovingCamera(false),
+                                mpMountedTo(NULL),
+                                mCameraMounted(false),
+                                mCameraShaking(false),
+                                mCameraShakeOffset(0.0f,0.0f),
+                                mViewLimitActive(false),
+                                mUseWindowInputEvents(true),
+                                mUseObjectInputEvents(false),
+                                mInputEventGroupMaskFilter(MASK_ALL),
+                                mInputEventLayerMaskFilter(MASK_ALL),
+                                mInputEventInvisibleFilter( true )
 {
     // Set Vector Associations.
     VECTOR_SET_ASSOCIATION( mCameraQueue );
@@ -240,6 +240,9 @@ void SceneWindow::setCurrentCameraZoom( F32 zoomFactor )
 {
     // Stop Camera Move ( if any ).
     if ( mMovingCamera ) stopCameraMove();
+
+    // Clamp zoom factor.
+    zoomFactor = getMax( zoomFactor, 0.000001f  );
 
     // Set Camera Target.
     mCameraCurrent.mCameraZoom = zoomFactor;
