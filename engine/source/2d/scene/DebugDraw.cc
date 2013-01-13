@@ -314,7 +314,7 @@ void DebugDraw::DrawSolidCircle( const b2Vec2& center, float32 radius, const b2V
     // Debug Profiling.
     PROFILE_SCOPE(DebugDraw_DrawSolidCircle);
 
-    const float32 k_segments = 16.0f;
+    const float32 k_segments = 8.0f;
     const float32 k_increment = 2.0f * b2_pi / k_segments;
     float32 theta = 0.0f;
     glEnable(GL_BLEND);
