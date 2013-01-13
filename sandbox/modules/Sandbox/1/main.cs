@@ -6,7 +6,7 @@
 function createSandbox( %scopeSet )
 {    
     // Load system scripts
-    exec( "./scripts/defaultPrefs.cs" );
+    exec( "./scripts/preferences.cs" );
     exec( "./scripts/canvas.cs" );
     exec( "./scripts/openal.cs" );
     exec( "./scripts/console.cs" );

@@ -4,13 +4,13 @@
 //-----------------------------------------------------------------------------
 
 $metricsOption = true;
-$jointsOption = true;
-$aabbOption = true;
-$oobbOption = true;
-$sleepOption = true;
+$jointsOption = false;
+$aabbOption = false;
+$oobbOption = false;
+$sleepOption = false;
 $collisionOption = true;
-$positionOption = true;
-$sortOption = true;
+$positionOption = false;
+$sortOption = false;
 
 $defaultSceneColor = "DimGray";
 
@@ -131,7 +131,6 @@ function toggleToolbox(%make)
     if ( $enableDirectInput )
         deactivateKeyboard();    
     Canvas.pushDialog(ToolboxDialog, 2);         
-    ToySelectList.setFirstResponder();
 }
 
 //-----------------------------------------------------------------------------
@@ -258,4 +257,68 @@ function updateToolboxOptions()
         SandboxScene.setDebugOn( 7 );
     else
         SandboxScene.setDebugOff( 7 );                                       
+}
+
+//-----------------------------------------------------------------------------
+
+function setMetricsOption( %flag )
+{
+    $metricsOption = %flag;
+    updateToolboxOptions();
+}
+
+//-----------------------------------------------------------------------------
+
+function setJointsOption( %flag )
+{
+    $jointsOption = %flag;
+    updateToolboxOptions();
+}
+
+//-----------------------------------------------------------------------------
+
+function setAABBOption( %flag )
+{
+    $aabbOption = %flag;
+    updateToolboxOptions();
+}
+
+//-----------------------------------------------------------------------------
+
+function setOOBBOption( %flag )
+{
+    $oobbOption = %flag;
+    updateToolboxOptions();
+}
+
+//-----------------------------------------------------------------------------
+
+function setSleepOption( %flag )
+{
+    $sleepOption = %flag;
+    updateToolboxOptions();
+}
+
+//-----------------------------------------------------------------------------
+
+function setCollisionOption( %flag )
+{
+    $collisionOption = %flag;
+    updateToolboxOptions();
+}
+
+//-----------------------------------------------------------------------------
+
+function setPositionOption( %flag )
+{
+    $positionOption = %flag;
+    updateToolboxOptions();
+}
+
+//-----------------------------------------------------------------------------
+
+function setSortOption( %flag )
+{
+    $sortOption = %flag;
+    updateToolboxOptions();
 }

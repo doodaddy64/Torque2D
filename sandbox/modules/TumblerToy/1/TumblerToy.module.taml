@@ -1,0 +1,12 @@
+<ModuleDefinition
+	ModuleId="TumblerToy"
+	VersionId="1"
+	Description="Box2D's tumbler toy."
+	Type="toy"
+	ScriptFile="main.cs"
+	ScopeSet="TumblerToySet"
+	CreateFunction="createTumblerToy"
+	DestroyFunction="destroyTumblerToy"
+	DeclaredAssetManifest="^TumblerToy/DeclaredAssets.Manifest.taml"
+	/>
+

@@ -4,9 +4,11 @@
 //-----------------------------------------------------------------------------
 
 /// Game
-$Game::CompanyName         = "Independent";
-$Game::ProductName         = "Tower Defense Template";
-$Game::DefaultScene        = "data/levels/mainMenu.t2d";
+$Game::CompanyName              = "GarageGames LLC";
+$Game::ProductName              = "Torque 2D Sandbox";
+
+// Sandbox.
+$DefaultSandboxToyId            = "TumblerToy";
 
 /// iOS
 $pref::iOS::ScreenOrientation   = $iOS::constant::Landscape;
@@ -15,7 +17,7 @@ $pref::iOS::UseGameKit          = 0;
 $pref::iOS::UseMusic            = 0;
 $pref::iOS::UseMoviePlayer      = 0;
 $pref::iOS::UseAutoRotate       = 0;   
-$pref::iOS::EnableOrientationRotation      = 1;   
+$pref::iOS::EnableOrientationRotation = 1;   
 $pref::iOS::StatusBarType       = 0;
 
 /// Audio

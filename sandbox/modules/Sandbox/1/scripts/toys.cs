@@ -38,11 +38,12 @@ function scanForToys()
         SandboxToys.add( %moduleDefinition );
         
         // Add to toy GUI list.
-        ToySelectList.add( %moduleDefinition.moduleId, %moduleDefinition.getId() );        
+        ToySelectList.add( %moduleDefinition.moduleId, %moduleDefinition.getId() );
+        
+        // Select the toy if it's the default one.
+        if ( %moduleDefinition.moduleId $= $DefaultSandboxToyId )
+            ToySelectList.setSelected( %moduleDefinition.getId() );
     }
-    
-    // Select the first toy.
-    ToySelectList.setFirstSelected(); 
 }
 
 //-----------------------------------------------------------------------------
