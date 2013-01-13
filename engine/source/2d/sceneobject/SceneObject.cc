@@ -809,7 +809,7 @@ void SceneObject::sceneRenderOverlay( const SceneRenderState* sceneRenderState )
     U32 debugMask = getDebugMask() | pScene->getDebugMask();
 
     // Finish here if we're not rendering any debug info or only have scene-rendered debug options.
-    if ( !debugMask || (debugMask & ~(Scene::SCENE_DEBUG_STATISTICS | Scene::SCENE_DEBUG_JOINTS)) == 0 )
+    if ( !debugMask || (debugMask & ~(Scene::SCENE_DEBUG_METRICS | Scene::SCENE_DEBUG_JOINTS)) == 0 )
         return;
 
     // Clear blending.
@@ -829,7 +829,7 @@ void SceneObject::sceneRenderOverlay( const SceneRenderState* sceneRenderState )
     }
 
     // Asleep debug draw.
-    if ( !getAwake() && debugMask & Scene::SCENE_DEBUG_ASLEEP )
+    if ( !getAwake() && debugMask & Scene::SCENE_DEBUG_SLEEP )
     {
         pScene->mDebugDraw.DrawAsleep( mRenderOOBB );
     }

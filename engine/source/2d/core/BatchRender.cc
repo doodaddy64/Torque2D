@@ -28,6 +28,7 @@ BatchRender::BatchRender() :
     mDstBlendFactor( GL_ONE_MINUS_SRC_ALPHA ),
     mBlendColor( ColorF(1.0f,1.0f,1.0f,1.0f) ),
     mAlphaTestMode( -1.0f ),
+    mWireframeMode( false ),
     mBatchEnabled( true )
 {
 }
@@ -268,9 +269,23 @@ void BatchRender::flushInternal( void )
     // Stats.
     mpDebugStats->batchFlushes++;
 
-    // Set texturing.    
-    glEnable( GL_TEXTURE_2D );
-    glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+    if ( mWireframeMode )
+    {
+        // Disable texturing.    
+        glDisable( GL_TEXTURE_2D );
+
+        // Set the polygon mode to line.
+        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+    }
+    else
+    {
+        // Enable texturing.    
+        glEnable( GL_TEXTURE_2D );
+        glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+
+        // Set the polygon mode to fill.
+        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    }
 
     // Set blend mode.
     if ( mBlendMode )
@@ -296,12 +311,14 @@ void BatchRender::flushInternal( void )
         glDisable( GL_ALPHA_TEST );
     }
 
-
     // Enable vertex and texture arrays.
     glEnableClientState( GL_VERTEX_ARRAY );
-    glEnableClientState( GL_TEXTURE_COORD_ARRAY );
     glVertexPointer( 2, GL_FLOAT, 0, mVertexBuffer );
     glTexCoordPointer( 2, GL_FLOAT, 0, mTextureBuffer );
+
+    // Use the texture coordinates if not in wireframe mode.
+    if ( !mWireframeMode )
+        glEnableClientState( GL_TEXTURE_COORD_ARRAY );
 
     // Do we have any colors?
     if ( mColorCount > 0 )
@@ -314,8 +331,9 @@ void BatchRender::flushInternal( void )
     // Strict order mode?
     if ( mStrictOrderMode )
     {
-        // Bind to texture.
-        glBindTexture( GL_TEXTURE_2D, mStrictOrderTextureHandle.getGLName() );
+        // Bind the texture if not in wireframe mode.
+        if ( !mWireframeMode )
+            glBindTexture( GL_TEXTURE_2D, mStrictOrderTextureHandle.getGLName() );
 
         // Yes, so do we have a single quad?
         if ( mQuadCount == 1 )
@@ -380,8 +398,9 @@ void BatchRender::flushInternal( void )
             // Sanity!
             AssertFatal( mIndexCount > 0, "No batching indexes are present." );
 
-            // Bind to texture.
-            glBindTexture( GL_TEXTURE_2D, textureBinding );
+            // Bind the texture if not in wireframe mode.
+            if ( !mWireframeMode )
+                glBindTexture( GL_TEXTURE_2D, textureBinding );
 
             // Draw the quads using triangles with indexes.
             glDrawElements( GL_TRIANGLES, mIndexCount, GL_UNSIGNED_SHORT, mIndexBuffer );
@@ -414,6 +433,7 @@ void BatchRender::flushInternal( void )
     glDisable( GL_ALPHA_TEST );
     glDisable( GL_BLEND );
     glDisable( GL_TEXTURE_2D );
+    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
     // Reset batch state.
     mQuadCount = 0;

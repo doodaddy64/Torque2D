@@ -115,6 +115,22 @@ public:
         mAlphaTestMode = alphaTestMode;
     }
 
+    // Set alpha test mode using a specific scene render request.
+    void setAlphaTestMode( const SceneRenderRequest* pSceneRenderRequest );
+
+    /// Sets the wireframe mode.
+    inline void setWireframeMode( const bool enabled )
+    {
+        // Ignore no change.
+        if ( mWireframeMode == enabled )
+            return;
+
+        mWireframeMode = enabled;
+    }
+
+    // Gets the wireframe mode.
+    inline bool getWireframeMode( void ) const { return mWireframeMode; }
+
     /// Sets the batch enabled mode.
     inline void setBatchEnabled( const bool enabled )
     {
@@ -127,9 +143,6 @@ public:
 
         mBatchEnabled = enabled;
     }
-
-    // Set alpha test mode using a specific scene render request.
-    void setAlphaTestMode( const SceneRenderRequest* pSceneRenderRequest );
 
     /// Gets the batch enabled mode.
     inline bool getBatchEnabled( void ) const { return mBatchEnabled; }
@@ -212,8 +225,8 @@ private:
     TextureHandle       mStrictOrderTextureHandle;
     DebugStats*         mpDebugStats;
 
+    bool                mWireframeMode;
     bool                mBatchEnabled;
-
 };
 
 #endif

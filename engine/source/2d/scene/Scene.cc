@@ -877,6 +877,9 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
     pDebugStats->batchNoBatchFlush              = 0;
     pDebugStats->batchAnonymousFlush            = 0;
 
+    // Set batch renderer wireframe mode.
+    mBatchRenderer.setWireframeMode( getDebugMask() & SCENE_DEBUG_WIREFRAME_RENDER );
+
     // Clear the background color if requested.
     if ( mUseBackgroundColor )
     {
@@ -4620,6 +4623,53 @@ void Scene::onTamlCustomRead( const TamlCollection& customCollection )
 U32 Scene::getGlobalSceneCount( void )
 {
     return sSceneCount;
+}
+
+//-----------------------------------------------------------------------------
+
+static EnumTable::Enums DebugOptionsLookup[] =
+                {
+                { Scene::SCENE_DEBUG_METRICS,           "metrics" },
+                { Scene::SCENE_DEBUG_JOINTS,            "joints" },
+                { Scene::SCENE_DEBUG_WIREFRAME_RENDER,  "wireframe" },
+                ///
+                { Scene::SCENE_DEBUG_AABB,              "aabb" },
+                { Scene::SCENE_DEBUG_OOBB,              "oobb" },
+                { Scene::SCENE_DEBUG_SLEEP,             "sleep" },
+                { Scene::SCENE_DEBUG_COLLISION_SHAPES,  "collision" },
+                { Scene::SCENE_DEBUG_POSITION_AND_COM,  "position" },
+                { Scene::SCENE_DEBUG_SORT_POINTS,       "sort" },
+                };
+
+//-----------------------------------------------------------------------------
+
+Scene::DebugOption getDebugOption(const char* label)
+{
+    // Search for Mnemonic.
+    for(U32 i = 0; i < (sizeof(DebugOptionsLookup) / sizeof(EnumTable::Enums)); i++)
+        if( dStricmp(DebugOptionsLookup[i].label, label) == 0)
+            return((Scene::DebugOption)DebugOptionsLookup[i].index);
+
+    // Error.
+    return Scene::SCENE_DEBUG_INVALID;
+}
+
+//-----------------------------------------------------------------------------
+
+const char* getDebugOptionDescription( Scene::DebugOption debugOption )
+{
+    // Search for Mnemonic.
+    for (U32 i = 0; i < (sizeof(DebugOptionsLookup) / sizeof(EnumTable::Enums)); i++)
+    {
+        if( DebugOptionsLookup[i].index == debugOption )
+            return DebugOptionsLookup[i].label;
+    }
+
+    // Fatal!
+    AssertFatal(false, "SceneObject::getDebugOptionDescription() - Invalid debug option.");
+
+    // Error.
+    return StringTable->EmptyString;
 }
 
 //-----------------------------------------------------------------------------

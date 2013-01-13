@@ -161,12 +161,6 @@ typedef HashMap<b2Contact*, TickContact>    typeContactHash;
 
 ///-----------------------------------------------------------------------------
 
-void findObjectsCallback(SceneObject* pSceneObject, void* storage);
-void findLayeredObjectsCallback(SceneObject* pSceneObject, void* storage);
-const char* getJointTypeDescription( b2JointType jointType );
-
-///-----------------------------------------------------------------------------
-
 class Scene :
     public SimSet,
     public PhysicsProxy,
@@ -175,18 +169,21 @@ class Scene :
     public virtual Tickable
 {
 public:
-    /// Scene-Graph Debug Bits.
-    enum
+    /// Scene Debug Options.
+    enum DebugOption
     {
-        SCENE_DEBUG_STATISTICS         = BIT(0),
+        SCENE_DEBUG_INVALID,
+        ///
+        SCENE_DEBUG_METRICS            = BIT(0),
         SCENE_DEBUG_JOINTS             = BIT(1),
-        ///---
-        SCENE_DEBUG_AABB               = BIT(2),
-        SCENE_DEBUG_OOBB               = BIT(3),
-        SCENE_DEBUG_ASLEEP             = BIT(4),
-        SCENE_DEBUG_COLLISION_SHAPES   = BIT(5),
-        SCENE_DEBUG_POSITION_AND_COM   = BIT(6),
-        SCENE_DEBUG_SORT_POINTS        = BIT(7),
+        SCENE_DEBUG_WIREFRAME_RENDER   = BIT(2),
+        ///
+        SCENE_DEBUG_AABB               = BIT(3),
+        SCENE_DEBUG_OOBB               = BIT(4),
+        SCENE_DEBUG_SLEEP              = BIT(5),
+        SCENE_DEBUG_COLLISION_SHAPES   = BIT(6),
+        SCENE_DEBUG_POSITION_AND_COM   = BIT(7),
+        SCENE_DEBUG_SORT_POINTS        = BIT(8),
     };
 
     /// Pick mode.
@@ -693,9 +690,16 @@ public:
 
 //-----------------------------------------------------------------------------
 
+extern void findObjectsCallback(SceneObject* pSceneObject, void* storage);
+extern void findLayeredObjectsCallback(SceneObject* pSceneObject, void* storage);
+
+///-----------------------------------------------------------------------------
+
 extern const char* getJointTypeDescription( b2JointType jointType );
 extern b2JointType getJointTypeEnum(const char* label);
 extern Scene::PickMode getPickMode(const char* label);
 extern const char* getPickModeDescription( Scene::PickMode pickMode );
+extern Scene::DebugOption getDebugOption(const char* label);
+extern const char* getDebugOptionDescription( Scene::DebugOption debugOption );
 
 #endif // _SCENE_H_

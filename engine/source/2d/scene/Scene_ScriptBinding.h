@@ -2852,120 +2852,138 @@ ConsoleMethod(Scene, pickPoint, const char*, 3, 7, "(x / y, [sceneGroupMask], [s
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, setDebugOn, void, 3, 2 + DEBUG_MODE_COUNT, "(debugMask) Sets Debug On Mode(s).\n"
-              "@param debugMask Either a list of debug modes (comma separated), or a string with the modes (space separated)\n"
-              "@return No return value.")
+ConsoleMethod(Scene, setDebugOn, void, 3, 2 + DEBUG_MODE_COUNT, "(debugOptions) Sets Debug option(s) on.\n"
+                                                                "@param debugOptions Either a list of debug modes (comma-separated), or a string with the modes (space-separated)\n"
+                                                                "@return No return value.")
 {
-   // The mask.
-   U32 mask = 0;
+    // Reset the mask.
+    U32 mask = 0;
 
-   // Grab the element count of the first parameter.
-   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
+    // Grab the element count of the first parameter.
+    const U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
-   // Make sure we get at least one number.
-   if (elementCount < 1)
-   {
-      Con::warnf("Scene::setDebugOn() - Invalid number of parameters!");
-      return;
-   }
+    // Make sure we get at least one number.
+    if (elementCount < 1)
+    {
+        Con::warnf( "Scene::setDebugOn() - Invalid number of parameters!" );
+        return;
+    }
 
-   // Space separated list.
-   if (argc == 3)
-   {
-      // Convert the string to a mask.
-      for (U32 i = 0; i < elementCount; i++)
-      {
-         S32 bit = dAtoi(Utility::mGetStringElement(argv[2], i));
+    // Space-separated list.
+    if (argc == 3)
+    {
+        // Convert the string to a mask.
+        for (U32 i = 0; i < elementCount; i++)
+        {
+            // Fetch the debug option.
+            const char* pDebugOption = Utility::mGetStringElement( argv[2], i );
+            Scene::DebugOption debugOption = getDebugOption( pDebugOption );
+        
+            // Is the option valid?
+            if ( debugOption == Scene::SCENE_DEBUG_INVALID )
+            {
+                // No, so warn.
+                Con::warnf( "Scene::setDebugOn() - Invalid debug option '%s' specified.", pDebugOption );
+                continue;
+            }
          
-         // Make sure the group is valid.
-         if ((bit < 0) || (bit >= DEBUG_MODE_COUNT))
-         {
-            Con::warnf("Scene::setDebugOn() - Invalid debug mode specified (%d); skipped!", bit);
-            continue;
-         }
-         
-         mask |= (1 << bit);
-      }
-   }
+            // Merge into mask.
+            mask |= debugOption;
+        }
+    }
+    // Comma-separated list.
+    else
+    {
+        // Convert the list to a mask.
+        for (U32 i = 2; i < (U32)argc; i++)
+        {
+            // Fetch the debug option.
+            const char* pDebugOption = argv[i];
+            Scene::DebugOption debugOption = getDebugOption( argv[i] );
 
-   // Comma separated list.
-   else
-   {
-      // Convert the list to a mask.
-      for (U32 i = 2; i < (U32)argc; i++)
-      {
-         S32 bit = dAtoi(argv[i]);
-         
-         // Make sure the group is valid.
-         if ((bit < 0) || (bit >= DEBUG_MODE_COUNT))
-         {
-            Con::warnf("Scene::setDebugOn() - Invalid debug mode specified (%d); skipped!", bit);
-            continue;
-         }
+            // Is the option valid?
+            if ( debugOption == Scene::SCENE_DEBUG_INVALID )
+            {
+                // No, so warn.
+                Con::warnf( "Scene::setDebugOn() - Invalid debug option '%s' specified.", pDebugOption );
+                continue;
+            }
 
-         mask |= (1 << bit);
-      }
-   }
-   object->setDebugOn(mask);
+            // Merge into mask.
+            mask |= debugOption;
+        }
+    }
+
+    // Set debug mask.
+    object->setDebugOn(mask);
 } 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, setDebugOff, void, 3, 2 + DEBUG_MODE_COUNT, "(debugMask) Sets Debug Off Mode(s).\n"
-              "@param debugMask Either a list of debug modes to turn off (comma separated) or a string (space separated)\n"
-              "@return No return value.")
+ConsoleMethod(Scene, setDebugOff, void, 3, 2 + DEBUG_MODE_COUNT,    "(debugOptions) Sets Debug options(s) off.\n"
+                                                                    "@param debugOptions Either a list of debug modes to turn off (comma-separated) or a string (space-separated)\n"
+                                                                    "@return No return value.")
 {
-   // The mask.
-   U32 mask = 0;
+    // Reset the mask.
+    U32 mask = 0;
 
-   // Grab the element count of the first parameter.
-   U32 elementCount = Utility::mGetStringElementCount(argv[2]);
+    // Grab the element count of the first parameter.
+    const U32 elementCount = Utility::mGetStringElementCount(argv[2]);
 
-   // Make sure we get at least one number.
-   if (elementCount < 1)
-   {
-      Con::warnf("Scene::setDebugOn() - Invalid number of parameters!");
-      return;
-   }
+    // Make sure we get at least one number.
+    if (elementCount < 1)
+    {
+        Con::warnf( "Scene::setDebugOff() - Invalid number of parameters!" );
+        return;
+    }
 
-   // Space separated list.
-   if (argc == 3)
-   {
-      // Convert the string to a mask.
-      for (U32 i = 0; i < elementCount; i++)
-      {
-         S32 bit = dAtoi(Utility::mGetStringElement(argv[2], i));
+    // Space-separated list.
+    if (argc == 3)
+    {
+        // Convert the string to a mask.
+        for (U32 i = 0; i < elementCount; i++)
+        {
+            // Fetch the debug option.
+            const char* pDebugOption = Utility::mGetStringElement( argv[2], i );
+            Scene::DebugOption debugOption = getDebugOption( pDebugOption );
+        
+            // Is the option valid?
+            if ( debugOption == Scene::SCENE_DEBUG_INVALID )
+            {
+                // No, so warn.
+                Con::warnf( "Scene::setDebugOff() - Invalid debug option '%s' specified.", pDebugOption );
+                continue;
+            }
          
-         // Make sure the group is valid.
-         if ((bit < 0) || (bit >= DEBUG_MODE_COUNT))
-         {
-            Con::warnf("Scene::setDebugOn() - Invalid debug mode specified (%d); skipped!", bit);
-            continue;
-         }
-         
-         mask |= (1 << bit);
-      }
-   }
+            // Merge into mask.
+            mask |= debugOption;
+        }
+    }
+    // Comma-separated list.
+    else
+    {
+        // Convert the list to a mask.
+        for (U32 i = 2; i < (U32)argc; i++)
+        {
+            // Fetch the debug option.
+            const char* pDebugOption = argv[i];
+            Scene::DebugOption debugOption = getDebugOption( argv[i] );
 
-   // Comma separated list.
-   else
-   {
-      // Convert the list to a mask.
-      for (U32 i = 2; i < (U32)argc; i++)
-      {
-         S32 bit = dAtoi(argv[i]);
-         
-         // Make sure the group is valid.
-         if ((bit < 0) || (bit >= DEBUG_MODE_COUNT))
-         {
-            Con::warnf("Scene::setDebugOn() - Invalid debug mode specified (%d); skipped!", bit);
-            continue;
-         }
+            // Is the option valid?
+            if ( debugOption == Scene::SCENE_DEBUG_INVALID )
+            {
+                // No, so warn.
+                Con::warnf( "Scene::setDebugOff() - Invalid debug option '%s' specified.", pDebugOption );
+                continue;
+            }
 
-         mask |= (1 << bit);
-      }
-   }
-   object->setDebugOff(mask);
+            // Merge into mask.
+            mask |= debugOption;
+        }
+    }
+
+    // Set debug mask.
+    object->setDebugOff(mask);
 } 
 
 //-----------------------------------------------------------------------------

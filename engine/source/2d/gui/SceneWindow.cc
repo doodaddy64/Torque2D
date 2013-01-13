@@ -1541,7 +1541,7 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
 #endif
 
     // Finish if should not or cannot render.
-    if ( ( pScene->getDebugMask() & Scene::SCENE_DEBUG_STATISTICS ) == 0 || 
+    if ( ( pScene->getDebugMask() & Scene::SCENE_DEBUG_METRICS ) == 0 || 
             mProfile == NULL ||
             mProfile->mFont.isNull() )
             return;
