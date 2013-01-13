@@ -116,6 +116,7 @@
 		
 	<!-- Resolution -->
 	<GuiTextCtrl
+		Name="ResolutionSelectLabel"
 		canSaveDynamicFields="0"
 		isContainer="0"
 		Profile="GuiTextProfile"
@@ -158,6 +159,7 @@
 
 	<!-- Fullscreen Option -->		
 	<GuiTextCtrl
+		Name="FullscreenOptionLabel"
 		canSaveDynamicFields="0"
 		isContainer="0"
 		Profile="GuiTextProfile"

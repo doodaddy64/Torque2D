@@ -34,48 +34,66 @@ function initializeToolbox()
             BackgroundColorSelectList.setSelected( %i );
     }
     
-    // Fetch the active resolution.
-    %activeResolution = getRes();
-    %activeWidth = getWord(%activeResolution, 0);
-    %activeHeight = getWord(%activeResolution, 1);
-    %activeBpp = getWord(%activeResolution, 2);
-    
-    // Fetch the resolutions.
-    %resolutionList = getResolutionList( $pref::Video::displayDevice );
-    %resolutionCount = getWordCount( %resolutionList ) / 3;
-    %inputIndex = 0;
-    %outputIndex = 0;
-    for( %i = 0; %i < %resolutionCount; %i++ )
+    // Is this on the desktop?
+    if ( $platform $= "windows" || $platform $= "macos" )
     {
-        // Fetch the resolution entry.
-        %width = getWord( %resolutionList, %inputIndex );
-        %height = getWord( %resolutionList, %inputIndex+1 );
-        %bpp = getWord( %resolutionList, %inputIndex+2 );
-        %inputIndex += 3;
+        // Yes, so make the controls screen controls visible.
+        ResolutionSelectLabel.setVisible( true );
+        ResolutionSelectList.setVisible( true );
+        FullscreenOptionLabel.setVisible( true );
+        FullscreenOptionCheckBox.setVisible( true );
         
-        // Skip the 16-bit ones.
-        if ( %bpp == 16 )
-            continue;
+        // Fetch the active resolution.
+        %activeResolution = getRes();
+        %activeWidth = getWord(%activeResolution, 0);
+        %activeHeight = getWord(%activeResolution, 1);
+        %activeBpp = getWord(%activeResolution, 2);
+        
+        // Fetch the resolutions.
+        %resolutionList = getResolutionList( $pref::Video::displayDevice );
+        %resolutionCount = getWordCount( %resolutionList ) / 3;
+        %inputIndex = 0;
+        %outputIndex = 0;
+        for( %i = 0; %i < %resolutionCount; %i++ )
+        {
+            // Fetch the resolution entry.
+            %width = getWord( %resolutionList, %inputIndex );
+            %height = getWord( %resolutionList, %inputIndex+1 );
+            %bpp = getWord( %resolutionList, %inputIndex+2 );
+            %inputIndex += 3;
             
-        // Store the resolution.
-        $sandboxResolutions[%outputIndex] = %width SPC %height SPC %bpp;
-        
-        // Add to the list.
-        ResolutionSelectList.add( %width @ "x" @ %height SPC "(" @ %bpp @ ")", %outputIndex );
-        
-        // Select the resolution if it's the default one.
-        if ( %width == %activeWidth && %height == %activeHeight && %bpp == %activeBpp )
-            ResolutionSelectList.setSelected( %outputIndex );
+            // Skip the 16-bit ones.
+            if ( %bpp == 16 )
+                continue;
+                
+            // Store the resolution.
+            $sandboxResolutions[%outputIndex] = %width SPC %height SPC %bpp;
             
-        %outputIndex++;
+            // Add to the list.
+            ResolutionSelectList.add( %width @ "x" @ %height SPC "(" @ %bpp @ ")", %outputIndex );
+            
+            // Select the resolution if it's the default one.
+            if ( %width == %activeWidth && %height == %activeHeight && %bpp == %activeBpp )
+                ResolutionSelectList.setSelected( %outputIndex );
+                
+            %outputIndex++;
+        }
+        
+        // Set the fullscreen flag.
+        $sandboxFullscreen = $pref::Video::fullScreen;
+        
+        // Set the fullscreen check-box.
+        FullscreenOptionCheckBox.setStateOn( $sandboxFullscreen );    
     }
-    
-    // Set the fullscreen flag.
-    $sandboxFullscreen = $pref::Video::fullScreen;
-    
-    // Set the fullscreen check-box.
-    FullscreenOptionCheckBox.setStateOn( $sandboxFullscreen );
-      
+    else
+    {
+        //No, so make the screen controls visible.
+        ResolutionSelectLabel.setVisible( false );
+        ResolutionSelectList.setVisible( false );
+        FullscreenOptionLabel.setVisible( false );
+        FullscreenOptionCheckBox.setVisible( false );
+    }
+          
     // Set the options check-boxe.
     MetricsOptionCheckBox.setStateOn( $metricsOption );
     JointsOptionCheckBox.setStateOn( $jointsOption );
