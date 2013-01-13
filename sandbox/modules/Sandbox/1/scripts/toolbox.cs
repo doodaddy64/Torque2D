@@ -3,14 +3,14 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-$metricsOption = false;
-$jointsOption = false;
-$aabbOption = false;
-$oobbOption = false;
-$sleepOption = false;
-$collisionOption = false;
-$positionOption = false;
-$sortOption = false;
+$metricsOption = true;
+$jointsOption = true;
+$aabbOption = true;
+$oobbOption = true;
+$sleepOption = true;
+$collisionOption = true;
+$positionOption = true;
+$sortOption = true;
 
 $defaultSceneColor = "DimGray";
 
