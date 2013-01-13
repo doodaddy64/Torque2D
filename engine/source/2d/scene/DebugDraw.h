@@ -25,7 +25,7 @@ public:
     void DrawAABB( const b2AABB& aabb );
     void DrawOOBB( const b2Vec2* pOOBB );
     void DrawAsleep( const b2Vec2* pOOBB );
-    void DrawCollisionShapes( b2Body* pBody );
+    void DrawCollisionShapes( const b2Transform& xf, b2Body* pBody );
     void DrawSortPoint( const b2Vec2& worldPosition, const b2Vec2& size, const b2Vec2& localSortPoint );
 
     void DrawJoints( b2World* pWorld );

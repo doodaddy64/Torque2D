@@ -49,13 +49,10 @@ void DebugDraw::DrawAsleep( const b2Vec2* pOOBB )
 
 //-----------------------------------------------------------------------------
 
-void DebugDraw::DrawCollisionShapes( b2Body* pBody )
+void DebugDraw::DrawCollisionShapes( const b2Transform& xf, b2Body* pBody )
 {
     // Debug Profiling.
     PROFILE_SCOPE(DebugDraw_DrawCollisionShapes);
-
-    // Fetch transform.
-    const b2Transform& xf = pBody->GetTransform();
 
     // Iterate fixtures.
     for ( b2Fixture* pFixture = pBody->GetFixtureList(); pFixture; pFixture = pFixture->GetNext() )
@@ -314,7 +311,7 @@ void DebugDraw::DrawSolidCircle( const b2Vec2& center, float32 radius, const b2V
     // Debug Profiling.
     PROFILE_SCOPE(DebugDraw_DrawSolidCircle);
 
-    const float32 k_segments = 8.0f;
+    const float32 k_segments = 12.0f;
     const float32 k_increment = 2.0f * b2_pi / k_segments;
     float32 theta = 0.0f;
     glEnable(GL_BLEND);
