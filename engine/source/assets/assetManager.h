@@ -270,10 +270,6 @@ public:
         return pAcquiredAsset;
     }
 
-    inline AssetBase* acquireAsset( const char* pAssetId )
-    {
-    }
-
     bool releaseAsset( const char* pAssetId );
     void purgeAssets( void );
 
