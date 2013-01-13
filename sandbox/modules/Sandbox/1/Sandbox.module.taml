@@ -6,5 +6,6 @@
 	ScopeSet="SandboxSet"
 	CreateFunction="createSandbox"
 	DestroyFunction="destroySandbox"
+	DeclaredAssetManifest="^Sandbox/DeclaredAssets.Manifest.taml"
 	/>
 

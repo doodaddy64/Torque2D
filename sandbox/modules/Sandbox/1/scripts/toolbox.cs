@@ -72,6 +72,19 @@ function initializeToolbox()
     
     // Set the fullscreen flag.
     $sandboxFullscreen = $pref::Video::fullScreen;
+    
+    // Set the fullscreen check-box.
+    FullscreenOptionCheckBox.setStateOn( $sandboxFullscreen );
+      
+    // Set the options check-boxe.
+    MetricsOptionCheckBox.setStateOn( $metricsOption );
+    JointsOptionCheckBox.setStateOn( $jointsOption );
+    AABBOptionCheckBox.setStateOn( $aabbOption );
+    OOBBOptionCheckBox.setStateOn( $oobbOption );
+    SleepOptionCheckBox.setStateOn( $sleepOption );
+    CollisionOptionCheckBox.setStateOn( $collisionOption );
+    PositionOptionCheckBox.setStateOn( $positionOption );
+    SortOptionCheckBox.setStateOn( $sortOption );
 }
 
 //-----------------------------------------------------------------------------
@@ -150,6 +163,18 @@ function ResolutionSelectList::onSelect(%this)
     
     // Set the screen mode.    
     setScreenMode( GetWord( %resolution , 0 ), GetWord( %resolution, 1 ), GetWord( %resolution, 2 ), $sandboxFullscreen );
+}
+
+//-----------------------------------------------------------------------------
+
+function reloadToyButton::onClick(%this)
+{
+    // Finish if no toy is loaded.
+    if ( !isObject($activeToy) )
+        return;
+        
+    // Reload the toy.
+    loadToy( $activeToy );    
 }
 
 //-----------------------------------------------------------------------------

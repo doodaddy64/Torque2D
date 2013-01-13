@@ -8,6 +8,7 @@
     MinExtent="8 8"
     Visible="1">
 
+	<!-- Toy Selection -->
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -48,7 +49,30 @@
         sbUsesNAColor="0"
         reverseTextList="0"
         bitmapBounds="16 16" />
+
+		<!-- Reload Toy -->
+		<GuiImageButtonCtrl
+			Name="reloadToyButton"
+			canSaveDynamicFields="0"
+			isContainer="0"
+			Profile="GuiDefaultProfile"
+			HorizSizing="right"
+			VertSizing="bottom"
+			Position="188 49"
+			Extent="40 40"
+			MinExtent="8 2"
+			canSave="1"
+			Visible="1"
+			Active="1"
+			hovertime="1000"
+			groupNum="-1"
+			buttonType="PushButton"
+			useMouseEvents="1"
+			NormalImage="@asset=Sandbox:ReplayBtn128x128UpImageMap"
+			HoverImage="@asset=Sandbox:ReplayBtn128x128HoverImageMap"
+			DownImage="@asset=Sandbox:ReplayBtn128x128DownImageMap" />		
 		
+	<!-- Background Color -->
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -89,7 +113,8 @@
         sbUsesNAColor="0"
         reverseTextList="0"
         bitmapBounds="16 16" />	
-
+		
+	<!-- Resolution -->
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -131,6 +156,7 @@
         reverseTextList="0"
         bitmapBounds="16 16" />
 
+	<!-- Fullscreen Option -->		
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -151,6 +177,7 @@
 		maxLength="255"
 		truncate="0" />	
         <GuiCheckBoxCtrl
+			Name="FullscreenOptionCheckBox"
             canSaveDynamicFields="0"            
             isContainer="0"
             Profile="GuiCheckBoxProfile"
@@ -173,6 +200,7 @@
             useMouseEvents="0"
             useInactiveState="0" />		
 
+	<!-- Metrics Option -->
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -193,6 +221,7 @@
 		maxLength="255"
 		truncate="0" />	
         <GuiCheckBoxCtrl
+			Name="MetricsOptionCheckBox"
             canSaveDynamicFields="0"            
             isContainer="0"
             Profile="GuiCheckBoxProfile"
@@ -215,6 +244,7 @@
             useMouseEvents="0"
             useInactiveState="0" />
 			
+	<!-- Joints Option -->
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -235,6 +265,7 @@
 		maxLength="255"
 		truncate="0" />	
         <GuiCheckBoxCtrl
+			Name="JointsOptionCheckBox"
             canSaveDynamicFields="0"            
             isContainer="0"
             Profile="GuiCheckBoxProfile"
@@ -257,6 +288,7 @@
             useMouseEvents="0"
             useInactiveState="0" />			
 			
+	<!-- AABB Option -->			
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -277,6 +309,7 @@
 		maxLength="255"
 		truncate="0" />	
         <GuiCheckBoxCtrl
+			Name="AABBOptionCheckBox"
             canSaveDynamicFields="0"            
             isContainer="0"
             Profile="GuiCheckBoxProfile"
@@ -299,6 +332,7 @@
             useMouseEvents="0"
             useInactiveState="0" />						
 
+	<!-- OOBB Option -->			
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -319,6 +353,7 @@
 		maxLength="255"
 		truncate="0" />	
         <GuiCheckBoxCtrl
+			Name="OOBBOptionCheckBox"		
             canSaveDynamicFields="0"            
             isContainer="0"
             Profile="GuiCheckBoxProfile"
@@ -341,6 +376,7 @@
             useMouseEvents="0"
             useInactiveState="0" />		
 
+	<!-- Sleep Option -->			
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -361,6 +397,7 @@
 		maxLength="255"
 		truncate="0" />	
         <GuiCheckBoxCtrl
+			Name="SleepOptionCheckBox"
             canSaveDynamicFields="0"            
             isContainer="0"
             Profile="GuiCheckBoxProfile"
@@ -382,7 +419,8 @@
             buttonType="ToggleButton"
             useMouseEvents="0"
             useInactiveState="0" />
-			
+	
+	<!-- Collision-Shapes Option -->	
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -403,6 +441,7 @@
 		maxLength="255"
 		truncate="0" />	
         <GuiCheckBoxCtrl
+			Name="CollisionOptionCheckBox"
             canSaveDynamicFields="0"            
             isContainer="0"
             Profile="GuiCheckBoxProfile"
@@ -425,6 +464,7 @@
             useMouseEvents="0"
             useInactiveState="0" />	
 
+	<!-- Position Option -->			
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -445,6 +485,7 @@
 		maxLength="255"
 		truncate="0" />	
         <GuiCheckBoxCtrl
+			Name="PositionOptionCheckBox"
             canSaveDynamicFields="0"            
             isContainer="0"
             Profile="GuiCheckBoxProfile"
@@ -467,6 +508,7 @@
             useMouseEvents="0"
             useInactiveState="0" />				
 			
+	<!-- Sort-Point Option -->			
 	<GuiTextCtrl
 		canSaveDynamicFields="0"
 		isContainer="0"
@@ -487,6 +529,7 @@
 		maxLength="255"
 		truncate="0" />	
         <GuiCheckBoxCtrl
+			Name="SortOptionCheckBox"
             canSaveDynamicFields="0"            
             isContainer="0"
             Profile="GuiCheckBoxProfile"

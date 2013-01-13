@@ -24,6 +24,10 @@ function runCompositeSpriteTest( %scopeSet )
             %composite.setSpriteAngle( getRandom(0,360) );
         }
 	}
+	
+	//TamlWrite( %composite, "composite.xml" );
+	//%newComposite = TamlRead( "composite.xml" );
+	//SandboxScene.addToScene( %newComposite );
 }
 
 //-----------------------------------------------------------------------------
