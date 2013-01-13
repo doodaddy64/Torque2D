@@ -91,8 +91,13 @@ const char* mGetFirstNonWhitespace( const char* inString )
 // NOTE:-   You must verify that elements (index/index+1) are valid first!
 Vector2 mGetStringElementVector( const char* inString, const U32 index )
 {
-    if ((index + 1) >= Utility::mGetStringElementCount(inString))
-       return Vector2::getZero();
+    const U32 elementCount = Utility::mGetStringElementCount(inString);
+
+    if ((index + 1) >= elementCount )
+    {
+        const F32 element = dAtof(mGetStringElement(inString,index));
+        return Vector2(element, element);
+    }
 
     // Get String Element Vector.
     return Vector2( dAtof(mGetStringElement(inString,index)), dAtof(Utility::mGetStringElement(inString,index+1)) );

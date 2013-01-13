@@ -19,10 +19,15 @@ ConsoleGetType( TypeVector2 )
 
 ConsoleSetType( TypeVector2 )
 {
+    // Fetch vector.
+    Vector2* pVector = (Vector2*)dptr;
     // "x y".
     if( argc == 1 )
     {
-        dSscanf(argv[0], "%g %g", &((Vector2*)dptr)->x, &((Vector2*)dptr)->y);
+        if ( dSscanf(argv[0], "%g %g", &(pVector->x), &(pVector->y)) == 1 )
+        {
+            pVector->y = pVector->x;
+        }
         return;
     }
 
