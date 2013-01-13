@@ -70,6 +70,9 @@ function loadToy( %moduleDefinition )
         return;
     }
     
+    // Add the scene so it's unloaded when the toy module is.
+    %moduleDefinition.ScopeSet.add( SandboxScene );
+    
     // Set active toy.
     $activeToy = %moduleDefinition;
 }
