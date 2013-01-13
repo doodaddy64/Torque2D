@@ -17,9 +17,9 @@ function runCompositeSpriteTest( %scopeSet )
 	%composite.BatchIsolated = "true";    
     %composite.setAngularVelocity( -90 );
 	
-    for ( %y = -50; %y <= 50; %y++ )
+    for ( %y = -5; %y <= 5; %y++ )
 	{
-	    for ( %x = -50; %x <= 50; %x++ )
+	    for ( %x = -5; %x <= 5; %x++ )
         {
             %composite.addSprite( %x SPC %y );
             %composite.setSpriteImage( "MelvToy:MiniTileMapImage", getRandom(0,15) );
