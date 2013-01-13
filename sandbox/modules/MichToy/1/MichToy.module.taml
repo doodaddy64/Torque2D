@@ -1,0 +1,12 @@
+<ModuleDefinition
+	ModuleId="MichToy"
+	VersionId="1"
+	Description="Mich's testing toy."
+	Type="toy"
+	ScriptFile="main.cs"
+	ScopeSet="MichToySet"
+	CreateFunction="createMichToy"
+	DestroyFunction="destroyMichToy"
+	DeclaredAssetManifest="^MichToy/DeclaredAssets.Manifest.taml"
+	/>
+
