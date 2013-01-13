@@ -91,7 +91,7 @@ if (!isObject(GuiPopUpMenuDefault)) new GuiControlProfile (GuiPopUpMenuDefault)
 
     // fill color
     opaque = false;
-    fillColor = "255 255 255 128";
+    fillColor = "255 255 255 192";
     fillColorHL = "255 0 0 192";
     fillColorNA = "0 0 255 255";
 
