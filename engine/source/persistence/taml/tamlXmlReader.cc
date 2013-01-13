@@ -124,14 +124,24 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
     TamlCollection customCollection;
 
     // Do we have any element children?
-    if ( pChildXmlNode != NULL && pChildXmlNode->Type() == TiXmlNode::TINYXML_ELEMENT )
+    if ( pChildXmlNode != NULL )
     {
         // Yes, so fetch the sim set.
         SimSet* pSimSet = dynamic_cast<SimSet*>( pSimObject );
 
-        // Iterate children.
-        for ( TiXmlElement* pChildXmlElement = dynamic_cast<TiXmlElement*>( pChildXmlNode ); pChildXmlElement; pChildXmlElement = pChildXmlElement->NextSiblingElement() )
+        // Iterate siblings.
+        do
         {
+            // Fetch element.
+            TiXmlElement* pChildXmlElement = dynamic_cast<TiXmlElement*>( pChildXmlNode );
+
+            // Move to next sibling.
+            pChildXmlNode = pChildXmlNode->NextSibling();
+
+            // Skip if this is not an element?
+            if ( pChildXmlElement == NULL )
+                continue;
+
             // Is this a standard child element?
             if ( dStrchr( pChildXmlElement->Value(), '.' ) == NULL )
             {
@@ -166,6 +176,7 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
                 parseCustomElement( pChildXmlElement, customCollection );
             }
         }
+        while( pChildXmlNode != NULL );
 
         // Call custom read.
         mpTaml->tamlCustomRead( pCallbacks, customCollection );
@@ -199,14 +210,23 @@ void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCollectio
     TiXmlNode* pPropertyTypeAliasXmlNode = pXmlElement->FirstChild();
 
     // Do we have any property type alias?
-    if ( pPropertyTypeAliasXmlNode != NULL && pPropertyTypeAliasXmlNode->Type() == TiXmlNode::TINYXML_ELEMENT )
+    if ( pPropertyTypeAliasXmlNode != NULL )
     {
         // Yes, so add collection property.
         TamlCollectionProperty* pCollectionProperty = collection.addCollectionProperty( pPeriod+1 );
 
-        // Iterate type alias.
-        for ( TiXmlElement* pPropertyTypeAliasXmlElement = dynamic_cast<TiXmlElement*>( pPropertyTypeAliasXmlNode ); pPropertyTypeAliasXmlElement; pPropertyTypeAliasXmlElement = pPropertyTypeAliasXmlElement->NextSiblingElement() )
+        do
         {
+            // Fetch element.
+            TiXmlElement* pPropertyTypeAliasXmlElement = dynamic_cast<TiXmlElement*>( pPropertyTypeAliasXmlNode );
+
+            // Move to next sibling.
+            pPropertyTypeAliasXmlNode = pPropertyTypeAliasXmlNode->NextSibling();
+
+            // Skip if this is not an element?
+            if ( pPropertyTypeAliasXmlElement == NULL )
+                continue;
+
             // Add property type alias.
             TamlPropertyTypeAlias* pPropertyTypeAlias = pCollectionProperty->addTypeAlias( pPropertyTypeAliasXmlElement->Value() );
 
@@ -221,14 +241,23 @@ void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCollectio
             }
 
             // Fetch any children.
-            TiXmlNode* pChildXmlNode = pPropertyTypeAliasXmlNode->FirstChild();
+            TiXmlNode* pChildXmlNode = pPropertyTypeAliasXmlElement->FirstChild();
 
             // Do we have any element children?
-            if ( pChildXmlNode != NULL && pChildXmlNode->Type() == TiXmlNode::TINYXML_ELEMENT )
+            if ( pChildXmlNode != NULL )
             {
-                // Yes, so iterate children.
-                for ( TiXmlElement* pChildXmlElement = dynamic_cast<TiXmlElement*>( pChildXmlNode ); pChildXmlElement; pChildXmlElement = pChildXmlElement->NextSiblingElement() )
+                do
                 {
+                    // Fetch element.
+                    TiXmlElement* pChildXmlElement = dynamic_cast<TiXmlElement*>( pChildXmlNode );
+
+                    // Move to next sibling.
+                    pChildXmlNode = pChildXmlNode->NextSibling();
+
+                    // Skip if this is not an element?
+                    if ( pChildXmlElement == NULL )
+                        continue;
+
                     // Fetch the reference field.
                     const char* pRefField = getTamlRefField( pChildXmlElement );
 
@@ -246,8 +275,10 @@ void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCollectio
                     // Add property field.
                     pPropertyTypeAlias->addPropertyField( pRefField, pFieldObject );
                 }
+                while( pChildXmlNode != NULL );
             }
         }
+        while ( pPropertyTypeAliasXmlNode != NULL );
     }
 }
 
