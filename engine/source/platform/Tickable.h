@@ -31,9 +31,9 @@
 /// worry. If you forget, the compiler will tell you so. Also note that the
 /// typedef for Parent should NOT BE SET to Tickable, the compiler will <i>probably</i>
 /// also tell you if you forget that. Last, but assuridly not least is that you note
-/// the way that the inheretance is done: public <b>virtual</b> Tickable
+/// the way that the inheritance is done: public <b>virtual</b> Tickable
 /// It is very important that you keep the virtual keyword in there, otherwise
-/// proper behavior is not guarenteed. You have been warned.
+/// proper behavior is not guaranteed. You have been warned.
 ///
 /// The point of a tickable object is that the object gets ticks at a fixed rate
 /// which is one tick every 32ms. This means, also, that if an object doesn't get
@@ -43,15 +43,15 @@
 ///
 /// isProcessingTicks is a virtual method and you can (should you want to)
 /// override it and put some extended functionality to decide if you want to
-/// recieve tick-notification or not.
+/// receive tick-notification or not.
 ///
 /// The other half of this is that you get time-notification from advanceTime.
 /// advanceTime lets you know when time passes regardless of the return value
 /// of isProcessingTicks. The object WILL get the advanceTime call every single
 /// update. The argument passed to advanceTime is the time since the last call
 /// to advanceTime. Updates are not based on the 32ms tick time. Updates are
-/// dependant on framerate. So you may get 200 advanceTime calls in a second, or you
-/// may only get 20. There is no way of assuring consistant calls of advanceTime
+/// dependant on frame-rate. So you may get 200 advanceTime calls in a second, or you
+/// may only get 20. There is no way of assuring consistent calls of advanceTime
 /// like there is with processTick. Both are useful for different things, and
 /// it is important to understand the differences between them.
 ///

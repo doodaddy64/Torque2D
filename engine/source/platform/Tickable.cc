@@ -73,17 +73,17 @@ void Tickable::setProcessTicks( bool tick /* = true  */ )
 
 bool Tickable::advanceTime( U32 timeDelta )
 {
-   U32 targetTime = smLastTime + timeDelta;
-   U32 targetTick = ( targetTime + smTickMask ) & ~smTickMask;
-   U32 tickCount = ( targetTick - smLastTick ) >> smTickShift;
+    U32 targetTime = smLastTime + timeDelta;
+    U32 targetTick = ( targetTime + smTickMask ) & ~smTickMask;
+    U32 tickCount = ( targetTick - smLastTick ) >> smTickShift;
 
-   static Vector<Tickable*> safeProcessList;
+    static Vector<Tickable*> safeProcessList;
 
-   // Process ticks.
-   if( tickCount )
-   {
-       // Fetch a copy of the process list.
-       safeProcessList = getProcessList();
+    // Process ticks.
+    if( tickCount )
+    {
+        // Fetch a copy of the process list.
+        safeProcessList = getProcessList();
 
         for( ; smLastTick != targetTick; smLastTick += smTickMs )
         {
@@ -92,30 +92,30 @@ bool Tickable::advanceTime( U32 timeDelta )
                 (*i)->processTick();
             }
         }
-   }
+    }
     
-   smLastDelta = ( smTickMs - ( targetTime & smTickMask ) ) & smTickMask;
-   F32 dt = smLastDelta / F32( smTickMs );
+    smLastDelta = ( smTickMs - ( targetTime & smTickMask ) ) & smTickMask;
+    F32 dt = smLastDelta / F32( smTickMs );
 
     // Fetch a copy of the process list.
     safeProcessList = getProcessList();
 
-   // Interpolate tick.
-   for( ProcessListIterator i = safeProcessList.begin(); i != safeProcessList.end(); i++ )
-   {
+    // Interpolate tick.
+    for( ProcessListIterator i = safeProcessList.begin(); i != safeProcessList.end(); i++ )
+    {
         (*i)->interpolateTick( dt );
-   }
+    }
 
     // Fetch a copy of the process list.
     safeProcessList = getProcessList();
 
-   dt = F32( timeDelta ) / 1000.f;	
-   for( ProcessListIterator i = safeProcessList.begin(); i != safeProcessList.end(); i++ )
-   {
+    dt = F32( timeDelta ) / 1000.f;	
+    for( ProcessListIterator i = safeProcessList.begin(); i != safeProcessList.end(); i++ )
+    {
         (*i)->advanceTime( dt );
-   }
+    }
 
-   smLastTime = targetTime;
+    smLastTime = targetTime;
 
-   return tickCount != 0;
+    return tickCount != 0;
 }

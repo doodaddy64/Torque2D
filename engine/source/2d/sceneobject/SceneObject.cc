@@ -722,19 +722,20 @@ void SceneObject::interpolateObject( const F32 timeDelta )
         if ( timeDelta < 1.0f )
         {
             // Calculate render position.
-            const b2Vec2 position        = getPosition();
-            b2Vec2 positionDelta         = position - mPreTickPosition;
-            positionDelta               *= timeDelta;
-            mRenderPosition              = position - positionDelta;
+            const b2Vec2 position = getPosition();
+            b2Vec2 positionDelta = position - mPreTickPosition;
+            positionDelta *= timeDelta;
+            mRenderPosition = position - positionDelta;
 
             // Calculate render angle.
-            const F32 angle              = getAngle();
-            F32 relativeAngle            = angle - mPreTickAngle;
+            const F32 angle = getAngle();
+
+            F32 relativeAngle = angle - mPreTickAngle;
             if ( relativeAngle > b2_pi )
-                relativeAngle -= b2_pi * 2.0f;
+                relativeAngle -= b2_pi2;
             else if ( relativeAngle < -b2_pi )
-                relativeAngle += b2_pi * 2.0f;
-            mRenderAngle             = angle - (relativeAngle * timeDelta);
+                relativeAngle += b2_pi2;
+            mRenderAngle = angle - (relativeAngle * timeDelta);
         }
         else
         {

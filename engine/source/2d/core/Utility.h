@@ -36,6 +36,7 @@
 #define MAX_CONTACTPOINTS_SUPPORTED     (1024)
 
 #define NO_IMAGE_RENDER_PROXY_NAME      "$NoImageRenderProxy"
+#define b2_pi2                          (b2_pi * 2.0f)
 
 //-----------------------------------------------------------------------------
 
