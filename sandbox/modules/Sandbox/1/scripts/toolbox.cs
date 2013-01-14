@@ -65,9 +65,6 @@ function initializeToolbox()
                 
             %outputIndex++;
         }
-        
-        // Set the fullscreen flag.
-        $sandboxFullscreen = $pref::Video::fullScreen;
     }
 }
 
@@ -145,7 +142,7 @@ function ResolutionSelectList::onSelect(%this)
     %resolution = $sandboxResolutions[%index];
     
     // Set the screen mode.    
-    setScreenMode( GetWord( %resolution , 0 ), GetWord( %resolution, 1 ), GetWord( %resolution, 2 ), $sandboxFullscreen );
+    setScreenMode( GetWord( %resolution , 0 ), GetWord( %resolution, 1 ), GetWord( %resolution, 2 ), $pref::Video::fullScreen );
 }
 
 //-----------------------------------------------------------------------------
@@ -171,11 +168,7 @@ function updateToolboxOptions()
     // Set the scene color.
     SandboxScene.BackgroundColor = getStockColorName($activeSceneColor);
     SandboxScene.UseBackgroundColor = true;        
-    
-    // Set the full-screen mode appropriately.
-    if ( isFullScreen() != $sandboxFullscreen )
-        toggleFullScreen();
-    
+       
     // Set option.
     if ( $pref::Sandbox::metricsOption )
         SandboxScene.setDebugOn( "metrics" );
@@ -245,7 +238,11 @@ function updateToolboxOptions()
     if ( $platform $= "windows" || $platform $= "macos" )
     {
         // Set the fullscreen check-box.
-        FullscreenOptionCheckBox.setStateOn( $sandboxFullscreen );    
+        FullscreenOptionCheckBox.setStateOn( $pref::Video::fullScreen );
+        
+        // Set the full-screen mode appropriately.
+        if ( isFullScreen() != $pref::Video::fullScreen )
+            toggleFullScreen();            
     }
     else
     {
@@ -255,6 +252,22 @@ function updateToolboxOptions()
         FullscreenOptionLabel.setVisible( false );
         FullscreenOptionCheckBox.setVisible( false );
     }    
+}
+
+//-----------------------------------------------------------------------------
+
+function setFullscreenOption( %flag )
+{
+    $pref::Video::fullScreen = %flag;
+    updateToolboxOptions();
+}
+
+//-----------------------------------------------------------------------------
+
+function setMetricsOption( %flag )
+{
+    $pref::Sandbox::metricsOption = %flag;
+    updateToolboxOptions();
 }
 
 //-----------------------------------------------------------------------------
