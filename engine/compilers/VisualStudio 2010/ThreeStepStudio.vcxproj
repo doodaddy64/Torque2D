@@ -237,6 +237,7 @@
     <ClCompile Include="..\..\source\2d\assets\AnimationController.cc" />
     <ClCompile Include="..\..\source\2d\assets\ImageAsset.cc" />
     <ClCompile Include="..\..\source\2d\assets\ParticleAsset.cc" />
+    <ClCompile Include="..\..\source\2d\assets\ParticleAssetEmitter.cc" />
     <ClCompile Include="..\..\source\2d\assets\ParticleAssetField.cc" />
     <ClCompile Include="..\..\source\2d\core\BatchRender.cc" />
     <ClCompile Include="..\..\source\2d\core\CoreMath.cc" />
@@ -671,6 +672,7 @@
     <ClInclude Include="..\..\source\2d\assets\ImageAsset.h" />
     <ClInclude Include="..\..\source\2d\assets\ImageAsset_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\assets\ParticleAsset.h" />
+    <ClInclude Include="..\..\source\2d\assets\ParticleAssetEmitter.h" />
     <ClInclude Include="..\..\source\2d\assets\ParticleAssetField.h" />
     <ClInclude Include="..\..\source\2d\assets\ParticleAsset_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\core\BatchRender.h" />

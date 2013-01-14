@@ -1332,6 +1332,9 @@
     <ClCompile Include="..\..\source\2d\assets\ParticleAssetField.cc">
       <Filter>Source Files\2d\assets</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\2d\assets\ParticleAssetEmitter.cc">
+      <Filter>Source Files\2d\assets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\audio\audio.h">
@@ -2688,6 +2691,9 @@
       <Filter>Source Files\2d\assets</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\2d\assets\ParticleAssetField.h">
+      <Filter>Source Files\2d\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\2d\assets\ParticleAssetEmitter.h">
       <Filter>Source Files\2d\assets</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1461,10 +1461,13 @@
     <ClCompile Include="..\..\source\2d\sceneobject\ParticleEffect.cc">
       <Filter>Source Files\2d\sceneobject</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\2d\assets\ParticleAssetField.cc">
+      <Filter>Source Files\2d\assets</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\source\2d\sceneobject\ParticleEmitter.cc">
       <Filter>Source Files\2d\sceneobject</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\2d\assets\ParticleAssetField.cc">
+    <ClCompile Include="..\..\source\2d\assets\ParticleAssetEmitter.cc">
       <Filter>Source Files\2d\assets</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2933,17 +2936,20 @@
     <ClInclude Include="..\..\source\2d\sceneobject\ParticleEffect_ScriptBinding.h">
       <Filter>Source Files\2d\sceneobject</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\2d\assets\ParticleAssetField.h">
+      <Filter>Source Files\2d\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\persistence\taml\tamlChildren.h">
+      <Filter>Source Files\persistence\taml</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\source\2d\sceneobject\ParticleEmitter.h">
       <Filter>Source Files\2d\sceneobject</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\2d\sceneobject\ParticleEmitter_ScriptBinding.h">
       <Filter>Source Files\2d\sceneobject</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\2d\assets\ParticleAssetField.h">
+    <ClInclude Include="..\..\source\2d\assets\ParticleAssetEmitter.h">
       <Filter>Source Files\2d\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\persistence\taml\tamlChildren.h">
-      <Filter>Source Files\persistence\taml</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
