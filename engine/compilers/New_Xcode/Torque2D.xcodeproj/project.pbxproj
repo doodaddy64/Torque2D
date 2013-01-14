@@ -12,6 +12,10 @@
 		2ABF5C8F16569A0C00BBBF1D /* osxMutex.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF5C8E16569A0C00BBBF1D /* osxMutex.mm */; };
 		2AC5C7E81667C85700A0D046 /* platformStringTests.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5C7E71667C85700A0D046 /* platformStringTests.cc */; };
 		2ACFC0A8166CE1AB00FE7370 /* platformMemoryTests.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ACFC0A7166CE1AB00FE7370 /* platformMemoryTests.cc */; };
+		2ADCAC1516A41E5500E07619 /* ParticleAsset.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCAC1116A41E5500E07619 /* ParticleAsset.cc */; };
+		2ADCAC1616A41E5500E07619 /* ParticleAsset.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCAC1116A41E5500E07619 /* ParticleAsset.cc */; };
+		2ADCAC1716A41E5500E07619 /* ParticleAssetField.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCAC1316A41E5500E07619 /* ParticleAssetField.cc */; };
+		2ADCAC1816A41E5500E07619 /* ParticleAssetField.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCAC1316A41E5500E07619 /* ParticleAssetField.cc */; };
 		2AE851D21681E56E00193F17 /* color.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AE851D11681E56E00193F17 /* color.cc */; };
 		2AE851D31681E56E00193F17 /* color.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AE851D11681E56E00193F17 /* color.cc */; };
 		86063A251654180000362D83 /* platformOSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 86063A241654180000362D83 /* platformOSX.mm */; };
@@ -1003,6 +1007,12 @@
 		2AC5C7E71667C85700A0D046 /* platformStringTests.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platformStringTests.cc; path = ../../../source/testing/tests/platformStringTests.cc; sourceTree = "<group>"; };
 		2ACFC0A7166CE1AB00FE7370 /* platformMemoryTests.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platformMemoryTests.cc; path = ../../../source/testing/tests/platformMemoryTests.cc; sourceTree = "<group>"; };
 		2AD35A541663608E00C75F30 /* platformFileIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platformFileIO.h; sourceTree = "<group>"; };
+		2ADCAC0E16A41E4400E07619 /* tamlChildren.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tamlChildren.h; sourceTree = "<group>"; };
+		2ADCAC1016A41E5500E07619 /* ParticleAsset_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleAsset_ScriptBinding.h; sourceTree = "<group>"; };
+		2ADCAC1116A41E5500E07619 /* ParticleAsset.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleAsset.cc; sourceTree = "<group>"; };
+		2ADCAC1216A41E5500E07619 /* ParticleAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleAsset.h; sourceTree = "<group>"; };
+		2ADCAC1316A41E5500E07619 /* ParticleAssetField.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleAssetField.cc; sourceTree = "<group>"; };
+		2ADCAC1416A41E5500E07619 /* ParticleAssetField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleAssetField.h; sourceTree = "<group>"; };
 		2AE851D11681E56E00193F17 /* color.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color.cc; sourceTree = "<group>"; };
 		331525D51B0C541827EB81DA /* main.manifestGenerator.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.manifestGenerator.cs; path = ../../../../main.manifestGenerator.cs; sourceTree = "<group>"; };
 		331525E70D6BA99395C51D2E /* main.keybindtest.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.keybindtest.cs; path = ../../../../main.keybindtest.cs; sourceTree = "<group>"; };
@@ -2475,6 +2485,11 @@
 		86BC7E7616518D4600D96ADF /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				2ADCAC1016A41E5500E07619 /* ParticleAsset_ScriptBinding.h */,
+				2ADCAC1116A41E5500E07619 /* ParticleAsset.cc */,
+				2ADCAC1216A41E5500E07619 /* ParticleAsset.h */,
+				2ADCAC1316A41E5500E07619 /* ParticleAssetField.cc */,
+				2ADCAC1416A41E5500E07619 /* ParticleAssetField.h */,
 				86BC7E7716518D4600D96ADF /* AnimationAsset.cc */,
 				86BC7E7816518D4600D96ADF /* AnimationAsset.h */,
 				86BC7E7916518D4600D96ADF /* AnimationAsset_ScriptBinding.h */,
@@ -3356,6 +3371,7 @@
 		86BC80F216518D4600D96ADF /* taml */ = {
 			isa = PBXGroup;
 			children = (
+				2ADCAC0E16A41E4400E07619 /* tamlChildren.h */,
 				86BC80F316518D4600D96ADF /* taml.cc */,
 				86BC80F416518D4600D96ADF /* taml.h */,
 				86BC80F516518D4600D96ADF /* taml_ScriptBinding.h */,
@@ -4219,6 +4235,8 @@
 				861F87B0167FC164004E5816 /* osxCocoaUtilities.mm in Sources */,
 				861F87B1167FC164004E5816 /* fileDialog.cc in Sources */,
 				2AE851D31681E56E00193F17 /* color.cc in Sources */,
+				2ADCAC1616A41E5500E07619 /* ParticleAsset.cc in Sources */,
+				2ADCAC1816A41E5500E07619 /* ParticleAssetField.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4694,6 +4712,8 @@
 				86EA5B401678C7C700598E68 /* osxCocoaUtilities.mm in Sources */,
 				861CD8D01678F6C200DAE1A0 /* fileDialog.cc in Sources */,
 				2AE851D21681E56E00193F17 /* color.cc in Sources */,
+				2ADCAC1516A41E5500E07619 /* ParticleAsset.cc in Sources */,
+				2ADCAC1716A41E5500E07619 /* ParticleAssetField.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
