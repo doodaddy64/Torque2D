@@ -39,7 +39,7 @@ function createSandbox( %scopeSet )
     
     // Load and configure the toolbox.
     %scopeSet.add( TamlRead("./gui/ToolboxDialog.gui.taml") );
-    GlobalActionMap.bind( keyboard, "#", toggleToolbox );
+    GlobalActionMap.bind( keyboard, "minus", toggleToolbox );
 
     // Scan for toys.
     scanForToys();
