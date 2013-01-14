@@ -73,7 +73,7 @@
 // Define me if this build is a tools build
 #ifndef TORQUE_PLAYER
 #  define TORQUE_TOOLS
-#else0 
+#else
 #  undef TORQUE_TOOLS
 #endif
 
