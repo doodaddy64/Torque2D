@@ -192,9 +192,6 @@ PlatformFont::CharInfo& OSXFont::getCharInfo(const UTF16 character) const
     // Sanity!
     AssertFatal( bitmapContext != NULL, "Cannot create font context." );
 
-    // Fetch font size.
-    const F32 scaledSize = (F32)CTFontGetSize( mFontRef );
-
     // Render font anti-aliased if font is arbitrarily small.
     CGContextSetShouldAntialias( bitmapContext, true);
     CGContextSetShouldSmoothFonts( bitmapContext, true);

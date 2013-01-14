@@ -695,10 +695,6 @@ bool ImageAsset::removeExplicitCell( const S32 cellIndex )
         return false;
     }
 
-    // Fetch the original image dimensions.
-    const S32 imageWidth = getImageWidth();
-    const S32 imageHeight = getImageHeight();
-
     // Fetch the explicit frame count.
     const S32 explicitFrameCount = mExplicitFrames.size();
 

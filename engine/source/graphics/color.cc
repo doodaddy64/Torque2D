@@ -282,7 +282,7 @@ const ColorF& StockColor::colorF( const char* pStockColorName )
     StringTableEntry colorName = StringTable->insert( pStockColorName );
 
     // Find stock color.
-    typeNameToColorFHash::iterator colorItr = mNameToColorF.find( pStockColorName );
+    typeNameToColorFHash::iterator colorItr = mNameToColorF.find( colorName );
 
     // Return color if found.
     if ( colorItr != mNameToColorF.end() )
