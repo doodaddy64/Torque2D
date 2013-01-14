@@ -4,7 +4,6 @@
 //-----------------------------------------------------------------------------
 
 $sandboxAutoCamera = true;
-$sandboxZoomSpeed = 0.02;
 
 //-----------------------------------------------------------------------------
 
@@ -81,7 +80,7 @@ function SandboxWindow::onMouseWheelUp(%this, %modifier, %mousePoint, %mouseClic
         return;
         
     // Increase the zoom.
-    SandboxWindow.setCurrentCameraZoom( SandboxWindow.getCurrentCameraZoom() + $sandboxZoomSpeed );
+    SandboxWindow.setCurrentCameraZoom( SandboxWindow.getCurrentCameraZoom() + $pref::Sandbox::cameraZoomRate );
 }
 
 //-----------------------------------------------------------------------------
@@ -93,5 +92,5 @@ function SandboxWindow::onMouseWheelDown(%this, %modifier, %mousePoint, %mouseCl
         return;
 
     // Increase the zoom.
-    SandboxWindow.setCurrentCameraZoom( SandboxWindow.getCurrentCameraZoom() - $sandboxZoomSpeed );            
+    SandboxWindow.setCurrentCameraZoom( SandboxWindow.getCurrentCameraZoom() - $pref::Sandbox::cameraZoomRate );            
 }

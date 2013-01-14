@@ -8,7 +8,18 @@ $Game::CompanyName              = "GarageGames LLC";
 $Game::ProductName              = "Torque 2D Sandbox";
 
 // Sandbox.
-$DefaultSandboxToyId            = "MelvToy";
+$pref::Sandbox::defaultToyId    = "MelvToy";
+$pref::Sandbox::defaultBackgroundColor = "DimGray";
+$pref::Sandbox::metricsOption   = true;
+$pref::Sandbox::jointsOption    = false;
+$pref::Sandbox::wireframeOption = false;
+$pref::Sandbox::aabbOption      = false;
+$pref::Sandbox::oobbOption      = false;
+$pref::Sandbox::sleepOption     = false;
+$pref::Sandbox::collisionOption = false;
+$pref::Sandbox::positionOption  = false;
+$pref::Sandbox::sortOption      = false;
+$pref::Sandbox::cameraZoomRate  = 0.02;
 
 /// iOS
 $pref::iOS::ScreenOrientation   = $iOS::constant::Landscape;

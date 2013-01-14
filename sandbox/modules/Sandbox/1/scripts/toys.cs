@@ -41,7 +41,7 @@ function scanForToys()
         ToySelectList.add( %moduleDefinition.moduleId, %moduleDefinition.getId() );
         
         // Select the toy if it's the default one.
-        if ( %moduleDefinition.moduleId $= $DefaultSandboxToyId )
+        if ( %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId )
             ToySelectList.setSelected( %moduleDefinition.getId() );
     }
 }

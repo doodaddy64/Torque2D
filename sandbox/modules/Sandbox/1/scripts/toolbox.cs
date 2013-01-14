@@ -3,20 +3,6 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-$metricsOption = false;
-$jointsOption = false;
-$wireframeOption = false;
-$aabbOption = false;
-$oobbOption = false;
-$sleepOption = false;
-$collisionOption = false;
-$positionOption = false;
-$sortOption = false;
-
-$defaultSceneColor = "DimGray";
-
-//-----------------------------------------------------------------------------
-
 function initializeToolbox()
 {   
     // Populate the stock colors.
@@ -31,7 +17,7 @@ function initializeToolbox()
         BackgroundColorSelectList.add( getStockColorName(%i), %i );
         
         // Select the color if it's the default one.
-        if ( %colorName $= $defaultSceneColor )
+        if ( %colorName $= $pref::Sandbox::defaultBackgroundColor )
             BackgroundColorSelectList.setSelected( %i );
     }
     
@@ -191,69 +177,69 @@ function updateToolboxOptions()
         toggleFullScreen();
     
     // Set option.
-    if ( $metricsOption )
+    if ( $pref::Sandbox::metricsOption )
         SandboxScene.setDebugOn( "metrics" );
     else
         SandboxScene.setDebugOff( "metrics" );
 
     // Set option.
-    if ( $jointsOption )
+    if ( $pref::Sandbox::jointsOption )
         SandboxScene.setDebugOn( "joints" );
     else
         SandboxScene.setDebugOff( "joints" );
 
     // Set option.
-    if ( $wireframeOption )
+    if ( $pref::Sandbox::wireframeOption )
         SandboxScene.setDebugOn( "wireframe" );
     else
         SandboxScene.setDebugOff( "wireframe" );
         
     // Set option.
-    if ( $aabbOption )
+    if ( $pref::Sandbox::aabbOption )
         SandboxScene.setDebugOn( "aabb" );
     else
         SandboxScene.setDebugOff( "aabb" );
 
     // Set option.
-    if ( $oobbOption )
+    if ( $pref::Sandbox::oobbOption )
         SandboxScene.setDebugOn( "oobb" );
     else
         SandboxScene.setDebugOff( "oobb" );
         
     // Set option.
-    if ( $sleepOption )
+    if ( $pref::Sandbox::sleepOption )
         SandboxScene.setDebugOn( "sleep" );
     else
         SandboxScene.setDebugOff( "sleep" );                
 
     // Set option.
-    if ( $collisionOption )
+    if ( $pref::Sandbox::collisionOption )
         SandboxScene.setDebugOn( "collision" );
     else
         SandboxScene.setDebugOff( "collision" );
         
     // Set option.
-    if ( $positionOption )
+    if ( $pref::Sandbox::positionOption )
         SandboxScene.setDebugOn( "position" );
     else
         SandboxScene.setDebugOff( "position" );
         
     // Set option.
-    if ( $sortOption )
+    if ( $pref::Sandbox::sortOption )
         SandboxScene.setDebugOn( "sort" );
     else
         SandboxScene.setDebugOff( "sort" );
                   
     // Set the options check-boxe.
-    MetricsOptionCheckBox.setStateOn( $metricsOption );
-    JointsOptionCheckBox.setStateOn( $jointsOption );
-    WireframeOptionCheckBox.setStateOn( $wireframeOption );
-    AABBOptionCheckBox.setStateOn( $aabbOption );
-    OOBBOptionCheckBox.setStateOn( $oobbOption );
-    SleepOptionCheckBox.setStateOn( $sleepOption );
-    CollisionOptionCheckBox.setStateOn( $collisionOption );
-    PositionOptionCheckBox.setStateOn( $positionOption );
-    SortOptionCheckBox.setStateOn( $sortOption ); 
+    MetricsOptionCheckBox.setStateOn( $pref::Sandbox::metricsOption );
+    JointsOptionCheckBox.setStateOn( $pref::Sandbox::jointsOption );
+    WireframeOptionCheckBox.setStateOn( $pref::Sandbox::wireframeOption );
+    AABBOptionCheckBox.setStateOn( $pref::Sandbox::aabbOption );
+    OOBBOptionCheckBox.setStateOn( $pref::Sandbox::oobbOption );
+    SleepOptionCheckBox.setStateOn( $pref::Sandbox::sleepOption );
+    CollisionOptionCheckBox.setStateOn( $pref::Sandbox::collisionOption );
+    PositionOptionCheckBox.setStateOn( $pref::Sandbox::positionOption );
+    SortOptionCheckBox.setStateOn( $pref::Sandbox::sortOption ); 
     
     // Is this on the desktop?
     if ( $platform $= "windows" || $platform $= "macos" )
@@ -275,7 +261,7 @@ function updateToolboxOptions()
 
 function setMetricsOption( %flag )
 {
-    $metricsOption = %flag;
+    $pref::Sandbox::metricsOption = %flag;
     updateToolboxOptions();
 }
 
@@ -283,7 +269,7 @@ function setMetricsOption( %flag )
 
 function setJointsOption( %flag )
 {
-    $jointsOption = %flag;
+    $pref::Sandbox::jointsOption = %flag;
     updateToolboxOptions();
 }
 
@@ -291,7 +277,7 @@ function setJointsOption( %flag )
 
 function setWireframeOption( %flag )
 {
-    $wireframeOption = %flag;
+    $pref::Sandbox::wireframeOption = %flag;
     updateToolboxOptions();
 }
 
@@ -299,7 +285,7 @@ function setWireframeOption( %flag )
 
 function setAABBOption( %flag )
 {
-    $aabbOption = %flag;
+    $pref::Sandbox::aabbOption = %flag;
     updateToolboxOptions();
 }
 
@@ -307,7 +293,7 @@ function setAABBOption( %flag )
 
 function setOOBBOption( %flag )
 {
-    $oobbOption = %flag;
+    $pref::Sandbox::oobbOption = %flag;
     updateToolboxOptions();
 }
 
@@ -315,7 +301,7 @@ function setOOBBOption( %flag )
 
 function setSleepOption( %flag )
 {
-    $sleepOption = %flag;
+    $pref::Sandbox::sleepOption = %flag;
     updateToolboxOptions();
 }
 
@@ -323,7 +309,7 @@ function setSleepOption( %flag )
 
 function setCollisionOption( %flag )
 {
-    $collisionOption = %flag;
+    $pref::Sandbox::collisionOption = %flag;
     updateToolboxOptions();
 }
 
@@ -331,7 +317,7 @@ function setCollisionOption( %flag )
 
 function setPositionOption( %flag )
 {
-    $positionOption = %flag;
+    $pref::Sandbox::positionOption = %flag;
     updateToolboxOptions();
 }
 
@@ -339,6 +325,6 @@ function setPositionOption( %flag )
 
 function setSortOption( %flag )
 {
-    $sortOption = %flag;
+    $pref::Sandbox::sortOption = %flag;
     updateToolboxOptions();
 }
