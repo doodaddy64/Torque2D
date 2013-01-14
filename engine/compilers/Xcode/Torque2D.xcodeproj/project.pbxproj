@@ -24,8 +24,6 @@
 		8609FE361655716E004662ED /* osxPopupMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8609FE351655716E004662ED /* osxPopupMenu.mm */; };
 		8609FE38165572EC004662ED /* osxFont.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8609FE37165572EC004662ED /* osxFont.mm */; };
 		861CD8D01678F6C200DAE1A0 /* fileDialog.cc in Sources */ = {isa = PBXBuildFile; fileRef = 861CD8CF1678F6C200DAE1A0 /* fileDialog.cc */; };
-		861F85D3167FC164004E5816 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 869FF8C51651518C002FE082 /* InfoPlist.strings */; };
-		861F85D4167FC164004E5816 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 869FF8D11651518C002FE082 /* MainMenu.xib */; };
 		861F85D5167FC164004E5816 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 865A20B01651530B00527C44 /* Config.xcconfig */; };
 		861F85D6167FC164004E5816 /* torque2d.icns in Resources */ = {isa = PBXBuildFile; fileRef = 865A20BE165158CA00527C44 /* torque2d.icns */; };
 		861F85D7167FC164004E5816 /* qt_menu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 865A21E5165182DA00527C44 /* qt_menu.nib */; };
@@ -634,8 +632,8 @@
 		8694ADC91656B06B0080ABAC /* osxWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8694ADC61656B06B0080ABAC /* osxWindow.mm */; };
 		8694ADD11656B7FC0080ABAC /* osxVideo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8694ADD01656B7FC0080ABAC /* osxVideo.mm */; };
 		8694ADD51656BDE60080ABAC /* osxGL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8694ADD41656BDE60080ABAC /* osxGL.mm */; };
-		869FF8C71651518C002FE082 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 869FF8C51651518C002FE082 /* InfoPlist.strings */; };
-		869FF8D31651518C002FE082 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 869FF8D11651518C002FE082 /* MainMenu.xib */; };
+		86C281CD16A4307E00F030F4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86C281CB16A4307E00F030F4 /* MainMenu.xib */; };
+		86C281CE16A4307E00F030F4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86C281CB16A4307E00F030F4 /* MainMenu.xib */; };
 		86D76F78165683240046D71F /* osxOutlineGL.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86D76F76165683240046D71F /* osxOutlineGL.cc */; };
 		86D76F791656868D0046D71F /* AnimationAsset.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7E7716518D4600D96ADF /* AnimationAsset.cc */; };
 		86D76F7A1656868D0046D71F /* AnimationController.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7E7A16518D4600D96ADF /* AnimationController.cc */; };
@@ -1230,10 +1228,6 @@
 		869FF8BF1651518C002FE082 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		869FF8C01651518C002FE082 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		869FF8C11651518C002FE082 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		869FF8C41651518C002FE082 /* Torque2D-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Torque2D-Info.plist"; sourceTree = "<group>"; };
-		869FF8C61651518C002FE082 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		869FF8CA1651518C002FE082 /* Torque2D-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Torque2D-Prefix.pch"; sourceTree = "<group>"; };
-		869FF8D21651518C002FE082 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		86BC7E7716518D4600D96ADF /* AnimationAsset.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimationAsset.cc; sourceTree = "<group>"; };
 		86BC7E7816518D4600D96ADF /* AnimationAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationAsset.h; sourceTree = "<group>"; };
 		86BC7E7916518D4600D96ADF /* AnimationAsset_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationAsset_ScriptBinding.h; sourceTree = "<group>"; };
@@ -1973,6 +1967,10 @@
 		86BC836216518FE800D96ADF /* types.gcc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.gcc.h; sourceTree = "<group>"; };
 		86BC836316518FE800D96ADF /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		86BC836416518FE800D96ADF /* types.ppc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.ppc.h; sourceTree = "<group>"; };
+		86C281C716A4306900F030F4 /* Torque2D-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Torque2D-Info.plist"; path = "Torque2D/Torque2D-Info.plist"; sourceTree = SOURCE_ROOT; };
+		86C281C916A4307300F030F4 /* Torque2DGame-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Torque2DGame-Info.plist"; path = "Torque2D/Torque2DGame-Info.plist"; sourceTree = SOURCE_ROOT; };
+		86C281CC16A4307E00F030F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Torque2D/en.lproj/MainMenu.xib; sourceTree = SOURCE_ROOT; };
+		86C281CF16A4309800F030F4 /* Torque2D-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Torque2D-Prefix.pch"; path = "Torque2D/Torque2D-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		86CEFC76166FE17500DAF75D /* platformInput_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platformInput_ScriptBinding.h; sourceTree = "<group>"; };
 		86D76F74165682BF0046D71F /* platformGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platformGL.h; sourceTree = "<group>"; };
 		86D76F76165683240046D71F /* osxOutlineGL.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osxOutlineGL.cc; sourceTree = "<group>"; };
@@ -2460,10 +2458,10 @@
 		869FF8C31651518C002FE082 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				869FF8D11651518C002FE082 /* MainMenu.xib */,
-				869FF8C41651518C002FE082 /* Torque2D-Info.plist */,
-				869FF8C51651518C002FE082 /* InfoPlist.strings */,
-				869FF8CA1651518C002FE082 /* Torque2D-Prefix.pch */,
+				86C281CF16A4309800F030F4 /* Torque2D-Prefix.pch */,
+				86C281CB16A4307E00F030F4 /* MainMenu.xib */,
+				86C281C716A4306900F030F4 /* Torque2D-Info.plist */,
+				86C281C916A4307300F030F4 /* Torque2DGame-Info.plist */,
 			);
 			name = "Supporting Files";
 			path = ../../compilers/New_Xcode/Torque2D;
@@ -3683,11 +3681,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				861F85D3167FC164004E5816 /* InfoPlist.strings in Resources */,
-				861F85D4167FC164004E5816 /* MainMenu.xib in Resources */,
 				861F85D5167FC164004E5816 /* Config.xcconfig in Resources */,
 				861F85D6167FC164004E5816 /* torque2d.icns in Resources */,
 				861F85D7167FC164004E5816 /* qt_menu.nib in Resources */,
+				86C281CE16A4307E00F030F4 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3695,11 +3692,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				869FF8C71651518C002FE082 /* InfoPlist.strings in Resources */,
-				869FF8D31651518C002FE082 /* MainMenu.xib in Resources */,
 				865A20B11651530B00527C44 /* Config.xcconfig in Resources */,
 				865A20BF165158CA00527C44 /* torque2d.icns in Resources */,
 				865A21E6165182DA00527C44 /* qt_menu.nib in Resources */,
+				86C281CD16A4307E00F030F4 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4720,18 +4716,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		869FF8C51651518C002FE082 /* InfoPlist.strings */ = {
+		86C281CB16A4307E00F030F4 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				869FF8C61651518C002FE082 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		869FF8D11651518C002FE082 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				869FF8D21651518C002FE082 /* en */,
+				86C281CC16A4307E00F030F4 /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
