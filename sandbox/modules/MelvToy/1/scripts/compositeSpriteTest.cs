@@ -15,7 +15,7 @@ function runCompositeSpriteTest( %scopeSet )
     %composite.setDefaultSpriteSize( 20 );    
     %composite.BatchLayout = "rect";
 	%composite.BatchIsolated = "true";    
-    %composite.setAngularVelocity( -90 );
+    %composite.setAngularVelocity( -10 );
 	
     for ( %y = -5; %y <= 5; %y++ )
 	{
@@ -29,8 +29,8 @@ function runCompositeSpriteTest( %scopeSet )
         }
 	}
 	
-	//TamlWrite( %composite, "composite.xml" );
-	//%newComposite = TamlRead( "composite.xml" );
+	//TamlWrite( %composite, "^MelvToy/composite.xml" );
+	//%newComposite = TamlRead( "^MelvToy/composite.xml" );
 	//SandboxScene.addToScene( %newComposite );
 }
 
