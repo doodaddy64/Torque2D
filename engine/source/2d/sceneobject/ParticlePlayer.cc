@@ -14,7 +14,14 @@ IMPLEMENT_CONOBJECT(ParticlePlayer);
 
 //------------------------------------------------------------------------------
 
-ParticlePlayer::ParticlePlayer()
+ParticlePlayer::ParticlePlayer() :
+                    mEffectPaused(false),
+                    mEffectPlaying(false),
+                    mParticleInterpolation(false),
+                    mCameraIdleDistance(0.0f),
+                    mCameraIdle(false),
+                    mWaitingForParticles(false),
+                    mWaitingForDelete(false)
 {
 }
 

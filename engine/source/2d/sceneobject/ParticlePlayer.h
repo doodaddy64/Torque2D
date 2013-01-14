@@ -21,7 +21,18 @@ class ParticlePlayer : public SceneObject
 private:
     typedef SceneObject Parent;
 
-    AssetPtr<ParticleAsset> mAsset;
+    AssetPtr<ParticleAsset>     mAsset;
+
+    bool                        mEffectPlaying;
+    bool                        mEffectPaused;
+    F32                         mEffectAge;
+
+    bool						mParticleInterpolation;
+    bool                        mCameraIdle;
+    F32                         mCameraIdleDistance;
+
+    bool                        mWaitingForParticles;
+    bool                        mWaitingForDelete;
 
 public:
     ParticlePlayer();

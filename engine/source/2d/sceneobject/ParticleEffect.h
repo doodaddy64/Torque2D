@@ -45,8 +45,9 @@ private:
 
     bool                            mEffectPlaying;
     F32                             mEffectAge;
-    F32                             mEffectLifetime;
     bool                            mEffectPaused;
+
+    F32                             mEffectLifetime;
     
     F32                             mCameraIdleDistance;
     bool                            mCameraIdle;

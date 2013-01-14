@@ -27,22 +27,22 @@ ParticleAsset::ParticleAsset() :
    // Set Vector Associations.
    VECTOR_SET_ASSOCIATION( mEmitters );  
 
-   // Initialize particle fields.
-   addParticleField( mParticleLife.getBase(), "life.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
-   addParticleField( mQuantity.getBase(), "quantity.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
-   addParticleField( mSizeX.getBase(), "size.x.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
-   addParticleField( mSizeY.getBase(), "size.y.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
-   addParticleField( mSpeed.getBase(), "speed.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
-   addParticleField( mSpin.getBase(), "spin.scale", 1000.0f, -100.0f, 100.0f, 1.0f );
-   addParticleField( mFixedForce.getBase(), "fixedforce.scale", 1000.0f, -100.0f, 100.0f, 1.0f  );
-   addParticleField( mRandomMotion.getBase(), "randommotion.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
-   addParticleField( mVisibility.getBase(), "visibility.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
-   addParticleField( mEmissionForce.getBase(), "emission.force.base", 1000.0f, -100.0f, 100.0f, 5.0f );
-   addParticleField( mEmissionForce.getVaritation(), "emission.force.variation", 1000.0f, 0.0f, 200.0f, 0.0f );
-   addParticleField( mEmissionAngle.getBase(), "emission.angle.base", 1000.0f, -180.0f, 180.0f, 0.0f );
-   addParticleField( mEmissionAngle.getVaritation(), "emission.angle.variation", 1000.0f, 0.0f, 360.0f, 0.0f );
-   addParticleField( mEmissionArc.getBase(), "emission.arc.base", 1000.0f, 0.0f, 360.0f, 360.0f );
-   addParticleField( mEmissionArc.getVaritation(), "emission.arc.variation", 1000.0f, 0.0f, 720.0f, 0.0f );
+    // Initialize particle fields.
+    addParticleField( mParticleLife.getBase(), "life.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    addParticleField( mQuantity.getBase(), "quantity.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    addParticleField( mSizeX.getBase(), "size.x.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    addParticleField( mSizeY.getBase(), "size.y.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    addParticleField( mSpeed.getBase(), "speed.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    addParticleField( mSpin.getBase(), "spin.scale", 1000.0f, -100.0f, 100.0f, 1.0f );
+    addParticleField( mFixedForce.getBase(), "fixedforce.scale", 1000.0f, -100.0f, 100.0f, 1.0f  );
+    addParticleField( mRandomMotion.getBase(), "randommotion.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    addParticleField( mVisibility.getBase(), "visibility.scale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    addParticleField( mEmissionForce.getBase(), "emission.force.base", 1000.0f, -100.0f, 100.0f, 5.0f );
+    addParticleField( mEmissionForce.getVaritation(), "emission.force.variation", 1000.0f, 0.0f, 200.0f, 0.0f );
+    addParticleField( mEmissionAngle.getBase(), "emission.angle.base", 1000.0f, -180.0f, 180.0f, 0.0f );
+    addParticleField( mEmissionAngle.getVaritation(), "emission.angle.variation", 1000.0f, 0.0f, 360.0f, 0.0f );
+    addParticleField( mEmissionArc.getBase(), "emission.arc.base", 1000.0f, 0.0f, 360.0f, 360.0f );
+    addParticleField( mEmissionArc.getVaritation(), "emission.arc.variation", 1000.0f, 0.0f, 720.0f, 0.0f );
 }
 
 //------------------------------------------------------------------------------
@@ -129,3 +129,32 @@ void ParticleAsset::addParticleField( ParticleAssetField& particleAssetField, co
     particleAssetField.setValueBounds( maxTime, minValue, maxValue, defaultValue );
 }
 
+//-----------------------------------------------------------------------------
+
+static EnumTable::Enums particleAssetLifeModeLookup[] =
+{
+    { ParticleAsset::INFINITE,  "INFINITE" },
+    { ParticleAsset::CYCLE,     "CYCLE" },
+    { ParticleAsset::KILL,      "KILL" },
+    { ParticleAsset::STOP,      "STOP" },
+};
+
+//-----------------------------------------------------------------------------
+
+static EnumTable gEffectMode(4, &particleAssetLifeModeLookup[0]);
+
+//-----------------------------------------------------------------------------
+
+ParticleAsset::LifeMode getParticleAssetLifeMode(const char* label)
+{
+   // Search for Mnemonic.
+   for(U32 i = 0; i < (sizeof(particleAssetLifeModeLookup) / sizeof(EnumTable::Enums)); i++)
+      if( dStricmp(particleAssetLifeModeLookup[i].label, label) == 0)
+          return((ParticleAsset::LifeMode)particleAssetLifeModeLookup[i].index);
+
+   // Invalid Effect Life-Mode!
+   AssertFatal(false, "ParticleAsset::getParticleAssetLifeMode() - Invalid life mode.");
+
+   // Invalid.
+   return ParticleAsset::INVALID;
+}

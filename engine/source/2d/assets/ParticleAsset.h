@@ -119,4 +119,8 @@ private:
     void addParticleField( ParticleAssetField& particleAssetField, const char* pFieldName, F32 maxTime, F32 minValue, F32 maxValue, F32 defaultValue );
 };
 
+//-----------------------------------------------------------------------------
+
+extern ParticleAsset::LifeMode getParticleAssetLifeMode(const char* label);
+
 #endif // _PARTICLE_ASSET_H_
