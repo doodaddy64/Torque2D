@@ -69,18 +69,20 @@ ParticleAssetField::~ParticleAssetField()
 
 void ParticleAssetField::copyTo(ParticleAssetField& graph)
 {
-   graph.mTimeScale = mTimeScale;
-   graph.mValueScale = mValueScale;
-   graph.mMaxTime = mMaxTime;
-   graph.mMinValue = mMinValue;
-   graph.mMaxValue = mMaxValue;
-   graph.mDefaultValue = mDefaultValue;
+    graph.setName( getName() );
+    graph.mValueScale = mValueScale;
+    graph.mTimeScale = mTimeScale;
+    graph.mMaxTime = mMaxTime;
+    graph.mMinValue = mMinValue;
+    graph.mMaxValue = mMaxValue;
+    graph.mDefaultValue = mDefaultValue;
 
-   for (S32 i = 0; i < mDataKeys.size(); i++)
-   {
-      DataKey key = mDataKeys[i];
-      graph.addDataKey(key.mTime, key.mValue);
-   }
+    // Copy data keys.
+    for ( S32 i = 0; i < mDataKeys.size(); i++ )
+    {
+        DataKey key = mDataKeys[i];
+        graph.addDataKey(key.mTime, key.mValue);
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -122,7 +124,7 @@ bool ParticleAssetField::setTimeRepeat( const F32 timeRepeat )
     if ( timeRepeat < 0.0f )
     {
         // Warn.
-        Con::warnf("ParticleAssetField::setTimeRepeat() - Invalid Time Repeat! (%f)", timeRepeat );
+        Con::warnf("ParticleAssetField::setTimeRepeat() - Time-repeat '%f' is invalid.", timeRepeat );
 
         // Return Error.
         return false;
@@ -146,7 +148,7 @@ void ParticleAssetField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue
     if ( maxTime <= 0.0f )
     {
         // Warn.
-        Con::warnf("ParticleAssetField::setBounds() - Max Time is not valid! (maxTime:%f", maxTime );
+        Con::warnf("ParticleAssetField::setValueBounds() - Maxt-time '%f' is invalid", maxTime );
 
         // Set Default Max Time.
         maxTime = 1.0f;
@@ -159,7 +161,7 @@ void ParticleAssetField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue
     if ( minValue > maxValue )
     {
         // Warn.
-        Con::warnf("ParticleAssetField::setBounds() - Value Range is not normalised! (minValue:%f / maxValue:%f)", minValue, maxValue );
+        Con::warnf("ParticleAssetField::setValueBounds() - Value Range is not normalised! (minValue:%f / maxValue:%f)", minValue, maxValue );
 
         // Normalise Y-Axis.
         F32 temp = minValue;
@@ -170,7 +172,7 @@ void ParticleAssetField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue
     else if ( minValue == maxValue )
     {
         // Warn.
-        Con::warnf("ParticleAssetField::setBounds() - Value Range has no scale! (minValue:%f / maxValue:%f)", minValue, maxValue );
+        Con::warnf("ParticleAssetField::setValueBounds() - Value Range has no scale! (minValue:%f / maxValue:%f)", minValue, maxValue );
 
         // Insert some Y-Axis Scale.
         maxValue = minValue + 0.001f;
@@ -184,7 +186,7 @@ void ParticleAssetField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue
     if ( defaultValue < minValue || defaultValue > maxValue )
     {
         // Warn.
-        Con::warnf("ParticleAssetField::setBounds() - Default Value is out of range! (minValue:%f / maxValue:%f / defaultValue:%f)", minValue, maxValue, defaultValue );
+        Con::warnf("ParticleAssetField::setValueBounds() - Default Value is out of range! (minValue:%f / maxValue:%f / defaultValue:%f)", minValue, maxValue, defaultValue );
 
         // Clamp at lower value.
         defaultValue = minValue;
@@ -260,7 +262,7 @@ bool ParticleAssetField::removeDataKey( const U32 index )
     if ( index == 0 )
     {
         // Warn.
-        Con::warnf("removeDataKey() - Cannot remove first Data-Key!");
+        Con::warnf("rParticleAssetField::emoveDataKey() - Cannot remove first Data-Key!");
         return false;
     }
 
@@ -268,7 +270,7 @@ bool ParticleAssetField::removeDataKey( const U32 index )
     if ( index >= getDataKeyCount() )
     {
         // Warn.
-        Con::warnf("removeDataKey() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
+        Con::warnf("rParticleAssetField::emoveDataKey() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
         return false;
     }
 
@@ -295,7 +297,7 @@ const ParticleAssetField::DataKey ParticleAssetField::getDataKeyNode( const U32 
     if ( index >= getDataKeyCount() )
     {
         // Warn.
-        Con::warnf("getDataKeyNode() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
+        Con::warnf("ParticleAssetField::getDataKeyNode() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
         return DataKey();
     }
 
@@ -311,7 +313,7 @@ bool ParticleAssetField::setDataKeyValue( const U32 index, const F32 value )
     if ( index >= getDataKeyCount() )
     {
         // Warn.
-        Con::warnf("setDataKeyValue() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
+        Con::warnf("ParticleAssetField::setDataKeyValue() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
         return false;
     }
 
@@ -330,7 +332,7 @@ F32 ParticleAssetField::getDataKeyValue( const U32 index ) const
     if ( index >= getDataKeyCount() )
     {
         // Warn.
-        Con::warnf("getDataKeyValue() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
+        Con::warnf("ParticleAssetField::getDataKeyValue() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
         return 0.0f;
     }
 
@@ -346,7 +348,7 @@ F32 ParticleAssetField::getDataKeyTime( const U32 index ) const
     if ( index >= getDataKeyCount() )
     {
         // Warn.
-        Con::warnf("getDataKeyTime() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
+        Con::warnf("ParticleAssetField::getDataKeyTime() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
         return 0.0f;
     }
 
@@ -406,34 +408,6 @@ F32 ParticleAssetField::getGraphValue( F32 time ) const
     // Return Lerped Value.
     return ((mDataKeys[index1].mValue * (1.0f-dTime)) + (mDataKeys[index2].mValue * dTime)) * mValueScale;
 }
-
-//-----------------------------------------------------------------------------
-//
-//  Some explanation of the acronyms used here is called for...
-//
-//  B - Base Value used in the emitter
-//  V - Variation Value used in the emitter
-//  L - Over-Life Value used in the particle.
-//  E - Effect Value used in the effect.
-//
-//  The particle generation system has fields which are initially set when the
-//  particle is created and then scaled during the lifetime of the particle.
-//  When the particle is created, each field is calculated based upon a value
-//  from its base/variation graphs which are against the effects age.  Into this
-//  a scaling from the effect itself is added.
-//
-//  When the particle is active, these values are scaled using the over-life
-//  graphs for the appropriate fields.
-//
-//  BV -    This is the calculation where the field does not use either the
-//          over-life field 'L' of the effect field 'E'.
-//
-//  BVE -   This is the calculation where the field does not use the over-life
-//          field 'L'.
-//
-//  BVLE -  This is the full calculation including the over-life field.
-//
-//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 

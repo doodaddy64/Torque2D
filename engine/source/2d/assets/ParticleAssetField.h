@@ -75,10 +75,35 @@ protected:
     void onTamlCustomRead( const TamlCollection& customCollection );
 };
 
+//-----------------------------------------------------------------------------
+//
+//  Some explanation of the acronyms used here is called for...
+//
+//  B - Base Value used in the emitter
+//  V - Variation Value used in the emitter
+//  L - Over-Life Value used in the particle.
+//  E - Effect Value used in the effect.
+//
+//  The particle generation system has fields which are initially set when the
+//  particle is created and then scaled during the lifetime of the particle.
+//  When the particle is created, each field is calculated based upon a value
+//  from its base/variation graphs which are against the effects age.  Into this
+//  a scaling from the effect itself is added.
+//
+//  When the particle is active, these values are scaled using the over-life
+//  graphs for the appropriate fields.
+//
+//  BV -    This is the calculation where the field does not use either the
+//          over-life field 'L' of the effect field 'E'.
+//
+//  BVE -   This is the calculation where the field does not use the over-life
+//          field 'L'.
+//
+//  BVLE -  This is the full calculation including the over-life field.
+//
+//-----------------------------------------------------------------------------
 
-///-----------------------------------------------------------------------------
 /// Base-Only Graph.
-///-----------------------------------------------------------------------------
 struct ParticleAssetField_B
 {
    ParticleAssetField       GraphField_Base;
@@ -89,9 +114,7 @@ struct ParticleAssetField_B
    };
 };
 
-///-----------------------------------------------------------------------------
 /// Life-Only Graph.
-///-----------------------------------------------------------------------------
 struct ParticleAssetField_L
 {
    ParticleAssetField       GraphField_OverLife;
@@ -102,9 +125,7 @@ struct ParticleAssetField_L
    };
 };
 
-///-----------------------------------------------------------------------------
 /// Base & Variation Graphs.
-///-----------------------------------------------------------------------------
 struct ParticleAssetField_BV
 {
     ParticleAssetField       GraphField_Base;
@@ -117,9 +138,7 @@ struct ParticleAssetField_BV
     };
 };
 
-///-----------------------------------------------------------------------------
 /// Base, Variation and Over-Time Graphs.
-///-----------------------------------------------------------------------------
 struct ParticleAssetField_BVL
 {
     ParticleAssetField       GraphField_Base;
