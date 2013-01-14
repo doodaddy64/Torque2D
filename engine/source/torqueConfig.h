@@ -73,7 +73,7 @@
 // Define me if this build is a tools build
 #ifndef TORQUE_PLAYER
 #  define TORQUE_TOOLS
-#else
+#else0 
 #  undef TORQUE_TOOLS
 #endif
 
@@ -81,9 +81,9 @@
 ///    See also the TORQUE_SHIPPING block below
 //#define TORQUE_ENABLE_PROFILER
 
-#define PROFILE_START(name) #name
+#define PROFILE_START(name) TORQUE_UNUSED(#name)
 #define PROFILE_END()
-#define PROFILE_SCOPE(name) #name
+#define PROFILE_SCOPE(name) TORQUE_UNUSED(#name)
 
 /// Define me to enable unicode support.
 #define TORQUE_UNICODE
