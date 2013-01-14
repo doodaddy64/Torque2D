@@ -192,7 +192,7 @@ void SimSet::deleteObjects( void )
     lock();
         while(size() > 0 )
         {
-            objectList[0]->unregisterObject();
+            objectList[0]->deleteObject();
         }
     unlock();
 }

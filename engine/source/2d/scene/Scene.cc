@@ -235,9 +235,6 @@ Scene::Scene() :
     // Set debug stats for batch renderer.
     mBatchRenderer.setDebugStats( &mDebugStats );
 
-    // Turn-on tick processing.
-    setProcessTicks( true );
-
     // Assign scene index.    
     mSceneIndex = ++sSceneMasterIndex;
     sSceneCount++;
@@ -291,6 +288,9 @@ bool Scene::onAdd()
     // Tell the scripts
     Con::executef(this, 1, "onAdd");
 
+    // Turn-on tick processing.
+    setProcessTicks( true );
+
     // Return Okay.
     return true;
 }
@@ -299,6 +299,9 @@ bool Scene::onAdd()
 
 void Scene::onRemove()
 {
+    // Turn-off tick processing.
+    setProcessTicks( false );
+
     // tell the scripts
     Con::executef(this, 1, "onRemove");
 
@@ -666,17 +669,21 @@ void Scene::processTick( void )
     // Debug Profiling.
     PROFILE_SCOPE(Scene_ProcessTick);
 
+    // Finish if the Scene is not added to the simulation.
+    if ( !isProperlyAdded() )
+        return;
+
     // Process Delete Requests.
     processDeleteRequests(false);
 
     // Update debug stats.
     mDebugStats.fps           = Con::getFloatVariable("fps::framePeriod", 0.0f);
-    mDebugStats.frameCount    = Con::getIntVariable("fps::frameCount", 0);
-    mDebugStats.bodyCount     = mpWorld->GetBodyCount();
-    mDebugStats.jointCount    = mpWorld->GetJointCount();
-    mDebugStats.contactCount  = mpWorld->GetContactCount();
-    mDebugStats.proxyCount    = mpWorld->GetProxyCount();
-    mDebugStats.objectsCount  = mSceneObjects.size();
+    mDebugStats.frameCount    = (U32)Con::getIntVariable("fps::frameCount", 0);
+    mDebugStats.bodyCount     = (U32)mpWorld->GetBodyCount();
+    mDebugStats.jointCount    = (U32)mpWorld->GetJointCount();
+    mDebugStats.contactCount  = (U32)mpWorld->GetContactCount();
+    mDebugStats.proxyCount    = (U32)mpWorld->GetProxyCount();
+    mDebugStats.objectsCount  = (U32)mSceneObjects.size();
     mDebugStats.worldProfile  = mpWorld->GetProfile();
 
     // Reset particle stats.
