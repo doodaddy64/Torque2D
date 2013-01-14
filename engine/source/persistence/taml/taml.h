@@ -7,15 +7,19 @@
 #define _TAML_H_
 
 #ifndef _TAML_CALLBACKS_H_
-#include "tamlCallbacks.h"
+#include "persistence/taml/tamlCallbacks.h"
 #endif
 
 #ifndef _TAML_COLLECTION_H_
-#include "tamlCollection.h"
+#include "persistence/taml/tamlCollection.h"
+#endif
+
+#ifndef _TAML_CHILDREN_H_
+#include "persistence/taml/tamlChildren.h"
 #endif
 
 #ifndef _TAML_WRITE_NODE_H_
-#include "TamlWriteNode.h"
+#include "persistence/taml/TamlWriteNode.h"
 #endif
 
 #ifndef _SIMBASE_H_

@@ -3,7 +3,7 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#include "tamlXmlParser.h"
+#include "persistence/taml/tamlXmlParser.h"
 
 // Debug Profiling.
 #include "debug/profiler.h"

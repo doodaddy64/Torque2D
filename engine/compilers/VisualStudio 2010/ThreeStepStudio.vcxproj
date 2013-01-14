@@ -986,6 +986,7 @@
     <ClInclude Include="..\..\source\persistence\taml\tamlBinaryReader.h" />
     <ClInclude Include="..\..\source\persistence\taml\tamlBinaryWriter.h" />
     <ClInclude Include="..\..\source\persistence\taml\tamlCallbacks.h" />
+    <ClInclude Include="..\..\source\persistence\taml\tamlChildren.h" />
     <ClInclude Include="..\..\source\persistence\taml\tamlCollection.h" />
     <ClInclude Include="..\..\source\persistence\taml\tamlWriteNode.h" />
     <ClInclude Include="..\..\source\persistence\taml\tamlXmlParser.h" />

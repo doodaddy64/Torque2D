@@ -1326,6 +1326,12 @@
     <ClCompile Include="..\..\source\graphics\color.cc">
       <Filter>Source Files\graphics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\2d\assets\ParticleAsset.cc">
+      <Filter>Source Files\2d\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\2d\assets\ParticleAssetField.cc">
+      <Filter>Source Files\2d\assets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\audio\audio.h">
@@ -2671,6 +2677,18 @@
     </ClInclude>
     <ClInclude Include="..\..\source\platformWin32\winWindow.h">
       <Filter>Source Files\platformWin32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\persistence\taml\tamlChildren.h">
+      <Filter>Source Files\persistence\taml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\2d\assets\ParticleAsset.h">
+      <Filter>Source Files\2d\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\2d\assets\ParticleAsset_ScriptBinding.h">
+      <Filter>Source Files\2d\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\2d\assets\ParticleAssetField.h">
+      <Filter>Source Files\2d\assets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

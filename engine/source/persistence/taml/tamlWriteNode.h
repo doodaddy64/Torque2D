@@ -7,7 +7,7 @@
 #define _TAML_WRITE_NODE_H_
 
 #ifndef _TAML_COLLECTION_H_
-#include "tamlCollection.h"
+#include "persistence/taml/tamlCollection.h"
 #endif
 
 #ifndef _SIMBASE_H_

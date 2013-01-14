@@ -6,19 +6,19 @@
 #include "taml.h"
 
 #ifndef _TAML_XMLWRITER_H_
-#include "tamlXmlWriter.h"
+#include "persistence/taml/tamlXmlWriter.h"
 #endif
 
 #ifndef _TAML_XMLREADER_H_
-#include "tamlXmlReader.h"
+#include "persistence/taml/tamlXmlReader.h"
 #endif
 
 #ifndef _TAML_BINARYWRITER_H_
-#include "tamlBinaryWriter.h"
+#include "persistence/taml/tamlBinaryWriter.h"
 #endif
 
 #ifndef _TAML_BINARYREADER_H_
-#include "tamlBinaryReader.h"
+#include "persistence/taml/tamlBinaryReader.h"
 #endif
 
 #ifndef _FRAMEALLOCATOR_H_

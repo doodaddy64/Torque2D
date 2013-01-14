@@ -3,11 +3,7 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#include "tamlWriteNode.h"
-
-#ifndef _TAML_COLLECTION_H_
-#include "tamlCollection.h"
-#endif
+#include "persistence/taml/tamlWriteNode.h"
 
 // Debug Profiling.
 #include "debug/profiler.h"

@@ -3,10 +3,10 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#include "tamlCollection.h"
+#include "persistence/taml/tamlCollection.h"
 
 #ifndef _TAML_WRITE_NODE_H_
-#include "tamlWriteNode.h"
+#include "persistence/taml/tamlWriteNode.h"
 #endif
 
 //-----------------------------------------------------------------------------

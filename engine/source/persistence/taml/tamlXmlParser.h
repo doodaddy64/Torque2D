@@ -7,15 +7,11 @@
 #define _TAML_XMLPARSER_H_
 
 #ifndef _TAML_XML_VISITOR_H_
-#include "tamlXmlVisitor.h"
-#endif
-
-#ifndef _HASHTABLE_H
-#include "collection/hashTable.h"
+#include "persistence/taml/tamlXmlVisitor.h"
 #endif
 
 #ifndef _TAML_H_
-#include "taml.h"
+#include "persistence/taml/taml.h"
 #endif
 
 //-----------------------------------------------------------------------------

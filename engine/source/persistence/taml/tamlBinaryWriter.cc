@@ -3,7 +3,7 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#include "tamlBinaryWriter.h"
+#include "persistence/taml/tamlBinaryWriter.h"
 
 #ifndef _ZIPSUBSTREAM_H_
 #include "io/zip/zipSubStream.h"
