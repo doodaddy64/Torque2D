@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2A03300D165D1D2100E9CD70 /* unitTesting.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2A03300B165D1D2100E9CD70 /* unitTesting.cc */; };
 		2A033011165D1D4100E9CD70 /* platformFileIoTests.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2A033010165D1D4100E9CD70 /* platformFileIoTests.cc */; };
+		2A25739016A48DAC00363C6F /* ParticlePlayer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2A25738E16A48DAC00363C6F /* ParticlePlayer.cc */; };
+		2A25739116A48DAC00363C6F /* ParticlePlayer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2A25738E16A48DAC00363C6F /* ParticlePlayer.cc */; };
 		2A6F78CE16A4528C005C76D9 /* ParticleAssetEmitter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F78CC16A4528C005C76D9 /* ParticleAssetEmitter.cc */; };
 		2A6F78CF16A4528C005C76D9 /* ParticleAssetEmitter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F78CC16A4528C005C76D9 /* ParticleAssetEmitter.cc */; };
 		2ABF5C8F16569A0C00BBBF1D /* osxMutex.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF5C8E16569A0C00BBBF1D /* osxMutex.mm */; };
@@ -1003,6 +1005,9 @@
 		2A03300C165D1D2100E9CD70 /* unitTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unitTesting.h; path = ../../../source/testing/unitTesting.h; sourceTree = "<group>"; };
 		2A033010165D1D4100E9CD70 /* platformFileIoTests.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platformFileIoTests.cc; path = ../../../source/testing/tests/platformFileIoTests.cc; sourceTree = "<group>"; };
 		2A0A68DF166E268E0093AD41 /* osxFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osxFont.h; sourceTree = "<group>"; };
+		2A25738D16A48DAC00363C6F /* ParticlePlayer_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticlePlayer_ScriptBinding.h; sourceTree = "<group>"; };
+		2A25738E16A48DAC00363C6F /* ParticlePlayer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticlePlayer.cc; sourceTree = "<group>"; };
+		2A25738F16A48DAC00363C6F /* ParticlePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticlePlayer.h; sourceTree = "<group>"; };
 		2A6F78CC16A4528C005C76D9 /* ParticleAssetEmitter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleAssetEmitter.cc; sourceTree = "<group>"; };
 		2A6F78CD16A4528C005C76D9 /* ParticleAssetEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleAssetEmitter.h; sourceTree = "<group>"; };
 		2ABF5C8E16569A0C00BBBF1D /* osxMutex.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxMutex.mm; sourceTree = "<group>"; };
@@ -2582,6 +2587,9 @@
 		86BC7EB716518D4600D96ADF /* sceneobject */ = {
 			isa = PBXGroup;
 			children = (
+				2A25738D16A48DAC00363C6F /* ParticlePlayer_ScriptBinding.h */,
+				2A25738E16A48DAC00363C6F /* ParticlePlayer.cc */,
+				2A25738F16A48DAC00363C6F /* ParticlePlayer.h */,
 				86BC7EB816518D4600D96ADF /* BitmapFontObject.cc */,
 				86BC7EB916518D4600D96ADF /* BitmapFontObject.h */,
 				86BC7EBA16518D4600D96ADF /* BitmapFontObject_ScriptBinding.h */,
@@ -4240,6 +4248,7 @@
 				2ADCAC1616A41E5500E07619 /* ParticleAsset.cc in Sources */,
 				2ADCAC1816A41E5500E07619 /* ParticleAssetField.cc in Sources */,
 				2A6F78CF16A4528C005C76D9 /* ParticleAssetEmitter.cc in Sources */,
+				2A25739116A48DAC00363C6F /* ParticlePlayer.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4718,6 +4727,7 @@
 				2ADCAC1516A41E5500E07619 /* ParticleAsset.cc in Sources */,
 				2ADCAC1716A41E5500E07619 /* ParticleAssetField.cc in Sources */,
 				2A6F78CE16A4528C005C76D9 /* ParticleAssetEmitter.cc in Sources */,
+				2A25739016A48DAC00363C6F /* ParticlePlayer.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
