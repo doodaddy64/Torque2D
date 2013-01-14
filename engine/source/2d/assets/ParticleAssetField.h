@@ -27,8 +27,7 @@ public:
     };
 
 private:
-    Vector<DataKey> mDataKeys;
-
+    StringTableEntry mName;
     F32 mValueScale;
     F32 mTimeScale;
     F32 mMaxTime;
@@ -36,31 +35,35 @@ private:
     F32 mMaxValue;
     F32 mDefaultValue;
 
+    Vector<DataKey> mDataKeys;
+
 public:
     ParticleAssetField();
     virtual ~ParticleAssetField();
 
     virtual void copyTo(ParticleAssetField& graph);
 
-    const DataKey getDataKeyNode( const U32 index ) const;
-    void resetDataKeys( void );
-    bool setTimeRepeat( const F32 timeRepeat );
+    void setName( const char* pName );
+    StringTableEntry getName( void ) const { return mName; }
     bool setValueScale( const F32 valueScale );
+    bool setTimeRepeat( const F32 timeRepeat );
     void setValueBounds( F32 maxTime, F32 minValue, F32 maxValue, F32 defaultValue );
+    void resetDataKeys( void );
     S32 addDataKey( const F32 time, const F32 value );
     bool removeDataKey( const U32 index );
     void clearDataKeys( void );
+    const DataKey getDataKeyNode( const U32 index ) const;
     bool setDataKeyValue( const U32 index, const F32 value );
     F32 getDataKeyValue( const U32 index ) const;
     F32 getDataKeyTime( const U32 index ) const;
     U32 getDataKeyCount( void ) const;
     F32 getGraphValue( F32 time ) const;
-    F32 getMinValue( void ) const { return mMinValue; };
-    F32 getMaxValue( void ) const { return mMaxValue; };
-    F32 getMinTime( void ) const { return 0.0f; }
-    F32 getMaxTime( void ) const { return mMaxTime; };
-    F32 getTimeRepeat( void ) const { return mTimeScale - 1.0f; };
-    F32 getValueScale( void ) const { return mValueScale; };
+    inline F32 getMinValue( void ) const { return mMinValue; };
+    inline F32 getMaxValue( void ) const { return mMaxValue; };
+    inline F32 getMinTime( void ) const { return 0.0f; }
+    inline F32 getMaxTime( void ) const { return mMaxTime; };
+    inline F32 getTimeRepeat( void ) const { return mTimeScale - 1.0f; };
+    inline F32 getValueScale( void ) const { return mValueScale; };
 
     // Calculate Graph Variants.
     static F32 calcGraphBV( const ParticleAssetField& base, const ParticleAssetField& variation, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );

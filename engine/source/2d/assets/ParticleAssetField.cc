@@ -36,8 +36,13 @@ static StringTableEntry particleAssetFieldDataKeyValueName;
 //-----------------------------------------------------------------------------
 
 ParticleAssetField::ParticleAssetField() :
-                            mTimeScale(1.0f),
-                            mValueScale(1.0f)
+                        mName( StringTable->EmptyString ),
+                        mValueScale( 1.0f ),
+                        mTimeScale( 1.0f ),
+                        mMaxTime( 1.0f ),
+                        mMinValue( 0.0f ),
+                        mMaxValue( 0.0f ),
+                        mDefaultValue( 0.0f )
 {
     // Set Vector Associations.
     VECTOR_SET_ASSOCIATION( mDataKeys );
@@ -80,13 +85,57 @@ void ParticleAssetField::copyTo(ParticleAssetField& graph)
 
 //-----------------------------------------------------------------------------
 
-void ParticleAssetField::resetDataKeys(void)
+void ParticleAssetField::setName( const char* pName )
 {
-    // Clear Data Keys.
-    mDataKeys.clear();
+    // Sanity!
+    AssertFatal( mName == StringTable->EmptyString, "Cannot set particle asset field name once it has been set." );
 
-    // Add default value Data-Key.
-    addDataKey( 0.0f, mDefaultValue );
+    mName = StringTable->insert( pName );
+}
+
+//-----------------------------------------------------------------------------
+
+bool ParticleAssetField::setValueScale( const F32 valueScale )
+{
+    // Check Value Scale.
+    if ( valueScale < 0.0f )
+    {
+        // Warn.
+        Con::warnf("ParticleAssetField::setValueScale() - Invalid Value Scale! (%f)", valueScale );
+
+        // Return Error.
+        return false;
+    }
+
+    // Set Value Scale/
+    mValueScale = valueScale;
+
+    // Return Okay.
+    return true;
+}
+
+//-----------------------------------------------------------------------------
+
+bool ParticleAssetField::setTimeRepeat( const F32 timeRepeat )
+{
+    // Check Time Repeat.
+    if ( timeRepeat < 0.0f )
+    {
+        // Warn.
+        Con::warnf("ParticleAssetField::setTimeRepeat() - Invalid Time Repeat! (%f)", timeRepeat );
+
+        // Return Error.
+        return false;
+    }
+
+    // Set Time Scale.
+    // NOTE:-   Incoming Time-Repeat is zero upwards and we actually
+    //          want to use it as a multiplier so we increase it
+    //          by one.
+    mTimeScale = timeRepeat + 1.0f;
+
+    // Return Okay.
+    return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -150,49 +199,14 @@ void ParticleAssetField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue
 
 //-----------------------------------------------------------------------------
 
-bool ParticleAssetField::setTimeRepeat( const F32 timeRepeat )
+void ParticleAssetField::resetDataKeys(void)
 {
-    // Check Time Repeat.
-    if ( timeRepeat < 0.0f )
-    {
-        // Warn.
-        Con::warnf("ParticleAssetField::setTimeRepeat() - Invalid Time Repeat! (%f)", timeRepeat );
+    // Clear Data Keys.
+    mDataKeys.clear();
 
-        // Return Error.
-        return false;
-    }
-
-    // Set Time Scale.
-    // NOTE:-   Incoming Time-Repeat is zero upwards and we actually
-    //          want to use it as a multiplier so we increase it
-    //          by one.
-    mTimeScale = timeRepeat + 1.0f;
-
-    // Return Okay.
-    return true;
+    // Add default value Data-Key.
+    addDataKey( 0.0f, mDefaultValue );
 }
-
-//-----------------------------------------------------------------------------
-
-bool ParticleAssetField::setValueScale( const F32 valueScale )
-{
-    // Check Value Scale.
-    if ( valueScale < 0.0f )
-    {
-        // Warn.
-        Con::warnf("ParticleAssetField::setValueScale() - Invalid Value Scale! (%f)", valueScale );
-
-        // Return Error.
-        return false;
-    }
-
-    // Set Value Scale/
-    mValueScale = valueScale;
-
-    // Return Okay.
-    return true;
-}
-
 
 //-----------------------------------------------------------------------------
 
