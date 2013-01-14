@@ -411,7 +411,7 @@ F32 ParticleAssetField::getGraphValue( F32 time ) const
 
 //-----------------------------------------------------------------------------
 
-F32 ParticleAssetField::calcGraphBV( const ParticleAssetField& base, const ParticleAssetField& variation, const F32 effectAge, const bool modulate, const F32 modulo )
+F32 ParticleAssetField::calculateFieldBV( const ParticleAssetField& base, const ParticleAssetField& variation, const F32 effectAge, const bool modulate, const F32 modulo )
 {
     // Fetch Graph Components.
     const F32 baseValue   = base.getGraphValue( effectAge );
@@ -428,7 +428,7 @@ F32 ParticleAssetField::calcGraphBV( const ParticleAssetField& base, const Parti
 
 //-----------------------------------------------------------------------------
 
-F32 ParticleAssetField::calcGraphBVE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& effect, const F32 effectAge, const bool modulate, const F32 modulo )
+F32 ParticleAssetField::calculateFieldBVE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& effect, const F32 effectAge, const bool modulate, const F32 modulo )
 {
     // Fetch Graph Components.
     const F32 baseValue   = base.getGraphValue( effectAge );
@@ -446,7 +446,7 @@ F32 ParticleAssetField::calcGraphBVE( const ParticleAssetField& base, const Part
 
 //-----------------------------------------------------------------------------
 
-F32 ParticleAssetField::calcGraphBVLE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& overlife, const ParticleAssetField& effect, const F32 effectAge, const F32 particleAge, const bool modulate, const F32 modulo )
+F32 ParticleAssetField::calculateFieldBVLE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& overlife, const ParticleAssetField& effect, const F32 effectAge, const F32 particleAge, const bool modulate, const F32 modulo )
 {
     // Fetch Graph Components.
     const F32 baseValue   = base.getGraphValue( effectAge );

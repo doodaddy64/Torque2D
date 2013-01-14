@@ -113,21 +113,21 @@ private:
 
 
     // Graph Properties.
-    ParticleAssetField_BV        mParticleLife;
-    ParticleAssetField_BV        mQuantity;
-    ParticleAssetField_BVL       mSizeX;
-    ParticleAssetField_BVL       mSizeY;
-    ParticleAssetField_BVL       mSpeed;
-    ParticleAssetField_BVL       mSpin;
-    ParticleAssetField_BVL       mFixedForce;
-    ParticleAssetField_BVL       mRandomMotion;
-    ParticleAssetField_BV        mEmissionForce;
-    ParticleAssetField_BV        mEmissionAngle;
-    ParticleAssetField_BV        mEmissionArc;
-    ParticleAssetField_L         mColourRed;
-    ParticleAssetField_L         mColourGreen;
-    ParticleAssetField_L         mColourBlue;
-    ParticleAssetField_L         mVisibility;
+    ParticleAssetFieldBaseVariation        mParticleLife;
+    ParticleAssetFieldBaseVariation        mQuantity;
+    ParticleAssetFieldBaseVariationLife       mSizeX;
+    ParticleAssetFieldBaseVariationLife       mSizeY;
+    ParticleAssetFieldBaseVariationLife       mSpeed;
+    ParticleAssetFieldBaseVariationLife       mSpin;
+    ParticleAssetFieldBaseVariationLife       mFixedForce;
+    ParticleAssetFieldBaseVariationLife       mRandomMotion;
+    ParticleAssetFieldBaseVariation        mEmissionForce;
+    ParticleAssetFieldBaseVariation        mEmissionAngle;
+    ParticleAssetFieldBaseVariation        mEmissionArc;
+    ParticleAssetFieldLife         mColourRed;
+    ParticleAssetFieldLife         mColourGreen;
+    ParticleAssetFieldLife         mColourBlue;
+    ParticleAssetFieldLife         mVisibility;
 
     /// Other Properties.
     bool                    mFixedAspect;

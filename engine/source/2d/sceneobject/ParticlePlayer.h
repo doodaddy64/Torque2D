@@ -3,34 +3,36 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _PARTICLE_ASSET_EMITTER_H_
-#define _PARTICLE_ASSET_EMITTER_H_
+#ifndef _PARTICLE_PLAYER_H_
+#define _PARTICLE_PLAYER_H_
 
-#ifndef _PARTICLE_ASSET_FIELD_H_
-#include "2d/assets/particleAssetField.h"
+#ifndef _PARTICLE_ASSET_H_
+#include "2d/assets/particleAsset.h"
 #endif
 
-#ifndef _SIM_OBJECT_H_
-#include "sim/simObject.h"
+#ifndef _SCENE_OBJECT_H_
+#include "2d/sceneObject/sceneObject.h"
 #endif
 
 //-----------------------------------------------------------------------------
 
-class ParticleAssetEmitter : public SimObject
+class ParticlePlayer : public SceneObject
 {
 private:
-    typedef SimObject Parent;
+    typedef SceneObject Parent;
+
+    AssetPtr<ParticleAsset> mAsset;
 
 public:
-    ParticleAssetEmitter();
-    virtual ~ParticleAssetEmitter();
+    ParticlePlayer();
+    virtual ~ParticlePlayer();
 
     static void initPersistFields();
     virtual bool onAdd();
     virtual void onRemove();
 
     /// Declare Console Object.
-    DECLARE_CONOBJECT(ParticleAssetEmitter);
+    DECLARE_CONOBJECT(ParticlePlayer);
 };
 
-#endif // _PARTICLE_ASSET_EMITTER_H_
+#endif // _PARTICLE_PLAYER_H_

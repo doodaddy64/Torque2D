@@ -63,7 +63,7 @@ private:
     /// Graph Selection.
     struct tGraphSelection
     {
-        StringTableEntry        mGraphName;
+        StringTableEntry            mGraphName;
         ParticleAssetField*          mpGraphObject;
     };
 
@@ -79,18 +79,18 @@ private:
 
 public:
     /// Graph Properties.
-    ParticleAssetField_B     mParticleLife;
-    ParticleAssetField_B     mQuantity;
-    ParticleAssetField_B     mSizeX;
-    ParticleAssetField_B     mSizeY;
-    ParticleAssetField_B     mSpeed;
-    ParticleAssetField_B     mSpin;
-    ParticleAssetField_B     mFixedForce;
-    ParticleAssetField_B     mRandomMotion;
-    ParticleAssetField_BV    mEmissionForce;
-    ParticleAssetField_BV    mEmissionAngle;
-    ParticleAssetField_BV    mEmissionArc;
-    ParticleAssetField_B     mVisibility;
+    ParticleAssetFieldBase     mParticleLife;
+    ParticleAssetFieldBase     mQuantity;
+    ParticleAssetFieldBase     mSizeX;
+    ParticleAssetFieldBase     mSizeY;
+    ParticleAssetFieldBase     mSpeed;
+    ParticleAssetFieldBase     mSpin;
+    ParticleAssetFieldBase     mFixedForce;
+    ParticleAssetFieldBase     mRandomMotion;
+    ParticleAssetFieldBaseVariation    mEmissionForce;
+    ParticleAssetFieldBaseVariation    mEmissionAngle;
+    ParticleAssetFieldBaseVariation    mEmissionArc;
+    ParticleAssetFieldBase     mVisibility;
 
     /// Effect Life Mode.
     enum eEffectLifeMode

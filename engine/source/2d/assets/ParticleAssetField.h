@@ -66,9 +66,9 @@ public:
     inline F32 getValueScale( void ) const { return mValueScale; };
 
     // Calculate Graph Variants.
-    static F32 calcGraphBV( const ParticleAssetField& base, const ParticleAssetField& variation, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
-    static F32 calcGraphBVE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& effect, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
-    static F32 calcGraphBVLE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& overlife, const ParticleAssetField& effect, const F32 effectTime, const F32 particleAge, const bool modulate = false, const F32 modulo = 0.0f );
+    static F32 calculateFieldBV( const ParticleAssetField& base, const ParticleAssetField& variation, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
+    static F32 calculateFieldBVE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& effect, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
+    static F32 calculateFieldBVLE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& overlife, const ParticleAssetField& effect, const F32 effectTime, const F32 particleAge, const bool modulate = false, const F32 modulo = 0.0f );
 
 protected:
     void onTamlCustomWrite( TamlCollection& customCollection );
@@ -76,80 +76,85 @@ protected:
 };
 
 //-----------------------------------------------------------------------------
-//
-//  Some explanation of the acronyms used here is called for...
-//
-//  B - Base Value used in the emitter
-//  V - Variation Value used in the emitter
-//  L - Over-Life Value used in the particle.
-//  E - Effect Value used in the effect.
-//
-//  The particle generation system has fields which are initially set when the
-//  particle is created and then scaled during the lifetime of the particle.
-//  When the particle is created, each field is calculated based upon a value
-//  from its base/variation graphs which are against the effects age.  Into this
-//  a scaling from the effect itself is added.
-//
-//  When the particle is active, these values are scaled using the over-life
-//  graphs for the appropriate fields.
-//
-//  BV -    This is the calculation where the field does not use either the
-//          over-life field 'L' of the effect field 'E'.
-//
-//  BVE -   This is the calculation where the field does not use the over-life
-//          field 'L'.
-//
-//  BVLE -  This is the full calculation including the over-life field.
-//
-//-----------------------------------------------------------------------------
 
-/// Base-Only Graph.
-struct ParticleAssetField_B
+/// Base field.
+class ParticleAssetFieldBase
 {
-   ParticleAssetField       GraphField_Base;
+private:
+    ParticleAssetField mBase;
 
-   virtual void copyTo(ParticleAssetField_B& graph)
-   {
-      GraphField_Base.copyTo(graph.GraphField_Base);
-   };
-};
+public:
+    inline ParticleAssetField& getBase( void ) { return mBase; }
 
-/// Life-Only Graph.
-struct ParticleAssetField_L
-{
-   ParticleAssetField       GraphField_OverLife;
-
-   void copyTo(ParticleAssetField_L& graph)
-   {
-      GraphField_OverLife.copyTo(graph.GraphField_OverLife);
-   };
-};
-
-/// Base & Variation Graphs.
-struct ParticleAssetField_BV
-{
-    ParticleAssetField       GraphField_Base;
-    ParticleAssetField       GraphField_Variation;
-
-    void copyTo(ParticleAssetField_BV& graph)
+    virtual void copyTo( ParticleAssetFieldBase& particleField )
     {
-       GraphField_Base.copyTo(graph.GraphField_Base);
-       GraphField_Variation.copyTo(graph.GraphField_Variation);
+        mBase.copyTo( particleField.getBase() );
     };
 };
 
-/// Base, Variation and Over-Time Graphs.
-struct ParticleAssetField_BVL
-{
-    ParticleAssetField       GraphField_Base;
-    ParticleAssetField       GraphField_Variation;
-    ParticleAssetField       GraphField_OverLife;
+//-----------------------------------------------------------------------------
 
-    void copyTo(ParticleAssetField_BVL& graph)
+/// Life field.
+class ParticleAssetFieldLife
+{
+private:
+    ParticleAssetField mLife;
+
+public:
+    inline ParticleAssetField& getLife( void ) { return mLife; }
+
+    void copyTo( ParticleAssetFieldLife& particleField )
     {
-       GraphField_Base.copyTo(graph.GraphField_Base);
-       GraphField_Variation.copyTo(graph.GraphField_Variation);
-       GraphField_OverLife.copyTo(graph.GraphField_OverLife);
+        mLife.copyTo( particleField.getLife() );
+    };
+};
+
+//-----------------------------------------------------------------------------
+
+/// Variation field.
+class ParticleAssetFieldVariation
+{
+private:
+    ParticleAssetField mVariation;
+
+public:
+    inline ParticleAssetField& getVaritation( void ) { return mVariation; }
+
+    virtual void copyTo( ParticleAssetFieldVariation& particleField )
+    {
+        mVariation.copyTo( particleField.getVaritation() );
+    };
+};
+
+//-----------------------------------------------------------------------------
+
+/// Base and variation fields.
+class ParticleAssetFieldBaseVariation :
+    public ParticleAssetFieldBase,
+    public ParticleAssetFieldVariation
+{
+public:
+    void copyTo( ParticleAssetFieldBaseVariation& particleField )
+    {
+        getBase().copyTo( particleField.getBase() );
+        getVaritation().copyTo( particleField.getVaritation() );
+    };
+};
+
+//-----------------------------------------------------------------------------
+
+/// Base, variation and life fields.
+class ParticleAssetFieldBaseVariationLife :
+    public ParticleAssetFieldBase,
+    public ParticleAssetFieldVariation,
+    public ParticleAssetFieldLife
+{
+public:
+    void copyTo( ParticleAssetFieldBaseVariationLife& particleField )
+    {
+        getBase().copyTo( particleField.getBase() );
+        getVaritation().copyTo( particleField.getVaritation() );
+        getLife().copyTo( particleField.getLife() );
     };
 };
 

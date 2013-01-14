@@ -171,9 +171,9 @@ void ParticleEmitter::integrateParticle( tParticleNode* pParticleNode, F32 parti
     // **********************************************************************************************************************
 
     // Scale Size-X.
-    pParticleNode->mRenderSize.x = mClampF(    pParticleNode->mSize.x * mSizeX.GraphField_OverLife.getGraphValue( particleAge ),
-                                                mSizeX.GraphField_Base.getMinValue(),
-                                                mSizeX.GraphField_Base.getMaxValue() );
+    pParticleNode->mRenderSize.x = mClampF(    pParticleNode->mSize.x * mSizeX.mLife.getGraphValue( particleAge ),
+                                                mSizeX.mBase.getMinValue(),
+                                                mSizeX.mBase.getMaxValue() );
 
     // Is the Particle Aspect-Locked?
     if ( mFixedAspect )
@@ -184,42 +184,42 @@ void ParticleEmitter::integrateParticle( tParticleNode* pParticleNode, F32 parti
     else
     {
         // No, so Scale Size-Y.
-        pParticleNode->mRenderSize.y = mClampF(    pParticleNode->mSize.y * mSizeY.GraphField_OverLife.getGraphValue( particleAge ),
-                                                    mSizeY.GraphField_Base.getMinValue(),
-                                                    mSizeY.GraphField_Base.getMaxValue() );
+        pParticleNode->mRenderSize.y = mClampF(    pParticleNode->mSize.y * mSizeY.mLife.getGraphValue( particleAge ),
+                                                    mSizeY.mBase.getMinValue(),
+                                                    mSizeY.mBase.getMaxValue() );
     }
 
 
     // **********************************************************************************************************************
     // Scale Speed.
     // **********************************************************************************************************************
-    pParticleNode->mRenderSpeed = mClampF(  pParticleNode->mSpeed * mSpeed.GraphField_OverLife.getGraphValue( particleAge ),
-                                            mSpeed.GraphField_Base.getMinValue(),
-                                            mSpeed.GraphField_Base.getMaxValue() );
+    pParticleNode->mRenderSpeed = mClampF(  pParticleNode->mSpeed * mSpeed.mLife.getGraphValue( particleAge ),
+                                            mSpeed.mBase.getMinValue(),
+                                            mSpeed.mBase.getMaxValue() );
 
 
     // **********************************************************************************************************************
     // Scale Spin (if Keep Aligned is not selected)
     // **********************************************************************************************************************
     if ( !(mParticleOrientationMode == ALIGNED && mAlign_KeepAligned) )
-        pParticleNode->mRenderSpin = pParticleNode->mSpin * mSpin.GraphField_OverLife.getGraphValue( particleAge );
+        pParticleNode->mRenderSpin = pParticleNode->mSpin * mSpin.mLife.getGraphValue( particleAge );
 
 
 
     // **********************************************************************************************************************
     // Scale Fixed-Force.
     // **********************************************************************************************************************
-    pParticleNode->mRenderFixedForce = mClampF( pParticleNode->mFixedForce * mFixedForce.GraphField_OverLife.getGraphValue( particleAge ),
-                                                mFixedForce.GraphField_Base.getMinValue(),
-                                                mFixedForce.GraphField_Base.getMaxValue() );
+    pParticleNode->mRenderFixedForce = mClampF( pParticleNode->mFixedForce * mFixedForce.mLife.getGraphValue( particleAge ),
+                                                mFixedForce.mBase.getMinValue(),
+                                                mFixedForce.mBase.getMaxValue() );
 
 
     // **********************************************************************************************************************
     // Scale Random-Motion.
     // **********************************************************************************************************************
-    pParticleNode->mRenderRandomMotion = mClampF(   pParticleNode->mRandomMotion * mRandomMotion.GraphField_OverLife.getGraphValue( particleAge ),
-                                                    mRandomMotion.GraphField_Base.getMinValue(),
-                                                    mRandomMotion.GraphField_Base.getMaxValue() );
+    pParticleNode->mRenderRandomMotion = mClampF(   pParticleNode->mRandomMotion * mRandomMotion.mLife.getGraphValue( particleAge ),
+                                                    mRandomMotion.mBase.getMinValue(),
+                                                    mRandomMotion.mBase.getMaxValue() );
 
 
     // **********************************************************************************************************************
@@ -227,24 +227,24 @@ void ParticleEmitter::integrateParticle( tParticleNode* pParticleNode, F32 parti
     // **********************************************************************************************************************
 
     // Red.
-    pParticleNode->mColour.red = mClampF(   mColourRed.GraphField_OverLife.getGraphValue( particleAge ),
-                                            mColourRed.GraphField_OverLife.getMinValue(),
-                                            mColourRed.GraphField_OverLife.getMaxValue() );
+    pParticleNode->mColour.red = mClampF(   mColourRed.mLife.getGraphValue( particleAge ),
+                                            mColourRed.mLife.getMinValue(),
+                                            mColourRed.mLife.getMaxValue() );
 
     // Green.
-    pParticleNode->mColour.green = mClampF( mColourGreen.GraphField_OverLife.getGraphValue( particleAge ),
-                                            mColourGreen.GraphField_OverLife.getMinValue(),
-                                            mColourGreen.GraphField_OverLife.getMaxValue() );
+    pParticleNode->mColour.green = mClampF( mColourGreen.mLife.getGraphValue( particleAge ),
+                                            mColourGreen.mLife.getMinValue(),
+                                            mColourGreen.mLife.getMaxValue() );
 
     // Blue.
-    pParticleNode->mColour.blue = mClampF(  mColourBlue.GraphField_OverLife.getGraphValue( particleAge ),
-                                            mColourBlue.GraphField_OverLife.getMinValue(),
-                                            mColourBlue.GraphField_OverLife.getMaxValue() );
+    pParticleNode->mColour.blue = mClampF(  mColourBlue.mLife.getGraphValue( particleAge ),
+                                            mColourBlue.mLife.getMinValue(),
+                                            mColourBlue.mLife.getMaxValue() );
 
     // Alpha.
-    pParticleNode->mColour.alpha = mClampF( mVisibility.GraphField_OverLife.getGraphValue( particleAge ) * pParentEffectObject->mVisibility.GraphField_Base.getGraphValue( particleAge ),
-                                            mVisibility.GraphField_OverLife.getMinValue(),
-                                            mVisibility.GraphField_OverLife.getMaxValue() );
+    pParticleNode->mColour.alpha = mClampF( mVisibility.mLife.getGraphValue( particleAge ) * pParentEffectObject->mVisibility.mBase.getGraphValue( particleAge ),
+                                            mVisibility.mLife.getMinValue(),
+                                            mVisibility.mLife.getMaxValue() );
 
 
 
@@ -431,13 +431,13 @@ void ParticleEmitter::integrateObject( const F32 totalTime, const F32 elapsedTim
             mTimeSinceLastGeneration += elapsedTime;
 
             // Calculate Local Emission Quantity.
-            const F32 baseEmission = mQuantity.GraphField_Base.getGraphValue( effectAge );
-            const F32 varEmission = mQuantity.GraphField_Variation.getGraphValue( effectAge ) * 0.5f;
-            const F32 effectEmission = pParentEffectObject->mQuantity.GraphField_Base.getGraphValue( effectAge ) * mParticlePref;
+            const F32 baseEmission = mQuantity.mBase.getGraphValue( effectAge );
+            const F32 varEmission = mQuantity.mVariation.getGraphValue( effectAge ) * 0.5f;
+            const F32 effectEmission = pParentEffectObject->mQuantity.mBase.getGraphValue( effectAge ) * mParticlePref;
 
             const F32 localEmission = mClampF(    (baseEmission + CoreMath::mGetRandomF(-varEmission, varEmission)) * effectEmission,
-                                                  mQuantity.GraphField_Base.getMinValue(),
-                                                  mQuantity.GraphField_Base.getMaxValue() );
+                                                  mQuantity.mBase.getMinValue(),
+                                                  mQuantity.mBase.getMaxValue() );
             const U32 emission = U32(mFloor(localEmission * mTimeSinceLastGeneration));
 
             // Do we have an emission?
@@ -663,98 +663,98 @@ void ParticleEmitter::initialise( ParticleEffect* pParentEffect )
     // ****************************************************************************
     // Initialise Graph Selections.
     // ****************************************************************************
-    addGraphSelection( "particlelife_base", &mParticleLife.GraphField_Base );
-    addGraphSelection( "particlelife_var", &mParticleLife.GraphField_Variation );
+    addGraphSelection( "particlelife_base", &mParticleLife.mBase );
+    addGraphSelection( "particlelife_var", &mParticleLife.mVariation );
 
-    addGraphSelection( "quantity_base", &mQuantity.GraphField_Base );
-    addGraphSelection( "quantity_var", &mQuantity.GraphField_Variation );
+    addGraphSelection( "quantity_base", &mQuantity.mBase );
+    addGraphSelection( "quantity_var", &mQuantity.mVariation );
 
-    addGraphSelection( "sizex_base", &mSizeX.GraphField_Base );
-    addGraphSelection( "sizex_var", &mSizeX.GraphField_Variation );
-    addGraphSelection( "sizex_life", &mSizeX.GraphField_OverLife );
+    addGraphSelection( "sizex_base", &mSizeX.mBase );
+    addGraphSelection( "sizex_var", &mSizeX.mVariation );
+    addGraphSelection( "sizex_life", &mSizeX.mLife );
 
-    addGraphSelection( "sizey_base", &mSizeY.GraphField_Base );
-    addGraphSelection( "sizey_var", &mSizeY.GraphField_Variation );
-    addGraphSelection( "sizey_life", &mSizeY.GraphField_OverLife );
+    addGraphSelection( "sizey_base", &mSizeY.mBase );
+    addGraphSelection( "sizey_var", &mSizeY.mVariation );
+    addGraphSelection( "sizey_life", &mSizeY.mLife );
 
-    addGraphSelection( "speed_base", &mSpeed.GraphField_Base );
-    addGraphSelection( "speed_var", &mSpeed.GraphField_Variation );
-    addGraphSelection( "speed_life", &mSpeed.GraphField_OverLife );
+    addGraphSelection( "speed_base", &mSpeed.mBase );
+    addGraphSelection( "speed_var", &mSpeed.mVariation );
+    addGraphSelection( "speed_life", &mSpeed.mLife );
 
-    addGraphSelection( "spin_base", &mSpin.GraphField_Base );
-    addGraphSelection( "spin_var", &mSpin.GraphField_Variation );
-    addGraphSelection( "spin_life", &mSpin.GraphField_OverLife );
+    addGraphSelection( "spin_base", &mSpin.mBase );
+    addGraphSelection( "spin_var", &mSpin.mVariation );
+    addGraphSelection( "spin_life", &mSpin.mLife );
 
-    addGraphSelection( "fixedforce_base", &mFixedForce.GraphField_Base );
-    addGraphSelection( "fixedforce_var", &mFixedForce.GraphField_Variation );
-    addGraphSelection( "fixedforce_life", &mFixedForce.GraphField_OverLife );
+    addGraphSelection( "fixedforce_base", &mFixedForce.mBase );
+    addGraphSelection( "fixedforce_var", &mFixedForce.mVariation );
+    addGraphSelection( "fixedforce_life", &mFixedForce.mLife );
 
-    addGraphSelection( "randommotion_base", &mRandomMotion.GraphField_Base );
-    addGraphSelection( "randommotion_var", &mRandomMotion.GraphField_Variation );
-    addGraphSelection( "randommotion_life", &mRandomMotion.GraphField_OverLife );
+    addGraphSelection( "randommotion_base", &mRandomMotion.mBase );
+    addGraphSelection( "randommotion_var", &mRandomMotion.mVariation );
+    addGraphSelection( "randommotion_life", &mRandomMotion.mLife );
 
-    addGraphSelection( "emissionforce_base", &mEmissionForce.GraphField_Base );
-    addGraphSelection( "emissionforce_var", &mEmissionForce.GraphField_Variation );
+    addGraphSelection( "emissionforce_base", &mEmissionForce.mBase );
+    addGraphSelection( "emissionforce_var", &mEmissionForce.mVariation );
 
-    addGraphSelection( "emissionangle_base", &mEmissionAngle.GraphField_Base );
-    addGraphSelection( "emissionangle_var", &mEmissionAngle.GraphField_Variation );
+    addGraphSelection( "emissionangle_base", &mEmissionAngle.mBase );
+    addGraphSelection( "emissionangle_var", &mEmissionAngle.mVariation );
 
-    addGraphSelection( "emissionarc_base", &mEmissionArc.GraphField_Base );
-    addGraphSelection( "emissionarc_var", &mEmissionArc.GraphField_Variation );
+    addGraphSelection( "emissionarc_base", &mEmissionArc.mBase );
+    addGraphSelection( "emissionarc_var", &mEmissionArc.mVariation );
 
-    addGraphSelection( "red_life", &mColourRed.GraphField_OverLife );
-    addGraphSelection( "green_life", &mColourGreen.GraphField_OverLife );
-    addGraphSelection( "blue_life", &mColourBlue.GraphField_OverLife );
-    addGraphSelection( "visibility_life", &mVisibility.GraphField_OverLife );
+    addGraphSelection( "red_life", &mColourRed.mLife );
+    addGraphSelection( "green_life", &mColourGreen.mLife );
+    addGraphSelection( "blue_life", &mColourBlue.mLife );
+    addGraphSelection( "visibility_life", &mVisibility.mLife );
 
 
 
     // ****************************************************************************
     // Initialise Graphs.
     // ****************************************************************************
-    mParticleLife.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 1000.0f, 2.0f );
-    mParticleLife.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 2000.0f, 0.0f );
+    mParticleLife.mBase.setValueBounds( 1000.0f, 0.0f, 1000.0f, 2.0f );
+    mParticleLife.mVariation.setValueBounds( 1000.0f, 0.0f, 2000.0f, 0.0f );
 
-    mQuantity.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 1000.0f, 10.0f );
-    mQuantity.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 1000.0f, 0.0f );
+    mQuantity.mBase.setValueBounds( 1000.0f, 0.0f, 1000.0f, 10.0f );
+    mQuantity.mVariation.setValueBounds( 1000.0f, 0.0f, 1000.0f, 0.0f );
 
-    mSizeX.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 100.0f, 2.0f );
-    mSizeX.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
-    mSizeX.GraphField_OverLife.setValueBounds( 1.0f, -100.0f, 100.0f, 1.0f );
+    mSizeX.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 2.0f );
+    mSizeX.mVariation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
+    mSizeX.mLife.setValueBounds( 1.0f, -100.0f, 100.0f, 1.0f );
 
-    mSizeY.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 100.0f, 2.0f );
-    mSizeY.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
-    mSizeY.GraphField_OverLife.setValueBounds( 1.0f, -100.0f, 100.0f, 1.0f );
+    mSizeY.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 2.0f );
+    mSizeY.mVariation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
+    mSizeY.mLife.setValueBounds( 1.0f, -100.0f, 100.0f, 1.0f );
 
-    mSpeed.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 100.0f, 10.0f );
-    mSpeed.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
-    mSpeed.GraphField_OverLife.setValueBounds( 1.0f, -100.0f, 100.0f, 1.0f );
+    mSpeed.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 10.0f );
+    mSpeed.mVariation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
+    mSpeed.mLife.setValueBounds( 1.0f, -100.0f, 100.0f, 1.0f );
 
-    mSpin.GraphField_Base.setValueBounds( 1000.0f, -1000.0f, 1000.0f, 0.0f );
-    mSpin.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 2000.0f, 0.0f );
-    mSpin.GraphField_OverLife.setValueBounds( 1.0f, -1000.0f, 1000.0f, 1.0f );
+    mSpin.mBase.setValueBounds( 1000.0f, -1000.0f, 1000.0f, 0.0f );
+    mSpin.mVariation.setValueBounds( 1000.0f, 0.0f, 2000.0f, 0.0f );
+    mSpin.mLife.setValueBounds( 1.0f, -1000.0f, 1000.0f, 1.0f );
 
-    mFixedForce.GraphField_Base.setValueBounds( 1000.0f, -100.0f, 100.0f, 0.0f );
-    mFixedForce.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
-    mFixedForce.GraphField_OverLife.setValueBounds( 1.0f, -100.0f, 100.0f, 1.0f );
+    mFixedForce.mBase.setValueBounds( 1000.0f, -100.0f, 100.0f, 0.0f );
+    mFixedForce.mVariation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
+    mFixedForce.mLife.setValueBounds( 1.0f, -100.0f, 100.0f, 1.0f );
 
-    mRandomMotion.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 100.0f, 0.0f );
-    mRandomMotion.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
-    mRandomMotion.GraphField_OverLife.setValueBounds( 1.0f, -100.0f, 100.0f, 1.0f );
+    mRandomMotion.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 0.0f );
+    mRandomMotion.mVariation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
+    mRandomMotion.mLife.setValueBounds( 1.0f, -100.0f, 100.0f, 1.0f );
 
-    mEmissionForce.GraphField_Base.setValueBounds( 1000.0f, -100.0f, 100.0f, 5.0f );
-    mEmissionForce.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
+    mEmissionForce.mBase.setValueBounds( 1000.0f, -100.0f, 100.0f, 5.0f );
+    mEmissionForce.mVariation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
 
-    mEmissionAngle.GraphField_Base.setValueBounds( 1000.0f, -180.0f, 180.0f, 0.0f );
-    mEmissionAngle.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 360.0f, 0.0f );
+    mEmissionAngle.mBase.setValueBounds( 1000.0f, -180.0f, 180.0f, 0.0f );
+    mEmissionAngle.mVariation.setValueBounds( 1000.0f, 0.0f, 360.0f, 0.0f );
 
-    mEmissionArc.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 360.0f, 360.0f );
-    mEmissionArc.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 720.0f, 0.0f );
+    mEmissionArc.mBase.setValueBounds( 1000.0f, 0.0f, 360.0f, 360.0f );
+    mEmissionArc.mVariation.setValueBounds( 1000.0f, 0.0f, 720.0f, 0.0f );
 
-    mColourRed.GraphField_OverLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
-    mColourGreen.GraphField_OverLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
-    mColourBlue.GraphField_OverLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
-    mVisibility.GraphField_OverLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
+    mColourRed.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
+    mColourGreen.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
+    mColourBlue.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
+    mVisibility.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
 
 
     // Set Other Properties.
@@ -1875,18 +1875,18 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     // Calculate Particle Lifetime.
     // **********************************************************************************************************************
     pParticleNode->mParticleAge = 0.0f;
-    pParticleNode->mParticleLifetime = ParticleAssetField::calcGraphBVE( mParticleLife.GraphField_Base,
-                                                                        mParticleLife.GraphField_Variation,
-                                                                        pParentEffectObject->mParticleLife.GraphField_Base,
+    pParticleNode->mParticleLifetime = ParticleAssetField::calculateFieldBVE( mParticleLife.mBase,
+                                                                        mParticleLife.mVariation,
+                                                                        pParentEffectObject->mParticleLife.mBase,
                                                                         effectAge );
 
 
     // **********************************************************************************************************************
     // Calculate Particle Size-X.
     // **********************************************************************************************************************
-    pParticleNode->mSize.x = ParticleAssetField::calcGraphBVE(  mSizeX.GraphField_Base,
-                                                            mSizeX.GraphField_Variation,
-                                                            pParentEffectObject->mSizeX.GraphField_Base,
+    pParticleNode->mSize.x = ParticleAssetField::calculateFieldBVE(  mSizeX.mBase,
+                                                            mSizeX.mVariation,
+                                                            pParentEffectObject->mSizeX.mBase,
                                                             effectAge );
 
     // Is the Particle Aspect-Locked?
@@ -1898,9 +1898,9 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     else
     {
         // No, so calculate Particle Size-Y.
-        pParticleNode->mSize.y = ParticleAssetField::calcGraphBVE(  mSizeY.GraphField_Base,
-                                                                mSizeY.GraphField_Variation,
-                                                                pParentEffectObject->mSizeY.GraphField_Base,
+        pParticleNode->mSize.y = ParticleAssetField::calculateFieldBVE(  mSizeY.mBase,
+                                                                mSizeY.mVariation,
+                                                                pParentEffectObject->mSizeY.mBase,
                                                                 effectAge );
     }
 
@@ -1915,9 +1915,9 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     // Ignore if we're using Single-Particle.
     if ( !mSingleParticle )
     {
-        pParticleNode->mSpeed = ParticleAssetField::calcGraphBVE(    mSpeed.GraphField_Base,
-                                                                mSpeed.GraphField_Variation,
-                                                                pParentEffectObject->mSpeed.GraphField_Base,
+        pParticleNode->mSpeed = ParticleAssetField::calculateFieldBVE(    mSpeed.mBase,
+                                                                mSpeed.mVariation,
+                                                                pParentEffectObject->mSpeed.mBase,
                                                                 effectAge );
     }
 
@@ -1925,18 +1925,18 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     // **********************************************************************************************************************
     // Calculate Spin.
     // **********************************************************************************************************************
-    pParticleNode->mSpin = ParticleAssetField::calcGraphBVE( mSpin.GraphField_Base,
-                                                            mSpin.GraphField_Variation,
-                                                            pParentEffectObject->mSpin.GraphField_Base,
+    pParticleNode->mSpin = ParticleAssetField::calculateFieldBVE( mSpin.mBase,
+                                                            mSpin.mVariation,
+                                                            pParentEffectObject->mSpin.mBase,
                                                             effectAge );
 
 
     // **********************************************************************************************************************
     // Calculate Fixed-Force.
     // **********************************************************************************************************************
-    pParticleNode->mFixedForce = ParticleAssetField::calcGraphBVE(   mFixedForce.GraphField_Base,
-                                                                mFixedForce.GraphField_Variation,
-                                                                pParentEffectObject->mFixedForce.GraphField_Base,
+    pParticleNode->mFixedForce = ParticleAssetField::calculateFieldBVE(   mFixedForce.mBase,
+                                                                mFixedForce.mVariation,
+                                                                pParentEffectObject->mFixedForce.mBase,
                                                                 effectAge );
 
 
@@ -1947,9 +1947,9 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     // Ignore if we're using Single-Particle.
     if ( !mSingleParticle )
     {
-        pParticleNode->mRandomMotion = ParticleAssetField::calcGraphBVE( mRandomMotion.GraphField_Base,
-                                                                        mRandomMotion.GraphField_Variation,
-                                                                        pParentEffectObject->mRandomMotion.GraphField_Base,
+        pParticleNode->mRandomMotion = ParticleAssetField::calculateFieldBVE( mRandomMotion.mBase,
+                                                                        mRandomMotion.mVariation,
+                                                                        pParentEffectObject->mRandomMotion.mBase,
                                                                         effectAge );
     }
 
@@ -1972,19 +1972,19 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
             // Yes, so calculate emission from effect...
 
             // Calculate Emission Force.
-            emissionForce = ParticleAssetField::calcGraphBV( pParentEffectObject->mEmissionForce.GraphField_Base,
-                                                            pParentEffectObject->mEmissionForce.GraphField_Variation,
+            emissionForce = ParticleAssetField::calculateFieldBV( pParentEffectObject->mEmissionForce.mBase,
+                                                            pParentEffectObject->mEmissionForce.mVariation,
                                                             effectAge);
 
             // Calculate Emission Angle.
-            emissionAngle = ParticleAssetField::calcGraphBV( pParentEffectObject->mEmissionAngle.GraphField_Base,
-                                                            pParentEffectObject->mEmissionAngle.GraphField_Variation,
+            emissionAngle = ParticleAssetField::calculateFieldBV( pParentEffectObject->mEmissionAngle.mBase,
+                                                            pParentEffectObject->mEmissionAngle.mVariation,
                                                             effectAge);
 
             // Calculate Emission Arc.
             // NOTE:-   We're actually interested in half the emission arc!
-            emissionArc = ParticleAssetField::calcGraphBV(   pParentEffectObject->mEmissionArc.GraphField_Base,
-                                                        pParentEffectObject->mEmissionArc.GraphField_Variation,
+            emissionArc = ParticleAssetField::calculateFieldBV(   pParentEffectObject->mEmissionArc.mBase,
+                                                        pParentEffectObject->mEmissionArc.mVariation,
                                                         effectAge ) * 0.5f;
         }
         else
@@ -1992,19 +1992,19 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
             // No, so calculate emission from emitter...
 
             // Calculate Emission Force.
-            emissionForce = ParticleAssetField::calcGraphBV( mEmissionForce.GraphField_Base,
-                                                            mEmissionForce.GraphField_Variation,
+            emissionForce = ParticleAssetField::calculateFieldBV( mEmissionForce.mBase,
+                                                            mEmissionForce.mVariation,
                                                             effectAge);
 
             // Calculate Emission Angle.
-            emissionAngle = ParticleAssetField::calcGraphBV( mEmissionAngle.GraphField_Base,
-                                                        mEmissionAngle.GraphField_Variation,
+            emissionAngle = ParticleAssetField::calculateFieldBV( mEmissionAngle.mBase,
+                                                        mEmissionAngle.mVariation,
                                                         effectAge );
 
             // Calculate Emission Arc.
             // NOTE:-   We're actually interested in half the emission arc!
-            emissionArc = ParticleAssetField::calcGraphBV(   mEmissionArc.GraphField_Base,
-                                                        mEmissionArc.GraphField_Variation,
+            emissionArc = ParticleAssetField::calculateFieldBV(   mEmissionArc.mBase,
+                                                        mEmissionArc.mVariation,
                                                         effectAge ) * 0.5f;
         }
 
@@ -2058,10 +2058,10 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
     // Calculate RGBA Components.
     // **********************************************************************************************************************
 
-    pParticleNode->mColour.set( mClampF( mColourRed.GraphField_OverLife.getGraphValue( 0.0f ), mColourRed.GraphField_OverLife.getMinValue(), mColourRed.GraphField_OverLife.getMaxValue() ),
-                                mClampF( mColourGreen.GraphField_OverLife.getGraphValue( 0.0f ), mColourGreen.GraphField_OverLife.getMinValue(), mColourGreen.GraphField_OverLife.getMaxValue() ),
-                                mClampF( mColourBlue.GraphField_OverLife.getGraphValue( 0.0f ), mColourBlue.GraphField_OverLife.getMinValue(), mColourBlue.GraphField_OverLife.getMaxValue() ),
-                                mClampF( mVisibility.GraphField_OverLife.getGraphValue( 0.0f ) * pParentEffectObject->mVisibility.GraphField_Base.getGraphValue( 0.0f ), mVisibility.GraphField_OverLife.getMinValue(), mVisibility.GraphField_OverLife.getMaxValue() ) );
+    pParticleNode->mColour.set( mClampF( mColourRed.mLife.getGraphValue( 0.0f ), mColourRed.mLife.getMinValue(), mColourRed.mLife.getMaxValue() ),
+                                mClampF( mColourGreen.mLife.getGraphValue( 0.0f ), mColourGreen.mLife.getMinValue(), mColourGreen.mLife.getMaxValue() ),
+                                mClampF( mColourBlue.mLife.getGraphValue( 0.0f ), mColourBlue.mLife.getMinValue(), mColourBlue.mLife.getMaxValue() ),
+                                mClampF( mVisibility.mLife.getGraphValue( 0.0f ) * pParentEffectObject->mVisibility.mBase.getGraphValue( 0.0f ), mVisibility.mLife.getMinValue(), mVisibility.mLife.getMaxValue() ) );
 
 
     // **********************************************************************************************************************

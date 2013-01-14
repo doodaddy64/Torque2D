@@ -264,6 +264,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\source\2d\sceneobject\ParticlePlayer.cc" />
     <ClCompile Include="..\..\source\2d\sceneobject\Path.cc" />
     <ClCompile Include="..\..\source\2d\sceneobject\SceneObject.cc" />
     <ClCompile Include="..\..\source\2d\sceneobject\SceneObjectGroup.cc" />
@@ -717,6 +718,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Shipping|Win32'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\..\source\2d\sceneobject\ParticlePlayer.h" />
+    <ClInclude Include="..\..\source\2d\sceneobject\ParticlePlayer_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\sceneobject\Path.h" />
     <ClInclude Include="..\..\source\2d\sceneobject\Path_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\sceneobject\SceneObject.h" />

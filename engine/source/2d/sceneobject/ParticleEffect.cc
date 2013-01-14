@@ -513,41 +513,41 @@ void ParticleEffect::initialise( void )
    // ****************************************************************************
    // Initialise Graph Selections.
    // ****************************************************************************
-   addGraphSelection( "particlelife_scale", &mParticleLife.GraphField_Base );
-   addGraphSelection( "quantity_scale", &mQuantity.GraphField_Base );
-   addGraphSelection( "sizex_scale", &mSizeX.GraphField_Base );
-   addGraphSelection( "sizey_scale", &mSizeY.GraphField_Base );
-   addGraphSelection( "speed_scale", &mSpeed.GraphField_Base );
-   addGraphSelection( "spin_scale", &mSpin.GraphField_Base );
-   addGraphSelection( "fixedforce_scale", &mFixedForce.GraphField_Base );
-   addGraphSelection( "randommotion_scale", &mRandomMotion.GraphField_Base );
-   addGraphSelection( "visibility_scale", &mVisibility.GraphField_Base );
-   addGraphSelection( "emissionforce_base", &mEmissionForce.GraphField_Base );
-   addGraphSelection( "emissionforce_var", &mEmissionForce.GraphField_Variation );
-   addGraphSelection( "emissionangle_base", &mEmissionAngle.GraphField_Base );
-   addGraphSelection( "emissionangle_var", &mEmissionAngle.GraphField_Variation );
-   addGraphSelection( "emissionarc_base", &mEmissionArc.GraphField_Base );
-   addGraphSelection( "emissionarc_var", &mEmissionArc.GraphField_Variation );
+   addGraphSelection( "particlelife_scale", &mParticleLife.mBase );
+   addGraphSelection( "quantity_scale", &mQuantity.mBase );
+   addGraphSelection( "sizex_scale", &mSizeX.mBase );
+   addGraphSelection( "sizey_scale", &mSizeY.mBase );
+   addGraphSelection( "speed_scale", &mSpeed.mBase );
+   addGraphSelection( "spin_scale", &mSpin.mBase );
+   addGraphSelection( "fixedforce_scale", &mFixedForce.mBase );
+   addGraphSelection( "randommotion_scale", &mRandomMotion.mBase );
+   addGraphSelection( "visibility_scale", &mVisibility.mBase );
+   addGraphSelection( "emissionforce_base", &mEmissionForce.mBase );
+   addGraphSelection( "emissionforce_var", &mEmissionForce.mVariation );
+   addGraphSelection( "emissionangle_base", &mEmissionAngle.mBase );
+   addGraphSelection( "emissionangle_var", &mEmissionAngle.mVariation );
+   addGraphSelection( "emissionarc_base", &mEmissionArc.mBase );
+   addGraphSelection( "emissionarc_var", &mEmissionArc.mVariation );
 
 
    // ****************************************************************************
    // Initialise Graphs.
    // ****************************************************************************
-   mParticleLife.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f );
-   mQuantity.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
-   mSizeX.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
-   mSizeY.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
-   mSpeed.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
-   mSpin.GraphField_Base.setValueBounds( 1000.0f, -100.0f, 100.0f, 1.0f ); 
-   mFixedForce.GraphField_Base.setValueBounds( 1000.0f, -100.0f, 100.0f, 1.0f ); 
-   mRandomMotion.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
-   mVisibility.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
-   mEmissionForce.GraphField_Base.setValueBounds( 1000.0f, -100.0f, 100.0f, 5.0f );
-   mEmissionForce.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
-   mEmissionAngle.GraphField_Base.setValueBounds( 1000.0f, -180.0f, 180.0f, 0.0f ); 
-   mEmissionAngle.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 360.0f, 0.0f );
-   mEmissionArc.GraphField_Base.setValueBounds( 1000.0f, 0.0f, 360.0f, 360.0f );
-   mEmissionArc.GraphField_Variation.setValueBounds( 1000.0f, 0.0f, 720.0f, 0.0f );
+   mParticleLife.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f );
+   mQuantity.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
+   mSizeX.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
+   mSizeY.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
+   mSpeed.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
+   mSpin.mBase.setValueBounds( 1000.0f, -100.0f, 100.0f, 1.0f ); 
+   mFixedForce.mBase.setValueBounds( 1000.0f, -100.0f, 100.0f, 1.0f ); 
+   mRandomMotion.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
+   mVisibility.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
+   mEmissionForce.mBase.setValueBounds( 1000.0f, -100.0f, 100.0f, 5.0f );
+   mEmissionForce.mVariation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
+   mEmissionAngle.mBase.setValueBounds( 1000.0f, -180.0f, 180.0f, 0.0f ); 
+   mEmissionAngle.mVariation.setValueBounds( 1000.0f, 0.0f, 360.0f, 0.0f );
+   mEmissionArc.mBase.setValueBounds( 1000.0f, 0.0f, 360.0f, 360.0f );
+   mEmissionArc.mVariation.setValueBounds( 1000.0f, 0.0f, 720.0f, 0.0f );
 
    // Stop Effect.
    stopEffect(false, false);

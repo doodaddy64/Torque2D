@@ -6,6 +6,10 @@
 #ifndef _PARTICLE_ASSET_H_
 #define _PARTICLE_ASSET_H_
 
+#ifndef _HASHTABLE_H
+#include "collection/hashTable.h"
+#endif
+
 #ifndef _ASSET_BASE_H_
 #include "assets/assetBase.h"
 #endif
@@ -20,8 +24,42 @@ class ParticleAsset : public AssetBase
 {
 private:
     typedef AssetBase  Parent;
+    typedef Vector<ParticleAssetEmitter*>   typeEmitterVector;
+    typedef HashMap<StringTableEntry, ParticleAssetField*> typeFieldHash;
 
-    Vector<ParticleAssetEmitter*> mEmitters;
+public:
+    /// Life Mode.
+    enum LifeMode
+    {
+        INVALID,
+
+        INFINITE,
+        CYCLE,
+        KILL,
+        STOP
+    };
+
+private:
+    typeEmitterVector                       mEmitters;
+    typeFieldHash                           mFields;
+    ParticleAssetField*                     mpSelectedField;
+
+    F32                                     mLifetime;
+    LifeMode                                mLifeMode;
+
+    /// Particle fields.
+    ParticleAssetFieldBase                  mParticleLife;
+    ParticleAssetFieldBase                  mQuantity;
+    ParticleAssetFieldBase                  mSizeX;
+    ParticleAssetFieldBase                  mSizeY;
+    ParticleAssetFieldBase                  mSpeed;
+    ParticleAssetFieldBase                  mSpin;
+    ParticleAssetFieldBase                  mFixedForce;
+    ParticleAssetFieldBase                  mRandomMotion;
+    ParticleAssetFieldBaseVariation         mEmissionForce;
+    ParticleAssetFieldBaseVariation         mEmissionAngle;
+    ParticleAssetFieldBaseVariation         mEmissionArc;
+    ParticleAssetFieldBase                  mVisibility;
 
 public:
     ParticleAsset();
@@ -76,6 +114,9 @@ public:
 protected:
     virtual void initializeAsset( void );
     virtual void onAssetRefresh( void );
+
+private:
+    void addParticleField( ParticleAssetField& particleAssetField, const char* pFieldName, F32 maxTime, F32 minValue, F32 maxValue, F32 defaultValue );
 };
 
 #endif // _PARTICLE_ASSET_H_
