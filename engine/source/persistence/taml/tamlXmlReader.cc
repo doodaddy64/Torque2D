@@ -126,8 +126,8 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
     // Do we have any element children?
     if ( pChildXmlNode != NULL )
     {
-        // Yes, so fetch the sim set.
-        SimSet* pSimSet = dynamic_cast<SimSet*>( pSimObject );
+        // Fetch the Taml children.
+        TamlChildren* pChildren = dynamic_cast<TamlChildren*>( pSimObject );
 
         // Iterate siblings.
         do
@@ -145,8 +145,8 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
             // Is this a standard child element?
             if ( dStrchr( pChildXmlElement->Value(), '.' ) == NULL )
             {
-                // Is this a sim set?
-                if ( pSimSet == NULL )
+                // Is this a Taml child?
+                if ( pChildren == NULL )
                 {
                     // No, so warn.
                     Con::warnf("Taml: Child element '%s' found under parent '%s' but object cannot have children.",
@@ -165,10 +165,10 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
                     continue;
 
                 // Add child.
-                pSimSet->addObject( pChildSimObject );
+                pChildren->addTamlChild( pChildSimObject );
 
                 // Perform callback.
-                mpTaml->tamlAddParent( pCallbacks, pSimSet );
+                mpTaml->tamlAddParent( pCallbacks, pSimObject );
             }
             else
             {

@@ -559,21 +559,24 @@ void Taml::compileChildren( TamlWriteNode* pTamlWriteNode )
     // Fetch object.
     SimObject* pSimObject = pTamlWriteNode->mpSimObject;
 
-    // Fetch sim set.
-    SimSet* pSimSet = dynamic_cast<SimSet*>( pSimObject );
+    // Fetch the Taml children.
+    TamlChildren* pChildren = dynamic_cast<TamlChildren*>( pSimObject );
 
-    // Finish if object is not a sim set or contains no objects.
-    if ( pSimSet == NULL || pSimSet->size() == 0 )
+    // Finish if object does not contain Taml children.
+    if ( pChildren == NULL || pChildren->getTamlChildCount() == 0 )
         return;
 
     // Create children vector.
     pTamlWriteNode->mChildren = new typeNodeVector();
 
+    // Fetch the child count.
+    const U32 childCount = pChildren->getTamlChildCount();
+
     // Iterate children.
-    for( SimSet::iterator itr = pSimSet->begin(); itr != pSimSet->end(); ++itr )
+    for ( U32 childIndex = 0; childIndex < childCount; childIndex++ )
     {
         // Compile object.
-        TamlWriteNode* pChildTamlWriteNode = compileObject( (*itr) );
+        TamlWriteNode* pChildTamlWriteNode = compileObject( pChildren->getTamlChild(childIndex) );
 
         // Save node.
         pTamlWriteNode->mChildren->push_back( pChildTamlWriteNode );

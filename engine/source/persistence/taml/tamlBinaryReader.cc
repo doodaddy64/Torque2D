@@ -309,11 +309,11 @@ void TamlBinaryReader::parseChildren( Stream& stream, TamlCallbacks* pCallbacks,
     if ( childrenCount == 0 )
         return;
 
-    // Fetch the sim set.
-    SimSet* pSimSet = dynamic_cast<SimSet*>( pSimObject );
+    // Fetch the Taml children.
+    TamlChildren* pChildren = dynamic_cast<TamlChildren*>( pSimObject );
 
     // Is this a sim set?
-    if ( pSimSet == NULL )
+    if ( pChildren == NULL )
     {
         // No, so warn.
         Con::warnf("Taml: Child element found under parent but object cannot have children." );
@@ -331,9 +331,9 @@ void TamlBinaryReader::parseChildren( Stream& stream, TamlCallbacks* pCallbacks,
             return;
 
         // Add child.
-        pSimSet->addObject( pChildSimObject );
+        pChildren->addTamlChild( pChildSimObject );
 
         // Perform callback.
-        mpTaml->tamlAddParent( pCallbacks, pSimSet );
+        mpTaml->tamlAddParent( pCallbacks, pSimObject );
     }
 }

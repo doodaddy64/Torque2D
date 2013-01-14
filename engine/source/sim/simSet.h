@@ -11,6 +11,10 @@
 #ifndef _SIMSET_H_
 #define _SIMSET_H_
 
+#ifndef _TAML_CHILDREN_H_
+#include "persistence/taml/tamlChildren.h"
+#endif
+
 //---------------------------------------------------------------------------
 /// A set of SimObjects.
 ///
@@ -61,7 +65,7 @@
 /// @endcode
 ///
 
-class SimSet: public SimObject
+class SimSet: public SimObject, public TamlChildren
 {
    typedef SimObject Parent;
 protected:
@@ -129,6 +133,31 @@ public:
    void pushObjectToBack(SimObject* obj) { reOrder(obj, NULL); }
 
    /// @}
+
+    virtual U32 getTamlChildCount( void ) const
+    {
+        return (U32)size();
+    }
+
+    virtual SimObject* getTamlChild( const U32 childIndex ) const
+    {
+        // Sanity!
+        AssertFatal( childIndex < (U32)size(), "SimSet::getTamlChild() - Child index is out of range." );
+
+        // For when the assert is not used.
+        if ( childIndex >= (U32)size() )
+            return NULL;
+
+        return at( childIndex );
+    }
+
+    virtual void addTamlChild( SimObject* pSimObject )
+    {
+        // Sanity!
+        AssertFatal( pSimObject != NULL, "SimSet::addTamlChild() - Cannot add a NULL child object." );
+
+        addObject( pSimObject );
+    }
 
    void callOnChildren( const char * method, S32 argc, const char *argv[], bool executeOnChildGroups = true );
 
