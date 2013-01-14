@@ -5,8 +5,10 @@
 
 function createSandbox( %scopeSet )
 {    
+    // Load the preferences.
+    loadSandboxPreferences();
+    
     // Load system scripts
-    exec( "./scripts/preferences.cs" );
     exec( "./scripts/canvas.cs" );
     exec( "./scripts/openal.cs" );
     exec( "./scripts/console.cs" );
@@ -52,9 +54,32 @@ function createSandbox( %scopeSet )
 
 function destroySandbox( %scopeSet )
 {
+    // Save sandbox preferences.
+    saveSandboxPreferences();    
+    
     // Unload the active toy.
     unloadToy();
     
     // Destroy the sandbox window.
     destroySandboxWindow();
+}
+
+//-----------------------------------------------------------------------------
+
+function loadSandboxPreferences()
+{
+    // Load the default preferences.
+    exec( "./scripts/defaultPreferences.cs" );
+    
+    // Load the last session preferences if available.
+    if ( isFile("preferences.cs") )
+        exec( "preferences.cs" );   
+}
+
+//-----------------------------------------------------------------------------
+
+function saveSandboxPreferences()
+{
+    // Export only the sandbox preferences.
+    export("$pref::Sandbox::*", "preferences.cs", false, false);    
 }
