@@ -5,6 +5,10 @@
 
 #include "2d/assets/particleAssetEmitter.h"
 
+#ifndef _PARTICLE_ASSET_H_
+#include "2d/assets/particleAsset.h"
+#endif
+
 #ifndef _SCENE_OBJECT_H_
 #include "2d/sceneobject/sceneObject.h"
 #endif
@@ -183,7 +187,7 @@ void ParticleAssetEmitter::initPersistFields()
     addProtectedField("SrcBlendFactor", TypeEnum, Offset(mSrcBlendFactor, ParticleAssetEmitter), &writeSrcBlendFactor, 1, &srcBlendFactorTable);
     addProtectedField("DstBlendFactor", TypeEnum, Offset(mDstBlendFactor, ParticleAssetEmitter), &writeDstBlendFactor, 1, &dstBlendFactorTable);
     addProtectedField("AlphaTest", TypeF32, Offset(mAlphaTest, ParticleAssetEmitter), &setAlphaTest, &defaultProtectedGetFn, &writeAlphaTest, "");
-*/
+    */
 }
 
 //------------------------------------------------------------------------------
@@ -252,6 +256,9 @@ void ParticleAssetEmitter::setEmitterName( const char* pEmitterName )
     AssertFatal( mEmitterName != NULL, "ParticleAssetEmitter::setEmitterName() - Cannot set a NULL particle asset emitter name." );
 
     mEmitterName = StringTable->insert( pEmitterName );
+
+    // Refresh the asset.
+    refreshAsset();
 }
 
 //-----------------------------------------------------------------------------
@@ -273,6 +280,9 @@ void ParticleAssetEmitter::setFixedForceAngle( F32 fixedForceAngle )
     // Set Fixed-Force Angle.
     mFixedForceAngle = fixedForceAngle;
 
+    // Refresh the asset.
+    refreshAsset();
+
     // Set Fixed-Force Direction.
     mFixedForceDirection.Set( mSin(mDegToRad(mFixedForceAngle)), mCos(mDegToRad(mFixedForceAngle)) );
 }
@@ -293,21 +303,29 @@ bool ParticleAssetEmitter::setImage( const char* pAssetId, U32 frame )
     // Set asset Id.
     mImageAsset = pAssetId;
 
-    // Finish if no asset.
-    if ( mImageAsset.isNull() )
-        return false;
-
-    // Is the frame valid?
-    if ( frame >= mImageAsset->getFrameCount() )
+    // Is there an asset?
+    if ( mImageAsset.notNull() )
     {
-        // Warn.
-        Con::warnf( "ParticleAssetEmitter::setImage() - Invalid frame '%d' for ImageAsset '%s'.", frame, mImageAsset.getAssetId() );
-        // Return Here.
-        return false;
+        // Yes, so is the frame valid?
+        if ( frame >= mImageAsset->getFrameCount() )
+        {
+            // No, so warn.
+            Con::warnf( "ParticleAssetEmitter::setImage() - Invalid frame '%d' for ImageAsset '%s'.", frame, mImageAsset.getAssetId() );
+        }
+        else
+        {
+            // Yes, so set the frame.
+            mImageFrame = frame;
+        }
+    }
+    else
+    {
+        // No, so reset the image frame.
+        mImageFrame = 0;
     }
 
-    // Set Frame.
-    mImageFrame = frame;
+    // Refresh the asset.
+    refreshAsset();
 
     // Return Okay.
     return true;
@@ -329,7 +347,22 @@ bool ParticleAssetEmitter::setAnimation( const char* pAnimationAssetId )
     // Set animation asset.
     mAnimationAsset = pAnimationAssetId;
 
+    // Refresh the asset.
+    refreshAsset();
+
     return true;
+}
+
+//------------------------------------------------------------------------------
+
+inline void ParticleAssetEmitter::refreshAsset( void )
+{
+    // Finish if no owner.
+    if ( mOwner == NULL )
+        return;
+
+    // Refresh the asset.
+    mOwner->refreshAsset();
 }
 
 //------------------------------------------------------------------------------
