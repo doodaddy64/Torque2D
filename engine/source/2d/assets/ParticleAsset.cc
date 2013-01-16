@@ -250,11 +250,33 @@ void ParticleAsset::initializeAsset( void )
 
 //-----------------------------------------------------------------------------
 
-void ParticleAsset::addEmitter( ParticleAssetEmitter* pParticleAssetEmitter )
+ParticleAssetEmitter* ParticleAsset::createEmitter( void )
+{
+    // Create an emitter.
+    ParticleAssetEmitter* pParticleAssetEmitter = new ParticleAssetEmitter();
+
+    // Add the emitter.
+    if ( addEmitter( pParticleAssetEmitter ) )
+        return pParticleAssetEmitter;
+
+    // Error.
+    delete pParticleAssetEmitter;
+    return NULL;
+}
+
+//-----------------------------------------------------------------------------
+
+bool ParticleAsset::addEmitter( ParticleAssetEmitter* pParticleAssetEmitter )
 {
     // Sanity!
     AssertFatal( pParticleAssetEmitter != NULL, "Cannot add a NULL particle asset emitter." );
-    AssertFatal( pParticleAssetEmitter->getOwner() == NULL, "Cannot add a particle asset emitter that already has an owner." );
+
+    // Does the particle already have an owner?
+    if ( pParticleAssetEmitter->getOwner() != NULL )
+    {
+        Con::warnf( "ParticleAsset::addEmitter() - Cannot add a particle asset emitter that already has an owner." );
+        return false;
+    }
 
     // Is the emitter registered?
     if ( !pParticleAssetEmitter->isProperlyAdded() )
@@ -264,7 +286,7 @@ void ParticleAsset::addEmitter( ParticleAssetEmitter* pParticleAssetEmitter )
         {
             // Failed so warn.
             Con::warnf( "ParticleAsset::addEmitter() - Failed to register emitter." );
-            return;
+            return false;
         }
     }
 
@@ -276,11 +298,13 @@ void ParticleAsset::addEmitter( ParticleAssetEmitter* pParticleAssetEmitter )
 
     // Start delete notify.
     deleteNotify( pParticleAssetEmitter );
+
+    return true;
 }
 
 //------------------------------------------------------------------------------
 
-void ParticleAsset::removeEmitter( ParticleAssetEmitter* pParticleAssetEmitter )
+void ParticleAsset::removeEmitter( ParticleAssetEmitter* pParticleAssetEmitter, const bool deleteEmitter )
 {
     // Sanity!
     AssertFatal( pParticleAssetEmitter != NULL, "Cannot remove a NULL particle asset emitter." );
@@ -303,6 +327,10 @@ void ParticleAsset::removeEmitter( ParticleAssetEmitter* pParticleAssetEmitter )
 
             // Stop delete notify.
             clearNotify( pParticleAssetEmitter );
+
+            // If requested, delete the emitter.
+            if ( deleteEmitter )
+                pParticleAssetEmitter->deleteObject();
 
             return;
         }

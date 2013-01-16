@@ -73,8 +73,9 @@ public:
     void setLifeMode( const LifeMode lifemode );
     LifeMode getLifeMode( void ) const { return mLifeMode; }
 
-    void addEmitter( ParticleAssetEmitter* pParticleAssetEmitter );
-    void removeEmitter( ParticleAssetEmitter* pParticleAssetEmitter );
+    ParticleAssetEmitter* createEmitter( void );
+    bool addEmitter( ParticleAssetEmitter* pParticleAssetEmitter );
+    void removeEmitter( ParticleAssetEmitter* pParticleAssetEmitter, const bool deleteEmitter = true );
     void clearEmitters( void );
     U32 getEmitterCount( void ) const { return (U32)mEmitters.size(); }
     ParticleAssetEmitter* getEmitter( const U32 emitterIndex ) const;
