@@ -431,6 +431,36 @@
 
     [self processMouseDrag:event];
 }
+
+//-----------------------------------------------------------------------------
+// Default scrollWheel override
+- (void)scrollWheel:(NSEvent *)event
+{
+    if (!Input::isEnabled() && !Input::isMouseEnabled())
+        return;
+    
+    F32 deltaY = [event deltaY];
+    
+    if (deltaY == 0)
+        return;
+    
+    // Grab any modifiers
+    U32 modifiers;
+    [self getModifierKey:modifiers event:event];
+    
+    InputEvent torqueEvent;
+    
+    torqueEvent.deviceType = MouseDeviceType;
+    torqueEvent.deviceInst = 0;
+    torqueEvent.objType = SI_ZAXIS;
+    torqueEvent.objInst = 0;
+    torqueEvent.modifier = modifiers;
+    torqueEvent.ascii = 0;
+    torqueEvent.action = SI_MOVE;
+    torqueEvent.fValue = deltaY;
+    Game->postEvent(torqueEvent);
+}
+
 //-----------------------------------------------------------------------------
 // Default keyDown override
 - (void)keyDown:(NSEvent *)event
