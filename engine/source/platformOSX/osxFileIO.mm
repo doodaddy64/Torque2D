@@ -902,13 +902,13 @@ bool Platform::isDirectory(const char *path)
     BOOL isDirectory;
     
     // Scan the path location
-    [[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDirectory];
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDirectory];
           
      // Clean up the temp string
     [pool drain];
     
     // Return the results of the scan
-    return isDirectory;
+    return isDirectory && exists;
 }
 
 //-----------------------------------------------------------------------------
