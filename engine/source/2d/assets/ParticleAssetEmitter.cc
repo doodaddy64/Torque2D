@@ -287,4 +287,25 @@ bool ParticleAssetEmitter::setAnimation( const char* pAnimationAssetId )
     return true;
 }
 
+//------------------------------------------------------------------------------
 
+void ParticleAssetEmitter::onTamlCustomWrite( TamlCollection& customCollection )
+{
+    // Debug Profiling.
+    PROFILE_SCOPE(ParticleAssetEmitter_OnTamlCustomWrite);
+
+    // Write the fields.
+    mFields.onTamlCustomWrite( customCollection );
+}
+
+//-----------------------------------------------------------------------------
+
+void ParticleAssetEmitter::onTamlCustomRead( const TamlCollection& customCollection )
+{
+    // Debug Profiling.
+    PROFILE_SCOPE(ParticleAssetEmitter_OnTamlCustomRead);
+
+    // Read the fields.
+    mFields.onTamlCustomRead( customCollection );
+
+}

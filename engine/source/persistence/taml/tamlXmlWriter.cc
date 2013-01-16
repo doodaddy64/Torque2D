@@ -137,10 +137,6 @@ void TamlXmlWriter::compileCustomElements( TiXmlElement* pXmlElement, const Taml
         // Fetch collection property.
         TamlCollectionProperty* pCollectionProperty = *collectionPropertyItr;
 
-        // Skip if nothing in property.
-        if ( pCollectionProperty->size() == 0 )
-            continue;
-
         // Format extended element name.
         char extendedElementNameBuffer[256];
         dSprintf( extendedElementNameBuffer, sizeof(extendedElementNameBuffer), "%s.%s", pXmlElement->Value(), pCollectionProperty->mPropertyName );
@@ -154,6 +150,10 @@ void TamlXmlWriter::compileCustomElements( TiXmlElement* pXmlElement, const Taml
         {
             // Fetch property type alias.
             TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
+
+            // Skip if the type alias is set to ignore no properties and there are none.
+            if ( pPropertyTypeAlias->mIgnoreEmpty && pPropertyTypeAlias->size() == 0 )
+                continue;
 
             // Create element.
             TiXmlElement* pPropertyElement = new TiXmlElement( pPropertyTypeAlias->mAliasName );
@@ -181,8 +181,18 @@ void TamlXmlWriter::compileCustomElements( TiXmlElement* pXmlElement, const Taml
             pExtendedPropertyElement->LinkEndChild( pPropertyElement );
         }
 
-        // Write extended property element as child.
-        pXmlElement->LinkEndChild( pExtendedPropertyElement );
+        // Is the collection set to ignore no type alias' and there are none.
+        if ( pCollectionProperty->mIgnoreEmpty && pExtendedPropertyElement->NoChildren() )
+        {
+            // Yes, so delete the extended element.
+            delete pExtendedPropertyElement;
+            pExtendedPropertyElement = NULL;
+        }
+        else
+        {
+            // No, so write the extended property element as child.
+            pXmlElement->LinkEndChild( pExtendedPropertyElement );
+        }
     }
 }
 

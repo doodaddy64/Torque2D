@@ -211,6 +211,7 @@ public:
         }
 
         mAliasName = StringTable->EmptyString;
+        mIgnoreEmpty = false;
     }
 
     void set( const char* pAliasName )
@@ -395,6 +396,7 @@ public:
     }
 
     StringTableEntry    mAliasName;
+    bool                mIgnoreEmpty;
 };
 
 static FactoryCache<TamlPropertyTypeAlias> TamlPropertyTypeAliasFactory;
@@ -427,6 +429,7 @@ public:
             TamlPropertyTypeAliasFactory.cacheObject( back() );
             pop_back();
         }
+        mIgnoreEmpty = true;
     }
 
     void set( const char* pPropertyName )
@@ -437,7 +440,7 @@ public:
         mPropertyName = StringTable->insert( pPropertyName );
     }
 
-    TamlPropertyTypeAlias* addTypeAlias( const char* pAliasName )
+    TamlPropertyTypeAlias* addTypeAlias( const char* pAliasName, const bool ignoreEmpty = false )
     {
         // Create a type alias.
         TamlPropertyTypeAlias* pTypeAlias = TamlPropertyTypeAliasFactory.createObject();
@@ -445,13 +448,18 @@ public:
         // Set alias name.
         pTypeAlias->set( pAliasName );
 
+        // Set ignore-empty flag.
+        pTypeAlias->mIgnoreEmpty = ignoreEmpty;
+
         // Store type alias.
         push_back( pTypeAlias );
 
         return pTypeAlias;
     }
 
+
     StringTableEntry mPropertyName;
+    bool mIgnoreEmpty;
 };
 
 static FactoryCache<TamlCollectionProperty> TamlCollectionPropertyFactory;
@@ -483,13 +491,16 @@ public:
         }
     }
 
-    TamlCollectionProperty* addCollectionProperty( const char* pPropertyName )
+    TamlCollectionProperty* addCollectionProperty( const char* pPropertyName, const bool ignoreEmpty = true )
     {
         // Create a collection property.
         TamlCollectionProperty* pCollectionProperty = TamlCollectionPropertyFactory.createObject();
 
         // Set property name.
         pCollectionProperty->set( pPropertyName );
+
+        // Set ignore-empty flag.
+        pCollectionProperty->mIgnoreEmpty = ignoreEmpty;
 
 #if TORQUE_DEBUG
         // Ensure an property name conflict does not exist.

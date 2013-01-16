@@ -148,6 +148,10 @@ void TamlBinaryWriter::writeCustomElements( Stream& stream, const TamlWriteNode*
             // Fetch property type alias.
             TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
 
+            // Skip if the type alias is set to ignore no properties and there are none.
+            if ( pPropertyTypeAlias->mIgnoreEmpty && pPropertyTypeAlias->size() == 0 )
+                continue;
+
             // Write property type alias name.
             stream.writeString( pPropertyTypeAlias->mAliasName );
 

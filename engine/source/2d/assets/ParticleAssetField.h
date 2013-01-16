@@ -22,18 +22,23 @@ public:
     /// Data Key Node.
     struct DataKey
     {
+        DataKey() {}
+        DataKey( const F32 time, const F32 value ) : mTime( time ), mValue( value ) {}
+
         F32     mTime;
         F32     mValue;
     };
 
 private:
     StringTableEntry mFieldName;
-    F32 mValueScale;
-    F32 mTimeScale;
+    F32 mRepeatTime;
     F32 mMaxTime;
     F32 mMinValue;
     F32 mMaxValue;
+    F32 mValueScale;
     F32 mDefaultValue;
+
+    bool mValueBoundsDirty;
 
     Vector<DataKey> mDataKeys;
 
@@ -43,35 +48,39 @@ public:
 
     void copyTo( ParticleAssetField& field );
 
-    void setFieldName( const char* pFieldName );
-    StringTableEntry getFieldName( void ) const { return mFieldName; }
-    bool setValueScale( const F32 valueScale );
-    bool setTimeRepeat( const F32 timeRepeat );
+    void initialize( const F32 maxTime, const F32 minValue, const F32 maxValue, const F32 defaultValue );
     void setValueBounds( F32 maxTime, F32 minValue, F32 maxValue, F32 defaultValue );
-    void resetDataKeys( void );
-    S32 addDataKey( const F32 time, const F32 value );
-    bool removeDataKey( const U32 index );
-    void clearDataKeys( void );
-    const DataKey getDataKeyNode( const U32 index ) const;
-    bool setDataKeyValue( const U32 index, const F32 value );
-    F32 getDataKeyValue( const U32 index ) const;
-    F32 getDataKeyTime( const U32 index ) const;
-    U32 getDataKeyCount( void ) const;
-    F32 getFieldValue( F32 time ) const;
+
+    void setFieldName( const char* pFieldName );
+    inline StringTableEntry getFieldName( void ) const { return mFieldName; }
+    bool setValueScale( const F32 valueScale );
+    inline F32 getValueScale( void ) { return mValueScale; }
+    bool setRepeatTime( const F32 repeatTime );
+    inline F32 getRepeatTime( void ) const { return mRepeatTime; }
     inline F32 getMinValue( void ) const { return mMinValue; };
     inline F32 getMaxValue( void ) const { return mMaxValue; };
     inline F32 getMinTime( void ) const { return 0.0f; }
     inline F32 getMaxTime( void ) const { return mMaxTime; };
-    inline F32 getTimeRepeat( void ) const { return mTimeScale - 1.0f; };
     inline F32 getValueScale( void ) const { return mValueScale; };
+    inline F32 getDefaultValue( void ) const { return mDefaultValue; }
+
+    void resetDataKeys( void );
+    S32 addDataKey( const F32 time, const F32 value );
+    bool removeDataKey( const U32 index );
+    void clearDataKeys( void );
+    const DataKey& getDataKeyNode( const U32 index ) const;
+    bool setDataKeyValue( const U32 index, const F32 value );
+    F32 getDataKeyValue( const U32 index ) const;
+    F32 getDataKeyTime( const U32 index ) const;
+    inline U32 getDataKeyCount( void ) const { return (U32)mDataKeys.size(); }
+    inline F32 getFieldValue( F32 time ) const;
 
     static F32 calculateFieldBV( const ParticleAssetField& base, const ParticleAssetField& variation, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
     static F32 calculateFieldBVE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& effect, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
     static F32 calculateFieldBVLE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& overlife, const ParticleAssetField& effect, const F32 effectTime, const F32 particleAge, const bool modulate = false, const F32 modulo = 0.0f );
 
-protected:
-    void onTamlCustomWrite( TamlCollection& customCollection );
-    void onTamlCustomRead( const TamlCollection& customCollection );
+    void onTamlCustomWrite( TamlCollectionProperty* pCollectionProperty  );
+    void onTamlCustomRead( const TamlPropertyTypeAlias* pPropertyTypeAlias );
 };
 
 //-----------------------------------------------------------------------------
