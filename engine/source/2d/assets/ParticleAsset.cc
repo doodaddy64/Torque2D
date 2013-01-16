@@ -296,7 +296,7 @@ ParticleAssetEmitter* ParticleAsset::findEmitter( const char* pEmitterName ) con
     // Search for emitter..
     for( typeEmitterVector::const_iterator emitterItr = mEmitters.begin(); emitterItr != mEmitters.end(); ++emitterItr )
     {
-        if ( (*emitterItr)->getEmitterName() == pEmitterName )
+        if ( (*emitterItr)->getEmitterName() == emitterName )
             return *emitterItr;
     }
 

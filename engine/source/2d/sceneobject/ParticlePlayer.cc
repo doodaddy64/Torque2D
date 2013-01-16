@@ -314,7 +314,7 @@ bool ParticlePlayer::playEffect( bool resetParticles )
     // Play All Emitters.
     for ( U32 n = 0; n < emitterCount; n++ )
     {
-        ParticleAssetEmitter* pParticleAssetEmitter = pParticleAsset->getEmitter( emitterCount );
+        //ParticleAssetEmitter* pEmitter = pParticleAsset->getEmitter( emitterCount );
         //if( pEmitter )
             //pEmitter->playEmitter( resetParticles );
     }
