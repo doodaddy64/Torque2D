@@ -63,6 +63,7 @@ public:
     virtual bool onAdd();
     virtual void onRemove();
     virtual void copyTo(SimObject* object);
+    virtual void onDeleteNotify( SimObject* object );
 
     // Asset validation.
     virtual bool isAssetValid( void ) const;
@@ -73,6 +74,7 @@ public:
     LifeMode getLifeMode( void ) const { return mLifeMode; }
 
     void addEmitter( ParticleAssetEmitter* pParticleAssetEmitter );
+    void removeEmitter( ParticleAssetEmitter* pParticleAssetEmitter );
     void clearEmitters( void );
     U32 getEmitterCount( void ) const { return (U32)mEmitters.size(); }
     ParticleAssetEmitter* getEmitter( const U32 emitterIndex ) const;

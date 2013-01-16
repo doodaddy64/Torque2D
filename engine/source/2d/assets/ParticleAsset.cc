@@ -152,6 +152,30 @@ void ParticleAsset::copyTo(SimObject* object)
 
 //------------------------------------------------------------------------------
 
+void ParticleAsset::onDeleteNotify( SimObject* object )
+{
+    // Fetch emitter.
+    ParticleAssetEmitter* pParticleAssetEmitter = dynamic_cast<ParticleAssetEmitter*>( object );
+
+    // Ignore if not an emitter.
+    if ( pParticleAssetEmitter == NULL )
+        return;
+
+    // Iterate emitters.
+    for ( typeEmitterVector::iterator emitterItr = mEmitters.begin(); emitterItr != mEmitters.end(); ++emitterItr )
+    {
+        // Is this the emitter being deleted?
+        if ( *emitterItr == object )
+        {
+            // Yes, so remove it.
+            mEmitters.erase( emitterItr );
+            return;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+
 void ParticleAsset::onAssetRefresh( void ) 
 {
     // Ignore if not yet added to the sim.
@@ -249,6 +273,43 @@ void ParticleAsset::addEmitter( ParticleAssetEmitter* pParticleAssetEmitter )
 
     // Add the emitter.
     mEmitters.push_back( pParticleAssetEmitter );
+
+    // Start delete notify.
+    deleteNotify( pParticleAssetEmitter );
+}
+
+//------------------------------------------------------------------------------
+
+void ParticleAsset::removeEmitter( ParticleAssetEmitter* pParticleAssetEmitter )
+{
+    // Sanity!
+    AssertFatal( pParticleAssetEmitter != NULL, "Cannot remove a NULL particle asset emitter." );
+
+    // Is this emitter owned by this asset?
+    if ( pParticleAssetEmitter->getOwner() != this )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAsset::removeEmitter() - Cannot remove the particle emitter as it is not owned by this particle asset." );
+        return;
+    }
+
+    // Iterate emitters.
+    for ( typeEmitterVector::iterator emitterItr = mEmitters.begin(); emitterItr != mEmitters.end(); ++emitterItr )
+    {
+        if ( *emitterItr == pParticleAssetEmitter )
+        {
+            // Remove emitter.
+            mEmitters.erase( emitterItr );
+
+            // Stop delete notify.
+            clearNotify( pParticleAssetEmitter );
+
+            return;
+        }
+    }
+
+    // Warn.
+    Con::warnf( "ParticleAsset::removeEmitter() - Cannot remove the particle emitter as it is not part of this particle asset." );
 }
 
 //------------------------------------------------------------------------------

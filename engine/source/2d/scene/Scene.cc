@@ -3308,7 +3308,7 @@ void Scene::setDebugSceneObject( SceneObject* pSceneObject )
     if ( pSceneObject == NULL )
         return;
 
-    // Add delete notification for new monitored object/
+    // Add delete notification for new monitored object.
     deleteNotify( pSceneObject );
 }
 
