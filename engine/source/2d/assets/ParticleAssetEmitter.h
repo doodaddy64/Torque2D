@@ -32,7 +32,7 @@ class ParticleAsset;
 
 //-----------------------------------------------------------------------------
 
-class ParticleAssetEmitter : public SimObject
+class ParticleAssetEmitter : public SimObject, public AssetPtrCallback
 {
     friend ParticleAsset;
 
@@ -182,6 +182,7 @@ public:
 private:
     void setOwner( ParticleAsset* pParticleAsset );
     inline void refreshAsset( void );
+    virtual void onAssetRefreshed( AssetPtrBase* pAssetPtrBase );
     inline bool isStaticMode( void ) const { return mStaticMode; }
 
 protected:

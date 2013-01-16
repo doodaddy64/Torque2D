@@ -141,6 +141,10 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
     mFields.addField( mColourGreen.getLife(), "GreenChannel", 1.0f, 0.0f, 1.0f, 1.0f );
     mFields.addField( mColourBlue.getLife(), "BlueChannel", 1.0f, 0.0f, 1.0f, 1.0f );
     mFields.addField( mVisibility.getLife(), "AlphaChannel", 1.0f, 0.0f, 1.0f, 1.0f );
+
+    // Register for refresh notifications.
+    mImageAsset.registerRefreshNotify( this );
+    mAnimationAsset.registerRefreshNotify( this );
 }
 
 //------------------------------------------------------------------------------
@@ -391,6 +395,15 @@ inline void ParticleAssetEmitter::refreshAsset( void )
 
     // Refresh the asset.
     mOwner->refreshAsset();
+}
+
+//------------------------------------------------------------------------------
+
+void ParticleAssetEmitter::onAssetRefreshed( AssetPtrBase* pAssetPtrBase )
+{
+    // Either the image or animation asset has been refreshed to just refresh the
+    // asset that this emitter may belong to.
+    ParticleAssetEmitter::refreshAsset();
 }
 
 //------------------------------------------------------------------------------
