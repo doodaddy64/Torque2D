@@ -46,6 +46,13 @@
 
 //-----------------------------------------------------------------------------
 
+- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication
+{
+    return YES;
+}
+
+//-----------------------------------------------------------------------------
+
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
     osxPlatState * platState = [osxPlatState sharedPlatState];
