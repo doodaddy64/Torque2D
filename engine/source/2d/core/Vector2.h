@@ -42,6 +42,19 @@ struct Vector2 : b2Vec2
     inline Vector2( const Point2I& point ) : b2Vec2( F32(point.x), F32(point.y) ) {}
     inline Vector2( const Point2F& point ) : b2Vec2( point.x, point.y ) {}
     inline Vector2( const Point2D& point ) : b2Vec2( F32(point.x), F32(point.y) ) {}
+    inline Vector2( const char* pString )
+    {
+        const U32 elementCount = Utility::mGetStringElementCount(pString);
+
+        if ( elementCount == 1 )
+        {
+            x = y = dAtof(Utility::mGetStringElement(pString,0));
+            return;
+        }
+
+        x = dAtof(Utility::mGetStringElement(pString,0));
+        y = dAtof(Utility::mGetStringElement(pString,1));
+    }
 
     /// Operators.
     inline Vector2& operator /= (const F32 s)                           { x /= s; y /= s; return *this; }

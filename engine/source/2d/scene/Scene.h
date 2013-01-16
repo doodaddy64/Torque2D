@@ -659,7 +659,7 @@ public:
 
 protected:
     /// Physics.
-    static bool setGravity( void* obj, const char* data )                           { static_cast<Scene*>(obj)->setGravity( Utility::mGetStringElementVector( data, 0 ) ); return false; }
+    static bool setGravity( void* obj, const char* data )                           { static_cast<Scene*>(obj)->setGravity( Vector2( data ) ); return false; }
     static const char* getGravity(void* obj, const char* data)                      { return Vector2(static_cast<Scene*>(obj)->getGravity()).scriptThis(); }
     static bool writeGravity( void* obj, StringTableEntry pFieldName )              { return Vector2(static_cast<Scene*>(obj)->getGravity()).notEqual( Vector2::getZero() ); }
     static bool writeVelocityIterations( void* obj, StringTableEntry pFieldName )   { return static_cast<Scene*>(obj)->getVelocityIterations() != 8; }

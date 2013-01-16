@@ -9,41 +9,9 @@
 #include "2d/assets/particleAsset.h"
 #endif
 
-#ifndef _SCENE_OBJECT_H_
-#include "2d/sceneobject/sceneObject.h"
-#endif
-
 #ifndef _CONSOLETYPES_H_
 #include "console/consoleTypes.h"
 #endif
-
-//------------------------------------------------------------------------------
-
-static EnumTable::Enums particleOrientationTypeLookup[] =
-                {
-                { ParticleAssetEmitter::ALIGNED_ORIENTATION,  "ALIGNED" },
-                { ParticleAssetEmitter::FIXED_ORIENTATION,    "FIXED" },
-                { ParticleAssetEmitter::RANDOM_ORIENTATION,   "RANDOM" },
-                };
-
-//------------------------------------------------------------------------------
-
-static EnumTable OrientationTypeTable(sizeof(particleOrientationTypeLookup) / sizeof(EnumTable::Enums), &particleOrientationTypeLookup[0]);
-
-//------------------------------------------------------------------------------
-
-ParticleAssetEmitter::ParticleOrientationType getParticleOrientationMode(const char* label)
-{
-    // Search for Mnemonic.
-    for(U32 i = 0; i < (sizeof(particleOrientationTypeLookup) / sizeof(EnumTable::Enums)); i++)
-        if( dStricmp(particleOrientationTypeLookup[i].label, label) == 0)
-            return((ParticleAssetEmitter::ParticleOrientationType)particleOrientationTypeLookup[i].index);
-
-    // Invalid Orientation!
-    AssertFatal(false, "ParticleAssetEmitter::getParticleOrientationMode() - Invalid Orientation Mode!");
-    // Bah!
-    return ParticleAssetEmitter::INVALID_ORIENTATION;
-}
 
 //------------------------------------------------------------------------------
 
@@ -77,6 +45,34 @@ ParticleAssetEmitter::EmitterType getEmitterType(const char* label)
 
 //------------------------------------------------------------------------------
 
+static EnumTable::Enums particleOrientationTypeLookup[] =
+                {
+                { ParticleAssetEmitter::ALIGNED_ORIENTATION,  "ALIGNED" },
+                { ParticleAssetEmitter::FIXED_ORIENTATION,    "FIXED" },
+                { ParticleAssetEmitter::RANDOM_ORIENTATION,   "RANDOM" },
+                };
+
+//------------------------------------------------------------------------------
+
+static EnumTable OrientationTypeTable(sizeof(particleOrientationTypeLookup) / sizeof(EnumTable::Enums), &particleOrientationTypeLookup[0]);
+
+//------------------------------------------------------------------------------
+
+ParticleAssetEmitter::ParticleOrientationType getOrientationType(const char* label)
+{
+    // Search for Mnemonic.
+    for(U32 i = 0; i < (sizeof(particleOrientationTypeLookup) / sizeof(EnumTable::Enums)); i++)
+        if( dStricmp(particleOrientationTypeLookup[i].label, label) == 0)
+            return((ParticleAssetEmitter::ParticleOrientationType)particleOrientationTypeLookup[i].index);
+
+    // Invalid Orientation!
+    AssertFatal(false, "ParticleAssetEmitter::getOrientationType() - Invalid Orientation Mode!");
+    // Bah!
+    return ParticleAssetEmitter::INVALID_ORIENTATION;
+}
+
+//------------------------------------------------------------------------------
+
 IMPLEMENT_CONOBJECT(ParticleAssetEmitter);
 
 //------------------------------------------------------------------------------
@@ -86,7 +82,7 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mOwner( NULL ),
                             mEmitterType( POINT_EMITTER ),
                             mFixedAspect( true ),
-                            mFixedForceAngle( 90.0f ),
+                            mFixedForceAngle( 0.0f ),
                             mFixedForceDirection( 0.0f, 0.0f ),
                             mOrientationType( FIXED_ORIENTATION ),
                             mKeepAligned( false ),
@@ -159,11 +155,11 @@ void ParticleAssetEmitter::initPersistFields()
 {
     // Call parent.
     Parent::initPersistFields();
-/*
+
     addProtectedField("EmitterType", TypeEnum, Offset(mEmitterType, ParticleAssetEmitter), &setEmitterType, &defaultProtectedGetFn, &writeEmitterType, 1, &EmitterTypeTable);
     addProtectedField("FixedAspect", TypeBool, Offset(mFixedAspect, ParticleAssetEmitter), &setFixedAspect, &defaultProtectedGetFn, &writeFixedAspect, "");
     addProtectedField("FixedForceAngle", TypeF32, Offset(mFixedForceAngle, ParticleAssetEmitter), &setFixedForceAngle, &defaultProtectedGetFn, &writeFixedForceAngle, "");
-    addProtectedField("OrientationType", TypeEnum, Offset(mOrientationType, ParticleAssetEmitter), &setOrientationType, &defaultProtectedGetFn, &writeOrientationtype, 1, &OrientationTypeTable);
+    addProtectedField("OrientationType", TypeEnum, Offset(mOrientationType, ParticleAssetEmitter), &setOrientationType, &defaultProtectedGetFn, &writeOrientationType, 1, &OrientationTypeTable);
     addProtectedField("KeepAligned", TypeBool, Offset(mKeepAligned, ParticleAssetEmitter), &setKeepAligned, &defaultProtectedGetFn, &writeKeepAligned, "");
     addProtectedField("AlignedAngleOffset", TypeF32, Offset(mAlignedAngleOffset, ParticleAssetEmitter), &setAlignedAngleOffset, &defaultProtectedGetFn, &writeAlignedAngleOffset, "");
     addProtectedField("RandomAngleOffset", TypeF32, Offset(mRandomAngleOffset, ParticleAssetEmitter), &setRandomAngleOffset, &defaultProtectedGetFn, &writeRandomAngleOffset, "");
@@ -184,10 +180,9 @@ void ParticleAssetEmitter::initPersistFields()
     addProtectedField("Animation", TypeAnimationAssetPtr, Offset(mAnimationAsset, ParticleAssetEmitter), &setAnimation, &getAnimation, &writeAnimation, "");
 
     addProtectedField("BlendMode", TypeBool, Offset(mBlendMode, ParticleAssetEmitter), &setBlendMode, &defaultProtectedGetFn, &writeBlendMode, "");
-    addProtectedField("SrcBlendFactor", TypeEnum, Offset(mSrcBlendFactor, ParticleAssetEmitter), &writeSrcBlendFactor, 1, &srcBlendFactorTable);
-    addProtectedField("DstBlendFactor", TypeEnum, Offset(mDstBlendFactor, ParticleAssetEmitter), &writeDstBlendFactor, 1, &dstBlendFactorTable);
+    addProtectedField("SrcBlendFactor", TypeEnum, Offset(mSrcBlendFactor, ParticleAssetEmitter), &setSrcBlendFactor, &defaultProtectedGetFn, &writeSrcBlendFactor, 1, &srcBlendFactorTable, "");
+    addProtectedField("DstBlendFactor", TypeEnum, Offset(mDstBlendFactor, ParticleAssetEmitter), &setDstBlendFactor, &defaultProtectedGetFn, &writeDstBlendFactor, 1, &dstBlendFactorTable, "");
     addProtectedField("AlphaTest", TypeF32, Offset(mAlphaTest, ParticleAssetEmitter), &setAlphaTest, &defaultProtectedGetFn, &writeAlphaTest, "");
-    */
 }
 
 //------------------------------------------------------------------------------
@@ -333,6 +328,39 @@ bool ParticleAssetEmitter::setImage( const char* pAssetId, U32 frame )
 
 //------------------------------------------------------------------------------
 
+bool ParticleAssetEmitter::setImageFrame( const U32 frame )
+{
+    // Check Existing ImageMap.
+    if ( mImageAsset.isNull() )
+    {
+        // Warn.
+        Con::warnf("ParticleAssetEmitter::setImageFrame() - Cannot set Frame without existing asset Id.");
+
+        // Return Here.
+        return false;
+    }
+
+    // Check Frame Validity.
+    if ( frame >= mImageAsset->getFrameCount() )
+    {
+        // Warn.
+        Con::warnf( "ParticleAssetEmitter::setImageFrame() - Invalid Frame #%d for asset Id '%s'.", frame, mImageAsset.getAssetId() );
+        // Return Here.
+        return false;
+    }
+
+    // Set Frame.
+    mImageFrame = frame;
+
+    // Refresh the asset.
+    refreshAsset();
+
+    // Return Okay.
+    return true;
+}
+
+//------------------------------------------------------------------------------
+
 bool ParticleAssetEmitter::setAnimation( const char* pAnimationAssetId )
 {
     // Sanity!
@@ -387,3 +415,20 @@ void ParticleAssetEmitter::onTamlCustomRead( const TamlCollection& customCollect
     mFields.onTamlCustomRead( customCollection );
 
 }
+
+//-----------------------------------------------------------------------------
+
+bool ParticleAssetEmitter::setEmitterType(void* obj, const char* data)
+{
+    static_cast<ParticleAssetEmitter*>(obj)->setEmitterType(::getEmitterType(data));
+    return false;
+}
+
+//-----------------------------------------------------------------------------
+
+bool ParticleAssetEmitter::setOrientationType(void* obj, const char* data)
+{
+    static_cast<ParticleAssetEmitter*>(obj)->setOrientationType(::getOrientationType(data));
+    return false;
+}
+

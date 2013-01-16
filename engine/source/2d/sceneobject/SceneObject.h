@@ -620,13 +620,13 @@ protected:
             return false;
         }
             
-        pSceneObject->setSize(Utility::mGetStringElementVector(data));
+        pSceneObject->setSize(Vector2(data));
         return false;
     }
     static bool             writeSize( void* obj, StringTableEntry pFieldName ) { SceneObject* pSceneObject = static_cast<SceneObject*>(obj); return !pSceneObject->getAutoSizing() && pSceneObject->getSize().notEqual(Vector2::getOne()); }
 
     /// Position / Angle.
-    static bool             setPosition(void* obj, const char* data)    { static_cast<SceneObject*>(obj)->setPosition(Utility::mGetStringElementVector(data)); return false; }
+    static bool             setPosition(void* obj, const char* data)    { static_cast<SceneObject*>(obj)->setPosition(Vector2(data)); return false; }
     static const char*      getPosition(void* obj, const char* data)    { return static_cast<SceneObject*>(obj)->getPosition().scriptThis(); }
     static bool             writePosition( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getPosition().notZero(); }
     static bool             setAngle(void* obj, const char* data)       { static_cast<SceneObject*>(obj)->setAngle(mDegToRad(dAtof(data))); return false; }
@@ -680,7 +680,7 @@ protected:
     static bool             writeGatherContacts( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getGatherContacts() == true; }
 
     /// Velocities.
-    static bool             setLinearVelocity(void* obj, const char* data)  { static_cast<SceneObject*>(obj)->setLinearVelocity(Utility::mGetStringElementVector(data)); return false; }
+    static bool             setLinearVelocity(void* obj, const char* data)  { static_cast<SceneObject*>(obj)->setLinearVelocity(Vector2(data)); return false; }
     static const char*      getLinearVelocity(void* obj, const char* data)  { return static_cast<SceneObject*>(obj)->getLinearVelocity().scriptThis(); }
     static bool             writeLinearVelocity( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getLinearVelocity().notZero(); }
     static bool             setAngularVelocity(void* obj, const char* data) { static_cast<SceneObject*>(obj)->setAngularVelocity(mDegToRad(dAtof(data))); return false; }
