@@ -212,7 +212,6 @@ void PopupMenu::showPopup(S32 x /* = -1 */, S32 y /* = -1 */)
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("PopupMenu::attachToMenuBar not yet implemented")
 void PopupMenu::attachToMenuBar(S32 pos, const char *title)
 {
     [[mData->mController menuItem] setTitle:[NSString stringWithUTF8String:title]];
@@ -221,8 +220,8 @@ void PopupMenu::attachToMenuBar(S32 pos, const char *title)
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("PopupMenu::removeFromMenuBar not yet implemented")
 void PopupMenu::removeFromMenuBar()
 {
-    [[NSApp mainMenu] removeItem:[mData->mController menuItem]];
+    if ([[NSApp mainMenu] indexOfItem:[mData->mController menuItem]] > -1)
+        [[NSApp mainMenu] removeItem:[mData->mController menuItem]];
 }
