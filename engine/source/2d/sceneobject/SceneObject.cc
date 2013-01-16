@@ -3201,7 +3201,7 @@ S32 SceneObject::copyEdgeCollisionShapeTo( SceneObject* pSceneObject, const b2Fi
 
 //-----------------------------------------------------------------------------
 
-void SceneObject::safeDelete()
+void SceneObject::safeDelete( void )
 {
     // We cannot delete child objects here.
     if ( getIsChild() )

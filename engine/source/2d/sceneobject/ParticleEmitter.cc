@@ -25,12 +25,12 @@ static EnumTable::Enums particleOrientationLookup[] =
 
 //------------------------------------------------------------------------------
 
-ParticleEmitter::tEmitterOrientationMode getParticleOrientationMode(const char* label)
+ParticleEmitter::ParticleOrientationMode getParticleOrientationMode(const char* label)
 {
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(particleOrientationLookup) / sizeof(EnumTable::Enums)); i++)
         if( dStricmp(particleOrientationLookup[i].label, label) == 0)
-            return((ParticleEmitter::tEmitterOrientationMode)particleOrientationLookup[i].index);
+            return((ParticleEmitter::ParticleOrientationMode)particleOrientationLookup[i].index);
 
     // Invalid Orientation!
     AssertFatal(false, "ParticleEmitter::getParticleOrientationMode() - Invalid Orientation Mode!");
@@ -50,12 +50,12 @@ static EnumTable::Enums emitterTypeLookup[] =
 
 //------------------------------------------------------------------------------
 
-ParticleEmitter::tEmitterType getEmitterType(const char* label)
+ParticleEmitter::EmitterType getEmitterType(const char* label)
 {
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(emitterTypeLookup) / sizeof(EnumTable::Enums)); i++)
         if( dStricmp(emitterTypeLookup[i].label, label) == 0)
-            return((ParticleEmitter::tEmitterType)emitterTypeLookup[i].index);
+            return((ParticleEmitter::EmitterType)emitterTypeLookup[i].index);
 
     // Invalid Emitter-Type!
     AssertFatal(false, "ParticleEmitter::getEmitterType() - Invalid Emitter-Type!");
@@ -108,11 +108,11 @@ void ParticleEmitter::copyTo(SimObject* object)
    emitter->mFixedForceDirection = mFixedForceDirection;
    emitter->mFixedForceAngle = mFixedForceAngle;
    emitter->mParticleOrientationMode = mParticleOrientationMode;
-   emitter->mAlign_AngleOffset = mAlign_AngleOffset;
-   emitter->mAlign_KeepAligned = mAlign_KeepAligned;
-   emitter->mRandom_AngleOffset = mRandom_AngleOffset;
-   emitter->mRandom_Arc = mRandom_Arc;
-   emitter->mFixed_AngleOffset = mFixed_AngleOffset;
+   emitter->mAlignAngleOffset = mAlignAngleOffset;
+   emitter->mAlignKeepAligned = mAlignKeepAligned;
+   emitter->mRandomAngleOffset = mRandomAngleOffset;
+   emitter->mRandomArc = mRandomArc;
+   emitter->mFixedAngleOffset = mFixedAngleOffset;
    emitter->mEmitterType = mEmitterType;
 
    if ( mImageAsset.notNull() )
@@ -158,7 +158,7 @@ void ParticleEmitter::copyTo(SimObject* object)
 
 //------------------------------------------------------------------------------
 
-void ParticleEmitter::integrateParticle( tParticleNode* pParticleNode, F32 particleAge, F32 elapsedTime )
+void ParticleEmitter::integrateParticle( ParticleNode* pParticleNode, F32 particleAge, F32 elapsedTime )
 {
     // **********************************************************************************************************************
     // Copy Old Tick Position.
@@ -201,7 +201,7 @@ void ParticleEmitter::integrateParticle( tParticleNode* pParticleNode, F32 parti
     // **********************************************************************************************************************
     // Scale Spin (if Keep Aligned is not selected)
     // **********************************************************************************************************************
-    if ( !(mParticleOrientationMode == ALIGNED && mAlign_KeepAligned) )
+    if ( !(mParticleOrientationMode == ALIGNED && mAlignKeepAligned) )
         pParticleNode->mRenderSpin = pParticleNode->mSpin * mSpin.mLife.getGraphValue( particleAge );
 
 
@@ -292,7 +292,7 @@ void ParticleEmitter::integrateParticle( tParticleNode* pParticleNode, F32 parti
     // **********************************************************************************************************************
     // Are we Aligning to motion?
     // **********************************************************************************************************************
-    if ( mParticleOrientationMode == ALIGNED && mAlign_KeepAligned )
+    if ( mParticleOrientationMode == ALIGNED && mAlignKeepAligned )
     {
         // Yes, so calculate last movement direction.
         F32 movementAngle = mRadToDeg( mAtan( pParticleNode->mVelocity.x, -pParticleNode->mVelocity.y ) );
@@ -301,7 +301,7 @@ void ParticleEmitter::integrateParticle( tParticleNode* pParticleNode, F32 parti
             movementAngle += 360.0f;
 
         // Set new Orientation Angle.
-        pParticleNode->mOrientationAngle = -movementAngle - mAlign_AngleOffset;
+        pParticleNode->mOrientationAngle = -movementAngle - mAlignAngleOffset;
 
 
         // **********************************************************************************************************************
@@ -365,7 +365,7 @@ void ParticleEmitter::integrateObject( const F32 totalTime, const F32 elapsedTim
     // **********************************************************************************************************************
 
     // Fetch First Particle Node.
-    tParticleNode* pParticleNode = mParticleNodeHead.mNextNode;
+    ParticleNode* pParticleNode = mParticleNodeHead.mNextNode;
 
     // Process All particle nodes.
     while ( pParticleNode != &mParticleNodeHead )
@@ -475,7 +475,7 @@ void ParticleEmitter::interpolateObject( const F32 timeDelta )
     // **********************************************************************************************************************
 
     // Fetch First Particle Node.
-    tParticleNode* pParticleNode = mParticleNodeHead.mNextNode;
+    ParticleNode* pParticleNode = mParticleNodeHead.mNextNode;
 
     // Process All particle nodes.
     while ( pParticleNode != &mParticleNodeHead )
@@ -576,7 +576,7 @@ void ParticleEmitter::sceneRender( const SceneRenderState* pSceneRenderState, co
     }
 
     // Fetch First Particle ( using appropriate sort-order ).
-    tParticleNode* pParticleNode = mOrderedParticles | mFirstInFrontOrder ? mParticleNodeHead.mNextNode : mParticleNodeHead.mPreviousNode;
+    ParticleNode* pParticleNode = mOrderedParticles | mFirstInFrontOrder ? mParticleNodeHead.mNextNode : mParticleNodeHead.mPreviousNode;
 
     // Process All particle nodes.
     while ( pParticleNode != &mParticleNodeHead )
@@ -761,11 +761,11 @@ void ParticleEmitter::initialise( ParticleEffect* pParentEffect )
     mFixedAspect = true;
     setFixedForceAngle(0.0f);
     mParticleOrientationMode = FIXED;
-    mFixed_AngleOffset = 0.0f;
-    mAlign_AngleOffset = 0.0f;
-    mAlign_KeepAligned = false;
-    mRandom_AngleOffset = 0.0f;
-    mRandom_Arc = 360.0f;
+    mFixedAngleOffset = 0.0f;
+    mAlignAngleOffset = 0.0f;
+    mAlignKeepAligned = false;
+    mRandomAngleOffset = 0.0f;
+    mRandomArc = 360.0f;
     mEmitterType = POINT;
 
     // Other Properties.
@@ -1109,7 +1109,7 @@ void ParticleEmitter::setFixedForceAngle( F32 fixedForceAngle )
 
 //------------------------------------------------------------------------------
 
-void ParticleEmitter::setParticleOrientationMode( tEmitterOrientationMode particleOrientationMode )
+void ParticleEmitter::setParticleOrientationMode( ParticleOrientationMode particleOrientationMode )
 {
     // Set Particle Orientation Mode.
     mParticleOrientationMode = particleOrientationMode;
@@ -1120,7 +1120,7 @@ void ParticleEmitter::setParticleOrientationMode( tEmitterOrientationMode partic
 void ParticleEmitter::setAlignAngleOffset( F32 angleOffset )
 {
     // Set Align Angle Offset.
-    mAlign_AngleOffset = angleOffset;
+    mAlignAngleOffset = angleOffset;
 }
 
 //------------------------------------------------------------------------------
@@ -1128,7 +1128,7 @@ void ParticleEmitter::setAlignAngleOffset( F32 angleOffset )
 void ParticleEmitter::setAlignKeepAligned( bool keepAligned )
 {
     // Set Align Keep Aligned.
-    mAlign_KeepAligned = keepAligned;
+    mAlignKeepAligned = keepAligned;
 }
 
 //------------------------------------------------------------------------------
@@ -1136,7 +1136,7 @@ void ParticleEmitter::setAlignKeepAligned( bool keepAligned )
 void ParticleEmitter::setRandomAngleOffset( F32 angleOffset )
 {
     // Set Random Angle.
-    mRandom_AngleOffset = angleOffset;
+    mRandomAngleOffset = angleOffset;
 }
 
 //------------------------------------------------------------------------------
@@ -1144,7 +1144,7 @@ void ParticleEmitter::setRandomAngleOffset( F32 angleOffset )
 void ParticleEmitter::setRandomArc( F32 arc )
 {
     // Set Random Arc.
-    mRandom_Arc = arc;
+    mRandomArc = arc;
 }
 
 //------------------------------------------------------------------------------
@@ -1152,12 +1152,12 @@ void ParticleEmitter::setRandomArc( F32 arc )
 void ParticleEmitter::setFixedAngleOffset( F32 angleOffset )
 {
     // Set Fixed Angle Offset.
-    mFixed_AngleOffset = angleOffset;
+    mFixedAngleOffset = angleOffset;
 }
 
 //------------------------------------------------------------------------------
 
-void ParticleEmitter::setEmitterType( tEmitterType emitterType )
+void ParticleEmitter::setEmitterType( EmitterType emitterType )
 {
     // Set Emitter Type.
     mEmitterType = emitterType;
@@ -1296,7 +1296,7 @@ void ParticleEmitter::setAttachPositionToEmitter( bool attachPositionToEmitter )
         const Vector2 effectPos = pParentEffectObject->getPosition();
 
         // Fetch First Particle.
-        tParticleNode* pParticleNode = mParticleNodeHead.mNextNode;
+        ParticleNode* pParticleNode = mParticleNodeHead.mNextNode;
 
         // Process All particle nodes.
         while ( pParticleNode != &mParticleNodeHead )
@@ -1317,7 +1317,7 @@ void ParticleEmitter::setAttachPositionToEmitter( bool attachPositionToEmitter )
         const Vector2 effectPos = pParentEffectObject->getPosition();
 
         // Fetch First Particle.
-        tParticleNode* pParticleNode = mParticleNodeHead.mNextNode;
+        ParticleNode* pParticleNode = mParticleNodeHead.mNextNode;
 
         // Process All particle nodes.
         while ( pParticleNode != &mParticleNodeHead )
@@ -1401,7 +1401,7 @@ const char* ParticleEmitter::getParticleOrientation( void ) const
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(particleOrientationLookup) / sizeof(particleOrientationLookup[0])); i++)
     {
-        if( (ParticleEmitter::tEmitterOrientationMode)particleOrientationLookup[i].index == mParticleOrientationMode )
+        if( (ParticleEmitter::ParticleOrientationMode)particleOrientationLookup[i].index == mParticleOrientationMode )
         {
             // Return Particle Orientation Description.
             return particleOrientationLookup[i].label;
@@ -1417,7 +1417,7 @@ const char* ParticleEmitter::getParticleOrientation( void ) const
 F32 ParticleEmitter::getAlignAngleOffset( void ) const
 {
     // Get Align Angle Offset.
-    return mAlign_AngleOffset;
+    return mAlignAngleOffset;
 }
 
 //------------------------------------------------------------------------------
@@ -1425,7 +1425,7 @@ F32 ParticleEmitter::getAlignAngleOffset( void ) const
 bool ParticleEmitter::getAlignKeepAligned( void ) const
 {
     // Get Align Keep Aligned.
-    return mAlign_KeepAligned;
+    return mAlignKeepAligned;
 }
 
 //------------------------------------------------------------------------------
@@ -1433,7 +1433,7 @@ bool ParticleEmitter::getAlignKeepAligned( void ) const
 F32 ParticleEmitter::getRandomAngleOffset( void ) const
 {
     // Get Random Angle Offset.
-    return mRandom_AngleOffset;
+    return mRandomAngleOffset;
 }
 
 //------------------------------------------------------------------------------
@@ -1441,7 +1441,7 @@ F32 ParticleEmitter::getRandomAngleOffset( void ) const
 F32 ParticleEmitter::getRandomArc( void ) const
 {
     // Get Random Arc.
-    return mRandom_Arc;
+    return mRandomArc;
 }
 
 //------------------------------------------------------------------------------
@@ -1449,7 +1449,7 @@ F32 ParticleEmitter::getRandomArc( void ) const
 F32 ParticleEmitter::getFixedAngleOffset( void ) const
 {
     // Get Fixed Angle Offset.
-    return mFixed_AngleOffset;
+    return mFixedAngleOffset;
 }
 
 //------------------------------------------------------------------------------
@@ -1459,7 +1459,7 @@ const char* ParticleEmitter::getEmitterType( void ) const
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(emitterTypeLookup) / sizeof(emitterTypeLookup[0])); i++)
     {
-        if( (ParticleEmitter::tEmitterType)emitterTypeLookup[i].index == mEmitterType )
+        if( (ParticleEmitter::EmitterType)emitterTypeLookup[i].index == mEmitterType )
         {
             // Return Emitter Type Description.
             return emitterTypeLookup[i].label;
@@ -1619,7 +1619,7 @@ void ParticleEmitter::pauseEmitter( void )
 
 //------------------------------------------------------------------------------
 
-ParticleEmitter::tParticleNode* ParticleEmitter::createParticle( void )
+ParticleEmitter::ParticleNode* ParticleEmitter::createParticle( void )
 {
     // Have we got any free particle nodes?
     if ( mpFreeParticleNodes == NULL )
@@ -1627,7 +1627,7 @@ ParticleEmitter::tParticleNode* ParticleEmitter::createParticle( void )
         createParticlePoolBlock();
 
     // Fetch Free Node.
-    tParticleNode* pFreeParticleNode = mpFreeParticleNodes;
+    ParticleNode* pFreeParticleNode = mpFreeParticleNodes;
 
     // Reposition Free Node Reference.
     mpFreeParticleNodes = mpFreeParticleNodes->mNextNode;
@@ -1650,7 +1650,7 @@ ParticleEmitter::tParticleNode* ParticleEmitter::createParticle( void )
 
 //------------------------------------------------------------------------------
 
-void ParticleEmitter::freeParticle( tParticleNode* pParticleNode )
+void ParticleEmitter::freeParticle( ParticleNode* pParticleNode )
 {
     // Remove Particle from Head Chain.
     pParticleNode->mPreviousNode->mNextNode = pParticleNode->mNextNode;
@@ -1681,7 +1681,7 @@ void ParticleEmitter::freeAllParticles( void )
 void ParticleEmitter::createParticlePoolBlock( void )
 {
     // Generate Free Pool Block.
-    tParticleNode* pFreePoolBlock = new tParticleNode[mParticlePoolBlockSize];
+    ParticleNode* pFreePoolBlock = new ParticleNode[mParticlePoolBlockSize];
 
     // Generate/Add New Pool Block.
     mParticlePool.push_back( pFreePoolBlock );
@@ -1724,7 +1724,7 @@ void ParticleEmitter::destroyParticlePool( void )
 
 //------------------------------------------------------------------------------
 
-void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
+void ParticleEmitter::configureParticle( ParticleNode* pParticleNode )
 {
     // Fetch Effect Age.
     const F32 effectAge = pParentEffectObject->mEffectAge;
@@ -2031,7 +2031,7 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
         case ALIGNED:
         {
             // Just use the emission angle plus offset.
-            pParticleNode->mOrientationAngle = mFmod( emissionAngle - mAlign_AngleOffset, 360.0f );
+            pParticleNode->mOrientationAngle = mFmod( emissionAngle - mAlignAngleOffset, 360.0f );
 
         } break;
 
@@ -2039,7 +2039,7 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
         case FIXED:
         {
             // Use Fixed Angle.
-            pParticleNode->mOrientationAngle = mFmod( mFixed_AngleOffset, 360.0f );
+            pParticleNode->mOrientationAngle = mFmod( mFixedAngleOffset, 360.0f );
 
         } break;
 
@@ -2047,8 +2047,8 @@ void ParticleEmitter::configureParticle( tParticleNode* pParticleNode )
         case RANDOM:
         {
             // Used Random Angle/Arc.
-            F32 randomArc = mRandom_Arc * 0.5f;
-            pParticleNode->mOrientationAngle = mFmod( CoreMath::mGetRandomF( mRandom_AngleOffset - randomArc, mRandom_AngleOffset + randomArc ), 360.0f );
+            F32 randomArc = mRandomArc * 0.5f;
+            pParticleNode->mOrientationAngle = mFmod( CoreMath::mGetRandomF( mRandomAngleOffset - randomArc, mRandomAngleOffset + randomArc ), 360.0f );
 
         } break;
 
@@ -2229,10 +2229,10 @@ bool ParticleEmitter::checkParticleCollisions( const ParticleEffect* pParentEffe
     const F32 restitution = pParentEffect->getRestitution();
 
     // Fetch First Particle Node.
-    tParticleNode* pParticleNode = mParticleNodeHead.mNextNode;
+    ParticleNode* pParticleNode = mParticleNodeHead.mNextNode;
 
     // Next Particle Node.
-    tParticleNode* pNextParticleNode;
+    ParticleNode* pNextParticleNode;
 
     // Process All particle nodes.
     while ( pParticleNode != &mParticleNodeHead )
@@ -2414,11 +2414,11 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 3 )
             !stream.read( &object->mFixedForceDirection.y ) ||
             !stream.read( &object->mFixedForceAngle ) ||
             !stream.read( (S32*)&object->mParticleOrientationMode ) ||
-            !stream.read( &object->mAlign_AngleOffset ) ||
-            !stream.read( &object->mAlign_KeepAligned ) ||
-            !stream.read( &object->mRandom_AngleOffset ) ||
-            !stream.read( &object->mRandom_Arc ) ||
-            !stream.read( &object->mFixed_AngleOffset ) ||
+            !stream.read( &object->mAlignAngleOffset ) ||
+            !stream.read( &object->mAlignKeepAligned ) ||
+            !stream.read( &object->mRandomAngleOffset ) ||
+            !stream.read( &object->mRandomArc ) ||
+            !stream.read( &object->mFixedAngleOffset ) ||
             !stream.read( (S32*)&object->mEmitterType ) ||
             !stream.read( &object->mPivotPoint.x ) ||
             !stream.read( &object->mPivotPoint.y ) ||
@@ -2446,10 +2446,10 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 3 )
     object->mFixedForceDirection.y = -object->mFixedForceDirection.y;
     object->mPivotPoint.y = -object->mPivotPoint.y;
     object->mFixedForceAngle = mGetFlippedYAngle( mDegToRad( object->mFixedForceAngle ) );
-    object->mAlign_AngleOffset = mDegToRad( object->mAlign_AngleOffset );
-    object->mRandom_AngleOffset = mDegToRad( object->mRandom_AngleOffset );
-    object->mRandom_Arc = mDegToRad( object->mRandom_Arc );
-    object->mFixed_AngleOffset = mDegToRad( object->mFixed_AngleOffset );
+    object->mAlignAngleOffset = mDegToRad( object->mAlignAngleOffset );
+    object->mRandomAngleOffset = mDegToRad( object->mRandomAngleOffset );
+    object->mRandomArc = mDegToRad( object->mRandomArc );
+    object->mFixedAngleOffset = mDegToRad( object->mFixedAngleOffset );
 
     //Emitter Collision Status.
     object->setEmitterCollisionStatus( emitterCollisionStatus );
@@ -2498,7 +2498,7 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 3 )
     for ( U32 n = 0; n < particleCount; n++ )
     {
         // Create Particle.
-        tParticleNode* pParticleNode = object->createParticle();
+        ParticleNode* pParticleNode = object->createParticle();
 
         // Load Particle Node.
         if (    !stream.read( &(pParticleNode->mParticleLifetime) ) ||
@@ -2638,11 +2638,11 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 4 )
             !stream.read( &object->mFixedForceDirection.y ) ||
             !stream.read( &object->mFixedForceAngle ) ||
             !stream.read( (S32*)&object->mParticleOrientationMode ) ||
-            !stream.read( &object->mAlign_AngleOffset ) ||
-            !stream.read( &object->mAlign_KeepAligned ) ||
-            !stream.read( &object->mRandom_AngleOffset ) ||
-            !stream.read( &object->mRandom_Arc ) ||
-            !stream.read( &object->mFixed_AngleOffset ) ||
+            !stream.read( &object->mAlignAngleOffset ) ||
+            !stream.read( &object->mAlignKeepAligned ) ||
+            !stream.read( &object->mRandomAngleOffset ) ||
+            !stream.read( &object->mRandomArc ) ||
+            !stream.read( &object->mFixedAngleOffset ) ||
             !stream.read( (S32*)&object->mEmitterType ) ||
             !stream.read( &object->mPivotPoint.x ) ||
             !stream.read( &object->mPivotPoint.y ) ||
@@ -2745,11 +2745,11 @@ IMPLEMENT_2D_SAVE_METHOD( ParticleEmitter, 4 )
             !stream.write( object->mFixedForceDirection.y ) ||
             !stream.write( object->mFixedForceAngle ) ||
             !stream.write( (S32)object->mParticleOrientationMode ) ||
-            !stream.write( object->mAlign_AngleOffset ) ||
-            !stream.write( object->mAlign_KeepAligned ) ||
-            !stream.write( object->mRandom_AngleOffset ) ||
-            !stream.write( object->mRandom_Arc ) ||
-            !stream.write( object->mFixed_AngleOffset ) ||
+            !stream.write( object->mAlignAngleOffset ) ||
+            !stream.write( object->mAlignKeepAligned ) ||
+            !stream.write( object->mRandomAngleOffset ) ||
+            !stream.write( object->mRandomArc ) ||
+            !stream.write( object->mFixedAngleOffset ) ||
             !stream.write( (S32)object->mEmitterType ) ||
             !stream.write( object->mPivotPoint.x ) ||
             !stream.write( object->mPivotPoint.y ) ||

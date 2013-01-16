@@ -44,7 +44,6 @@ protected:
     AnimationController*        mpAnimationController;
 
     bool                        mSelfTick;
-    S32                         mReferenceCount;
 
 public:
     SpriteProxyBase();
@@ -88,10 +87,6 @@ public:
     inline AnimationController* getAnimationController( void ) const { return mpAnimationController; }
     inline bool isStaticMode( void ) const { return mStaticMode; }
     inline void pauseAnimation( const bool animationPaused ) { mAnimationPaused = animationPaused; }
-
-    // Reference count.
-    inline S32 addReference( void ) { return mReferenceCount++; }
-    inline S32 removeReference( void ) { return --mReferenceCount; }
 
     /// Self ticking control.
     virtual void setProcessTicks( bool tick  ) { Tickable::setProcessTicks( mSelfTick ? tick : false ); }

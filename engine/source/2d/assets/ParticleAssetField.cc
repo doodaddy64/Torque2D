@@ -36,7 +36,7 @@ static StringTableEntry particleAssetFieldDataKeyValueName;
 //-----------------------------------------------------------------------------
 
 ParticleAssetField::ParticleAssetField() :
-                        mName( StringTable->EmptyString ),
+                        mFieldName( StringTable->EmptyString ),
                         mValueScale( 1.0f ),
                         mTimeScale( 1.0f ),
                         mMaxTime( 1.0f ),
@@ -61,38 +61,38 @@ ParticleAssetField::ParticleAssetField() :
 
 ParticleAssetField::~ParticleAssetField()
 {
-    // Clear Data Keys.
-    mDataKeys.clear();
+
 }
 
 //-----------------------------------------------------------------------------
 
-void ParticleAssetField::copyTo(ParticleAssetField& graph)
+void ParticleAssetField::copyTo( ParticleAssetField& field )
 {
-    graph.setName( getName() );
-    graph.mValueScale = mValueScale;
-    graph.mTimeScale = mTimeScale;
-    graph.mMaxTime = mMaxTime;
-    graph.mMinValue = mMinValue;
-    graph.mMaxValue = mMaxValue;
-    graph.mDefaultValue = mDefaultValue;
+    field.mFieldName = mFieldName;
+    field.mValueScale = mValueScale;
+    field.mTimeScale = mTimeScale;
+    field.mMaxTime = mMaxTime;
+    field.mMinValue = mMinValue;
+    field.mMaxValue = mMaxValue;
+    field.mDefaultValue = mDefaultValue;
 
-    // Copy data keys.
+    // Copy data keys.    
+    field.clearDataKeys();
     for ( S32 i = 0; i < mDataKeys.size(); i++ )
     {
         DataKey key = mDataKeys[i];
-        graph.addDataKey(key.mTime, key.mValue);
+        field.addDataKey(key.mTime, key.mValue);
     }
 }
 
 //-----------------------------------------------------------------------------
 
-void ParticleAssetField::setName( const char* pName )
+void ParticleAssetField::setFieldName( const char* pFieldName )
 {
     // Sanity!
-    AssertFatal( mName == StringTable->EmptyString, "Cannot set particle asset field name once it has been set." );
+    AssertFatal( mFieldName == StringTable->EmptyString, "ParticleAssetField::setFieldName() - Cannot set particle asset field name once it has been set." );
 
-    mName = StringTable->insert( pName );
+    mFieldName = StringTable->insert( pFieldName );
 }
 
 //-----------------------------------------------------------------------------
@@ -366,7 +366,7 @@ U32 ParticleAssetField::getDataKeyCount( void ) const
 
 //-----------------------------------------------------------------------------
 
-F32 ParticleAssetField::getGraphValue( F32 time ) const
+F32 ParticleAssetField::getFieldValue( F32 time ) const
 {
     // Return First Entry if it's the only one or we're using zero time.
     if ( mIsZero(time) || getDataKeyCount() < 2)
@@ -405,7 +405,7 @@ F32 ParticleAssetField::getGraphValue( F32 time ) const
     // Calculate Time Differential.
     const F32 dTime = (time-time1)/(time2-time1);
 
-    // Return Lerped Value.
+    // Return lerped Value.
     return ((mDataKeys[index1].mValue * (1.0f-dTime)) + (mDataKeys[index2].mValue * dTime)) * mValueScale;
 }
 
@@ -414,8 +414,8 @@ F32 ParticleAssetField::getGraphValue( F32 time ) const
 F32 ParticleAssetField::calculateFieldBV( const ParticleAssetField& base, const ParticleAssetField& variation, const F32 effectAge, const bool modulate, const F32 modulo )
 {
     // Fetch Graph Components.
-    const F32 baseValue   = base.getGraphValue( effectAge );
-    const F32 varValue    = variation.getGraphValue( effectAge ) * 0.5f;
+    const F32 baseValue   = base.getFieldValue( effectAge );
+    const F32 varValue    = variation.getFieldValue( effectAge ) * 0.5f;
 
     // Modulate?
     if ( modulate )
@@ -431,9 +431,9 @@ F32 ParticleAssetField::calculateFieldBV( const ParticleAssetField& base, const 
 F32 ParticleAssetField::calculateFieldBVE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& effect, const F32 effectAge, const bool modulate, const F32 modulo )
 {
     // Fetch Graph Components.
-    const F32 baseValue   = base.getGraphValue( effectAge );
-    const F32 varValue    = variation.getGraphValue( effectAge ) * 0.5f;
-    const F32 effectValue = effect.getGraphValue( effectAge );
+    const F32 baseValue   = base.getFieldValue( effectAge );
+    const F32 varValue    = variation.getFieldValue( effectAge ) * 0.5f;
+    const F32 effectValue = effect.getFieldValue( effectAge );
 
     // Modulate?
     if ( modulate )
@@ -449,10 +449,10 @@ F32 ParticleAssetField::calculateFieldBVE( const ParticleAssetField& base, const
 F32 ParticleAssetField::calculateFieldBVLE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& overlife, const ParticleAssetField& effect, const F32 effectAge, const F32 particleAge, const bool modulate, const F32 modulo )
 {
     // Fetch Graph Components.
-    const F32 baseValue   = base.getGraphValue( effectAge );
-    const F32 varValue    = variation.getGraphValue( effectAge ) * 0.5f;
-    const F32 effectValue = effect.getGraphValue( effectAge );
-    const F32 lifeValue   = overlife.getGraphValue( particleAge );
+    const F32 baseValue   = base.getFieldValue( effectAge );
+    const F32 varValue    = variation.getFieldValue( effectAge ) * 0.5f;
+    const F32 effectValue = effect.getFieldValue( effectAge );
+    const F32 lifeValue   = overlife.getFieldValue( particleAge );
 
     // Modulate?
     if ( modulate )

@@ -669,9 +669,26 @@ protected:
 
     static bool writeLayerSortMode( void* obj, StringTableEntry pFieldName )
     {
-        // Fetch layer.
-        // The magic "13" here is the offset from the field prefix of "layerSortMode##".
-        const U32 layer = dAtoi(pFieldName+13);
+        // Find the layer index portion of the layer sort mode field.
+        const char* pLayerNumber = pFieldName;
+        while( true )
+        {
+            // Fetch character.
+            char value = *pLayerNumber;
+
+            // Finish if end of the field or is numeric.
+            if ( value == 0 || ( value >= '0' && value <= '9' ) )
+                break;
+
+            // Move to next value.
+            pLayerNumber++;
+        };
+
+        // Sanity!
+        AssertFatal( *pLayerNumber != 0, "Scene::writeLayerSortMode() - Could not find the layer index portion of the layer sort mode field." );
+
+        // Fetch layer number.
+        const U32 layer = dAtoi(pLayerNumber);
 
         // Just allow the write if an bad parse.
         if ( layer > MAX_LAYERS_SUPPORTED )

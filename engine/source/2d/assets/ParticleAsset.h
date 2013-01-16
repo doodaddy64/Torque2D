@@ -6,16 +6,12 @@
 #ifndef _PARTICLE_ASSET_H_
 #define _PARTICLE_ASSET_H_
 
-#ifndef _HASHTABLE_H
-#include "collection/hashTable.h"
+#ifndef _PARTICLE_ASSET_EMITTER_H_
+#include "2d/assets/particleAssetEmitter.h"
 #endif
 
 #ifndef _ASSET_BASE_H_
 #include "assets/assetBase.h"
-#endif
-
-#ifndef _PARTICLE_ASSET_EMITTER_H_
-#include "2d/assets/particleAssetEmitter.h"
 #endif
 
 //-----------------------------------------------------------------------------
@@ -24,14 +20,13 @@ class ParticleAsset : public AssetBase
 {
 private:
     typedef AssetBase  Parent;
-    typedef Vector<ParticleAssetEmitter*>   typeEmitterVector;
-    typedef HashMap<StringTableEntry, ParticleAssetField*> typeFieldHash;
+    typedef Vector<ParticleAssetEmitter*> typeEmitterVector;
 
 public:
     /// Life Mode.
     enum LifeMode
     {
-        INVALID,
+        INVALID_LIFEMODE,
 
         INFINITE,
         CYCLE,
@@ -41,13 +36,12 @@ public:
 
 private:
     typeEmitterVector                       mEmitters;
-    typeFieldHash                           mFields;
-    ParticleAssetField*                     mpSelectedField;
 
     F32                                     mLifetime;
     LifeMode                                mLifeMode;
 
     /// Particle fields.
+    ParticleAssetFieldCollection            mFields;
     ParticleAssetFieldBase                  mParticleLife;
     ParticleAssetFieldBase                  mQuantity;
     ParticleAssetFieldBase                  mSizeX;
@@ -68,9 +62,22 @@ public:
     static void initPersistFields();
     virtual bool onAdd();
     virtual void onRemove();
+    virtual void copyTo(SimObject* object);
 
     // Asset validation.
     virtual bool isAssetValid( void ) const;
+
+    void setLifetime( const F32 lifetime );
+    F32 getLifetime( void ) const { return mLifetime; }
+    void setLifeMode( const LifeMode lifemode );
+    LifeMode getLifeMode( void ) const { return mLifeMode; }
+
+    void addEmitter( ParticleAssetEmitter* pParticleAssetEmitter );
+    void clearEmitters( void );
+    U32 getEmitterCount( void ) const { return (U32)mEmitters.size(); }
+    ParticleAssetEmitter* getEmitter( const U32 emitterIndex ) const;
+    ParticleAssetEmitter* findEmitter( const char* pEmitterName ) const;
+    void moveEmitter( S32 fromIndex, S32 toIndex );
 
     virtual U32 getTamlChildCount( void ) const
     {
@@ -95,17 +102,18 @@ public:
         AssertFatal( pSimObject != NULL, "ParticleAsset::addTamlChild() - Cannot add a NULL child object." );
 
         // Fetch as particle emitter.
-        ParticleAssetEmitter* pEmitter = dynamic_cast<ParticleAssetEmitter*>( pSimObject );
+        ParticleAssetEmitter* pParticleAssetEmitter = dynamic_cast<ParticleAssetEmitter*>( pSimObject );
 
         // Is it a particle emitter?
-        if ( pEmitter == NULL )
+        if ( pParticleAssetEmitter == NULL )
         {
             // No, so warn.
             Con::warnf( "ParticleAsset::addTamlChild() - Cannot add a child object that isn't a particle emitter." );
             return;
         }
 
-        mEmitters.push_back( pEmitter );
+        // Add the emitter.
+        addEmitter( pParticleAssetEmitter );
     }
 
     /// Declare Console Object.
@@ -115,8 +123,11 @@ protected:
     virtual void initializeAsset( void );
     virtual void onAssetRefresh( void );
 
-private:
-    void addParticleField( ParticleAssetField& particleAssetField, const char* pFieldName, F32 maxTime, F32 minValue, F32 maxValue, F32 defaultValue );
+    static bool setLifetime(void* obj, const char* data)                    { static_cast<ParticleAsset*>(obj)->setLifetime(dAtof(data)); return false; }
+    static bool writeLifetime( void* obj, StringTableEntry pFieldName )     { return mNotZero( static_cast<ParticleAsset*>(obj)->getLifetime() ); }
+
+    static bool setLifeMode(void* obj, const char* data);
+    static bool writeLifeMode( void* obj, StringTableEntry pFieldName )     { return static_cast<ParticleAsset*>(obj)->getLifeMode() != INFINITE; }
 };
 
 //-----------------------------------------------------------------------------
