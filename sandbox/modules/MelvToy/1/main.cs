@@ -7,9 +7,11 @@ function createMelvToy( %scopeSet )
 {
     // Load scripts.
     exec( "./scripts/compositeSpriteTest.cs" );
+    exec( "./scripts/particleTest.cs" );
     
     // Run test.
-    runCompositeSpriteTest( %scopeSet );
+    //runCompositeSpriteTest();
+    runParticleTest();
 }
 
 //-----------------------------------------------------------------------------
