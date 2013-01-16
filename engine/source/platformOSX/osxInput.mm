@@ -296,24 +296,25 @@ void Input::refreshCursor()
 }
 
 //------------------------------------------------------------------------------
-#pragma message ("Input::getDoubleClickTime not yet implemented")
 U32 Input::getDoubleClickTime()
 {
-    return 0;
+    // Get system specified double click time
+    NSTimeInterval doubleInterval = [NSEvent doubleClickInterval];
+    
+    return doubleInterval * 1000;
 }
 
 //------------------------------------------------------------------------------
-#pragma message ("Input::getDoubleClickWidth not yet implemented")
 S32 Input::getDoubleClickWidth()
 {
-    return 0;
+    // this is an arbitrary value.
+    return 10;
 }
 
 //------------------------------------------------------------------------------
-#pragma message ("Input::getDoubleClickHeight not yet implemented")
 S32 Input::getDoubleClickHeight()
 {
-    return 0;
+    return getDoubleClickWidth();
 }
 
 //------------------------------------------------------------------------------
