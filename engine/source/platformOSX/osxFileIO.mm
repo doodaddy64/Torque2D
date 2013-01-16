@@ -875,14 +875,19 @@ bool Platform::isFile(const char *path)
     // Convert the path to a temp NSString
     NSString* filePath = [[NSString stringWithUTF8String:path] stringByStandardizingPath];
     
-    // Use the shared file manager to scan the file path
-    BOOL result = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+    // This is required to explicitly tell the file manager to determine if the file
+    // in question is a directory
+    BOOL isDirectory;
     
-    // CLean up the temp string
+    // Scan the path location
+    bool exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
+    
+    // Clean up the temp string
     [pool drain];
     
-    // Return the result of the scan
-    return result;
+    // Return the results of the scan
+    return !isDirectory && exists;
+    
 }
 
 //-----------------------------------------------------------------------------
@@ -898,13 +903,14 @@ bool Platform::isDirectory(const char *path)
     // Convert the path to a temp NSString
     NSString* folderPath = [[NSString stringWithUTF8String:path] stringByStandardizingPath];
     
-    // This is required to explicitly tell the file manager we are looking for a directory
+    // This is required to explicitly tell the file manager to determine if the file
+    // in question is a directory
     BOOL isDirectory;
     
     // Scan the path location
-    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDirectory];
-          
-     // Clean up the temp string
+    bool exists = [[NSFileManager defaultManager] fileExistsAtPath:folderPath isDirectory:&isDirectory];
+    
+    // Clean up the temp string
     [pool drain];
     
     // Return the results of the scan
