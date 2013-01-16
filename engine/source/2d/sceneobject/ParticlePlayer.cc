@@ -805,13 +805,13 @@ void ParticlePlayer::configureParticle( ParticleNode* pParticleNode )
     //// **********************************************************************************************************************
 
     //// Handle Particle Orientation Mode.
-    //switch( mParticleOrientationMode )
+    //switch( mOrientationType )
     //{
     //    // Aligned to Initial Emission.
     //    case ALIGNED:
     //    {
     //        // Just use the emission angle plus offset.
-    //        pParticleNode->mOrientationAngle = mFmod( emissionAngle - mAlignAngleOffset, 360.0f );
+    //        pParticleNode->mOrientationAngle = mFmod( emissionAngle - mAlignedAngleOffset, 360.0f );
 
     //    } break;
 
@@ -914,7 +914,7 @@ void ParticlePlayer::integrateParticle( ParticleNode* pParticleNode, F32 particl
     //// **********************************************************************************************************************
     //// Scale Spin (if Keep Aligned is not selected)
     //// **********************************************************************************************************************
-    //if ( !(mParticleOrientationMode == ALIGNED && mAlignKeepAligned) )
+    //if ( !(mOrientationType == ALIGNED && mKeepAligned) )
     //    pParticleNode->mRenderSpin = pParticleNode->mSpin * mSpin.mLife.getGraphValue( particleAge );
 
 
@@ -1005,7 +1005,7 @@ void ParticlePlayer::integrateParticle( ParticleNode* pParticleNode, F32 particl
     //// **********************************************************************************************************************
     //// Are we Aligning to motion?
     //// **********************************************************************************************************************
-    //if ( mParticleOrientationMode == ALIGNED && mAlignKeepAligned )
+    //if ( mOrientationType == ALIGNED && mKeepAligned )
     //{
     //    // Yes, so calculate last movement direction.
     //    F32 movementAngle = mRadToDeg( mAtan( pParticleNode->mVelocity.x, -pParticleNode->mVelocity.y ) );
@@ -1014,7 +1014,7 @@ void ParticlePlayer::integrateParticle( ParticleNode* pParticleNode, F32 particl
     //        movementAngle += 360.0f;
 
     //    // Set new Orientation Angle.
-    //    pParticleNode->mOrientationAngle = -movementAngle - mAlignAngleOffset;
+    //    pParticleNode->mOrientationAngle = -movementAngle - mAlignedAngleOffset;
 
 
     //    // **********************************************************************************************************************

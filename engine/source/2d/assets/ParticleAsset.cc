@@ -24,7 +24,7 @@ static EnumTable::Enums particleAssetLifeModeLookup[] =
 
 //-----------------------------------------------------------------------------
 
-static EnumTable LifeModeTable(4, &particleAssetLifeModeLookup[0]);
+static EnumTable LifeModeTable(sizeof(particleAssetLifeModeLookup) / sizeof(EnumTable::Enums), &particleAssetLifeModeLookup[0]);
 
 //-----------------------------------------------------------------------------
 
@@ -91,7 +91,6 @@ void ParticleAsset::initPersistFields()
 
     addProtectedField("Lifetime", TypeF32, Offset(mLifetime, ParticleAsset), &setLifetime, &defaultProtectedGetFn, &writeLifetime, "");
     addProtectedField("LifeMode", TypeEnum, Offset(mLifeMode, ParticleAsset), &setLifeMode, &defaultProtectedGetFn, &writeLifeMode, 1, &LifeModeTable);
-
 }
 
 //------------------------------------------------------------------------------

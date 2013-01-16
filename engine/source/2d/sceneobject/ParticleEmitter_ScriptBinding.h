@@ -197,10 +197,10 @@ ConsoleMethod(ParticleEmitter, setAlignAngleOffset, void, 3, 3, "(alignAngleOffs
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(ParticleEmitter, setAlignKeepAligned, void, 3, 3, "(keepAligned) - Set Align-Orientation Keep-Aligned Flag.")
+ConsoleMethod(ParticleEmitter, setKeepAligned, void, 3, 3, "(keepAligned) - Set Align-Orientation Keep-Aligned Flag.")
 {
     // Set Align Keep Aligned.
-    object->setAlignKeepAligned( dAtob(argv[2]) );
+    object->setKeepAligned( dAtob(argv[2]) );
 }
 
 //------------------------------------------------------------------------------
@@ -464,10 +464,10 @@ ConsoleMethod(ParticleEmitter, getAlignAngleOffset, F32, 2, 2, "Get Align-Orient
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(ParticleEmitter, getAlignKeepAligned, F32, 2, 2, "Get Align-Orientation Keep-Aligned Flag.")
+ConsoleMethod(ParticleEmitter, getKeepAligned, F32, 2, 2, "Get Align-Orientation Keep-Aligned Flag.")
 {
     // Get Align Keep Aligned.
-    return object->getAlignKeepAligned();
+    return object->getKeepAligned();
 }
 
 //------------------------------------------------------------------------------

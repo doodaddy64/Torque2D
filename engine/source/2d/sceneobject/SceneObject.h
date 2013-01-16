@@ -59,6 +59,8 @@
 extern EnumTable bodyTypeTable;
 extern b2BodyType getBodyTypeEnum(const char* label);
 extern const char* getBodyTypeDescription(const b2BodyType bodyType);
+extern EnumTable srcBlendFactorTable;
+extern EnumTable dstBlendFactorTable;
 extern b2Shape::Type getCollisionShapeTypeEnum(const char* label);
 extern S32 getSrcBlendFactorEnum(const char* label);
 extern S32 getDstBlendFactorEnum(const char* label);

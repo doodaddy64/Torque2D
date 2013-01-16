@@ -5,9 +5,17 @@
 
 #include "2d/assets/particleAssetEmitter.h"
 
+#ifndef _SCENE_OBJECT_H_
+#include "2d/sceneobject/sceneObject.h"
+#endif
+
+#ifndef _CONSOLETYPES_H_
+#include "console/consoleTypes.h"
+#endif
+
 //------------------------------------------------------------------------------
 
-static EnumTable::Enums particleOrientationLookup[] =
+static EnumTable::Enums particleOrientationTypeLookup[] =
                 {
                 { ParticleAssetEmitter::ALIGNED_ORIENTATION,  "ALIGNED" },
                 { ParticleAssetEmitter::FIXED_ORIENTATION,    "FIXED" },
@@ -16,12 +24,16 @@ static EnumTable::Enums particleOrientationLookup[] =
 
 //------------------------------------------------------------------------------
 
-ParticleAssetEmitter::ParticleOrientationMode getParticleOrientationMode(const char* label)
+static EnumTable OrientationTypeTable(sizeof(particleOrientationTypeLookup) / sizeof(EnumTable::Enums), &particleOrientationTypeLookup[0]);
+
+//------------------------------------------------------------------------------
+
+ParticleAssetEmitter::ParticleOrientationType getParticleOrientationMode(const char* label)
 {
     // Search for Mnemonic.
-    for(U32 i = 0; i < (sizeof(particleOrientationLookup) / sizeof(EnumTable::Enums)); i++)
-        if( dStricmp(particleOrientationLookup[i].label, label) == 0)
-            return((ParticleAssetEmitter::ParticleOrientationMode)particleOrientationLookup[i].index);
+    for(U32 i = 0; i < (sizeof(particleOrientationTypeLookup) / sizeof(EnumTable::Enums)); i++)
+        if( dStricmp(particleOrientationTypeLookup[i].label, label) == 0)
+            return((ParticleAssetEmitter::ParticleOrientationType)particleOrientationTypeLookup[i].index);
 
     // Invalid Orientation!
     AssertFatal(false, "ParticleAssetEmitter::getParticleOrientationMode() - Invalid Orientation Mode!");
@@ -38,6 +50,10 @@ static EnumTable::Enums emitterTypeLookup[] =
                 { ParticleAssetEmitter::LINEY_EMITTER,    "LINEY" },
                 { ParticleAssetEmitter::AREA_EMITTER,     "AREA" },
                 };
+
+//------------------------------------------------------------------------------
+
+static EnumTable EmitterTypeTable(sizeof(emitterTypeLookup) / sizeof(EnumTable::Enums), &emitterTypeLookup[0]);
 
 //------------------------------------------------------------------------------
 
@@ -68,9 +84,9 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mFixedAspect( true ),
                             mFixedForceAngle( 90.0f ),
                             mFixedForceDirection( 0.0f, 0.0f ),
-                            mParticleOrientationMode( FIXED_ORIENTATION ),
-                            mAlignKeepAligned( false ),
-                            mAlignAngleOffset( 0.0f ),
+                            mOrientationType( FIXED_ORIENTATION ),
+                            mKeepAligned( false ),
+                            mAlignedAngleOffset( 0.0f ),
                             mRandomAngleOffset( 0.0f ),
                             mRandomArc( 360.0f ),
                             mFixedAngleOffset( 0.0f ),
@@ -78,11 +94,11 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mEmitterEmission( false ),
                             mLinkEmissionRotation( false ),
                             mIntenseParticles( false ),
+                            mOrderedParticles( false ),
                             mSingleParticle( false ),
                             mAttachPositionToEmitter( false ),
                             mAttachRotationToEmitter( false ),
-                            mOrderedParticles( false ),
-                            mFirstInFrontOrder( false ),
+                            mFirstInFront( false ),
                             mStaticMode( true ),
                             mImageAsset( NULL ),
                             mImageFrame( 0 ),
@@ -139,6 +155,35 @@ void ParticleAssetEmitter::initPersistFields()
 {
     // Call parent.
     Parent::initPersistFields();
+/*
+    addProtectedField("EmitterType", TypeEnum, Offset(mEmitterType, ParticleAssetEmitter), &setEmitterType, &defaultProtectedGetFn, &writeEmitterType, 1, &EmitterTypeTable);
+    addProtectedField("FixedAspect", TypeBool, Offset(mFixedAspect, ParticleAssetEmitter), &setFixedAspect, &defaultProtectedGetFn, &writeFixedAspect, "");
+    addProtectedField("FixedForceAngle", TypeF32, Offset(mFixedForceAngle, ParticleAssetEmitter), &setFixedForceAngle, &defaultProtectedGetFn, &writeFixedForceAngle, "");
+    addProtectedField("OrientationType", TypeEnum, Offset(mOrientationType, ParticleAssetEmitter), &setOrientationType, &defaultProtectedGetFn, &writeOrientationtype, 1, &OrientationTypeTable);
+    addProtectedField("KeepAligned", TypeBool, Offset(mKeepAligned, ParticleAssetEmitter), &setKeepAligned, &defaultProtectedGetFn, &writeKeepAligned, "");
+    addProtectedField("AlignedAngleOffset", TypeF32, Offset(mAlignedAngleOffset, ParticleAssetEmitter), &setAlignedAngleOffset, &defaultProtectedGetFn, &writeAlignedAngleOffset, "");
+    addProtectedField("RandomAngleOffset", TypeF32, Offset(mRandomAngleOffset, ParticleAssetEmitter), &setRandomAngleOffset, &defaultProtectedGetFn, &writeRandomAngleOffset, "");
+    addProtectedField("RandomArc", TypeF32, Offset(mRandomArc, ParticleAssetEmitter), &setRandomArc, &defaultProtectedGetFn, &writeRandomArc, "");
+    addProtectedField("FixedAngleOffset", TypeF32, Offset(mFixedAngleOffset, ParticleAssetEmitter), &setFixedAngleOffset, &defaultProtectedGetFn, &writeFixedAngleOffset, "");
+    addProtectedField("PivotPoint", TypeVector2, Offset(mPivotPoint, ParticleAssetEmitter), &setPivotPoint, &defaultProtectedGetFn, &writePivotPoint, "");
+    addProtectedField("EmitterEmission", TypeBool, Offset(mEmitterEmission, ParticleAssetEmitter), &setEmitterEmission, &defaultProtectedGetFn, &writeEmitterEmission, "");
+    addProtectedField("LinkEmissionRotation", TypeBool, Offset(mLinkEmissionRotation, ParticleAssetEmitter), &setLinkEmissionRotation, &defaultProtectedGetFn, &writeLinkEmissionRotation, "");
+    addProtectedField("IntenseParticles", TypeBool, Offset(mIntenseParticles, ParticleAssetEmitter), &setIntenseParticles, &defaultProtectedGetFn, &writeIntenseParticles, "");
+    addProtectedField("OrderedParticles", TypeBool, Offset(mOrderedParticles, ParticleAssetEmitter), &setOrderedParticles, &defaultProtectedGetFn, &writeOrderedParticles, "");
+    addProtectedField("SingleParticle", TypeBool, Offset(mSingleParticle, ParticleAssetEmitter), &setSingleParticle, &defaultProtectedGetFn, &writeSingleParticle, "");
+    addProtectedField("AttachPositionToEmitter", TypeBool, Offset(mAttachPositionToEmitter, ParticleAssetEmitter), &setAttachPositionToEmitter, &defaultProtectedGetFn, &writeAttachPositionToEmitter, "");
+    addProtectedField("AttachRotationToEmitter", TypeBool, Offset(mAttachRotationToEmitter, ParticleAssetEmitter), &setAttachRotationToEmitter, &defaultProtectedGetFn, &writeAttachRotationToEmitter, "");
+    addProtectedField("FirstInFront", TypeBool, Offset(mFirstInFront, ParticleAssetEmitter), &setFirstInFront, &defaultProtectedGetFn, &writeFirstInFront, "");
+
+    addProtectedField("Image", TypeImageAssetPtr, Offset(mImageAsset, ParticleAssetEmitter), &setImage, &getImage, &writeImage, "");
+    addProtectedField("Frame", TypeS32, Offset(mImageFrame, ParticleAssetEmitter), &setFrame, &defaultProtectedGetFn, &writeFrame, "");
+    addProtectedField("Animation", TypeAnimationAssetPtr, Offset(mAnimationAsset, ParticleAssetEmitter), &setAnimation, &getAnimation, &writeAnimation, "");
+
+    addProtectedField("BlendMode", TypeBool, Offset(mBlendMode, ParticleAssetEmitter), &setBlendMode, &defaultProtectedGetFn, &writeBlendMode, "");
+    addProtectedField("SrcBlendFactor", TypeEnum, Offset(mSrcBlendFactor, ParticleAssetEmitter), &writeSrcBlendFactor, 1, &srcBlendFactorTable);
+    addProtectedField("DstBlendFactor", TypeEnum, Offset(mDstBlendFactor, ParticleAssetEmitter), &writeDstBlendFactor, 1, &dstBlendFactorTable);
+    addProtectedField("AlphaTest", TypeF32, Offset(mAlphaTest, ParticleAssetEmitter), &setAlphaTest, &defaultProtectedGetFn, &writeAlphaTest, "");
+*/
 }
 
 //------------------------------------------------------------------------------
@@ -179,9 +224,9 @@ void ParticleAssetEmitter::copyTo(SimObject* object)
    pParticleAssetEmitter->setEmitterType( getEmitterType() );
    pParticleAssetEmitter->setFixedAspect( getFixedAspect() );
    pParticleAssetEmitter->setFixedForceAngle( getFixedForceAngle() );
-   pParticleAssetEmitter->setOrientationMode( getOrientationMode() );
-   pParticleAssetEmitter->setAlignAngleOffset( getAlignAngleOffset() );
-   pParticleAssetEmitter->setAlignKeepAligned( getAlignKeepAligned() );
+   pParticleAssetEmitter->setOrientationType( getOrientationType() );
+   pParticleAssetEmitter->setAlignedAngleOffset( getAlignedAngleOffset() );
+   pParticleAssetEmitter->setKeepAligned( getKeepAligned() );
    pParticleAssetEmitter->setRandomAngleOffset( getRandomAngleOffset() );
    pParticleAssetEmitter->setRandomArc( getRandomArc() );
    pParticleAssetEmitter->setFixedAngleOffset( getFixedAngleOffset() );
@@ -193,7 +238,7 @@ void ParticleAssetEmitter::copyTo(SimObject* object)
    pParticleAssetEmitter->setAttachPositionToEmitter( getAttachPositionToEmitter() );
    pParticleAssetEmitter->setAttachRotationToEmitter( getAttachPositionToEmitter() );
    pParticleAssetEmitter->setOrderedParticles( getOrderedParticles() );
-   pParticleAssetEmitter->setFirstInFrontOrder( getFirstInFrontOrder() );
+   pParticleAssetEmitter->setFirstInFront( getFirstInFront() );
 
    // Copy particle fields.
    mFields.copyTo( pParticleAssetEmitter->mFields );

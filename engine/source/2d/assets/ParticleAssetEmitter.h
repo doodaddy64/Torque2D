@@ -33,7 +33,7 @@ class ParticleAssetEmitter : public SimObject
     friend ParticleAsset;
 
 public:
-    enum ParticleOrientationMode
+    enum ParticleOrientationType
     {
         INVALID_ORIENTATION,
 
@@ -62,9 +62,9 @@ private:
     bool                                    mFixedAspect;
     F32                                     mFixedForceAngle;
     Vector2                                 mFixedForceDirection;
-    ParticleOrientationMode                 mParticleOrientationMode;
-    F32                                     mAlignAngleOffset;
-    bool                                    mAlignKeepAligned;
+    ParticleOrientationType                 mOrientationType;
+    F32                                     mAlignedAngleOffset;
+    bool                                    mKeepAligned;
     F32                                     mRandomAngleOffset;
     F32                                     mRandomArc;
     F32                                     mFixedAngleOffset;
@@ -73,11 +73,11 @@ private:
     bool                                    mEmitterEmission;
     bool                                    mLinkEmissionRotation;
     bool                                    mIntenseParticles;
+    bool                                    mOrderedParticles;
     bool                                    mSingleParticle;
     bool                                    mAttachPositionToEmitter;
     bool                                    mAttachRotationToEmitter;
-    bool                                    mOrderedParticles;
-    bool                                    mFirstInFrontOrder;
+    bool                                    mFirstInFront;
 
     bool                                    mStaticMode;
     AssetPtr<ImageAsset>                    mImageAsset;
@@ -125,12 +125,12 @@ public:
     inline bool getFixedAspect( void ) const { return mFixedAspect; }
     void setFixedForceAngle( const F32 fixedForceAngle );
     inline F32 getFixedForceAngle( void ) const { return mFixedForceAngle; }
-    inline void setOrientationMode( const ParticleOrientationMode particleOrientationMode ) { mParticleOrientationMode = particleOrientationMode; }
-    inline ParticleOrientationMode getOrientationMode( void ) const { return mParticleOrientationMode; }
-    inline void setAlignAngleOffset( const F32 angleOffset ) { mAlignAngleOffset = angleOffset; }
-    inline F32 getAlignAngleOffset( void ) const { return mAlignAngleOffset; }
-    inline void setAlignKeepAligned( const bool keepAligned ) { mAlignKeepAligned = keepAligned; }
-    inline bool getAlignKeepAligned( void ) const { return mAlignKeepAligned; }
+    inline void setOrientationType( const ParticleOrientationType particleOrientationType ) { mOrientationType = particleOrientationType; }
+    inline ParticleOrientationType getOrientationType( void ) const { return mOrientationType; }
+    inline void setKeepAligned( const bool keepAligned ) { mKeepAligned = keepAligned; }
+    inline bool getKeepAligned( void ) const { return mKeepAligned; }
+    inline void setAlignedAngleOffset( const F32 angleOffset ) { mAlignedAngleOffset = angleOffset; }
+    inline F32 getAlignedAngleOffset( void ) const { return mAlignedAngleOffset; }
     inline void setRandomAngleOffset( const F32 angleOffset ) { mRandomAngleOffset = angleOffset; };
     inline F32 getRandomAngleOffset( void ) const { return mRandomAngleOffset; }
     inline void setRandomArc( const F32 arc ) { mRandomArc = arc; }
@@ -154,8 +154,8 @@ public:
     inline bool getAttachRotationToEmitter( void ) const { return mAttachRotationToEmitter; }
     inline void setOrderedParticles( const bool ordered ) { mOrderedParticles = ordered; }
     inline bool getOrderedParticles( void ) const { return mOrderedParticles; }
-    inline void setFirstInFrontOrder( const bool firstInFrontOrder ) { mFirstInFrontOrder = firstInFrontOrder; }
-    inline bool getFirstInFrontOrder( void ) const { return mFirstInFrontOrder; }
+    inline void setFirstInFront( const bool firstInFront ) { mFirstInFront = firstInFront; }
+    inline bool getFirstInFront( void ) const { return mFirstInFront; }
    
     bool setImage( const char* imageMapName, const U32 frame = 0 );
     bool setAnimation( const char* animationName );

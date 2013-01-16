@@ -37,7 +37,7 @@ class ParticleEmitter : public SimObject
     typedef SimObject       Parent;
 
 public:
-    enum ParticleOrientationMode { ALIGNED = 0, FIXED, RANDOM };
+    enum ParticleOrientationType { ALIGNED = 0, FIXED, RANDOM };
     enum EmitterType { POINT = 0, LINEX, LINEY, AREA };
 
 private:
@@ -133,9 +133,9 @@ private:
     bool                    mFixedAspect;
     Vector2               mFixedForceDirection;
     F32                     mFixedForceAngle;
-    ParticleOrientationMode mParticleOrientationMode;
-    F32                     mAlignAngleOffset;
-    bool                    mAlignKeepAligned;
+    ParticleOrientationType mOrientationType;
+    F32                     mAlignedAngleOffset;
+    bool                    mKeepAligned;
     F32                     mRandomAngleOffset;
     F32                     mRandomArc;
     F32                     mFixedAngleOffset;
@@ -155,7 +155,7 @@ private:
     bool                    mAttachPositionToEmitter;
     bool                    mAttachRotationToEmitter;
     bool                    mOrderedParticles;
-    bool                    mFirstInFrontOrder;
+    bool                    mFirstInFront;
 
     /// Render Options.
     bool                    mBlendMode;
@@ -207,9 +207,9 @@ public:
     void setEmitterVisible( bool status );
     void setEmitterName( const char* emitterName );
     void setEmitterType( EmitterType emitterType );
-    void setParticleOrientationMode( ParticleOrientationMode particleOrientationMode );
+    void setParticleOrientationMode( ParticleOrientationType particleOrientationMode );
     void setAlignAngleOffset( F32 angleOffset );
-    void setAlignKeepAligned( bool keepAligned );
+    void setKeepAligned( bool keepAligned );
     void setFixedAngleOffset( F32 angleOffset );
     void setRandomAngleOffset( F32 angleOffset );
     void setRandomArc( F32 arc );
@@ -235,7 +235,7 @@ public:
     F32 getFixedForceAngle( void ) const;
     const char* getParticleOrientation( void ) const;
     F32 getAlignAngleOffset( void ) const;
-    bool getAlignKeepAligned( void ) const;
+    bool getKeepAligned( void ) const;
     F32 getFixedAngleOffset( void ) const;
     F32 getRandomAngleOffset( void ) const;
     F32 getRandomArc( void ) const;
@@ -305,7 +305,7 @@ public:
 
 //------------------------------------------------------------------------------
 
-extern ParticleEmitter::ParticleOrientationMode getParticleOrientationMode(const char* label);
+extern ParticleEmitter::ParticleOrientationType getParticleOrientationMode(const char* label);
 extern ParticleEmitter::EmitterType getEmitterType(const char* label);
 
 #endif // _PARTICLE_EMITTER_H_

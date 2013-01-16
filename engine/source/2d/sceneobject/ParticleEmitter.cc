@@ -16,7 +16,7 @@ IMPLEMENT_CONOBJECT(ParticleEmitter);
 
 //------------------------------------------------------------------------------
 
-static EnumTable::Enums particleOrientationLookup[] =
+static EnumTable::Enums particleOrientationTypeLookup[] =
                 {
                 { ParticleEmitter::ALIGNED,  "ALIGNED" },
                 { ParticleEmitter::FIXED,    "FIXED" },
@@ -25,12 +25,12 @@ static EnumTable::Enums particleOrientationLookup[] =
 
 //------------------------------------------------------------------------------
 
-ParticleEmitter::ParticleOrientationMode getParticleOrientationMode(const char* label)
+ParticleEmitter::ParticleOrientationType getParticleOrientationMode(const char* label)
 {
     // Search for Mnemonic.
-    for(U32 i = 0; i < (sizeof(particleOrientationLookup) / sizeof(EnumTable::Enums)); i++)
-        if( dStricmp(particleOrientationLookup[i].label, label) == 0)
-            return((ParticleEmitter::ParticleOrientationMode)particleOrientationLookup[i].index);
+    for(U32 i = 0; i < (sizeof(particleOrientationTypeLookup) / sizeof(EnumTable::Enums)); i++)
+        if( dStricmp(particleOrientationTypeLookup[i].label, label) == 0)
+            return((ParticleEmitter::ParticleOrientationType)particleOrientationTypeLookup[i].index);
 
     // Invalid Orientation!
     AssertFatal(false, "ParticleEmitter::getParticleOrientationMode() - Invalid Orientation Mode!");
@@ -107,9 +107,9 @@ void ParticleEmitter::copyTo(SimObject* object)
    emitter->mFixedAspect = mFixedAspect;
    emitter->mFixedForceDirection = mFixedForceDirection;
    emitter->mFixedForceAngle = mFixedForceAngle;
-   emitter->mParticleOrientationMode = mParticleOrientationMode;
-   emitter->mAlignAngleOffset = mAlignAngleOffset;
-   emitter->mAlignKeepAligned = mAlignKeepAligned;
+   emitter->mOrientationType = mOrientationType;
+   emitter->mAlignedAngleOffset = mAlignedAngleOffset;
+   emitter->mKeepAligned = mKeepAligned;
    emitter->mRandomAngleOffset = mRandomAngleOffset;
    emitter->mRandomArc = mRandomArc;
    emitter->mFixedAngleOffset = mFixedAngleOffset;
@@ -129,7 +129,7 @@ void ParticleEmitter::copyTo(SimObject* object)
    emitter->mAttachPositionToEmitter = mAttachPositionToEmitter;
    emitter->mAttachRotationToEmitter = mAttachRotationToEmitter;
    emitter->mOrderedParticles = mOrderedParticles;
-   emitter->mFirstInFrontOrder = mFirstInFrontOrder;
+   emitter->mFirstInFront = mFirstInFront;
 
    /// Render Options.
    emitter->mBlendMode = mBlendMode;
@@ -201,7 +201,7 @@ void ParticleEmitter::integrateParticle( ParticleNode* pParticleNode, F32 partic
     // **********************************************************************************************************************
     // Scale Spin (if Keep Aligned is not selected)
     // **********************************************************************************************************************
-    if ( !(mParticleOrientationMode == ALIGNED && mAlignKeepAligned) )
+    if ( !(mOrientationType == ALIGNED && mKeepAligned) )
         pParticleNode->mRenderSpin = pParticleNode->mSpin * mSpin.mLife.getGraphValue( particleAge );
 
 
@@ -292,7 +292,7 @@ void ParticleEmitter::integrateParticle( ParticleNode* pParticleNode, F32 partic
     // **********************************************************************************************************************
     // Are we Aligning to motion?
     // **********************************************************************************************************************
-    if ( mParticleOrientationMode == ALIGNED && mAlignKeepAligned )
+    if ( mOrientationType == ALIGNED && mKeepAligned )
     {
         // Yes, so calculate last movement direction.
         F32 movementAngle = mRadToDeg( mAtan( pParticleNode->mVelocity.x, -pParticleNode->mVelocity.y ) );
@@ -301,7 +301,7 @@ void ParticleEmitter::integrateParticle( ParticleNode* pParticleNode, F32 partic
             movementAngle += 360.0f;
 
         // Set new Orientation Angle.
-        pParticleNode->mOrientationAngle = -movementAngle - mAlignAngleOffset;
+        pParticleNode->mOrientationAngle = -movementAngle - mAlignedAngleOffset;
 
 
         // **********************************************************************************************************************
@@ -576,7 +576,7 @@ void ParticleEmitter::sceneRender( const SceneRenderState* pSceneRenderState, co
     }
 
     // Fetch First Particle ( using appropriate sort-order ).
-    ParticleNode* pParticleNode = mOrderedParticles | mFirstInFrontOrder ? mParticleNodeHead.mNextNode : mParticleNodeHead.mPreviousNode;
+    ParticleNode* pParticleNode = mOrderedParticles | mFirstInFront ? mParticleNodeHead.mNextNode : mParticleNodeHead.mPreviousNode;
 
     // Process All particle nodes.
     while ( pParticleNode != &mParticleNodeHead )
@@ -609,7 +609,7 @@ void ParticleEmitter::sceneRender( const SceneRenderState* pSceneRenderState, co
             pParticleNode->mColour );
 
         // Move to next Particle ( using appropriate sort-order ).
-        pParticleNode = mOrderedParticles | mFirstInFrontOrder ? pParticleNode->mNextNode : pParticleNode->mPreviousNode;
+        pParticleNode = mOrderedParticles | mFirstInFront ? pParticleNode->mNextNode : pParticleNode->mPreviousNode;
     };
 }
 
@@ -760,10 +760,10 @@ void ParticleEmitter::initialise( ParticleEffect* pParentEffect )
     // Set Other Properties.
     mFixedAspect = true;
     setFixedForceAngle(0.0f);
-    mParticleOrientationMode = FIXED;
+    mOrientationType = FIXED;
     mFixedAngleOffset = 0.0f;
-    mAlignAngleOffset = 0.0f;
-    mAlignKeepAligned = false;
+    mAlignedAngleOffset = 0.0f;
+    mKeepAligned = false;
     mRandomAngleOffset = 0.0f;
     mRandomArc = 360.0f;
     mEmitterType = POINT;
@@ -780,7 +780,7 @@ void ParticleEmitter::initialise( ParticleEffect* pParentEffect )
     mAttachPositionToEmitter = false;
     mAttachRotationToEmitter = false;
     mOrderedParticles = false;
-    mFirstInFrontOrder = false;
+    mFirstInFront = false;
 
     // Rendering Options.
     mBlendMode = true;
@@ -1109,10 +1109,10 @@ void ParticleEmitter::setFixedForceAngle( F32 fixedForceAngle )
 
 //------------------------------------------------------------------------------
 
-void ParticleEmitter::setParticleOrientationMode( ParticleOrientationMode particleOrientationMode )
+void ParticleEmitter::setParticleOrientationMode( ParticleOrientationType particleOrientationMode )
 {
     // Set Particle Orientation Mode.
-    mParticleOrientationMode = particleOrientationMode;
+    mOrientationType = particleOrientationMode;
 }
 
 //------------------------------------------------------------------------------
@@ -1120,15 +1120,15 @@ void ParticleEmitter::setParticleOrientationMode( ParticleOrientationMode partic
 void ParticleEmitter::setAlignAngleOffset( F32 angleOffset )
 {
     // Set Align Angle Offset.
-    mAlignAngleOffset = angleOffset;
+    mAlignedAngleOffset = angleOffset;
 }
 
 //------------------------------------------------------------------------------
 
-void ParticleEmitter::setAlignKeepAligned( bool keepAligned )
+void ParticleEmitter::setKeepAligned( bool keepAligned )
 {
     // Set Align Keep Aligned.
-    mAlignKeepAligned = keepAligned;
+    mKeepAligned = keepAligned;
 }
 
 //------------------------------------------------------------------------------
@@ -1347,7 +1347,7 @@ void ParticleEmitter::setAttachRotationToEmitter( bool attachRotationToEmitter )
 void ParticleEmitter::setFirstInFrontOrder( bool firstInFrontOrder )
 {
     // Set First In Front Order.
-    mFirstInFrontOrder = firstInFrontOrder;
+    mFirstInFront = firstInFrontOrder;
 }
 
 //------------------------------------------------------------------------------
@@ -1399,12 +1399,12 @@ F32 ParticleEmitter::getFixedForceAngle( void ) const
 const char* ParticleEmitter::getParticleOrientation( void ) const
 {
     // Search for Mnemonic.
-    for(U32 i = 0; i < (sizeof(particleOrientationLookup) / sizeof(particleOrientationLookup[0])); i++)
+    for(U32 i = 0; i < (sizeof(particleOrientationTypeLookup) / sizeof(particleOrientationTypeLookup[0])); i++)
     {
-        if( (ParticleEmitter::ParticleOrientationMode)particleOrientationLookup[i].index == mParticleOrientationMode )
+        if( (ParticleEmitter::ParticleOrientationType)particleOrientationTypeLookup[i].index == mOrientationType )
         {
             // Return Particle Orientation Description.
-            return particleOrientationLookup[i].label;
+            return particleOrientationTypeLookup[i].label;
         }
     }
 
@@ -1417,15 +1417,15 @@ const char* ParticleEmitter::getParticleOrientation( void ) const
 F32 ParticleEmitter::getAlignAngleOffset( void ) const
 {
     // Get Align Angle Offset.
-    return mAlignAngleOffset;
+    return mAlignedAngleOffset;
 }
 
 //------------------------------------------------------------------------------
 
-bool ParticleEmitter::getAlignKeepAligned( void ) const
+bool ParticleEmitter::getKeepAligned( void ) const
 {
     // Get Align Keep Aligned.
-    return mAlignKeepAligned;
+    return mKeepAligned;
 }
 
 //------------------------------------------------------------------------------
@@ -1567,7 +1567,7 @@ bool ParticleEmitter::getAttachRotationToEmitter( void ) const
 bool ParticleEmitter::getFirstInFrontOrder( void ) const
 {
     // Get First In Front Order.
-    return mFirstInFrontOrder;
+    return mFirstInFront;
 }
 
 //------------------------------------------------------------------------------
@@ -2025,13 +2025,13 @@ void ParticleEmitter::configureParticle( ParticleNode* pParticleNode )
     // **********************************************************************************************************************
 
     // Handle Particle Orientation Mode.
-    switch( mParticleOrientationMode )
+    switch( mOrientationType )
     {
         // Aligned to Initial Emission.
         case ALIGNED:
         {
             // Just use the emission angle plus offset.
-            pParticleNode->mOrientationAngle = mFmod( emissionAngle - mAlignAngleOffset, 360.0f );
+            pParticleNode->mOrientationAngle = mFmod( emissionAngle - mAlignedAngleOffset, 360.0f );
 
         } break;
 
@@ -2413,9 +2413,9 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 3 )
             !stream.read( &object->mFixedForceDirection.x ) ||
             !stream.read( &object->mFixedForceDirection.y ) ||
             !stream.read( &object->mFixedForceAngle ) ||
-            !stream.read( (S32*)&object->mParticleOrientationMode ) ||
-            !stream.read( &object->mAlignAngleOffset ) ||
-            !stream.read( &object->mAlignKeepAligned ) ||
+            !stream.read( (S32*)&object->mOrientationType ) ||
+            !stream.read( &object->mAlignedAngleOffset ) ||
+            !stream.read( &object->mKeepAligned ) ||
             !stream.read( &object->mRandomAngleOffset ) ||
             !stream.read( &object->mRandomArc ) ||
             !stream.read( &object->mFixedAngleOffset ) ||
@@ -2428,7 +2428,7 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 3 )
             !stream.read( &object->mSingleParticle ) ||
             !stream.read( &object->mAttachPositionToEmitter ) ||
             !stream.read( &object->mAttachRotationToEmitter ) ||
-            !stream.read( &object->mFirstInFrontOrder ) ||
+            !stream.read( &object->mFirstInFront ) ||
             !stream.read( &object->mPauseEmitter ) ||
             !stream.read( &blending ) ||
             !stream.read( &srcBlendFactor ) ||
@@ -2446,7 +2446,7 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 3 )
     object->mFixedForceDirection.y = -object->mFixedForceDirection.y;
     object->mPivotPoint.y = -object->mPivotPoint.y;
     object->mFixedForceAngle = mGetFlippedYAngle( mDegToRad( object->mFixedForceAngle ) );
-    object->mAlignAngleOffset = mDegToRad( object->mAlignAngleOffset );
+    object->mAlignedAngleOffset = mDegToRad( object->mAlignedAngleOffset );
     object->mRandomAngleOffset = mDegToRad( object->mRandomAngleOffset );
     object->mRandomArc = mDegToRad( object->mRandomArc );
     object->mFixedAngleOffset = mDegToRad( object->mFixedAngleOffset );
@@ -2637,9 +2637,9 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 4 )
             !stream.read( &object->mFixedForceDirection.x ) ||
             !stream.read( &object->mFixedForceDirection.y ) ||
             !stream.read( &object->mFixedForceAngle ) ||
-            !stream.read( (S32*)&object->mParticleOrientationMode ) ||
-            !stream.read( &object->mAlignAngleOffset ) ||
-            !stream.read( &object->mAlignKeepAligned ) ||
+            !stream.read( (S32*)&object->mOrientationType ) ||
+            !stream.read( &object->mAlignedAngleOffset ) ||
+            !stream.read( &object->mKeepAligned ) ||
             !stream.read( &object->mRandomAngleOffset ) ||
             !stream.read( &object->mRandomArc ) ||
             !stream.read( &object->mFixedAngleOffset ) ||
@@ -2653,7 +2653,7 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 4 )
             !stream.read( &object->mAttachPositionToEmitter ) ||
             !stream.read( &object->mAttachRotationToEmitter ) ||
             !stream.read( &object->mOrderedParticles ) ||
-            !stream.read( &object->mFirstInFrontOrder ) ||
+            !stream.read( &object->mFirstInFront ) ||
             !stream.read( &object->mPauseEmitter ) ||
             !stream.read( &blending ) ||
             !stream.read( &srcBlendFactor ) ||
@@ -2744,9 +2744,9 @@ IMPLEMENT_2D_SAVE_METHOD( ParticleEmitter, 4 )
             !stream.write( object->mFixedForceDirection.x ) ||
             !stream.write( object->mFixedForceDirection.y ) ||
             !stream.write( object->mFixedForceAngle ) ||
-            !stream.write( (S32)object->mParticleOrientationMode ) ||
-            !stream.write( object->mAlignAngleOffset ) ||
-            !stream.write( object->mAlignKeepAligned ) ||
+            !stream.write( (S32)object->mOrientationType ) ||
+            !stream.write( object->mAlignedAngleOffset ) ||
+            !stream.write( object->mKeepAligned ) ||
             !stream.write( object->mRandomAngleOffset ) ||
             !stream.write( object->mRandomArc ) ||
             !stream.write( object->mFixedAngleOffset ) ||
@@ -2760,7 +2760,7 @@ IMPLEMENT_2D_SAVE_METHOD( ParticleEmitter, 4 )
             !stream.write( object->mAttachPositionToEmitter ) ||
             !stream.write( object->mAttachRotationToEmitter ) ||
             !stream.write( object->mOrderedParticles ) ||
-            !stream.write( object->mFirstInFrontOrder ) ||
+            !stream.write( object->mFirstInFront ) ||
             !stream.write( object->mPauseEmitter ) ||
             !stream.write( object->mBlendMode ) ||
             !stream.write( object->mSrcBlendFactor ) ||
