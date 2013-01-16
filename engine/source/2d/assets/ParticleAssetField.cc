@@ -17,32 +17,35 @@
 #include "sim/simBase.h"
 #endif
 
+#ifndef _STRINGUNIT_H_
+#include "string/stringUnit.h"
+#endif
+
 //-----------------------------------------------------------------------------
 
 static bool particleAssetFieldPropertiesInitialized = false;
 
-static StringTableEntry particleAssetFieldCollectionName;
-static StringTableEntry particleAssetFieldTimeScaleName;
-static StringTableEntry particleAssetFieldValueScaleName;
+static StringTableEntry particleAssetFieldRepeatTimeName;
 static StringTableEntry particleAssetFieldMaxTimeName;
 static StringTableEntry particleAssetFieldMinValueName;
 static StringTableEntry particleAssetFieldMaxValueName;
 static StringTableEntry particleAssetFieldDefaultValueName;
+static StringTableEntry particleAssetFieldValueScaleName;
+static StringTableEntry particleAssetFieldDataKeysName;
 
-static StringTableEntry particleAssetFieldDataKeyName;
-static StringTableEntry particleAssetFieldDataKeyTimeName;
-static StringTableEntry particleAssetFieldDataKeyValueName;
+ParticleAssetField::DataKey errorKey( -1.0f, 0.0f );
 
 //-----------------------------------------------------------------------------
 
 ParticleAssetField::ParticleAssetField() :
                         mFieldName( StringTable->EmptyString ),
-                        mValueScale( 1.0f ),
-                        mTimeScale( 1.0f ),
+                        mRepeatTime( 1.0f ),
                         mMaxTime( 1.0f ),
                         mMinValue( 0.0f ),
                         mMaxValue( 0.0f ),
-                        mDefaultValue( 0.0f )
+                        mDefaultValue( 1.0f ),
+                        mValueScale( 1.0f ),
+                        mValueBoundsDirty( true )
 {
     // Set Vector Associations.
     VECTOR_SET_ASSOCIATION( mDataKeys );
@@ -50,7 +53,13 @@ ParticleAssetField::ParticleAssetField() :
     // Initialize names.
     if ( !particleAssetFieldPropertiesInitialized )
     {
-        particleAssetFieldCollectionName      = StringTable->insert( "Cells" );
+        particleAssetFieldRepeatTimeName   = StringTable->insert( "RepeatTime" );
+        particleAssetFieldMaxTimeName      = StringTable->insert( "MaxTime" );
+        particleAssetFieldMinValueName     = StringTable->insert( "MinValue" );
+        particleAssetFieldMaxValueName     = StringTable->insert( "MaxValue" );
+        particleAssetFieldDefaultValueName = StringTable->insert( "DefaultValue" );
+        particleAssetFieldValueScaleName   = StringTable->insert( "ValueScale" );
+        particleAssetFieldDataKeysName     = StringTable->insert( "Keys" );
 
         // Flag as initialized.
         particleAssetFieldPropertiesInitialized = true;
@@ -69,12 +78,12 @@ ParticleAssetField::~ParticleAssetField()
 void ParticleAssetField::copyTo( ParticleAssetField& field )
 {
     field.mFieldName = mFieldName;
-    field.mValueScale = mValueScale;
-    field.mTimeScale = mTimeScale;
+    field.mRepeatTime = mRepeatTime;
     field.mMaxTime = mMaxTime;
     field.mMinValue = mMinValue;
     field.mMaxValue = mMaxValue;
     field.mDefaultValue = mDefaultValue;
+    field.mValueScale = mValueScale;
 
     // Copy data keys.    
     field.clearDataKeys();
@@ -87,57 +96,13 @@ void ParticleAssetField::copyTo( ParticleAssetField& field )
 
 //-----------------------------------------------------------------------------
 
-void ParticleAssetField::setFieldName( const char* pFieldName )
+void ParticleAssetField::initialize( const F32 maxTime, const F32 minValue, const F32 maxValue, const F32 defaultValue )
 {
-    // Sanity!
-    AssertFatal( mFieldName == StringTable->EmptyString, "ParticleAssetField::setFieldName() - Cannot set particle asset field name once it has been set." );
+    // Set the value bounds.
+    setValueBounds( maxTime, minValue, maxValue, defaultValue );
 
-    mFieldName = StringTable->insert( pFieldName );
-}
-
-//-----------------------------------------------------------------------------
-
-bool ParticleAssetField::setValueScale( const F32 valueScale )
-{
-    // Check Value Scale.
-    if ( valueScale < 0.0f )
-    {
-        // Warn.
-        Con::warnf("ParticleAssetField::setValueScale() - Invalid Value Scale! (%f)", valueScale );
-
-        // Return Error.
-        return false;
-    }
-
-    // Set Value Scale/
-    mValueScale = valueScale;
-
-    // Return Okay.
-    return true;
-}
-
-//-----------------------------------------------------------------------------
-
-bool ParticleAssetField::setTimeRepeat( const F32 timeRepeat )
-{
-    // Check Time Repeat.
-    if ( timeRepeat < 0.0f )
-    {
-        // Warn.
-        Con::warnf("ParticleAssetField::setTimeRepeat() - Time-repeat '%f' is invalid.", timeRepeat );
-
-        // Return Error.
-        return false;
-    }
-
-    // Set Time Scale.
-    // NOTE:-   Incoming Time-Repeat is zero upwards and we actually
-    //          want to use it as a multiplier so we increase it
-    //          by one.
-    mTimeScale = timeRepeat + 1.0f;
-
-    // Return Okay.
-    return true;
+    // Reset the value bounds dirty flag.
+    mValueBoundsDirty = false;
 }
 
 //-----------------------------------------------------------------------------
@@ -148,7 +113,7 @@ void ParticleAssetField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue
     if ( maxTime <= 0.0f )
     {
         // Warn.
-        Con::warnf("ParticleAssetField::setValueBounds() - Maxt-time '%f' is invalid", maxTime );
+        Con::warnf("ParticleAssetField::setValueBounds() - Max-time '%f' is invalid", maxTime );
 
         // Set Default Max Time.
         maxTime = 1.0f;
@@ -195,8 +160,67 @@ void ParticleAssetField::setValueBounds( F32 maxTime, F32 minValue, F32 maxValue
     // Set Default Value.
     mDefaultValue = defaultValue;
 
-    // Reset Data-Keys.
-    resetDataKeys();
+    // Reset the data keys if none are present.
+    if ( mDataKeys.size() == 0 )
+        resetDataKeys();
+
+    // Flag the value bounds as dirty.
+    mValueBoundsDirty = true;
+}
+
+//-----------------------------------------------------------------------------
+
+void ParticleAssetField::setFieldName( const char* pFieldName )
+{
+    // Sanity!
+    AssertFatal( mFieldName == StringTable->EmptyString, "ParticleAssetField::setFieldName() - Cannot set particle asset field name once it has been set." );
+
+    mFieldName = StringTable->insert( pFieldName );
+
+    // Sanity!
+    AssertFatal( mFieldName != StringTable->EmptyString, "ParticleAssetField::setFieldName() - Field name cannot be empty." );
+}
+
+//-----------------------------------------------------------------------------
+
+bool ParticleAssetField::setRepeatTime( const F32 repeatTime )
+{
+    // Check repeat time.
+    if ( repeatTime < 0.0f )
+    {
+        // Warn.
+        Con::warnf("ParticleAssetField::setRepeatTime() - Repeat time''%f'' is invalid.", repeatTime );
+
+        // Return Error.
+        return false;
+    }
+
+    // Set repeat time.
+    mRepeatTime = repeatTime;
+
+    // Return Okay.
+    return true;
+}
+
+//-----------------------------------------------------------------------------
+
+bool ParticleAssetField::setValueScale( const F32 valueScale )
+{
+    // Check Value Scale.
+    if ( valueScale < 0.0f )
+    {
+        // Warn.
+        Con::warnf("ParticleAssetField::setValueScale() - Invalid Value Scale! (%f)", valueScale );
+
+        // Return Error.
+        return false;
+    }
+
+    // Set Value Scale/
+    mValueScale = valueScale;
+
+    // Return Okay.
+    return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -291,14 +315,14 @@ void ParticleAssetField::clearDataKeys( void )
 
 //-----------------------------------------------------------------------------
 
-const ParticleAssetField::DataKey ParticleAssetField::getDataKeyNode( const U32 index ) const
+const ParticleAssetField::DataKey& ParticleAssetField::getDataKeyNode( const U32 index ) const
 {
     // Check Index.
     if ( index >= getDataKeyCount() )
     {
         // Warn.
         Con::warnf("ParticleAssetField::getDataKeyNode() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
-        return DataKey();
+        return errorKey;
     }
 
     // Return Data-Key.
@@ -358,14 +382,6 @@ F32 ParticleAssetField::getDataKeyTime( const U32 index ) const
 
 //-----------------------------------------------------------------------------
 
-U32 ParticleAssetField::getDataKeyCount( void ) const
-{
-    // Return Data Key Count.
-    return mDataKeys.size();
-}
-
-//-----------------------------------------------------------------------------
-
 F32 ParticleAssetField::getFieldValue( F32 time ) const
 {
     // Return First Entry if it's the only one or we're using zero time.
@@ -376,7 +392,7 @@ F32 ParticleAssetField::getFieldValue( F32 time ) const
     time = getMin(getMax( 0.0f, time ), mMaxTime);
 
     // Repeat Time.
-    time = mFmod( time * mTimeScale, mMaxTime + FLT_EPSILON );
+    time = mFmod( time * mRepeatTime, mMaxTime + FLT_EPSILON );
 
     // Fetch Max Key Index.
     const U32 maxKeyIndex = getDataKeyCount()-1;
@@ -465,96 +481,162 @@ F32 ParticleAssetField::calculateFieldBVLE( const ParticleAssetField& base, cons
 
 //------------------------------------------------------------------------------
 
-void ParticleAssetField::onTamlCustomWrite( TamlCollection& customCollection )
+void ParticleAssetField::onTamlCustomWrite( TamlCollectionProperty* pCollectionProperty )
 {
     // Debug Profiling.
     PROFILE_SCOPE(ParticleAssetField_OnTamlCustomWrite);
 
+    // Add a type alias (ignore it if there ends up being no properties).
+    TamlPropertyTypeAlias* pPropertyTypeAlias = pCollectionProperty->addTypeAlias( getFieldName(), true );
 
+    // Sanity!
+    AssertFatal( pPropertyTypeAlias != NULL, "ParticleAssetField::onTamlCustomWrite() - Could not create field type alias." );
+
+    if ( mValueBoundsDirty && (mNotEqual( getMinValue(), 0.0f ) || mNotEqual( getMaxValue(), 0.0f )) )
+    {
+        pPropertyTypeAlias->addPropertyField( particleAssetFieldMinValueName, getMinValue() );
+        pPropertyTypeAlias->addPropertyField( particleAssetFieldMaxValueName, getMaxValue() );
+    }
+    
+    if ( mValueBoundsDirty && mNotEqual( getMaxTime(), 1.0f ) )
+        pPropertyTypeAlias->addPropertyField( particleAssetFieldMaxTimeName, getMaxTime() );
+
+    if ( mValueBoundsDirty && mNotEqual( getDefaultValue(), 1.0f ) )
+        pPropertyTypeAlias->addPropertyField( particleAssetFieldDefaultValueName, getDefaultValue() );
+
+    if ( mNotEqual( getValueScale(), 1.0f ) )
+        pPropertyTypeAlias->addPropertyField( particleAssetFieldValueScaleName, getValueScale() );
+
+    if ( mNotEqual( getRepeatTime(), 1.0f ) )
+        pPropertyTypeAlias->addPropertyField( particleAssetFieldRepeatTimeName, getRepeatTime() );
+
+    // Fetch key count.
+    const U32 keyCount = getDataKeyCount();
+
+    // Finish if no data keys.
+    if ( keyCount == 0 )
+        return;
+
+    // Finish if there's only one key and it's the default one.
+    if ( keyCount == 1 && mIsEqual(mDataKeys[0].mTime, 0.0f) && mIsEqual(mDataKeys[0].mValue, mDefaultValue) )
+        return;
+
+    // Format the keys,
+    char keysBuffer[MAX_TAML_PROPERTY_FIELDVALUE_LENGTH];
+    char* pKeysBuffer = keysBuffer;
+    S32 bufferSize = sizeof(keysBuffer);
+
+    // Iterate the keys.
+    for( U32 index = 0; index < keyCount; ++index )
+    {
+        // Fetch the data key.
+        const DataKey& dataKey = mDataKeys[index];
+
+        // Format the key.
+        S32 written = dSprintf( pKeysBuffer, bufferSize, index == 0 ? "%f %f" : " %f %f", dataKey.mTime, dataKey.mValue );
+        pKeysBuffer += written;
+        bufferSize -= written;
+    }
+
+    pPropertyTypeAlias->addPropertyField( particleAssetFieldDataKeysName, keysBuffer );
 }
 
 //-----------------------------------------------------------------------------
 
-void ParticleAssetField::onTamlCustomRead( const TamlCollection& customCollection )
+void ParticleAssetField::onTamlCustomRead( const TamlPropertyTypeAlias* pPropertyTypeAlias )
 {
     // Debug Profiling.
     PROFILE_SCOPE(ParticleAssetField_OnTamlCustomRead);
 
+    // Fetch existing values.
+    F32 repeatTime = getRepeatTime();
+    F32 maxTime = getMaxTime();
+    F32 minValue = getMinValue();
+    F32 maxValue = getMaxValue();
+    F32 defaultValue = getDefaultValue();
+    F32 valueScale = getValueScale();
 
+    // Set-up a temporary set of keys.
+    Vector<DataKey> keys;
 
-}
+    // Clear the existing keys.
+    mDataKeys.clear();
 
-/*
-IMPLEMENT_2D_LOAD_METHOD( ParticleAssetField, 2 )
-{
-    F32 valueScale;
-    F32 timeScale;
-    F32 maxTime;
-    F32 minValue;
-    F32 maxValue;
-    F32 defaultValue;
-
-    // Object Info.
-    if  (   !stream.read( &timeScale ) ||
-            !stream.read( &valueScale ) ||
-            !stream.read( &maxTime ) ||
-            !stream.read( &minValue ) ||
-            !stream.read( &maxValue ) ||
-            !stream.read( &defaultValue ) )
-        return false;
-
-    // Set Value Bounds.
-    object->setValueBounds( maxTime, minValue, maxValue, defaultValue );
-
-    // Set Time Scale Directly.
-    object->mTimeScale = timeScale;
-
-    // Read Data-Key Count.
-    S32 keyCount;
-    if ( !stream.read( &keyCount ) )
-        return false;
-
-    // Read Data-Keys.
-    F32 time;
-    F32 value;
-    for ( U32 n = 0; n < (U32)keyCount; n++ )
+    // Iterate property fields.
+    for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
     {
-        // Read Time/Value.
-        if (    !stream.read( &time ) ||
-                !stream.read( &value ) )
-                return false;
+        // Fetch property field.
+        TamlPropertyField* pPropertyField = *propertyFieldItr;
 
-        // Add Data-Key.
-        // NOTE:-   We'll simply overwrite the default key at t=0.0!
-        object->addDataKey( time, value );
+        // Fetch property field name.
+        StringTableEntry fieldName = pPropertyField->getFieldName();
+
+        if ( fieldName == particleAssetFieldRepeatTimeName )
+        {
+            pPropertyField->getFieldValue( repeatTime );
+        }
+        else if ( fieldName == particleAssetFieldMaxTimeName )
+        {
+            pPropertyField->getFieldValue( maxTime );
+            mValueBoundsDirty = true;
+        }
+        else if ( fieldName == particleAssetFieldMinValueName )
+        {
+            pPropertyField->getFieldValue( minValue );
+            mValueBoundsDirty = true;
+        }
+        else if ( fieldName == particleAssetFieldMaxValueName )
+        {
+            pPropertyField->getFieldValue( maxValue );
+            mValueBoundsDirty = true;
+        }
+        else if ( fieldName == particleAssetFieldDefaultValueName )
+        {
+            pPropertyField->getFieldValue( defaultValue );
+            mValueBoundsDirty = true;
+        }
+        else if ( fieldName == particleAssetFieldValueScaleName )
+        {
+            pPropertyField->getFieldValue( valueScale );
+        }
+        else if ( fieldName == particleAssetFieldDataKeysName )
+        {
+            const char* pDataKeys = pPropertyField->getFieldValue();
+            const S32 elementCount = StringUnit::getUnitCount( pDataKeys, " ,\t" );
+
+            // Are there a valid number of elements?
+            if ( elementCount < 2 || (elementCount % 2 ) != 0 )
+            {
+                // No, so warn.
+                Con::warnf( "ParticleAssetField::onTamlCustomRead() - An invalid set of data keys was found." );
+            }
+            else
+            {
+                // Iterate the elements.
+                for( S32 elementIndex = 0; elementIndex <= (elementCount-2); elementIndex += 2 )
+                {
+                    DataKey key;
+                    key.mTime = dAtof( StringUnit::getUnit( pDataKeys, elementIndex, " ,\t" ) );
+                    key.mValue = dAtof( StringUnit::getUnit( pDataKeys, elementIndex+1, " ,\t" ) );
+                    keys.push_back( key );
+                }
+            }            
+        }
     }
 
-    // Return Okay.
-    return true;
+    // Set the value bounds.
+    setValueBounds( maxTime, minValue, maxValue, defaultValue );
+
+    // Set the value scale.
+    setValueScale( valueScale );
+
+    // Set the repeat time.
+    setRepeatTime( repeatTime );
+
+    // Set the data keys.
+    for ( S32 index = 0; index < keys.size(); ++index )
+    {
+        const DataKey& key = keys[index];
+        addDataKey( key.mTime, key.mValue );
+    }
 }
-
-IMPLEMENT_2D_SAVE_METHOD( ParticleAssetField, 2 )
-{
-    // Object Info.
-    if  (   !stream.write( object->mTimeScale ) ||
-            !stream.write( object->mValueScale ) ||
-            !stream.write( object->mMaxTime ) ||
-            !stream.write( object->mMinValue ) ||
-            !stream.write( object->mMaxValue ) ||
-            !stream.write( object->mDefaultValue ) )
-        return false;
-
-    // Write Data-Key Count.
-    if ( !stream.write( object->mDataKeys.size() ) )
-        return false;
-
-    // Write Data-Keys.
-    for ( U32 n = 0; n < (U32)object->mDataKeys.size(); n++ )
-        if (    !stream.write( object->mDataKeys[n].mTime ) ||
-                !stream.write( object->mDataKeys[n].mValue ) )
-            return false;
-
-    // Return Okay.
-    return true;
-}
-*/

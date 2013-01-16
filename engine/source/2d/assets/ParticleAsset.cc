@@ -350,3 +350,25 @@ bool ParticleAsset::setLifeMode(void* obj, const char* data)
     static_cast<ParticleAsset*>(obj)->setLifeMode(getParticleAssetLifeMode(data));
     return false;
 }
+
+//------------------------------------------------------------------------------
+
+void ParticleAsset::onTamlCustomWrite( TamlCollection& customCollection )
+{
+    // Debug Profiling.
+    PROFILE_SCOPE(ParticleAsset_OnTamlCustomWrite);
+
+    // Write the fields.
+    mFields.onTamlCustomWrite( customCollection );
+}
+
+//-----------------------------------------------------------------------------
+
+void ParticleAsset::onTamlCustomRead( const TamlCollection& customCollection )
+{
+    // Debug Profiling.
+    PROFILE_SCOPE(ParticleAsset_OnTamlCustomRead);
+
+    // Read the fields.
+    mFields.onTamlCustomRead( customCollection );
+}

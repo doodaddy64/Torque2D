@@ -10,6 +10,10 @@
 #include "collection/hashTable.h"
 #endif
 
+#ifndef _TAML_COLLECTION_H_
+#include "persistence/taml/tamlCollection.h"
+#endif
+
 ///-----------------------------------------------------------------------------
 
 class ParticleAssetField;
@@ -31,7 +35,6 @@ public:
 
     void copyTo( ParticleAssetFieldCollection& fieldCollection );
 
-    void addField( ParticleAssetField& particleAssetField );
     void addField( ParticleAssetField& particleAssetField, const char* pFieldName, F32 maxTime, F32 minValue, F32 maxValue, F32 defaultValue );
 
     inline ParticleAssetField* setSelectedField( const char* pFieldName ) { mpSelectedField = findField( pFieldName ); return mpSelectedField; }
@@ -52,10 +55,13 @@ public:
     F32 getMinTime( void ) const;
     F32 getMaxTime( void ) const;
     F32 getFieldValue( F32 time ) const;
-    bool setTimeRepeat( const F32 timeRepeat );
-    F32 getTimeRepeat( void ) const;
+    bool setRepeatTime( const F32 repeatTime );
+    F32 getRepeatTime( void ) const;
     bool setValueScale( const F32 valueScale );
     F32 getValueScale( void ) const;    
+
+    void onTamlCustomWrite( TamlCollection& customCollection );
+    void onTamlCustomRead( const TamlCollection& customCollection );
 };
 
 #endif // ParticleAssetFieldCollection

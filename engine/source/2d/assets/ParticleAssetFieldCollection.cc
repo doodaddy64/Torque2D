@@ -11,9 +11,15 @@
 
 //-----------------------------------------------------------------------------
 
+static StringTableEntry particleAssetFieldCollectionName;
+
+//-----------------------------------------------------------------------------
+
 ParticleAssetFieldCollection::ParticleAssetFieldCollection() :
                                     mpSelectedField( NULL )
 {
+    // Set collection name.
+    particleAssetFieldCollectionName = StringTable->insert("Fields");
 }
 
 //-----------------------------------------------------------------------------
@@ -26,8 +32,7 @@ ParticleAssetFieldCollection::~ParticleAssetFieldCollection()
 
 void ParticleAssetFieldCollection::copyTo( ParticleAssetFieldCollection& fieldCollection )
 {
-
-    // Iterate field.
+    // Iterate the fields.
     for( typeFieldHash::iterator fieldItr = mFields.begin(); fieldItr != mFields.end(); ++fieldItr )
     {
         // Fetch field.
@@ -50,21 +55,10 @@ void ParticleAssetFieldCollection::copyTo( ParticleAssetFieldCollection& fieldCo
 
 //------------------------------------------------------------------------------
 
-void ParticleAssetFieldCollection::addField( ParticleAssetField& particleAssetField )
-{
-    // Sanity!
-    AssertFatal( !mFields.contains( particleAssetField.getFieldName() ), "ParticleAssetFieldCollection::addField() - The particle field name already exists." );
-
-    // Add to fields.
-    mFields.insert( particleAssetField.getFieldName(), &particleAssetField );
-}
-
-//------------------------------------------------------------------------------
-
 void ParticleAssetFieldCollection::addField( ParticleAssetField& particleAssetField, const char* pFieldName, F32 maxTime, F32 minValue, F32 maxValue, F32 defaultValue )
 {
     // Sanity!
-    AssertFatal( pFieldName != NULL && pFieldName != StringTable->EmptyString, "ParticleAssetFieldCollection::addField() - Field name cannot be NULL or empty." );
+    AssertFatal( pFieldName != NULL, "ParticleAssetFieldCollection::addField() - Field name cannot be NULL or empty." );
 
     // Set the field name.
     particleAssetField.setFieldName( pFieldName );
@@ -75,8 +69,8 @@ void ParticleAssetFieldCollection::addField( ParticleAssetField& particleAssetFi
     // Add to fields.
     mFields.insert( particleAssetField.getFieldName(), &particleAssetField );
 
-    // Set value bounds.
-    particleAssetField.setValueBounds( maxTime, minValue, maxValue, defaultValue );
+    // Initialize the field.
+    particleAssetField.initialize( maxTime, minValue, maxValue, defaultValue );
 }
 
 //-----------------------------------------------------------------------------
@@ -290,34 +284,34 @@ F32 ParticleAssetFieldCollection::getFieldValue( F32 time ) const
 
 //-----------------------------------------------------------------------------
 
-bool ParticleAssetFieldCollection::setTimeRepeat( const F32 timeRepeat )
+bool ParticleAssetFieldCollection::setRepeatTime( const F32 repeatTime )
 {
    // Have we got a valid field selected?
    if ( !mpSelectedField )
    {
       // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::setTimeRepeat() - No field selected." );
+      Con::warnf( "ParticleAssetFieldCollection::setRepeatTime() - No field selected." );
       return false;
    }
 
    // Set Time Repeat.
-   return mpSelectedField->setTimeRepeat( timeRepeat );
+   return mpSelectedField->setRepeatTime( repeatTime );
 }
 
 //-----------------------------------------------------------------------------
 
-F32 ParticleAssetFieldCollection::getTimeRepeat( void ) const
+F32 ParticleAssetFieldCollection::getRepeatTime( void ) const
 {
    // Have we got a valid field selected?
    if ( !mpSelectedField )
    {
       // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::getTimeRepeat() - No field selected." );
+      Con::warnf( "ParticleAssetFieldCollection::getRepeatTime() - No field selected." );
       return 0.0f;
    }
 
    // Get Time Repeat.
-   return mpSelectedField->getTimeRepeat();
+   return mpSelectedField->getRepeatTime();
 }
 
 //-----------------------------------------------------------------------------
@@ -352,6 +346,65 @@ F32 ParticleAssetFieldCollection::getValueScale( void ) const
    return mpSelectedField->getValueScale();
 }
 
+//------------------------------------------------------------------------------
+
+void ParticleAssetFieldCollection::onTamlCustomWrite( TamlCollection& customCollection )
+{
+    // Debug Profiling.
+    PROFILE_SCOPE(ParticleAssetFieldCollection_OnTamlCustomWrite);
+
+    // Finish if there no fields.
+    if ( mFields.size() == 0 )
+        return;
+
+    // Add particle asset collection property.
+    TamlCollectionProperty* pParticleAssetCollectionProperty = customCollection.addCollectionProperty( particleAssetFieldCollectionName );
+
+    // Iterate the fields.
+    for( typeFieldHash::iterator fieldItr = mFields.begin(); fieldItr != mFields.end(); ++fieldItr )
+    {
+        fieldItr->value->onTamlCustomWrite( pParticleAssetCollectionProperty );
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+void ParticleAssetFieldCollection::onTamlCustomRead( const TamlCollection& customCollection )
+{
+    // Debug Profiling.
+    PROFILE_SCOPE(ParticleAssetFieldCollection_OnTamlCustomRead);
+
+    // Find the particle asset collection property.
+    const TamlCollectionProperty* pParticleAssetCollectionProperty = customCollection.findProperty( particleAssetFieldCollectionName );
+
+    // Finish if we don't have a collection property.
+    if ( pParticleAssetCollectionProperty == NULL )
+        return;
+
+    // Iterate the collection.
+    for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pParticleAssetCollectionProperty->begin(); propertyTypeAliasItr != pParticleAssetCollectionProperty->end(); ++propertyTypeAliasItr )
+    {
+        // Fetch property type alias.
+        TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
+
+        // Fetch alias name.
+        StringTableEntry aliasName = pPropertyTypeAlias->mAliasName;
+
+        // Find the field.
+        ParticleAssetField* pParticleAssetField = findField( aliasName );
+
+        // Did we find the field?
+        if ( pParticleAssetField == NULL )
+        {
+            // No, so warn.
+            Con::warnf( "ParticleAssetFieldCollection::onTamlCustomRead() - Cannot find data field '%s'.", aliasName );
+            continue;
+        }
+
+        // Read the alias.
+        pParticleAssetField->onTamlCustomRead( pPropertyTypeAlias );
+    }
+}
 
 
 

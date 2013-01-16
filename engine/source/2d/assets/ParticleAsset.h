@@ -123,6 +123,10 @@ protected:
     virtual void initializeAsset( void );
     virtual void onAssetRefresh( void );
 
+    void onTamlCustomWrite( TamlCollection& customCollection );
+    void onTamlCustomRead( const TamlCollection& customCollection );
+
+protected:
     static bool setLifetime(void* obj, const char* data)                    { static_cast<ParticleAsset*>(obj)->setLifetime(dAtof(data)); return false; }
     static bool writeLifetime( void* obj, StringTableEntry pFieldName )     { return mNotZero( static_cast<ParticleAsset*>(obj)->getLifetime() ); }
 

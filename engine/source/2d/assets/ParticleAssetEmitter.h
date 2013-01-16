@@ -171,6 +171,10 @@ public:
 
 private:
     void setOwner( ParticleAsset* pParticleAsset );
+
+protected:
+    void onTamlCustomWrite( TamlCollection& customCollection );
+    void onTamlCustomRead( const TamlCollection& customCollection );
 };
 
 #endif // _PARTICLE_ASSET_EMITTER_H_
