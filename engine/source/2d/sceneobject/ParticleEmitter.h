@@ -37,8 +37,8 @@ class ParticleEmitter : public SimObject
     typedef SimObject       Parent;
 
 public:
-    enum tEmitterOrientationMode { ALIGNED = 0, FIXED, RANDOM };
-    enum tEmitterType { POINT = 0, LINEX, LINEY, AREA };
+    enum ParticleOrientationMode { ALIGNED = 0, FIXED, RANDOM };
+    enum EmitterType { POINT = 0, LINEX, LINEY, AREA };
 
 private:
     ParticleEffect*      pParentEffectObject;
@@ -62,11 +62,11 @@ private:
 
 
     /// Particle Node.
-    struct tParticleNode
+    struct ParticleNode
     {
         /// Particle Node Linkages.
-        tParticleNode*  mPreviousNode;
-        tParticleNode*  mNextNode;
+        ParticleNode*  mPreviousNode;
+        ParticleNode*  mNextNode;
 
         /// Suppress Movement.
         bool                    mSuppressMovement;
@@ -106,9 +106,9 @@ private:
 
     /// Particle Data.
     const U32               mParticlePoolBlockSize;
-    Vector<tParticleNode*>  mParticlePool;
-    tParticleNode*          mpFreeParticleNodes;
-    tParticleNode           mParticleNodeHead;
+    Vector<ParticleNode*>  mParticlePool;
+    ParticleNode*          mpFreeParticleNodes;
+    ParticleNode           mParticleNodeHead;
     U32                     mActiveParticles;
 
 
@@ -133,13 +133,13 @@ private:
     bool                    mFixedAspect;
     Vector2               mFixedForceDirection;
     F32                     mFixedForceAngle;
-    tEmitterOrientationMode mParticleOrientationMode;
-    F32                     mAlign_AngleOffset;
-    bool                    mAlign_KeepAligned;
-    F32                     mRandom_AngleOffset;
-    F32                     mRandom_Arc;
-    F32                     mFixed_AngleOffset;
-    tEmitterType            mEmitterType;
+    ParticleOrientationMode mParticleOrientationMode;
+    F32                     mAlignAngleOffset;
+    bool                    mAlignKeepAligned;
+    F32                     mRandomAngleOffset;
+    F32                     mRandomArc;
+    F32                     mFixedAngleOffset;
+    EmitterType            mEmitterType;
 
     AssetPtr<ImageAsset>  mImageAsset;
     U32                     mImageMapFrame;
@@ -206,8 +206,8 @@ public:
     /// Set Properties.
     void setEmitterVisible( bool status );
     void setEmitterName( const char* emitterName );
-    void setEmitterType( tEmitterType emitterType );
-    void setParticleOrientationMode( tEmitterOrientationMode particleOrientationMode );
+    void setEmitterType( EmitterType emitterType );
+    void setParticleOrientationMode( ParticleOrientationMode particleOrientationMode );
     void setAlignAngleOffset( F32 angleOffset );
     void setAlignKeepAligned( bool keepAligned );
     void setFixedAngleOffset( F32 angleOffset );
@@ -270,14 +270,14 @@ public:
     void freeAllParticles( void );
 
     /// Particle Block Control.
-    tParticleNode* createParticle( void );
-    void freeParticle( tParticleNode* pParticleNode );
+    ParticleNode* createParticle( void );
+    void freeParticle( ParticleNode* pParticleNode );
     void createParticlePoolBlock( void );
     void destroyParticlePool( void );
 
     /// Particle Creation/Integration.
-    inline void configureParticle( tParticleNode* pParticleNode );
-    inline void integrateParticle( tParticleNode* pParticleNode, F32 particleAge, F32 elapsedTime );
+    inline void configureParticle( ParticleNode* pParticleNode );
+    inline void integrateParticle( ParticleNode* pParticleNode, F32 particleAge, F32 elapsedTime );
     
     /// Collisions.
     void setEmitterCollisionStatus( const bool status );
@@ -305,7 +305,7 @@ public:
 
 //------------------------------------------------------------------------------
 
-extern ParticleEmitter::tEmitterOrientationMode getParticleOrientationMode(const char* label);
-extern ParticleEmitter::tEmitterType getEmitterType(const char* label);
+extern ParticleEmitter::ParticleOrientationMode getParticleOrientationMode(const char* label);
+extern ParticleEmitter::EmitterType getEmitterType(const char* label);
 
 #endif // _PARTICLE_EMITTER_H_

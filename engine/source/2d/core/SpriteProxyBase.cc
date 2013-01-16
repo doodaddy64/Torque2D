@@ -36,7 +36,6 @@ void SpriteProxyBase::resetState( void )
 {
     clearAsset();
     mSelfTick = false;
-    mReferenceCount = 0;
     mAnimationPaused = false;
 }
 

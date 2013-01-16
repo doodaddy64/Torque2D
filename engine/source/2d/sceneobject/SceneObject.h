@@ -73,8 +73,8 @@ extern const char* getCollisionShapeTypeDescription(const b2Shape::Type collisio
 
 struct tDestroyNotification
 {
-    SceneObject*     mpSceneObject;
-    U32                 mRefCount;
+    SceneObject*    mpSceneObject;
+    U32             mRefCount;
 };
 
 //-----------------------------------------------------------------------------
@@ -554,7 +554,7 @@ public:
     inline void             setSafeDelete( const bool status )          { mSafeDeleteReady = status; }
     inline bool             getSafeDelete( void ) const                 { return mSafeDeleteReady; }
     inline bool             isBeingDeleted( void ) const                { return mBeingSafeDeleted; }
-    virtual void            safeDelete();
+    virtual void            safeDelete( void );
 
     /// Destroy notifications.
     void                    addDestroyNotification( SceneObject* pSceneObject );

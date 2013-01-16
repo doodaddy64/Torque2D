@@ -3,7 +3,7 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-function runCompositeSpriteTest( %scopeSet )
+function runCompositeSpriteTest()
 {
     // Fetch the stock color count.
     %stockColorCount = getStockColorCount();

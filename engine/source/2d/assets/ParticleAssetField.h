@@ -27,7 +27,7 @@ public:
     };
 
 private:
-    StringTableEntry mName;
+    StringTableEntry mFieldName;
     F32 mValueScale;
     F32 mTimeScale;
     F32 mMaxTime;
@@ -41,10 +41,10 @@ public:
     ParticleAssetField();
     virtual ~ParticleAssetField();
 
-    virtual void copyTo(ParticleAssetField& graph);
+    void copyTo( ParticleAssetField& field );
 
-    void setName( const char* pName );
-    StringTableEntry getName( void ) const { return mName; }
+    void setFieldName( const char* pFieldName );
+    StringTableEntry getFieldName( void ) const { return mFieldName; }
     bool setValueScale( const F32 valueScale );
     bool setTimeRepeat( const F32 timeRepeat );
     void setValueBounds( F32 maxTime, F32 minValue, F32 maxValue, F32 defaultValue );
@@ -57,7 +57,7 @@ public:
     F32 getDataKeyValue( const U32 index ) const;
     F32 getDataKeyTime( const U32 index ) const;
     U32 getDataKeyCount( void ) const;
-    F32 getGraphValue( F32 time ) const;
+    F32 getFieldValue( F32 time ) const;
     inline F32 getMinValue( void ) const { return mMinValue; };
     inline F32 getMaxValue( void ) const { return mMaxValue; };
     inline F32 getMinTime( void ) const { return 0.0f; }
@@ -65,7 +65,6 @@ public:
     inline F32 getTimeRepeat( void ) const { return mTimeScale - 1.0f; };
     inline F32 getValueScale( void ) const { return mValueScale; };
 
-    // Calculate Graph Variants.
     static F32 calculateFieldBV( const ParticleAssetField& base, const ParticleAssetField& variation, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
     static F32 calculateFieldBVE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& effect, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );
     static F32 calculateFieldBVLE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& overlife, const ParticleAssetField& effect, const F32 effectTime, const F32 particleAge, const bool modulate = false, const F32 modulo = 0.0f );
@@ -118,11 +117,11 @@ private:
     ParticleAssetField mVariation;
 
 public:
-    inline ParticleAssetField& getVaritation( void ) { return mVariation; }
+    inline ParticleAssetField& getVariation( void ) { return mVariation; }
 
     virtual void copyTo( ParticleAssetFieldVariation& particleField )
     {
-        mVariation.copyTo( particleField.getVaritation() );
+        mVariation.copyTo( particleField.getVariation() );
     };
 };
 
@@ -137,7 +136,7 @@ public:
     void copyTo( ParticleAssetFieldBaseVariation& particleField )
     {
         getBase().copyTo( particleField.getBase() );
-        getVaritation().copyTo( particleField.getVaritation() );
+        getVariation().copyTo( particleField.getVariation() );
     };
 };
 
@@ -153,7 +152,7 @@ public:
     void copyTo( ParticleAssetFieldBaseVariationLife& particleField )
     {
         getBase().copyTo( particleField.getBase() );
-        getVaritation().copyTo( particleField.getVaritation() );
+        getVariation().copyTo( particleField.getVariation() );
         getLife().copyTo( particleField.getLife() );
     };
 };
