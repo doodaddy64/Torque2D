@@ -14,7 +14,6 @@
 - (void)windowFinishedLiveResize:(NSNotification *)notification;
 - (void)getModifierKey:(U32&)modifiers event:(NSEvent *)event;
 - (void)processMouseButton:(NSEvent *)event button:(KeyCodes)button action:(U8)action;
-- (void)processMouseDrag:(NSEvent *)event;
 - (void)processKeyEvent:(NSEvent *)event make:(BOOL)make;
 @end
 
@@ -165,18 +164,18 @@
      NSFunctionKeyMask   = 1 << 23,
      NSDeviceIndependentModifierFlagsMask = 0xffff0000U
      */
-
+    
     U32 keyMods = [event modifierFlags];
-
+    
     if (keyMods & NSShiftKeyMask)
         modifiers |= SI_SHIFT;
-
+    
     if (keyMods & NSCommandKeyMask)
         modifiers |= SI_ALT;
-
+    
     if (keyMods & NSAlternateKeyMask)
         modifiers |= SI_MAC_OPT;
-
+    
     if (keyMods & NSControlKeyMask)
         modifiers |= SI_CTRL;
 }
@@ -187,21 +186,21 @@
 {
     // Get the click location
     NSPoint clickLocation = [self convertPoint:[event locationInWindow] fromView:nil];
-
+    
     NSRect bounds = [self bounds];
-
+    
     clickLocation.y = bounds.size.height - clickLocation.y;
-
+    
     // Move the cursor
     Canvas->setCursorPos(Point2I((S32) clickLocation.x, (S32) clickLocation.y));
-
+    
     // Grab any modifiers
     U32 modifiers;
     [self getModifierKey:modifiers event:event];
-
+    
     // Build the input event
     InputEvent torqueEvent;
-
+    
     torqueEvent.deviceType = MouseDeviceType;
     torqueEvent.deviceInst = 0;
     torqueEvent.objType = SI_BUTTON;
@@ -210,58 +209,9 @@
     torqueEvent.ascii = 0;
     torqueEvent.action = action;
     torqueEvent.fValue = 1.0;
-
+    
     // Post the input event
     Game->postEvent(torqueEvent);
-}
-
-//-----------------------------------------------------------------------------
-// Processes mouse drag events, posts to the event system
-- (void)processMouseDrag:(NSEvent *)event
-{
-    if (!Input::isEnabled() && !Input::isMouseEnabled())
-        return;
-
-    // Get the click location
-    NSPoint clickLocation = [self convertPoint:[event locationInWindow] fromView:nil];
-
-    // NSViews increase the Y the higher the cursor
-    // Torque needs that to be inverted
-    NSRect bounds = [self bounds];
-    clickLocation.y = bounds.size.height - clickLocation.y;
-
-    // Move the cursor
-    Canvas->setCursorPos(Point2I((S32) clickLocation.x, (S32) clickLocation.y));
-
-    // Grab any modifiers
-    U32 modifiers;
-    [self getModifierKey:modifiers event:event];
-
-    // get the deltas
-    S32 lastMouseX, lastMouseY;
-    CGGetLastMouseDelta(&lastMouseX, &lastMouseY);
-
-    InputEvent torqueEvent;
-    torqueEvent.deviceType = MouseDeviceType;
-    torqueEvent.deviceInst = 0;
-    torqueEvent.objInst = 0;
-    torqueEvent.modifier = modifiers;
-    torqueEvent.ascii = 0;
-    torqueEvent.action = SI_MOVE;
-
-    // deliver the x and y events separately.
-    if (lastMouseX != 0)
-    {
-        torqueEvent.objType = SI_XAXIS;
-        torqueEvent.fValue = F32(lastMouseX);
-        Game->postEvent(torqueEvent);
-    }
-    if (lastMouseY != 0)
-    {
-        torqueEvent.objType = SI_YAXIS;
-        torqueEvent.fValue = F32(lastMouseY);
-        Game->postEvent(torqueEvent);
-    }
 }
 
 //-----------------------------------------------------------------------------
@@ -271,24 +221,24 @@
     // If input and keyboard are enabled
     if (!Input::isEnabled() && !Input::isKeyboardEnabled())
         return;
-
+    
     unichar chars = [[event charactersIgnoringModifiers] characterAtIndex:0];
-
+    
     // Get the key code for the event
     U32 keyCode = [event keyCode];
-
+    
     U16 objInst = TranslateOSKeyCode(keyCode);
-
+    
     // Grab any modifiers
     U32 modifiers = 0;
     [self getModifierKey:modifiers event:event];
-
+    
     // Build the input event
     InputEvent torqueEvent;
-
+    
     F32 fValue = 1.0f;
     U8 action = SI_MAKE;
-
+    
     if (!make)
     {
         action = SI_BREAK;
@@ -298,7 +248,7 @@
     {
         action = SI_REPEAT;
     }
-
+    
     torqueEvent.deviceType = KeyboardDeviceType;
     torqueEvent.deviceInst = 0;
     torqueEvent.objType = SI_KEY;
@@ -308,7 +258,7 @@
     torqueEvent.action = action;
     torqueEvent.fValue = fValue;
     torqueEvent.ascii = chars;
-
+    
     // Post the input event
     Game->postEvent(torqueEvent);
 }
@@ -319,7 +269,7 @@
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
         return;
-
+    
     [self processMouseButton:event button:KEY_BUTTON0 action:SI_MAKE];
 }
 
@@ -329,7 +279,7 @@
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
         return;
-
+    
     [self processMouseButton:event button:KEY_BUTTON1 action:SI_MAKE];
 }
 
@@ -339,7 +289,7 @@
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
         return;
-
+    
     [self processMouseButton:event button:KEY_BUTTON2 action:SI_MAKE];
 }
 
@@ -349,7 +299,7 @@
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
         return;
-
+    
     [self processMouseButton:event button:KEY_BUTTON0 action:SI_BREAK];
 }
 
@@ -359,7 +309,7 @@
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
         return;
-
+    
     [self processMouseButton:event button:KEY_BUTTON1 action:SI_BREAK];
 }
 
@@ -369,7 +319,7 @@
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
         return;
-
+    
     [self processMouseButton:event button:KEY_BUTTON2 action:SI_BREAK];
 }
 
@@ -379,25 +329,28 @@
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
         return;
-
+    
     // Get the mouse location
     NSPoint location = [self convertPoint:[event locationInWindow] fromView:nil];
-
+    
     // NSViews increase the Y the higher the cursor
     // Torque needs that to be inverted
     NSRect bounds = [self bounds];
     location.y = bounds.size.height - location.y;
-
+    
     // Grab any modifiers
     U32 modifiers;
     [self getModifierKey:modifiers event:event];
-
+    
+    // Move the cursor
+    Canvas->setCursorPos(Point2I((S32) location.x, (S32) location.y));
+    
     // Build the mouse event
     MouseMoveEvent TorqueEvent;
     TorqueEvent.xPos = (S32) location.x;
     TorqueEvent.yPos = (S32) location.y;
     TorqueEvent.modifier = modifiers;
-
+    
     // Post the event
     Game->postEvent(TorqueEvent);
 }
@@ -408,8 +361,8 @@
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
         return;
-
-    [self processMouseDrag:event];
+    
+    [self mouseMoved:event];
 }
 
 //-----------------------------------------------------------------------------
@@ -418,8 +371,8 @@
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
         return;
-
-    [self processMouseDrag:event];
+    
+    [self mouseMoved:event];
 }
 
 //-----------------------------------------------------------------------------
@@ -428,8 +381,8 @@
 {
     if (!Input::isEnabled() && !Input::isMouseEnabled())
         return;
-
-    [self processMouseDrag:event];
+    
+    [self mouseMoved:event];
 }
 
 //-----------------------------------------------------------------------------
@@ -468,7 +421,7 @@
     // If input and keyboard are enabled
     if (!Input::isEnabled() && !Input::isKeyboardEnabled())
         return;
-
+    
     [self processKeyEvent:event make:YES];
 }
 
@@ -479,7 +432,7 @@
     // If input and keyboard are enabled
     if (!Input::isEnabled() && !Input::isKeyboardEnabled())
         return;
-
+    
     [self processKeyEvent:event make:NO];
 }
 
