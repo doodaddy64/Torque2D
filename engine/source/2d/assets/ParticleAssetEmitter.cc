@@ -45,12 +45,29 @@ ParticleAssetEmitter::EmitterType ParticleAssetEmitter::getEmitterTypeEnum(const
     return ParticleAssetEmitter::INVALID_EMITTER_TYPE;
 }
 
+//-----------------------------------------------------------------------------
+
+const char* ParticleAssetEmitter::getEmitterTypeDescription( const EmitterType emitterType )
+{
+    // Search for Mnemonic.
+    for (U32 i = 0; i < (sizeof(emitterTypeLookup) / sizeof(EnumTable::Enums)); i++)
+    {
+        if( emitterTypeLookup[i].index == (S32)emitterType )
+            return emitterTypeLookup[i].label;
+    }
+
+    // Warn.
+    Con::warnf( "ParticleAssetEmitter::getEmitterTypeDescription() - Invalid emitter-type." );
+
+    return StringTable->EmptyString;
+}
+
 //------------------------------------------------------------------------------
 
 static EnumTable::Enums particleOrientationTypeLookup[] =
                 {
-                { ParticleAssetEmitter::ALIGNED_ORIENTATION,  "ALIGNED" },
                 { ParticleAssetEmitter::FIXED_ORIENTATION,    "FIXED" },
+                { ParticleAssetEmitter::ALIGNED_ORIENTATION,  "ALIGNED" },
                 { ParticleAssetEmitter::RANDOM_ORIENTATION,   "RANDOM" },
                 };
 
@@ -71,6 +88,23 @@ ParticleAssetEmitter::ParticleOrientationType ParticleAssetEmitter::getOrientati
     Con::warnf( "ParticleAssetEmitter::getOrientationTypeEnum() - Invalid orientation type '%s'.", label );
 
     return ParticleAssetEmitter::INVALID_ORIENTATION;
+}
+
+//------------------------------------------------------------------------------
+
+const char* ParticleAssetEmitter::getOrientationTypeDescription( const ParticleOrientationType orientationType )
+{
+    // Search for Mnemonic.
+    for (U32 i = 0; i < (sizeof(particleOrientationTypeLookup) / sizeof(EnumTable::Enums)); i++)
+    {
+        if( particleOrientationTypeLookup[i].index == (S32)orientationType )
+            return particleOrientationTypeLookup[i].label;
+    }
+
+    // Warn.
+    Con::warnf( "ParticleAssetEmitter::getOrientationTypeDescription() - Invalid orientation-type" );
+
+    return StringTable->EmptyString;
 }
 
 //------------------------------------------------------------------------------
@@ -100,7 +134,7 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mSingleParticle( false ),
                             mAttachPositionToEmitter( false ),
                             mAttachRotationToEmitter( false ),
-                            mFirstInFront( false ),
+                            mOldestInFront( false ),
                             mStaticMode( true ),
                             mImageAsset( NULL ),
                             mImageFrame( 0 ),
@@ -179,7 +213,7 @@ void ParticleAssetEmitter::initPersistFields()
     addProtectedField("SingleParticle", TypeBool, Offset(mSingleParticle, ParticleAssetEmitter), &setSingleParticle, &defaultProtectedGetFn, &writeSingleParticle, "");
     addProtectedField("AttachPositionToEmitter", TypeBool, Offset(mAttachPositionToEmitter, ParticleAssetEmitter), &setAttachPositionToEmitter, &defaultProtectedGetFn, &writeAttachPositionToEmitter, "");
     addProtectedField("AttachRotationToEmitter", TypeBool, Offset(mAttachRotationToEmitter, ParticleAssetEmitter), &setAttachRotationToEmitter, &defaultProtectedGetFn, &writeAttachRotationToEmitter, "");
-    addProtectedField("FirstInFront", TypeBool, Offset(mFirstInFront, ParticleAssetEmitter), &setFirstInFront, &defaultProtectedGetFn, &writeFirstInFront, "");
+    addProtectedField("OldestInFront", TypeBool, Offset(mOldestInFront, ParticleAssetEmitter), &setOldestInFront, &defaultProtectedGetFn, &writeOldestInFront, "");
 
     addProtectedField("Image", TypeImageAssetPtr, Offset(mImageAsset, ParticleAssetEmitter), &setImage, &getImage, &writeImage, "");
     addProtectedField("Frame", TypeS32, Offset(mImageFrame, ParticleAssetEmitter), &setFrame, &defaultProtectedGetFn, &writeFrame, "");
@@ -243,7 +277,7 @@ void ParticleAssetEmitter::copyTo(SimObject* object)
    pParticleAssetEmitter->setAttachPositionToEmitter( getAttachPositionToEmitter() );
    pParticleAssetEmitter->setAttachRotationToEmitter( getAttachPositionToEmitter() );
    pParticleAssetEmitter->setOrderedParticles( getOrderedParticles() );
-   pParticleAssetEmitter->setFirstInFront( getFirstInFront() );
+   pParticleAssetEmitter->setOldestInFront( getOldestInFront() );
 
    // Copy particle fields.
    mParticleFields.copyTo( pParticleAssetEmitter->mParticleFields );
@@ -428,22 +462,5 @@ void ParticleAssetEmitter::onTamlCustomRead( const TamlCollection& customCollect
 
     // Read the fields.
     mParticleFields.onTamlCustomRead( customCollection );
-
-}
-
-//-----------------------------------------------------------------------------
-
-bool ParticleAssetEmitter::setEmitterType(void* obj, const char* data)
-{
-    static_cast<ParticleAssetEmitter*>(obj)->setEmitterType( getEmitterTypeEnum(data) );
-    return false;
-}
-
-//-----------------------------------------------------------------------------
-
-bool ParticleAssetEmitter::setOrientationType(void* obj, const char* data)
-{
-    static_cast<ParticleAssetEmitter*>(obj)->setOrientationType( getOrientationTypeEnum(data) );
-    return false;
 }
 

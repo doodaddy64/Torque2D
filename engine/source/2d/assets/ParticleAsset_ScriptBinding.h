@@ -3,6 +3,10 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
+//-----------------------------------------------------------------------------
+/// Particle asset accessors.
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(ParticleAsset, setLifeMode, void, 3, 3,   "(lifeMode) Sets the life-mode of the particle effect.\n"
                                                         "@param lifeMode The life-mode of the particle effect (either INFINITE, CYCLE, KILL or STOP.\n"
                                                         "A life-mode of INFINITE causes the particle effect to last forever.\n"
@@ -23,7 +27,24 @@ ConsoleMethod( ParticleAsset, getLifeMode, const char*, 2, 2,   "() - Gets the l
 }
 
 //-----------------------------------------------------------------------------
-/// Particle fields.
+
+ConsoleMethod(ParticleAsset, setLifetime, void, 3, 3,   "(lifeTime) Sets the lifetime of the particle effect.\n"
+                                                        "@param lifeTime The lifetime of the particle effect.  This is used according to the 'lifeMode' setting.\n"
+                                                        "@return No return value." )
+{
+    object->setLifetime( dAtof(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticleAsset, getLifetime, F32, 2, 2,    "() Gets the lifetime of the particle effect.\n"
+                                                        "@return The lifetime of the particle effect." )
+{
+    return object->getLifetime();
+}
+
+//-----------------------------------------------------------------------------
+/// Particle asset fields.
 //-----------------------------------------------------------------------------
 
 ConsoleMethod(ParticleAsset, setSelectedField, bool, 3, 3,  "(fieldName) Select the specified field by its name.\n"
@@ -192,7 +213,7 @@ ConsoleMethod(ParticleAsset, getValueScale, F32, 2, 2,  "() Gets the scaling of 
 }
 
 //-----------------------------------------------------------------------------
-/// Emitter methods.
+/// Emitter asset methods.
 //-----------------------------------------------------------------------------
 
 ConsoleMethod(ParticleAsset, createEmitter, S32, 2, 2,  "() - Creates and add a new emitter.\n"

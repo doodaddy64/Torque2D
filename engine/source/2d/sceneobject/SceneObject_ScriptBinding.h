@@ -3194,7 +3194,7 @@ ConsoleMethod(SceneObject, getBlendMode, bool, 2, 2,    "() - Gets whether blend
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneObject, setSrcBlendFactor, void, 3, 3,   "(srcBlend) - Sets the source blend factory.\n"
+ConsoleMethod(SceneObject, setSrcBlendFactor, void, 3, 3,   "(srcBlend) - Sets the source blend factor.\n"
                                                             "@param srcBlend The source blend factor.\n"
                                                             "@return No return Value.")
 {
@@ -3214,7 +3214,7 @@ ConsoleMethod(SceneObject, getSrcBlendFactor, const char*, 2, 2, "() - Gets the 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneObject, setDstBlendFactor, void, 3, 3,   "(dstBlend) - Sets the destination blend factory.\n"
+ConsoleMethod(SceneObject, setDstBlendFactor, void, 3, 3,   "(dstBlend) - Sets the destination blend factor.\n"
                                                             "@param dstBlend The destination blend factor.\n"
                                                             "@return No return Value.")
 {
@@ -3339,16 +3339,18 @@ ConsoleMethod(SceneObject, getBlendAlpha, F32, 2, 2,     "() - Gets the Renderin
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneObject, setAlphaTest, void, 3, 3,     "(float alpha) - Set this object's alpha test value.\n"
-                                                            "@param value Numeric value of 0.0 to 1.0 to turn on alpha testing. Less than zero to disable alpha testing.")
+ConsoleMethod(SceneObject, setAlphaTest, void, 3, 3,    "(float alpha) - Set the render alpha test threshold.\n"
+                                                        "@param alpha The alpha test threshold in the range of 0.0 to 1.0.  Less than zero to disable alpha testing.\n"
+                                                        "@return No return value." )
+
 {
     object->setAlphaTest(dAtof(argv[2]));
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneObject, getAlphaTest, F32, 2, 2,  "() - Returns the current alpha test value for this object.\n"
-                                                    "@return (S32) A value of 0 to 255 if alpha testing is enabled. <0 represents disabled alpha testing.")
+ConsoleMethod(SceneObject, getAlphaTest, F32, 2, 2,  "() - Gets the render alpha test threshold.\n"
+                                                        "@return The render alpha test threshold in the range of 0.0f to 1.0.  Less than zero represents disabled alpha testing.")
 {
     return object->getAlphaTest();
 }

@@ -81,7 +81,7 @@ private:
     bool                                    mSingleParticle;
     bool                                    mAttachPositionToEmitter;
     bool                                    mAttachRotationToEmitter;
-    bool                                    mFirstInFront;
+    bool                                    mOldestInFront;
 
     bool                                    mStaticMode;
     AssetPtr<ImageAsset>                    mImageAsset;
@@ -120,9 +120,9 @@ public:
     virtual void onRemove();
     virtual void copyTo(SimObject* object);
 
+    inline ParticleAsset* getOwner( void ) const { return mOwner; }
     void setEmitterName( const char* pEmitterName );
     inline StringTableEntry getEmitterName( void ) const { return mEmitterName; }
-    inline ParticleAsset* getOwner( void ) const { return mOwner; }
     inline void setEmitterType( const EmitterType emitterType ) { mEmitterType = emitterType; refreshAsset(); }
     inline EmitterType getEmitterType( void ) { return mEmitterType; }
     inline void setFixedAspect( const bool fixedAspect ) { mFixedAspect = fixedAspect; refreshAsset(); }
@@ -158,8 +158,8 @@ public:
     inline bool getAttachRotationToEmitter( void ) const { return mAttachRotationToEmitter; }
     inline void setOrderedParticles( const bool ordered ) { mOrderedParticles = ordered; refreshAsset(); }
     inline bool getOrderedParticles( void ) const { return mOrderedParticles; }
-    inline void setFirstInFront( const bool firstInFront ) { mFirstInFront = firstInFront;refreshAsset();  }
-    inline bool getFirstInFront( void ) const { return mFirstInFront; }
+    inline void setOldestInFront( const bool oldestInFront ) { mOldestInFront = oldestInFront; refreshAsset();  }
+    inline bool getOldestInFront( void ) const { return mOldestInFront; }
    
     bool setImage( const char* imageMapName, const U32 frame = 0 );
     inline StringTableEntry getImage( void ) const { return mImageAsset.getAssetId(); }
@@ -167,6 +167,7 @@ public:
     inline U32 getImageFrame( void ) const { return mImageFrame; }
     bool setAnimation( const char* animationName );
     inline StringTableEntry getAnimation( void ) const { return mAnimationAsset.getAssetId(); }
+
     inline void setBlendMode( bool blendMode ) { mBlendMode = blendMode; refreshAsset(); }
     inline bool getBlendMode( void ) const { return mBlendMode; };
     inline void setSrcBlendFactor( const S32 blendFactor ) { mSrcBlendFactor = blendFactor; refreshAsset(); }
@@ -179,7 +180,9 @@ public:
     inline ParticleAssetFieldCollection& getParticleFields( void ) { return mParticleFields; }
 
     static EmitterType getEmitterTypeEnum(const char* label);
+    static const char* getEmitterTypeDescription( const EmitterType emitterType );
     static ParticleOrientationType getOrientationTypeEnum(const char* label);
+    static const char* getOrientationTypeDescription( const ParticleOrientationType orientationType );
 
     /// Declare Console Object.
     DECLARE_CONOBJECT(ParticleAssetEmitter);
@@ -194,13 +197,13 @@ protected:
     void onTamlCustomWrite( TamlCollection& customCollection );
     void onTamlCustomRead( const TamlCollection& customCollection );
 
-    static bool     setEmitterType(void* obj, const char* data);
+    static bool     setEmitterType(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setEmitterType( getEmitterTypeEnum(data) ); return false; }
     static bool     writeEmitterType( void* obj, StringTableEntry pFieldName )          { return static_cast<ParticleAssetEmitter*>(obj)->getEmitterType() == POINT_EMITTER; }
     static bool     setFixedAspect(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setFixedAspect(dAtob(data)); return false; }
     static bool     writeFixedAspect( void* obj, StringTableEntry pFieldName )          { return static_cast<ParticleAssetEmitter*>(obj)->getFixedAspect() == false; }
     static bool     setFixedForceAngle(void* obj, const char* data)                     { static_cast<ParticleAssetEmitter*>(obj)->setFixedForceAngle(dAtof(data)); return false; }
     static bool     writeFixedForceAngle( void* obj, StringTableEntry pFieldName )      { return mNotZero(static_cast<ParticleAssetEmitter*>(obj)->getFixedForceAngle() ); }
-    static bool     setOrientationType(void* obj, const char* data);
+    static bool     setOrientationType(void* obj, const char* data)                     { static_cast<ParticleAssetEmitter*>(obj)->setOrientationType( getOrientationTypeEnum(data) ); return false; }
     static bool     writeOrientationType( void* obj, StringTableEntry pFieldName )      { return static_cast<ParticleAssetEmitter*>(obj)->getOrientationType() == FIXED_ORIENTATION; }
     static bool     setKeepAligned(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setKeepAligned(dAtob(data)); return false; }
     static bool     writeKeepAligned( void* obj, StringTableEntry pFieldName )          { return static_cast<ParticleAssetEmitter*>(obj)->getKeepAligned() == true; }
@@ -228,8 +231,8 @@ protected:
     static bool     writeAttachPositionToEmitter( void* obj, StringTableEntry pFieldName ) { return static_cast<ParticleAssetEmitter*>(obj)->getAttachPositionToEmitter() == true; }
     static bool     setAttachRotationToEmitter(void* obj, const char* data)             { static_cast<ParticleAssetEmitter*>(obj)->setAttachRotationToEmitter(dAtob(data)); return false; }
     static bool     writeAttachRotationToEmitter( void* obj, StringTableEntry pFieldName ) { return static_cast<ParticleAssetEmitter*>(obj)->getAttachRotationToEmitter() == true; }
-    static bool     setFirstInFront(void* obj, const char* data)                        { static_cast<ParticleAssetEmitter*>(obj)->setFirstInFront(dAtob(data)); return false; }
-    static bool     writeFirstInFront( void* obj, StringTableEntry pFieldName )         { return static_cast<ParticleAssetEmitter*>(obj)->getFirstInFront() == true; }
+    static bool     setOldestInFront(void* obj, const char* data)                       { static_cast<ParticleAssetEmitter*>(obj)->setOldestInFront(dAtob(data)); return false; }
+    static bool     writeOldestInFront( void* obj, StringTableEntry pFieldName )        { return static_cast<ParticleAssetEmitter*>(obj)->getOldestInFront() == true; }
 
     static bool     setImage(void* obj, const char* data)                               { static_cast<ParticleAssetEmitter*>(obj)->setImage(data); return false; };
     static const char* getImage(void* obj, const char* data)                            { return static_cast<ParticleAssetEmitter*>(obj)->getImage(); }
@@ -248,7 +251,6 @@ protected:
     static bool     writeDstBlendFactor( void* obj, StringTableEntry pFieldName )       { return static_cast<ParticleAssetEmitter*>(obj)->getDstBlendFactor() != GL_ONE_MINUS_SRC_ALPHA; }
     static bool     setAlphaTest(void* obj, const char* data)                           { static_cast<ParticleAssetEmitter*>(obj)->setAlphaTest(dAtof(data)); return false; }
     static bool     writeAlphaTest( void* obj, StringTableEntry pFieldName )            { return static_cast<ParticleAssetEmitter*>(obj)->getAlphaTest() >= 0.0f; }
-
 };
 
 #endif // _PARTICLE_ASSET_EMITTER_H_
