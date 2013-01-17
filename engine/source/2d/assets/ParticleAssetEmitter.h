@@ -94,7 +94,7 @@ private:
     F32                                     mAlphaTest;
 
     /// Particle fields.
-    ParticleAssetFieldCollection            mFields;
+    ParticleAssetFieldCollection            mParticleFields;
     ParticleAssetFieldBaseVariation         mParticleLife;
     ParticleAssetFieldBaseVariation         mQuantity;
     ParticleAssetFieldBaseVariationLife     mSizeX;
@@ -175,6 +175,8 @@ public:
     inline S32 getDstBlendFactor( void ) const { return mDstBlendFactor; };
     inline void setAlphaTest( const F32 alphaTest ) { mAlphaTest = alphaTest; refreshAsset(); }
     inline F32 getAlphaTest( void ) const { return mAlphaTest; }
+
+    inline ParticleAssetFieldCollection& getParticleFields( void ) { return mParticleFields; }
 
     /// Declare Console Object.
     DECLARE_CONOBJECT(ParticleAssetEmitter);

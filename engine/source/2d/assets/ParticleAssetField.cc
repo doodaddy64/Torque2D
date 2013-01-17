@@ -33,7 +33,7 @@ static StringTableEntry particleAssetFieldDefaultValueName;
 static StringTableEntry particleAssetFieldValueScaleName;
 static StringTableEntry particleAssetFieldDataKeysName;
 
-ParticleAssetField::DataKey errorKey( -1.0f, 0.0f );
+ParticleAssetField::DataKey ParticleAssetField::BadDataKey( -1.0f, 0.0f );
 
 //-----------------------------------------------------------------------------
 
@@ -315,22 +315,6 @@ void ParticleAssetField::clearDataKeys( void )
 
 //-----------------------------------------------------------------------------
 
-const ParticleAssetField::DataKey& ParticleAssetField::getDataKeyNode( const U32 index ) const
-{
-    // Check Index.
-    if ( index >= getDataKeyCount() )
-    {
-        // Warn.
-        Con::warnf("ParticleAssetField::getDataKeyNode() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
-        return errorKey;
-    }
-
-    // Return Data-Key.
-    return mDataKeys[index];
-}
-
-//-----------------------------------------------------------------------------
-
 bool ParticleAssetField::setDataKeyValue( const U32 index, const F32 value )
 {
     // Check Index.
@@ -378,6 +362,22 @@ F32 ParticleAssetField::getDataKeyTime( const U32 index ) const
 
     // Return Data Key Time.
     return mDataKeys[index].mTime;
+}
+
+//-----------------------------------------------------------------------------
+
+const ParticleAssetField::DataKey& ParticleAssetField::getDataKey( const U32 index ) const
+{
+    // Check Index.
+    if ( index >= getDataKeyCount() )
+    {
+        // Warn.
+        Con::warnf("ParticleAssetField::getDataKey() - Index out of range! (%d of %d)", index, getDataKeyCount()-1);
+        return BadDataKey;
+    }
+
+    // Return Data-Key.
+    return mDataKeys[index];
 }
 
 //-----------------------------------------------------------------------------

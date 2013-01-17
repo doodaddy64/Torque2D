@@ -6,6 +6,10 @@
 #ifndef _PARTICLE_ASSET_FIELD_COLLECTION_H_
 #define _PARTICLE_ASSET_FIELD_COLLECTION_H_
 
+#ifndef _PARTICLE_ASSET_FIELD_H_
+#include "2d/assets/ParticleAssetField.h"
+#endif
+
 #ifndef _HASHTABLE_H
 #include "collection/hashTable.h"
 #endif
@@ -14,9 +18,6 @@
 #include "persistence/taml/tamlCollection.h"
 #endif
 
-///-----------------------------------------------------------------------------
-
-class ParticleAssetField;
 
 ///-----------------------------------------------------------------------------
 
@@ -47,8 +48,10 @@ public:
     bool removeDataKey( S32 index );
     bool clearDataKeys( void );
     bool setDataKey( S32 index, F32 value );
+
     F32 getDataKeyValue( S32 index ) const;
     F32 getDataKeyTime( S32 index ) const;
+    const ParticleAssetField::DataKey& getDataKey( const U32 index ) const;
     U32 getDataKeyCount( void ) const;
     F32 getMinValue( void ) const;
     F32 getMaxValue( void ) const;

@@ -109,38 +109,38 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mAlphaTest( -1.0f )
 {
     // Initialize particle fields.
-    mFields.addField( mParticleLife.getBase(), "ParticleLife", 1000.0f, 0.0f, 1000.0f, 2.0f );
-    mFields.addField( mParticleLife.getVariation(), "ParticleLifeVariation", 1000.0f, 0.0f, 2000.0f, 0.0f  );
-    mFields.addField( mQuantity.getBase(), "Quantity", 1000.0f, 0.0f, 1000.0f, 10.0f );
-    mFields.addField( mQuantity.getVariation(), "QuantityVariation", 1000.0f, 0.0f, 1000.0f, 0.0f );
-    mFields.addField( mSizeX.getBase(), "SizeX",  1000.0f, 0.0f, 100.0f, 2.0f );
-    mFields.addField( mSizeX.getVariation(), "SizeXVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
-    mFields.addField( mSizeX.getLife(), "SizeXLife", 1.0f, -100.0f, 100.0f, 1.0f );
-    mFields.addField( mSizeY.getBase(), "SizeY",  1000.0f, 0.0f, 100.0f, 2.0f );
-    mFields.addField( mSizeY.getVariation(), "SizeYVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
-    mFields.addField( mSizeY.getLife(), "SizeYLife", 1.0f, -100.0f, 100.0f, 1.0f );
-    mFields.addField( mSpeed.getBase(), "Speed", 1000.0f, 0.0f, 100.0f, 10.0f );
-    mFields.addField( mSpeed.getVariation(), "SpeedVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
-    mFields.addField( mSpeed.getLife(), "SpeedLife", 1.0f, -100.0f, 100.0f, 1.0f );
-    mFields.addField( mSpin.getBase(), "Spin", 1000.0f, -1000.0f, 1000.0f, 0.0f );
-    mFields.addField( mSpin.getVariation(), "SpinVariation", 1000.0f, 0.0f, 2000.0f, 0.0f );
-    mFields.addField( mSpin.getLife(), "SpinLife", 1.0f, -1000.0f, 1000.0f, 1.0f );
-    mFields.addField( mFixedForce.getBase(), "FixedForce", 1000.0f, -100.0f, 100.0f, 0.0f );
-    mFields.addField( mFixedForce.getVariation(), "FixedForceVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
-    mFields.addField( mFixedForce.getLife(), "FixedForceLife", 1.0f, -100.0f, 100.0f, 1.0f );
-    mFields.addField( mRandomMotion.getBase(), "RandomMotion", 1000.0f, 0.0f, 100.0f, 0.0f );
-    mFields.addField( mRandomMotion.getVariation(), "RandomMotionVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
-    mFields.addField( mRandomMotion.getLife(), "RandomMotionLife", 1.0f, -100.0f, 100.0f, 1.0f );
-    mFields.addField( mEmissionForce.getBase(), "EmissionForce", 1000.0f, -100.0f, 100.0f, 5.0f );
-    mFields.addField( mEmissionForce.getVariation(), "EmissionForceVariation", 1000.0f, -100.0f, 100.0f, 5.0f );
-    mFields.addField( mEmissionAngle.getBase(), "EmissionAngle", 1000.0f, -180.0f, 180.0f, 0.0f );
-    mFields.addField( mEmissionAngle.getVariation(), "EmissionAngleVariation", 1000.0f, 0.0f, 360.0f, 0.0f );
-    mFields.addField( mEmissionArc.getBase(), "EmissionArc", 1000.0f, 0.0f, 360.0f, 360.0f );
-    mFields.addField( mEmissionArc.getVariation(), "EmissionArcVariation", 1000.0f, 0.0f, 720.0f, 0.0f );
-    mFields.addField( mColourRed.getLife(), "RedChannel", 1.0f, 0.0f, 1.0f, 1.0f );
-    mFields.addField( mColourGreen.getLife(), "GreenChannel", 1.0f, 0.0f, 1.0f, 1.0f );
-    mFields.addField( mColourBlue.getLife(), "BlueChannel", 1.0f, 0.0f, 1.0f, 1.0f );
-    mFields.addField( mVisibility.getLife(), "AlphaChannel", 1.0f, 0.0f, 1.0f, 1.0f );
+    mParticleFields.addField( mParticleLife.getBase(), "ParticleLife", 1000.0f, 0.0f, 1000.0f, 2.0f );
+    mParticleFields.addField( mParticleLife.getVariation(), "ParticleLifeVariation", 1000.0f, 0.0f, 2000.0f, 0.0f  );
+    mParticleFields.addField( mQuantity.getBase(), "Quantity", 1000.0f, 0.0f, 1000.0f, 10.0f );
+    mParticleFields.addField( mQuantity.getVariation(), "QuantityVariation", 1000.0f, 0.0f, 1000.0f, 0.0f );
+    mParticleFields.addField( mSizeX.getBase(), "SizeX",  1000.0f, 0.0f, 100.0f, 2.0f );
+    mParticleFields.addField( mSizeX.getVariation(), "SizeXVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
+    mParticleFields.addField( mSizeX.getLife(), "SizeXLife", 1.0f, -100.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mSizeY.getBase(), "SizeY",  1000.0f, 0.0f, 100.0f, 2.0f );
+    mParticleFields.addField( mSizeY.getVariation(), "SizeYVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
+    mParticleFields.addField( mSizeY.getLife(), "SizeYLife", 1.0f, -100.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mSpeed.getBase(), "Speed", 1000.0f, 0.0f, 100.0f, 10.0f );
+    mParticleFields.addField( mSpeed.getVariation(), "SpeedVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
+    mParticleFields.addField( mSpeed.getLife(), "SpeedLife", 1.0f, -100.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mSpin.getBase(), "Spin", 1000.0f, -1000.0f, 1000.0f, 0.0f );
+    mParticleFields.addField( mSpin.getVariation(), "SpinVariation", 1000.0f, 0.0f, 2000.0f, 0.0f );
+    mParticleFields.addField( mSpin.getLife(), "SpinLife", 1.0f, -1000.0f, 1000.0f, 1.0f );
+    mParticleFields.addField( mFixedForce.getBase(), "FixedForce", 1000.0f, -100.0f, 100.0f, 0.0f );
+    mParticleFields.addField( mFixedForce.getVariation(), "FixedForceVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
+    mParticleFields.addField( mFixedForce.getLife(), "FixedForceLife", 1.0f, -100.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mRandomMotion.getBase(), "RandomMotion", 1000.0f, 0.0f, 100.0f, 0.0f );
+    mParticleFields.addField( mRandomMotion.getVariation(), "RandomMotionVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
+    mParticleFields.addField( mRandomMotion.getLife(), "RandomMotionLife", 1.0f, -100.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mEmissionForce.getBase(), "EmissionForce", 1000.0f, -100.0f, 100.0f, 5.0f );
+    mParticleFields.addField( mEmissionForce.getVariation(), "EmissionForceVariation", 1000.0f, -100.0f, 100.0f, 5.0f );
+    mParticleFields.addField( mEmissionAngle.getBase(), "EmissionAngle", 1000.0f, -180.0f, 180.0f, 0.0f );
+    mParticleFields.addField( mEmissionAngle.getVariation(), "EmissionAngleVariation", 1000.0f, 0.0f, 360.0f, 0.0f );
+    mParticleFields.addField( mEmissionArc.getBase(), "EmissionArc", 1000.0f, 0.0f, 360.0f, 360.0f );
+    mParticleFields.addField( mEmissionArc.getVariation(), "EmissionArcVariation", 1000.0f, 0.0f, 720.0f, 0.0f );
+    mParticleFields.addField( mColourRed.getLife(), "RedChannel", 1.0f, 0.0f, 1.0f, 1.0f );
+    mParticleFields.addField( mColourGreen.getLife(), "GreenChannel", 1.0f, 0.0f, 1.0f, 1.0f );
+    mParticleFields.addField( mColourBlue.getLife(), "BlueChannel", 1.0f, 0.0f, 1.0f, 1.0f );
+    mParticleFields.addField( mVisibility.getLife(), "AlphaChannel", 1.0f, 0.0f, 1.0f, 1.0f );
 
     // Register for refresh notifications.
     mImageAsset.registerRefreshNotify( this );
@@ -244,7 +244,7 @@ void ParticleAssetEmitter::copyTo(SimObject* object)
    pParticleAssetEmitter->setFirstInFront( getFirstInFront() );
 
    // Copy particle fields.
-   mFields.copyTo( pParticleAssetEmitter->mFields );
+   mParticleFields.copyTo( pParticleAssetEmitter->mParticleFields );
 }
 
 //-----------------------------------------------------------------------------
@@ -414,7 +414,7 @@ void ParticleAssetEmitter::onTamlCustomWrite( TamlCollection& customCollection )
     PROFILE_SCOPE(ParticleAssetEmitter_OnTamlCustomWrite);
 
     // Write the fields.
-    mFields.onTamlCustomWrite( customCollection );
+    mParticleFields.onTamlCustomWrite( customCollection );
 }
 
 //-----------------------------------------------------------------------------
@@ -425,7 +425,7 @@ void ParticleAssetEmitter::onTamlCustomRead( const TamlCollection& customCollect
     PROFILE_SCOPE(ParticleAssetEmitter_OnTamlCustomRead);
 
     // Read the fields.
-    mFields.onTamlCustomRead( customCollection );
+    mParticleFields.onTamlCustomRead( customCollection );
 
 }
 

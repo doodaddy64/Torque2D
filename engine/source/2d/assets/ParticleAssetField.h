@@ -25,9 +25,21 @@ public:
         DataKey() {}
         DataKey( const F32 time, const F32 value ) : mTime( time ), mValue( value ) {}
 
+        bool operator==( const DataKey& dataKey ) const
+        {
+            return mIsEqual( mTime, dataKey.mTime ) && mIsEqual( mValue, dataKey.mValue );
+        }
+
+        bool operator!=( const DataKey& dataKey ) const
+        {
+            return mNotEqual( mTime, dataKey.mTime ) || mNotEqual( mValue, dataKey.mValue );
+        }
+
         F32     mTime;
         F32     mValue;
     };
+
+    static ParticleAssetField::DataKey BadDataKey;
 
 private:
     StringTableEntry mFieldName;
@@ -68,11 +80,11 @@ public:
     S32 addDataKey( const F32 time, const F32 value );
     bool removeDataKey( const U32 index );
     void clearDataKeys( void );
-    const DataKey& getDataKeyNode( const U32 index ) const;
     bool setDataKeyValue( const U32 index, const F32 value );
     F32 getDataKeyValue( const U32 index ) const;
     F32 getDataKeyTime( const U32 index ) const;
     inline U32 getDataKeyCount( void ) const { return (U32)mDataKeys.size(); }
+    const DataKey& getDataKey( const U32 index ) const;
     inline F32 getFieldValue( F32 time ) const;
 
     static F32 calculateFieldBV( const ParticleAssetField& base, const ParticleAssetField& variation, const F32 effectAge, const bool modulate = false, const F32 modulo = 0.0f );

@@ -41,7 +41,7 @@ private:
     LifeMode                                mLifeMode;
 
     /// Particle fields.
-    ParticleAssetFieldCollection            mFields;
+    ParticleAssetFieldCollection            mParticleFields;
     ParticleAssetFieldBase                  mParticleLife;
     ParticleAssetFieldBase                  mQuantity;
     ParticleAssetFieldBase                  mSizeX;
@@ -72,6 +72,8 @@ public:
     F32 getLifetime( void ) const { return mLifetime; }
     void setLifeMode( const LifeMode lifemode );
     LifeMode getLifeMode( void ) const { return mLifeMode; }
+
+    inline ParticleAssetFieldCollection& getParticleFields( void ) { return mParticleFields; }
 
     ParticleAssetEmitter* createEmitter( void );
     bool addEmitter( ParticleAssetEmitter* pParticleAssetEmitter );

@@ -5,10 +5,6 @@
 
 #include "2d/assets/ParticleAssetFieldCollection.h"
 
-#ifndef _PARTICLE_ASSET_FIELD_H_
-#include "2d/assets/particleAssetField.h"
-#endif
-
 //-----------------------------------------------------------------------------
 
 static StringTableEntry particleAssetFieldCollectionName;
@@ -91,259 +87,275 @@ ParticleAssetField* ParticleAssetFieldCollection::findField( const char* pFieldN
 
 S32 ParticleAssetFieldCollection::addDataKey( F32 time, F32 value )
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::addDataKey() - No field selected." );
-      return -1;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::addDataKey() - No field selected." );
+        return -1;
+    }
 
-   // Add Data Key.
-   return mpSelectedField->addDataKey( time, value );
+    // Add Data Key.
+    return mpSelectedField->addDataKey( time, value );
 }
 
 //-----------------------------------------------------------------------------
 
 bool ParticleAssetFieldCollection::removeDataKey( S32 index )
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::removeDataKey() - No field selected." );
-      return false;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::removeDataKey() - No field selected." );
+        return false;
+    }
 
-   // Remove Data Key.
-   return mpSelectedField->removeDataKey( index );
+    // Remove Data Key.
+    return mpSelectedField->removeDataKey( index );
 }
 
 //-----------------------------------------------------------------------------
 
 bool ParticleAssetFieldCollection::clearDataKeys( void )
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::clearDataKeys() - No field selected." );
-      return false;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::clearDataKeys() - No field selected." );
+        return false;
+    }
 
-   // Clear Data Keys
-   mpSelectedField->clearDataKeys();
+    // Clear Data Keys
+    mpSelectedField->clearDataKeys();
 
-   // Return Okay.
-   return true;
+    // Return Okay.
+    return true;
 }
 
 //-----------------------------------------------------------------------------
 
 bool ParticleAssetFieldCollection::setDataKey( S32 index, F32 value )
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::setDataKey() - No field selected." );
-      return false;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::setDataKey() - No field selected." );
+        return false;
+    }
 
-   // Set Data Key.
-   return mpSelectedField->setDataKeyValue( index, value );
+    // Set the data-key value.
+    return mpSelectedField->setDataKeyValue( index, value );
 }
 
 //-----------------------------------------------------------------------------
 
 F32 ParticleAssetFieldCollection::getDataKeyValue( S32 index ) const
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::getDataKeyValue() - No field selected." );
-      return 0.0f;
-   }
+// Have we got a valid field selected?
+if ( !mpSelectedField )
+{
+    // No, so warn.
+    Con::warnf( "ParticleAssetFieldCollection::getDataKeyValue() - No field selected." );
+    return 0.0f;
+}
 
-   // Get Data Key Value.
-   return mpSelectedField->getDataKeyValue( index );
+// Get the data-key value.
+return mpSelectedField->getDataKeyValue( index );
 }
 
 //-----------------------------------------------------------------------------
 
 F32 ParticleAssetFieldCollection::getDataKeyTime( S32 index ) const
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::getDataKeyTime() - No field selected." );
-      return 0.0f;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::getDataKeyTime() - No field selected." );
+        return 0.0f;
+    }
 
-   // Get Data Key Time.
-   return mpSelectedField->getDataKeyTime( index );
+    // Get the data-key time.
+    return mpSelectedField->getDataKeyTime( index );
+}
+
+//-----------------------------------------------------------------------------
+
+const ParticleAssetField::DataKey& ParticleAssetFieldCollection::getDataKey( const U32 index ) const
+{
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::getDataKey() - No field selected." );
+        return ParticleAssetField::BadDataKey;
+    }
+
+    // Get the data-key.
+    return mpSelectedField->getDataKey( index );
 }
 
 //-----------------------------------------------------------------------------
 
 U32 ParticleAssetFieldCollection::getDataKeyCount( void ) const
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::getDataKeyCount() - No field selected." );
-      return 0;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::getDataKeyCount() - No field selected." );
+        return -1;
+    }
 
-   // Get Data Key Count.
-   return mpSelectedField->getDataKeyCount();
+    // Get the data-key count.
+    return mpSelectedField->getDataKeyCount();
 }
 
 //-----------------------------------------------------------------------------
 
 F32 ParticleAssetFieldCollection::getMinValue( void ) const
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::getMinValue() - No field selected." );
-      return 0.0f;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::getMinValue() - No field selected." );
+        return 0.0f;
+    }
 
-   // Get Min Value.
-   return mpSelectedField->getMinValue();
+    // Get Min Value.
+    return mpSelectedField->getMinValue();
 }
 
 //-----------------------------------------------------------------------------
 
 F32 ParticleAssetFieldCollection::getMaxValue( void ) const
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::getMaxValue() - No field selected." );
-      return 0.0f;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::getMaxValue() - No field selected." );
+        return 0.0f;
+    }
 
-   // Get Max Value.
-   return mpSelectedField->getMaxValue();
+    // Get Max Value.
+    return mpSelectedField->getMaxValue();
 }
 
 //-----------------------------------------------------------------------------
 
 F32 ParticleAssetFieldCollection::getMinTime( void ) const
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::getMinTime() - No field selected." );
-      return 0.0f;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::getMinTime() - No field selected." );
+        return 0.0f;
+    }
 
-   // Get Min Time.
-   return mpSelectedField->getMinTime();
+    // Get Min Time.
+    return mpSelectedField->getMinTime();
 }
 
 //-----------------------------------------------------------------------------
 
 F32 ParticleAssetFieldCollection::getMaxTime( void ) const
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::getMaxTime() - No field selected." );
-      return 0.0f;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::getMaxTime() - No field selected." );
+        return 0.0f;
+    }
 
-   // Get Max Time.
-   return mpSelectedField->getMaxTime();
+    // Get Max Time.
+    return mpSelectedField->getMaxTime();
 }
 
 //-----------------------------------------------------------------------------
 
 F32 ParticleAssetFieldCollection::getFieldValue( F32 time ) const
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::getFieldValue() - No field selected." );
-      return 0.0f;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::getFieldValue() - No field selected." );
+        return 0.0f;
+    }
 
-   // Get Graph Value.
-   return mpSelectedField->getFieldValue( time );
+    // Get Graph Value.
+    return mpSelectedField->getFieldValue( time );
 }
 
 //-----------------------------------------------------------------------------
 
 bool ParticleAssetFieldCollection::setRepeatTime( const F32 repeatTime )
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::setRepeatTime() - No field selected." );
-      return false;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::setRepeatTime() - No field selected." );
+        return false;
+    }
 
-   // Set Time Repeat.
-   return mpSelectedField->setRepeatTime( repeatTime );
+    // Set Time Repeat.
+    return mpSelectedField->setRepeatTime( repeatTime );
 }
 
 //-----------------------------------------------------------------------------
 
 F32 ParticleAssetFieldCollection::getRepeatTime( void ) const
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::getRepeatTime() - No field selected." );
-      return 0.0f;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::getRepeatTime() - No field selected." );
+        return 0.0f;
+    }
 
-   // Get Time Repeat.
-   return mpSelectedField->getRepeatTime();
+    // Get Time Repeat.
+    return mpSelectedField->getRepeatTime();
 }
 
 //-----------------------------------------------------------------------------
 
 bool ParticleAssetFieldCollection::setValueScale( const F32 valueScale )
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::setValueScale() - No field selected." );
-      return false;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::setValueScale() - No field selected." );
+        return false;
+    }
 
-   // Set Value Scale.
-   return mpSelectedField->setValueScale( valueScale );
+    // Set Value Scale.
+    return mpSelectedField->setValueScale( valueScale );
 }
 
 //-----------------------------------------------------------------------------
 
 F32 ParticleAssetFieldCollection::getValueScale( void ) const
 {
-   // Have we got a valid field selected?
-   if ( !mpSelectedField )
-   {
-      // No, so warn.
-      Con::warnf( "ParticleAssetFieldCollection::getValueScale() - No field selected." );
-      return 0.0f;
-   }
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::getValueScale() - No field selected." );
+        return 0.0f;
+    }
 
-   // Get Value Scale.
-   return mpSelectedField->getValueScale();
+    // Get Value Scale.
+    return mpSelectedField->getValueScale();
 }
 
 //------------------------------------------------------------------------------

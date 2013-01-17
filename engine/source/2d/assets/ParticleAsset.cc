@@ -4,6 +4,7 @@
 //-----------------------------------------------------------------------------
 
 #include "console/consoleTypes.h"
+
 #include "2d/assets/ParticleAsset.h"
 
 // Script bindings.
@@ -57,21 +58,21 @@ ParticleAsset::ParticleAsset() :
     VECTOR_SET_ASSOCIATION( mEmitters );  
 
     // Initialize particle fields.
-    mFields.addField( mParticleLife.getBase(), "LifeScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mFields.addField( mQuantity.getBase(), "QuantityScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mFields.addField( mSizeX.getBase(), "SizeXScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mFields.addField( mSizeY.getBase(), "SizeYScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mFields.addField( mSpeed.getBase(), "SpeedScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mFields.addField( mSpin.getBase(), "SpinScale", 1000.0f, -100.0f, 100.0f, 1.0f );
-    mFields.addField( mFixedForce.getBase(), "FixedForceScale", 1000.0f, -100.0f, 100.0f, 1.0f  );
-    mFields.addField( mRandomMotion.getBase(), "RandomMotionScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mFields.addField( mVisibility.getBase(), "VisibilityScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mFields.addField( mEmissionForce.getBase(), "EmissionForceBase", 1000.0f, -100.0f, 100.0f, 5.0f );
-    mFields.addField( mEmissionForce.getVariation(), "EmissionForceVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
-    mFields.addField( mEmissionAngle.getBase(), "EmissionAngleBase", 1000.0f, -180.0f, 180.0f, 0.0f );
-    mFields.addField( mEmissionAngle.getVariation(), "EmissionAngleVariation", 1000.0f, 0.0f, 360.0f, 0.0f );
-    mFields.addField( mEmissionArc.getBase(), "EmissionArcBase", 1000.0f, 0.0f, 360.0f, 360.0f );
-    mFields.addField( mEmissionArc.getVariation(), "EmissionArcVariation", 1000.0f, 0.0f, 720.0f, 0.0f );
+    mParticleFields.addField( mParticleLife.getBase(), "LifeScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mQuantity.getBase(), "QuantityScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mSizeX.getBase(), "SizeXScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mSizeY.getBase(), "SizeYScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mSpeed.getBase(), "SpeedScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mSpin.getBase(), "SpinScale", 1000.0f, -100.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mFixedForce.getBase(), "FixedForceScale", 1000.0f, -100.0f, 100.0f, 1.0f  );
+    mParticleFields.addField( mRandomMotion.getBase(), "RandomMotionScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mVisibility.getBase(), "VisibilityScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mEmissionForce.getBase(), "EmissionForceBase", 1000.0f, -100.0f, 100.0f, 5.0f );
+    mParticleFields.addField( mEmissionForce.getVariation(), "EmissionForceVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
+    mParticleFields.addField( mEmissionAngle.getBase(), "EmissionAngleBase", 1000.0f, -180.0f, 180.0f, 0.0f );
+    mParticleFields.addField( mEmissionAngle.getVariation(), "EmissionAngleVariation", 1000.0f, 0.0f, 360.0f, 0.0f );
+    mParticleFields.addField( mEmissionArc.getBase(), "EmissionArcBase", 1000.0f, 0.0f, 360.0f, 360.0f );
+    mParticleFields.addField( mEmissionArc.getVariation(), "EmissionArcVariation", 1000.0f, 0.0f, 720.0f, 0.0f );
 }
 
 //------------------------------------------------------------------------------
@@ -131,7 +132,7 @@ void ParticleAsset::copyTo(SimObject* object)
    pParticleAsset->setLifeMode( getLifeMode() );
 
    // Copy particle fields.
-   mFields.copyTo( pParticleAsset->mFields );
+   mParticleFields.copyTo( pParticleAsset->mParticleFields );
 
    // Copy the emitters.
    pParticleAsset->clearEmitters();
@@ -447,7 +448,7 @@ void ParticleAsset::onTamlCustomWrite( TamlCollection& customCollection )
     PROFILE_SCOPE(ParticleAsset_OnTamlCustomWrite);
 
     // Write the fields.
-    mFields.onTamlCustomWrite( customCollection );
+    mParticleFields.onTamlCustomWrite( customCollection );
 }
 
 //-----------------------------------------------------------------------------
@@ -458,5 +459,5 @@ void ParticleAsset::onTamlCustomRead( const TamlCollection& customCollection )
     PROFILE_SCOPE(ParticleAsset_OnTamlCustomRead);
 
     // Read the fields.
-    mFields.onTamlCustomRead( customCollection );
+    mParticleFields.onTamlCustomRead( customCollection );
 }
