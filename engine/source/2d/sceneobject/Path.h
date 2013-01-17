@@ -10,34 +10,27 @@
 
 //---------------------------------------------------------------------------------------------
 
-class Path;
-
-//---------------------------------------------------------------------------------------------
-
-enum ePathMode
-{
-   PATH_WRAP,                      // Loop.
-   PATH_REVERSE,                   // Reverse directions at the end node.
-   PATH_RESTART                    // Warp to the start node and restart.
-};
-
-//---------------------------------------------------------------------------------------------
-
-enum eFollowMethod
-{
-   FOLLOW_LINEAR,
-   FOLLOW_BEZIER,
-   FOLLOW_CATMULL,
-   FOLLOW_CUSTOM
-};
-
-//---------------------------------------------------------------------------------------------
-
 class Path : public SceneObject
 {
    typedef SceneObject Parent;
 
 public:
+    enum PathMode
+    {
+       PATH_WRAP,                      // Loop.
+       PATH_REVERSE,                   // Reverse directions at the end node.
+       PATH_RESTART                    // Warp to the start node and restart.
+    };
+
+    enum FollowMethod
+    {
+       FOLLOW_LINEAR,
+       FOLLOW_BEZIER,
+       FOLLOW_CATMULL,
+       FOLLOW_CUSTOM
+    };
+
+
     class PathedObject
     {
     public:
@@ -67,7 +60,7 @@ public:
        void setLoop(S32 loop, bool reset = false) { mLoopCounter = loop; if (reset) resetObject(); };
        void setTotalLoops(S32 loops, bool reset = false) { mTotalLoops = loops; if (reset) resetObject(); };
        void setOrientToPath(bool orientToPath, bool reset = false) { mOrientToPath = orientToPath; if (reset) resetObject(); };
-       void setPathMode(ePathMode pathMode, bool reset = false) { mPathMode = pathMode; if (reset) resetObject(); };
+       void setPathMode(PathMode pathMode, bool reset = false) { mPathMode = pathMode; if (reset) resetObject(); };
        void setAngleOffset(F32 radians, bool reset = false) { mAngleOffset = radians; if (reset) resetObject(); };
        inline void resetObject();
        inline bool sendToNode(S32 index);
@@ -84,7 +77,7 @@ public:
        inline S32 getLoop() const { return mLoopCounter; };
        inline S32 getTotalLoops() const { return mTotalLoops; };
        inline bool getOrientToPath() const { return mOrientToPath; };
-       inline ePathMode getPathMode() const { return mPathMode; };
+       inline PathMode getPathMode() const { return mPathMode; };
        inline F32 getAngleOffset() const { return mAngleOffset; };
 
     private:
@@ -106,7 +99,7 @@ public:
        S32 mLoopCounter;                     // The current loop the object is on.
        S32 mTotalLoops;                      // The number of loops to take around the path.
        F32 mTime;                            // The parametric time of the location on the path.
-       ePathMode mPathMode;                  // The action to take upon path completion.
+       PathMode mPathMode;                  // The action to take upon path completion.
        F32 mAngleOffset;					     // The rotation offset of the object when using orient to path.
 
        //[neo, 5/22/2007 - #3139]
@@ -167,15 +160,15 @@ public:
    void clear();
    S32 getNodeCount() const { return mNodes.size(); };
 
-   void setPathType(eFollowMethod pathType) { mPathType = pathType; };
-   eFollowMethod getPathType() const        { return mPathType; };
+   void setPathType(FollowMethod pathType) { mPathType = pathType; };
+   FollowMethod getPathType() const        { return mPathType; };
 
    void setNodeRenderSize(F32 size) { mNodeRenderSize = size; };
    F32 getNodeRenderSize() const { return mNodeRenderSize; };
 
    // Add and remove objects from the path.
    void attachObject(SceneObject* object, F32 speed, S32 direction, bool orientToPath,
-                     S32 startNode, S32 endNode, ePathMode pathMode, S32 loops, bool sendToStart);
+                     S32 startNode, S32 endNode, PathMode pathMode, S32 loops, bool sendToStart);
    void detachObject(SceneObject* object);
 
    S32 getPathedObjectCount()
@@ -241,7 +234,7 @@ public:
       PathedObject* pathedObject = getPathedObject(object);
       if (pathedObject) pathedObject->setTotalLoops(loops, resetObject);
    }
-   void setFollowMode(SceneObject* object, ePathMode followMode, bool resetObject)
+   void setFollowMode(SceneObject* object, PathMode followMode, bool resetObject)
    {
       PathedObject* pathedObject = getPathedObject(object);
       if (pathedObject) pathedObject->setPathMode(followMode, resetObject);
@@ -287,7 +280,7 @@ public:
       PathedObject* pathedObject = getPathedObject(object);
       return pathedObject ? pathedObject->getTotalLoops() : -1;
    }
-   ePathMode getFollowMode(SceneObject* object)
+   PathMode getFollowMode(SceneObject* object)
    {
       PathedObject* pathedObject = getPathedObject(object);
       return pathedObject ? pathedObject->getPathMode() : PATH_WRAP;
@@ -305,6 +298,11 @@ public:
       if ((index >= 0) && (index < mNodes.size())) return true;
       return false;
    };
+
+    static PathMode getPathModeEnum(const char* label);
+    static const char* getPathModeDescription(const PathMode pathMode);
+    static FollowMethod getFollowMethodEnum(const char* label);
+    static const char* getFollowMethodDescription(const FollowMethod follow);
 
    DECLARE_CONOBJECT(Path);
 
@@ -325,7 +323,7 @@ private:
    void calculateCatmullLength(S32 node);
 
    // The type of path.
-   eFollowMethod mPathType;
+   FollowMethod mPathType;
    bool mNodesLoaded;
    Vector<S32> mObjectsLoaded;
    S32 mMountOffset;
@@ -405,12 +403,5 @@ inline void Path::PathedObject::setEndNode(S32 endNode, bool reset)
    mEndNode = endNode;
    if (reset) resetObject();
 }
-
-//---------------------------------------------------------------------------------------------
-
-extern ePathMode getPathMode(const char* label);
-extern const char* getPathModeDescription(const ePathMode pathMode);
-extern eFollowMethod getFollowMethod(const char* label);
-extern const char* getFollowMethodDescription(const eFollowMethod follow);
 
 #endif

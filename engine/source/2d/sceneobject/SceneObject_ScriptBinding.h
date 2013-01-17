@@ -801,7 +801,7 @@ ConsoleMethod(SceneObject, setBodyType, void, 3, 3, "(bodyType type) Sets the bo
                                                       "@return No return value.")
 {
     // Fetch body type.
-    const b2BodyType type = getBodyTypeEnum(argv[2]);
+    const b2BodyType type = SceneObject::getBodyTypeEnum(argv[2]);
 
     // Check for error.
     if ( type != b2_staticBody && type != b2_kinematicBody && type != b2_dynamicBody )
@@ -816,7 +816,7 @@ ConsoleMethod(SceneObject, setBodyType, void, 3, 3, "(bodyType type) Sets the bo
 ConsoleMethod(SceneObject, getBodyType, const char*, 2, 2,   "() Gets the body type.\n"
                                                                 "@return The body type." )
 {
-    return getBodyTypeDescription( object->getBodyType() );
+    return SceneObject::getBodyTypeDescription( object->getBodyType() );
 }
 
 //-----------------------------------------------------------------------------
@@ -1953,7 +1953,7 @@ ConsoleMethod(SceneObject, getCollisionShapeType, const char*, 3, 3, "(int shape
         return NULL;
     }
 
-    return getCollisionShapeTypeDescription( object->getCollisionShapeType( shapeIndex ) );
+    return SceneObject::getCollisionShapeTypeDescription( object->getCollisionShapeType( shapeIndex ) );
 }
 
 //-----------------------------------------------------------------------------
@@ -3199,7 +3199,7 @@ ConsoleMethod(SceneObject, setSrcBlendFactor, void, 3, 3,   "(srcBlend) - Sets t
                                                             "@return No return Value.")
 {
     // Fetch source blend factor.
-    GLenum blendFactor = getSrcBlendFactorEnum(argv[2]);
+    GLenum blendFactor = SceneObject::getSrcBlendFactorEnum(argv[2]);
 
     object->setSrcBlendFactor( blendFactor );
 }
@@ -3209,7 +3209,7 @@ ConsoleMethod(SceneObject, setSrcBlendFactor, void, 3, 3,   "(srcBlend) - Sets t
 ConsoleMethod(SceneObject, getSrcBlendFactor, const char*, 2, 2, "() - Gets the source blend factor.\n"
                                                                     "@return (srcBlend) The source blend factor.")
 {
-   return getSrcBlendFactorDescription(object->getSrcBlendFactor());
+   return SceneObject::getSrcBlendFactorDescription(object->getSrcBlendFactor());
 }
 
 //-----------------------------------------------------------------------------
@@ -3219,7 +3219,7 @@ ConsoleMethod(SceneObject, setDstBlendFactor, void, 3, 3,   "(dstBlend) - Sets t
                                                             "@return No return Value.")
 {
     // Fetch destination blend factor.
-    GLenum blendFactor = getDstBlendFactorEnum(argv[2]);
+    GLenum blendFactor = SceneObject::getDstBlendFactorEnum(argv[2]);
 
     object->setDstBlendFactor( blendFactor );
 }
@@ -3229,7 +3229,7 @@ ConsoleMethod(SceneObject, setDstBlendFactor, void, 3, 3,   "(dstBlend) - Sets t
 ConsoleMethod(SceneObject, getDstBlendFactor, const char*, 2, 2, "() - Gets the destination blend factor.\n"
                                                                     "@return (dstBlend) The destination blend factor.")
 {
-   return getDstBlendFactorDescription(object->getDstBlendFactor());
+   return SceneObject::getDstBlendFactorDescription(object->getDstBlendFactor());
 }
 
 //-----------------------------------------------------------------------------
@@ -3531,7 +3531,7 @@ ConsoleMethod(SceneObject, setDebugOn, void, 3, 2 + DEBUG_MODE_COUNT,   "(debugO
         {
             // Fetch the debug option.
             const char* pDebugOption = Utility::mGetStringElement( argv[2], i );
-            Scene::DebugOption debugOption = getDebugOption( pDebugOption );
+            Scene::DebugOption debugOption = Scene::getDebugOptionEnum( pDebugOption );
         
             // Is the option valid?
             if ( debugOption == Scene::SCENE_DEBUG_INVALID )
@@ -3553,7 +3553,7 @@ ConsoleMethod(SceneObject, setDebugOn, void, 3, 2 + DEBUG_MODE_COUNT,   "(debugO
         {
             // Fetch the debug option.
             const char* pDebugOption = argv[i];
-            Scene::DebugOption debugOption = getDebugOption( argv[i] );
+            Scene::DebugOption debugOption = Scene::getDebugOptionEnum( argv[i] );
 
             // Is the option valid?
             if ( debugOption == Scene::SCENE_DEBUG_INVALID )
@@ -3599,7 +3599,7 @@ ConsoleMethod(SceneObject, setDebugOff, void, 3, 2 + DEBUG_MODE_COUNT,  "(debugO
         {
             // Fetch the debug option.
             const char* pDebugOption = Utility::mGetStringElement( argv[2], i );
-            Scene::DebugOption debugOption = getDebugOption( pDebugOption );
+            Scene::DebugOption debugOption = Scene::getDebugOptionEnum( pDebugOption );
         
             // Is the option valid?
             if ( debugOption == Scene::SCENE_DEBUG_INVALID )
@@ -3621,7 +3621,7 @@ ConsoleMethod(SceneObject, setDebugOff, void, 3, 2 + DEBUG_MODE_COUNT,  "(debugO
         {
             // Fetch the debug option.
             const char* pDebugOption = argv[i];
-            Scene::DebugOption debugOption = getDebugOption( argv[i] );
+            Scene::DebugOption debugOption = Scene::getDebugOptionEnum( argv[i] );
 
             // Is the option valid?
             if ( debugOption == Scene::SCENE_DEBUG_INVALID )

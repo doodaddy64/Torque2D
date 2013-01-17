@@ -35,9 +35,12 @@ class BitmapFontObject : public SceneObject
 public:
     enum TextAlignment
     {
-        ALIGN_LEFT = 0,
+        INVALID_ALIGN,
+
+        ALIGN_LEFT,
         ALIGN_CENTER,
-        ALIGN_RIGHT };
+        ALIGN_RIGHT
+    };
 
 private:
     AssetPtr<ImageAsset> mImageAsset;
@@ -88,6 +91,9 @@ public:
     void setCharacterPadding( const U32 padding );
     inline U32 getCharacterPadding( void ) const                        { return mCharacterPadding; }
 
+    static TextAlignment getTextAlignmentEnum(const char* label);
+    static const char* getTextAlignmentDescription(const TextAlignment alignment);
+
     // Declare Console Object.
     DECLARE_CONOBJECT(BitmapFontObject);
 
@@ -105,10 +111,5 @@ protected:
     static bool setCharacterPadding( void* obj, const char* data )      { static_cast<BitmapFontObject*>( obj )->setCharacterPadding( dAtoi(data) ); return false; }
     static bool writeCharacterPadding( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(BitmapFontObject); return pCastObject->getCharacterPadding() != 0; }
 };
-
-//-----------------------------------------------------------------------------
-
-extern BitmapFontObject::TextAlignment getTextAlignmentEnum(const char* label);
-extern const char* getTextAlignmentDescription(const BitmapFontObject::TextAlignment alignment);
 
 #endif // _BITMAP_FONT_OBJECT_H_

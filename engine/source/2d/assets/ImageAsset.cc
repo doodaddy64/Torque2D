@@ -67,28 +67,32 @@ EnumTable textureFilterTable(sizeof(textureFilterLookup) / sizeof(EnumTable::Enu
 
 //------------------------------------------------------------------------------
 
-ImageAsset::TextureFilterMode getFilterModeEnum(const char* label)
+ImageAsset::TextureFilterMode ImageAsset::getFilterModeEnum(const char* label)
 {
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(textureFilterLookup) / sizeof(EnumTable::Enums)); i++)
         if( dStricmp(textureFilterLookup[i].label, label) == 0)
             return((ImageAsset::TextureFilterMode)textureFilterLookup[i].index);
 
-    // Bah!
+    // Warn.
+    Con::warnf("ImageAsset::getFilterModeEnum() - Invalid filter-mode '%s'", label );
+
     return ImageAsset::FILTER_INVALID;
 }
 
 //------------------------------------------------------------------------------
 
-const char* getFilterModeDescription( ImageAsset::TextureFilterMode filterMode )
+const char* ImageAsset::getFilterModeDescription( ImageAsset::TextureFilterMode filterMode )
 {
     // Search for Mode.
     for(U32 i = 0; i < (sizeof(textureFilterLookup) / sizeof(EnumTable::Enums)); i++)
         if( textureFilterLookup[i].index == filterMode )
             return textureFilterLookup[i].label;
 
-    // Bah!
-    return "Undefined ImageMap Error; please report this problem!";
+    // Warn.
+    Con::warnf("ImageAsset::getFilterModeDescription() - Invalid filter-mode." );
+
+    return StringTable->EmptyString;
 }
 
 //------------------------------------------------------------------------------

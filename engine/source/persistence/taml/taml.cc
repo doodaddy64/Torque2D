@@ -59,25 +59,24 @@ EnumTable tamlFormatModeTable(sizeof(tamlFormatModeLookup) / sizeof(EnumTable::E
 
 //-----------------------------------------------------------------------------
 
-Taml::TamlFormatMode getFormatModeEnum(const char* label)
+Taml::TamlFormatMode Taml::getFormatModeEnum(const char* label)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(tamlFormatModeLookup) / sizeof(EnumTable::Enums)); i++)
     {
         if( dStricmp(tamlFormatModeLookup[i].label, label) == 0)
-            return (Taml::TamlFormatMode)tamlFormatModeLookup[i].index;
+            return (TamlFormatMode)tamlFormatModeLookup[i].index;
     }
 
-    // Warn!
-    Con::warnf("Taml::getFormatModeEnum() - Invalid format of '%s'", label );
+    // Warn.
+    Con::warnf( "Taml::getFormatModeEnum() - Invalid format of '%s'.", label );
 
-    // Bah!
     return Taml::InvalidFormat;
 }
 
 //-----------------------------------------------------------------------------
 
-const char* getFormatModeDescription(const Taml::TamlFormatMode formatMode)
+const char* Taml::getFormatModeDescription(const Taml::TamlFormatMode formatMode)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(tamlFormatModeLookup) / sizeof(EnumTable::Enums)); i++)
@@ -86,10 +85,9 @@ const char* getFormatModeDescription(const Taml::TamlFormatMode formatMode)
             return tamlFormatModeLookup[i].label;
     }
 
-    // Fatal!
-    AssertFatal(false, "Taml::getFormatModeDescription() - Invalid format mode.");
+    // Warn.
+    Con::warnf( "Taml::getFormatModeDescription() - Invalid format mode." );
 
-    // Bah!
     return StringTable->EmptyString;
 }
 

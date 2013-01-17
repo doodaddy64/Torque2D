@@ -37,9 +37,9 @@ ConsoleMethod(Path, attachObject, void, 4, 10, "(obj, speed, [dir], [start], [en
    if (argc > 6)
       end = dAtoi(argv[6]);
 
-   ePathMode path = PATH_WRAP;
+   Path::PathMode path = Path::PATH_WRAP;
    if (argc > 7)
-      path = getPathMode(argv[7]);
+      path = Path::getPathModeEnum(argv[7]);
 
    S32 loops = 0;
    if (argc > 8)
@@ -71,7 +71,7 @@ ConsoleMethod(Path, setPathType, void, 3, 3, "(type) Sets the interpolation type
               "@param type Interpolation type (either LINEAR, BEZIER, CATMULL, or CUSTOM)\n"
               "@return No return value.")
 {
-   object->setPathType(getFollowMethod(argv[2]));
+   object->setPathType(Path::getFollowMethodEnum(argv[2]));
 }
 
 //---------------------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ ConsoleMethod(Path, setPathType, void, 3, 3, "(type) Sets the interpolation type
 ConsoleMethod(Path, getPathType, const char*, 2, 2, "() Gets the interpolation type.\n"
               "@return Returns the interpolation type as a string.")
 {
-   return getFollowMethodDescription(object->getPathType());
+   return Path::getFollowMethodDescription(object->getPathType());
 }
 
 //---------------------------------------------------------------------------------------------
@@ -225,7 +225,7 @@ ConsoleMethod(Path, setFollowMode, void, 4, 4, "(object, pathMode) Sets the foll
               "@param resetObject Reset object to path start (default false)n"
               "@return No return value.")
 {
-   object->setFollowMode(dynamic_cast<SceneObject*>(Sim::findObject(argv[2])), getPathMode(argv[3]),dAtob(argv[4]));
+   object->setFollowMode(dynamic_cast<SceneObject*>(Sim::findObject(argv[2])), Path::getPathModeEnum(argv[3]),dAtob(argv[4]));
 }
 
 //---------------------------------------------------------------------------------------------
@@ -297,7 +297,7 @@ ConsoleMethod(Path, getFollowMode, const char*, 3, 3, "(object) Gets the follow 
               "@param object Object to get path setting\n"
               "@return Returns the follow mode of the object.")
 {
-   return getPathModeDescription(object->getFollowMode(dynamic_cast<SceneObject*>(Sim::findObject(argv[2]))));
+   return Path::getPathModeDescription(object->getFollowMode(dynamic_cast<SceneObject*>(Sim::findObject(argv[2]))));
 }
 
 //---------------------------------------------------------------------------------------------

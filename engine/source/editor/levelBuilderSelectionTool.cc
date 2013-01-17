@@ -31,12 +31,15 @@ static EnumTable displayRuleTable(sizeof(displayRuleLookup) /  sizeof(EnumTable:
 //-----------------------------------------------------------------------------
 // World Limit Script-Enumerator.
 //-----------------------------------------------------------------------------
-static SelectionToolWidget::eDisplayRules getDisplayRule(const char* label)
+SelectionToolWidget::DisplayRules SelectionToolWidget::getDisplayRuleEnum(const char* label)
 {
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(displayRuleLookup) / sizeof(EnumTable::Enums)); i++)
         if( dStricmp(displayRuleLookup[i].label, label) == 0)
-            return((SelectionToolWidget::eDisplayRules)displayRuleLookup[i].index);
+            return((DisplayRules)displayRuleLookup[i].index);
+
+    // Warn.
+    Con::warnf( "SelectionToolWidget::getDisplayRuleEnum() - Invalid display rule of '%s'.", label );
 
     return SelectionToolWidget::NoDisplayRules;
 }
@@ -74,7 +77,7 @@ ConsoleMethod(SelectionToolWidget, setTexture, void, 3, 3, "%widget.setTexture(t
 
 ConsoleMethod(SelectionToolWidget, setDisplayRule, void, 3, 3, "%widget.setDisplayRule(\"Rule\")")
 {
-   object->setDisplayRule(getDisplayRule(argv[2]));
+   object->setDisplayRule(SelectionToolWidget::getDisplayRuleEnum(argv[2]));
 }
 
 IMPLEMENT_CONOBJECT( LevelBuilderSelectionTool );
@@ -104,9 +107,9 @@ LevelBuilderSelectionTool::LevelBuilderSelectionTool() : LevelBuilderBaseEditToo
                                                          mScaleOrigPos(0,0),
                                                          mScaleOrigSize(0,0),
                                                          mAngleList( NULL ),
-														 m_AllowSizing(true),
-														 m_AllowMultipleSelection(true),
-														 m_HoverOutlineWidth(1.0f)
+                                                         m_AllowSizing(true),
+                                                         m_AllowMultipleSelection(true),
+                                                         m_HoverOutlineWidth(1.0f)
 {
    // Set our tool name
    mToolName = StringTable->insert("Selection Tool");
@@ -985,8 +988,8 @@ void LevelBuilderSelectionTool::onRenderScene(LevelBuilderSceneWindow* sceneWind
       }
 
       // Draw the 8 scaling nuts.
-	  if (m_AllowSizing)
-		drawSizingNuts(sceneWindow, mOwner->getAcquiredObjects().getBoundingRect());
+      if (m_AllowSizing)
+        drawSizingNuts(sceneWindow, mOwner->getAcquiredObjects().getBoundingRect());
    }
 }
 
@@ -1031,22 +1034,22 @@ ConsoleMethod( LevelBuilderSelectionTool, getUndoSelections, bool, 2, 2, "%tool.
 
 ConsoleMethod(LevelBuilderSelectionTool, setHoverOutlineColor, void, 6, 6, "%tool.setHoverOutlineColor()")
 {
-	object->setHoverOutlineColor(ColorI(dAtoi(argv[2]), dAtoi(argv[3]), dAtoi(argv[4]), dAtoi(argv[5])));
+    object->setHoverOutlineColor(ColorI(dAtoi(argv[2]), dAtoi(argv[3]), dAtoi(argv[4]), dAtoi(argv[5])));
 }
 
 ConsoleMethod(LevelBuilderSelectionTool, setHoverOutlineWidth, void, 3, 3, "%tool.setHoverOutlineWidth()")
 {
-	object->setHoverOutlineWidth(dAtof(argv[2]));
+    object->setHoverOutlineWidth(dAtof(argv[2]));
 }
 
 ConsoleMethod(LevelBuilderSelectionTool, setAllowSizing, void, 3, 3, "%tool.setAllowSizing()")
 {
-	object->setAllowSizing(dAtob(argv[2]));
+    object->setAllowSizing(dAtob(argv[2]));
 }
 
 ConsoleMethod(LevelBuilderSelectionTool, setAllowMultipleSelection, void, 3, 3, "%tool.setAllowMultipleSelection()")
 {
-	object->setAllowMultipleSelection(dAtob(argv[2]));
+    object->setAllowMultipleSelection(dAtob(argv[2]));
 }
 
 

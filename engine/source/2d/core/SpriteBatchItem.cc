@@ -382,11 +382,11 @@ void SpriteBatchItem::onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias
 
     // Write source blend factor.
     if ( mBlendMode && mSrcBlendFactor != GL_SRC_ALPHA )
-        pSpriteTypeAlias->addPropertyField( spriteBlendModeName, getSrcBlendFactorDescription(mSrcBlendFactor) );
+        pSpriteTypeAlias->addPropertyField( spriteBlendModeName, SceneObject::getSrcBlendFactorDescription(mSrcBlendFactor) );
         
     // Write destination blend factor.
     if ( mBlendMode && mDstBlendFactor != GL_ONE_MINUS_SRC_ALPHA )
-        pSpriteTypeAlias->addPropertyField( spriteDstBlendFactorName, getDstBlendFactorDescription(mDstBlendFactor) );
+        pSpriteTypeAlias->addPropertyField( spriteDstBlendFactorName, SceneObject::getDstBlendFactorDescription(mDstBlendFactor) );
 
     // Write blend color.
     if ( mBlendMode && mBlendColor != ColorF(1.0f, 1.0f, 1.0f, 1.0f) )
@@ -505,11 +505,11 @@ void SpriteBatchItem::onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteType
         }
         else if ( fieldName == spriteSrcBlendFactorName )
         {
-            setSrcBlendFactor( (GLenum)getSrcBlendFactorEnum( pSpriteField->getFieldValue() ) );
+            setSrcBlendFactor( (GLenum)SceneObject::getSrcBlendFactorEnum( pSpriteField->getFieldValue() ) );
         }
         else if ( fieldName == spriteDstBlendFactorName )
         {
-            setDstBlendFactor( (GLenum)getDstBlendFactorEnum( pSpriteField->getFieldValue() ) );
+            setDstBlendFactor( (GLenum)SceneObject::getDstBlendFactorEnum( pSpriteField->getFieldValue() ) );
         }
         else if ( fieldName == spriteBlendColorName )
         {

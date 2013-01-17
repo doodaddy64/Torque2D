@@ -20,6 +20,52 @@
 
 //------------------------------------------------------------------------------
 
+static EnumTable::Enums batchLayoutTypeLookup[] =
+                {
+                    { CompositeSprite::NO_LAYOUT,           "off"    },
+                    { CompositeSprite::RECTILINEAR_LAYOUT,  "rect" },
+                    { CompositeSprite::ISOMETRIC_LAYOUT,    "iso"   },
+                    { CompositeSprite::CUSTOM_LAYOUT,       "custom"   },
+                };
+
+EnumTable batchLayoutTypeTable(sizeof(batchLayoutTypeLookup) / sizeof(EnumTable::Enums), &batchLayoutTypeLookup[0]);
+
+//-----------------------------------------------------------------------------
+
+CompositeSprite::BatchLayoutType CompositeSprite::getBatchLayoutTypeEnum(const char* label)
+{
+    // Search for Mnemonic.
+    for (U32 i = 0; i < (sizeof(batchLayoutTypeLookup) / sizeof(EnumTable::Enums)); i++)
+    {
+        if( dStricmp(batchLayoutTypeLookup[i].label, label) == 0)
+            return (BatchLayoutType)batchLayoutTypeLookup[i].index;
+    }
+
+    // Warn.
+    Con::warnf("CompositeSprite::getBatchLayoutTypeEnum() - Invalid batch layout type of '%s'", label );
+
+    return CompositeSprite::INVALID_LAYOUT;
+}
+
+//-----------------------------------------------------------------------------
+
+const char* CompositeSprite::getBatchLayoutTypeDescription(const CompositeSprite::BatchLayoutType batchLayoutType )
+{
+    // Search for Mnemonic.
+    for (U32 i = 0; i < (sizeof(batchLayoutTypeLookup) / sizeof(EnumTable::Enums)); i++)
+    {
+        if( batchLayoutTypeLookup[i].index == batchLayoutType )
+            return batchLayoutTypeLookup[i].label;
+    }
+
+    // Warn.
+    Con::warnf( "CompositeSprite::getBatchLayoutTypeDescription() - Invalid batch layout type.");
+
+    return StringTable->EmptyString;
+}
+
+//-----------------------------------------------------------------------------
+
 IMPLEMENT_CONOBJECT(CompositeSprite);
 
 //------------------------------------------------------------------------------
@@ -356,60 +402,4 @@ void CompositeSprite::onTamlCustomRead( const TamlCollection& customCollection )
 
     // Read property with sprite batch.
     SpriteBatch::onTamlCustomRead( pSpritesProperty );
-}
-
-//-----------------------------------------------------------------------------
-
-static EnumTable::Enums batchLayoutTypeLookup[] =
-                {
-                    { CompositeSprite::NO_LAYOUT,           "off"    },
-                    { CompositeSprite::RECTILINEAR_LAYOUT,  "rect" },
-                    { CompositeSprite::ISOMETRIC_LAYOUT,    "iso"   },
-                    { CompositeSprite::CUSTOM_LAYOUT,       "custom"   },
-                };
-
-EnumTable batchLayoutTypeTable(sizeof(batchLayoutTypeLookup) / sizeof(EnumTable::Enums), &batchLayoutTypeLookup[0]);
-
-//-----------------------------------------------------------------------------
-
-CompositeSprite::BatchLayoutType getBatchLayoutTypeEnum(const char* label)
-{
-    // Search for Mnemonic.
-    for (U32 i = 0; i < (sizeof(batchLayoutTypeLookup) / sizeof(EnumTable::Enums)); i++)
-    {
-        if( dStricmp(batchLayoutTypeLookup[i].label, label) == 0)
-            return (CompositeSprite::BatchLayoutType)batchLayoutTypeLookup[i].index;
-    }
-
-    // Warn!
-    Con::warnf("CompositeSprite::getBatchLayoutTypeEnum() - Invalid batch layout type of '%s'", label );
-
-    // Bah!
-    return CompositeSprite::INVALID_LAYOUT;
-}
-
-//-----------------------------------------------------------------------------
-
-const char* getBatchLayoutTypeDescription(const CompositeSprite::BatchLayoutType batchLayoutType )
-{
-    // Search for Mnemonic.
-    for (U32 i = 0; i < (sizeof(batchLayoutTypeLookup) / sizeof(EnumTable::Enums)); i++)
-    {
-        if( batchLayoutTypeLookup[i].index == batchLayoutType )
-            return batchLayoutTypeLookup[i].label;
-    }
-
-    // Fatal!
-    AssertFatal(false, "CompositeSprite::getBatchLayoutTypeDescription() - Invalid batch layout type.");
-
-    // Bah!
-    return StringTable->EmptyString;
-}
-
-//-----------------------------------------------------------------------------
-
-bool CompositeSprite::setBatchLayout(void* obj, const char* data)
-{
-    static_cast<CompositeSprite*>(obj)->setBatchLayout( getBatchLayoutTypeEnum(data) );
-    return false;
 }

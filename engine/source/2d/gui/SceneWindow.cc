@@ -39,17 +39,17 @@ static EnumTable interpolationModeTable(sizeof(interpolationModeLookup) / sizeof
 
 //-----------------------------------------------------------------------------
 
-SceneWindow::CameraInterpolationMode getInterpolationMode(const char* label)
+SceneWindow::CameraInterpolationMode SceneWindow::getInterpolationModeEnum(const char* label)
 {
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(interpolationModeLookup) / sizeof(EnumTable::Enums)); i++)
         if( dStricmp(interpolationModeLookup[i].label, label) == 0)
-            return((SceneWindow::CameraInterpolationMode)interpolationModeLookup[i].index);
+            return((CameraInterpolationMode)interpolationModeLookup[i].index);
 
-    // Invalid Interpolation Mode!
-    AssertFatal(false, "SceneWindow::getInterpolationMode() - Invalid Interpolation Mode!");
-    // Bah!
-    return SceneWindow::SIGMOID;
+    // Warn.
+    Con::warnf( "SceneWindow::getInterpolationModeEnum() - Invalid interpolation mode '%s'.", label );
+
+    return SceneWindow::INVALID_INTERPOLATION_MODE;
 }
 
 //-----------------------------------------------------------------------------
@@ -1788,7 +1788,7 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
         linePositionY += linePositionOffsetY;
 
         // SceneObject #2.
-        const char* pBodyType = getBodyTypeDescription(pDebugSceneObject->getBodyType());
+        const char* pBodyType = SceneObject::getBodyTypeDescription(pDebugSceneObject->getBodyType());
         const bool enabled = pDebugSceneObject->isEnabled();
         const bool active = pDebugSceneObject->getActive();
         const bool visible = pDebugSceneObject->getVisible();

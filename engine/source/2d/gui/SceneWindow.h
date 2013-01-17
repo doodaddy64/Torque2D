@@ -147,6 +147,8 @@ public:
     /// Camera Interpolation Mode.
     enum CameraInterpolationMode
     {
+        INVALID_INTERPOLATION_MODE,
+
         LINEAR,             ///< Standard Linear.
         SIGMOID             ///< Slow Start / Slow Stop.
 
@@ -277,6 +279,8 @@ public:
     bool onMouseWheelUp( const GuiEvent &event );
     virtual void onRender( Point2I offset, const RectI& updateRect );
     void renderMetricsOverlay( Point2I offset, const RectI& updateRect );
+
+    static CameraInterpolationMode getInterpolationModeEnum(const char* label);
 
     /// Declare Console Object.
     DECLARE_CONOBJECT(SceneWindow);

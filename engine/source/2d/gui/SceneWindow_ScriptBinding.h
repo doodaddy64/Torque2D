@@ -3,9 +3,6 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-extern SceneWindow::CameraInterpolationMode getInterpolationMode(const char* label);
-
-//-----------------------------------------------------------------------------
 
 ConsoleMethod(SceneWindow, getWindowExtents, const char*, 2, 2, "() Fetch Window Extents (Position/Size)."
               "@return Returns the window dimensions as a string formatted as follows: <position.x> <position.y> <width> <height>")
@@ -427,7 +424,7 @@ ConsoleMethod(SceneWindow, setCameraInterpolationMode, void, 3, 3, "(interpolati
               "@return No return value.")
 {
     // Set Camera Interpolation Mode.
-    object->setCameraInterpolationMode( getInterpolationMode(argv[2]) );
+    object->setCameraInterpolationMode( SceneWindow::getInterpolationModeEnum(argv[2]) );
 }
 
 //-----------------------------------------------------------------------------

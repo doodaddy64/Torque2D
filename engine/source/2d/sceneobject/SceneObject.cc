@@ -3939,7 +3939,7 @@ EnumTable dstBlendFactorTable(sizeof(dstBlendFactorLookup) / sizeof(EnumTable::E
 
 //-----------------------------------------------------------------------------
 
-b2BodyType getBodyTypeEnum(const char* label)
+b2BodyType SceneObject::getBodyTypeEnum(const char* label)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(bodyTypeLookup) / sizeof(EnumTable::Enums)); i++)
@@ -3948,16 +3948,15 @@ b2BodyType getBodyTypeEnum(const char* label)
             return (b2BodyType)bodyTypeLookup[i].index;
     }
 
-    // Warn!
+    // Warn.
     Con::warnf("SceneObject::getBodyTypeEnum() - Invalid body type of '%s'", label );
 
-    // Bah!
     return (b2BodyType)-1;
 }
 
 //-----------------------------------------------------------------------------
 
-const char* getBodyTypeDescription(const b2BodyType bodyType)
+const char* SceneObject::getBodyTypeDescription(const b2BodyType bodyType)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(bodyTypeLookup) / sizeof(EnumTable::Enums)); i++)
@@ -3966,16 +3965,15 @@ const char* getBodyTypeDescription(const b2BodyType bodyType)
             return bodyTypeLookup[i].label;
     }
 
-    // Fatal!
-    AssertFatal(false, "SceneObject::getBodyTypeDescription() - Invalid body type.");
+    // Warn.
+    Con::warnf( "SceneObject::getBodyTypeDescription() - Invalid body type." );
 
-    // Bah!
     return StringTable->EmptyString;
 }
 
 //-----------------------------------------------------------------------------
 
-b2Shape::Type getCollisionShapeTypeEnum(const char* label)
+b2Shape::Type SceneObject::getCollisionShapeTypeEnum(const char* label)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(collisionShapeTypeLookup) / sizeof(EnumTable::Enums)); i++)
@@ -3987,13 +3985,12 @@ b2Shape::Type getCollisionShapeTypeEnum(const char* label)
     // Warn!
     Con::warnf("SceneObject::getCollisionShapeTypeEnum() - Invalid collision shape type of '%s'", label );
 
-    // Bah!
     return b2Shape::e_typeCount;
 }
 
 //-----------------------------------------------------------------------------
 
-const char* getCollisionShapeTypeDescription(const b2Shape::Type collisionShapeType)
+const char* SceneObject::getCollisionShapeTypeDescription(const b2Shape::Type collisionShapeType)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(collisionShapeTypeLookup) / sizeof(EnumTable::Enums)); i++)
@@ -4002,16 +3999,15 @@ const char* getCollisionShapeTypeDescription(const b2Shape::Type collisionShapeT
             return collisionShapeTypeLookup[i].label;
     }
 
-    // Fatal!
-    AssertFatal(false, "SceneObject::getCollisionShapeTypeDescription() - Invalid collision shape type.");
+    // Warn.
+    Con::warnf( "SceneObject::getCollisionShapeTypeDescription() - Invalid collision shape type." );
 
-    // Bah!
     return StringTable->EmptyString;
 }
 
 //-----------------------------------------------------------------------------
 
-S32 getSrcBlendFactorEnum(const char* label)
+S32 SceneObject::getSrcBlendFactorEnum(const char* label)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(srcBlendFactorLookup) / sizeof(EnumTable::Enums)); i++)
@@ -4020,16 +4016,15 @@ S32 getSrcBlendFactorEnum(const char* label)
             return(srcBlendFactorLookup[i].index);
     }
 
-    // Warn!
+    // Warn.
     Con::warnf("SceneObject::getSrcBlendFactorEnum() - Invalid source blend factor of '%s'", label );
 
-    // Bah!
     return GL_INVALID_BLEND_FACTOR;
 }
 
 //-----------------------------------------------------------------------------
 
-const char* getSrcBlendFactorDescription(const GLenum factor)
+const char* SceneObject::getSrcBlendFactorDescription(const GLenum factor)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(srcBlendFactorLookup) / sizeof(EnumTable::Enums)); i++)
@@ -4038,16 +4033,15 @@ const char* getSrcBlendFactorDescription(const GLenum factor)
             return srcBlendFactorLookup[i].label;
     }
 
-    // Fatal!
-    AssertFatal(false, "SceneObject::getSrcBlendFactorDescription() - Invalid source blend factor.");
+    // Warn.
+    Con::warnf( "SceneObject::getSrcBlendFactorDescription() - Invalid source blend factor." );
 
-    // Bah!
     return StringTable->EmptyString;
 }
 
 //-----------------------------------------------------------------------------
 
-S32 getDstBlendFactorEnum(const char* label)
+S32 SceneObject::getDstBlendFactorEnum(const char* label)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(dstBlendFactorLookup) / sizeof(EnumTable::Enums)); i++)
@@ -4056,16 +4050,15 @@ S32 getDstBlendFactorEnum(const char* label)
             return(dstBlendFactorLookup[i].index);
     }
 
-    // Warn!
+    // Warn.
     Con::warnf("SceneObject::getSrcBlendFactorEnum() - Invalid destination blend factor of '%s'", label );
 
-    // Bah!
     return GL_INVALID_BLEND_FACTOR;
 }
 
 //-----------------------------------------------------------------------------
 
-const char* getDstBlendFactorDescription(const GLenum factor)
+const char* SceneObject::getDstBlendFactorDescription(const GLenum factor)
 {
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(dstBlendFactorLookup) / sizeof(EnumTable::Enums)); i++)
@@ -4074,9 +4067,8 @@ const char* getDstBlendFactorDescription(const GLenum factor)
             return dstBlendFactorLookup[i].label;
     }
 
-    // Fatal!
-    AssertFatal(false, "SceneObject::getDstBlendFactorDescription() - Invalid destination blend factor.");
+    // Warn.
+    Con::warnf( "SceneObject::getDstBlendFactorDescription() - Invalid destination blend factor." );
 
-    // Bah!
     return StringTable->EmptyString;
 }

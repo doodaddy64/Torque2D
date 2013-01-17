@@ -28,7 +28,7 @@ class SelectionToolWidget : public SimObject
     typedef SimObject Parent;
 
 public:
-   enum eDisplayRules
+   enum DisplayRules
    {
       UnPathedOnly = 1,
       PathedOnly = 2,
@@ -94,7 +94,7 @@ public:
       mTexture = TextureHandle(textureName, TextureHandle::BitmapTexture);
    };
 
-   void setDisplayRule(eDisplayRules displayRule)
+   void setDisplayRule(DisplayRules displayRule)
    {
       mDisplayRules |= displayRule;
    };
@@ -104,6 +104,8 @@ public:
    {
       Con::executef(sceneEdit, 2, mCallback, Con::getIntArg(object->getId()));
    };
+
+    static DisplayRules getDisplayRuleEnum(const char* label);
 
     DECLARE_CONOBJECT( SelectionToolWidget );
 };

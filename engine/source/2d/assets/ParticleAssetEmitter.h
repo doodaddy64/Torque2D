@@ -178,6 +178,9 @@ public:
 
     inline ParticleAssetFieldCollection& getParticleFields( void ) { return mParticleFields; }
 
+    static EmitterType getEmitterTypeEnum(const char* label);
+    static ParticleOrientationType getOrientationTypeEnum(const char* label);
+
     /// Declare Console Object.
     DECLARE_CONOBJECT(ParticleAssetEmitter);
 
@@ -239,19 +242,13 @@ protected:
 
     static bool     setBlendMode(void* obj, const char* data)                           { static_cast<ParticleAssetEmitter*>(obj)->setBlendMode(dAtob(data)); return false; }
     static bool     writeBlendMode( void* obj, StringTableEntry pFieldName )            { return static_cast<ParticleAssetEmitter*>(obj)->getBlendMode() == false; }
-    static bool     setSrcBlendFactor(void* obj, const char* data)                      { static_cast<ParticleAssetEmitter*>(obj)->setSrcBlendFactor(getSrcBlendFactorEnum(data)); return false; }
+    static bool     setSrcBlendFactor(void* obj, const char* data)                      { static_cast<ParticleAssetEmitter*>(obj)->setSrcBlendFactor(SceneObject::getSrcBlendFactorEnum(data)); return false; }
     static bool     writeSrcBlendFactor( void* obj, StringTableEntry pFieldName )       { return static_cast<ParticleAssetEmitter*>(obj)->getSrcBlendFactor() != GL_SRC_ALPHA; }
-    static bool     setDstBlendFactor(void* obj, const char* data)                      { static_cast<ParticleAssetEmitter*>(obj)->setDstBlendFactor(getDstBlendFactorEnum(data)); return false; }
+    static bool     setDstBlendFactor(void* obj, const char* data)                      { static_cast<ParticleAssetEmitter*>(obj)->setDstBlendFactor(SceneObject::getDstBlendFactorEnum(data)); return false; }
     static bool     writeDstBlendFactor( void* obj, StringTableEntry pFieldName )       { return static_cast<ParticleAssetEmitter*>(obj)->getDstBlendFactor() != GL_ONE_MINUS_SRC_ALPHA; }
     static bool     setAlphaTest(void* obj, const char* data)                           { static_cast<ParticleAssetEmitter*>(obj)->setAlphaTest(dAtof(data)); return false; }
     static bool     writeAlphaTest( void* obj, StringTableEntry pFieldName )            { return static_cast<ParticleAssetEmitter*>(obj)->getAlphaTest() >= 0.0f; }
 
 };
-
-//-----------------------------------------------------------------------------
-
-extern ParticleAssetEmitter::EmitterType getEmitterType(const char* label);
-extern ParticleAssetEmitter::ParticleOrientationType getParticleOrientationMode(const char* label);
-
 
 #endif // _PARTICLE_ASSET_EMITTER_H_

@@ -202,6 +202,9 @@ public:
     bool                    setExplicitCell( const S32 cellIndex, const S32 cellOffsetX, const S32 cellOffsetY, const S32 cellWidth, const S32 cellHeight );
     inline S32              getExplicitCellCount( void ) const              { return mExplicitFrames.size(); }
     
+    static TextureFilterMode getFilterModeEnum(const char* label);
+    static const char* getFilterModeDescription( TextureFilterMode filterMode );
+
     /// Declare Console Object.
     DECLARE_CONOBJECT(ImageAsset);
 
@@ -265,10 +268,5 @@ protected:
     static bool setCellHeight( void* obj, const char* data )                { static_cast<ImageAsset*>(obj)->setCellHeight(dAtoi(data)); return false; }
     static bool writeCellHeight( void* obj, StringTableEntry pFieldName )   { ImageAsset* pImageAsset = static_cast<ImageAsset*>(obj); return !pImageAsset->getExplicitMode() && pImageAsset->getCellHeight() != 0; }
 };
-
-//-----------------------------------------------------------------------------
-
-extern ImageAsset::TextureFilterMode getFilterModeEnum(const char* label);
-extern const char* getFilterModeDescription( ImageAsset::TextureFilterMode filterMode );
 
 #endif // _IMAGE_ASSET_H_

@@ -3,11 +3,6 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-extern Scene::PickMode getPickMode(const char* label);
-extern const char* getPickModeDescription( Scene::PickMode pickMode );
-
-//-----------------------------------------------------------------------------
-
 ConsoleFunction( getGlobalSceneCount, S32, 1, 1,    "() - Gets the system-wide scene count.\n"
                                                     "@return The system-wide scene count." )
 {
@@ -436,7 +431,7 @@ ConsoleMethod(Scene, getJointType, const char*, 3, 3,   "(int jointId) Gets the 
     if ( jointType == e_unknownJoint )
         return "";
 
-    return getJointTypeDescription( jointType );
+    return Scene::getJointTypeDescription( jointType );
 }                                                                  
 
 //-----------------------------------------------------------------------------
@@ -2375,7 +2370,7 @@ ConsoleMethod(Scene, pickArea, const char*, 4, 9, "(startx/y, endx/y, [sceneGrou
     Scene::PickMode pickMode = Scene::PICK_SIZE;
     if ( (U32)argc > (firstArg + 2))
     {
-        pickMode = getPickMode(argv[firstArg + 2]);
+        pickMode = Scene::getPickModeEnum(argv[firstArg + 2]);
     }
     if ( pickMode == Scene::PICK_INVALID )
     {
@@ -2521,7 +2516,7 @@ ConsoleMethod(Scene, pickRay, const char*, 4, 9, "(startx/y, endx/y, [sceneGroup
     Scene::PickMode pickMode = Scene::PICK_SIZE;
     if ( (U32)argc > (firstArg + 2))
     {
-        pickMode = getPickMode(argv[firstArg + 2]);
+        pickMode = Scene::getPickModeEnum(argv[firstArg + 2]);
     }
     if ( pickMode == Scene::PICK_INVALID )
     {
@@ -2778,7 +2773,7 @@ ConsoleMethod(Scene, pickPoint, const char*, 3, 7, "(x / y, [sceneGroupMask], [s
     Scene::PickMode pickMode = Scene::PICK_SIZE;
     if ( (U32)argc > (firstArg + 2 ))
     {
-        pickMode = getPickMode(argv[firstArg + 2]);
+        pickMode = Scene::getPickModeEnum(argv[firstArg + 2]);
     }
     if ( pickMode == Scene::PICK_INVALID )
     {
@@ -2877,7 +2872,7 @@ ConsoleMethod(Scene, setDebugOn, void, 3, 2 + DEBUG_MODE_COUNT, "(debugOptions) 
         {
             // Fetch the debug option.
             const char* pDebugOption = Utility::mGetStringElement( argv[2], i );
-            Scene::DebugOption debugOption = getDebugOption( pDebugOption );
+            Scene::DebugOption debugOption = Scene::getDebugOptionEnum( pDebugOption );
         
             // Is the option valid?
             if ( debugOption == Scene::SCENE_DEBUG_INVALID )
@@ -2899,7 +2894,7 @@ ConsoleMethod(Scene, setDebugOn, void, 3, 2 + DEBUG_MODE_COUNT, "(debugOptions) 
         {
             // Fetch the debug option.
             const char* pDebugOption = argv[i];
-            Scene::DebugOption debugOption = getDebugOption( argv[i] );
+            Scene::DebugOption debugOption = Scene::getDebugOptionEnum( argv[i] );
 
             // Is the option valid?
             if ( debugOption == Scene::SCENE_DEBUG_INVALID )
@@ -2945,7 +2940,7 @@ ConsoleMethod(Scene, setDebugOff, void, 3, 2 + DEBUG_MODE_COUNT,    "(debugOptio
         {
             // Fetch the debug option.
             const char* pDebugOption = Utility::mGetStringElement( argv[2], i );
-            Scene::DebugOption debugOption = getDebugOption( pDebugOption );
+            Scene::DebugOption debugOption = Scene::getDebugOptionEnum( pDebugOption );
         
             // Is the option valid?
             if ( debugOption == Scene::SCENE_DEBUG_INVALID )
@@ -2967,7 +2962,7 @@ ConsoleMethod(Scene, setDebugOff, void, 3, 2 + DEBUG_MODE_COUNT,    "(debugOptio
         {
             // Fetch the debug option.
             const char* pDebugOption = argv[i];
-            Scene::DebugOption debugOption = getDebugOption( argv[i] );
+            Scene::DebugOption debugOption = Scene::getDebugOptionEnum( argv[i] );
 
             // Is the option valid?
             if ( debugOption == Scene::SCENE_DEBUG_INVALID )

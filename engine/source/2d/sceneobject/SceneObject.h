@@ -56,23 +56,6 @@
 
 //-----------------------------------------------------------------------------
 
-extern EnumTable bodyTypeTable;
-extern b2BodyType getBodyTypeEnum(const char* label);
-extern const char* getBodyTypeDescription(const b2BodyType bodyType);
-extern EnumTable srcBlendFactorTable;
-extern EnumTable dstBlendFactorTable;
-extern b2Shape::Type getCollisionShapeTypeEnum(const char* label);
-extern S32 getSrcBlendFactorEnum(const char* label);
-extern S32 getDstBlendFactorEnum(const char* label);
-extern const char* getSrcBlendFactorDescription(const GLenum factor);
-extern const char* getDstBlendFactorDescription(const GLenum factor);
-extern EnumTable srcBlendFactorTable;
-extern EnumTable dstBlendFactorTable;
-extern const char* getBodyTypeDescription(const b2BodyType bodyType);
-extern const char* getCollisionShapeTypeDescription(const b2Shape::Type collisionShapeType);
-
-//-----------------------------------------------------------------------------
-
 struct tDestroyNotification
 {
     SceneObject*    mpSceneObject;
@@ -89,6 +72,14 @@ typedef Vector<tDestroyNotification> typeDestroyNotificationVector;
 
 const S32 GL_INVALID_BLEND_FACTOR = -1;
 const S32 INVALID_COLLISION_SHAPE_INDEX = -1;
+
+//-----------------------------------------------------------------------------
+
+extern EnumTable bodyTypeTable;
+extern EnumTable srcBlendFactorTable;
+extern EnumTable dstBlendFactorTable;
+extern EnumTable srcBlendFactorTable;
+extern EnumTable dstBlendFactorTable;
 
 //-----------------------------------------------------------------------------
 
@@ -585,6 +576,15 @@ public:
 
     // Read / Write fields.
     virtual bool            writeField(StringTableEntry fieldname, const char* value);
+
+    static b2BodyType getBodyTypeEnum(const char* label);
+    static const char* getBodyTypeDescription(const b2BodyType bodyType);
+    static b2Shape::Type getCollisionShapeTypeEnum(const char* label);
+    static const char* getCollisionShapeTypeDescription(const b2Shape::Type collisionShapeType);
+    static S32 getSrcBlendFactorEnum(const char* label);
+    static S32 getDstBlendFactorEnum(const char* label);
+    static const char* getSrcBlendFactorDescription(const GLenum factor);
+    static const char* getDstBlendFactorDescription(const GLenum factor);
 
     /// Declare Console Object.
     DECLARE_CONOBJECT( SceneObject );

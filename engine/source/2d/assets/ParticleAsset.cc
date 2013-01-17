@@ -29,18 +29,34 @@ static EnumTable LifeModeTable(sizeof(particleAssetLifeModeLookup) / sizeof(Enum
 
 //-----------------------------------------------------------------------------
 
-ParticleAsset::LifeMode getParticleAssetLifeMode(const char* label)
+ParticleAsset::LifeMode ParticleAsset::getParticleAssetLifeModeEnum( const char* label )
 {
    // Search for Mnemonic.
    for(U32 i = 0; i < (sizeof(particleAssetLifeModeLookup) / sizeof(EnumTable::Enums)); i++)
       if( dStricmp(particleAssetLifeModeLookup[i].label, label) == 0)
           return((ParticleAsset::LifeMode)particleAssetLifeModeLookup[i].index);
 
-   // Invalid Effect Life-Mode!
-   AssertFatal(false, "ParticleAsset::getParticleAssetLifeMode() - Invalid life mode.");
+   // Warn.
+   Con::warnf( "ParticleAsset::getParticleAssetLifeModeEnum() - Invalid life mode '%s'.", label );
 
-   // Invalid.
    return ParticleAsset::INVALID_LIFEMODE;
+}
+
+//-----------------------------------------------------------------------------
+
+const char* ParticleAsset::getParticleAssetLifeModeDescription( const ParticleAsset::LifeMode lifeMode )
+{
+    // Search for Mnemonic.
+    for (U32 i = 0; i < (sizeof(particleAssetLifeModeLookup) / sizeof(EnumTable::Enums)); i++)
+    {
+        if( particleAssetLifeModeLookup[i].index == (S32)lifeMode )
+            return particleAssetLifeModeLookup[i].label;
+    }
+
+    // Warn.
+    Con::warnf( "ParticleAsset::getParticleAssetLifeModeDescription() - Invalid life-mode." );
+
+    return StringTable->EmptyString;
 }
 
 //-----------------------------------------------------------------------------
@@ -430,14 +446,6 @@ void ParticleAsset::moveEmitter( S32 fromIndex, S32 toIndex )
 
    // Remove Original Reference.
    mEmitters.erase( fromItr );
-}
-
-//-----------------------------------------------------------------------------
-
-bool ParticleAsset::setLifeMode(void* obj, const char* data)
-{
-    static_cast<ParticleAsset*>(obj)->setLifeMode(getParticleAssetLifeMode(data));
-    return false;
 }
 
 //------------------------------------------------------------------------------

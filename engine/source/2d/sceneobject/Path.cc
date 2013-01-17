@@ -19,9 +19,9 @@ IMPLEMENT_CONOBJECT(Path);
 
 static EnumTable::Enums pathModeLookup[] =
                 {
-                { PATH_WRAP, "WRAP" },
-                { PATH_REVERSE, "REVERSE" },
-                { PATH_RESTART, "RESTART" }
+                { Path::PATH_WRAP,      "WRAP" },
+                { Path::PATH_REVERSE,   "REVERSE" },
+                { Path::PATH_RESTART,   "RESTART" }
                 };
 
 //---------------------------------------------------------------------------------------------
@@ -31,21 +31,23 @@ static EnumTable pathModeTable(sizeof(pathModeLookup) /  sizeof(EnumTable::Enums
 
 //---------------------------------------------------------------------------------------------
 
-ePathMode getPathMode(const char* label)
+Path::PathMode Path::getPathModeEnum(const char* label)
 {
    for(U32 i = 0; i < (sizeof(pathModeLookup) / sizeof(EnumTable::Enums)); i++)
    {
       if(dStricmp(pathModeLookup[i].label, label) == 0)
-         return((ePathMode)pathModeLookup[i].index);
+         return((PathMode)pathModeLookup[i].index);
    }
 
-   AssertFatal(false, "getPathMode() - Invalid Path Mode!");
-   return PATH_WRAP;
+   // Warn.
+   Con::warnf( " Path::getPathModeEnum() - Invalid path mode of '%s'.", label );
+
+   return Path::PATH_WRAP;
 }
 
 //---------------------------------------------------------------------------------------------
 
-const char* getPathModeDescription(const ePathMode pathMode)
+const char* Path::getPathModeDescription(const PathMode pathMode)
 {
    for(U32 i = 0; i < (sizeof(pathModeLookup) / sizeof(EnumTable::Enums)); i++)
    {
@@ -53,7 +55,9 @@ const char* getPathModeDescription(const ePathMode pathMode)
          return pathModeLookup[i].label;
    }
 
-   AssertFatal(false, "getPathModeDescription() - Invalid Path Mode!");
+   // Warn.
+   Con::warnf( "Path::getPathModeDescription() - Invalid path mode." );
+
    return StringTable->EmptyString;
 }
 
@@ -61,10 +65,10 @@ const char* getPathModeDescription(const ePathMode pathMode)
 
 static EnumTable::Enums followMethodLookup[] =
                 {
-                { FOLLOW_LINEAR, "LINEAR" },
-                { FOLLOW_BEZIER, "BEZIER" },
-                { FOLLOW_CATMULL, "CATMULL" },
-                { FOLLOW_CUSTOM, "CUSTOM" }
+                { Path::FOLLOW_LINEAR, "LINEAR" },
+                { Path::FOLLOW_BEZIER, "BEZIER" },
+                { Path::FOLLOW_CATMULL, "CATMULL" },
+                { Path::FOLLOW_CUSTOM, "CUSTOM" }
                 };
 
 //---------------------------------------------------------------------------------------------
@@ -74,21 +78,23 @@ static EnumTable followMethodTable(sizeof(followMethodLookup) /  sizeof(EnumTabl
 
 //---------------------------------------------------------------------------------------------
 
-eFollowMethod getFollowMethod(const char* label)
+Path::FollowMethod Path::getFollowMethodEnum(const char* label)
 {
     for(U32 i = 0; i < (sizeof(followMethodLookup) / sizeof(EnumTable::Enums)); i++)
     {
         if( dStricmp(followMethodLookup[i].label, label) == 0)
-           return((eFollowMethod)followMethodLookup[i].index);
+           return((FollowMethod)followMethodLookup[i].index);
     }
 
-    AssertFatal(false, "getFollowMethod() - Invalid FollowMethod!");
-    return FOLLOW_LINEAR;
+    // Warn.
+    Con::warnf( "Path::getFollowMethodEnum() - Invalid follow method of '%s'.", label );
+
+    return Path::FOLLOW_LINEAR;
 }
 
 //---------------------------------------------------------------------------------------------
 
-const char* getFollowMethodDescription(const eFollowMethod follow)
+const char* Path::getFollowMethodDescription(const FollowMethod follow)
 {
     for(U32 i = 0; i < (sizeof(followMethodLookup) / sizeof(EnumTable::Enums)); i++)
     {
@@ -96,7 +102,9 @@ const char* getFollowMethodDescription(const eFollowMethod follow)
             return followMethodLookup[i].label;
     }
 
-    AssertFatal(false, "getFollowMethodDescription() - Invalid Follow Method!");
+    // Warn.
+    Con::warnf( "Path::getFollowMethodDescription() - Invalid follow method." );
+
     return StringTable->EmptyString;
 }
 
@@ -149,7 +157,7 @@ void Path::onRemove()
 
 bool Path::setPathType(void* obj, const char* data)
 {
-   static_cast<Path*>(obj)->setPathType(getFollowMethod(data));
+   static_cast<Path*>(obj)->setPathType(Path::getFollowMethodEnum(data));
    return false;
 } 
 
@@ -306,7 +314,7 @@ void Path::calculateCatmullLength(S32 node)
 //---------------------------------------------------------------------------------------------
 
 void Path::attachObject(SceneObject* object, F32 speed, S32 direction, bool orientToPath,
-                           S32 startNode, S32 endNode, ePathMode pathMode, S32 loops, bool sendToStart)
+                           S32 startNode, S32 endNode, PathMode pathMode, S32 loops, bool sendToStart)
 {
    if (sendToStart)
    {
@@ -1197,7 +1205,7 @@ void Path::onTamlPostRead( const TamlCollection& customCollection )
 
             if (dAtoi(pSceneObject->getDataField(StringTable->insert("mountID"), NULL)) == mountID)
             {
-                attachObject(pSceneObject, speed, direction, orient, start, end, getPathMode(pathMode), loops, true);
+                attachObject(pSceneObject, speed, direction, orient, start, end, Path::getPathModeEnum(pathMode), loops, true);
                 setAngleOffset(pSceneObject, offset, true);
                 break;
             }

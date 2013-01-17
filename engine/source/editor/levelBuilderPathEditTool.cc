@@ -103,7 +103,7 @@ bool LevelBuilderPathEditTool::onMouseDown( LevelBuilderSceneWindow* sceneWindow
    mDraggingHandle = 0;
 
    // Try to find a bezier handle first.
-   if (mPath->getPathType() == FOLLOW_BEZIER)
+   if (mPath->getPathType() == Path::FOLLOW_BEZIER)
    {
       for (S32 i = 0; i < mPath->getNodeCount(); i++)
       {
@@ -267,7 +267,7 @@ void LevelBuilderPathEditTool::onRenderScene( LevelBuilderSceneWindow* sceneWind
    if (!mPath || (sceneWindow != mSceneWindow))
       return;
 
-   if (mPath->getPathType() == FOLLOW_BEZIER)
+   if (mPath->getPathType() == Path::FOLLOW_BEZIER)
    {
       for (S32 i = 0; i < mPath->getNodeCount(); i++)
       {

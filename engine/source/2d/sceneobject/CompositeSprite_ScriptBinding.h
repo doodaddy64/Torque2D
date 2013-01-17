@@ -44,7 +44,7 @@ ConsoleMethod(CompositeSprite, setBatchLayout, void, 3, 3,      "(batchLayoutTyp
                                                                 "@return No return value." )
 {
     // Fetch the batch layout type/
-    CompositeSprite::BatchLayoutType batchLayoutType = getBatchLayoutTypeEnum( argv[2] );
+    CompositeSprite::BatchLayoutType batchLayoutType = CompositeSprite::getBatchLayoutTypeEnum( argv[2] );
 
     // Sanity!
     if ( batchLayoutType == CompositeSprite::INVALID_LAYOUT )
@@ -62,7 +62,7 @@ ConsoleMethod(CompositeSprite, setBatchLayout, void, 3, 3,      "(batchLayoutTyp
 ConsoleMethod(CompositeSprite, getBatchLayout, const char*, 2, 2, "() - Gets the batch layout type.\n"
                                                                     "@return The batch layout type." )
 {
-    return getBatchLayoutTypeDescription( object->getBatchLayout() );
+    return CompositeSprite::getBatchLayoutTypeDescription( object->getBatchLayout() );
 }
 
 //-----------------------------------------------------------------------------
@@ -597,7 +597,7 @@ ConsoleMethod(CompositeSprite, setSpriteSrcBlendFactor, void, 3, 3, "(srcBlend) 
                                                                     "@return No return Value.")
 {
     // Fetch source blend factor.
-    GLenum blendFactor = getSrcBlendFactorEnum(argv[2]);
+    GLenum blendFactor = SceneObject::getSrcBlendFactorEnum(argv[2]);
 
     object->setSpriteSrcBlendFactor( blendFactor );
 }
@@ -607,7 +607,7 @@ ConsoleMethod(CompositeSprite, setSpriteSrcBlendFactor, void, 3, 3, "(srcBlend) 
 ConsoleMethod(CompositeSprite, getSpriteSrcBlendFactor, const char*, 2, 2,  "() - Gets the sprite source blend factor.\n"
                                                                             "@return (srcBlend) The sprite source blend factor.")
 {
-   return getSrcBlendFactorDescription( object->getSpriteSrcBlendFactor() );
+   return SceneObject::getSrcBlendFactorDescription( object->getSpriteSrcBlendFactor() );
 }
 
 //-----------------------------------------------------------------------------
@@ -617,7 +617,7 @@ ConsoleMethod(CompositeSprite, setSpriteDstBlendFactor, void, 3, 3, "(dstBlend) 
                                                                     "@return No return Value.")
 {
     // Fetch destination blend factor.
-    GLenum blendFactor = getDstBlendFactorEnum(argv[2]);
+    GLenum blendFactor = SceneObject::getDstBlendFactorEnum(argv[2]);
 
     object->setSpriteDstBlendFactor( blendFactor );
 }
@@ -627,7 +627,7 @@ ConsoleMethod(CompositeSprite, setSpriteDstBlendFactor, void, 3, 3, "(dstBlend) 
 ConsoleMethod(CompositeSprite, getSpriteDstBlendFactor, const char*, 2, 2,  "() - Gets the sprite destination blend factor.\n"
                                                                             "@return (dstBlend) The sprite destination blend factor.")
 {
-   return getDstBlendFactorDescription( object->getSpriteDstBlendFactor() );
+   return SceneObject::getDstBlendFactorDescription( object->getSpriteDstBlendFactor() );
 }
 
 //-----------------------------------------------------------------------------

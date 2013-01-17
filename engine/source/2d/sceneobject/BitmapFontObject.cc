@@ -31,25 +31,24 @@ static EnumTable gTextAlignmentTable(3, &textAlignmentEnums[0]);
 
 //-----------------------------------------------------------------------------
 
-BitmapFontObject::TextAlignment getTextAlignmentEnum(const char* label)
+BitmapFontObject::TextAlignment BitmapFontObject::getTextAlignmentEnum(const char* label)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(textAlignmentEnums) / sizeof(EnumTable::Enums)); i++)
     {
         if( dStricmp(textAlignmentEnums[i].label, label) == 0)
-            return (BitmapFontObject::TextAlignment)textAlignmentEnums[i].index;
+            return (TextAlignment)textAlignmentEnums[i].index;
     }
 
-    // Warn!
+    // Warn.
     Con::warnf("BitmapFontObject::getTextAlignmentEnum() - Invalid text alignment of '%s'", label );
 
-    // Bah!
-    return BitmapFontObject::ALIGN_CENTER;
+    return BitmapFontObject::INVALID_ALIGN;
 }
 
 //-----------------------------------------------------------------------------
 
-const char* getTextAlignmentDescription(const BitmapFontObject::TextAlignment alignment)
+const char* BitmapFontObject::getTextAlignmentDescription(const BitmapFontObject::TextAlignment alignment)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(textAlignmentEnums) / sizeof(EnumTable::Enums)); i++)
@@ -58,11 +57,10 @@ const char* getTextAlignmentDescription(const BitmapFontObject::TextAlignment al
             return textAlignmentEnums[i].label;
     }
 
-    // Fatal!
-    AssertFatal(false, "BitmapFontObject::getTextAlignmentDescription() - Invalid text alignment.");
+    // Warn.
+    Con::warnf( "BitmapFontObject::getTextAlignmentDescription() - Invalid text alignment.");
 
-    // Bah!
-    return StringTable->insert(textAlignmentEnums[1].label);
+    return StringTable->EmptyString;
 }
 
 //------------------------------------------------------------------------------

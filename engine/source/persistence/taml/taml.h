@@ -146,13 +146,11 @@ public:
     }
     SimObject* read( const char* pFilename );
 
+    static TamlFormatMode getFormatModeEnum( const char* label );
+    static const char* getFormatModeDescription( const TamlFormatMode formatMode );
+
     /// Declare Console Object.
     DECLARE_CONOBJECT( Taml );
 };
-
-//-----------------------------------------------------------------------------
-
-extern Taml::TamlFormatMode getFormatModeEnum(const char* label);
-extern const char* getFormatModeDescription(const Taml::TamlFormatMode formatMode);
 
 #endif // _TAML_H_

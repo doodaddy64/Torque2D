@@ -23,7 +23,7 @@ ConsoleMethod(ImageAsset, setFilterMode, void, 3, 3,            "(mode) Sets the
                                                                 "@return No return value.")
 {
     // Fetch Texture Filter Mode.
-    const ImageAsset::TextureFilterMode filterMode = getFilterModeEnum( argv[2] );
+    const ImageAsset::TextureFilterMode filterMode = ImageAsset::getFilterModeEnum( argv[2] );
 
     // Valid Filter?
     if ( filterMode == ImageAsset::FILTER_INVALID )
@@ -43,7 +43,7 @@ ConsoleMethod(ImageAsset, setFilterMode, void, 3, 3,            "(mode) Sets the
 ConsoleMethod(ImageAsset, getFilterMode, const char*, 2, 2,   "() Gets the filter mode.\n"
                                                                         "@return The filter mode.")
 {
-    return getFilterModeDescription( object->getFilterMode() );
+    return ImageAsset::getFilterModeDescription( object->getFilterMode() );
 }
 
 //-----------------------------------------------------------------------------

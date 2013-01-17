@@ -13,6 +13,9 @@
 #include "console/consoleTypes.h"
 #endif
 
+// Script bindings.
+#include "ParticleAssetEmitter_ScriptBinding.h"
+
 //------------------------------------------------------------------------------
 
 static EnumTable::Enums emitterTypeLookup[] =
@@ -29,17 +32,16 @@ static EnumTable EmitterTypeTable(sizeof(emitterTypeLookup) / sizeof(EnumTable::
 
 //------------------------------------------------------------------------------
 
-ParticleAssetEmitter::EmitterType getEmitterType(const char* label)
+ParticleAssetEmitter::EmitterType ParticleAssetEmitter::getEmitterTypeEnum(const char* label)
 {
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(emitterTypeLookup) / sizeof(EnumTable::Enums)); i++)
         if( dStricmp(emitterTypeLookup[i].label, label) == 0)
             return((ParticleAssetEmitter::EmitterType)emitterTypeLookup[i].index);
 
-    // Invalid Emitter-Type!
-    AssertFatal(false, "ParticleAssetEmitter::getEmitterType() - Invalid Emitter-Type!");
+    // Warn.
+    Con::warnf(  "ParticleAssetEmitter::getEmitterTypeEnum() - Invalid emitter-type '%s'.", label );
 
-    // Bah!
     return ParticleAssetEmitter::INVALID_EMITTER_TYPE;
 }
 
@@ -58,16 +60,16 @@ static EnumTable OrientationTypeTable(sizeof(particleOrientationTypeLookup) / si
 
 //------------------------------------------------------------------------------
 
-ParticleAssetEmitter::ParticleOrientationType getOrientationType(const char* label)
+ParticleAssetEmitter::ParticleOrientationType ParticleAssetEmitter::getOrientationTypeEnum(const char* label)
 {
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(particleOrientationTypeLookup) / sizeof(EnumTable::Enums)); i++)
         if( dStricmp(particleOrientationTypeLookup[i].label, label) == 0)
             return((ParticleAssetEmitter::ParticleOrientationType)particleOrientationTypeLookup[i].index);
 
-    // Invalid Orientation!
-    AssertFatal(false, "ParticleAssetEmitter::getOrientationType() - Invalid Orientation Mode!");
-    // Bah!
+    // Warn.
+    Con::warnf( "ParticleAssetEmitter::getOrientationTypeEnum() - Invalid orientation type '%s'.", label );
+
     return ParticleAssetEmitter::INVALID_ORIENTATION;
 }
 
@@ -433,7 +435,7 @@ void ParticleAssetEmitter::onTamlCustomRead( const TamlCollection& customCollect
 
 bool ParticleAssetEmitter::setEmitterType(void* obj, const char* data)
 {
-    static_cast<ParticleAssetEmitter*>(obj)->setEmitterType(::getEmitterType(data));
+    static_cast<ParticleAssetEmitter*>(obj)->setEmitterType( getEmitterTypeEnum(data) );
     return false;
 }
 
@@ -441,7 +443,7 @@ bool ParticleAssetEmitter::setEmitterType(void* obj, const char* data)
 
 bool ParticleAssetEmitter::setOrientationType(void* obj, const char* data)
 {
-    static_cast<ParticleAssetEmitter*>(obj)->setOrientationType(::getOrientationType(data));
+    static_cast<ParticleAssetEmitter*>(obj)->setOrientationType( getOrientationTypeEnum(data) );
     return false;
 }
 

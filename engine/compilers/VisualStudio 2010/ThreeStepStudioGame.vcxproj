@@ -624,6 +624,7 @@
     <ClInclude Include="..\..\source\2d\assets\ImageAsset_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\assets\ParticleAsset.h" />
     <ClInclude Include="..\..\source\2d\assets\ParticleAssetEmitter.h" />
+    <ClInclude Include="..\..\source\2d\assets\ParticleAssetEmitter_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\assets\ParticleAssetField.h" />
     <ClInclude Include="..\..\source\2d\assets\ParticleAssetFieldCollection.h" />
     <ClInclude Include="..\..\source\2d\assets\ParticleAsset_ScriptBinding.h" />

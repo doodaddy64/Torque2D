@@ -57,6 +57,9 @@ public:
     void setBatchLayout( const BatchLayoutType& batchLayoutType );
     BatchLayoutType getBatchLayout( void ) const { return mBatchLayoutType; }
 
+    static BatchLayoutType getBatchLayoutTypeEnum( const char* label );
+    static const char* getBatchLayoutTypeDescription( const BatchLayoutType batchLayoutType );
+
     /// Declare Console Object.
     DECLARE_CONOBJECT( CompositeSprite );
 
@@ -76,16 +79,10 @@ protected:
     static bool         writeBatchIsolated( void* obj, StringTableEntry pFieldName )        { PREFAB_WRITE_CHECK(CompositeSprite); return pCastObject->getBatchIsolated(); }
     static bool         writeBatchSortMode( void* obj, StringTableEntry pFieldName )        { PREFAB_WRITE_CHECK(CompositeSprite); return pCastObject->getBatchSortMode() != SceneRenderQueue::RENDER_SORT_OFF; }
 
-    static bool         setBatchLayout(void* obj, const char* data);
+    static bool         setBatchLayout(void* obj, const char* data)                         { static_cast<CompositeSprite*>(obj)->setBatchLayout( getBatchLayoutTypeEnum(data) ); return false; }
     static bool         writeBatchLayout( void* obj, StringTableEntry pFieldName )          { PREFAB_WRITE_CHECK(CompositeSprite); return pCastObject->getBatchLayout() != CompositeSprite::RECTILINEAR_LAYOUT; }
     static bool         setBatchCulling(void* obj, const char* data)                        { STATIC_VOID_CAST_TO(CompositeSprite, SpriteBatch, obj)->setBatchCulling(dAtob(data)); return false; }
     static bool         writeBatchCulling( void* obj, StringTableEntry pFieldName )         { PREFAB_WRITE_CHECK(CompositeSprite); return !pCastObject->getBatchCulling(); }
 };
-
-//------------------------------------------------------------------------------  
-
-extern EnumTable batchLayoutTypeTable;
-extern CompositeSprite::BatchLayoutType getBatchLayoutTypeEnum( const char* label );
-extern const char* getBatchLayoutTypeDescription( const CompositeSprite::BatchLayoutType batchLayoutType );
 
 #endif // _COMPOSITE_SPRITE_H_

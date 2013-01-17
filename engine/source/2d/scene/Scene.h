@@ -654,6 +654,13 @@ public:
     inline void             setRenderCallback( const bool callback )    { mRenderCallback = callback; }
     inline bool             getRenderCallback( void ) const             { return mRenderCallback; }
 
+    static b2JointType getJointTypeEnum(const char* label);
+    static const char* getJointTypeDescription( b2JointType jointType );
+    static PickMode getPickModeEnum(const char* label);
+    static const char* getPickModeDescription( PickMode pickMode );
+    static DebugOption getDebugOptionEnum(const char* label);
+    static const char* getDebugOptionDescription( DebugOption debugOption );
+
     /// Declare Console Object.
     DECLARE_CONOBJECT(Scene);
 
@@ -709,14 +716,5 @@ public:
 
 extern void findObjectsCallback(SceneObject* pSceneObject, void* storage);
 extern void findLayeredObjectsCallback(SceneObject* pSceneObject, void* storage);
-
-///-----------------------------------------------------------------------------
-
-extern const char* getJointTypeDescription( b2JointType jointType );
-extern b2JointType getJointTypeEnum(const char* label);
-extern Scene::PickMode getPickMode(const char* label);
-extern const char* getPickModeDescription( Scene::PickMode pickMode );
-extern Scene::DebugOption getDebugOption(const char* label);
-extern const char* getDebugOptionDescription( Scene::DebugOption debugOption );
 
 #endif // _SCENE_H_

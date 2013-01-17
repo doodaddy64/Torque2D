@@ -4650,20 +4650,22 @@ static EnumTable::Enums DebugOptionsLookup[] =
 
 //-----------------------------------------------------------------------------
 
-Scene::DebugOption getDebugOption(const char* label)
+Scene::DebugOption Scene::getDebugOptionEnum(const char* label)
 {
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(DebugOptionsLookup) / sizeof(EnumTable::Enums)); i++)
         if( dStricmp(DebugOptionsLookup[i].label, label) == 0)
             return((Scene::DebugOption)DebugOptionsLookup[i].index);
 
-    // Error.
+    // Warn.
+    Con::warnf( "Scene::getDebugOptionEnum() - Invalid debug option '%s'.", label );
+
     return Scene::SCENE_DEBUG_INVALID;
 }
 
 //-----------------------------------------------------------------------------
 
-const char* getDebugOptionDescription( Scene::DebugOption debugOption )
+const char* Scene::getDebugOptionDescription( Scene::DebugOption debugOption )
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(DebugOptionsLookup) / sizeof(EnumTable::Enums)); i++)
@@ -4672,10 +4674,9 @@ const char* getDebugOptionDescription( Scene::DebugOption debugOption )
             return DebugOptionsLookup[i].label;
     }
 
-    // Fatal!
-    AssertFatal(false, "SceneObject::getDebugOptionDescription() - Invalid debug option.");
+    // Warn.
+    Con::warnf( "Scene::getDebugOptionDescription() - Invalid debug option." );
 
-    // Error.
     return StringTable->EmptyString;
 }
 
@@ -4699,7 +4700,7 @@ EnumTable jointTypeTable(sizeof(jointTypeLookup) / sizeof(EnumTable::Enums), &jo
 
 //-----------------------------------------------------------------------------
 
-const char* getJointTypeDescription( b2JointType jointType )
+const char* Scene::getJointTypeDescription( b2JointType jointType )
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(jointTypeLookup) / sizeof(EnumTable::Enums)); i++)
@@ -4708,13 +4709,15 @@ const char* getJointTypeDescription( b2JointType jointType )
             return jointTypeLookup[i].label;
     }
 
-    // Error.
+    // Warn.
+    Con::warnf( "Scene::getJointTypeDescription() - Invalid joint type." );
+
     return StringTable->EmptyString;
 }
 
 //-----------------------------------------------------------------------------
 
-b2JointType getJointTypeEnum(const char* label)
+b2JointType Scene::getJointTypeEnum(const char* label)
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(jointTypeLookup) / sizeof(EnumTable::Enums)); i++)
@@ -4723,10 +4726,9 @@ b2JointType getJointTypeEnum(const char* label)
             return (b2JointType)jointTypeLookup[i].index;
     }
 
-    // Warn!
-    Con::warnf("SceneObject::getJointTypeEnum() - Invalid joint of '%s'", label );
+    // Warn.
+    Con::warnf( "Scene::getJointTypeEnum() - Invalid joint of '%s'", label );
 
-    // Bah!
     return e_unknownJoint;
 }
 
@@ -4741,20 +4743,22 @@ static EnumTable::Enums pickModeLookup[] =
 
 //-----------------------------------------------------------------------------
 
-Scene::PickMode getPickMode(const char* label)
+Scene::PickMode Scene::getPickModeEnum(const char* label)
 {
     // Search for Mnemonic.
     for(U32 i = 0; i < (sizeof(pickModeLookup) / sizeof(EnumTable::Enums)); i++)
         if( dStricmp(pickModeLookup[i].label, label) == 0)
             return((Scene::PickMode)pickModeLookup[i].index);
 
-    // Error.
+    // Warn.
+    Con::warnf( "Scene::getPickModeEnum() - Invalid pick mode '%s'.", label );
+
     return Scene::PICK_INVALID;
 }
 
 //-----------------------------------------------------------------------------
 
-const char* getPickModeDescription( Scene::PickMode pickMode )
+const char* Scene::getPickModeDescription( Scene::PickMode pickMode )
 {
     // Search for Mnemonic.
     for (U32 i = 0; i < (sizeof(pickModeLookup) / sizeof(EnumTable::Enums)); i++)
@@ -4763,9 +4767,8 @@ const char* getPickModeDescription( Scene::PickMode pickMode )
             return pickModeLookup[i].label;
     }
 
-    // Fatal!
-    AssertFatal(false, "SceneObject::getPickModeDescription() - Invalid pick mode.");
+    // Warn.
+    Con::warnf( "Scene::getPickModeDescription() - Invalid pick mode.");
 
-    // Error.
     return StringTable->EmptyString;
 }

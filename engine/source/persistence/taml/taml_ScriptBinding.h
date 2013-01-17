@@ -8,7 +8,7 @@ ConsoleMethod(Taml, setFormat, void, 3, 3,  "(format) - Sets the format that Tam
                                             "@return No return value.")
 {
     // Fetch format mode.
-    const Taml::TamlFormatMode formatMode = getFormatModeEnum(argv[2]);
+    const Taml::TamlFormatMode formatMode = Taml::getFormatModeEnum(argv[2]);
 
     // Was the format valid?
     if ( formatMode == Taml::InvalidFormat )
@@ -28,7 +28,7 @@ ConsoleMethod(Taml, getFormat, const char*, 2, 2,   "() - Gets the format that T
                                                     "@return The format that Taml should use to read/write.")
 {
     // Fetch format mode.
-    return getFormatModeDescription( object->getFormatMode() );
+    return Taml::getFormatModeDescription( object->getFormatMode() );
 }
 
 //-----------------------------------------------------------------------------
@@ -122,7 +122,7 @@ ConsoleFunction(TamlWrite, bool, 3, 5,  "(object, filename, [format], [compresse
 
     // Set the format mode.
     Taml taml;
-    taml.setFormatMode( argc > 3 ? getFormatModeEnum( argv[3] ) : Taml::XmlFormat );  
+    taml.setFormatMode( argc > 3 ? Taml::getFormatModeEnum( argv[3] ) : Taml::XmlFormat );  
 
     // Set compression.
     taml.setCompressed( argc > 4 ? dAtob(argv[4]) : true );
@@ -143,7 +143,7 @@ ConsoleFunction(TamlRead, const char*, 2, 4,    "(filename, [format]) - Read an 
 
     // Set the format mode.
     Taml taml;
-    taml.setFormatMode( argc > 2 ? getFormatModeEnum( argv[2] ) : Taml::XmlFormat );  
+    taml.setFormatMode( argc > 2 ? Taml::getFormatModeEnum( argv[2] ) : Taml::XmlFormat );  
 
     // Read object.
     SimObject* pSimObject = taml.read( pFilename );

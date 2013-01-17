@@ -18,7 +18,6 @@
 #include "persistence/taml/tamlCollection.h"
 #endif
 
-
 ///-----------------------------------------------------------------------------
 
 class ParticleAssetFieldCollection

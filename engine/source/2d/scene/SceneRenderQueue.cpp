@@ -38,7 +38,9 @@ SceneRenderQueue::RenderSort SceneRenderQueue::getRenderSortEnum(const char* lab
         if( dStricmp(renderSortLookup[i].label, label) == 0)
             return((RenderSort)renderSortLookup[i].index);
 
-    // Error.
+    // Warn.
+    Con::warnf( "SceneRenderQueue::getRenderSortEnum() - Invalid sort enum of '%s'", label );
+
     return SceneRenderQueue::RENDER_SORT_INVALID;
 }
 
@@ -53,10 +55,9 @@ const char* SceneRenderQueue::getRenderSortDescription( const RenderSort& sortMo
             return renderSortLookup[i].label;
     }
 
-    // Fatal!
-    AssertFatal(false, "SceneRenderQueue::getRenderSortDescription() - Invalid render sort mode.");
+    // Warn.
+    Con::warnf( "SceneRenderQueue::getRenderSortDescription() - Invalid sort enum." );
 
-    // Error.
     return StringTable->EmptyString;
 }
 

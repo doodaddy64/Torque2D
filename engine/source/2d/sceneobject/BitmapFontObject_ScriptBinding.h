@@ -41,7 +41,7 @@ ConsoleMethod(BitmapFontObject, setTextAlignment, void, 3, 3,    "(alignment) - 
                                                                     "@return No return value.")
 {
 
-    object->setTextAlignment( getTextAlignmentEnum(argv[2]) );
+    object->setTextAlignment( BitmapFontObject::getTextAlignmentEnum(argv[2]) );
 }
 
 //-----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ ConsoleMethod(BitmapFontObject, setTextAlignment, void, 3, 3,    "(alignment) - 
 ConsoleMethod(BitmapFontObject, getTextAlignment, const char*, 2, 2, "() - Gets the text alignment.\n"
                                                                         "@return The text alignment of 'left', 'center' or 'right'.")
 {
-    return getTextAlignmentDescription(object->getTextAlignment());
+    return BitmapFontObject::getTextAlignmentDescription(object->getTextAlignment());
 }
 //-----------------------------------------------------------------------------
 

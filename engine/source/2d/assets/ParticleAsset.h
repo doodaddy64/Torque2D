@@ -121,6 +121,9 @@ public:
         addEmitter( pParticleAssetEmitter );
     }
 
+    static LifeMode getParticleAssetLifeModeEnum(const char* label);
+    static const char* getParticleAssetLifeModeDescription( const LifeMode lifeMode );
+
     /// Declare Console Object.
     DECLARE_CONOBJECT(ParticleAsset);
 
@@ -135,12 +138,9 @@ protected:
     static bool setLifetime(void* obj, const char* data)                    { static_cast<ParticleAsset*>(obj)->setLifetime(dAtof(data)); return false; }
     static bool writeLifetime( void* obj, StringTableEntry pFieldName )     { return mNotZero( static_cast<ParticleAsset*>(obj)->getLifetime() ); }
 
-    static bool setLifeMode(void* obj, const char* data);
+    static bool setLifeMode(void* obj, const char* data)                    { static_cast<ParticleAsset*>(obj)->setLifeMode( ParticleAsset::getParticleAssetLifeModeEnum(data) ); return false; }
     static bool writeLifeMode( void* obj, StringTableEntry pFieldName )     { return static_cast<ParticleAsset*>(obj)->getLifeMode() != INFINITE; }
 };
 
-//-----------------------------------------------------------------------------
-
-extern ParticleAsset::LifeMode getParticleAssetLifeMode(const char* label);
 
 #endif // _PARTICLE_ASSET_H_
