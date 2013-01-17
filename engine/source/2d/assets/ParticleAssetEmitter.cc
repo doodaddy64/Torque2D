@@ -196,6 +196,7 @@ void ParticleAssetEmitter::initPersistFields()
     // Call parent.
     Parent::initPersistFields();
 
+    addProtectedField("EmitterName", TypeString, Offset(mEmitterName, ParticleAssetEmitter), &setEmitterName, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
     addProtectedField("EmitterType", TypeEnum, Offset(mEmitterType, ParticleAssetEmitter), &setEmitterType, &defaultProtectedGetFn, &writeEmitterType, 1, &EmitterTypeTable);
     addProtectedField("FixedAspect", TypeBool, Offset(mFixedAspect, ParticleAssetEmitter), &setFixedAspect, &defaultProtectedGetFn, &writeFixedAspect, "");
     addProtectedField("FixedForceAngle", TypeF32, Offset(mFixedForceAngle, ParticleAssetEmitter), &setFixedForceAngle, &defaultProtectedGetFn, &writeFixedForceAngle, "");

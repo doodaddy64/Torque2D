@@ -197,6 +197,7 @@ protected:
     void onTamlCustomWrite( TamlCollection& customCollection );
     void onTamlCustomRead( const TamlCollection& customCollection );
 
+    static bool     setEmitterName(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setEmitterName( data ); return false; }
     static bool     setEmitterType(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setEmitterType( getEmitterTypeEnum(data) ); return false; }
     static bool     writeEmitterType( void* obj, StringTableEntry pFieldName )          { return static_cast<ParticleAssetEmitter*>(obj)->getEmitterType() != POINT_EMITTER; }
     static bool     setFixedAspect(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setFixedAspect(dAtob(data)); return false; }
