@@ -342,6 +342,9 @@ void ParticleAsset::removeEmitter( ParticleAssetEmitter* pParticleAssetEmitter, 
             // Remove emitter.
             mEmitters.erase( emitterItr );
 
+            // Remove owner.
+            pParticleAssetEmitter->setOwner( NULL );
+
             // Stop delete notify.
             clearNotify( pParticleAssetEmitter );
 

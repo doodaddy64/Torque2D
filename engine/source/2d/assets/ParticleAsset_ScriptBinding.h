@@ -224,21 +224,13 @@ ConsoleMethod(ParticleAsset, getValueScale, F32, 2, 2,  "() Gets the scaling of 
 /// Emitter asset methods.
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(ParticleAsset, createEmitter, S32, 2, 2,  "() - Creates and add a new emitter.\n"
-                                                        "@return The new emitter that was added or 0 if failed.")
+ConsoleMethod(ParticleAsset, createEmitter, const char*, 2, 2,  "() - Creates and add a new emitter.\n"
+                                                                "@return The new emitter that was added or 0 if failed.")
 {
     // Find the emitter.
-    ParticleAssetEmitter* pEmitter = Sim::findObject<ParticleAssetEmitter>( argv[2] );
+    ParticleAssetEmitter* pEmitter = object->createEmitter();
 
-    // Did we find the emitter?
-    if ( pEmitter == NULL )
-    {
-        // No, so warn.
-        Con::warnf( "ParticleAsset::addEmitter() - Could not find the emitter '%s'.", argv[2] );
-        return false;
-    }
-
-    return object->addEmitter(pEmitter);
+    return pEmitter == NULL ? StringTable->EmptyString : pEmitter->getIdString();
 }
 
 //-----------------------------------------------------------------------------

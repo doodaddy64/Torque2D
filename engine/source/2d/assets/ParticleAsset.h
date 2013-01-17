@@ -10,13 +10,17 @@
 #include "2d/assets/particleAssetEmitter.h"
 #endif
 
+#ifndef _TAML_CHILDREN_H_
+#include "persistence/taml/tamlChildren.h"
+#endif
+
 #ifndef _ASSET_BASE_H_
 #include "assets/assetBase.h"
 #endif
 
 //-----------------------------------------------------------------------------
 
-class ParticleAsset : public AssetBase
+class ParticleAsset : public AssetBase, public TamlChildren
 {
 private:
     typedef AssetBase  Parent;

@@ -301,7 +301,6 @@ void ParticleAssetEmitter::setEmitterName( const char* pEmitterName )
 void ParticleAssetEmitter::setOwner( ParticleAsset* pParticleAsset )
 {
     // Sanity!
-    AssertFatal( pParticleAsset != NULL, "ParticleAssetEmitter::setOwner() - Cannot set a NULL owner." );
     AssertFatal( mOwner == NULL, "ParticleAssetEmitter::setOwner() - Cannot set an owner when one is already assigned." );
 
     // Set owner.

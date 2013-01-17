@@ -1,3 +1,11 @@
 <ParticleAsset
     Lifetime="10"
-    LifeMode="CYCLE" />
+    LifeMode="CYCLE">
+    <ParticleAssetEmitter />
+    <ParticleAsset.Fields>
+        <SizeXScale
+            Keys="0.0000 1.0000 5.0000 2.0000 9.0000 5.0000 10.0000 1.0000" />
+        <SizeYScale
+            Keys="0.0000 1.0000 1.0000 5.0000 9.0000 3.0000 10.0000 1.0000" />
+    </ParticleAsset.Fields>
+</ParticleAsset>
