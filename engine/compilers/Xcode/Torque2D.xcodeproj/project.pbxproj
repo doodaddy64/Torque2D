@@ -1025,6 +1025,7 @@
 		2AE5B54016A6D860006908D5 /* ParticleAssetFieldCollection.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleAssetFieldCollection.cc; sourceTree = "<group>"; };
 		2AE5B54116A6D860006908D5 /* ParticleAssetFieldCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleAssetFieldCollection.h; sourceTree = "<group>"; };
 		2AE851D11681E56E00193F17 /* color.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color.cc; sourceTree = "<group>"; };
+		2AF80CFF16A80CB400CE13F1 /* ParticleAssetEmitter_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleAssetEmitter_ScriptBinding.h; sourceTree = "<group>"; };
 		331525D51B0C541827EB81DA /* main.manifestGenerator.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.manifestGenerator.cs; path = ../../../../main.manifestGenerator.cs; sourceTree = "<group>"; };
 		331525E70D6BA99395C51D2E /* main.keybindtest.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.keybindtest.cs; path = ../../../../main.keybindtest.cs; sourceTree = "<group>"; };
 		3315260D4A59442F9EE0325F /* main.michtests.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.michtests.cs; path = ../../../../main.michtests.cs; sourceTree = "<group>"; };
@@ -2496,6 +2497,7 @@
 		86BC7E7616518D4600D96ADF /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				2AF80CFF16A80CB400CE13F1 /* ParticleAssetEmitter_ScriptBinding.h */,
 				2AE5B54016A6D860006908D5 /* ParticleAssetFieldCollection.cc */,
 				2AE5B54116A6D860006908D5 /* ParticleAssetFieldCollection.h */,
 				2A6F78CC16A4528C005C76D9 /* ParticleAssetEmitter.cc */,
