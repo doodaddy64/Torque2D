@@ -103,11 +103,11 @@ void TamlBinaryWriter::writeElement( Stream& stream, const TamlWriteNode* pTamlW
     // Write attributes.
     writeAttributes( stream, pTamlWriteNode );
 
-    // Write children.
-    writeChildren( stream, pTamlWriteNode );
-
     // Write custom elements.
     writeCustomElements( stream, pTamlWriteNode );
+
+    // Write children.
+    writeChildren( stream, pTamlWriteNode );
 }
 
 //-----------------------------------------------------------------------------
