@@ -67,6 +67,13 @@ void ParticlePlayer::onRemove()
     Parent::onRemove();
 }
 
+//------------------------------------------------------------------------------
+
+void ParticlePlayer::onAssetRefreshed( AssetPtrBase* pAssetPtrBase )
+{
+
+}
+
 //-----------------------------------------------------------------------------
 
 void ParticlePlayer::safeDelete( void )

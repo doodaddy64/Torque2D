@@ -264,14 +264,14 @@ public:
     TamlPropertyField* addPropertyField( const char* pFieldName, const Point2F& fieldValue )
     {
         char fieldValueBuffer[32];
-        dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%g %g", fieldValue.x, fieldValue.y );
+        dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%.5g %0.5g", fieldValue.x, fieldValue.y );
         return addPropertyField( pFieldName, fieldValueBuffer );
     }
 
     TamlPropertyField* addPropertyField( const char* pFieldName, const b2Vec2& fieldValue )
     {
         char fieldValueBuffer[32];
-        dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%g %g", fieldValue.x, fieldValue.y );
+        dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%.5g %.5g", fieldValue.x, fieldValue.y );
         return addPropertyField( pFieldName, fieldValueBuffer );
     }
 
@@ -299,7 +299,7 @@ public:
     TamlPropertyField* addPropertyField( const char* pFieldName, const float fieldValue )
     {
         char fieldValueBuffer[16];
-        dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%g", fieldValue );
+        dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%.5g", fieldValue );
         return addPropertyField( pFieldName, fieldValueBuffer );
     }
 

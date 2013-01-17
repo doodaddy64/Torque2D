@@ -20,7 +20,7 @@
 
 //-----------------------------------------------------------------------------
 
-class ParticlePlayer : public SceneObject
+class ParticlePlayer : public SceneObject, public AssetPtrCallback
 {
 private:
     typedef SceneObject Parent;
@@ -140,6 +140,8 @@ protected:
     /// Persistence.
     virtual void onTamlAddParent( SimObject* pParentObject );
 
+private:
+    virtual void onAssetRefreshed( AssetPtrBase* pAssetPtrBase );
 };
 
 #endif // _PARTICLE_PLAYER_H_

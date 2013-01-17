@@ -1,11 +1,22 @@
 <ParticleAsset
+    AssetName="TestParticle"
     Lifetime="10"
     LifeMode="CYCLE">
-    <ParticleAssetEmitter />
     <ParticleAsset.Fields>
         <SizeXScale
-            Keys="0.0000 1.0000 5.0000 2.0000 9.0000 5.0000 10.0000 1.0000" />
+            Keys="0 1 0.1 2 8.9 5 10 1" />
         <SizeYScale
-            Keys="0.0000 1.0000 1.0000 5.0000 9.0000 3.0000 10.0000 1.0000" />
+            Keys="0 1 1 5 9 3 10 1" />
     </ParticleAsset.Fields>
+    <ParticleAssetEmitter
+        EmitterName="Sputter"
+        EmitterType="AREA"
+        Image="@asset=MelvToy:MiniTileMapImage"
+        Frame="0">
+        <ParticleAssetEmitter.Fields>
+            <AlphaChannel
+                RepeatTime="2"
+                Keys="0 0 0.1 1 0.9 1 1 0" />
+        </ParticleAssetEmitter.Fields>
+    </ParticleAssetEmitter>
 </ParticleAsset>

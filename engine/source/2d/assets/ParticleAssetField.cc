@@ -533,7 +533,7 @@ void ParticleAssetField::onTamlCustomWrite( TamlCollectionProperty* pCollectionP
         const DataKey& dataKey = mDataKeys[index];
 
         // Format the key.
-        S32 written = dSprintf( pKeysBuffer, bufferSize, index == 0 ? "%0.4f %0.4f" : " %0.4f %0.4f", dataKey.mTime, dataKey.mValue );
+        S32 written = dSprintf( pKeysBuffer, bufferSize, index == 0 ? "%.5g %.5g" : " %.5g %.5g", dataKey.mTime, dataKey.mValue );
         pKeysBuffer += written;
         bufferSize -= written;
     }
