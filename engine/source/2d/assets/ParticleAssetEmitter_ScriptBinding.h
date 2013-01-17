@@ -479,7 +479,7 @@ ConsoleMethod(ParticleAssetEmitter, selectField, bool, 3, 3,   "(fieldName) Sele
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(ParticleAssetEmitter, deselectField, void, 3, 3,  "() Deselect any selected field.  If no field is selected then nothing happens.\n"
+ConsoleMethod(ParticleAssetEmitter, deselectField, void, 2, 2,  "() Deselect any selected field.  If no field is selected then nothing happens.\n"
                                                                 "@return No return value.")
 {
     object->getParticleFields().deselectField();

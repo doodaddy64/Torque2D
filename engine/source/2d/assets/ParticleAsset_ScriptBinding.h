@@ -56,7 +56,7 @@ ConsoleMethod(ParticleAsset, selectField, bool, 3, 3,   "(fieldName) Select the 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(ParticleAsset, deselectField, void, 3, 3, "() Deselect any selected field.  If no field is selected then nothing happens.\n"
+ConsoleMethod(ParticleAsset, deselectField, void, 2, 2, "() Deselect any selected field.  If no field is selected then nothing happens.\n"
                                                         "@return No return value.")
 {
     object->getParticleFields().deselectField();
