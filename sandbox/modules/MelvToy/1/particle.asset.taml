@@ -1,1 +1,3 @@
-<ParticleAsset />
+<ParticleAsset
+    Lifetime="10"
+    LifeMode="CYCLE" />

@@ -46,7 +46,7 @@ void ParticleAssetFieldCollection::copyTo( ParticleAssetFieldCollection& fieldCo
 
     // Select the same field name.
     if ( getSelectedField() != NULL )
-        fieldCollection.setSelectedField( getSelectedField()->getFieldName() );
+        fieldCollection.selectField( getSelectedField()->getFieldName() );
 }
 
 //------------------------------------------------------------------------------

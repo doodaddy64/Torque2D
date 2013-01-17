@@ -470,11 +470,19 @@ ConsoleMethod(ParticleAssetEmitter, getAlphaTest, F32, 2, 2,    "() - Gets the r
 /// Particle emitter fields.
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(ParticleAssetEmitter, setSelectedField, bool, 3, 3,   "(fieldName) Select the specified field by its name.\n"
-                                                                    "@param fieldName The field name to use for the selection.  Use an empty name to deselect to stop accidental changes.\n"
-                                                                    "@return Whether the field was successfully selected or not.")
+ConsoleMethod(ParticleAssetEmitter, selectField, bool, 3, 3,   "(fieldName) Select the specified field by its name.\n"
+                                                                "@param fieldName The field name to use for the selection.  Use an empty name to deselect to stop accidental changes.\n"
+                                                            "@return Whether the field was successfully selected or not.")
 {
-    return object->getParticleFields().setSelectedField( argv[2] ) != NULL;
+    return object->getParticleFields().selectField( argv[2] ) != NULL;
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticleAssetEmitter, deselectField, void, 3, 3,  "() Deselect any selected field.  If no field is selected then nothing happens.\n"
+                                                                "@return No return value.")
+{
+    object->getParticleFields().deselectField();
 }
 
 //-----------------------------------------------------------------------------
