@@ -19,9 +19,6 @@ SimObject* TamlBinaryReader::read( FileStream& stream )
     // Debug Profiling.
     PROFILE_SCOPE(TamlBinaryReader_Read);
 
-    // Sanity!
-    AssertFatal( mpTaml->getFormatMode() == Taml::BinaryFormat, "Cannot read with a binary reader using a non-binary format mode." );
-
     // Read Taml signature.
     StringTableEntry tamlSignature = stream.readSTString();
 
@@ -145,12 +142,12 @@ SimObject* TamlBinaryReader::parseElement( Stream& stream, const U32 versionId )
         mObjectReferenceMap.insert( tamlRefId, pSimObject );
     }
 
-    // Parse children.
-    parseChildren( stream, pCallbacks, pSimObject, versionId );
-
     // Parse custom elements.
     TamlCollection customCollection;
-    parseCustomElement( stream, pCallbacks, customCollection, versionId );
+    parseCustomElements( stream, pCallbacks, customCollection, versionId );
+
+    // Parse children.
+    parseChildren( stream, pCallbacks, pSimObject, versionId );
 
     // Are there any Taml callbacks?
     if ( pCallbacks != NULL )
@@ -165,7 +162,7 @@ SimObject* TamlBinaryReader::parseElement( Stream& stream, const U32 versionId )
 
 //-----------------------------------------------------------------------------
 
-void TamlBinaryReader::parseCustomElement( Stream& stream, TamlCallbacks* pCallbacks, TamlCollection& customCollection, const U32 versionId )
+void TamlBinaryReader::parseCustomElements( Stream& stream, TamlCallbacks* pCallbacks, TamlCollection& customCollection, const U32 versionId )
 {
     // Debug Profiling.
     PROFILE_SCOPE(TamlBinaryReader_ParseCustomElement);

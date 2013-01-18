@@ -75,7 +75,10 @@ private:
     typeCompiledHash    mCompiledObjects;
     U32                 mMasterNodeId;
     TamlFormatMode      mFormatMode;
-    bool                mCompressed;
+    bool                mBinaryCompression;
+    bool                mAutoFormat;
+    StringTableEntry    mAutoFormatXmlExtension;
+    StringTableEntry    mAutoFormatBinaryExtension;
 
 private:
     void resetCompilation( void );
@@ -86,11 +89,11 @@ private:
     void compileChildren( TamlWriteNode* pTamlWriteNode );
     void compileCollection( TamlWriteNode* pTamlWriteNode );
 
-    bool write( FileStream& stream, SimObject* pSimObject );
-    SimObject* read( FileStream& stream );
-    template<typename T> inline T* read( FileStream& stream )
+    bool write( FileStream& stream, SimObject* pSimObject, const TamlFormatMode formatMode );
+    SimObject* read( FileStream& stream, const TamlFormatMode formatMode );
+    template<typename T> inline T* read( FileStream& stream, const TamlFormatMode formatMode )
     {
-        SimObject* pSimObject = read( stream );
+        SimObject* pSimObject = read( stream, formatMode );
         if ( pSimObject == NULL )
             return NULL;
         T* pObj = dynamic_cast<T*>( pSimObject );
@@ -112,9 +115,7 @@ private:
     inline void tamlCustomRead( TamlCallbacks* pCallbacks, const TamlCollection& customCollection ) { pCallbacks->onTamlCustomRead( customCollection ); }
 
 public:
-    Taml() :
-      mFormatMode(XmlFormat),
-      mCompressed(true) {}
+    Taml();
     virtual ~Taml() {}
 
     virtual bool onAdd() { if ( !Parent::onAdd() ) return false; resetCompilation(); return true; }
@@ -125,9 +126,21 @@ public:
     inline void setFormatMode( const TamlFormatMode formatMode ) { mFormatMode = formatMode != Taml::InvalidFormat ? formatMode : Taml::XmlFormat; }
     inline TamlFormatMode getFormatMode( void ) const { return mFormatMode; }
 
+    /// Auto-Format mode.
+    inline void setAutoFormat( const bool autoFormat ) { mAutoFormat = autoFormat; }
+    inline bool getAutoFormat( void ) const { return mAutoFormat; }
+
+    // Auto-format extensions.
+    inline void setAutoFormatXmlExtension( const char* pExtension ) { mAutoFormatXmlExtension = StringTable->insert( pExtension ); }
+    inline StringTableEntry getAutoFormatXmlExtension( void ) const { return mAutoFormatXmlExtension; }
+    inline void setAutoFormatBinaryExtension( const char* pExtension ) { mAutoFormatBinaryExtension = StringTable->insert( pExtension ); }
+    inline StringTableEntry getAutoFormatBinaryExtension( void ) const { return mAutoFormatBinaryExtension; }
+
     /// Compression.
-    inline void setCompressed( const bool compressed ) { mCompressed = compressed; }
-    inline bool getCompressed( void ) const { return mCompressed; }
+    inline void setBinaryCompression( const bool compressed ) { mBinaryCompression = compressed; }
+    inline bool getBinaryCompression( void ) const { return mBinaryCompression; }
+
+    TamlFormatMode getFileAutoFormatMode( const char* pFilename );
 
     /// Write.
     bool write( SimObject* pSimObject, const char* pFilename );

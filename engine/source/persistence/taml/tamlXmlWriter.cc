@@ -15,9 +15,6 @@ bool TamlXmlWriter::write( FileStream& stream, const TamlWriteNode* pTamlWriteNo
     // Debug Profiling.
     PROFILE_SCOPE(TamlXmlWriter_Write);
 
-    // Sanity!
-    AssertFatal( mpTaml->getFormatMode() == Taml::XmlFormat, "Cannot write with a XML writer using a non-XML format mode." );
-
     // Create document.
     TiXmlDocument xmlDocument;
 

@@ -18,10 +18,7 @@ bool TamlBinaryWriter::write( FileStream& stream, const TamlWriteNode* pTamlWrit
 {
     // Debug Profiling.
     PROFILE_SCOPE(TamlBinaryWriter_Write);
-
-    // Sanity!
-    AssertFatal( mpTaml->getFormatMode() == Taml::BinaryFormat, "Cannot write with a binary writer using a non-binary format mode." );
-   
+ 
     // Write Taml signature.
     stream.writeString( StringTable->insert( TAML_SIGNATURE ) );
 
@@ -133,7 +130,7 @@ void TamlBinaryWriter::writeCustomElements( Stream& stream, const TamlWriteNode*
         stream.writeString( pCollectionProperty->mPropertyName );
 
         // Fetch property type alias count.
-        const U32 propertyTypeAliasCount = (U32)pCollectionProperty->size();
+        U32 propertyTypeAliasCount = (U32)pCollectionProperty->size();
 
         // Write property count.
         stream.write( propertyTypeAliasCount );
@@ -147,10 +144,6 @@ void TamlBinaryWriter::writeCustomElements( Stream& stream, const TamlWriteNode*
         {
             // Fetch property type alias.
             TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
-
-            // Skip if the type alias is set to ignore no properties and there are none.
-            if ( pPropertyTypeAlias->mIgnoreEmpty && pPropertyTypeAlias->size() == 0 )
-                continue;
 
             // Write property type alias name.
             stream.writeString( pPropertyTypeAlias->mAliasName );

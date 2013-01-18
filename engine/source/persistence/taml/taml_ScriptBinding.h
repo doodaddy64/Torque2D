@@ -33,21 +33,72 @@ ConsoleMethod(Taml, getFormat, const char*, 2, 2,   "() - Gets the format that T
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Taml, setCompressed, void, 3, 3,    "(compressed) - Sets whether ZIP compression is used on binary formatting or not.\n"
-                                                "@param compressed Whether compression is on or off.\n"
-                                                "@return No return value.")
+ConsoleMethod(Taml, setAutoFormat, void, 3, 3,  "(autoFormat) Sets whether the format type is automatically determined by the filename extension or not.\n"
+                                                "@param autoFormat Whether the format type is automatically determined by the filename extension or not.\n"
+                                                "@return No return value." )
 {
-    // Set compression.
-    object->setCompressed( dAtob(argv[2]) );
+    object->setAutoFormat( dAtob(argv[2]) );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Taml, getCompressed, bool, 2, 2,  "() - Gets whether ZIP compression is used on binary formatting or not.\n"
-                                                "@return Whether ZIP compression is used on binary formatting or not.")
+ConsoleMethod(Taml, getAutoFormat, bool, 2, 2,  "() Gets whether the format type is automatically determined by the filename extension or not.\n"
+                                                "@return Whether the format type is automatically determined by the filename extension or not." )
+{
+    return object->getAutoFormat();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(Taml, setAutoFormatXmlExtension, void, 3, 3,  "(extension) Sets the extension (end of filename) used to detect the XML format.\n"
+                                                            "@param extension The extension (end of filename) used to detect the XML format.\n"
+                                                            "@return No return value." )
+{
+    object->setAutoFormatXmlExtension( argv[2] );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(Taml, getAutoFormatXmlExtension, const char*, 3, 3,   "() Gets the extension (end of filename) used to detect the XML format.\n"
+                                                                    "@return The extension (end of filename) used to detect the XML format." )
+{
+    return object->getAutoFormatXmlExtension();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(Taml, setAutoFormatBinaryExtension, void, 3, 3,   "(extension) Sets the extension (end of filename) used to detect the Binary format.\n"
+                                                                "@param extension The extension (end of filename) used to detect the Binary format.\n"
+                                                                "@return No return value." )
+{
+    object->setAutoFormatBinaryExtension( argv[2] );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(Taml, getAutoFormatBinaryExtension, const char*, 3, 3,    "() Gets the extension (end of filename) used to detect the Binary format.\n"
+                                                                        "@return The extension (end of filename) used to detect the Binary format." )
+{
+    return object->getAutoFormatBinaryExtension();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(Taml, setBinaryCompression, void, 3, 3,   "(compressed) - Sets whether ZIP compression is used on binary formatting or not.\n"
+                                                        "@param compressed Whether compression is on or off.\n"
+                                                        "@return No return value.")
+{
+    // Set compression.
+    object->setBinaryCompression( dAtob(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(Taml, getBinaryCompression, bool, 2, 2,  "() - Gets whether ZIP compression is used on binary formatting or not.\n"
+                                                        "@return Whether ZIP compression is used on binary formatting or not.")
 {
     // Fetch compression.
-    return object->getCompressed();
+    return object->getBinaryCompression();
 }
 
 //-----------------------------------------------------------------------------
@@ -116,16 +167,34 @@ ConsoleFunction(TamlWrite, bool, 3, 5,  "(object, filename, [format], [compresse
     if ( pSimObject == NULL )
     {
         // No, so warn.
-        Con::warnf( "Taml::write() - Could not find object '%s' to write to file '%s'.", argv[2], pFilename );
+        Con::warnf( "TamlWrite() - Could not find object '%s' to write to file '%s'.", argv[2], pFilename );
         return false;
     }
 
-    // Set the format mode.
     Taml taml;
-    taml.setFormatMode( argc > 3 ? Taml::getFormatModeEnum( argv[3] ) : Taml::XmlFormat );  
 
-    // Set compression.
-    taml.setCompressed( argc > 4 ? dAtob(argv[4]) : true );
+    // Was the format mode specified?
+    if ( argc > 3 )
+    {
+        // Yes, so set it.
+        taml.setFormatMode( Taml::getFormatModeEnum( argv[3] ) );  
+
+        // Was binary compression specified?
+        if ( argc > 4 )
+        {
+            // Yes, so is the format mode binary?
+            if ( taml.getFormatMode() == Taml::BinaryFormat )
+            {
+                // Yes, so set binary compression.
+                taml.setBinaryCompression( dAtob(argv[4]) );
+            }
+            else
+            {
+                // No, so warn.
+                Con::warnf( "TamlWrite() - Setting binary compression is only valid for XML formatting." );
+            }
+        }
+    }
 
     // Write.
     return taml.write( pSimObject, pFilename );
@@ -152,7 +221,7 @@ ConsoleFunction(TamlRead, const char*, 2, 4,    "(filename, [format]) - Read an 
     if ( pSimObject == NULL )
     {
         // No, so warn.
-        Con::warnf( "Taml::read() - Could not read object from file '%s'.", pFilename );
+        Con::warnf( "TamlRead() - Could not read object from file '%s'.", pFilename );
         return StringTable->EmptyString;
     }
 

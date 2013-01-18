@@ -15,9 +15,6 @@ SimObject* TamlXmlReader::read( FileStream& stream )
     // Debug Profiling.
     PROFILE_SCOPE(TamlXmlReader_Read);
 
-    // Sanity!
-    AssertFatal( mpTaml->getFormatMode() == Taml::XmlFormat, "Cannot read with  a XML reader using a non-XML format mode." );
-
     // Create document.
     TiXmlDocument xmlDocument;
 

@@ -93,12 +93,27 @@ const char* Taml::getFormatModeDescription(const Taml::TamlFormatMode formatMode
 
 //-----------------------------------------------------------------------------
 
+Taml::Taml() :
+    mFormatMode(XmlFormat),
+    mBinaryCompression(true),
+    mAutoFormat(true),
+    mAutoFormatXmlExtension("taml"),    // These are set to string literals because Taml is used in a static scope and the string-table cannot be used like that.
+    mAutoFormatBinaryExtension("baml")
+{
+}
+
+//-----------------------------------------------------------------------------
+
 void Taml::initPersistFields()
 {
-    addField("format", TypeEnum, Offset(mFormatMode, Taml), 1, &tamlFormatModeTable, "The read/write format that should be used.");
-    addField("compressed", TypeBool, Offset(mCompressed, Taml), "Whether ZIP compression is used on binary formatting or not.\n");
-
+    // Call parent.
     Parent::initPersistFields();
+
+    addField("Format", TypeEnum, Offset(mFormatMode, Taml), 1, &tamlFormatModeTable, "The read/write format that should be used.");
+    addField("BinaryCompression", TypeBool, Offset(mBinaryCompression, Taml), "Whether ZIP compression is used on binary formatting or not.\n");
+    addField("AutoFormat", TypeBool, Offset(mAutoFormat, Taml), "Whether the format type is automatically determined by the filename extension or not.\n");
+    addField("AutoFormatXmlExtension", TypeString, Offset(mAutoFormatXmlExtension, Taml), "When using auto-format, this is the extension (end of filename) used to detect the XML format.\n");
+    addField("AutoFormatBinaryExtension", TypeString, Offset(mAutoFormatBinaryExtension, Taml), "When using auto-format, this is the extension (end of filename) used to detect the BINARY format.\n");
 }
 
 //-----------------------------------------------------------------------------
@@ -125,11 +140,14 @@ bool Taml::write( SimObject* pSimObject, const char* pFilename )
         return false;
     }
 
+    // Get the file auto-format mode.
+    const TamlFormatMode formatMode = getFileAutoFormatMode( filenameBuffer );
+
     // Reset the compilation.
     resetCompilation();
 
     // Write object.
-    const bool status = write( stream, pSimObject );
+    const bool status = write( stream, pSimObject, formatMode );
 
     // Close file.
     stream.close();
@@ -163,11 +181,14 @@ SimObject* Taml::read( const char* pFilename )
         return NULL;
     }
 
+    // Get the file auto-format mode.
+    const TamlFormatMode formatMode = getFileAutoFormatMode( filenameBuffer );
+
     // Reset the compilation.
     resetCompilation();
 
     // Write object.
-    SimObject* pSimObject = read( stream );
+    SimObject* pSimObject = read( stream, formatMode );
 
     // Close file.
     stream.close();
@@ -187,7 +208,7 @@ SimObject* Taml::read( const char* pFilename )
 
 //-----------------------------------------------------------------------------
 
-bool Taml::write( FileStream& stream, SimObject* pSimObject )
+bool Taml::write( FileStream& stream, SimObject* pSimObject, const TamlFormatMode formatMode )
 {
     // Sanity!
     AssertFatal( pSimObject != NULL, "Cannot write a NULL object." );
@@ -196,7 +217,7 @@ bool Taml::write( FileStream& stream, SimObject* pSimObject )
     TamlWriteNode* pRootNode = compileObject( pSimObject );
 
     // Format appropriately.
-    switch( mFormatMode )
+    switch( formatMode )
     {
         /// Xml.
         case XmlFormat:
@@ -213,7 +234,7 @@ bool Taml::write( FileStream& stream, SimObject* pSimObject )
             // Create writer.
             TamlBinaryWriter writer( this );
             // Write.
-            return writer.write( stream, pRootNode, mCompressed );
+            return writer.write( stream, pRootNode, mBinaryCompression );
         }
         
         /// Invalid.
@@ -232,10 +253,10 @@ bool Taml::write( FileStream& stream, SimObject* pSimObject )
 
 //-----------------------------------------------------------------------------
 
-SimObject* Taml::read( FileStream& stream )
+SimObject* Taml::read( FileStream& stream, const TamlFormatMode formatMode )
 {
     // Format appropriately.
-    switch( mFormatMode )
+    switch( formatMode )
     {
         /// Xml.
         case XmlFormat:
@@ -297,6 +318,39 @@ void Taml::resetCompilation( void )
 
     // Reset master node Id.
     mMasterNodeId = 0;
+}
+
+//-----------------------------------------------------------------------------
+
+Taml::TamlFormatMode Taml::getFileAutoFormatMode( const char* pFilename )
+{
+    // Sanity!
+    AssertFatal( pFilename != NULL, "Cannot auto-format using a NULL filename." );
+
+    // Is auto-format active?
+    if ( mAutoFormat )
+    {
+        // Yes, so fetch the extension lengths.
+        const U32 xmlExtensionLength = dStrlen( mAutoFormatXmlExtension );
+        const U32 binaryExtensionLength = dStrlen( mAutoFormatBinaryExtension );
+
+        // Fetch filename length.
+        const U32 filenameLength = dStrlen( pFilename );
+
+        // Fetch end of filename,
+        const char* pEndOfFilename = pFilename + filenameLength;
+
+        // Check for the XML format.
+        if ( xmlExtensionLength <= filenameLength && dStricmp( pEndOfFilename - xmlExtensionLength, mAutoFormatXmlExtension ) == 0 )
+            return Taml::XmlFormat;
+
+        // Check for the Binary format.
+        if ( xmlExtensionLength <= filenameLength && dStricmp( pEndOfFilename - xmlExtensionLength, mAutoFormatBinaryExtension ) == 0 )
+            return Taml::BinaryFormat;  
+    }
+
+    // Use the explicitly specified format mode.
+    return mFormatMode;
 }
 
 //-----------------------------------------------------------------------------
