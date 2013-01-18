@@ -217,7 +217,7 @@ void ParticleAssetEmitter::initPersistFields()
     addProtectedField("OldestInFront", TypeBool, Offset(mOldestInFront, ParticleAssetEmitter), &setOldestInFront, &defaultProtectedGetFn, &writeOldestInFront, "");
 
     addProtectedField("Image", TypeImageAssetPtr, Offset(mImageAsset, ParticleAssetEmitter), &setImage, &getImage, &writeImage, "");
-    addProtectedField("Frame", TypeS32, Offset(mImageFrame, ParticleAssetEmitter), &setFrame, &defaultProtectedGetFn, &writeFrame, "");
+    addProtectedField("Frame", TypeS32, Offset(mImageFrame, ParticleAssetEmitter), &setImageFrame, &defaultProtectedGetFn, &writeImageFrame, "");
     addProtectedField("Animation", TypeAnimationAssetPtr, Offset(mAnimationAsset, ParticleAssetEmitter), &setAnimation, &getAnimation, &writeAnimation, "");
 
     addProtectedField("BlendMode", TypeBool, Offset(mBlendMode, ParticleAssetEmitter), &setBlendMode, &defaultProtectedGetFn, &writeBlendMode, "");

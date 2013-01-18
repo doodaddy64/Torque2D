@@ -664,7 +664,7 @@ function EnemyPreview::refresh(%this)
    {
       EnemyPreview.display(%asset, "t2dStaticSprite");
       
-      EnemyPreview.sprite.setFrame(EnemyStaticSpriteFrameEditBox.getValue());
+      EnemyPreview.sprite.setImageFrame(EnemyStaticSpriteFrameEditBox.getValue());
    }
    else
       EnemyPreview.display(%asset, "t2dAnimatedSprite");
@@ -1100,7 +1100,7 @@ function SaveEnemyData()
       $SelectedEnemy.setImage(EnemySpriteDisplay.getText());
       
       EnemyStaticSpriteFrameEditBox.onValidate();
-      $SelectedEnemy.setFrame(EnemyStaticSpriteFrameEditBox.getValue());
+      $SelectedEnemy.setImageFrame(EnemyStaticSpriteFrameEditBox.getValue());
       
       %size = $SelectedEnemy.getImage().getFrameSize(0);
       %size = Vector2Scale(%size, $TDMetersPerPixel);

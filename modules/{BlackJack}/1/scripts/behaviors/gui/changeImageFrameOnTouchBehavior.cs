@@ -36,15 +36,15 @@ function ChangeImageFrameOnTouchBehavior::onTouchUp(%this, %touchID, %worldPos)
     if (%this.IncreaseFrame)
     {
         if (%this.owner.getFrame() == %this.owner.getImage().getFrameCount() - 1)
-            %this.owner.setFrame(0);
+            %this.owner.setImageFrame(0);
         else
-            %this.owner.setFrame(%this.owner.getFrame() + 1);
+            %this.owner.setImageFrame(%this.owner.getFrame() + 1);
     }
     else
     {
         if (%this.owner.getFrame() == 0)
-            %this.owner.setFrame(%this.owner.getImage().getFrameCount() - 1);
+            %this.owner.setImageFrame(%this.owner.getImage().getFrameCount() - 1);
         else
-            %this.owner.setFrame(%this.owner.getFrame() - 1);
+            %this.owner.setImageFrame(%this.owner.getFrame() - 1);
     }
 }

@@ -805,7 +805,7 @@ function AiCardAiUsingList::refresh(%this)
          {
             (AiCardAiUsingContainer@%index).Visible = true;
             (AiCardAiUsingPreviewBitmap@%index).display(%object.getImage(), "t2dStaticSprite");
-            (AiCardAiUsingPreviewBitmap@%index).sprite.setFrame(%object.getFrame());            
+            (AiCardAiUsingPreviewBitmap@%index).sprite.setImageFrame(%object.getFrame());            
             (AiCardAiUsingButton@%index).text = "Edit " @ %object.getInternalName();
             (AiCardAiUsingButton@%index).object = %object;
             %index++;

@@ -69,7 +69,7 @@ function PlayingCardsBehavior::dealCardTo(%this, %destination, %rotation)
     %this.updateCalculated = false;
     %this.calculateIntervals(%destination);
     %this.updateOrientation();
-    %this.owner.setFrame(52); // set to card back
+    %this.owner.setImageFrame(52); // set to card back
     %this.owner.moveTo(%destination, %this.getTravelTimeMsecs(%destination), true);
 }
 
@@ -109,7 +109,7 @@ function PlayingCardsBehavior::disposeCard(%this)
 
     if (isObject(%this.discardPile))
     {
-        %this.owner.setFrame(51); // set to card back
+        %this.owner.setImageFrame(51); // set to card back
         %this.isFaceDown = true;
         %this.discardPile.addCard(%this.owner);
     }
@@ -124,7 +124,7 @@ function PlayingCardsBehavior::flipCard(%this)
 {
     if (!%this.isPenetrationCard)
     {
-        %this.owner.setFrame(%this.FindSpriteSheetFrame() - 1);
+        %this.owner.setImageFrame(%this.FindSpriteSheetFrame() - 1);
         %this.isFaceDown = false;
     }
 }

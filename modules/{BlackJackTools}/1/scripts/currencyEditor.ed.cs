@@ -43,7 +43,7 @@ function CurrencyEditorGUI::setSelectedAsset(%this, %asset)
 
    %imagePreview = %currencyElement.findObjectByInternalName("ImagePreview", true);
    %imagePreview.display(%imagePath.getText(), "t2dStaticSprite");
-   %imagePreview.sprite.setFrame(%imageFrame.getValue());
+   %imagePreview.sprite.setImageFrame(%imageFrame.getValue());
 }
 
 /// <summary>
@@ -139,7 +139,7 @@ function CurrencyEditorGUI::refresh(%this)
              
          %imagePreview = %currencyElement.findObjectByInternalName("ImagePreview", true);
          %imagePreview.display(%imagePath.getText(), "t2dStaticSprite");
-         %imagePreview.sprite.setFrame(%imageFrame.getValue());
+         %imagePreview.sprite.setImageFrame(%imageFrame.getValue());
             
          // Make sure control is visible
          %currencyElement.setVisible(true);
@@ -229,7 +229,7 @@ function CurrencyEditorGUI::validateFrameEditBox(%this, %valueControl, %imagePat
    else if (%valueControl.getValue() > (%imagePath.getText().getFrameCount() - 1))
       %valueControl.setValue(%imagePath.getText().getFrameCount() - 1);
       
-   %imageWindow.sprite.setFrame(%valueControl.getValue());
+   %imageWindow.sprite.setImageFrame(%valueControl.getValue());
 }
 
 /// <summary>

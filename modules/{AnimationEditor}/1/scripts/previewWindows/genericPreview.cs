@@ -115,7 +115,7 @@ function GenericPreviewWindow::update(%this)
          %this.sprite.scene = %this.scene;
          %size = %this.resource.getFrameSize(0);
          %this.sprite.setImage(%this.resource);
-         %this.sprite.setFrame(%this.frame);
+         %this.sprite.setImageFrame(%this.frame);
          
       case "t2dAnimatedSprite":
          %this.sprite = new t2dAnimatedSprite();

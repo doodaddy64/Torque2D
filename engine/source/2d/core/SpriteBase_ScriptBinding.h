@@ -42,15 +42,15 @@ ConsoleMethod(SpriteBase, getImage, const char*, 2, 2,  "() - Gets current image
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(SpriteBase, setFrame, bool, 3, 3,     "(int frame) - Sets image frame.\n"
-                                                "@param frame The frame to display\n"
-                                                "@return Returns true on success.")
+ConsoleMethod(SpriteBase, setImageFrame, bool, 3, 3,    "(frame) - Sets the image frame.\n"
+                                                        "@param frame The frame to display\n"
+                                                        "@return Returns true on success.")
 {
     // Are we in static mode?
     if ( !object->isStaticMode() )
     {
         // No, so warn.
-        Con::warnf( "SpriteBase::setFrame() - Method invalid, not in static mode." );
+        Con::warnf( "SpriteBase::setImageFrame() - Method invalid, not in static mode." );
         return false;
     }
 
@@ -60,14 +60,14 @@ ConsoleMethod(SpriteBase, setFrame, bool, 3, 3,     "(int frame) - Sets image fr
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(SpriteBase, getFrame, S32, 2, 2,  "() - Gets current image Frame.\n"
-                                            "@return (int frame) The frame currently being displayed")
+ConsoleMethod(SpriteBase, getImageFrame, S32, 2, 2, "() - Gets the current image Frame.\n"
+                                                    "@return The current image frame.")
 {
     // Are we in static mode?
     if ( !object->isStaticMode() )
     {
         // No, so warn.
-        Con::warnf( "SpriteBase::getFrame() - Method invalid, not in static mode." );
+        Con::warnf( "SpriteBase::getImageFrame() - Method invalid, not in static mode." );
         return -1;
     }
 

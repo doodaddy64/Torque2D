@@ -68,7 +68,7 @@ SpriteBatchItem::SpriteBatchItem() : mProxyId( SpriteBatch::INVALID_SPRITE_PROXY
         spriteBlendColorName        = StringTable->insert("BlendColor");
         spriteAlphaTestName         = StringTable->insert("AlphaTest");
         spriteImageName             = StringTable->insert("Image");
-        spriteImageFrameName        = StringTable->insert("ImageFrame");
+        spriteImageFrameName        = StringTable->insert("Frame");
         spriteAnimationName         = StringTable->insert("Animation");
         spriteDataObjectName        = StringTable->insert("DataObject");
 

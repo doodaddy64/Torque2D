@@ -867,7 +867,7 @@ function TowerPreview::refresh(%this)
    {
       TowerPreview.display(%asset, "t2dStaticSprite");
       
-      TowerPreview.sprite.setFrame(TowerStaticSpriteFrameEditBox.getValue());
+      TowerPreview.sprite.setImageFrame(TowerStaticSpriteFrameEditBox.getValue());
    }
    else
       TowerPreview.display(%asset, "t2dAnimatedSprite");
@@ -1386,7 +1386,7 @@ function TowerIconPreview::refresh(%this)
 
    TowerIconPreview.display(TowerIconDisplay.getText(), "t2dStaticSprite");
       
-   TowerIconPreview.sprite.setFrame(TowerIconFrameEditBox.getValue());
+   TowerIconPreview.sprite.setImageFrame(TowerIconFrameEditBox.getValue());
 }
 
 /// <summary>
@@ -1581,7 +1581,7 @@ function SaveTowerData()
       $SelectedTower.setImage(TowerSpriteDisplay.getText());
       
       TowerStaticSpriteFrameEditBox.onValidate();
-      $SelectedTower.setFrame(TowerStaticSpriteFrameEditBox.getValue());
+      $SelectedTower.setImageFrame(TowerStaticSpriteFrameEditBox.getValue());
       
       %size = $SelectedTower.getImage().getFrameSize(0);
       %size = Vector2Scale(%size, $TDMetersPerPixel);
@@ -1628,27 +1628,27 @@ function SaveTowerData()
       case "Tower1":
          TowerSlot1Icon.setImage(TowerIconDisplay.getText());
          AddAssetToLevelDatablocks(TowerIconDisplay.getText());
-         TowerSlot1Icon.setFrame(TowerIconFrameEditBox.getValue());
+         TowerSlot1Icon.setImageFrame(TowerIconFrameEditBox.getValue());
       
       case "Tower2":
          TowerSlot2Icon.setImage(TowerIconDisplay.getText());
          AddAssetToLevelDatablocks(TowerIconDisplay.getText());
-         TowerSlot2Icon.setFrame(TowerIconFrameEditBox.getValue());         
+         TowerSlot2Icon.setImageFrame(TowerIconFrameEditBox.getValue());         
       
       case "Tower3":
          TowerSlot3Icon.setImage(TowerIconDisplay.getText());
          AddAssetToLevelDatablocks(TowerIconDisplay.getText());
-         TowerSlot3Icon.setFrame(TowerIconFrameEditBox.getValue());         
+         TowerSlot3Icon.setImageFrame(TowerIconFrameEditBox.getValue());         
       
       case "Tower4":
          TowerSlot4Icon.setImage(TowerIconDisplay.getText());
          AddAssetToLevelDatablocks(TowerIconDisplay.getText());
-         TowerSlot4Icon.setFrame(TowerIconFrameEditBox.getValue());
+         TowerSlot4Icon.setImageFrame(TowerIconFrameEditBox.getValue());
       
       case "Tower5":
          TowerSlot5Icon.setImage(TowerIconDisplay.getText());
          AddAssetToLevelDatablocks(TowerIconDisplay.getText());
-         TowerSlot5Icon.setFrame(TowerIconFrameEditBox.getValue());
+         TowerSlot5Icon.setImageFrame(TowerIconFrameEditBox.getValue());
    }
    
    if (!$SelectedTower.includeInGame)

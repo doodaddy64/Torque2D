@@ -758,7 +758,7 @@ function WorldObjectTool::refreshPreview(%this, %asset, %frame)
     // Set the frame if the asset is an ImageAsset
     // Unpause the animation if the asset is an animation    
     if (AssetDatabase.getAssetType(%asset) $= "ImageAsset")
-        Wot_PreviewWindow.previewSprite.setFrame(%frame);
+        Wot_PreviewWindow.previewSprite.setImageFrame(%frame);
     else
         Wot_PreviewWindow.previewSprite.pauseAnimation(false);
 }

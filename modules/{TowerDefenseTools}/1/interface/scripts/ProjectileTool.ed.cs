@@ -845,7 +845,7 @@ function ProjectilePreview::refresh(%this)
    {
       ProjectilePreview.display(%asset, "t2dStaticSprite");
       
-      ProjectilePreview.sprite.setFrame(ProjectileStaticSpriteFrameEditBox.getValue());
+      ProjectilePreview.sprite.setImageFrame(ProjectileStaticSpriteFrameEditBox.getValue());
    }
    else
       ProjectilePreview.display(%asset, "t2dAnimatedSprite");
@@ -1293,7 +1293,7 @@ function SaveProjectileData()
       $SelectedProjectile.setImage(ProjectileSpriteDisplay.getText());
       
       ProjectileStaticSpriteFrameEditBox.onValidate();
-      $SelectedProjectile.setFrame(ProjectileStaticSpriteFrameEditBox.getValue());
+      $SelectedProjectile.setImageFrame(ProjectileStaticSpriteFrameEditBox.getValue());
       
       %size = $SelectedProjectile.getImage().getFrameSize(0);
       %size = Vector2Scale(%size, $TDMetersPerPixel);

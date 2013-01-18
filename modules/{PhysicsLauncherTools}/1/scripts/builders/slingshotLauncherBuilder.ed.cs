@@ -645,7 +645,7 @@ function SlingshotLauncherBuilder::openCollisionEditor(%launcherSceneObjectGroup
         
     %asset = SlingshotLauncherBuilder::getForkForegroundAsset(%launcherSceneObjectGroup);
     SlingshotLauncherBuilderForkForegroundDecorator.setAsset(%asset);
-    SlingshotLauncherBuilderForkForegroundDecorator.setFrame(0);
+    SlingshotLauncherBuilderForkForegroundDecorator.setImageFrame(0);
     SlingshotLauncherBuilderForkForegroundDecorator.setSizeFromAsset(%asset, $PhysicsLauncherTools::MetersPerPixel);
         
     if (!isObject(SlingshotLauncherBuilderForkBackgroundDecorator))
@@ -653,7 +653,7 @@ function SlingshotLauncherBuilder::openCollisionEditor(%launcherSceneObjectGroup
         
     %asset = SlingshotLauncherBuilder::getForkBackgroundAsset(%launcherSceneObjectGroup);
     SlingshotLauncherBuilderForkBackgroundDecorator.setAsset(%asset);
-    SlingshotLauncherBuilderForkBackgroundDecorator.setFrame(0);  
+    SlingshotLauncherBuilderForkBackgroundDecorator.setImageFrame(0);  
     SlingshotLauncherBuilderForkBackgroundDecorator.setSizeFromAsset(%asset, $PhysicsLauncherTools::MetersPerPixel);
         
     CollisionEditorGui.addDecoratorObject(SlingshotLauncherBuilderForkForegroundDecorator);

@@ -309,7 +309,7 @@ function TableEditorTableImageEditText::setSelectedAsset(%this, %asset)
 function TableEditorTableImageEditText::refreshDisplay(%this)
 {
    TableEditorTableImagePreview.display(%this.getText(), "t2dStaticSprite");
-   TableEditorTableImagePreview.sprite.setFrame(TableEditorTableImageFrameEditBox.getValue());
+   TableEditorTableImagePreview.sprite.setImageFrame(TableEditorTableImageFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    TableEditorTableImageFrameContainer.Visible = (%this.getText().getFrameCount() > 1);
@@ -333,7 +333,7 @@ function TableEditorTableImageFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (TableEditorTableImageEditText.getText().getFrameCount() - 1))
       %this.setValue(TableEditorTableImageEditText.getText().getFrameCount() - 1);
       
-   TableEditorTableImagePreview.sprite.setFrame(%this.getValue());
+   TableEditorTableImagePreview.sprite.setImageFrame(%this.getValue());
 }
 
 /// <summary>
@@ -374,7 +374,7 @@ function TableEditorRulesImageEditText::setSelectedAsset(%this, %asset)
 function TableEditorRulesImageEditText::refreshDisplay(%this)
 {
    TableEditorRulesImagePreview.display(%this.getText(), "t2dStaticSprite");
-   TableEditorRulesImagePreview.sprite.setFrame(TableEditorRulesImageFrameEditBox.getValue());
+   TableEditorRulesImagePreview.sprite.setImageFrame(TableEditorRulesImageFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    TableEditorRulesImageFrameContainer.Visible = (%this.getText().getFrameCount() > 1);
@@ -398,7 +398,7 @@ function TableEditorRulesImageFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (TableEditorRulesImageEditText.getText().getFrameCount() - 1))
       %this.setValue(TableEditorRulesImageEditText.getText().getFrameCount() - 1);
       
-   TableEditorRulesImagePreview.sprite.setFrame(%this.getValue());
+   TableEditorRulesImagePreview.sprite.setImageFrame(%this.getValue());
 }
 
 /// <summary>
@@ -439,7 +439,7 @@ function TableEditorBetCircleImageEditText::setSelectedAsset(%this, %asset)
 function TableEditorBetCircleImageEditText::refreshDisplay(%this)
 {
    TableEditorBetCircleImagePreview.display(%this.getText(), "t2dStaticSprite");
-   TableEditorBetCircleImagePreview.sprite.setFrame(TableEditorBetCircleImageFrameEditBox.getValue());
+   TableEditorBetCircleImagePreview.sprite.setImageFrame(TableEditorBetCircleImageFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    TableEditorBetCircleImageFrameContainer.Visible = (%this.getText().getFrameCount() > 1);
@@ -463,7 +463,7 @@ function TableEditorBetCircleImageFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (TableEditorBetCircleImageEditText.getText().getFrameCount() - 1))
       %this.setValue(TableEditorBetCircleImageEditText.getText().getFrameCount() - 1);
       
-   TableEditorBetCircleImagePreview.sprite.setFrame(%this.getValue());
+   TableEditorBetCircleImagePreview.sprite.setImageFrame(%this.getValue());
 }
 
 /// <summary>
@@ -504,7 +504,7 @@ function TableEditorCardBoxImageEditText::setSelectedAsset(%this, %asset)
 function TableEditorCardBoxImageEditText::refreshDisplay(%this)
 {
    TableEditorCardBoxImagePreview.display(%this.getText(), "t2dStaticSprite");
-   TableEditorCardBoxImagePreview.sprite.setFrame(TableEditorCardBoxImageFrameEditBox.getValue());
+   TableEditorCardBoxImagePreview.sprite.setImageFrame(TableEditorCardBoxImageFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    TableEditorCardBoxImageFrameContainer.Visible = (%this.getText().getFrameCount() > 1);
@@ -528,7 +528,7 @@ function TableEditorCardBoxImageFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (TableEditorCardBoxImageEditText.getText().getFrameCount() - 1))
       %this.setValue(TableEditorCardBoxImageEditText.getText().getFrameCount() - 1);
       
-   TableEditorCardBoxImagePreview.sprite.setFrame(%this.getValue());
+   TableEditorCardBoxImagePreview.sprite.setImageFrame(%this.getValue());
 }
 
 /// <summary>
@@ -569,7 +569,7 @@ function TableEditorDealerChipRackImageEditText::setSelectedAsset(%this, %asset)
 function TableEditorDealerChipRackImageEditText::refreshDisplay(%this)
 {
    TableEditorDealerChipRackImagePreview.display(%this.getText(), "t2dStaticSprite");
-   TableEditorDealerChipRackImagePreview.sprite.setFrame(TableEditorDealerChipRackImageFrameEditBox.getValue());
+   TableEditorDealerChipRackImagePreview.sprite.setImageFrame(TableEditorDealerChipRackImageFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    TableEditorDealerChipRackImageFrameContainer.Visible = (%this.getText().getFrameCount() > 1);
@@ -593,7 +593,7 @@ function TableEditorDealerChipRackImageFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (TableEditorDealerChipRackImageEditText.getText().getFrameCount() - 1))
       %this.setValue(TableEditorDealerChipRackImageEditText.getText().getFrameCount() - 1);
       
-   TableEditorDealerChipRackImagePreview.sprite.setFrame(%this.getValue());
+   TableEditorDealerChipRackImagePreview.sprite.setImageFrame(%this.getValue());
 }
 
 /// <summary>
@@ -659,14 +659,14 @@ function TableEditorGUI::doSave(%this)
    if (isObject(TableEditorTableImageEditText.getText()))
    {
       %this.currentTableObject.setImage(TableEditorTableImageEditText.getText());
-      %this.currentTableObject.setFrame(TableEditorTableImageFrameEditBox.getValue());
+      %this.currentTableObject.setImageFrame(TableEditorTableImageFrameEditBox.getValue());
    }
    
    // Set Table Rules Image
    if (isObject(TableRulesImage) && isObject(TableEditorRulesImageEditText.getText()))
    {
       TableRulesImage.setImage(TableEditorRulesImageEditText.getText());
-      TableRulesImage.setFrame(TableEditorRulesImageFrameEditBox.getValue());
+      TableRulesImage.setImageFrame(TableEditorRulesImageFrameEditBox.getValue());
    }
    
    // Set Betting Circle Image
@@ -678,7 +678,7 @@ function TableEditorGUI::doSave(%this)
       %seat = getWord(%seatBehaviorList, %i);
       %mainBetArea = %seat.mainBetArea;
       %mainBetArea.setImage(%bettingCircleImage);
-      %mainBetArea.setFrame(%bettingCircleImageFrame);
+      %mainBetArea.setImageFrame(%bettingCircleImageFrame);
    }
    
    // Set Card Box Image
@@ -689,14 +689,14 @@ function TableEditorGUI::doSave(%this)
    {
       %seatObject = getWord(%seatBehaviorList, %i).owner;
       %seatObject.setImage(%cardBoxImage);
-      %seatObject.setFrame(%cardBoxImageFrame);
+      %seatObject.setImageFrame(%cardBoxImageFrame);
    }
    
    // Set Dealer Chip Rack   
    if (isObject(DealerChipRack))
    {
       DealerChipRack.setImage(TableEditorDealerChipRackImageEditText.getText());
-      DealerChipRack.setFrame(TableEditorDealerChipRackImageFrameEditBox.getValue());
+      DealerChipRack.setImageFrame(TableEditorDealerChipRackImageFrameEditBox.getValue());
    }
    
    // Set Number of Seats
@@ -772,7 +772,7 @@ function TableEditorGUI::doSave(%this)
          CurrencyEditorGUI.bankStack[%i].setImage(%imageName);
 
          %imageFrameValue = %currencyElement.findObjectByInternalName("ImageFrameTextEdit", true).getValue();
-         CurrencyEditorGUI.bankStack[%i].setFrame(%imageFrameValue);
+         CurrencyEditorGUI.bankStack[%i].setImageFrame(%imageFrameValue);
          
          // Set value
          %valueText = %currencyElement.findObjectByInternalName("ValueTextEdit", true);
@@ -1258,7 +1258,7 @@ function ShoeBodyImageEditBox::refresh(%this)
 function ShoeBodyImageEditBox::refreshDisplay(%this)
 {
    ShoeBodyImageBitmap.display(%this.getText(), "t2dStaticSprite");
-   ShoeBodyImageBitmap.sprite.setFrame(ShoeBodyImageFrameEditBox.getValue());
+   ShoeBodyImageBitmap.sprite.setImageFrame(ShoeBodyImageFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    ShoeBodyImageFrameContainer.Visible = (%this.getText().getFrameCount() > 1);
@@ -1272,7 +1272,7 @@ function ShoeBodyImageEditBox::onSave(%this)
    if (isObject($ShoeEditorCurrentObject))
    {
       $ShoeEditorCurrentObject.setImage(%this.getText());
-      $ShoeEditorCurrentObject.setFrame(ShoeBodyImageFrameEditBox.getValue());
+      $ShoeEditorCurrentObject.setImageFrame(ShoeBodyImageFrameEditBox.getValue());
    }
 }
 
@@ -1306,7 +1306,7 @@ function ShoeBodyImageFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (ShoeBodyImageEditBox.getText().getFrameCount() - 1))
       %this.setValue(ShoeBodyImageEditBox.getText().getFrameCount() - 1);
       
-   ShoeBodyImageBitmap.sprite.setFrame(%this.getValue());
+   ShoeBodyImageBitmap.sprite.setImageFrame(%this.getValue());
 }
 
 /// <summary>
@@ -1409,7 +1409,7 @@ function ShoePenetrationImageEditBox::refresh(%this)
 function ShoePenetrationImageEditBox::refreshDisplay(%this)
 {
    ShoePenetrationImageBitmap.display(%this.getText(), "t2dStaticSprite");
-   ShoePenetrationImageBitmap.sprite.setFrame(ShoePenetrationImageFrameEditBox.getValue());
+   ShoePenetrationImageBitmap.sprite.setImageFrame(ShoePenetrationImageFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    ShoePenetrationImageFrameContainer.Visible = (%this.getText().getFrameCount() > 1);
@@ -1423,7 +1423,7 @@ function ShoePenetrationImageEditBox::onSave(%this)
    if (isObject(penetrationCard))
    {
       penetrationCard.setImage(%this.getText());
-      penetrationCard.setFrame(ShoePenetrationImageFrameEditBox.getValue());
+      penetrationCard.setImageFrame(ShoePenetrationImageFrameEditBox.getValue());
    }
 }
 
@@ -1457,7 +1457,7 @@ function ShoePenetrationImageFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (ShoePenetrationImageEditBox.getText().getFrameCount() - 1))
       %this.setValue(ShoePenetrationImageEditBox.getText().getFrameCount() - 1);
       
-   ShoePenetrationImageBitmap.sprite.setFrame(%this.getValue());
+   ShoePenetrationImageBitmap.sprite.setImageFrame(%this.getValue());
 }
 
 /// <summary>
@@ -1507,7 +1507,7 @@ function ShoeDiscardImageEditBox::refresh(%this)
 function ShoeDiscardImageEditBox::refreshDisplay(%this)
 {
    ShoeDiscardImageBitmap.display(%this.getText(), "t2dStaticSprite");
-   ShoeDiscardImageBitmap.sprite.setFrame(ShoeDiscardImageFrameEditBox.getValue());
+   ShoeDiscardImageBitmap.sprite.setImageFrame(ShoeDiscardImageFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    ShoeDiscardImageFrameContainer.Visible = (%this.getText().getFrameCount() > 1);
@@ -1521,7 +1521,7 @@ function ShoeDiscardImageEditBox::onSave(%this)
    if (isObject(DiscardArea))
    {
       DiscardArea.setImage(%this.getText());
-      DiscardArea.setFrame(ShoeDiscardImageFrameEditBox.getValue());
+      DiscardArea.setImageFrame(ShoeDiscardImageFrameEditBox.getValue());
    }
 }
 
@@ -1555,7 +1555,7 @@ function ShoeDiscardImageFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (ShoeDiscardImageEditBox.getText().getFrameCount() - 1))
       %this.setValue(ShoeDiscardImageEditBox.getText().getFrameCount() - 1);
       
-   ShoeDiscardImageBitmap.sprite.setFrame(%this.getValue());
+   ShoeDiscardImageBitmap.sprite.setImageFrame(%this.getValue());
 }
 
 /// <summary>
@@ -1603,7 +1603,7 @@ function ShoeDeckImageEditBox::refresh(%this)
 function ShoeDeckImageEditBox::refreshDisplay(%this)
 {
    ShoeDeckImageBitmap.display(%this.getText(), "t2dStaticSprite");
-   ShoeDeckImageBitmap.sprite.setFrame(ShoePenetrationImageFrameEditBox.getValue());
+   ShoeDeckImageBitmap.sprite.setImageFrame(ShoePenetrationImageFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    ShoeDeckFrameContainer.Visible = (%this.getText().getFrameCount() > 1);
@@ -1783,7 +1783,7 @@ function TableEditorPlayerList::refresh(%this)
          {
             (TableEditorPlayerContainer@%index).Visible = true;
             (TableEditorPlayerPreviewBitmap@%index).display(%object.getImage(), "t2dStaticSprite");
-            (TableEditorPlayerPreviewBitmap@%index).sprite.setFrame(%object.getFrame());            
+            (TableEditorPlayerPreviewBitmap@%index).sprite.setImageFrame(%object.getFrame());            
             
             %button = (TableEditorPlayerButton@%index);
             

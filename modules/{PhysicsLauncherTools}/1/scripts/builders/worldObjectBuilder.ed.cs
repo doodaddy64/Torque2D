@@ -726,7 +726,7 @@ function WorldObjectBuilder::setImageFrameForState(%object, %stateIndex, %imageF
     
     %animationEffectBehavior = PhysicsLauncherTools::getBehaviorFromInstanceName(%object, %behaviorInstanceName);
     if (isObject(%animationEffectBehavior))
-        %animationEffectBehavior.setFrame(%imageFrame);
+        %animationEffectBehavior.setImageFrame(%imageFrame);
 }
 
 function WorldObjectBuilder::getImageFrameForState(%object, %stateIndex)

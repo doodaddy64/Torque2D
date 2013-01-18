@@ -2334,7 +2334,7 @@ function TerrainToolGraphicsBrushButton::onClick(%this)
    TerrainTool.currentGraphicsRotation = 0;
 
    TerrainTool-->PreviewAreaWindow.display(TerrainTool.currentGraphicsImage.getName(), "t2dStaticSprite");
-   TerrainTool-->PreviewAreaWindow.sprite.setFrame(TerrainTool.currentGraphicsFrame);
+   TerrainTool-->PreviewAreaWindow.sprite.setImageFrame(TerrainTool.currentGraphicsFrame);
    TerrainTool-->PreviewAreaWindow.sprite.setAngle(TerrainTool.currentGraphicsRotation * -90);
    TerrainTool-->PreviewAreaWindow.setVisible(1);
    

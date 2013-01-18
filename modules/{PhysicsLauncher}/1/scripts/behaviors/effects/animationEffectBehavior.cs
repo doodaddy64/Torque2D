@@ -40,7 +40,7 @@ function AnimationEffectBehavior::Play(%this, %fromBehavior, %fromOutput)
     if (%assetType $= "ImageAsset")
     {
         %this.owner.setImage(%asset);
-        %this.owner.setFrame(%this.frame);
+        %this.owner.setImageFrame(%this.frame);
     }
     else if (%assetType $= "AnimationAsset")
     {
@@ -75,7 +75,7 @@ function AnimationEffectBehavior::getAsset(%this)
 /// Sets the frame number of the asset.
 /// </summary>
 /// <param name="frame">The frame number</param>
-function AnimationEffectBehavior::setFrame(%this, %frame)
+function AnimationEffectBehavior::setImageFrame(%this, %frame)
 {
     %this.frame = %frame;
 }

@@ -219,7 +219,7 @@ function TakesDamageBehavior::spawn(%this)
    %this.owner.alive = true;
    
    if (%this.owner.isMemberOfClass("t2dStaticSprite"))
-      %this.owner.setFrame(%this.startFrame);
+      %this.owner.setImageFrame(%this.startFrame);
    
    if (isObject(%this.respawnEffect))
    {

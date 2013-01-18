@@ -463,7 +463,7 @@ function AiPreviewBitmap::refresh(%this)
    }
 
    AiPreviewBitmap.display(AiAvatarImageEditBox.getText(), "t2dStaticSprite");
-   AiPreviewBitmap.sprite.setFrame(AiAvatarImageFrameEditBox.getValue());
+   AiPreviewBitmap.sprite.setImageFrame(AiAvatarImageFrameEditBox.getValue());
    
    // Toggle frame select visibility based on number of frames.
    AiAvatarImageFrameContainer.Visible = (AiAvatarImageEditBox.getText().getFrameCount() > 1);
@@ -501,7 +501,7 @@ function AiAvatarImageEditBox::onSave(%this)
    if (isObject($AiEditorCurrentObject))
    {
       $AiEditorCurrentObject.setImage(%this.getText());
-      $AiEditorCurrentObject.setFrame(AiAvatarImageFrameEditBox.getValue());
+      $AiEditorCurrentObject.setImageFrame(AiAvatarImageFrameEditBox.getValue());
    }
 }
 

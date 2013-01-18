@@ -263,7 +263,7 @@ function InterfaceEditorGui::initializeIconContainer(%this, %preview, %iconText,
    %iconText.setText(%image);
    %frameText.setValue(%frame);
    %preview.display(%image, "t2dStaticSprite");
-   %preview.sprite.setFrame(%frame);
+   %preview.sprite.setImageFrame(%frame);
 }
 
 /// <summary>
@@ -275,7 +275,7 @@ function InterfaceEditorGui::saveIconContainer(%this, %iconText, %frameText, %ob
    if (isObject(%object))
    {
       %object.setImage(%iconText.getText());
-      %object.setFrame(%frameText.getValue());
+      %object.setImageFrame(%frameText.getValue());
    }
 }
 
@@ -432,37 +432,37 @@ function InterfaceEditorGui::doSave(%this)
    // Casino Carpet
    %image = InterfaceEditorCasinoCarpetText.getText();
    CasinoCarpetBackground.setImage(%image);   
-   CasinoCarpetBackground.setFrame(InterfaceEditorCasinoCarpetFrameEditBox.getValue());
+   CasinoCarpetBackground.setImageFrame(InterfaceEditorCasinoCarpetFrameEditBox.getValue());
    
    // Bank Container
    %image = InterfaceEditorBankContainerText.getText();
    BankBackgroundObject.setImage(%image);
-   BankBackgroundObject.setFrame(InterfaceEditorBankContainerFrameEditBox.getValue());
+   BankBackgroundObject.setImageFrame(InterfaceEditorBankContainerFrameEditBox.getValue());
    
    // Player Avatar
    %image = InterfaceEditorPlayerAvatarText.getText();
    %frame = InterfaceEditorPlayerAvatarFrameEditBox.getValue();
    userAi.setImage(%image);  
-   userAi.setFrame(%frame);
+   userAi.setImageFrame(%frame);
    BottomBarPlayerAvatarImage.setImage(%image);
-   BottomBarPlayerAvatarImage.setFrame(%frame);
+   BottomBarPlayerAvatarImage.setImageFrame(%frame);
    
    // Indication Arrow
    %image = InterfaceEditorIndicationArrowText.getText();
    currentHandIcon.setImage(%image); 
-   currentHandIcon.setFrame(InterfaceEditorIndicationArrowFrameEditBox.getValue());
+   currentHandIcon.setImageFrame(InterfaceEditorIndicationArrowFrameEditBox.getValue());
       
    // Npc Bank Image
    %image = InterfaceEditorNpcBankImageText.getText();
    %frame = InterfaceEditorNpcBankFrameEditBox.getValue();
    
    BottomBarAIBackgroundTemplate.setImage(%image);
-   BottomBarAIBackgroundTemplate.setFrame(%frame);
+   BottomBarAIBackgroundTemplate.setImageFrame(%frame);
    
    $BottomBarBackground[0].setImage(%image);
-   $BottomBarBackground[0].setFrame(%frame);
+   $BottomBarBackground[0].setImageFrame(%frame);
    $BottomBarBackground[1].setImage(%image);
-   $BottomBarBackground[1].setFrame(%frame);
+   $BottomBarBackground[1].setImageFrame(%frame);
    
    //------------------------------
    // Buttons Tab
@@ -1073,7 +1073,7 @@ function InterfaceEditorCasinoCarpetPreview::refresh(%this)
    }
 
    InterfaceEditorCasinoCarpetPreview.display(InterfaceEditorCasinoCarpetText.getText(), "t2dStaticSprite");
-   InterfaceEditorCasinoCarpetPreview.sprite.setFrame(InterfaceEditorCasinoCarpetFrameEditBox.getValue());
+   InterfaceEditorCasinoCarpetPreview.sprite.setImageFrame(InterfaceEditorCasinoCarpetFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorCasinoCarpetFrameContainer.Visible = (InterfaceEditorCasinoCarpetText.getText().getFrameCount() > 1);
@@ -1137,7 +1137,7 @@ function InterfaceEditorBankContainerPreview::refresh(%this)
    }
 
    InterfaceEditorBankContainerPreview.display(InterfaceEditorBankContainerText.getText(), "t2dStaticSprite");
-   InterfaceEditorBankContainerPreview.sprite.setFrame(InterfaceEditorBankContainerFrameEditBox.getValue());
+   InterfaceEditorBankContainerPreview.sprite.setImageFrame(InterfaceEditorBankContainerFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorBankContainerFrameContainer.Visible = (InterfaceEditorBankContainerText.getText().getFrameCount() > 1);
@@ -1201,7 +1201,7 @@ function InterfaceEditorPlayerAvatarPreview::refresh(%this)
    }
 
    InterfaceEditorPlayerAvatarPreview.display(InterfaceEditorPlayerAvatarText.getText(), "t2dStaticSprite");
-   InterfaceEditorPlayerAvatarPreview.sprite.setFrame(InterfaceEditorPlayerAvatarFrameEditBox.getValue());
+   InterfaceEditorPlayerAvatarPreview.sprite.setImageFrame(InterfaceEditorPlayerAvatarFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorPlayerAvatarFrameContainer.Visible = (InterfaceEditorPlayerAvatarText.getText().getFrameCount() > 1);
@@ -1265,7 +1265,7 @@ function InterfaceEditorIndicationArrowPreview::refresh(%this)
    }
 
    InterfaceEditorIndicationArrowPreview.display(InterfaceEditorIndicationArrowText.getText(), "t2dStaticSprite");
-   InterfaceEditorIndicationArrowPreview.sprite.setFrame(InterfaceEditorIndicationArrowFrameEditBox.getValue());
+   InterfaceEditorIndicationArrowPreview.sprite.setImageFrame(InterfaceEditorIndicationArrowFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorIndicationArrowFrameContainer.Visible = (InterfaceEditorIndicationArrowText.getText().getFrameCount() > 1);
@@ -1329,7 +1329,7 @@ function InterfaceEditorNpcBankImagePreview::refresh(%this)
    }
 
    InterfaceEditorNpcBankImagePreview.display(InterfaceEditorNpcBankImageText.getText(), "t2dStaticSprite");
-   InterfaceEditorNpcBankImagePreview.sprite.setFrame(InterfaceEditorNpcBankFrameEditBox.getValue());
+   InterfaceEditorNpcBankImagePreview.sprite.setImageFrame(InterfaceEditorNpcBankFrameEditBox.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorNpcBankFrameContainer.Visible = (InterfaceEditorNpcBankImageText.getText().getFrameCount() > 1);
@@ -1391,7 +1391,7 @@ function InterfaceEditorBlackjackIconFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (InterfaceEditorBlackjackIconText.getText().getFrameCount() - 1))
       %this.setValue(InterfaceEditorBlackjackIconText.getText().getFrameCount() - 1);
       
-   InterfaceEditorBlackjackIconPreview.sprite.setFrame(%this.getValue());
+   InterfaceEditorBlackjackIconPreview.sprite.setImageFrame(%this.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorBlackjackIconFrameContainer.Visible = (InterfaceEditorBlackjackIconText.getText().getFrameCount() > 1);
@@ -1428,7 +1428,7 @@ function InterfaceEditorBustIconFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (InterfaceEditorBustIconText.getText().getFrameCount() - 1))
       %this.setValue(InterfaceEditorBustIconText.getText().getFrameCount() - 1);
       
-   InterfaceEditorBustIconPreview.sprite.setFrame(%this.getValue());
+   InterfaceEditorBustIconPreview.sprite.setImageFrame(%this.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorBustIconFrameContainer.Visible = (InterfaceEditorBustIconText.getText().getFrameCount() > 1);
@@ -1466,7 +1466,7 @@ function InterfaceEditorWinIconFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (InterfaceEditorWinIconText.getText().getFrameCount() - 1))
       %this.setValue(InterfaceEditorWinIconText.getText().getFrameCount() - 1);
       
-   InterfaceEditorWinIconPreview.sprite.setFrame(%this.getValue());
+   InterfaceEditorWinIconPreview.sprite.setImageFrame(%this.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorWinIconFrameContainer.Visible = (InterfaceEditorWinIconText.getText().getFrameCount() > 1);
@@ -1504,7 +1504,7 @@ function InterfaceEditorLoseIconFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (InterfaceEditorLoseIconText.getText().getFrameCount() - 1))
       %this.setValue(InterfaceEditorLoseIconText.getText().getFrameCount() - 1);
       
-   InterfaceEditorLoseIconPreview.sprite.setFrame(%this.getValue());
+   InterfaceEditorLoseIconPreview.sprite.setImageFrame(%this.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorLoseIconFrameContainer.Visible = (InterfaceEditorLoseIconText.getText().getFrameCount() > 1);
@@ -1542,7 +1542,7 @@ function InterfaceEditorShufflingIconFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (InterfaceEditorShufflingIconText.getText().getFrameCount() - 1))
       %this.setValue(InterfaceEditorShufflingIconText.getText().getFrameCount() - 1);
       
-   InterfaceEditorShufflingIconPreview.sprite.setFrame(%this.getValue());
+   InterfaceEditorShufflingIconPreview.sprite.setImageFrame(%this.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorShufflingIconFrameContainer.Visible = (InterfaceEditorShufflingIconText.getText().getFrameCount() > 1);
@@ -1580,7 +1580,7 @@ function InterfaceEditorPushIconFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (InterfaceEditorPushIconText.getText().getFrameCount() - 1))
       %this.setValue(InterfaceEditorPushIconText.getText().getFrameCount() - 1);
       
-   InterfaceEditorPushIconPreview.sprite.setFrame(%this.getValue());
+   InterfaceEditorPushIconPreview.sprite.setImageFrame(%this.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorPushIconFrameContainer.Visible = (InterfaceEditorPushIconText.getText().getFrameCount() > 1);
@@ -1618,7 +1618,7 @@ function InterfaceEditorBankruptIconFrameEditBox::onValidate(%this)
    else if (%this.getValue() > (InterfaceEditorBankruptIconText.getText().getFrameCount() - 1))
       %this.setValue(InterfaceEditorBankruptIconText.getText().getFrameCount() - 1);
       
-   InterfaceEditorBankruptIconPreview.sprite.setFrame(%this.getValue());
+   InterfaceEditorBankruptIconPreview.sprite.setImageFrame(%this.getValue());
 
    // Toggle frame select visibility based on number of frames.
    InterfaceEditorBankruptIconFrameContainer.Visible = (InterfaceEditorBankruptIconText.getText().getFrameCount() > 1);

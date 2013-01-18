@@ -238,8 +238,8 @@ protected:
     static bool     setImage(void* obj, const char* data)                               { static_cast<ParticleAssetEmitter*>(obj)->setImage(data); return false; };
     static const char* getImage(void* obj, const char* data)                            { return static_cast<ParticleAssetEmitter*>(obj)->getImage(); }
     static bool     writeImage( void* obj, StringTableEntry pFieldName )                { ParticleAssetEmitter* pCastObject = static_cast<ParticleAssetEmitter*>(obj); if ( !pCastObject->isStaticMode() ) return false; return pCastObject->mImageAsset.notNull(); }
-    static bool     setFrame(void* obj, const char* data)                               { static_cast<ParticleAssetEmitter*>(obj)->setImageFrame(dAtoi(data)); return false; };
-    static bool     writeFrame( void* obj, StringTableEntry pFieldName )                { ParticleAssetEmitter* pCastObject = static_cast<ParticleAssetEmitter*>(obj); if ( !pCastObject->isStaticMode() ) return false; return pCastObject->mImageAsset.notNull(); }
+    static bool     setImageFrame(void* obj, const char* data)                          { static_cast<ParticleAssetEmitter*>(obj)->setImageFrame(dAtoi(data)); return false; };
+    static bool     writeImageFrame( void* obj, StringTableEntry pFieldName )           { ParticleAssetEmitter* pCastObject = static_cast<ParticleAssetEmitter*>(obj); if ( !pCastObject->isStaticMode() ) return false; return pCastObject->mImageAsset.notNull(); }
     static bool     setAnimation(void* obj, const char* data)                           { static_cast<ParticleAssetEmitter*>(obj)->setAnimation(data); return false; };
     static const char* getAnimation(void* obj, const char* data)                        { return static_cast<ParticleAssetEmitter*>(obj)->getAnimation(); }
     static bool     writeAnimation( void* obj, StringTableEntry pFieldName )            { ParticleAssetEmitter* pCastObject = static_cast<ParticleAssetEmitter*>(obj); if ( pCastObject->isStaticMode() ) return false; return pCastObject->mAnimationAsset.notNull(); }
