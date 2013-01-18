@@ -20,6 +20,10 @@
 
 //-----------------------------------------------------------------------------
 
+DefineConsoleType( TypeParticleAssetPtr )
+
+//-----------------------------------------------------------------------------
+
 class ParticleAsset : public AssetBase, public TamlChildren
 {
 private:

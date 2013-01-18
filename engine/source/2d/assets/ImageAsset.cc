@@ -43,6 +43,49 @@
 
 //------------------------------------------------------------------------------
 
+ConsoleType( imageAssetPtr, TypeImageAssetPtr, sizeof(AssetPtr<ImageAsset>), ASSET_ID_FIELD_PREFIX )
+
+//-----------------------------------------------------------------------------
+
+ConsoleGetType( TypeImageAssetPtr )
+{
+    // Fetch asset Id.
+    return (*((AssetPtr<ImageAsset>*)dptr)).getAssetId();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleSetType( TypeImageAssetPtr )
+{
+    // Was a single argument specified?
+    if( argc == 1 )
+    {
+        // Yes, so fetch field value.
+        const char* pFieldValue = argv[0];
+
+        // Fetch asset pointer.
+        AssetPtr<ImageAsset>* pAssetPtr = dynamic_cast<AssetPtr<ImageAsset>*>((AssetPtrBase*)(dptr));
+
+        // Is the asset pointer the correct type?
+        if ( pAssetPtr == NULL )
+        {
+            // No, so fail.
+            Con::warnf( "(TypeImageAssetPtr) - Failed to set asset Id '%d'.", pFieldValue );
+            return;
+        }
+
+        // Set asset.
+        pAssetPtr->setAssetId( pFieldValue );
+
+        return;
+   }
+
+    // Warn.
+    Con::warnf( "(TypeImageAssetPtr) - Cannot set multiple args to a single asset." );
+}
+
+//------------------------------------------------------------------------------
+
 IMPLEMENT_CONOBJECT(ImageAsset);
 
 //------------------------------------------------------------------------------

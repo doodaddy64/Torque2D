@@ -140,6 +140,8 @@ protected:
     /// Persistence.
     virtual void onTamlAddParent( SimObject* pParentObject );
 
+
+
 private:
     virtual void onAssetRefreshed( AssetPtrBase* pAssetPtrBase );
 };

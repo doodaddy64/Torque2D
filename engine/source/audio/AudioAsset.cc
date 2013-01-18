@@ -7,13 +7,56 @@
 #include "audioAsset.h"
 #endif
 
-#ifndef _ASSET_FIELD_TYPES_H
-#include "assets/assetFieldTypes.h"
+#ifndef _ASSET_PTR_H_
+#include "assets/assetPtr.h"
 #endif
 
 #ifndef _CONSOLETYPES_H_
 #include "console/consoleTypes.h"
 #endif
+
+//-----------------------------------------------------------------------------
+
+ConsoleType( audioAssetPtr, TypeAudioAssetPtr, sizeof(AssetPtr<AudioAsset>), ASSET_ID_FIELD_PREFIX )
+
+//-----------------------------------------------------------------------------
+
+ConsoleGetType( TypeAudioAssetPtr )
+{
+    // Fetch asset Id.
+    return (*((AssetPtr<AudioAsset>*)dptr)).getAssetId();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleSetType( TypeAudioAssetPtr )
+{
+    // Was a single argument specified?
+    if( argc == 1 )
+    {
+        // Yes, so fetch field value.
+        const char* pFieldValue = argv[0];
+
+        // Fetch asset pointer.
+        AssetPtr<AudioAsset>* pAssetPtr = dynamic_cast<AssetPtr<AudioAsset>*>((AssetPtrBase*)(dptr));
+
+        // Is the asset pointer the correct type?
+        if ( pAssetPtr == NULL )
+        {
+            // No, so fail.
+            Con::warnf( "(TypeAudioAssetPtr) - Failed to set asset Id '%d'.", pFieldValue );
+            return;
+        }
+
+        // Set asset.
+        pAssetPtr->setAssetId( pFieldValue );
+
+        return;
+   }
+
+    // Warn.
+    Con::warnf( "(TypeAudioAssetPtr) - Cannot set multiple args to a single asset." );
+}
 
 //--------------------------------------------------------------------------
 

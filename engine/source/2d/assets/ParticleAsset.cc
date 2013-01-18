@@ -61,6 +61,49 @@ const char* ParticleAsset::getParticleAssetLifeModeDescription( const ParticleAs
 
 //-----------------------------------------------------------------------------
 
+ConsoleType( particleAssetPtr, TypeParticleAssetPtr, sizeof(AssetPtr<ParticleAsset>), ASSET_ID_FIELD_PREFIX )
+
+//-----------------------------------------------------------------------------
+
+ConsoleGetType( TypeParticleAssetPtr )
+{
+    // Fetch asset Id.
+    return (*((AssetPtr<ParticleAsset>*)dptr)).getAssetId();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleSetType( TypeParticleAssetPtr )
+{
+    // Was a single argument specified?
+    if( argc == 1 )
+    {
+        // Yes, so fetch field value.
+        const char* pFieldValue = argv[0];
+
+        // Fetch asset pointer.
+        AssetPtr<ParticleAsset>* pAssetPtr = dynamic_cast<AssetPtr<ParticleAsset>*>((AssetPtrBase*)(dptr));
+
+        // Is the asset pointer the correct type?
+        if ( pAssetPtr == NULL )
+        {
+            // No, so fail.
+            Con::warnf( "(TypeParticleAssetPtr) - Failed to set asset Id '%d'.", pFieldValue );
+            return;
+        }
+
+        // Set asset.
+        pAssetPtr->setAssetId( pFieldValue );
+
+        return;
+   }
+
+    // Warn.
+    Con::warnf( "(TypeParticleAssetPtr) - Cannot set multiple args to a single asset." );
+}
+
+//-----------------------------------------------------------------------------
+
 IMPLEMENT_CONOBJECT(ParticleAsset);
 
 //------------------------------------------------------------------------------

@@ -15,6 +15,49 @@
 
 //------------------------------------------------------------------------------
 
+ConsoleType( animationAssetPtr, TypeAnimationAssetPtr, sizeof(AssetPtr<AnimationAsset>), ASSET_ID_FIELD_PREFIX )
+
+//-----------------------------------------------------------------------------
+
+ConsoleGetType( TypeAnimationAssetPtr )
+{
+    // Fetch asset Id.
+    return (*((AssetPtr<AnimationAsset>*)dptr)).getAssetId();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleSetType( TypeAnimationAssetPtr )
+{
+    // Was a single argument specified?
+    if( argc == 1 )
+    {
+        // Yes, so fetch field value.
+        const char* pFieldValue = argv[0];
+
+        // Fetch asset pointer.
+        AssetPtr<AnimationAsset>* pAssetPtr = dynamic_cast<AssetPtr<AnimationAsset>*>((AssetPtrBase*)(dptr));
+
+        // Is the asset pointer the correct type?
+        if ( pAssetPtr == NULL )
+        {
+            // No, so fail.
+            Con::warnf( "(TypeAnimationAssetPtr) - Failed to set asset Id '%d'.", pFieldValue );
+            return;
+        }
+
+        // Set asset.
+        pAssetPtr->setAssetId( pFieldValue );
+
+        return;
+   }
+
+    // Warn.
+    Con::warnf( "(TypeAnimationAssetPtr) - Cannot set multiple args to a single asset." );
+}
+
+//------------------------------------------------------------------------------
+
 IMPLEMENT_CONOBJECT(AnimationAsset);
 
 //------------------------------------------------------------------------------

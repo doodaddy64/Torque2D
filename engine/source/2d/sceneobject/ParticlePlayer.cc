@@ -31,6 +31,9 @@ ParticlePlayer::ParticlePlayer() :
                     mWaitingForParticles(false),
                     mWaitingForDelete(false)
 {
+
+    // Register for refresh notifications.
+    mParticleAsset.registerRefreshNotify( this );
 }
 
 //------------------------------------------------------------------------------
@@ -45,6 +48,8 @@ void ParticlePlayer::initPersistFields()
 {
     // Call parent.
     Parent::initPersistFields();
+
+    addField("Particle", TypeParticleAssetPtr, Offset(mParticleAsset, ParticlePlayer), "");
 }
 
 //------------------------------------------------------------------------------

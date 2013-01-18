@@ -16,8 +16,7 @@ void TamlPropertyField::resetState( void )
     mFieldName = StringTable->EmptyString;
     *mFieldValue = 0;
 
-    // We don't need to delete the write node as it'll get destroyed as part of the
-    // Taml compiled nodes!
+    // We don't need to delete the write node as it'll get destroyed when the compilation is reset!
     mpFieldWriteNode = NULL;
     mpFieldObject = NULL;
 }
