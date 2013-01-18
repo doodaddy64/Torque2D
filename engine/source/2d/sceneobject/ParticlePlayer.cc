@@ -67,13 +67,14 @@ IMPLEMENT_CONOBJECT(ParticlePlayer);
 //------------------------------------------------------------------------------
 
 ParticlePlayer::ParticlePlayer() :
-                    mEffectPaused(false),
-                    mEffectPlaying(false),
-                    mParticleInterpolation(false),
-                    mCameraIdleDistance(0.0f),
-                    mCameraIdle(false),
-                    mWaitingForParticles(false),
-                    mWaitingForDelete(false)
+                    mPlaying( false ),
+                    mPaused( false ),
+                    mAge( 0.0f ),
+                    mParticleInterpolation( false ),
+                    mCameraIdleDistance( 0.0f ),
+                    mCameraIdle( false ),
+                    mWaitingForParticles( false ),
+                    mWaitingForDelete( false )
 {
 
     // Register for refresh notifications.
@@ -95,6 +96,8 @@ void ParticlePlayer::initPersistFields()
     Parent::initPersistFields();
 
     addProtectedField( "Particle", TypeParticleAssetPtr, Offset(mParticleAsset, ParticlePlayer), &setParticle, &defaultProtectedGetFn, defaultProtectedWriteFn, "" );
+    addProtectedField( "CameraIdleDistance", TypeF32, Offset(mCameraIdleDistance, ParticlePlayer), &setCameraIdleDistance, &defaultProtectedGetFn, &writeCameraIdleDistance,"" );
+
 }
 
 //------------------------------------------------------------------------------
@@ -150,11 +153,11 @@ void ParticlePlayer::safeDelete( void )
     if ( mWaitingForDelete )
         return;
 
-    // Is effect playing?
-    if ( mEffectPlaying )
+    // Is the player plating?
+    if ( mPlaying )
     {
-        // Yes, so stop the effect and allow it to kill itself.
-        stopEffect(true, true);
+        // Yes, so stop playing and allow it to kill itself.
+        stop(true, true);
         return;
     }
 
@@ -371,26 +374,26 @@ void ParticlePlayer::setParticle( const char* pAssetId )
 
 //-----------------------------------------------------------------------------
 
-bool ParticlePlayer::playEffect( bool resetParticles )
+bool ParticlePlayer::play( const bool resetParticles )
 {
     // Cannot do anything if we've not got any emitters!
     if ( mParticleAsset.isNull() || mParticleAsset->getEmitterCount() == 0 )
     {
         // Warn.
-        Con::warnf("ParticlePlayer::playEffect() - Cannot play; no emitters!");
+        Con::warnf("ParticlePlayer::play() - Cannot play; no emitters!");
         return false;
     }
 
-    // Are we in a Scene?
+    // Are we in a scene?
     if ( getScene() == NULL )
     {
         // No, so warn.
-        Con::warnf("ParticlePlayer::playEffect() - Cannot play; not in a scene!");
+        Con::warnf("ParticlePlayer::play() - Cannot play when not in a scene!");
         return false;
     }
 
-    // Reset Effect Age.
-    mEffectAge = 0.0f;
+    // Reset the age.
+    mAge = 0.0f;
 
     // Fetch particle asset.
     ParticleAsset* pParticleAsset = mParticleAsset;
@@ -412,22 +415,21 @@ bool ParticlePlayer::playEffect( bool resetParticles )
     // Reset Waiting for delete.
     mWaitingForDelete = false;
 
-    // Flag as Playing.
-    mEffectPlaying = true;
+    // Flag as playing.
+    mPlaying = true;
 
-    // Turn off effect pause.
-    mEffectPaused = false;
+    // Turn-off paused.
+    mPaused = false;
 
-    // Set Unsafe Delete!
+    // Set unsafe delete status.
     setSafeDelete(false);
 
-    // Return Okay.
     return true;
 }
 
 //-----------------------------------------------------------------------------
 
-void ParticlePlayer::stopEffect( bool waitForParticles, bool killEffect )
+void ParticlePlayer::stop( const bool waitForParticles, const bool killEffect )
 {
     //// Ignore if we're not playing and there's no kill command.
     //if ( !mEffectPlaying && !killEffect )
@@ -1055,8 +1057,8 @@ void ParticlePlayer::onTamlAddParent( SimObject* pParentObject )
 {
     Parent::onTamlAddParent( pParentObject );
 
-    // Play the effect automatically when added to a parent.
-    playEffect( true );
+    // Play  automatically when added to a parent.
+    play( true );
 }
 
 //-----------------------------------------------------------------------------
@@ -1095,8 +1097,8 @@ void ParticlePlayer::initializeParticleAsset( void )
 
 void ParticlePlayer::destroyParticleAsset( void )
 {
-    // Stop the effect.
-    stopEffect( false, false );
+    // Stop playing.
+    stop( false, false );
 
     // Destroy all emitters.
     while( mEmitters.size() > 0 )

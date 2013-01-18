@@ -70,13 +70,14 @@ private:
     AssetPtr<ParticleAsset>     mParticleAsset;
     typeEmitterVector           mEmitters;
 
-    bool                        mEffectPlaying;
-    bool                        mEffectPaused;
-    F32                         mEffectAge;
-
-    bool						mParticleInterpolation;
     bool                        mCameraIdle;
     F32                         mCameraIdleDistance;
+
+    bool						mParticleInterpolation;
+
+    bool                        mPlaying;
+    bool                        mPaused;
+    F32                         mAge;
 
     bool                        mWaitingForParticles;
     bool                        mWaitingForDelete;
@@ -97,21 +98,22 @@ public:
     void integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats );
     void interpolateObject( const F32 timeDelta );
 
-    virtual bool canRender( void ) const { return mEffectPlaying && mParticleAsset.notNull() && mParticleAsset->isAssetValid(); }
+    virtual bool canRender( void ) const { return mPlaying && mParticleAsset.notNull() && mParticleAsset->isAssetValid(); }
     virtual void sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer );
     virtual void sceneRenderOverlay( const SceneRenderState* sceneRenderState );
 
     void setParticle( const char* pAssetId );
     const char* getParticle( void ) const { return mParticleAsset->getAssetId(); }
 
-    inline void setEffectPaused( bool effectPaused ) { mEffectPaused = effectPaused; }
-    inline bool getEffectPaused( void ) const { return mEffectPaused; }
     inline void setCameraIdleDistance( const F32 idleDistance ) { mCameraIdleDistance = idleDistance; mCameraIdle = false; }
     inline F32 getCameraIdleDistance( void ) const { return mCameraIdleDistance; }
 
-    bool playEffect( bool resetParticles );
-    void stopEffect( bool waitForParticles, bool killEffect );
-    bool getIsEffectPlaying() { return mEffectPlaying; };
+    bool play( const bool resetParticles );
+    void stop( const bool waitForParticles, const bool killEffect );
+    inline bool getIsPlaying( void ) const { return mPlaying; };
+    inline void setPaused( const bool paused ) { mPaused = paused; }
+    inline bool getPaused( void ) const { return mPaused; }
+
     bool moveEffectTo( const F32 moveTime, const F32 timeStep, U32& peakCount, F32& peakTime );
     bool findParticlePeak( const F32 searchTime, const F32 timeStep, const U32 peakLimit, U32& peakCount, F32& peakTime );
 
@@ -126,7 +128,9 @@ protected:
     /// Persistence.
     virtual void onTamlAddParent( SimObject* pParentObject );
 
-    static bool     setParticle(void* obj, const char* data)                               { static_cast<ParticlePlayer*>(obj)->setParticle(data); return false; };
+    static bool     setParticle(void* obj, const char* data)                                { PREFAB_WRITE_CHECK(ParticlePlayer); pCastObject->setParticle(data); return false; };
+    static bool     setCameraIdleDistance(void* obj, const char* data)                      { static_cast<ParticlePlayer*>(obj)->setCameraIdleDistance(dAtof(data)); return false; };
+    static bool     writeCameraIdleDistance( void* obj, StringTableEntry pFieldName )       { PREFAB_WRITE_CHECK(ParticlePlayer); return pCastObject->getCameraIdleDistance() > 0.0f; }
 
 
 private:
