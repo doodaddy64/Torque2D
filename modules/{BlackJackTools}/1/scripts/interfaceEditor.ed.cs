@@ -299,27 +299,27 @@ function InterfaceEditorGui::refresh(%this)
    
    // Casino Carpet
    InterfaceEditorCasinoCarpetText.setText(CasinoCarpetBackground.getImage());
-   InterfaceEditorCasinoCarpetFrameEditBox.setValue(CasinoCarpetBackground.getFrame());
+   InterfaceEditorCasinoCarpetFrameEditBox.setValue(CasinoCarpetBackground.getImageFrame());
    InterfaceEditorCasinoCarpetPreview.refresh();
    
    // Bank Container
    InterfaceEditorBankContainerText.setText(BankBackgroundObject.getImage());
-   InterfaceEditorBankContainerFrameEditBox.setValue(BankBackgroundObject.getFrame());
+   InterfaceEditorBankContainerFrameEditBox.setValue(BankBackgroundObject.getImageFrame());
    InterfaceEditorBankContainerPreview.refresh();
    
    // Player Avatar
    InterfaceEditorPlayerAvatarText.setText(userAi.getImage());
-   InterfaceEditorPlayerAvatarFrameEditBox.setValue(userAi.getFrame());
+   InterfaceEditorPlayerAvatarFrameEditBox.setValue(userAi.getImageFrame());
    InterfaceEditorPlayerAvatarPreview.refresh();
    
    // Indication Arrow
    InterfaceEditorIndicationArrowText.setText(currentHandIcon.getImage());
-   InterfaceEditorIndicationArrowFrameEditBox.setValue(currentHandIcon.getFrame());
+   InterfaceEditorIndicationArrowFrameEditBox.setValue(currentHandIcon.getImageFrame());
    InterfaceEditorIndicationArrowPreview.refresh();
    
    // Npc Bank Image
    InterfaceEditorNpcBankImageText.setText(BottomBarAIBackgroundTemplate.getImage());
-   InterfaceEditorNpcBankFrameEditBox.setValue(BottomBarAIBackgroundTemplate.getFrame());
+   InterfaceEditorNpcBankFrameEditBox.setValue(BottomBarAIBackgroundTemplate.getImageFrame());
    InterfaceEditorNpcBankImagePreview.refresh();
 
    
@@ -343,19 +343,19 @@ function InterfaceEditorGui::refresh(%this)
    // Icons Tab
    //------------------------------
    %this.initializeIconContainer(InterfaceEditorBlackjackIconPreview, InterfaceEditorBlackjackIconText, 
-                                 InterfaceEditorBlackjackIconFrameEditBox, blackjackIcon.getImage(), blackjackIcon.getFrame()); 
+                                 InterfaceEditorBlackjackIconFrameEditBox, blackjackIcon.getImage(), blackjackIcon.getImageFrame()); 
    %this.initializeIconContainer(InterfaceEditorBustIconPreview, InterfaceEditorBustIconText, 
-                                 InterfaceEditorBustIconFrameEditBox, bustIcon.getImage(), bustIcon.getFrame()); 
+                                 InterfaceEditorBustIconFrameEditBox, bustIcon.getImage(), bustIcon.getImageFrame()); 
    %this.initializeIconContainer(InterfaceEditorWinIconPreview, InterfaceEditorWinIconText, 
-                                 InterfaceEditorWinIconFrameEditBox, winIcon.getImage(), winIcon.getFrame()); 
+                                 InterfaceEditorWinIconFrameEditBox, winIcon.getImage(), winIcon.getImageFrame()); 
    %this.initializeIconContainer(InterfaceEditorLoseIconPreview, InterfaceEditorLoseIconText, 
-                                 InterfaceEditorLoseIconFrameEditBox, loseIcon.getImage(), loseIcon.getFrame()); 
+                                 InterfaceEditorLoseIconFrameEditBox, loseIcon.getImage(), loseIcon.getImageFrame()); 
    %this.initializeIconContainer(InterfaceEditorShufflingIconPreview, InterfaceEditorShufflingIconText, 
-                                 InterfaceEditorShufflingIconFrameEditBox, shufflingIcon.getImage(), shufflingIcon.getFrame()); 
+                                 InterfaceEditorShufflingIconFrameEditBox, shufflingIcon.getImage(), shufflingIcon.getImageFrame()); 
    %this.initializeIconContainer(InterfaceEditorPushIconPreview, InterfaceEditorPushIconText, 
-                                 InterfaceEditorPushIconFrameEditBox, pushIcon.getImage(), pushIcon.getFrame()); 
+                                 InterfaceEditorPushIconFrameEditBox, pushIcon.getImage(), pushIcon.getImageFrame()); 
    %this.initializeIconContainer(InterfaceEditorBankruptIconPreview, InterfaceEditorBankruptIconText, 
-                                 InterfaceEditorBankruptIconFrameEditBox, BankruptIcon.getImage(), BankruptIcon.getFrame()); 
+                                 InterfaceEditorBankruptIconFrameEditBox, BankruptIcon.getImage(), BankruptIcon.getImageFrame()); 
    InterfaceEditorBlackjackIconFrameEditBox.onValidate();
    InterfaceEditorBustIconFrameEditBox.onValidate();
    InterfaceEditorWinIconFrameEditBox.onValidate();
@@ -1085,7 +1085,7 @@ function InterfaceEditorCasinoCarpetPreview::refresh(%this)
 function InterfaceEditorCasinoCarpetFrameEditBox::refresh(%this)
 {
    if (isObject(CasinoCarpetBackground.getImage()))
-      %this.text = CasinoCarpetBackground.getImage().getFrame();
+      %this.text = CasinoCarpetBackground.getImage().getImageFrame();
    else
       %this.text = "0";
 }
@@ -1149,7 +1149,7 @@ function InterfaceEditorBankContainerPreview::refresh(%this)
 function InterfaceEditorBankContainerFrameEditBox::refresh(%this)
 {
    if (isObject(BankBackgroundObject.getImage()))
-      %this.text = BankBackgroundObject.getImage().getFrame();
+      %this.text = BankBackgroundObject.getImage().getImageFrame();
    else
       %this.text = "0";
 }
@@ -1213,7 +1213,7 @@ function InterfaceEditorPlayerAvatarPreview::refresh(%this)
 function InterfaceEditorPlayerAvatarFrameEditBox::refresh(%this)
 {
    if (isObject(userAi.getImage()))
-      %this.text = userAi.getImage().getFrame();
+      %this.text = userAi.getImage().getImageFrame();
    else
       %this.text = "0";
 }
@@ -1277,7 +1277,7 @@ function InterfaceEditorIndicationArrowPreview::refresh(%this)
 function InterfaceEditorIndicationArrowFrameEditBox::refresh(%this)
 {
    if (isObject(currentHandIcon.getImage()))
-      %this.text = currentHandIcon.getImage().getFrame();
+      %this.text = currentHandIcon.getImage().getImageFrame();
    else
       %this.text = "0";
 }
@@ -1341,7 +1341,7 @@ function InterfaceEditorNpcBankImagePreview::refresh(%this)
 function InterfaceEditorNpcBankFrameEditBox::refresh(%this)
 {
    if (isObject(BottomBarAIBackgroundTemplate.getImage()))
-      %this.text = BottomBarAIBackgroundTemplate.getImage().getFrame();
+      %this.text = BottomBarAIBackgroundTemplate.getImage().getImageFrame();
    else
       %this.text = "0";
 }

@@ -949,7 +949,7 @@ function EnemyStaticSpriteFrameEditBox::refresh(%this)
       return;
    
    if ($SelectedEnemy.getImage().getFrameCount())
-      %this.text = $SelectedEnemy.getFrame();
+      %this.text = $SelectedEnemy.getImageFrame();
    else
       %this.text = 0;
    
@@ -988,7 +988,7 @@ function EnemyStaticSpriteFrameEditBox::onValidate(%this)
       
    EnemyPreview.refresh();
    
-   if (%this.getText() !$= $SelectedEnemy.getFrame())
+   if (%this.getText() !$= $SelectedEnemy.getImageFrame())
       SetEnemyToolDirtyState(true);
 }
 

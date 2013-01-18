@@ -62,7 +62,7 @@ function TakesDamageBehavior::onAddToScene(%this)
    %this.startHealth = %this.health;
    
    if (%this.owner.isMemberOfClass("t2dStaticSprite"))
-      %this.startFrame = %this.owner.getFrame();
+      %this.startFrame = %this.owner.getImageFrame();
    
    if (%this.health < 1)
       %this.health = 1;

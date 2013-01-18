@@ -549,7 +549,7 @@ function AiAvatarImageButton::onClick(%this)
 function AiAvatarImageFrameEditBox::refresh(%this)
 {
    if (isObject($AiEditorCurrentObject))
-      %this.text = $AiEditorCurrentObject.getFrame();
+      %this.text = $AiEditorCurrentObject.getImageFrame();
    else
       %this.text = "0";
 }
@@ -566,7 +566,7 @@ function AiAvatarImageFrameEditBox::onValidate(%this)
       
    AiPreviewBitmap.refresh();
    
-   if (isObject($AiEditorCurrentObject) && (%this.getText() !$= $AiEditorCurrentObject.getFrame()))
+   if (isObject($AiEditorCurrentObject) && (%this.getText() !$= $AiEditorCurrentObject.getImageFrame()))
       AiEditorWindow.SetDirtyValue(true);
 }
 

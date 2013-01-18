@@ -668,7 +668,7 @@ function BlackjackTableBehavior::updateBottomBar(%this)
             if ($TableSeatArray[%i].player != $UserControlledPlayer)
             {
                 $BottomBarBackground[%aiPlacedCount].setImage(BottomBarAIBackgroundTemplate.getImage());
-                $BottomBarAvatarImages[%aiPlacedCount].setImage($TableSeatArray[%i].player.owner.getImage(), $TableSeatArray[%i].player.owner.getFrame());
+                $BottomBarAvatarImages[%aiPlacedCount].setImage($TableSeatArray[%i].player.owner.getImage(), $TableSeatArray[%i].player.owner.getImageFrame());
                 $TableSeatArray[%i].player.bank.numericalDisplay = $BottomBarBitmapFonts[%aiPlacedCount];
 
                 $BottomBarBackground[%aiPlacedCount].setVisible(true);

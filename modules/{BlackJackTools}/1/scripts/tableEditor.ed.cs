@@ -129,14 +129,14 @@ function TableEditorGUI::refresh(%this)
    
    // Update Table Image
    TableEditorTableImageEditText.setText(%this.currentTableObject.getImage());
-   TableEditorTableImageFrameEditBox.setValue(%this.currentTableObject.getFrame());
+   TableEditorTableImageFrameEditBox.setValue(%this.currentTableObject.getImageFrame());
    TableEditorTableImageEditText.refreshDisplay();
    
    // Update Table Rules Image
    if (isObject(TableRulesImage))
    {
       TableEditorRulesImageEditText.setText(TableRulesImage.getImage());
-      TableEditorRulesImageFrameEditBox.setValue(TableRulesImage.getFrame());
+      TableEditorRulesImageFrameEditBox.setValue(TableRulesImage.getImageFrame());
       TableEditorRulesImageEditText.refreshDisplay();
    }
    
@@ -144,7 +144,7 @@ function TableEditorGUI::refresh(%this)
    if (isObject(BetArea0))
    {
       TableEditorBetCircleImageEditText.setText(BetArea0.getImage());
-      TableEditorBetCircleImageFrameEditBox.setValue(BetArea0.getFrame());
+      TableEditorBetCircleImageFrameEditBox.setValue(BetArea0.getImageFrame());
       TableEditorBetCircleImageEditText.refreshDisplay();
    }
 
@@ -152,7 +152,7 @@ function TableEditorGUI::refresh(%this)
    if (isObject($TableSeatArray[0]))
    {
       TableEditorCardBoxImageEditText.setText($TableSeatArray[0].owner.getImage());
-      TableEditorCardBoxImageFrameEditBox.setValue($TableSeatArray[0].owner.getFrame());
+      TableEditorCardBoxImageFrameEditBox.setValue($TableSeatArray[0].owner.getImageFrame());
       TableEditorCardBoxImageEditText.refreshDisplay();
    }
    
@@ -160,7 +160,7 @@ function TableEditorGUI::refresh(%this)
    if (isObject(DealerChipRack))
    {
       TableEditorDealerChipRackImageEditText.setText(DealerChipRack.getImage());
-      TableEditorDealerChipRackImageFrameEditBox.setValue(DealerChipRack.getFrame());
+      TableEditorDealerChipRackImageFrameEditBox.setValue(DealerChipRack.getImageFrame());
       TableEditorDealerChipRackImageEditText.refreshDisplay();
    }
    
@@ -1241,7 +1241,7 @@ function ShoeBodyImageEditBox::refresh(%this)
    if (isObject($ShoeEditorCurrentObject))
    {
       %this.text = $ShoeEditorCurrentObject.getImage();
-      ShoeBodyImageFrameEditBox.setValue($ShoeEditorCurrentObject.getFrame());
+      ShoeBodyImageFrameEditBox.setValue($ShoeEditorCurrentObject.getImageFrame());
    }
    else
    {
@@ -1392,7 +1392,7 @@ function ShoePenetrationImageEditBox::refresh(%this)
    if (isObject(penetrationCard))
    {
       %this.text = penetrationCard.getImage();
-      ShoePenetrationImageFrameEditBox.setValue(penetrationCard.getFrame());
+      ShoePenetrationImageFrameEditBox.setValue(penetrationCard.getImageFrame());
    }
    else
    {
@@ -1490,7 +1490,7 @@ function ShoeDiscardImageEditBox::refresh(%this)
    if (isObject(DiscardArea))
    {
       %this.text = DiscardArea.getImage();
-      ShoeDiscardImageFrameEditBox.setValue(DiscardArea.getFrame());
+      ShoeDiscardImageFrameEditBox.setValue(DiscardArea.getImageFrame());
    }
    else
    {
@@ -1783,7 +1783,7 @@ function TableEditorPlayerList::refresh(%this)
          {
             (TableEditorPlayerContainer@%index).Visible = true;
             (TableEditorPlayerPreviewBitmap@%index).display(%object.getImage(), "t2dStaticSprite");
-            (TableEditorPlayerPreviewBitmap@%index).sprite.setImageFrame(%object.getFrame());            
+            (TableEditorPlayerPreviewBitmap@%index).sprite.setImageFrame(%object.getImageFrame());            
             
             %button = (TableEditorPlayerButton@%index);
             

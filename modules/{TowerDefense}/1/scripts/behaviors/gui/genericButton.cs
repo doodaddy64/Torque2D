@@ -31,7 +31,7 @@ function GenericButtonBehavior::onBehaviorAdd(%this)
    %this.touchID = "";
    
    %this.startImage = %this.owner.getImage();
-   %this.startFrame = %this.owner.getFrame();
+   %this.startFrame = %this.owner.getImageFrame();
    
    $CapturedTouchIDsOwners.add(%this); 
 }

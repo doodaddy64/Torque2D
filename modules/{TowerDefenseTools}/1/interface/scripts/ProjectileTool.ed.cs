@@ -1097,7 +1097,7 @@ function ProjectileStaticSpriteFrameEditBox::refresh(%this)
       return;   
    
    if ($SelectedProjectile.getImage().getFrameCount())
-      %this.text = $SelectedProjectile.getFrame();
+      %this.text = $SelectedProjectile.getImageFrame();
    else
       %this.text = 0;
    
@@ -1135,7 +1135,7 @@ function ProjectileStaticSpriteFrameEditBox::onValidate(%this)
       
    ProjectilePreview.refresh();
    
-   if (%this.getText() !$= $SelectedProjectile.getFrame())
+   if (%this.getText() !$= $SelectedProjectile.getImageFrame())
       SetProjectileToolDirtyState(true);
 }
 

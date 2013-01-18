@@ -132,7 +132,7 @@ function CurrencyEditorGUI::refresh(%this)
          %imagePath.setText(%image);
          
          %imageFrame = %currencyElement.findObjectByInternalName("ImageFrameTextEdit", true);
-         %imageFrame.setValue(%this.bankStack[%i].getFrame());
+         %imageFrame.setValue(%this.bankStack[%i].getImageFrame());
    
          %imageFrameContainer = %currencyElement.findObjectByInternalName("ImageFrameContainer", true);
          %imageFrameContainer.Visible = (%imagePath.getText().getFrameCount() > 1);

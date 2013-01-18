@@ -1249,7 +1249,7 @@ function TowerStaticSpriteFrameEditBox::refresh(%this)
       return;   
    
    if ($SelectedTower.getImage().getFrameCount())
-      %this.text = $SelectedTower.getFrame();
+      %this.text = $SelectedTower.getImageFrame();
    else
       %this.text = 0;
    
@@ -1284,7 +1284,7 @@ function TowerStaticSpriteFrameEditBox::onValidate(%this)
       
    TowerPreview.refresh();
    
-   if (%this.getText() !$= $SelectedTower.getFrame())
+   if (%this.getText() !$= $SelectedTower.getImageFrame())
       SetTowerToolDirtyState(true);
 }
 
@@ -1416,7 +1416,7 @@ function TowerIconFrameEditBox::refresh(%this)
    if (%towerSlotIcon !$= "")
    {
       if (%towerSlotIcon.getImage().getFrameCount())
-         %this.setText(%towerSlotIcon.getFrame());
+         %this.setText(%towerSlotIcon.getImageFrame());
       else
          %this.text = 0;
 
@@ -1458,19 +1458,19 @@ function TowerIconFrameEditBox::onValidate(%this)
    switch$ ($SelectedTower.getName())
    {
       case "Tower1":
-         %oldFrame = TowerSlot1Icon.getFrame();
+         %oldFrame = TowerSlot1Icon.getImageFrame();
       
       case "Tower2":
-         %oldFrame = TowerSlot2Icon.getFrame();
+         %oldFrame = TowerSlot2Icon.getImageFrame();
       
       case "Tower3":
-         %oldFrame = TowerSlot3Icon.getFrame();
+         %oldFrame = TowerSlot3Icon.getImageFrame();
       
       case "Tower4":
-         %oldFrame = TowerSlot4Icon.getFrame();
+         %oldFrame = TowerSlot4Icon.getImageFrame();
       
       case "Tower5":
-         %oldFrame = TowerSlot5Icon.getFrame();
+         %oldFrame = TowerSlot5Icon.getImageFrame();
    }
    
    if (%this.getText() !$= %oldFrame)

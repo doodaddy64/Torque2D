@@ -441,7 +441,7 @@ function AnimationBuilder::createDraggingControl(%this, %sprite, %spritePosition
     //if (%sprite.getClassName() $= "GuiSpriteCtrl")
         //echo(" @@@ Image: " @ %this.sourceImage @ " Frame: " @ %sprite.getImageFrame());
     //else
-        //echo(" @@@ Image: " @ %this.sourceImage @ " Frame: " @ %sprite.getFrame());
+        //echo(" @@@ Image: " @ %this.sourceImage @ " Frame: " @ %sprite.getImageFrame());
 
     // Place the guis.
     AnimationBuilderGui.add(%dragControl);

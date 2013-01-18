@@ -83,7 +83,7 @@ function AnimationEffectBehavior::setImageFrame(%this, %frame)
 /// <summary>
 /// Returns the asset frame number.
 /// </summary>
-function AnimationEffectBehavior::getFrame(%this)
+function AnimationEffectBehavior::getImageFrame(%this)
 {
     return %this.frame;
 }

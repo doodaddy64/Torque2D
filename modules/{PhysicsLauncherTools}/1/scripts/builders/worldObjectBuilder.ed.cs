@@ -759,7 +759,7 @@ function WorldObjectBuilder::getImageFrameForState(%object, %stateIndex)
     
     %animationEffectBehavior = PhysicsLauncherTools::getBehaviorFromInstanceName(%object, %behaviorInstanceName);
     if (isObject(%animationEffectBehavior))
-        return %animationEffectBehavior.getFrame();
+        return %animationEffectBehavior.getImageFrame();
     
     return "";
 }
