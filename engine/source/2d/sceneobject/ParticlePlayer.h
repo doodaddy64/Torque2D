@@ -136,6 +136,16 @@ public:
     inline void setCameraIdleDistance( const F32 idleDistance ) { mCameraIdleDistance = idleDistance; mCameraIdle = false; }
     inline F32 getCameraIdleDistance( void ) const { return mCameraIdleDistance; }
 
+    inline void setParticleInterpolation( const bool interpolation ) { mParticleInterpolation = interpolation; }
+    inline bool getParticleInterpolation( void ) const { return mParticleInterpolation; }
+
+    inline const U32 getEmitterCount( void ) const { return (U32)mEmitters.size(); }
+
+    void setEmitterPaused( const bool paused, const U32 emitterIndex );
+    bool getEmitterPaused( const U32 emitterIndex );
+    void setEmitterVisible( const bool visible, const U32 emitterIndex );
+    bool getEmitterVisible( const U32 emitterIndex );
+
     bool play( const bool resetParticles );
     void stop( const bool waitForParticles, const bool killEffect );
     inline bool getIsPlaying( void ) const { return mPlaying; };
@@ -157,9 +167,8 @@ protected:
     virtual void onTamlAddParent( SimObject* pParentObject );
 
     static bool     setParticle(void* obj, const char* data)                                { PREFAB_WRITE_CHECK(ParticlePlayer); pCastObject->setParticle(data); return false; };
-    static bool     setCameraIdleDistance(void* obj, const char* data)                      { static_cast<ParticlePlayer*>(obj)->setCameraIdleDistance(dAtof(data)); return false; };
     static bool     writeCameraIdleDistance( void* obj, StringTableEntry pFieldName )       { PREFAB_WRITE_CHECK(ParticlePlayer); return pCastObject->getCameraIdleDistance() > 0.0f; }
-
+    static bool     writeParticleInterpolation( void* obj, StringTableEntry pFieldName )       { PREFAB_WRITE_CHECK(ParticlePlayer); return pCastObject->getCameraIdleDistance() > 0.0f; }
 
 private:
     virtual void onAssetRefreshed( AssetPtrBase* pAssetPtrBase );

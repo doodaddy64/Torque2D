@@ -15,7 +15,6 @@
         Frame="0">
         <ParticleAssetEmitter.Fields>
             <AlphaChannel
-                RepeatTime="2"
                 Keys="0 0 0.1 1 0.9 1 1 0" />
         </ParticleAssetEmitter.Fields>
     </ParticleAssetEmitter>

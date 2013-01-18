@@ -33,7 +33,7 @@ function runParticleTest()
     %emitter.Image = "MelvToy:MiniTileMapImage";
     
     %emitter.selectField( "AlphaChannel" );
-        %emitter.setRepeatTime( 2 );
+        %emitter.setRepeatTime( 1 );
         %emitter.addDataKey( 0, 0 );
         %emitter.addDataKey( 0.1, 1 );
         %emitter.addDataKey( 0.9, 1 );
@@ -56,11 +56,12 @@ function runParticleTest()
     %particlePlayer = new ParticlePlayer();
     SandboxScene.addToScene( %particlePlayer );
     %particlePlayer.Particle = "MelvToy:" @ %particleAssetName;
+    %particlePlayer.play();
     
-    %particlePlayerFilePath = expandPath( "^MelvToy/particlePlayer.taml" );
-    TamlWrite( %particlePlayer, %particlePlayerFilePath );
+    //%particlePlayerFilePath = expandPath( "^MelvToy/particlePlayer.taml" );
+    //TamlWrite( %particlePlayer, %particlePlayerFilePath );
     //TamlRead( %particlePlayerFilePath );
         
 	
-	quit();
+	//quit();
 }

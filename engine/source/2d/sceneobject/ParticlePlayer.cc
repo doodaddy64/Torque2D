@@ -70,7 +70,7 @@ ParticlePlayer::ParticlePlayer() :
                     mPlaying( false ),
                     mPaused( false ),
                     mAge( 0.0f ),
-                    mParticleInterpolation( false ),
+                    mParticleInterpolation( true ),
                     mCameraIdleDistance( 0.0f ),
                     mCameraIdle( false ),
                     mWaitingForParticles( false ),
@@ -98,7 +98,8 @@ void ParticlePlayer::initPersistFields()
     Parent::initPersistFields();
 
     addProtectedField( "Particle", TypeParticleAssetPtr, Offset(mParticleAsset, ParticlePlayer), &setParticle, &defaultProtectedGetFn, defaultProtectedWriteFn, "" );
-    addProtectedField( "CameraIdleDistance", TypeF32, Offset(mCameraIdleDistance, ParticlePlayer), &setCameraIdleDistance, &defaultProtectedGetFn, &writeCameraIdleDistance,"" );
+    addProtectedField( "CameraIdleDistance", TypeF32, Offset(mCameraIdleDistance, ParticlePlayer),&defaultProtectedSetFn, &defaultProtectedGetFn, &writeCameraIdleDistance,"" );
+    addProtectedField( "ParticleInterpolation", TypeBool, Offset(mParticleInterpolation, ParticlePlayer), &defaultProtectedSetFn, &defaultProtectedGetFn, &writeParticleInterpolation,"" );
 
 }
 
@@ -291,21 +292,21 @@ void ParticlePlayer::integrateObject( const F32 totalTime, const F32 elapsedTime
                                                 quantityBaseField.getMinValue(),
                                                 quantityBaseField.getMaxValue() );
 
-            // Calculate the final time-independent emission.
-            const U32 emission = U32(mFloor( localEmission * pEmitterNode->getTimeSinceLastGeneration() ));
+            // Calculate the final time-independent emission count.
+            const U32 emissionCount = U32(mFloor( localEmission * pEmitterNode->getTimeSinceLastGeneration() ));
 
             // Do we have an emission?
-            if ( emission > 0 )
+            if ( emissionCount > 0 )
             {
                 // Yes, so remove this emission from accumulated time.
-                pEmitterNode->setTimeSinceLastGeneration( getMax(0.0f, pEmitterNode->getTimeSinceLastGeneration() - (emission / localEmission) ) );
+                pEmitterNode->setTimeSinceLastGeneration( getMax(0.0f, pEmitterNode->getTimeSinceLastGeneration() - (emissionCount / localEmission) ) );
 
                 // Suppress Precision Errors.
                 if ( mIsZero( pEmitterNode->getTimeSinceLastGeneration() ) )
                     pEmitterNode->setTimeSinceLastGeneration( 0.0f );
 
                 // Generate the required emission.
-                for ( U32 n = 0; n < emission; n++ )
+                for ( U32 n = 0; n < emissionCount; n++ )
                     pEmitterNode->createParticle();
             }
             // No, so was there a calculated emission?
@@ -322,30 +323,44 @@ void ParticlePlayer::integrateObject( const F32 totalTime, const F32 elapsedTime
 
 void ParticlePlayer::interpolateObject( const F32 timeDelta )
 {    
-    //// Fetch First Particle Node.
-    //ParticleNode* pParticleNode = mParticleNodeHead.mNextNode;
+    // Finish if no need to interpolate.
+    if ( !mParticleInterpolation || !mPlaying || mCameraIdle || mPaused )
+        return;
 
-    //// Process All particle nodes.
-    //while ( pParticleNode != &mParticleNodeHead )
-    //{
-    //    // Interpolate Particle.
-    //    pParticleNode->mRenderTickPosition = (timeDelta * pParticleNode->mPreTickPosition) + ((1.0f-timeDelta) * pParticleNode->mPostTickPosition);
+    // Iterate the emitters.
+    for( typeEmitterVector::iterator emitterItr = mEmitters.begin(); emitterItr != mEmitters.end(); ++emitterItr )
+    {
+        // Fetch the emitter node.
+        EmitterNode* pEmitterNode = *emitterItr;
 
-    //    pParticleNode->mRotationTransform.p = pParticleNode->mRenderTickPosition;
+        // Fetch First Particle Node.
+        ParticleSystem::ParticleNode* pParticleNode = pEmitterNode->getFirstParticle();
 
-    //    Vector2 renderSize = pParticleNode->mRenderSize;
-    //    Vector2 clipBoundary[4];
-    //    clipBoundary[0] = mGlobalClipBoundary[0] * renderSize;
-    //    clipBoundary[1] = mGlobalClipBoundary[1] * renderSize;
-    //    clipBoundary[2] = mGlobalClipBoundary[2] * renderSize;
-    //    clipBoundary[3] = mGlobalClipBoundary[3] * renderSize;
+        // Fetch the particle node head.
+        ParticleSystem::ParticleNode* pParticleNodeHead = pEmitterNode->getParticleNodeHead();
 
-    //    // Calculate Clip Boundary.
-    //    CoreMath::mCalculateOOBB( clipBoundary, pParticleNode->mRotationTransform, pParticleNode->mOOBB );
+        //// Process All particle nodes.
+        //while ( pParticleNode != pParticleNodeHead )
+        //{
+        //    // Interpolate Particle.
+        //    pParticleNode->mRenderTickPosition = (timeDelta * pParticleNode->mPreTickPosition) + ((1.0f-timeDelta) * pParticleNode->mPostTickPosition);
 
-    //    // Move to next Particle Node.
-    //    pParticleNode = pParticleNode->mNextNode;
-    //}
+        //    pParticleNode->mRotationTransform.p = pParticleNode->mRenderTickPosition;
+
+        //    Vector2 renderSize = pParticleNode->mRenderSize;
+        //    Vector2 clipBoundary[4];
+        //    clipBoundary[0] = mGlobalClipBoundary[0] * renderSize;
+        //    clipBoundary[1] = mGlobalClipBoundary[1] * renderSize;
+        //    clipBoundary[2] = mGlobalClipBoundary[2] * renderSize;
+        //    clipBoundary[3] = mGlobalClipBoundary[3] * renderSize;
+
+        //    // Calculate Clip Boundary.
+        //    CoreMath::mCalculateOOBB( clipBoundary, pParticleNode->mRotationTransform, pParticleNode->mOOBB );
+
+        //    // Move to next Particle Node.
+        //    pParticleNode = pParticleNode->mNextNode;
+        //}
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -401,6 +416,66 @@ void ParticlePlayer::setParticle( const char* pAssetId )
 
     // Initialize the particle.
     initializeParticleAsset();
+}
+
+//-----------------------------------------------------------------------------
+
+void ParticlePlayer::setEmitterPaused( const bool paused, const U32 emitterIndex )
+{
+    // Is the emitter index valid?
+    if ( emitterIndex >= getEmitterCount() )
+    {
+        // No, so warn.
+        Con::warnf( "ParticlePlayer::setEmitterPaused() - Emitter index is out of bounds." );
+        return;
+    }
+
+    mEmitters[emitterIndex]->setPaused( paused );
+}
+
+//-----------------------------------------------------------------------------
+
+bool ParticlePlayer::getEmitterPaused( const U32 emitterIndex )
+{
+    // Is the emitter index valid?
+    if ( emitterIndex >= getEmitterCount() )
+    {
+        // No, so warn.
+        Con::warnf( "ParticlePlayer::getEmitterPaused() - Emitter index is out of bounds." );
+        return false;
+    }
+
+    return mEmitters[emitterIndex]->getPaused();
+}
+
+//-----------------------------------------------------------------------------
+
+void ParticlePlayer::setEmitterVisible( const bool visible, const U32 emitterIndex )
+{
+    // Is the emitter index valid?
+    if ( emitterIndex >= getEmitterCount() )
+    {
+        // No, so warn.
+        Con::warnf( "ParticlePlayer::setEmitterVisible() - Emitter index is out of bounds." );
+        return;
+    }
+
+    mEmitters[emitterIndex]->setVisible( visible );
+}
+
+//-----------------------------------------------------------------------------
+
+bool ParticlePlayer::getEmitterVisible( const U32 emitterIndex )
+{
+    // Is the emitter index valid?
+    if ( emitterIndex >= getEmitterCount() )
+    {
+        // No, so warn.
+        Con::warnf( "ParticlePlayer::getEmitterVisible() - Emitter index is out of bounds." );
+        return false;
+    }
+
+    return mEmitters[emitterIndex]->getVisible();
 }
 
 //-----------------------------------------------------------------------------

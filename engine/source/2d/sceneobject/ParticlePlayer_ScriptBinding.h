@@ -85,7 +85,45 @@ ConsoleMethod(ParticlePlayer, setPaused, void, 3, 3,    "(paused?) Sets whether 
 //-----------------------------------------------------------------------------
 
 ConsoleMethod(ParticlePlayer, getPaused, bool, 2, 2,    "() Gets whether the particle player is paused or not.\n"
-                                                        "@return Whether the article player is paused or not.")
+                                                        "@return Whether the particle player is paused or not.")
 {
     return object->getPaused();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticlePlayer, setEmitterPaused, void, 4, 4, "(paused, emitterIndex) Sets whether the specified particle emitter is paused or not.\n"
+                                                            "@param paused Whether the specified particle emitter is paused or not.\n"
+                                                            "@param emitterIndex The index of the emitter to modify.\n"
+                                                            "@return No return value.")
+{
+    object->setEmitterPaused( dAtob(argv[2]), dAtoi(argv[3]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticlePlayer, getEmitterPaused, bool, 3, 3, "(emitterIndex) Gets whether the specified particle emitter is paused or not.\n"
+                                                            "@param emitterIndex The index of the emitter to modify.\n"
+                                                            "@return Whether the specified particle emitter is paused or not.")
+{
+    return object->getEmitterPaused( dAtob(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticlePlayer, setEmitterVisible, void, 4, 4,    "(visible, emitterIndex) Sets whether the specified particle emitter is visible or not.\n"
+                                                                "@param paused Whether the specified particle emitter is visible or not.\n"
+                                                                "@param emitterIndex The index of the emitter to modify.\n"
+                                                                "@return No return value.")
+{
+    object->setEmitterVisible( dAtob(argv[2]), dAtoi(argv[3]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticlePlayer, getEmitterVisible, bool, 3, 3,    "(emitterIndex) Gets whether the specified particle emitter is visible or not.\n"
+                                                                "@param emitterIndex The index of the emitter to modify.\n"
+                                                                "@return Whether the specified particle emitter is visible or not.")
+{
+    return object->getEmitterVisible( dAtob(argv[2]) );
 }
