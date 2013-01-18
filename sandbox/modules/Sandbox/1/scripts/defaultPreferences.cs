@@ -8,7 +8,7 @@ $Game::CompanyName              = "GarageGames LLC";
 $Game::ProductName              = "Torque 2D Sandbox";
 
 // Sandbox.
-$pref::Sandbox::defaultToyId    = "MelvToy";
+$pref::Sandbox::defaultToyId    = "TruckToy";
 $pref::Sandbox::defaultBackgroundColor = "DimGray";
 $pref::Sandbox::metricsOption   = true;
 $pref::Sandbox::jointsOption    = false;
