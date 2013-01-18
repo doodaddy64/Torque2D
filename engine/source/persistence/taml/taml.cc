@@ -345,7 +345,7 @@ Taml::TamlFormatMode Taml::getFileAutoFormatMode( const char* pFilename )
             return Taml::XmlFormat;
 
         // Check for the Binary format.
-        if ( xmlExtensionLength <= filenameLength && dStricmp( pEndOfFilename - xmlExtensionLength, mAutoFormatBinaryExtension ) == 0 )
+        if ( binaryExtensionLength <= filenameLength && dStricmp( pEndOfFilename - xmlExtensionLength, mAutoFormatBinaryExtension ) == 0 )
             return Taml::BinaryFormat;  
     }
 
