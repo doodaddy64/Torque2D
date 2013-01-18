@@ -75,7 +75,10 @@ private:
         inline ParticlePlayer* getOwner( void ) const { return mOwner; }
         inline ParticleAssetEmitter* getAssetEmitter( void ) const { return mpAssetEmitter; }
 
+        inline bool getActiveParticles( void ) const { return mParticleNodeHead.mNextNode != &mParticleNodeHead; }
+
         inline ParticleSystem::ParticleNode* getFirstParticle( void ) const { return mParticleNodeHead.mNextNode; }
+        inline ParticleSystem::ParticleNode* getLastParticle( void ) const { return mParticleNodeHead.mPreviousNode; }
         inline ParticleSystem::ParticleNode* getParticleNodeHead( void ) { return &mParticleNodeHead; }
 
         inline void setTimeSinceLastGeneration( const F32 timeSinceLastGeneration ) { mTimeSinceLastGeneration = timeSinceLastGeneration; }
@@ -160,15 +163,15 @@ public:
 
 protected:
     /// Particle Creation/Integration.
-    void configureParticle( ParticleSystem::ParticleNode* pParticleNode );
-    void integrateParticle( ParticleSystem::ParticleNode* pParticleNode, const F32 particleAge, const F32 elapsedTime );
+    void configureParticle( EmitterNode* pEmitterNode, ParticleSystem::ParticleNode* pParticleNode );
+    void integrateParticle( EmitterNode* pEmitterNode, ParticleSystem::ParticleNode* pParticleNode, const F32 particleAge, const F32 elapsedTime );
 
     /// Persistence.
     virtual void onTamlAddParent( SimObject* pParentObject );
 
     static bool     setParticle(void* obj, const char* data)                                { PREFAB_WRITE_CHECK(ParticlePlayer); pCastObject->setParticle(data); return false; };
-    static bool     writeCameraIdleDistance( void* obj, StringTableEntry pFieldName )       { PREFAB_WRITE_CHECK(ParticlePlayer); return pCastObject->getCameraIdleDistance() > 0.0f; }
-    static bool     writeParticleInterpolation( void* obj, StringTableEntry pFieldName )       { PREFAB_WRITE_CHECK(ParticlePlayer); return pCastObject->getCameraIdleDistance() > 0.0f; }
+    static bool     writeCameraIdleDistance( void* obj, StringTableEntry pFieldName )       { return static_cast<ParticlePlayer*>( obj )->getCameraIdleDistance() > 0.0f; }
+    static bool     writeParticleInterpolation( void* obj, StringTableEntry pFieldName )    { return static_cast<ParticlePlayer*>( obj )->getParticleInterpolation(); }
 
 private:
     virtual void onAssetRefreshed( AssetPtrBase* pAssetPtrBase );

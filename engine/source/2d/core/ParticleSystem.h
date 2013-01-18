@@ -31,9 +31,9 @@ public:
         Vector2                 mPosition;
         Vector2                 mVelocity;
         F32                     mOrientationAngle;
-        Vector2                 mOOBB[4];
+        Vector2                 mRenderOOBB[4];
         b2Transform             mRotationTransform;
-        AnimationController*    mAnimationController;
+        AnimationController     mAnimationController;
 
         /// Render Properties.
         Vector2                 mLastRenderSize;
@@ -49,7 +49,7 @@ public:
         F32                     mSpin;
         F32                     mFixedForce;
         F32                     mRandomMotion;
-        ColorF                  mColour;    
+        ColorF                  mColor;    
 
         /// Interpolated Tick Position.
         Vector2                 mPreTickPosition;

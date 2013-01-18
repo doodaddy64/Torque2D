@@ -163,12 +163,15 @@ public:
     inline void setOldestInFront( const bool oldestInFront ) { mOldestInFront = oldestInFront; refreshAsset();  }
     inline bool getOldestInFront( void ) const { return mOldestInFront; }
    
+    inline bool isStaticMode( void ) const { return mStaticMode; }
     bool setImage( const char* pAssetId, const U32 frame = 0 );
     inline StringTableEntry getImage( void ) const { return mImageAsset.getAssetId(); }
     bool setImageFrame( const U32 frame );
     inline U32 getImageFrame( void ) const { return mImageFrame; }
     bool setAnimation( const char* animationName );
     inline StringTableEntry getAnimation( void ) const { return mAnimationAsset.getAssetId(); }
+    inline const AssetPtr<ImageAsset>& getImageAsset( void ) const { return mImageAsset; }
+    inline const AssetPtr<AnimationAsset>& getAnimationAsset( void ) const { return mAnimationAsset; }
 
     inline void setBlendMode( bool blendMode ) { mBlendMode = blendMode; refreshAsset(); }
     inline bool getBlendMode( void ) const { return mBlendMode; };
@@ -231,7 +234,6 @@ private:
     void setOwner( ParticleAsset* pParticleAsset );
     inline void refreshAsset( void );
     virtual void onAssetRefreshed( AssetPtrBase* pAssetPtrBase );
-    inline bool isStaticMode( void ) const { return mStaticMode; }
 
 protected:
     void onTamlCustomWrite( TamlCollection& customCollection );
