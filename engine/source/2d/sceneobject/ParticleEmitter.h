@@ -124,10 +124,10 @@ private:
     ParticleAssetFieldBaseVariation        mEmissionForce;
     ParticleAssetFieldBaseVariation        mEmissionAngle;
     ParticleAssetFieldBaseVariation        mEmissionArc;
-    ParticleAssetFieldLife         mColourRed;
-    ParticleAssetFieldLife         mColourGreen;
-    ParticleAssetFieldLife         mColourBlue;
-    ParticleAssetFieldLife         mVisibility;
+    ParticleAssetFieldLife         mRedChannel;
+    ParticleAssetFieldLife         mGreenChannel;
+    ParticleAssetFieldLife         mBlueChannel;
+    ParticleAssetFieldLife         mAlphaChannel;
 
     /// Other Properties.
     bool                    mFixedAspect;

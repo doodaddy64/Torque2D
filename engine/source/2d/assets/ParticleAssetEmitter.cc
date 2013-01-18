@@ -173,10 +173,10 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
     mParticleFields.addField( mEmissionAngle.getVariation(), "EmissionAngleVariation", 1000.0f, 0.0f, 360.0f, 0.0f );
     mParticleFields.addField( mEmissionArc.getBase(), "EmissionArc", 1000.0f, 0.0f, 360.0f, 360.0f );
     mParticleFields.addField( mEmissionArc.getVariation(), "EmissionArcVariation", 1000.0f, 0.0f, 720.0f, 0.0f );
-    mParticleFields.addField( mColourRed.getLife(), "RedChannel", 1.0f, 0.0f, 1.0f, 1.0f );
-    mParticleFields.addField( mColourGreen.getLife(), "GreenChannel", 1.0f, 0.0f, 1.0f, 1.0f );
-    mParticleFields.addField( mColourBlue.getLife(), "BlueChannel", 1.0f, 0.0f, 1.0f, 1.0f );
-    mParticleFields.addField( mVisibility.getLife(), "AlphaChannel", 1.0f, 0.0f, 1.0f, 1.0f );
+    mParticleFields.addField( mRedChannel.getLife(), "RedChannel", 1.0f, 0.0f, 1.0f, 1.0f );
+    mParticleFields.addField( mGreenChannel.getLife(), "GreenChannel", 1.0f, 0.0f, 1.0f, 1.0f );
+    mParticleFields.addField( mBlueChannel.getLife(), "BlueChannel", 1.0f, 0.0f, 1.0f, 1.0f );
+    mParticleFields.addField( mAlphaChannel.getLife(), "AlphaChannel", 1.0f, 0.0f, 1.0f, 1.0f );
 
     // Register for refresh notifications.
     mImageAsset.registerRefreshNotify( this );

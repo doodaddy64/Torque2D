@@ -61,7 +61,7 @@ private:
     ParticleAssetFieldBaseVariation         mEmissionForce;
     ParticleAssetFieldBaseVariation         mEmissionAngle;
     ParticleAssetFieldBaseVariation         mEmissionArc;
-    ParticleAssetFieldBase                  mVisibility;
+    ParticleAssetFieldBase                  mAlphaChannel;
 
 public:
     ParticleAsset();
@@ -82,6 +82,23 @@ public:
     LifeMode getLifeMode( void ) const { return mLifeMode; }
 
     inline ParticleAssetFieldCollection& getParticleFields( void ) { return mParticleFields; }
+
+    inline ParticleAssetField& getParticleLifeScaleField( void ) { return mParticleLife.getBase(); }
+    inline ParticleAssetField& getQuantityScaleField( void ) { return mQuantity.getBase(); }
+    inline ParticleAssetField& getSizeXScaleField( void ) { return mSizeX.getBase(); }
+    inline ParticleAssetField& getSizeYScaleField( void ) { return mSizeY.getBase(); }
+    inline ParticleAssetField& getSpeedScaleField( void ) { return mSpeed.getBase(); }
+    inline ParticleAssetField& getSpinScaleField( void ) { return mSpin.getBase(); }
+    inline ParticleAssetField& getFixedForceScaleField( void ) { return mFixedForce.getBase(); }
+    inline ParticleAssetField& getRandomMotionForceScaleField( void ) { return mRandomMotion.getBase(); }
+    inline ParticleAssetField& getAlphaChannelScaleField( void ) { return mAlphaChannel.getBase(); }
+
+    inline ParticleAssetField& getEmissionForceForceBaseField( void ) { return mEmissionForce.getBase(); }
+    inline ParticleAssetField& getEmissionForceVariationField( void ) { return mEmissionForce.getVariation(); }
+    inline ParticleAssetField& getEmissionAngleForceBaseField( void ) { return mEmissionAngle.getBase(); }
+    inline ParticleAssetField& getEmissionAngleVariationField( void ) { return mEmissionAngle.getVariation(); }
+    inline ParticleAssetField& getEmissionArcBaseField( void ) { return mEmissionArc.getBase(); }
+    inline ParticleAssetField& getEmissionArcVariationField( void ) { return mEmissionArc.getVariation(); }
 
     ParticleAssetEmitter* createEmitter( void );
     bool addEmitter( ParticleAssetEmitter* pParticleAssetEmitter );

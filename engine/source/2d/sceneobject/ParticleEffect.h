@@ -91,7 +91,7 @@ public:
     ParticleAssetFieldBaseVariation    mEmissionForce;
     ParticleAssetFieldBaseVariation    mEmissionAngle;
     ParticleAssetFieldBaseVariation    mEmissionArc;
-    ParticleAssetFieldBase     mVisibility;
+    ParticleAssetFieldBase     mAlphaChannel;
 
     /// Effect Life Mode.
     enum eEffectLifeMode

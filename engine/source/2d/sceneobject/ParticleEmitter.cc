@@ -150,10 +150,10 @@ void ParticleEmitter::copyTo(SimObject* object)
    mEmissionForce.copyTo(emitter->mEmissionForce);
    mEmissionAngle.copyTo(emitter->mEmissionAngle);
    mEmissionArc.copyTo(emitter->mEmissionArc);
-   mColourRed.copyTo(emitter->mColourRed);
-   mColourGreen.copyTo(emitter->mColourGreen);
-   mColourBlue.copyTo(emitter->mColourBlue);
-   mVisibility.copyTo(emitter->mVisibility);
+   mRedChannel.copyTo(emitter->mRedChannel);
+   mGreenChannel.copyTo(emitter->mGreenChannel);
+   mBlueChannel.copyTo(emitter->mBlueChannel);
+   mAlphaChannel.copyTo(emitter->mAlphaChannel);
 }
 
 //------------------------------------------------------------------------------
@@ -227,24 +227,24 @@ void ParticleEmitter::integrateParticle( ParticleNode* pParticleNode, F32 partic
     // **********************************************************************************************************************
 
     // Red.
-    pParticleNode->mColour.red = mClampF(   mColourRed.mLife.getGraphValue( particleAge ),
-                                            mColourRed.mLife.getMinValue(),
-                                            mColourRed.mLife.getMaxValue() );
+    pParticleNode->mColour.red = mClampF(   mRedChannel.mLife.getGraphValue( particleAge ),
+                                            mRedChannel.mLife.getMinValue(),
+                                            mRedChannel.mLife.getMaxValue() );
 
     // Green.
-    pParticleNode->mColour.green = mClampF( mColourGreen.mLife.getGraphValue( particleAge ),
-                                            mColourGreen.mLife.getMinValue(),
-                                            mColourGreen.mLife.getMaxValue() );
+    pParticleNode->mColour.green = mClampF( mGreenChannel.mLife.getGraphValue( particleAge ),
+                                            mGreenChannel.mLife.getMinValue(),
+                                            mGreenChannel.mLife.getMaxValue() );
 
     // Blue.
-    pParticleNode->mColour.blue = mClampF(  mColourBlue.mLife.getGraphValue( particleAge ),
-                                            mColourBlue.mLife.getMinValue(),
-                                            mColourBlue.mLife.getMaxValue() );
+    pParticleNode->mColour.blue = mClampF(  mBlueChannel.mLife.getGraphValue( particleAge ),
+                                            mBlueChannel.mLife.getMinValue(),
+                                            mBlueChannel.mLife.getMaxValue() );
 
     // Alpha.
-    pParticleNode->mColour.alpha = mClampF( mVisibility.mLife.getGraphValue( particleAge ) * pParentEffectObject->mVisibility.mBase.getGraphValue( particleAge ),
-                                            mVisibility.mLife.getMinValue(),
-                                            mVisibility.mLife.getMaxValue() );
+    pParticleNode->mColour.alpha = mClampF( mAlphaChannel.mLife.getGraphValue( particleAge ) * pParentEffectObject->mAlphaChannel.mBase.getGraphValue( particleAge ),
+                                            mAlphaChannel.mLife.getMinValue(),
+                                            mAlphaChannel.mLife.getMaxValue() );
 
 
 
@@ -702,10 +702,10 @@ void ParticleEmitter::initialise( ParticleEffect* pParentEffect )
     addGraphSelection( "emissionarc_base", &mEmissionArc.mBase );
     addGraphSelection( "emissionarc_var", &mEmissionArc.mVariation );
 
-    addGraphSelection( "red_life", &mColourRed.mLife );
-    addGraphSelection( "green_life", &mColourGreen.mLife );
-    addGraphSelection( "blue_life", &mColourBlue.mLife );
-    addGraphSelection( "visibility_life", &mVisibility.mLife );
+    addGraphSelection( "red_life", &mRedChannel.mLife );
+    addGraphSelection( "green_life", &mGreenChannel.mLife );
+    addGraphSelection( "blue_life", &mBlueChannel.mLife );
+    addGraphSelection( "visibility_life", &mAlphaChannel.mLife );
 
 
 
@@ -751,10 +751,10 @@ void ParticleEmitter::initialise( ParticleEffect* pParentEffect )
     mEmissionArc.mBase.setValueBounds( 1000.0f, 0.0f, 360.0f, 360.0f );
     mEmissionArc.mVariation.setValueBounds( 1000.0f, 0.0f, 720.0f, 0.0f );
 
-    mColourRed.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
-    mColourGreen.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
-    mColourBlue.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
-    mVisibility.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
+    mRedChannel.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
+    mGreenChannel.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
+    mBlueChannel.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
+    mAlphaChannel.mLife.setValueBounds( 1.0f, 0.0f, 1.0f, 1.0f );
 
 
     // Set Other Properties.
@@ -2058,10 +2058,10 @@ void ParticleEmitter::configureParticle( ParticleNode* pParticleNode )
     // Calculate RGBA Components.
     // **********************************************************************************************************************
 
-    pParticleNode->mColour.set( mClampF( mColourRed.mLife.getGraphValue( 0.0f ), mColourRed.mLife.getMinValue(), mColourRed.mLife.getMaxValue() ),
-                                mClampF( mColourGreen.mLife.getGraphValue( 0.0f ), mColourGreen.mLife.getMinValue(), mColourGreen.mLife.getMaxValue() ),
-                                mClampF( mColourBlue.mLife.getGraphValue( 0.0f ), mColourBlue.mLife.getMinValue(), mColourBlue.mLife.getMaxValue() ),
-                                mClampF( mVisibility.mLife.getGraphValue( 0.0f ) * pParentEffectObject->mVisibility.mBase.getGraphValue( 0.0f ), mVisibility.mLife.getMinValue(), mVisibility.mLife.getMaxValue() ) );
+    pParticleNode->mColour.set( mClampF( mRedChannel.mLife.getGraphValue( 0.0f ), mRedChannel.mLife.getMinValue(), mRedChannel.mLife.getMaxValue() ),
+                                mClampF( mGreenChannel.mLife.getGraphValue( 0.0f ), mGreenChannel.mLife.getMinValue(), mGreenChannel.mLife.getMaxValue() ),
+                                mClampF( mBlueChannel.mLife.getGraphValue( 0.0f ), mBlueChannel.mLife.getMinValue(), mBlueChannel.mLife.getMaxValue() ),
+                                mClampF( mAlphaChannel.mLife.getGraphValue( 0.0f ) * pParentEffectObject->mAlphaChannel.mBase.getGraphValue( 0.0f ), mAlphaChannel.mLife.getMinValue(), mAlphaChannel.mLife.getMaxValue() ) );
 
 
     // **********************************************************************************************************************

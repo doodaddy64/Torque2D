@@ -37,6 +37,9 @@ private:
         ParticlePlayer*                 mOwner;
         ParticleAssetEmitter*           mpAssetEmitter;
         ParticleSystem::ParticleNode    mParticleNodeHead;
+        F32                             mTimeSinceLastGeneration;
+        bool                            mPaused;
+        bool                            mVisible;
 
     public:
         EmitterNode( ParticlePlayer* pParticlePlayer, ParticleAssetEmitter* pParticleAssetEmitter )
@@ -51,6 +54,15 @@ private:
             // Set asset emitter.
             mpAssetEmitter = pParticleAssetEmitter;
 
+            // Set emitter not paused.
+            mPaused = false;
+
+            // Set emitter visible.
+            mVisible = true;
+
+            // Reset time since last generation.
+            mTimeSinceLastGeneration = 0.0f;
+
             // Reset the node head.
             mParticleNodeHead.mNextNode = mParticleNodeHead.mPreviousNode = &mParticleNodeHead;
         }
@@ -59,6 +71,21 @@ private:
         {
             freeAllParticles();
         }
+
+        inline ParticlePlayer* getOwner( void ) const { return mOwner; }
+        inline ParticleAssetEmitter* getAssetEmitter( void ) const { return mpAssetEmitter; }
+
+        inline ParticleSystem::ParticleNode* getFirstParticle( void ) const { return mParticleNodeHead.mNextNode; }
+        inline ParticleSystem::ParticleNode* getParticleNodeHead( void ) { return &mParticleNodeHead; }
+
+        inline void setTimeSinceLastGeneration( const F32 timeSinceLastGeneration ) { mTimeSinceLastGeneration = timeSinceLastGeneration; }
+        inline F32 getTimeSinceLastGeneration( void ) const { return mTimeSinceLastGeneration; }
+
+        inline void setPaused( const bool paused ) { mPaused = paused; }
+        inline bool getPaused( void ) const { return mPaused; }
+
+        inline void setVisible( const bool visible ) { mVisible = visible; }
+        inline bool getVisible( void ) const { return mVisible; }
 
         ParticleSystem::ParticleNode* createParticle( void );
         void freeParticle( ParticleSystem::ParticleNode* pParticleNode );
@@ -78,6 +105,7 @@ private:
     bool                        mPlaying;
     bool                        mPaused;
     F32                         mAge;
+    F32                         mParticleEngineQuantityScale;
 
     bool                        mWaitingForParticles;
     bool                        mWaitingForDelete;

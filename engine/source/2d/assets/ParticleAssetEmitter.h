@@ -106,10 +106,10 @@ private:
     ParticleAssetFieldBaseVariation         mEmissionForce;
     ParticleAssetFieldBaseVariation         mEmissionAngle;
     ParticleAssetFieldBaseVariation         mEmissionArc;
-    ParticleAssetFieldLife                  mColourRed;
-    ParticleAssetFieldLife                  mColourGreen;
-    ParticleAssetFieldLife                  mColourBlue;
-    ParticleAssetFieldLife                  mVisibility;
+    ParticleAssetFieldLife                  mRedChannel;
+    ParticleAssetFieldLife                  mGreenChannel;
+    ParticleAssetFieldLife                  mBlueChannel;
+    ParticleAssetFieldLife                  mAlphaChannel;
 
 public:
     ParticleAssetEmitter();
@@ -178,6 +178,39 @@ public:
     inline F32 getAlphaTest( void ) const { return mAlphaTest; }
 
     inline ParticleAssetFieldCollection& getParticleFields( void ) { return mParticleFields; }
+
+    inline ParticleAssetField& getParticleLifeBaseField( void ) { return mParticleLife.getBase(); }
+    inline ParticleAssetField& getParticleLifeVariationField( void ) { return mParticleLife.getVariation(); }
+    inline ParticleAssetField& getQuantityBaseField( void ) { return mQuantity.getBase(); }
+    inline ParticleAssetField& getQuantitVariationField( void ) { return mQuantity.getVariation(); }
+    inline ParticleAssetField& getSizeXBaseField( void ) { return mSizeX.getBase(); }
+    inline ParticleAssetField& getSizeXVariationField( void ) { return mSizeX.getVariation(); }
+    inline ParticleAssetField& getSizeXLifeField( void ) { return mSizeX.getLife(); }
+    inline ParticleAssetField& getSizeYBaseField( void ) { return mSizeY.getBase(); }
+    inline ParticleAssetField& getSizeYVariationField( void ) { return mSizeY.getVariation(); }
+    inline ParticleAssetField& getSizeYLifeField( void ) { return mSizeY.getLife(); }
+    inline ParticleAssetField& getSpeedBaseField( void ) { return mSpeed.getBase(); }
+    inline ParticleAssetField& getSpeedVariationField( void ) { return mSpeed.getVariation(); }
+    inline ParticleAssetField& getSpeedLifeField( void ) { return mSpeed.getLife(); }
+    inline ParticleAssetField& getSpinBaseField( void ) { return mSpin.getBase(); }
+    inline ParticleAssetField& getSpinVariationField( void ) { return mSpin.getVariation(); }
+    inline ParticleAssetField& getSpinLifeField( void ) { return mSpin.getLife(); }
+    inline ParticleAssetField& getFixedForceBaseField( void ) { return mFixedForce.getBase(); }
+    inline ParticleAssetField& getFixedForceVariationField( void ) { return mFixedForce.getVariation(); }
+    inline ParticleAssetField& getFixedForceLifeField( void ) { return mFixedForce.getLife(); }
+    inline ParticleAssetField& getRandomMotionForceBaseField( void ) { return mRandomMotion.getBase(); }
+    inline ParticleAssetField& getRandomMotionForceVariationField( void ) { return mRandomMotion.getVariation(); }
+    inline ParticleAssetField& getRandomMotionForceLifeField( void ) { return mRandomMotion.getLife(); }
+    inline ParticleAssetField& getEmissionForceForceBaseField( void ) { return mEmissionForce.getBase(); }
+    inline ParticleAssetField& getEmissionForceVariationField( void ) { return mEmissionForce.getVariation(); }
+    inline ParticleAssetField& getEmissionAngleForceBaseField( void ) { return mEmissionAngle.getBase(); }
+    inline ParticleAssetField& getEmissionAngleVariationField( void ) { return mEmissionAngle.getVariation(); }
+    inline ParticleAssetField& getEmissionArcForceBaseField( void ) { return mEmissionArc.getBase(); }
+    inline ParticleAssetField& getEmissionArcVariationField( void ) { return mEmissionArc.getVariation(); }
+    inline ParticleAssetField& getRedChannelLifeField( void ) { return mRedChannel.getLife(); }
+    inline ParticleAssetField& getGreenChannelLifeField( void ) { return mGreenChannel.getLife(); }
+    inline ParticleAssetField& getBlueChannelLifeField( void ) { return mBlueChannel.getLife(); }
+    inline ParticleAssetField& getAlphaChannelLifeField( void ) { return mAlphaChannel.getLife(); }
 
     static EmitterType getEmitterTypeEnum(const char* label);
     static const char* getEmitterTypeDescription( const EmitterType emitterType );

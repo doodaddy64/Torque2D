@@ -175,7 +175,7 @@ void ParticleEffect::copyTo(SimObject* object)
    mEmissionForce.copyTo(effect->mEmissionForce);
    mEmissionAngle.copyTo(effect->mEmissionAngle);
    mEmissionArc.copyTo(effect->mEmissionArc);
-   mVisibility.copyTo(effect->mVisibility);
+   mAlphaChannel.copyTo(effect->mAlphaChannel);
 
    if (getIsEffectPlaying() && effect->getScene())
       effect->playEffect(true);
@@ -521,7 +521,7 @@ void ParticleEffect::initialise( void )
    addGraphSelection( "spin_scale", &mSpin.mBase );
    addGraphSelection( "fixedforce_scale", &mFixedForce.mBase );
    addGraphSelection( "randommotion_scale", &mRandomMotion.mBase );
-   addGraphSelection( "visibility_scale", &mVisibility.mBase );
+   addGraphSelection( "visibility_scale", &mAlphaChannel.mBase );
    addGraphSelection( "emissionforce_base", &mEmissionForce.mBase );
    addGraphSelection( "emissionforce_var", &mEmissionForce.mVariation );
    addGraphSelection( "emissionangle_base", &mEmissionAngle.mBase );
@@ -541,7 +541,7 @@ void ParticleEffect::initialise( void )
    mSpin.mBase.setValueBounds( 1000.0f, -100.0f, 100.0f, 1.0f ); 
    mFixedForce.mBase.setValueBounds( 1000.0f, -100.0f, 100.0f, 1.0f ); 
    mRandomMotion.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
-   mVisibility.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
+   mAlphaChannel.mBase.setValueBounds( 1000.0f, 0.0f, 100.0f, 1.0f ); 
    mEmissionForce.mBase.setValueBounds( 1000.0f, -100.0f, 100.0f, 5.0f );
    mEmissionForce.mVariation.setValueBounds( 1000.0f, 0.0f, 200.0f, 0.0f );
    mEmissionAngle.mBase.setValueBounds( 1000.0f, -180.0f, 180.0f, 0.0f ); 
