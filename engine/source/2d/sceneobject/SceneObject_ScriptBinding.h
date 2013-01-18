@@ -3037,7 +3037,7 @@ ConsoleMethod( SceneObject, getEdgeCollisionShapeAdjacentEnd, const char*, 3, 3,
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneObject, copyAllCollisionShapes, void, 4, 4,  "(targetObject [, clearTargetShapes?] ) - Copies all collision shapes to the target object.\n"
+ConsoleMethod(SceneObject, copyAllCollisionShapes, void, 3, 4,  "(targetObject [, clearTargetShapes?] ) - Copies all collision shapes to the target object.\n"
                                                                 "@param targetObject - The target object to receive the collision shapes.\n"
                                                                 "@param clearTargetShapes - Whether to clear the current collision shapes on the target or not.  Optional: Defaults to true.\n"
                                                                 "@return No return value.")
