@@ -536,22 +536,22 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
 
 void ParticlePlayer::sceneRenderOverlay( const SceneRenderState* sceneRenderState )
 {
-    //// Call parent.
-    //Parent::sceneRenderOverlay( sceneRenderState );
+    // Call parent.
+    Parent::sceneRenderOverlay( sceneRenderState );
 
-    //// Get Scene.
-    //Scene* pScene = getScene();
+    // Get Scene.
+    Scene* pScene = getScene();
 
-    //// Cannot do anything without scene!
-    //if ( !pScene )
-    //    return;
+    // Finish if no scene.
+    if ( !pScene )
+        return;
 
-    //// Finish if we shouldn't be drawing the debug overlay.
-    //if ( !pScene->getIsEditorScene() || mCameraIdleDistance <= 0.0f || !isEnabled() || !getVisible() )
-    //    return;
+    // Finish if we shouldn't be drawing the debug overlay.
+    if ( !pScene->getIsEditorScene() || mLessThanOrEqual( mCameraIdleDistance, 0.0f ) || !isEnabled() || !getVisible() )
+        return;
 
-    //// Draw camera pause distance.
-    //pScene->mDebugDraw.DrawCircle( getRenderPosition(), mCameraIdleDistance, b2Color(1.0f, 1.0f, 0.0f ) );
+    // Draw camera pause distance.
+    pScene->mDebugDraw.DrawCircle( getRenderPosition(), mCameraIdleDistance, b2Color(1.0f, 1.0f, 0.0f ) );
 }
 
 //-----------------------------------------------------------------------------
