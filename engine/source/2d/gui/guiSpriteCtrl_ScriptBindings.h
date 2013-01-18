@@ -11,8 +11,8 @@ ConsoleMethod( GuiSpriteCtrl, isStaticMode, bool, 2, 2, "() - Gets whether the c
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod( GuiSpriteCtrl, setImage, void, 3, 3, "(imageAssetId) Sets the image-map asset Id to use as the image.\n"
-                                                    "@param imageAssetId The image-map asset Id to use as the image.\n"
+ConsoleMethod( GuiSpriteCtrl, setImage, void, 3, 3, "(imageAssetId) Sets the image asset Id to use as the image.\n"
+                                                    "@param imageAssetId The image asset Id to use as the image.\n"
                                                     "@return No return value.")
 {
    object->setImage( argv[2] );
@@ -20,8 +20,8 @@ ConsoleMethod( GuiSpriteCtrl, setImage, void, 3, 3, "(imageAssetId) Sets the ima
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod( GuiSpriteCtrl, getImage, const char*, 2, 2,  "() - Gets current imageMap asset Id.\n"
-                                                            "@return (string imageAssetId) The imagemap being displayed.")
+ConsoleMethod( GuiSpriteCtrl, getImage, const char*, 2, 2,  "() - Gets current image asset Id.\n"
+                                                            "@return (string imageAssetId) The image being displayed.")
 {
     // Are we in static mode?
     if ( !object->isStaticMode() )
@@ -37,8 +37,8 @@ ConsoleMethod( GuiSpriteCtrl, getImage, const char*, 2, 2,  "() - Gets current i
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod( GuiSpriteCtrl, setImageFrame, void, 3, 3,    "(int imageFrame) Sets the image-map frame to use as the image.\n"
-                                                            "@param imageFrame The image-map frame to use as the image.\n"
+ConsoleMethod( GuiSpriteCtrl, setImageFrame, void, 3, 3,    "(int imageFrame) Sets the image frame to use as the image.\n"
+                                                            "@param imageFrame The image frame to use as the image.\n"
                                                             "@return No return value.")
 {
    object->setImageFrame( dAtoi(argv[2]) );
@@ -46,7 +46,7 @@ ConsoleMethod( GuiSpriteCtrl, setImageFrame, void, 3, 3,    "(int imageFrame) Se
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod( GuiSpriteCtrl, getImageFrame, S32, 2, 2, "() - Gets current imageMap Frame.\n"
+ConsoleMethod( GuiSpriteCtrl, getImageFrame, S32, 2, 2, "() - Gets current image Frame.\n"
                                                         "@return (int frame) The frame currently being displayed.")
 {
     // Are we in static mode?

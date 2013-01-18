@@ -109,16 +109,16 @@ function createDefaultCanvas()
 function createDefaultRenderProxy()
 {
     // Create default image.
-    %defaultImageMap = new ImageAsset()
+    %defaultImage = new ImageAsset()
     {
         ImageFile = expandPath( "./modules/{MelvTesting}/1/assets/images/defaultImage.png" );
     };
-    %defaultAssetId = AssetDatabase.addPrivateAsset( %defaultImageMap );
+    %defaultAssetId = AssetDatabase.addPrivateAsset( %defaultImage );
 
     // Create no-image render proxy.
     $NoImageRenderProxy = new RenderProxy()
     {
-        ImageMap = %defaultAssetId;
+        Image = %defaultAssetId;
     };    
 }
 
@@ -164,7 +164,7 @@ function createLargeSprite()
     
     %sprite = new Sprite(Curiosity)
     {
-        ImageMap = %assetId;
+        Image = %assetId;
         frame = 0;
         size = "20 20";
     };
@@ -189,7 +189,7 @@ function createAnimatedSprite()
     
     %animation = new AnimationAsset()
     {
-        ImageMap = %imageAssetID;
+        Image = %imageAssetID;
         AnimationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
         AnimationTime = 16;
     };
@@ -220,7 +220,7 @@ function createBox2DScene()
            
     %animation = new AnimationAsset()
     {
-        ImageMap = %imageAssetID;
+        Image = %imageAssetID;
         AnimationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
         AnimationTime = 16;
     };
@@ -240,7 +240,7 @@ function createBox2DScene()
         %sprite = new Sprite()
         {
             //Animation = $TestAnimationID;
-            ImageMap = %assetId;
+            Image = %assetId;
             position = getRandom( -40, 40 ) SPC getRandom( 100, 40 );
             size = "5 5";
             angle = getRandom(0,360);
@@ -272,7 +272,7 @@ function createTestBindings()
 
 function pickFile()
 {
-    //$T2D::ImageMapSpec = "All Supported Graphics (*.jpg;*.jpeg;*.png;)|*.png;*.jpg;*.jpeg|";
+    //$T2D::ImageSpec = "All Supported Graphics (*.jpg;*.jpeg;*.png;)|*.png;*.jpg;*.jpeg|";
 
     %assetFileSpec = "Asset Files (*.taml)|*.taml|";
     

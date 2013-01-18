@@ -370,7 +370,7 @@ bool ParticleAssetEmitter::setImage( const char* pAssetId, U32 frame )
 
 bool ParticleAssetEmitter::setImageFrame( const U32 frame )
 {
-    // Check Existing ImageMap.
+    // Check Existing Image.
     if ( mImageAsset.isNull() )
     {
         // Warn.

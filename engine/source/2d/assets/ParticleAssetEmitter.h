@@ -161,7 +161,7 @@ public:
     inline void setOldestInFront( const bool oldestInFront ) { mOldestInFront = oldestInFront; refreshAsset();  }
     inline bool getOldestInFront( void ) const { return mOldestInFront; }
    
-    bool setImage( const char* imageMapName, const U32 frame = 0 );
+    bool setImage( const char* pAssetId, const U32 frame = 0 );
     inline StringTableEntry getImage( void ) const { return mImageAsset.getAssetId(); }
     bool setImageFrame( const U32 frame );
     inline U32 getImageFrame( void ) const { return mImageFrame; }

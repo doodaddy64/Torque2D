@@ -32,7 +32,7 @@ class LevelBuilderScrollerTool : public LevelBuilderCreateTool
    typedef LevelBuilderCreateTool Parent;
 
 private:
-   StringTableEntry mImageMapName;
+   StringTableEntry mImageName;
 
 protected:
    virtual SceneObject* createObject();
@@ -42,7 +42,7 @@ public:
    LevelBuilderScrollerTool();
    ~LevelBuilderScrollerTool();
 
-   void setImageMapName(const char* name) { mImageMapName = StringTable->insert(name); };
+   void setImageName(const char* name) { mImageName = StringTable->insert(name); };
 
    // Declare our Console Object
    DECLARE_CONOBJECT(LevelBuilderScrollerTool);

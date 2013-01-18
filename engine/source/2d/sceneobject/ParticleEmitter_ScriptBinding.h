@@ -237,13 +237,13 @@ ConsoleMethod(ParticleEmitter, setEmitterType, void, 3, 3, "(emitterType$) - Set
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(ParticleEmitter, setImageMap, bool, 3, 4, "(imageMapName$, [int frame]) - Set the ImageMap/Frame.")
+ConsoleMethod(ParticleEmitter, setImage, bool, 3, 4, "(ImageName$, [int frame]) - Set the Image/Frame.")
 {
     // Calculate Frame.
     U32 frame = argc >= 4 ? dAtoi(argv[3]) : 0;
 
-    // Set ImageMap/Frame.
-    return object->setImageMap( argv[2], frame );
+    // Set Image/Frame.
+    return object->setImage( argv[2], frame );
 }
 
 //------------------------------------------------------------------------------
@@ -504,10 +504,10 @@ ConsoleMethod(ParticleEmitter, getEmitterType, const char*, 2, 2, "Get Emitter T
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(ParticleEmitter, getImageMapNameFrame, const char*, 2, 2, "Get ImageMap Name and Frame.")
+ConsoleMethod(ParticleEmitter, getImageNameFrame, const char*, 2, 2, "Get Image Name and Frame.")
 {
-    // Get ImageMap Name/Frame.
-    return object->getImageMapNameFrame();
+    // Get Image Name/Frame.
+    return object->getImageNameFrame();
 }
 
 //------------------------------------------------------------------------------

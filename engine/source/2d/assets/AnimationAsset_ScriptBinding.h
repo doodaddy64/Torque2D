@@ -3,24 +3,24 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(AnimationAsset, setImageMap, void, 3, 3,  "(assetId) Sets the image asset Id.\n"
-                                                        "@return No return value.")
+ConsoleMethod(AnimationAsset, setImage, void, 3, 3, "(assetId) Sets the image asset Id.\n"
+                                                    "@return No return value.")
 {
     object->setImage( argv[2] );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(AnimationAsset, getImageMap, const char*, 2, 2,   "() Gets the image asset Id.\n"
-                                                                "@return The image asset Id.")
+ConsoleMethod(AnimationAsset, getImage, const char*, 2, 2,  "() Gets the image asset Id.\n"
+                                                            "@return The image asset Id.")
 {
     return object->getImage().getAssetId();
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(AnimationAsset, setAnimationFrames, void, 3, 3,   "(animationFrames) Sets the image-map frames that compose the animation.\n"
-                                                                "@param animationFrames A set of image-map frames that compose the animation.\n"
+ConsoleMethod(AnimationAsset, setAnimationFrames, void, 3, 3,   "(animationFrames) Sets the image frames that compose the animation.\n"
+                                                                "@param animationFrames A set of image frames that compose the animation.\n"
                                                                 "@return No return value.")
 {
     object->setAnimationFrames( argv[2] );
@@ -30,7 +30,7 @@ ConsoleMethod(AnimationAsset, setAnimationFrames, void, 3, 3,   "(animationFrame
 
 ConsoleMethod(AnimationAsset, getAnimationFrames, const char*, 2, 3,    "([bool validatedFrames]) Gets the frames that compose the animation or optionally only the ones validated against the image asset.\n"
                                                                         "@param validatedFrames - Whether to return only the validated frames or not.  Optional: Default is false.\n"
-                                                                        "@return The image-map frames that compose the animation or optionally only the ones validated against the image asset.")
+                                                                        "@return The image frames that compose the animation or optionally only the ones validated against the image asset.")
 {
     // Fetch a return buffer.
     S32 bufferSize = 4096;
@@ -62,7 +62,7 @@ ConsoleMethod(AnimationAsset, getAnimationFrames, const char*, 2, 3,    "([bool 
 
 ConsoleMethod(AnimationAsset, getAnimationFrameCount, S32, 2, 3,    "([bool validatedFrames]) Gets the count of frame that compose the animation or optionally only the ones validated against the image asset.\n"
                                                                     "@param validatedFrames - Whether to return only the validated frames or not.  Optional: Default is false.\n"
-                                                                    "@return The image-map frames that compose the animation or optionally only the ones validated against the image asset.")
+                                                                    "@return The image frames that compose the animation or optionally only the ones validated against the image asset.")
 {
     // Fetch validated frames flag.
     const bool validatedFrames = argc >= 3 ? dAtob( argv[2] ) : false;

@@ -3,21 +3,21 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(BitmapFontObject, setImageMap, bool, 3, 3, "(string imageMapName) - Sets imageMap/Frame.\n"
-                                                            "@param imageMapName The image-map to display\n"
-                                                            "@return Returns true on success.")
+ConsoleMethod(BitmapFontObject, setImage, bool, 3, 3,   "(imageAssetId) - Sets the image asset to use..\n"
+                                                        "@param imageName The image asset to use.\n"
+                                                        "@return Returns true on success.")
 {
-    // Set ImageMap.
-    return object->setImageMap( argv[2] );
+    // Set Image.
+    return object->setImage( argv[2] );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(BitmapFontObject, getImageMap, const char*, 2, 2,  "() - Gets current imageMap.\n"
-                                                                    "@return (string imageMap) The image-map being displayed")
+ConsoleMethod(BitmapFontObject, getImage, const char*, 2, 2,    "() - Gets current image asset..\n"
+                                                                "@return The current image asset.")
 {
-    // Get ImageMap.
-    return object->getImageMap();
+    // Get Image.
+    return object->getImage();
 }
 
 //-----------------------------------------------------------------------------

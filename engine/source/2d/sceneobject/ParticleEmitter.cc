@@ -116,7 +116,7 @@ void ParticleEmitter::copyTo(SimObject* object)
    emitter->mEmitterType = mEmitterType;
 
    if ( mImageAsset.notNull() )
-       emitter->setImageMap( mImageAsset.getAssetId(), mImageMapFrame );
+       emitter->setImage( mImageAsset.getAssetId(), mImageFrame );
 
    if ( mAnimationAsset.notNull() )
        emitter->setAnimation( mAnimationAsset.getAssetId() );
@@ -508,7 +508,7 @@ void ParticleEmitter::sceneRender( const SceneRenderState* pSceneRenderState, co
     if ( mActiveParticles == 0 )
         return;
 
-    // Cannot Render without Animation/ImageMap.
+    // Cannot Render without Animation/Image.
     if ( mStaticMode )
     {
         if ( mImageAsset.isNull() )
@@ -567,11 +567,11 @@ void ParticleEmitter::sceneRender( const SceneRenderState* pSceneRenderState, co
     // Frame area.
     ImageAsset::FrameArea::TexelArea texelFrameArea;
 
-    // Are we using an ImageMap?
+    // Are we using an Image?
     if ( mStaticMode )
     {
         // Yes, so fetch frame area.
-        texelFrameArea = mImageAsset->getImageFrameArea( mImageMapFrame ).mTexelArea;
+        texelFrameArea = mImageAsset->getImageFrameArea( mImageFrame ).mTexelArea;
         frameTexture = mImageAsset->getImageTexture();
     }
 
@@ -1165,10 +1165,10 @@ void ParticleEmitter::setEmitterType( EmitterType emitterType )
 
 //------------------------------------------------------------------------------
 
-bool ParticleEmitter::setImageMap( const char* pImageMapAssetId, U32 frame )
+bool ParticleEmitter::setImage( const char* pImageAssetId, U32 frame )
 {
     // Sanity!
-    AssertFatal( pImageMapAssetId != NULL, "Cannot use a NULL asset Id." );
+    AssertFatal( pImageAssetId != NULL, "Cannot use a NULL asset Id." );
 
     // Set static mode.
     mStaticMode = true;
@@ -1178,7 +1178,7 @@ bool ParticleEmitter::setImageMap( const char* pImageMapAssetId, U32 frame )
     mAnimationControllerProxy.clearAssets();
 
     // Set asset Id.
-    mImageAsset = pImageMapAssetId;
+    mImageAsset = pImageAssetId;
 
     // Finish if no asset.
     if ( mImageAsset.isNull() )
@@ -1188,13 +1188,13 @@ bool ParticleEmitter::setImageMap( const char* pImageMapAssetId, U32 frame )
     if ( frame >= mImageAsset->getFrameCount() )
     {
         // Warn.
-        Con::warnf("ParticleEmitter::setImageMap() - Invalid Frame #%d for ImageAsset Datablock! (%s)", frame, mImageAsset.getAssetId() );
+        Con::warnf("ParticleEmitter::setImage() - Invalid Frame #%d for ImageAsset Datablock! (%s)", frame, mImageAsset.getAssetId() );
         // Return Here.
         return false;
     }
 
     // Set Frame.
-    mImageMapFrame = frame;
+    mImageFrame = frame;
 
     // Free All Particles.
     freeAllParticles();
@@ -1472,7 +1472,7 @@ const char* ParticleEmitter::getEmitterType( void ) const
 
 //------------------------------------------------------------------------------
 
-const char* ParticleEmitter::getImageMapNameFrame( void ) const
+const char* ParticleEmitter::getImageNameFrame( void ) const
 {
     // Nothing to return if an animation is selected!
     if ( !mStaticMode )
@@ -1481,8 +1481,8 @@ const char* ParticleEmitter::getImageMapNameFrame( void ) const
     // Get Console Buffer.
     char* pConBuffer = Con::getReturnBuffer(256);
 
-    // Write ImageMap Name/Frame String.
-    dSprintf( pConBuffer, 256, "%s %d", mImageAsset.getAssetId(), mImageMapFrame );
+    // Write Image Name/Frame String.
+    dSprintf( pConBuffer, 256, "%s %d", mImageAsset.getAssetId(), mImageFrame );
 
     // Return Buffer.
     return pConBuffer;
@@ -1507,7 +1507,7 @@ const char* ParticleEmitter::getPivotPoint( void ) const
     // Get Console Buffer.
     char* pConBuffer = Con::getReturnBuffer(32);
 
-    // Write ImageMap Name/Frame String.
+    // Write Image Name/Frame String.
     dSprintf( pConBuffer, 32, "%f %f", mPivotPoint.x, mPivotPoint.y );
 
     // Return Buffer.
@@ -2475,14 +2475,14 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 3 )
     }
     else
     {
-        // No, so Load ImageMap Name..
+        // No, so Load Image Name..
         object->mImageAsset = stream.readSTString();
-        // Load ImageMap Frame.
-        if ( !stream.read( &object->mImageMapFrame ) )
+        // Load Image Frame.
+        if ( !stream.read( &object->mImageFrame ) )
             return false;
 
-        // Set ImageMap Name/Frame.
-        object->setImageMap( object->mImageAsset.getAssetId(), object->mImageMapFrame );
+        // Set Image Name/Frame.
+        object->setImage( object->mImageAsset.getAssetId(), object->mImageFrame );
     }
 
     // Load Particle Count.
@@ -2685,14 +2685,14 @@ IMPLEMENT_2D_LOAD_METHOD( ParticleEmitter, 4 )
     }
     else
     {
-        // No, so Load ImageMap Name..
+        // No, so Load Image Name..
         object->mImageAsset = stream.readSTString();
-        // Load ImageMap Frame.
-        if ( !stream.read( &object->mImageMapFrame ) )
+        // Load Image Frame.
+        if ( !stream.read( &object->mImageFrame ) )
             return false;
 
-        // Set ImageMap Name/Frame.
-        object->setImageMap( object->mImageAsset.getAssetId(), object->mImageMapFrame );
+        // Set Image Name/Frame.
+        object->setImage( object->mImageAsset.getAssetId(), object->mImageFrame );
     }
 
     // Return Okay.
@@ -2785,10 +2785,10 @@ IMPLEMENT_2D_SAVE_METHOD( ParticleEmitter, 4 )
     }
     else
     {
-        // No, so Save ImageMap Name..
+        // No, so Save Image Name..
         stream.writeString( object->mImageAsset.getAssetId() );
-        // Save ImageMap Frame.
-        if ( !stream.write( object->mImageMapFrame ) )
+        // Save Image Frame.
+        if ( !stream.write( object->mImageFrame ) )
             return false;
     }
 

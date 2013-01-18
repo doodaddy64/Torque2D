@@ -11,10 +11,10 @@ ConsoleMethod(SpriteBase, isStaticMode, bool, 2, 2,     "() - Gets whether the s
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(SpriteBase, setImageMap, bool, 3, 4,  "(string imageAssetId, [int frame]) - Sets the sprite image and optionally frame.\n"
-                                                    "@param imageAssetId The image asset Id to display\n"
-                                                    "@param frame The frame of the image to display\n"
-                                                    "@return Returns true on success.")
+ConsoleMethod(SpriteBase, setImage, bool, 3, 4, "(string imageAssetId, [int frame]) - Sets the sprite image and optionally frame.\n"
+                                                "@param imageAssetId The image asset Id to display\n"
+                                                "@param frame The frame of the image to display\n"
+                                                "@return Returns true on success.")
 {
     // Calculate Frame.
     U32 frame = argc >= 4 ? dAtoi(argv[3]) : 0;
@@ -25,14 +25,14 @@ ConsoleMethod(SpriteBase, setImageMap, bool, 3, 4,  "(string imageAssetId, [int 
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(SpriteBase, getImageMap, const char*, 2, 2,   "() - Gets current image asset Id.\n"
+ConsoleMethod(SpriteBase, getImage, const char*, 2, 2,  "() - Gets current image asset Id.\n"
                                                         "@return (string imageAssetId) The image being displayed")
 {
     // Are we in static mode?
     if ( !object->isStaticMode() )
     {
         // No, so warn.
-        Con::warnf( "SpriteBase::getImageMap() - Method invalid, not in static mode." );
+        Con::warnf( "SpriteBase::getImage() - Method invalid, not in static mode." );
         return StringTable->EmptyString;
     }
 

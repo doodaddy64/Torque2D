@@ -11,10 +11,10 @@ ConsoleMethod(RenderProxy, isStaticMode, bool, 2, 2,    "() - Gets whether the r
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(RenderProxy, setImageMap, bool, 3, 4,  "(string imageAssetId, [int frame]) - Sets imageAssetId/Frame.\n"
-                                                "@param imageAssetId The imagemap asset Id to display\n"
-                                                "@param frame The frame of the imagemap to display\n"
-                                                "@return Returns true on success.")
+ConsoleMethod(RenderProxy, setImage, bool, 3, 4,    "(string imageAssetId, [int frame]) - Sets imageAssetId/Frame.\n"
+                                                    "@param imageAssetId The image asset Id to display\n"
+                                                    "@param frame The frame of the image to display\n"
+                                                    "@return Returns true on success.")
 {
     // Fetch image asset Id.
     const char* pImageAssetId = argv[2];
@@ -22,30 +22,30 @@ ConsoleMethod(RenderProxy, setImageMap, bool, 3, 4,  "(string imageAssetId, [int
     // Calculate Frame.
     const U32 frame = argc >= 4 ? dAtoi(argv[3]) : 0;
 
-    // Set ImageMap.
+    // Set Image.
     return static_cast<SpriteProxyBase*>(object)->setImage(pImageAssetId, frame );
 }   
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(RenderProxy, getImageMap, const char*, 2, 2,   "() - Gets current imageMap asset Id.\n"
-                                                        "@return (string imageAssetId) The imagemap being displayed")
+ConsoleMethod(RenderProxy, getImagp, const char*, 2, 2, "() - Gets current image asset Id.\n"
+                                                        "@return (string imageAssetId) The image being displayed")
 {
     // Are we in static mode?
     if ( !object->isStaticMode() )
     {
         // No, so warn.
-        Con::warnf( "RenderProxy::getImageMap() - Method invalid, not in static mode." );
+        Con::warnf( "RenderProxy::getImage() - Method invalid, not in static mode." );
         return StringTable->EmptyString;
     }
 
-    // Get ImageMap.
+    // Get Image.
     return static_cast<SpriteProxyBase*>(object)->getImage();
 }   
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(RenderProxy, setFrame, bool, 3, 3,    "(int frame) - Sets imageMap frame.\n"
+ConsoleMethod(RenderProxy, setFrame, bool, 3, 3,    "(int frame) - Sets image frame.\n"
                                                     "@param frame The frame to display\n"
                                                     "@return Returns true on success.")
 {
@@ -57,13 +57,13 @@ ConsoleMethod(RenderProxy, setFrame, bool, 3, 3,    "(int frame) - Sets imageMap
         return false;
     }
 
-    // Set ImageMap Frame.
+    // Set Image Frame.
     return static_cast<SpriteProxyBase*>(object)->setImageFrame( dAtoi(argv[2]) );
 }
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(RenderProxy, getFrame, S32, 2, 2, "() - Gets current imageMap Frame.\n"
+ConsoleMethod(RenderProxy, getFrame, S32, 2, 2, "() - Gets current image Frame.\n"
                                                 "@return (int frame) The frame currently being displayed")
 {
     // Are we in static mode?
@@ -74,7 +74,7 @@ ConsoleMethod(RenderProxy, getFrame, S32, 2, 2, "() - Gets current imageMap Fram
         return -1;
     }
 
-    // Get ImageMap Frame.
+    // Get Image Frame.
     return object->getImageFrame();
 }
 

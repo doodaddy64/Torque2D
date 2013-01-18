@@ -230,7 +230,7 @@ void SpriteProxyBase::copyTo(SpriteProxyBase* pSpriteProxyBase) const
     // Are we in static mode?
     if ( mStaticMode )
     {
-        // Yes, so use the image-map/frame if we have an asset.
+        // Yes, so use the image/frame if we have an asset.
         if ( mImageAsset.notNull() )
             pSpriteProxyBase->setImage( getImage(), getImageFrame() );
     }
@@ -299,7 +299,7 @@ bool SpriteProxyBase::setImage( const char* pImageAssetId, const U32 frame )
 
 bool SpriteProxyBase::setImageFrame( const U32 frame )
 {
-    // Check Existing ImageMap.
+    // Check Existing Image.
     if ( mImageAsset.isNull() )
     {
         // Warn.

@@ -36,7 +36,7 @@ class LevelBuilderBitmapFontTool : public LevelBuilderCreateTool
    typedef LevelBuilderCreateTool Parent;
 
 private:
-   StringTableEntry  mImageMapName;
+   StringTableEntry  mImageName;
    StringBuffer mText;
 
 protected:
@@ -47,7 +47,7 @@ public:
    LevelBuilderBitmapFontTool();
    ~LevelBuilderBitmapFontTool();
 
-   void setImageMapName( const char* name );
+   void setImageName( const char* name );
    void setText( const char* text );
 
    // Declare our Console Object

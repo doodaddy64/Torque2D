@@ -766,8 +766,8 @@ void ImageAsset::initializeAsset( void )
     // Ensure the image-file is expanded.
     mImageFile = expandAssetFilePath( mImageFile );
 
-    // Calculate the image-map.
-    calculateImageMap();
+    // Calculate the image.
+    calculateImage();
 }
 
 //------------------------------------------------------------------------------
@@ -781,8 +781,8 @@ void ImageAsset::onAssetRefresh( void )
     // Call parent.
     Parent::onAssetRefresh();
     
-    // Compile image-map.
-    calculateImageMap();
+    // Compile image.
+    calculateImage();
 }
 
 //-----------------------------------------------------------------------------
@@ -943,10 +943,10 @@ void ImageAsset::onTamlCustomRead( const TamlCollection& customCollection )
 
 //------------------------------------------------------------------------------
 
-void ImageAsset::calculateImageMap( void )
+void ImageAsset::calculateImage( void )
 {
     // Debug Profiling.
-    PROFILE_SCOPE(ImageAsset_CalculateImageMap);
+    PROFILE_SCOPE(ImageAsset_CalculateImage);
 
     // Clear frames.
     mFrames.clear();
@@ -958,7 +958,7 @@ void ImageAsset::calculateImageMap( void )
     if ( mImageTextureHandle.IsNull() )
     {
         // No, so warn.
-        Con::warnf( "ImageMap '%s' could not load texture '%s'.", getAssetId(), mImageFile );
+        Con::warnf( "Image '%s' could not load texture '%s'.", getAssetId(), mImageFile );
         return;
     }
 
@@ -1028,7 +1028,7 @@ void ImageAsset::calculateImplicitMode( void )
     if ( mCellWidth < 1 || mCellWidth > imageWidth )
     {
         // Warn.
-        Con::warnf("ImageAsset::calculateImageMap() - Invalid Cell Width of %d.", mCellWidth );
+        Con::warnf("ImageAsset::calculateImage() - Invalid Cell Width of %d.", mCellWidth );
         return;
     }
 
@@ -1036,7 +1036,7 @@ void ImageAsset::calculateImplicitMode( void )
     if ( mCellHeight < 1 || mCellHeight > imageWidth )
     {
         // Warn.
-        Con::warnf("ImageAsset::calculateImageMap() - Invalid Cell Height of %d.", mCellHeight );
+        Con::warnf("ImageAsset::calculateImage() - Invalid Cell Height of %d.", mCellHeight );
         return;
     }
 
@@ -1044,7 +1044,7 @@ void ImageAsset::calculateImplicitMode( void )
     if ( mCellOffsetX < 0 || mCellOffsetX >= imageWidth )
     {
         // Warn.
-        Con::warnf("ImageAsset::calculateImageMap() - Invalid Cell OffsetX of %d.", mCellOffsetX );
+        Con::warnf("ImageAsset::calculateImage() - Invalid Cell OffsetX of %d.", mCellOffsetX );
         return;
     }
 
@@ -1052,7 +1052,7 @@ void ImageAsset::calculateImplicitMode( void )
     if ( mCellOffsetY < 0 || mCellOffsetY >= imageWidth )
     {
         // Warn.
-        Con::warnf("ImageAsset::calculateImageMap() - Invalid Cell OffsetY of %d.", mCellOffsetY );
+        Con::warnf("ImageAsset::calculateImage() - Invalid Cell OffsetY of %d.", mCellOffsetY );
         return;
     }
 
@@ -1089,14 +1089,14 @@ void ImageAsset::calculateImplicitMode( void )
     if ( cellFinalPositionX < 0 )
     {
         // Warn.
-        Con::warnf("ImageAsset::calculateImageMap() - Invalid Cell OffsetX(%d)/Width(%d)/CountX(%d); off image left-hand-side.", mCellOffsetX, mCellWidth, mCellCountX );
+        Con::warnf("ImageAsset::calculateImage() - Invalid Cell OffsetX(%d)/Width(%d)/CountX(%d); off image left-hand-side.", mCellOffsetX, mCellWidth, mCellCountX );
         return;
     }
     // Off Right?
     else if ( cellFinalPositionX > imageWidth )
     {
         // Warn.
-        Con::warnf("ImageAsset::calculateImageMap() - Invalid Cell OffsetX(%d)/Width(%d)/CountX(%d); off image right-hand-side.", mCellOffsetX, mCellWidth, mCellCountX );
+        Con::warnf("ImageAsset::calculateImage() - Invalid Cell OffsetX(%d)/Width(%d)/CountX(%d); off image right-hand-side.", mCellOffsetX, mCellWidth, mCellCountX );
         return;
     }
 
@@ -1106,14 +1106,14 @@ void ImageAsset::calculateImplicitMode( void )
     if ( cellFinalPositionY < 0 )
     {
         // Warn.
-        Con::warnf("ImageAsset::calculateImageMap() - Invalid Cell OffsetY(%d)/Height(%d)/CountY(%d); off image top-side.", mCellOffsetY, mCellHeight, mCellCountY );
+        Con::warnf("ImageAsset::calculateImage() - Invalid Cell OffsetY(%d)/Height(%d)/CountY(%d); off image top-side.", mCellOffsetY, mCellHeight, mCellCountY );
         return;
     }
     // Off Bottom?
     else if ( cellFinalPositionY > imageHeight )
     {
         // Warn.
-        Con::warnf("ImageAsset::calculateImageMap() - Invalid Cell OffsetY(%d)/Height(%d)/CountY(%d); off image bottom-side.", mCellOffsetY, mCellHeight, mCellCountY );
+        Con::warnf("ImageAsset::calculateImage() - Invalid Cell OffsetY(%d)/Height(%d)/CountY(%d); off image bottom-side.", mCellOffsetY, mCellHeight, mCellCountY );
         return;
     }
 

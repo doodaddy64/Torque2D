@@ -47,8 +47,8 @@ Point2I LevelBuilderAnimatedSpriteTool::getPixelSize()
 }
 
 ConsoleMethod(LevelBuilderAnimatedSpriteTool, setAnimation, void, 3, 3, "(animationName) Sets the animation for the created animated sprites.\n"
-			  "@param animationName The name of the desired animation."
-			  "@return No return value.")
+              "@param animationName The name of the desired animation."
+              "@return No return value.")
 {
    t2dAnimationDatablock* animation = dynamic_cast<t2dAnimationDatablock*>(Sim::findObject(argv[2]));
    if (animation)

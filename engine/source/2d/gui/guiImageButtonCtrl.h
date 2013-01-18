@@ -58,13 +58,13 @@ public:
 
    static void initPersistFields();
 
-   void setNormalImage( const char* pImageMapAssetId );
+   void setNormalImage( const char* pImageAssetId );
    inline StringTableEntry getNormalImage( void ) const { return mNormalAssetId; }
-   void setHoverImage( const char* pImageMapAssetId );
+   void setHoverImage( const char* pImageAssetId );
    inline StringTableEntry getHoverImage( void ) const { return mHoverAssetId; }
-   void setDownImage( const char* pImageMapAssetId );
+   void setDownImage( const char* pImageAssetId );
    inline StringTableEntry getDownImage( void ) const { return mDownAssetId; }
-   void setInactiveImage( const char* pImageMapAssetId );
+   void setInactiveImage( const char* pImageAssetId );
    inline StringTableEntry getInactiveImage( void ) const { return mInactiveAssetId; }
 
    // Declare type.

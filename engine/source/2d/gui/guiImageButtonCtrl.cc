@@ -56,10 +56,10 @@ void GuiImageButtonCtrl::initPersistFields()
     // Call parent.
     Parent::initPersistFields();
 
-    addProtectedField("NormalImage", TypeAssetId, Offset(mNormalAssetId, GuiImageButtonCtrl), &setNormalImage, &getNormalImage, "The image-map asset Id used for the normal button state.");
-    addProtectedField("HoverImage", TypeAssetId, Offset(mHoverAssetId, GuiImageButtonCtrl), &setHoverImage, &getHoverImage, "The image-map asset Id used for the hover button state.");
-    addProtectedField("DownImage", TypeAssetId, Offset(mDownAssetId, GuiImageButtonCtrl), &setDownImage, &getDownImage, "The image-map asset Id used for the Down button state.");
-    addProtectedField("InactiveImage", TypeAssetId, Offset(mInactiveAssetId, GuiImageButtonCtrl), &setInactiveImage, &getInactiveImage, "The image-map asset Id used for the inactive button state.");
+    addProtectedField("NormalImage", TypeAssetId, Offset(mNormalAssetId, GuiImageButtonCtrl), &setNormalImage, &getNormalImage, "The image asset Id used for the normal button state.");
+    addProtectedField("HoverImage", TypeAssetId, Offset(mHoverAssetId, GuiImageButtonCtrl), &setHoverImage, &getHoverImage, "The image asset Id used for the hover button state.");
+    addProtectedField("DownImage", TypeAssetId, Offset(mDownAssetId, GuiImageButtonCtrl), &setDownImage, &getDownImage, "The image asset Id used for the Down button state.");
+    addProtectedField("InactiveImage", TypeAssetId, Offset(mInactiveAssetId, GuiImageButtonCtrl), &setInactiveImage, &getInactiveImage, "The image asset Id used for the inactive button state.");
 }
 
 //-----------------------------------------------------------------------------
@@ -110,13 +110,13 @@ void GuiImageButtonCtrl::onSleep()
 
 //-----------------------------------------------------------------------------
 
-void GuiImageButtonCtrl::setNormalImage( const char* pImageMapAssetId )
+void GuiImageButtonCtrl::setNormalImage( const char* pImageAssetId )
 {
     // Sanity!
-    AssertFatal( pImageMapAssetId != NULL, "Cannot use a NULL asset Id." );
+    AssertFatal( pImageAssetId != NULL, "Cannot use a NULL asset Id." );
 
     // Fetch the asset Id.
-    mNormalAssetId = StringTable->insert(pImageMapAssetId);
+    mNormalAssetId = StringTable->insert(pImageAssetId);
 
     // Assign asset if awake.
     if ( isAwake() )
@@ -128,13 +128,13 @@ void GuiImageButtonCtrl::setNormalImage( const char* pImageMapAssetId )
 
 //-----------------------------------------------------------------------------
 
-void GuiImageButtonCtrl::setHoverImage( const char* pImageMapAssetId )
+void GuiImageButtonCtrl::setHoverImage( const char* pImageAssetId )
 {
     // Sanity!
-    AssertFatal( pImageMapAssetId != NULL, "Cannot use a NULL asset Id." );
+    AssertFatal( pImageAssetId != NULL, "Cannot use a NULL asset Id." );
 
     // Fetch the asset Id.
-    mHoverAssetId = StringTable->insert(pImageMapAssetId);
+    mHoverAssetId = StringTable->insert(pImageAssetId);
 
     // Assign asset if awake.
     if ( isAwake() )
@@ -146,13 +146,13 @@ void GuiImageButtonCtrl::setHoverImage( const char* pImageMapAssetId )
 
 //-----------------------------------------------------------------------------
 
-void GuiImageButtonCtrl::setDownImage( const char* pImageMapAssetId )
+void GuiImageButtonCtrl::setDownImage( const char* pImageAssetId )
 {
     // Sanity!
-    AssertFatal( pImageMapAssetId != NULL, "Cannot use a NULL asset Id." );
+    AssertFatal( pImageAssetId != NULL, "Cannot use a NULL asset Id." );
 
     // Fetch the asset Id.
-    mDownAssetId = StringTable->insert(pImageMapAssetId);
+    mDownAssetId = StringTable->insert(pImageAssetId);
 
     // Assign asset if awake.
     if ( isAwake() )
@@ -164,13 +164,13 @@ void GuiImageButtonCtrl::setDownImage( const char* pImageMapAssetId )
 
 //-----------------------------------------------------------------------------
 
-void GuiImageButtonCtrl::setInactiveImage( const char* pImageMapAssetId )
+void GuiImageButtonCtrl::setInactiveImage( const char* pImageAssetId )
 {
     // Sanity!
-    AssertFatal( pImageMapAssetId != NULL, "Cannot use a NULL asset Id." );
+    AssertFatal( pImageAssetId != NULL, "Cannot use a NULL asset Id." );
 
     // Fetch the asset Id.
-    mInactiveAssetId = StringTable->insert(pImageMapAssetId);
+    mInactiveAssetId = StringTable->insert(pImageAssetId);
 
     // Assign asset if awake.
     if ( isAwake() )

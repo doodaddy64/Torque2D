@@ -42,7 +42,7 @@ void AnimationAsset::initPersistFields()
     // Call parent.
     Parent::initPersistFields();
 
-    addProtectedField("ImageMap", TypeImageAssetPtr, Offset(mImageAsset, AnimationAsset), &setImage, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
+    addProtectedField("Image", TypeImageAssetPtr, Offset(mImageAsset, AnimationAsset), &setImage, &defaultProtectedGetFn, &writeImage, "");
     addProtectedField("AnimationFrames", TypeS32Vector, Offset(mAnimationFrames, AnimationAsset), &setAnimationFrames, &defaultProtectedGetFn, &writeAnimationFrames, "");
     addProtectedField("AnimationTime", TypeF32, Offset(mAnimationTime, AnimationAsset), &setAnimationTime, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
     addProtectedField("AnimationCycle", TypeBool, Offset(mAnimationCycle, AnimationAsset), &setAnimationCycle, &defaultProtectedGetFn, &writeAnimationCycle, "");
@@ -181,7 +181,7 @@ void AnimationAsset::validateFrames( void )
     // Clear validated frames.
     mValidatedFrames.clear();
 
-    // Finish if we don't have a valid image-map asset.
+    // Finish if we don't have a valid image asset.
     if ( mImageAsset.isNull() )
         return;
 
@@ -192,11 +192,11 @@ void AnimationAsset::validateFrames( void )
     if ( animationFrameCount == 0 )
         return;
 
-    // Fetch image-map frame count.
-    const S32 imageMapFrameCount = (S32)mImageAsset->getFrameCount();
+    // Fetch image asset frame count.
+    const S32 imageAssetFrameCount = (S32)mImageAsset->getFrameCount();
 
-    // Finish if the image-map has no frames.
-    if ( imageMapFrameCount == 0 )
+    // Finish if the image has no frames.
+    if ( imageAssetFrameCount == 0 )
         return;
 
     // Validate each specified frame.
@@ -206,10 +206,10 @@ void AnimationAsset::validateFrames( void )
         S32 frame = mAnimationFrames[frameIndex];
 
         // Valid Frame?
-        if ( frame < 0 || frame >= imageMapFrameCount )
+        if ( frame < 0 || frame >= imageAssetFrameCount )
         {
             // No, warn.
-            Con::warnf( "AnimationAsset::validateFrames() - Animation asset '%s' specifies an out-of-bound frame of '%d' (key-index:'%d') against image-map asset Id '%s'.",
+            Con::warnf( "AnimationAsset::validateFrames() - Animation asset '%s' specifies an out-of-bound frame of '%d' (key-index:'%d') against image asset Id '%s'.",
                 getAssetName(),
                 frame,
                 frameIndex,
@@ -217,8 +217,8 @@ void AnimationAsset::validateFrames( void )
 
             if ( frame < 0 )
                 frame = 0;
-            else if ( frame >= imageMapFrameCount )
-                frame = imageMapFrameCount-1;
+            else if ( frame >= imageAssetFrameCount )
+                frame = imageAssetFrameCount-1;
         }
 
         // Use frame.

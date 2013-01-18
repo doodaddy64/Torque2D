@@ -59,7 +59,7 @@ public:
     virtual void advanceTime( F32 timeDelta ) {};
 
     /// Static.
-    void setImage( const char* pImageMapAssetId );
+    void setImage( const char* pImageAssetId );
     inline StringTableEntry getImage( void ) const { if ( isStaticMode() ) return mImageAssetId; else return StringTable->EmptyString; };
     void setImageFrame( const U32 imageFrame );
     inline U32 getImageFrame( void ) const { return mImageFrame; };

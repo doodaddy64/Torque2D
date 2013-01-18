@@ -92,7 +92,7 @@ void BitmapFontObject::initPersistFields()
     // Call parent.
     Parent::initPersistFields();
 
-    addProtectedField("imageMap", TypeImageAssetPtr, Offset(mImageAsset, BitmapFontObject), &setImageMap, &getImageMap, &writeImageMap, "");
+    addProtectedField("image", TypeImageAssetPtr, Offset(mImageAsset, BitmapFontObject), &setImage, &getImage, &writeImage, "");
     addProtectedField("text", TypeString, Offset( mConsoleBuffer, BitmapFontObject ), setText, getText, &writeText, "The text to be displayed." );  
     addProtectedField("textAlignment", TypeEnum, Offset(mTextAlignment, BitmapFontObject), &setTextAlignment, &defaultProtectedGetFn, &writeTextAlignment, 1, &gTextAlignmentTable, "");
     addProtectedField("characterSize", TypeT2DVector, Offset(mCharacterSize, BitmapFontObject), &setCharacterSize, &defaultProtectedGetFn,&writeCharacterSize, "" );
@@ -133,7 +133,7 @@ void BitmapFontObject::copyTo(SimObject* object)
     Parent::copyTo(object);
 
     // Copy.
-    pFontObject->setImageMap( getImageMap() );
+    pFontObject->setImage( getImage() );
     pFontObject->setText( getText() );
     pFontObject->setTextAlignment( getTextAlignment() );
     pFontObject->setCharacterSize( getCharacterSize() );
@@ -144,7 +144,7 @@ void BitmapFontObject::copyTo(SimObject* object)
 
 void BitmapFontObject::sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer )
 {
-    // Finish if no imagemap asset.
+    // Finish if no image asset.
     if ( mImageAsset.isNull() )
         return;
 
@@ -251,12 +251,12 @@ void BitmapFontObject::sceneRender( const SceneRenderState* pSceneRenderState, c
 
 //-----------------------------------------------------------------------------
 
-bool BitmapFontObject::setImageMap( const char* pImageMapAssetId )
+bool BitmapFontObject::setImage( const char* pImageAssetId )
 {
     // Set asset.
-    mImageAsset = pImageMapAssetId;
+    mImageAsset = pImageAssetId;
 
-    // Finish if no imagemap asset.
+    // Finish if no image asset.
     if ( mImageAsset.isNull() )
         return false;
 
@@ -264,7 +264,7 @@ bool BitmapFontObject::setImageMap( const char* pImageMapAssetId )
     if ( mImageAsset->getFrameCount() < 96 )
     {
         // Warn.
-        Con::warnf("BitmapFontObject::setImageMap() - The image-map needs to have at least 96 frames to be used as a font! (%s)", mImageAsset.getAssetId() );
+        Con::warnf("BitmapFontObject::setImage() - The image needs to have at least 96 frames to be used as a font! (%s)", mImageAsset.getAssetId() );
         mImageAsset.clear();
         return false;
     }

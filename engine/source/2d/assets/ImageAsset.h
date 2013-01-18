@@ -210,7 +210,7 @@ public:
 
 private:
     inline void clampFrame( U32& frame ) const                              { const U32 totalFrames = getFrameCount(); if ( frame >= totalFrames ) frame = (totalFrames == 0 ? 0 : totalFrames-1 ); };
-    void calculateImageMap( void );
+    void calculateImage( void );
     void calculateImplicitMode( void );
     void calculateExplicitMode( void );
     void setTextureFilter( const TextureFilterMode filterMode );

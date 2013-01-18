@@ -67,7 +67,7 @@ protected:
 
 protected:
     static bool setImage( void* obj, const char* data )                         { static_cast<AnimationAsset*>(obj)->setImage( data ); return false; }
-    static bool writeImageMap( void* obj, StringTableEntry pFieldName )         { return static_cast<AnimationAsset*>(obj)->mImageAsset.notNull(); }
+    static bool writeImage( void* obj, StringTableEntry pFieldName )            { return static_cast<AnimationAsset*>(obj)->mImageAsset.notNull(); }
     static bool setAnimationFrames( void* obj, const char* data )               { static_cast<AnimationAsset*>(obj)->setAnimationFrames( data ); return false; }    
     static bool writeAnimationFrames( void* obj, StringTableEntry pFieldName )  { return static_cast<AnimationAsset*>(obj)->mAnimationFrames.size() > 0; }
     static bool setAnimationTime( void* obj, const char* data )                 { static_cast<AnimationAsset*>(obj)->setAnimationTime( dAtof(data) ); return false; }

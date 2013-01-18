@@ -80,14 +80,14 @@ public:
     virtual void sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer );
     virtual bool canRender( void ) const { return mImageAsset.notNull() && mText.length() > 0; }
 
-    bool setImageMap( const char* pImageMapAssetId );
-    const char* getImageMap( void ) const                           { return mImageAsset.getAssetId(); };
+    bool setImage( const char* pImageAssetId );
+    const char* getImage( void ) const                                  { return mImageAsset.getAssetId(); };
     void setText( const StringBuffer& text );
     inline StringBuffer& getText( void )                                { return mText; }
     void setTextAlignment( const TextAlignment alignment );
     inline TextAlignment getTextAlignment( void ) const                 { return mTextAlignment; }
     void setCharacterSize( const Vector2& size );
-    inline Vector2 getCharacterSize( void ) const                     { return mCharacterSize; }
+    inline Vector2 getCharacterSize( void ) const                       { return mCharacterSize; }
     void setCharacterPadding( const U32 padding );
     inline U32 getCharacterPadding( void ) const                        { return mCharacterPadding; }
 
@@ -98,9 +98,9 @@ public:
     DECLARE_CONOBJECT(BitmapFontObject);
 
 protected:
-    static bool setImageMap(void* obj, const char* data)                { static_cast<BitmapFontObject*>(obj)->setImageMap( data ); return false; }
-    static const char* getImageMap(void* obj, const char* data)         { return static_cast<BitmapFontObject*>(obj)->getImageMap(); }
-    static bool writeImageMap( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(BitmapFontObject); return pCastObject->mImageAsset.notNull(); }
+    static bool setImage(void* obj, const char* data)                   { static_cast<BitmapFontObject*>(obj)->setImage( data ); return false; }
+    static const char* getImage(void* obj, const char* data)            { return static_cast<BitmapFontObject*>(obj)->getImage(); }
+    static bool writeImage( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(BitmapFontObject); return pCastObject->mImageAsset.notNull(); }
     static bool setText( void* obj, const char* data )                  { static_cast<BitmapFontObject*>( obj )->setText( data ); return false; }
     static const char* getText( void* obj, const char* data )           { return static_cast<BitmapFontObject*>( obj )->getText().getPtr8(); }
     static bool writeText( void* obj, StringTableEntry pFieldName )     { PREFAB_WRITE_CHECK(BitmapFontObject); return pCastObject->mText.length() != 0; }

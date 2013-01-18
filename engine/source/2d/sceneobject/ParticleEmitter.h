@@ -142,7 +142,7 @@ private:
     EmitterType            mEmitterType;
 
     AssetPtr<ImageAsset>  mImageAsset;
-    U32                     mImageMapFrame;
+    U32                     mImageFrame;
     AssetPtr<AnimationAsset> mAnimationAsset;
     AnimationController  mAnimationControllerProxy;
     bool                    mStaticMode;
@@ -215,7 +215,7 @@ public:
     void setRandomArc( F32 arc );
     void setPivotPoint( Vector2 pivotPoint );
     void setFixedForceAngle( F32 fixedForceAngle );
-    bool setImageMap( const char* imageMapName, U32 frame );
+    bool setImage( const char* imageName, U32 frame );
     bool setAnimation( const char* animationName );
     void setFixedAspect( bool aspect );
     void setIntenseParticles( bool intenseParticles );
@@ -240,7 +240,7 @@ public:
     F32 getRandomAngleOffset( void ) const;
     F32 getRandomArc( void ) const;
     const char* getEmitterType( void ) const;
-    const char* getImageMapNameFrame( void ) const;
+    const char* getImageNameFrame( void ) const;
     const char* getAnimation( void ) const;
     const char* getPivotPoint( void ) const;
     bool getFixedAspect( void ) const;

@@ -1638,14 +1638,14 @@ void Grid::sceneRender( const SceneRenderState* pSceneRenderState, const SceneRe
 
             if ( imageItr.getValue() )
             {
-                ImageAsset* imageMap = imageItr.getValue();
+                ImageAsset* image = imageItr.getValue();
 
                 // Fetch the frame area
                 HashTable<S32, U32>::iterator frameItr = mImageFrameDictionary.find(key);
                 U32 frame = frameItr.getValue();
 
                 // Fetch current frame area.
-                const ImageAsset::FrameArea::TexelArea& texelFrameArea = imageMap->getImageFrameArea( frame ).mTexelArea;
+                const ImageAsset::FrameArea::TexelArea& texelFrameArea = image->getImageFrameArea( frame ).mTexelArea;
 
                 // Fetch lower/upper texture coordinates.
                 const Vector2& texLower = texelFrameArea.mTexelLower;
@@ -1670,7 +1670,7 @@ void Grid::sceneRender( const SceneRenderState* pSceneRenderState, const SceneRe
                     Vector2( texUpper.x, texLower.y ),
                     Vector2( texUpper.x, texUpper.y ),
                     Vector2( texLower.x, texUpper.y ),
-                    imageMap->getImageTexture() );
+                    image->getImageTexture() );
             }
         }
     }

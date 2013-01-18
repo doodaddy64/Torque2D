@@ -13,7 +13,7 @@
 IMPLEMENT_CONOBJECT(LevelBuilderBitmapFontTool);
 
 LevelBuilderBitmapFontTool::LevelBuilderBitmapFontTool() : LevelBuilderCreateTool(),
-    mImageMapName(NULL),
+    mImageName(NULL),
     mText("")
 {
     // Set our tool name
@@ -30,7 +30,7 @@ SceneObject* LevelBuilderBitmapFontTool::createObject()
 
     if (bitmapFontObject)
     {
-        bitmapFontObject->setImageMap(mImageMapName);
+        bitmapFontObject->setImage(mImageName);
     }
 
     return bitmapFontObject;
@@ -41,10 +41,10 @@ Point2I LevelBuilderBitmapFontTool::getPixelSize()
     BitmapFontObject* bitmapFontObject = dynamic_cast<BitmapFontObject*>(mCreatedObject);
     if (bitmapFontObject)
     {
-        ImageAsset* imageMap = dynamic_cast<ImageAsset*>(Sim::findObject(bitmapFontObject->getImageMap()));
-        if (imageMap)
+        ImageAsset* image = dynamic_cast<ImageAsset*>(Sim::findObject(bitmapFontObject->getImage()));
+        if (image)
         {
-            const ImageAsset::FrameArea::PixelArea& pixelArea = imageMap->getImageFrameArea(0).mPixelArea;
+            const ImageAsset::FrameArea::PixelArea& pixelArea = image->getImageFrameArea(0).mPixelArea;
             return Point2I(pixelArea.mPixelWidth, pixelArea.mPixelHeight);
         }
     }
@@ -52,20 +52,20 @@ Point2I LevelBuilderBitmapFontTool::getPixelSize()
     return Parent::getPixelSize();
 }
 
-ConsoleMethod(LevelBuilderBitmapFontTool, setImageMap, void, 3, 3, "Sets the image map for the created bitmap font object.")
+ConsoleMethod(LevelBuilderBitmapFontTool, setImage, void, 3, 3, "Sets the image map for the created bitmap font object.")
 {
-    ImageAsset* imageMap = dynamic_cast<ImageAsset*>(Sim::findObject(argv[2]));
-    if (imageMap)
+    ImageAsset* image = dynamic_cast<ImageAsset*>(Sim::findObject(argv[2]));
+    if (image)
     {
-        object->setImageMapName(argv[2]);
+        object->setImageName(argv[2]);
     }
     else
-        Con::warnf("LevelBuilderBitmapFontTool::setImageMap - Invalid image map: %s", argv[2]);
+        Con::warnf("LevelBuilderBitmapFontTool::setImage - Invalid image map: %s", argv[2]);
 }
 
-void LevelBuilderBitmapFontTool::setImageMapName( const char* name )
+void LevelBuilderBitmapFontTool::setImageName( const char* name )
 {
-    mImageMapName = StringTable->insert(name); 
+    mImageName = StringTable->insert(name); 
 };
 
 ConsoleMethod(LevelBuilderBitmapFontTool, setBitmapText, void, 3, 3, "Sets the text for a bitmap font object.")

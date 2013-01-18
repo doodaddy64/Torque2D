@@ -59,8 +59,8 @@ void GuiSpriteCtrl::initPersistFields()
     // Call parent.
     Parent::initPersistFields();
 
-    addProtectedField( "Image", TypeAssetId, Offset(mImageAssetId, GuiSpriteCtrl), &setImage, &getImage, &writeImage, "The image-map asset Id used for the image." );
-    addProtectedField( "Frame", TypeS32, Offset(mImageFrame, GuiSpriteCtrl), &setImageFrame, &defaultProtectedGetFn, &writeImageFrame, "The image-map frame used for the image." );
+    addProtectedField( "Image", TypeAssetId, Offset(mImageAssetId, GuiSpriteCtrl), &setImage, &getImage, &writeImage, "The image asset Id used for the image." );
+    addProtectedField( "Frame", TypeS32, Offset(mImageFrame, GuiSpriteCtrl), &setImageFrame, &defaultProtectedGetFn, &writeImageFrame, "The image frame used for the image." );
     addProtectedField( "Animation", TypeAssetId, Offset(mAnimationAssetId, GuiSpriteCtrl), &setAnimation, &getAnimation, &writeAnimation, "The animation to use.");
 }
 
@@ -158,13 +158,13 @@ void GuiSpriteCtrl::processTick( void )
 
 //-----------------------------------------------------------------------------
 
-void GuiSpriteCtrl::setImage( const char* pImageMapAssetId )
+void GuiSpriteCtrl::setImage( const char* pImageAssetId )
 {
     // Sanity!
-    AssertFatal( pImageMapAssetId != NULL, "Cannot use a NULL asset Id." );
+    AssertFatal( pImageAssetId != NULL, "Cannot use a NULL asset Id." );
 
     // Fetch the asset Id.
-    mImageAssetId = StringTable->insert(pImageMapAssetId);
+    mImageAssetId = StringTable->insert(pImageAssetId);
 
     // Reset image frame.
     mImageFrame = 0;
