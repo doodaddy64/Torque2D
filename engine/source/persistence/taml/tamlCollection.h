@@ -435,7 +435,7 @@ public:
     void set( const char* pPropertyName )
     {
         // Sanity!
-        AssertFatal( pPropertyName != NULL, "Property name cannot be NULL." );
+        AssertFatal( pPropertyName != NULL, "TamlCollectionProperty::set() - Property name cannot be NULL." );
 
         mPropertyName = StringTable->insert( pPropertyName );
     }
@@ -457,6 +457,17 @@ public:
         return pTypeAlias;
     }
 
+    void removeTypeAlias( const U32 index )
+    {
+        // Sanity!
+        AssertFatal( index < (U32)size(), "TamlCollectionProperty::removeTypeAlias() - Index is out of bounds." );
+
+        // Cache the type alias.
+        TamlPropertyTypeAliasFactory.cacheObject( at(index) );
+
+        // Remove it from the collection.
+        erase( index );
+    }
 
     StringTableEntry mPropertyName;
     bool mIgnoreEmpty;
@@ -522,6 +533,18 @@ public:
         push_back( pCollectionProperty );
 
         return pCollectionProperty;
+    }
+
+    void removeCollectionProperty( const U32 index )
+    {
+        // Sanity!
+        AssertFatal( index < (U32)size(), "TamlCollectionProperty::removeCollectionProperty() - Index is out of bounds." );
+
+        // Cache the collection property.
+        TamlCollectionPropertyFactory.cacheObject( at(index) );
+
+        // Remove it from the collection.
+        erase( index );
     }
 
     const TamlCollectionProperty* findProperty( const char* pPropertyName ) const

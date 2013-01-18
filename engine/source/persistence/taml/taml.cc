@@ -653,7 +653,7 @@ void Taml::compileCollection( TamlWriteNode* pTamlWriteNode )
     if ( pTamlWriteNode->mpTamlCallbacks != NULL )
     {
         // Yes, so call it.
-        tamlCustomWrite( pTamlWriteNode->mpTamlCallbacks,customCollection );
+        tamlCustomWrite( pTamlWriteNode->mpTamlCallbacks, customCollection );
     }
 
     // Finish if no custom collection to process.
@@ -690,6 +690,40 @@ void Taml::compileCollection( TamlWriteNode* pTamlWriteNode )
             }
         }
     }
+
+#if 0
+    // Iterate the collection removing ignored items.
+    for( S32 collectionPropertyIndex = 0; collectionPropertyIndex < customCollection.size(); ++collectionPropertyIndex )
+    {
+        // Fetch the collection property.
+        TamlCollectionProperty* pCollectionProperty = customCollection.at( collectionPropertyIndex );
+
+        // Skip if we are not ignoring the collection if empty.
+        if ( !pCollectionProperty->mIgnoreEmpty )
+            continue;
+
+        // Iterate the type alias.
+        for ( S32 typeAliasIndex = 0; typeAliasIndex < pCollectionProperty->size(); ++typeAliasIndex )
+        {
+            // Fetch the type alias.
+            TamlPropertyTypeAlias* pTypeAlias = pCollectionProperty->at( typeAliasIndex );
+
+            // Skip If we're not ignoring the type alias or the collection is not empty.
+            if ( !pTypeAlias->mIgnoreEmpty && pTypeAlias->size() != 0 )
+                continue;
+
+            // Remove the type alias.
+            pCollectionProperty->removeTypeAlias( typeAliasIndex-- );
+        }
+
+        // Skip if the collection is not empty.
+        if ( pCollectionProperty->size() != 0 )
+            continue;
+
+        // Remove the collection property.
+        customCollection.removeCollectionProperty( collectionPropertyIndex-- );
+    }
+#endif
 }
 
 //-----------------------------------------------------------------------------
