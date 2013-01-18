@@ -181,7 +181,7 @@ void ParticleAsset::copyTo(SimObject* object)
    ParticleAsset* pParticleAsset = static_cast<ParticleAsset*>( object );
 
    // Sanity!
-   AssertFatal(dynamic_cast<ParticleAsset*>(object), "ParticleAsset::copyTo() - Object is not the correct type.");
+   AssertFatal( pParticleAsset != NULL, "ParticleAsset::copyTo() - Object is not the correct type.");
 
    // Copy parent.
    Parent::copyTo( object );

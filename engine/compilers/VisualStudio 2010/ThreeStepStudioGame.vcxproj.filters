@@ -1341,6 +1341,9 @@
     <ClCompile Include="..\..\source\2d\sceneobject\ParticlePlayer.cc">
       <Filter>Source Files\2d\sceneobject</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source\2d\core\ParticleSystem.cc">
+      <Filter>Source Files\2d\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\audio\audio.h">
@@ -2713,6 +2716,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\2d\assets\ParticleAssetEmitter_ScriptBinding.h">
       <Filter>Source Files\2d\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\2d\core\ParticleSystem.h">
+      <Filter>Source Files\2d\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

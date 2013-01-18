@@ -254,7 +254,7 @@ void ParticleAssetEmitter::copyTo(SimObject* object)
    ParticleAssetEmitter* pParticleAssetEmitter = static_cast<ParticleAssetEmitter*>( object );
 
    // Sanity!
-   AssertFatal(dynamic_cast<ParticleAssetEmitter*>(object), "ParticleAssetEmitter::copyTo() - Object is not the correct type.");
+   AssertFatal( pParticleAssetEmitter != NULL, "ParticleAssetEmitter::copyTo() - Object is not the correct type.");
 
    // Copy parent.
    Parent::copyTo( object );

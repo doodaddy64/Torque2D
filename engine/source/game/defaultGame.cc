@@ -60,6 +60,10 @@
 #include "assets/assetManager.h"
 #endif
 
+#ifndef _PARTICLE_SYSTEM_H_
+#include "2d/core/particleSystem.h"
+#endif
+
 #ifdef TORQUE_OS_IOS
 #include "platformiOS/iOSProfiler.h"
 
@@ -125,77 +129,83 @@ bool initializeLibraries()
 #ifdef TORQUE_OS_IOS
    //3MB default is way too big for iPhone!!!
 #ifdef	TORQUE_SHIPPING
-   FrameAllocator::init(256 * 1024);	//256KB for now... but let's test and see!
+    FrameAllocator::init(256 * 1024);	//256KB for now... but let's test and see!
 #else
-   FrameAllocator::init(512 * 1024);	//512KB for now... but let's test and see!
+    FrameAllocator::init(512 * 1024);	//512KB for now... but let's test and see!
 #endif	//TORQUE_SHIPPING
 #else
-   FrameAllocator::init(3 << 20);      // 3 meg frame allocator buffer
+    FrameAllocator::init(3 << 20);      // 3 meg frame allocator buffer
 #endif	//TORQUE_OS_IOS
 
-   TextureManager::create();
-   ResManager::create();
+    TextureManager::create();
+    ResManager::create();
 
-   // Register known file types here
-   ResourceManager->registerExtension(".jpg", constructBitmapJPEG);
-   ResourceManager->registerExtension(".jpeg", constructBitmapJPEG);
-   ResourceManager->registerExtension(".png", constructBitmapPNG);
-   ResourceManager->registerExtension(".uft", constructNewFont);
+    // Register known file types here
+    ResourceManager->registerExtension(".jpg", constructBitmapJPEG);
+    ResourceManager->registerExtension(".jpeg", constructBitmapJPEG);
+    ResourceManager->registerExtension(".png", constructBitmapPNG);
+    ResourceManager->registerExtension(".uft", constructNewFont);
 
 #ifdef TORQUE_OS_IOS
     ResourceManager->registerExtension(".pvr", constructBitmapPVR);
 #endif	
    
-   Platform::initConsole();
-   NetStringTable::create();
+    Platform::initConsole();
+    NetStringTable::create();
    
-   TelnetConsole::create();
-   TelnetDebugger::create();
+    TelnetConsole::create();
+    TelnetDebugger::create();
 
-   Processor::init();
-   Math::init();
+    Processor::init();
+    Math::init();
 
-   Platform::init();    // platform specific initialization
+    Platform::init();    // platform specific initialization
+
+    // Initialize the particle system.
+    ParticleSystem::Init();
     
 #if defined(TORQUE_OS_IOS) && defined(_USE_STORE_KIT)
     storeInit();
 #endif // TORQUE_OS_IOS && _USE_STORE_KIT
    
-   return true;
+    return true;
 }
 
 //--------------------------------------------------------------------------
 
 void shutdownLibraries()
 {
-   // Purge any resources on the timeout list...
-   if (ResourceManager)
-      ResourceManager->purge();
+    // Purge any resources on the timeout list...
+    if (ResourceManager)
+        ResourceManager->purge();
 
-   TelnetDebugger::destroy();
-   TelnetConsole::destroy();
+    TelnetDebugger::destroy();
+    TelnetConsole::destroy();
 
-   Sim::shutdown();
-   Platform::shutdown();
+    Sim::shutdown();
+    Platform::shutdown();
 
-   NetStringTable::destroy();
+    NetStringTable::destroy();
 #ifndef TORQUE_TOOLS
-   Con::shutdown();
+    Con::shutdown();
 #endif
-   ResManager::destroy();
-   TextureManager::destroy();
+    ResManager::destroy();
+    TextureManager::destroy();
 
     // Destroy the stock colors.
     StockColor::destroy();
 
-   _StringTable::destroy();
+    _StringTable::destroy();
 
-   // asserts should be destroyed LAST
-   FrameAllocator::destroy();
+    // asserts should be destroyed LAST
+    FrameAllocator::destroy();
 
-   PlatformAssert::destroy();
-   Net::shutdown();
-   
+    PlatformAssert::destroy();
+    Net::shutdown();
+
+    // Destroy the particle system.
+    ParticleSystem::destroy();
+  
 #ifdef _USE_STORE_KIT
     storeCleanup();
 #endif // _USE_STORE_KIT

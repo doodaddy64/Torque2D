@@ -241,6 +241,7 @@
     <ClCompile Include="..\..\source\2d\assets\ParticleAssetFieldCollection.cc" />
     <ClCompile Include="..\..\source\2d\core\BatchRender.cc" />
     <ClCompile Include="..\..\source\2d\core\CoreMath.cc" />
+    <ClCompile Include="..\..\source\2d\core\ParticleSystem.cc" />
     <ClCompile Include="..\..\source\2d\core\RenderProxy.cc" />
     <ClCompile Include="..\..\source\2d\core\SpriteBase.cc" />
     <ClCompile Include="..\..\source\2d\core\SpriteBatch.cc" />
@@ -630,6 +631,7 @@
     <ClInclude Include="..\..\source\2d\assets\ParticleAsset_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\core\BatchRender.h" />
     <ClInclude Include="..\..\source\2d\core\CoreMath.h" />
+    <ClInclude Include="..\..\source\2d\core\ParticleSystem.h" />
     <ClInclude Include="..\..\source\2d\core\RenderProxy.h" />
     <ClInclude Include="..\..\source\2d\core\RenderProxy_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\core\SpriteBase.h" />

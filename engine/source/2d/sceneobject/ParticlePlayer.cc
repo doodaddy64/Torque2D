@@ -8,21 +8,65 @@
 // Script bindings.
 #include "2d/sceneobject/particlePlayer_ScriptBinding.h"
 
+
+//------------------------------------------------------------------------------
+
+ParticleSystem::ParticleNode* ParticlePlayer::EmitterNode::createParticle( void )
+{
+    // Sanity!
+    AssertFatal( mOwner != NULL, "ParticlePlayer::EmitterNode::createParticle() - Cannot create a particle with a NULL owner." );
+  
+    // Fetch a free node,
+    ParticleSystem::ParticleNode* pFreeParticleNode = ParticleSystem::Instance->createParticle();
+
+    // Insert node into emitter chain.
+    pFreeParticleNode->mNextNode        = mParticleNodeHead.mNextNode;
+    pFreeParticleNode->mPreviousNode    = &mParticleNodeHead;
+    mParticleNodeHead.mNextNode         = pFreeParticleNode;
+    pFreeParticleNode->mNextNode->mPreviousNode = pFreeParticleNode;
+
+    // Configure the node.
+    mOwner->configureParticle( pFreeParticleNode );
+
+    return pFreeParticleNode;
+}
+
+//------------------------------------------------------------------------------
+
+void ParticlePlayer::EmitterNode::freeParticle( ParticleSystem::ParticleNode* pParticleNode )
+{
+    // Sanity!
+    AssertFatal( mOwner != NULL, "ParticlePlayer::EmitterNode::freeParticle() - Cannot free a particle with a NULL owner." );
+
+    // Remove the node from the emitter chain.
+    pParticleNode->mPreviousNode->mNextNode = pParticleNode->mNextNode;
+    pParticleNode->mNextNode->mPreviousNode = pParticleNode->mPreviousNode;
+   
+    // Free the node.
+    ParticleSystem::Instance->freeParticle( pParticleNode );
+}
+
+//------------------------------------------------------------------------------
+
+void ParticlePlayer::EmitterNode::freeAllParticles( void )
+{
+    // Sanity!
+    AssertFatal( mOwner != NULL, "ParticlePlayer::EmitterNode::freeAllParticles() - Cannot free all particles with a NULL owner." );
+
+    // Free all the nodes,
+    while( mParticleNodeHead.mNextNode != &mParticleNodeHead )
+    {
+        freeParticle( mParticleNodeHead.mNextNode );
+    }
+}
+
 //------------------------------------------------------------------------------
 
 IMPLEMENT_CONOBJECT(ParticlePlayer);
 
 //------------------------------------------------------------------------------
 
-Vector<ParticlePlayer::ParticleNode*> ParticlePlayer::mParticlePool;
-ParticlePlayer::ParticleNode ParticlePlayer::mParticleNodeHead;
-ParticlePlayer::ParticleNode* ParticlePlayer::mpFreeParticleNodes = NULL;
-U32 ParticlePlayer::mActiveParticles = 0;
-
-//------------------------------------------------------------------------------
-
 ParticlePlayer::ParticlePlayer() :
-                    mParticlePoolBlockSize(64),
                     mEffectPaused(false),
                     mEffectPlaying(false),
                     mParticleInterpolation(false),
@@ -40,6 +84,7 @@ ParticlePlayer::ParticlePlayer() :
 
 ParticlePlayer::~ParticlePlayer()
 {
+    
 }
 
 //------------------------------------------------------------------------------
@@ -49,7 +94,7 @@ void ParticlePlayer::initPersistFields()
     // Call parent.
     Parent::initPersistFields();
 
-    addField("Particle", TypeParticleAssetPtr, Offset(mParticleAsset, ParticlePlayer), "");
+    addProtectedField( "Particle", TypeParticleAssetPtr, Offset(mParticleAsset, ParticlePlayer), &setParticle, &defaultProtectedGetFn, defaultProtectedWriteFn, "" );
 }
 
 //------------------------------------------------------------------------------
@@ -74,31 +119,47 @@ void ParticlePlayer::onRemove()
 
 //------------------------------------------------------------------------------
 
+void ParticlePlayer::copyTo(SimObject* object)
+{
+    // Fetch particle asset object.
+   ParticlePlayer* pParticlePlayer = static_cast<ParticlePlayer*>( object );
+
+   // Sanity!
+   AssertFatal( pParticlePlayer != NULL, "ParticlePlayer::copyTo() - Object is not the correct type.");
+
+   // Copy parent.
+   Parent::copyTo( object );
+
+   // Copy the fields.
+   pParticlePlayer->setParticle( getParticle() );
+}
+
+//------------------------------------------------------------------------------
+
 void ParticlePlayer::onAssetRefreshed( AssetPtrBase* pAssetPtrBase )
 {
-
+    // Initialize the particle asset.
+    initializeParticleAsset();
 }
 
 //-----------------------------------------------------------------------------
 
 void ParticlePlayer::safeDelete( void )
 {
-   // Are we already waiting for delete?
-   if ( mWaitingForDelete )
-      // Yes, nothing to do!
-      return;
+    // Finish if we already waiting for delete.
+    if ( mWaitingForDelete )
+        return;
 
-   // Is effect playing?
-   if ( mEffectPlaying )
-   {
-      // Yes, so stop the effect and allow it to kill itself.
-      stopEffect(true, true);
-   }
-   else
-   {
-       // Call parent which will deal with the deletion.
-       Parent::safeDelete();
-   }
+    // Is effect playing?
+    if ( mEffectPlaying )
+    {
+        // Yes, so stop the effect and allow it to kill itself.
+        stopEffect(true, true);
+        return;
+    }
+
+    // Call parent which will deal with the deletion.
+    Parent::safeDelete();
 }
 
 //-----------------------------------------------------------------------------
@@ -296,6 +357,20 @@ void ParticlePlayer::sceneRenderOverlay( const SceneRenderState* sceneRenderStat
 
 //-----------------------------------------------------------------------------
 
+void ParticlePlayer::setParticle( const char* pAssetId )
+{
+    // Sanity!
+    AssertFatal( pAssetId != NULL, "ParticlePlayer::setParticle() - Cannot use a NULL asset Id." );
+
+    // Set asset Id.
+    mParticleAsset = pAssetId;
+
+    // Initialize the particle.
+    initializeParticleAsset();
+}
+
+//-----------------------------------------------------------------------------
+
 bool ParticlePlayer::playEffect( bool resetParticles )
 {
     // Cannot do anything if we've not got any emitters!
@@ -411,112 +486,7 @@ void ParticlePlayer::stopEffect( bool waitForParticles, bool killEffect )
 
 //------------------------------------------------------------------------------
 
-ParticlePlayer::ParticleNode* ParticlePlayer::createParticle( void )
-{
-    // Have we got any free particle nodes?
-    if ( mpFreeParticleNodes == NULL )
-        // No, so create a new block.
-        createParticlePoolBlock();
-
-    // Fetch Free Node.
-    ParticleNode* pFreeParticleNode = mpFreeParticleNodes;
-
-    // Reposition Free Node Reference.
-    mpFreeParticleNodes = mpFreeParticleNodes->mNextNode;
-
-    // Insert Particle into Head Chain.
-    pFreeParticleNode->mNextNode        = mParticleNodeHead.mNextNode;
-    pFreeParticleNode->mPreviousNode    = &mParticleNodeHead;
-    mParticleNodeHead.mNextNode         = pFreeParticleNode;
-    pFreeParticleNode->mNextNode->mPreviousNode = pFreeParticleNode;
-
-    // Increase Active Particle Count.
-    mActiveParticles++;
-
-    // Configure Particle.
-    configureParticle( pFreeParticleNode );
-
-    // Return New Particle.
-    return pFreeParticleNode;
-}
-
-//------------------------------------------------------------------------------
-
-void ParticlePlayer::freeParticle( ParticleNode* pParticleNode )
-{
-    // Remove Particle from Head Chain.
-    pParticleNode->mPreviousNode->mNextNode = pParticleNode->mNextNode;
-    pParticleNode->mNextNode->mPreviousNode = pParticleNode->mPreviousNode;
-
-    // Reset Extraneous Data.
-    pParticleNode->mPreviousNode = NULL;
-    
-    // Insert into Free Pool.
-    pParticleNode->mNextNode = mpFreeParticleNodes;
-    mpFreeParticleNodes = pParticleNode;
-
-    // Decrease Active Particle Count.
-    mActiveParticles--;
-}
-
-//------------------------------------------------------------------------------
-
-void ParticlePlayer::freeAllParticles( void )
-{
-    // Free All Allocated Particles.
-    while( mParticleNodeHead.mNextNode != &mParticleNodeHead )
-        freeParticle( mParticleNodeHead.mNextNode );
-}
-
-//------------------------------------------------------------------------------
-
-void ParticlePlayer::createParticlePoolBlock( void )
-{
-    // Generate Free Pool Block.
-    ParticleNode* pFreePoolBlock = new ParticleNode[mParticlePoolBlockSize];
-
-    // Generate/Add New Pool Block.
-    mParticlePool.push_back( pFreePoolBlock );
-
-    // Initialise Free Pool Block.
-    for ( U32 n = 0; n < (mParticlePoolBlockSize-1); n++ )
-    {
-        pFreePoolBlock[n].mPreviousNode = NULL;
-        pFreePoolBlock[n].mNextNode     = pFreePoolBlock+n+1;
-    }
-
-    // Insert Last Node Preceding any existing free nodes.
-    pFreePoolBlock[mParticlePoolBlockSize-1].mPreviousNode = NULL;
-    pFreePoolBlock[mParticlePoolBlockSize-1].mNextNode = mpFreeParticleNodes;
-
-    // Set Free References.
-    mpFreeParticleNodes = pFreePoolBlock;
-}
-
-//------------------------------------------------------------------------------
-
-void ParticlePlayer::destroyParticlePool( void )
-{
-    // Free All Particles.
-    freeAllParticles();
-
-    // Destroy All Blocks.
-    for ( U32 n = 0; n < (U32)mParticlePool.size(); n++ )
-        delete [] mParticlePool[n];
-
-    // Clear particle pool.
-    mParticlePool.clear();
-
-    // Reset Free Particles.
-    mpFreeParticleNodes = NULL;
-
-    // Reset particle node head.
-    mParticleNodeHead.mNextNode = mParticleNodeHead.mPreviousNode = &mParticleNodeHead;
-}
-
-//------------------------------------------------------------------------------
-
-void ParticlePlayer::configureParticle( ParticleNode* pParticleNode )
+void ParticlePlayer::configureParticle( ParticleSystem::ParticleNode* pParticleNode )
 {
     //// Fetch Effect Age.
     //const F32 effectAge = pParentEffectObject->mEffectAge;
@@ -883,7 +853,7 @@ void ParticlePlayer::configureParticle( ParticleNode* pParticleNode )
 
 //------------------------------------------------------------------------------
 
-void ParticlePlayer::integrateParticle( ParticleNode* pParticleNode, F32 particleAge, F32 elapsedTime )
+void ParticlePlayer::integrateParticle( ParticleSystem::ParticleNode* pParticleNode, F32 particleAge, F32 elapsedTime )
 {
     //// **********************************************************************************************************************
     //// Copy Old Tick Position.
@@ -1085,6 +1055,53 @@ void ParticlePlayer::onTamlAddParent( SimObject* pParentObject )
 {
     Parent::onTamlAddParent( pParentObject );
 
+    // Play the effect automatically when added to a parent.
     playEffect( true );
 }
 
+//-----------------------------------------------------------------------------
+
+void ParticlePlayer::initializeParticleAsset( void )
+{
+    // Destroy any existing particle asset.
+    destroyParticleAsset();
+
+    // Finish if no particle asset.
+    if ( mParticleAsset.isNull() )
+        return;
+
+    // Fetch the particle asset.
+    ParticleAsset* pParticleAsset = mParticleAsset;
+
+    // Fetch the emitter count.
+    const U32 emitterCount = pParticleAsset->getEmitterCount();
+
+    // Finish if no emitters found.
+    if ( emitterCount == 0 )
+        return;
+
+    // Add each emitter reference.
+    for( U32 emitterIndex = 0; emitterIndex < emitterCount; ++emitterIndex )
+    {
+        // Fetch the asset emitter.
+        ParticleAssetEmitter* pEmitter = pParticleAsset->getEmitter( emitterIndex );
+
+        // Store new emitter node.
+        mEmitters.push_back( new EmitterNode( this, pEmitter ) );
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+void ParticlePlayer::destroyParticleAsset( void )
+{
+    // Stop the effect.
+    stopEffect( false, false );
+
+    // Destroy all emitters.
+    while( mEmitters.size() > 0 )
+    {
+        delete mEmitters[0];
+    }
+    mEmitters.clear();
+}

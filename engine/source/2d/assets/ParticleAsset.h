@@ -150,5 +150,4 @@ protected:
     static bool writeLifeMode( void* obj, StringTableEntry pFieldName )     { return static_cast<ParticleAsset*>(obj)->getLifeMode() != INFINITE; }
 };
 
-
 #endif // _PARTICLE_ASSET_H_

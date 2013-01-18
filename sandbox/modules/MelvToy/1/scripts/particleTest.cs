@@ -5,8 +5,10 @@
 
 function runParticleTest()
 {
+    %particleAssetName = "TestParticle";
+    
     %effectAsset = new ParticleAsset();
-    %effectAsset.assetName = "TestParticle";      
+    %effectAsset.assetName = %particleAssetName;      
     
     %effectAsset.Lifetime = 10;
     %effectAsset.LifeMode = "cycle";    
@@ -48,10 +50,17 @@ function runParticleTest()
     {
         error( "Could not load the asset file:" SPC %assetFilePath );
     }
+
+    //TamlRead( %assetFilePath );   
     
     %particlePlayer = new ParticlePlayer();
+    SandboxScene.addToScene( %particlePlayer );
+    %particlePlayer.Particle = "MelvToy:" @ %particleAssetName;
     
-    
+    %particlePlayerFilePath = expandPath( "^MelvToy/particlePlayer.taml" );
+    TamlWrite( %particlePlayer, %particlePlayerFilePath );
+    //TamlRead( %particlePlayerFilePath );
+        
 	
 	quit();
 }

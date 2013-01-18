@@ -10,6 +10,10 @@
 #include "2d/assets/particleAsset.h"
 #endif
 
+#ifndef _PARTICLE_SYSTEM_H_
+#include "2d/core/particleSystem.h"
+#endif
+
 #ifndef _SCENE_OBJECT_H_
 #include "2d/sceneObject/sceneObject.h"
 #endif
@@ -25,58 +29,46 @@ class ParticlePlayer : public SceneObject, public AssetPtrCallback
 private:
     typedef SceneObject Parent;
 
-public:
-    /// Particle Node.
-    struct ParticleNode
+
+    /// Emitter node.
+    class EmitterNode
     {
-        /// Particle Node Linkages.
-        ParticleNode*           mPreviousNode;
-        ParticleNode*           mNextNode;
+    private:
+        ParticlePlayer*                 mOwner;
+        ParticleAssetEmitter*           mpAssetEmitter;
+        ParticleSystem::ParticleNode    mParticleNodeHead;
 
-        /// Suppress Movement.
-        bool                    mSuppressMovement;
+    public:
+        EmitterNode( ParticlePlayer* pParticlePlayer, ParticleAssetEmitter* pParticleAssetEmitter )
+        {
+            // Sanity!
+            AssertFatal( pParticlePlayer != NULL, "EmitterNode() - Cannot have a NULL owner." );
+            AssertFatal( pParticleAssetEmitter != NULL, "EmitterNode() - Cannot have a NULL particle asset emitter." );
 
-        /// Particle Components.
-        F32                     mParticleLifetime;
-        F32                     mParticleAge;
-        Vector2                 mPosition;
-        Vector2                 mVelocity;
-        F32                     mOrientationAngle;
-        Vector2                 mOOBB[4];
-        b2Transform             mRotationTransform;
-        AnimationController*    mAnimationController;
+            // Set owner.
+            mOwner = pParticlePlayer;
 
-        /// Render Properties.
-        Vector2                 mLastRenderSize;
-        Vector2                 mRenderSize;
-        F32                     mRenderSpeed;
-        F32                     mRenderSpin;
-        F32                     mRenderFixedForce;
-        F32                     mRenderRandomMotion;
+            // Set asset emitter.
+            mpAssetEmitter = pParticleAssetEmitter;
 
-        /// Base Properties.
-        Vector2                 mSize;
-        F32                     mSpeed;
-        F32                     mSpin;
-        F32                     mFixedForce;
-        F32                     mRandomMotion;
-        ColorF                  mColour;    
+            // Reset the node head.
+            mParticleNodeHead.mNextNode = mParticleNodeHead.mPreviousNode = &mParticleNodeHead;
+        }
 
-        /// Interpolated Tick Position.
-        Vector2                 mPreTickPosition;
-        Vector2                 mPostTickPosition;
-        Vector2                 mRenderTickPosition;
+        ~EmitterNode()
+        {
+            freeAllParticles();
+        }
+
+        ParticleSystem::ParticleNode* createParticle( void );
+        void freeParticle( ParticleSystem::ParticleNode* pParticleNode );
+        void freeAllParticles( void );        
     };
 
-private:
-    /// Particle Data.
-    const U32                   mParticlePoolBlockSize;
-    static Vector<ParticleNode*> mParticlePool;
-    static ParticleNode*        mpFreeParticleNodes;
-    static ParticleNode         mParticleNodeHead;
-    static U32                  mActiveParticles;
+    typedef Vector<EmitterNode*> typeEmitterVector;
 
     AssetPtr<ParticleAsset>     mParticleAsset;
+    typeEmitterVector           mEmitters;
 
     bool                        mEffectPlaying;
     bool                        mEffectPaused;
@@ -96,6 +88,7 @@ public:
     static void initPersistFields();
     virtual bool onAdd();
     virtual void onRemove();
+    virtual void copyTo(SimObject* object);
     virtual void safeDelete( void );
 
     virtual void OnRegisterScene( Scene* pScene );
@@ -108,42 +101,39 @@ public:
     virtual void sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer );
     virtual void sceneRenderOverlay( const SceneRenderState* sceneRenderState );
 
-    bool playEffect( bool resetParticles );
-    void stopEffect( bool waitForParticles, bool killEffect );
-    bool getIsEffectPlaying() { return mEffectPlaying; };
-    bool moveEffectTo( const F32 moveTime, const F32 timeStep, U32& peakCount, F32& peakTime );
-    bool findParticlePeak( const F32 searchTime, const F32 timeStep, const U32 peakLimit, U32& peakCount, F32& peakTime );
+    void setParticle( const char* pAssetId );
+    const char* getParticle( void ) const { return mParticleAsset->getAssetId(); }
+
     inline void setEffectPaused( bool effectPaused ) { mEffectPaused = effectPaused; }
     inline bool getEffectPaused( void ) const { return mEffectPaused; }
     inline void setCameraIdleDistance( const F32 idleDistance ) { mCameraIdleDistance = idleDistance; mCameraIdle = false; }
     inline F32 getCameraIdleDistance( void ) const { return mCameraIdleDistance; }
 
-    /// Get particle metrics.
-    inline U32 getActiveParticles( void ) const { return mActiveParticles; };
-    inline U32 getAllocatedParticles( void ) const { return mParticlePool.size() * mParticlePoolBlockSize; }
+    bool playEffect( bool resetParticles );
+    void stopEffect( bool waitForParticles, bool killEffect );
+    bool getIsEffectPlaying() { return mEffectPlaying; };
+    bool moveEffectTo( const F32 moveTime, const F32 timeStep, U32& peakCount, F32& peakTime );
+    bool findParticlePeak( const F32 searchTime, const F32 timeStep, const U32 peakLimit, U32& peakCount, F32& peakTime );
 
     /// Declare Console Object.
     DECLARE_CONOBJECT(ParticlePlayer);
 
 protected:
-    /// Particle generation.
-    ParticleNode* createParticle( void );
-    void freeParticle( ParticleNode* pParticleNode );
-    void freeAllParticles( void );
-    void createParticlePoolBlock( void );
-    void destroyParticlePool( void );
-
     /// Particle Creation/Integration.
-    void configureParticle( ParticleNode* pParticleNode );
-    void integrateParticle( ParticleNode* pParticleNode, const F32 particleAge, const F32 elapsedTime );
+    void configureParticle( ParticleSystem::ParticleNode* pParticleNode );
+    void integrateParticle( ParticleSystem::ParticleNode* pParticleNode, const F32 particleAge, const F32 elapsedTime );
 
     /// Persistence.
     virtual void onTamlAddParent( SimObject* pParentObject );
 
+    static bool     setParticle(void* obj, const char* data)                               { static_cast<ParticlePlayer*>(obj)->setParticle(data); return false; };
 
 
 private:
     virtual void onAssetRefreshed( AssetPtrBase* pAssetPtrBase );
+
+    void initializeParticleAsset( void );
+    void destroyParticleAsset( void );
 };
 
 #endif // _PARTICLE_PLAYER_H_
