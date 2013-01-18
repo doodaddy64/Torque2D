@@ -126,7 +126,6 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mRandomAngleOffset( 0.0f ),
                             mRandomArc( 360.0f ),
                             mFixedAngleOffset( 0.0f ),
-                            mPivotPoint( 0.0f, 0.0f ),
                             mEmitterEmission( false ),
                             mLinkEmissionRotation( false ),
                             mIntenseParticles( false ),
@@ -144,6 +143,10 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mDstBlendFactor( GL_ONE_MINUS_SRC_ALPHA ),
                             mAlphaTest( -1.0f )
 {
+    // Set the pivot point.
+    // NOTE:    This is called to set the local AABB.
+    setPivotPoint( Vector2::getZero() );
+
     // Initialize particle fields.
     mParticleFields.addField( mParticleLife.getBase(), "ParticleLife", 1000.0f, 0.0f, 1000.0f, 2.0f );
     mParticleFields.addField( mParticleLife.getVariation(), "ParticleLifeVariation", 1000.0f, 0.0f, 2000.0f, 0.0f  );
@@ -291,6 +294,7 @@ void ParticleAssetEmitter::setEmitterName( const char* pEmitterName )
     // Sanity!
     AssertFatal( mEmitterName != NULL, "ParticleAssetEmitter::setEmitterName() - Cannot set a NULL particle asset emitter name." );
 
+    // Set the emitter name.
     mEmitterName = StringTable->insert( pEmitterName );
 
     // Refresh the asset.
@@ -307,6 +311,22 @@ void ParticleAssetEmitter::setOwner( ParticleAsset* pParticleAsset )
     // Set owner.
     mOwner = pParticleAsset;
 }
+
+//------------------------------------------------------------------------------
+
+void ParticleAssetEmitter::setPivotPoint( const Vector2& pivotPoint )
+{
+    // Set the pivot point.
+    mPivotPoint = pivotPoint;
+
+    // Calculate the local pivot AABB.
+    mLocalPivotAABB[0].Set( -0.5f + mPivotPoint.x, -0.5f + mPivotPoint.y );
+    mLocalPivotAABB[1].Set(  0.5f + mPivotPoint.x, -0.5f + mPivotPoint.y );
+    mLocalPivotAABB[2].Set(  0.5f + mPivotPoint.x,  0.5f + mPivotPoint.y );
+    mLocalPivotAABB[3].Set( -0.5f + mPivotPoint.x,  0.5f + mPivotPoint.y );
+
+    // Refresh the asset.
+    refreshAsset(); }
 
 //------------------------------------------------------------------------------
 

@@ -66,6 +66,7 @@ struct Vector2 : b2Vec2
     friend Vector2 operator * (F32 s, const Vector2& v)                 { return Vector2(v.x*s, v.y*s); }
     friend Vector2 operator * (const Vector2& v, F32 s)                 { return Vector2(v.x*s, v.y*s); }
     friend Vector2 operator * (const Vector2& v1, Vector2& v2)          { return Vector2(v1.x*v2.x, v1.y*v2.y); }
+    friend Vector2 operator * (const Vector2& v1, const Vector2& v2)    { return Vector2(v1.x*v2.x, v1.y*v2.y); }
     inline Vector2 operator - (void) const                              { return Vector2(-x, -y); }
     inline bool operator == (const Vector2 &v) const                    { return (v.x == x && v.y == y); }
     inline bool operator != (const Vector2 &v) const                    { return (v.x != x || v.y != y); }

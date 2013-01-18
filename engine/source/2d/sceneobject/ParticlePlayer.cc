@@ -70,7 +70,7 @@ ParticlePlayer::ParticlePlayer() :
                     mPlaying( false ),
                     mPaused( false ),
                     mAge( 0.0f ),
-                    mParticleInterpolation( true ),
+                    mParticleInterpolation( false ),
                     mCameraIdleDistance( 0.0f ),
                     mCameraIdle( false ),
                     mWaitingForParticles( false ),
@@ -339,27 +339,40 @@ void ParticlePlayer::interpolateObject( const F32 timeDelta )
         // Fetch the particle node head.
         ParticleSystem::ParticleNode* pParticleNodeHead = pEmitterNode->getParticleNodeHead();
 
-        //// Process All particle nodes.
-        //while ( pParticleNode != pParticleNodeHead )
-        //{
-        //    // Interpolate Particle.
-        //    pParticleNode->mRenderTickPosition = (timeDelta * pParticleNode->mPreTickPosition) + ((1.0f-timeDelta) * pParticleNode->mPostTickPosition);
+        // Fetch the asset emitter.
+        ParticleAssetEmitter* pParticleAssetEmitter = pEmitterNode->getAssetEmitter();
 
-        //    pParticleNode->mRotationTransform.p = pParticleNode->mRenderTickPosition;
+        // Fetch the local AABB..
+        const Vector2& localAABB0 = pParticleAssetEmitter->getLocalPivotAABB0();
+        const Vector2& localAABB1 = pParticleAssetEmitter->getLocalPivotAABB1();
+        const Vector2& localAABB2 = pParticleAssetEmitter->getLocalPivotAABB2();
+        const Vector2& localAABB3 = pParticleAssetEmitter->getLocalPivotAABB3();
 
-        //    Vector2 renderSize = pParticleNode->mRenderSize;
-        //    Vector2 clipBoundary[4];
-        //    clipBoundary[0] = mGlobalClipBoundary[0] * renderSize;
-        //    clipBoundary[1] = mGlobalClipBoundary[1] * renderSize;
-        //    clipBoundary[2] = mGlobalClipBoundary[2] * renderSize;
-        //    clipBoundary[3] = mGlobalClipBoundary[3] * renderSize;
+        // Process All particle nodes.
+        while ( pParticleNode != pParticleNodeHead )
+        {
+            // Interpolate the position.
+            pParticleNode->mRenderTickPosition = (timeDelta * pParticleNode->mPreTickPosition) + ((1.0f-timeDelta) * pParticleNode->mPostTickPosition);
 
-        //    // Calculate Clip Boundary.
-        //    CoreMath::mCalculateOOBB( clipBoundary, pParticleNode->mRotationTransform, pParticleNode->mOOBB );
+            // Set the transform.
+            pParticleNode->mRotationTransform.p = pParticleNode->mRenderTickPosition;
 
-        //    // Move to next Particle Node.
-        //    pParticleNode = pParticleNode->mNextNode;
-        //}
+            // Fetch the render size.
+            const Vector2& renderSize = pParticleNode->mRenderSize;
+
+            // Calculate the scaled AABB.
+            Vector2 scaledAABB[4];
+            scaledAABB[0] = localAABB0 * renderSize;
+            scaledAABB[1] = localAABB1 * renderSize;
+            scaledAABB[2] = localAABB2 * renderSize;
+            scaledAABB[3] = localAABB3 * renderSize;
+
+            // Calculate the world OOBB..
+            CoreMath::mCalculateOOBB( scaledAABB, pParticleNode->mRotationTransform, pParticleNode->mOOBB );
+
+            // Move to the next particle.
+            pParticleNode = pParticleNode->mNextNode;
+        }
     }
 }
 
@@ -1191,8 +1204,11 @@ void ParticlePlayer::initializeParticleAsset( void )
         // Fetch the asset emitter.
         ParticleAssetEmitter* pEmitter = pParticleAsset->getEmitter( emitterIndex );
 
+        // Create a new emitter node.
+        EmitterNode* pEmitterNode = new EmitterNode( this, pEmitter );
+
         // Store new emitter node.
-        mEmitters.push_back( new EmitterNode( this, pEmitter ) );
+        mEmitters.push_back( pEmitterNode );
     }
 }
 

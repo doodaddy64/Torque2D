@@ -111,6 +111,8 @@ private:
     ParticleAssetFieldLife                  mBlueChannel;
     ParticleAssetFieldLife                  mAlphaChannel;
 
+    Vector2                                 mLocalPivotAABB[4];
+
 public:
     ParticleAssetEmitter();
     virtual ~ParticleAssetEmitter();
@@ -141,7 +143,7 @@ public:
     inline F32 getRandomArc( void ) const { return mRandomArc; }
     inline void setFixedAngleOffset( const F32 angleOffset ) { mFixedAngleOffset = angleOffset; refreshAsset(); }
     inline F32 getFixedAngleOffset( void ) const { return mFixedAngleOffset; }
-    inline void setPivotPoint( const Vector2& pivotPoint ) { mPivotPoint = pivotPoint; refreshAsset(); }
+    void setPivotPoint( const Vector2& pivotPoint );
     inline const Vector2& getPivotPoint( void ) const { return mPivotPoint; }
 
     inline void setEmitterEmission( const bool emitterEmission ) { mEmitterEmission = emitterEmission; refreshAsset(); }
@@ -211,6 +213,11 @@ public:
     inline ParticleAssetField& getGreenChannelLifeField( void ) { return mGreenChannel.getLife(); }
     inline ParticleAssetField& getBlueChannelLifeField( void ) { return mBlueChannel.getLife(); }
     inline ParticleAssetField& getAlphaChannelLifeField( void ) { return mAlphaChannel.getLife(); }
+
+    inline const Vector2& getLocalPivotAABB0( void ) { return mLocalPivotAABB[0]; }
+    inline const Vector2& getLocalPivotAABB1( void ) { return mLocalPivotAABB[1]; }
+    inline const Vector2& getLocalPivotAABB2( void ) { return mLocalPivotAABB[2]; }
+    inline const Vector2& getLocalPivotAABB3( void ) { return mLocalPivotAABB[3]; }
 
     static EmitterType getEmitterTypeEnum(const char* label);
     static const char* getEmitterTypeDescription( const EmitterType emitterType );
