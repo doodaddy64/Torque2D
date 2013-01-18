@@ -60,7 +60,7 @@
         CollisionSuppress="1"
         GravityScale="0"
         UpdateCallback="1"
-        ImageMap="@asset={PhysicsLauncherAssets}:SkyImageMap"
+        Image="@asset={PhysicsLauncherAssets}:SkyImage"
         Frame="0">
         <Scroller.Behaviors>
             <ParallaxObjectBehavior
@@ -80,7 +80,7 @@
         CollisionSuppress="1"
         GravityScale="0"
         UpdateCallback="1"
-        ImageMap="@asset={PhysicsLauncherAssets}:Background2ImageMap"
+        Image="@asset={PhysicsLauncherAssets}:Background2Image"
         Frame="0">
         <Scroller.Behaviors>
             <ParallaxObjectBehavior
@@ -100,7 +100,7 @@
         CollisionSuppress="1"
         GravityScale="0"
         UpdateCallback="1"
-        ImageMap="@asset={PhysicsLauncherAssets}:Background1ImageMap"
+        Image="@asset={PhysicsLauncherAssets}:Background1Image"
         Frame="0">
         <Scroller.Behaviors>
             <ParallaxObjectBehavior
@@ -120,7 +120,7 @@
         CollisionSuppress="1"
         GravityScale="0"
         UpdateCallback="1"
-        ImageMap="@asset={PhysicsLauncherAssets}:ForegroundImageMap"
+        Image="@asset={PhysicsLauncherAssets}:ForegroundImage"
         Frame="0">
         <Scroller.Behaviors>
             <ParallaxObjectBehavior

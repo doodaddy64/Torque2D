@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="centerJustify_hImageMap"
+    AssetName="centerJustify_hImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#centerJustify_h.png" />

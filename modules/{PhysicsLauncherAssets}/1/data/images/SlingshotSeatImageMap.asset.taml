@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="SlingshotSeatImageMap"
+    AssetName="SlingshotSeatImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#SlingShot_Sling" />

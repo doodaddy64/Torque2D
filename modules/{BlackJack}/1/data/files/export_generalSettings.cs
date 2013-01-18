@@ -1,4 +1,4 @@
-$Save::GeneralSettings::FontSheet = "fontImageMap";
+$Save::GeneralSettings::FontSheet = "fontImage";
 $Save::GeneralSettings::Fullscreen = "1";
 $Save::GeneralSettings::NumberOfTables = "2";
 $Save::GeneralSettings::Sound::Bankrupt = "Bankrupt";

@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="iconFolderImageMap"
+    AssetName="iconFolderImage"
     AssetInternal="1"
     ImageFile="@assetFile=#folder.png" />

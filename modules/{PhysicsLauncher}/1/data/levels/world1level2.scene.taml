@@ -52,7 +52,7 @@
     Tutorial1="Box1Tutorial">
     <Scroller
         Name="Sky"
-        imageMap="@asset={PhysicsLauncherAssets}:SkyImageMap"
+        image="@asset={PhysicsLauncherAssets}:SkyImage"
         SceneLayer="31"
         size="32.000 16.000"
         Awake="0"
@@ -70,7 +70,7 @@
     </Scroller>
     <Scroller
         Name="Background2"
-        imageMap="@asset={PhysicsLauncherAssets}:Background2ImageMap"
+        image="@asset={PhysicsLauncherAssets}:Background2Image"
         SceneLayer="30"
         size="32.000 16.000"
         Awake="0"
@@ -88,7 +88,7 @@
     </Scroller>
     <Scroller
         Name="Background1"
-        imageMap="@asset={PhysicsLauncherAssets}:Background1ImageMap"
+        image="@asset={PhysicsLauncherAssets}:Background1Image"
         SceneLayer="29"
         size="32.000 16.000"
         Awake="0"
@@ -106,7 +106,7 @@
     </Scroller>
     <Scroller
         Name="Foreground"
-        imageMap="@asset={PhysicsLauncherAssets}:ForegroundImageMap"
+        image="@asset={PhysicsLauncherAssets}:ForegroundImage"
         SceneLayer="10"
         size="32.000 16.000"
         Awake="0"

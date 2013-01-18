@@ -863,7 +863,7 @@ function ProjectilePreview::format(%this)
    if ($ProjectileSpriteRadioSelection $= "Static")
       %frameSize = ProjectilePreview.resource.getFrameSize(0);
    else
-      %frameSize = ProjectilePreview.resource.imageMap.getFrameSize(0);
+      %frameSize = ProjectilePreview.resource.image.getFrameSize(0);
       
    %previewCenter = ProjectilePreview.getCenter();
    
@@ -965,7 +965,7 @@ function ProjectileStaticRadioButton::onClick(%this)
    
    ToggleProjectileStaticSpriteControls(true);
    
-   ProjectileSpriteDisplay.setText($SelectedProjectile.getImageMap());
+   ProjectileSpriteDisplay.setText($SelectedProjectile.getImage());
    
    ProjectilePreviewDropdown.refresh();
    
@@ -1003,7 +1003,7 @@ function ProjectileAnimatedRadioButton::onClick(%this)
 function ProjectileSpriteDisplay::refresh(%this)
 {
    if ($SelectedProjectile.getClassName() $= "t2dStaticSprite")
-      %this.setText($SelectedProjectile.getImageMap());
+      %this.setText($SelectedProjectile.getImage());
    else
       %this.setText($SelectedProjectile.animationSet);
 }
@@ -1096,12 +1096,12 @@ function ProjectileStaticSpriteFrameEditBox::refresh(%this)
    if ($SelectedProjectile.getClassName() !$= "t2dStaticSprite")
       return;   
    
-   if ($SelectedProjectile.getImageMap().getFrameCount())
+   if ($SelectedProjectile.getImage().getFrameCount())
       %this.text = $SelectedProjectile.getFrame();
    else
       %this.text = 0;
    
-   SetProjectileStaticSpriteFrameAvailability($SelectedProjectile.getImageMap().getFrameCount() > 1);
+   SetProjectileStaticSpriteFrameAvailability($SelectedProjectile.getImage().getFrameCount() > 1);
 }
 
 /// <summary>
@@ -1290,12 +1290,12 @@ function SaveProjectileData()
          $SelectedProjectile = $persistentObjectSet.findObjectByInternalName(%projectileInternalName);
       }
       
-      $SelectedProjectile.setImageMap(ProjectileSpriteDisplay.getText());
+      $SelectedProjectile.setImage(ProjectileSpriteDisplay.getText());
       
       ProjectileStaticSpriteFrameEditBox.onValidate();
       $SelectedProjectile.setFrame(ProjectileStaticSpriteFrameEditBox.getValue());
       
-      %size = $SelectedProjectile.getImageMap().getFrameSize(0);
+      %size = $SelectedProjectile.getImage().getFrameSize(0);
       %size = Vector2Scale(%size, $TDMetersPerPixel);
       $SelectedProjectile.setSize(%size);
    }
@@ -1313,7 +1313,7 @@ function SaveProjectileData()
       $SelectedProjectile.animationSet = ProjectileSpriteDisplay.getText();
       $SelectedProjectile.animationName = $SelectedProjectile.animationSet.TravelAnim;
       
-      %size = $SelectedProjectile.getAnimation().imageMap.getFrameSize(0);
+      %size = $SelectedProjectile.getAnimation().image.getFrameSize(0);
       %size = Vector2Scale(%size, $TDMetersPerPixel);
       $SelectedProjectile.setSize(%size);
    }

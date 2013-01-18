@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="shapeVectorImageMap"
+    AssetName="shapeVectorImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#ShapeVector.png" />

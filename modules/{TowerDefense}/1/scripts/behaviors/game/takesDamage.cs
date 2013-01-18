@@ -133,7 +133,7 @@ function TakesDamageBehavior::takeDamage(%this, %amount, %assailant)
         {
             %this.damageState = $damageStateLightDamage;
             if(isObject(%this.damageState1Image))
-               %this.owner.setImageMap(%this.damageState1Image);
+               %this.owner.setImage(%this.damageState1Image);
             if(isObject(%pulser))
                %pulser.setDamageState(1);
         }
@@ -141,14 +141,14 @@ function TakesDamageBehavior::takeDamage(%this, %amount, %assailant)
         {
             %this.damageState = $damageStateHeavyDamage;
             if(isObject(%this.damageState2Image))
-               %this.owner.setImageMap(%this.damageState2Image);
+               %this.owner.setImage(%this.damageState2Image);
             if(isObject(%pulser))
                %pulser.setDamageState(2);
         }
         else if (%damagePercent <= %this.damageState3Threshold) 
         {
             if(isObject(%this.damageState3Image))
-               %this.owner.setImageMap(%this.damageState3Image);
+               %this.owner.setImage(%this.damageState3Image);
             if(isObject(%pulser))
                %pulser.setDamageState(3);
         }

@@ -26,7 +26,7 @@
         Visible="1"
         Active="1"
         hovertime="1000"
-        Image="@asset={EditorAssets}:PopupOverlayImageMap" />
+        Image="@asset={EditorAssets}:PopupOverlayImage" />
     <GuiSpriteCtrl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -41,7 +41,7 @@
         Active="1"
         tooltipprofile="GuiToolTipProfile"
         hovertime="1000"
-        Image="@asset={EditorAssets}:animation_popupImageMap">
+        Image="@asset={EditorAssets}:animation_popupImage">
         <GuiSpriteCtrl
             canSaveDynamicFields="0"
             isContainer="1"
@@ -56,7 +56,7 @@
             Active="1"
             tooltipprofile="GuiToolTipProfile"
             hovertime="1000"
-            Image="@asset={EditorAssets}:animationFrame_ContainerImageMap">
+            Image="@asset={EditorAssets}:animationFrame_ContainerImage">
             <GuiScrollCtrl
                 canSaveDynamicFields="0"
                 isContainer="1"
@@ -76,7 +76,7 @@
                 constantThumbHeight="0"
                 childMargin="0 0">
                 <GuiDynamicCtrlArrayControl
-                    Name="Ab_ImageMapPreviewWindow"
+                    Name="Ab_ImagePreviewWindow"
                     canSaveDynamicFields="0"
                     class="AnimationContentPane"
                     isContainer="1"
@@ -166,10 +166,10 @@
                 groupNum="-1"
                 buttonType="PushButton"
                 useMouseEvents="0"
-                NormalImage="@asset={EditorAssets}:stopImageMap"
-                HoverImage="@asset={EditorAssets}:stop_hImageMap"
-                DownImage="@asset={EditorAssets}:stop_dImageMap"
-                InactiveImage="@asset={EditorAssets}:stop_iImageMap" />
+                NormalImage="@asset={EditorAssets}:stopImage"
+                HoverImage="@asset={EditorAssets}:stop_hImage"
+                DownImage="@asset={EditorAssets}:stop_dImage"
+                InactiveImage="@asset={EditorAssets}:stop_iImage" />
             <GuiImageButtonCtrl
                 canSaveDynamicFields="0"
                 isContainer="0"
@@ -189,10 +189,10 @@
                 groupNum="-1"
                 buttonType="PushButton"
                 useMouseEvents="0"
-                NormalImage="@asset={EditorAssets}:playImageMap"
-                HoverImage="@asset={EditorAssets}:play_hImageMap"
-                DownImage="@asset={EditorAssets}:play_dImageMap"
-                InactiveImage="@asset={EditorAssets}:play_iImageMap" />
+                NormalImage="@asset={EditorAssets}:playImage"
+                HoverImage="@asset={EditorAssets}:play_hImage"
+                DownImage="@asset={EditorAssets}:play_dImage"
+                InactiveImage="@asset={EditorAssets}:play_iImage" />
         </GuiControl>
         <GuiControl
             canSaveDynamicFields="0"
@@ -306,10 +306,10 @@
                 groupNum="-1"
                 buttonType="PushButton"
                 useMouseEvents="0"
-                NormalImage="@asset={EditorAssets}:minusImageMap"
-                HoverImage="@asset={EditorAssets}:minus_hImageMap"
-                DownImage="@asset={EditorAssets}:minus_dImageMap"
-                InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+                NormalImage="@asset={EditorAssets}:minusImage"
+                HoverImage="@asset={EditorAssets}:minus_hImage"
+                DownImage="@asset={EditorAssets}:minus_dImage"
+                InactiveImage="@asset={EditorAssets}:minus_iImage" />
             <GuiImageButtonCtrl
                 Name="ABSpeedUpBtn"
                 canSaveDynamicFields="0"
@@ -329,10 +329,10 @@
                 groupNum="-1"
                 buttonType="PushButton"
                 useMouseEvents="0"
-                NormalImage="@asset={EditorAssets}:plusImageMap"
-                HoverImage="@asset={EditorAssets}:plus_hImageMap"
-                DownImage="@asset={EditorAssets}:plus_dImageMap"
-                InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+                NormalImage="@asset={EditorAssets}:plusImage"
+                HoverImage="@asset={EditorAssets}:plus_hImage"
+                DownImage="@asset={EditorAssets}:plus_dImage"
+                InactiveImage="@asset={EditorAssets}:plus_iImage" />
         </GuiControl>
         <GuiImageButtonCtrl
             Name="ABSaveButton"
@@ -355,10 +355,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumOkayImageMap"
-            HoverImage="@asset={EditorAssets}:mediumOkay_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumOkay_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumOkay_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumOkayImage"
+            HoverImage="@asset={EditorAssets}:mediumOkay_hImage"
+            DownImage="@asset={EditorAssets}:mediumOkay_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumOkay_iImage" />
         <GuiImageButtonCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -379,10 +379,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumCancelImageMap"
-            HoverImage="@asset={EditorAssets}:mediumCancel_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumCancel_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumCancel_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumCancelImage"
+            HoverImage="@asset={EditorAssets}:mediumCancel_hImage"
+            DownImage="@asset={EditorAssets}:mediumCancel_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumCancel_iImage" />
         <GuiBitmapButtonCtrl
             Name="AnimBuilderHelpButton"
             canSaveDynamicFields="0"
@@ -479,7 +479,7 @@
             text="Source Image"
             maxLength="1024" />
         <GuiTextEditCtrl
-            Name="ABImageMapField"
+            Name="ABImageField"
             class="AssetTextEdit"
             canSaveDynamicFields="0"
             isContainer="0"
@@ -494,7 +494,7 @@
             AltCommand="AnimationBuilder.validateName();"
             Active="1"
             hovertime="1000"
-            text="PL_BananaBunchImageMap"
+            text="PL_BananaBunchImage"
             maxLength="1024"
             validate="AnimationBuilder.validateName();"
             historySize="0"
@@ -532,7 +532,7 @@
             MinExtent="8 2"
             canSave="1"
             Visible="1"
-            Command="AnimationBuilder.changeImageMap();"
+            Command="AnimationBuilder.changeImage();"
             Active="1"
             tooltipprofile="GuiToolTipProfile"
             ToolTip="Select to open the Asset Picker and view the celled sprite sheet file that is building the selected Animation."
@@ -540,11 +540,11 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImageCache="{EditorAssets}:hardDriveImageMap"
-            NormalImage="@asset={EditorAssets}:hardDriveImageMap"
-            HoverImage="@asset={EditorAssets}:hardDrive_hImageMap"
-            DownImage="@asset={EditorAssets}:hardDrive_dImageMap"
-            InactiveImage="@asset={EditorAssets}:hardDrive_iImageMap" />
+            NormalImageCache="{EditorAssets}:hardDriveImage"
+            NormalImage="@asset={EditorAssets}:hardDriveImage"
+            HoverImage="@asset={EditorAssets}:hardDrive_hImage"
+            DownImage="@asset={EditorAssets}:hardDrive_dImage"
+            InactiveImage="@asset={EditorAssets}:hardDrive_iImage" />
         <GuiControl
             Name="ABFramePanel"
             canSaveDynamicFields="0"
@@ -613,7 +613,7 @@
                 Active="0"
                 tooltipprofile="GuiToolTipProfile"
                 hovertime="1000"
-                Image="@asset={EditorAssets}:animationTimeLine_ContainerImageMap">
+                Image="@asset={EditorAssets}:animationTimeLine_ContainerImage">
                 <GuiScrollCtrl
                     canSaveDynamicFields="0"
                     isContainer="1"
@@ -686,7 +686,7 @@
                 Visible="1"
                 Active="0"
                 hovertime="1000"
-                Image="@asset={EditorAssets}:grayDownArrowIconImageMap" />
+                Image="@asset={EditorAssets}:grayDownArrowIconImage" />
         </GuiControl>
         <GuiControl
             canSaveDynamicFields="0"
@@ -714,7 +714,7 @@
                 Visible="1"
                 Active="0"
                 hovertime="1000"
-                Image="@asset={EditorAssets}:animationTag_ContainerImageMap">
+                Image="@asset={EditorAssets}:animationTag_ContainerImage">
                 <GuiScrollCtrl
                     canSaveDynamicFields="0"
                     isContainer="1"
@@ -798,10 +798,10 @@
                 groupNum="-1"
                 buttonType="PushButton"
                 useMouseEvents="0"
-                NormalImage="@asset={EditorAssets}:smallAddImageMap"
-                HoverImage="@asset={EditorAssets}:smallAdd_hImageMap"
-                DownImage="@asset={EditorAssets}:smallAdd_dImageMap"
-                InactiveImage="@asset={EditorAssets}:smallAdd_iImageMap" />
+                NormalImage="@asset={EditorAssets}:smallAddImage"
+                HoverImage="@asset={EditorAssets}:smallAdd_hImage"
+                DownImage="@asset={EditorAssets}:smallAdd_dImage"
+                InactiveImage="@asset={EditorAssets}:smallAdd_iImage" />
             <GuiSeparatorCtrl
                 canSaveDynamicFields="0"
                 isContainer="0"

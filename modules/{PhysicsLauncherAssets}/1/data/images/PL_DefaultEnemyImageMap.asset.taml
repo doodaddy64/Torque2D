@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="PL_DefaultEnemyImageMap"
+    AssetName="PL_DefaultEnemyImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#Banana_Bunches"
     CellCountX="4"

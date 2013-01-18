@@ -27,7 +27,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:mediumTab_ContainerImageMap">
+        Image="@asset={EditorAssets}:mediumTab_ContainerImage">
         <GuiTabBookCtrl
             Name="Lbtrpv_Vb_SceneTabBook"
             canSaveDynamicFields="0"
@@ -1109,7 +1109,7 @@
                         Visible="1"
                         Active="0"
                         hovertime="1000"
-                        text="ForegroundImageMap"
+                        text="ForegroundImage"
                         maxLength="1024"
                         truncate="0"
                         historySize="0"
@@ -1134,10 +1134,10 @@
                         groupNum="-1"
                         buttonType="PushButton"
                         useMouseEvents="0"
-                        NormalImage="@asset={EditorAssets}:assetImageMap"
-                        HoverImage="@asset={EditorAssets}:asset_hImageMap"
-                        DownImage="@asset={EditorAssets}:asset_dImageMap"
-                        InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+                        NormalImage="@asset={EditorAssets}:assetImage"
+                        HoverImage="@asset={EditorAssets}:asset_hImage"
+                        DownImage="@asset={EditorAssets}:asset_dImage"
+                        InactiveImage="@asset={EditorAssets}:asset_iImage" />
                     <GuiTextCtrl
                         Name="Lbtrpv_Vb_Stb_Btp_Fc_ParallaxSpeedLabel"
                         canSaveDynamicFields="0"
@@ -1249,10 +1249,10 @@
                         groupNum="-1"
                         buttonType="PushButton"
                         useMouseEvents="0"
-                        NormalImage="@asset={EditorAssets}:assetImageMap"
-                        HoverImage="@asset={EditorAssets}:asset_hImageMap"
-                        DownImage="@asset={EditorAssets}:asset_dImageMap"
-                        InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+                        NormalImage="@asset={EditorAssets}:assetImage"
+                        HoverImage="@asset={EditorAssets}:asset_hImage"
+                        DownImage="@asset={EditorAssets}:asset_dImage"
+                        InactiveImage="@asset={EditorAssets}:asset_iImage" />
                     <GuiTextCtrl
                         Name="Lbtrpv_Vb_Stb_Btp_B1c_ParallaxSpeedLabel"
                         canSaveDynamicFields="0"
@@ -1364,10 +1364,10 @@
                         groupNum="-1"
                         buttonType="PushButton"
                         useMouseEvents="0"
-                        NormalImage="@asset={EditorAssets}:assetImageMap"
-                        HoverImage="@asset={EditorAssets}:asset_hImageMap"
-                        DownImage="@asset={EditorAssets}:asset_dImageMap"
-                        InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+                        NormalImage="@asset={EditorAssets}:assetImage"
+                        HoverImage="@asset={EditorAssets}:asset_hImage"
+                        DownImage="@asset={EditorAssets}:asset_dImage"
+                        InactiveImage="@asset={EditorAssets}:asset_iImage" />
                     <GuiTextCtrl
                         Name="Lbtrpv_Vb_Stb_Btp_B2c_ParallaxSpeedLabel"
                         canSaveDynamicFields="0"
@@ -1479,10 +1479,10 @@
                         groupNum="-1"
                         buttonType="PushButton"
                         useMouseEvents="0"
-                        NormalImage="@asset={EditorAssets}:assetImageMap"
-                        HoverImage="@asset={EditorAssets}:asset_hImageMap"
-                        DownImage="@asset={EditorAssets}:asset_dImageMap"
-                        InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+                        NormalImage="@asset={EditorAssets}:assetImage"
+                        HoverImage="@asset={EditorAssets}:asset_hImage"
+                        DownImage="@asset={EditorAssets}:asset_dImage"
+                        InactiveImage="@asset={EditorAssets}:asset_iImage" />
                     <GuiTextCtrl
                         Name="Lbtrpv_Vb_Stb_Btp_Sc_ParallaxSpeedLabel"
                         canSaveDynamicFields="0"

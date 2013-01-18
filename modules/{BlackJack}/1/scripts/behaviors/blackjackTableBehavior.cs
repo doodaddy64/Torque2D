@@ -636,7 +636,7 @@ function BlackjackTableBehavior::autoFillAi(%this)
                     if (BlackjackPlayerCommon::selectPlayer($PlayerArray[%j], $TableSeatArray[%i]))
                     {
                         // Set the bottom bar
-                        //$BottomBarAvatarImages[%aiPlacedCount].setImageMap($PlayerArray[%j].owner.getImageMap());
+                        //$BottomBarAvatarImages[%aiPlacedCount].setImage($PlayerArray[%j].owner.getImage());
                         //$BottomBarBitmapFonts[%aiPlacedCount];
 
                         //%aiPlacedCount++;
@@ -667,8 +667,8 @@ function BlackjackTableBehavior::updateBottomBar(%this)
         {
             if ($TableSeatArray[%i].player != $UserControlledPlayer)
             {
-                $BottomBarBackground[%aiPlacedCount].setImageMap(BottomBarAIBackgroundTemplate.getImageMap());
-                $BottomBarAvatarImages[%aiPlacedCount].setImageMap($TableSeatArray[%i].player.owner.getImageMap(), $TableSeatArray[%i].player.owner.getFrame());
+                $BottomBarBackground[%aiPlacedCount].setImage(BottomBarAIBackgroundTemplate.getImage());
+                $BottomBarAvatarImages[%aiPlacedCount].setImage($TableSeatArray[%i].player.owner.getImage(), $TableSeatArray[%i].player.owner.getFrame());
                 $TableSeatArray[%i].player.bank.numericalDisplay = $BottomBarBitmapFonts[%aiPlacedCount];
 
                 $BottomBarBackground[%aiPlacedCount].setVisible(true);

@@ -222,10 +222,10 @@ function TagListContainer::createTagButton(%this, %index, %tagName)
         toolTip="Remove this tag from the asset.";
         wrap="0";
         buttonType="PushButton";
-        NormalImage="{EditorAssets}:redCloseImageMap";
-        HoverImage="{EditorAssets}:redClose_hImageMap";
-        DepressedImage="{EditorAssets}:redClose_dImageMap";
-        InactiveImage="{EditorAssets}:redClose_iImageMap";
+        NormalImage="{EditorAssets}:redCloseImage";
+        HoverImage="{EditorAssets}:redClose_hImage";
+        DepressedImage="{EditorAssets}:redClose_dImage";
+        InactiveImage="{EditorAssets}:redClose_iImage";
     };
     %control.addGuiControl(%removeBtn);
 

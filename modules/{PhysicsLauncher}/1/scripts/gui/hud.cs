@@ -185,16 +185,16 @@ function ProjectileSlot::sizeProjectile(%projectile)
     if (AssetDatabase.getAssetType(%asset) $= "AnimationAsset")
     {
         %animationAsset = AssetDatabase.acquireAsset(%asset);
-        %animationImageMapAsset = AssetDatabase.acquireAsset(strchr(%animationAsset.imagemap, "{"));
-        %projectile.setSize(Vector2Scale(%animationImageMapAsset.getFrameSize(0), $PhysicsLauncherTools::MetersPerPixel));
-        AssetDatabase.releaseAsset(%animationImageMapAsset.getAssetId());
+        %animationImageAsset = AssetDatabase.acquireAsset(strchr(%animationAsset.image, "{"));
+        %projectile.setSize(Vector2Scale(%animationImageAsset.getFrameSize(0), $PhysicsLauncherTools::MetersPerPixel));
+        AssetDatabase.releaseAsset(%animationImageAsset.getAssetId());
         AssetDatabase.releaseAsset(%animationAsset.getAssetId());
     }
     else
     {
-        %imageMapAsset = AssetDatabase.acquireAsset(%asset);
-        %projectile.setSize(Vector2Scale(%imageMapAsset.getFrameSize(0), $PhysicsLauncherTools::MetersPerPixel));
-        AssetDatabase.releaseAsset(%imageMapAsset.getAssetId());
+        %imageAsset = AssetDatabase.acquireAsset(%asset);
+        %projectile.setSize(Vector2Scale(%imageAsset.getFrameSize(0), $PhysicsLauncherTools::MetersPerPixel));
+        AssetDatabase.releaseAsset(%imageAsset.getAssetId());
     }
 }
 

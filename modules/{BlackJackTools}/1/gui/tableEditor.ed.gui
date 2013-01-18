@@ -157,7 +157,7 @@
                      canSave = "1";
                      Visible = "1";
                      hovertime = "1000";
-                     text = "TableImageMap";
+                     text = "TableImage";
                      maxLength = "1024";
                      historySize = "0";
                      password = "0";
@@ -350,7 +350,7 @@
                      canSave = "1";
                      Visible = "1";
                      hovertime = "1000";
-                     text = "betBoxImageMap";
+                     text = "betBoxImage";
                      maxLength = "1024";
                      historySize = "0";
                      password = "0";
@@ -528,7 +528,7 @@
                      canSave = "1";
                      Visible = "1";
                      hovertime = "1000";
-                     text = "PlayerSpaceImageMap";
+                     text = "PlayerSpaceImage";
                      maxLength = "1024";
                      historySize = "0";
                      password = "0";
@@ -704,7 +704,7 @@
                      canSave = "1";
                      Visible = "1";
                      hovertime = "1000";
-                     text = "ChipTrayImageMap";
+                     text = "ChipTrayImage";
                      maxLength = "1024";
                      historySize = "0";
                      password = "0";
@@ -1130,7 +1130,7 @@
                      canSave = "1";
                      Visible = "1";
                      hovertime = "1000";
-                     text = "CardHolderImageMap";
+                     text = "CardHolderImage";
                      maxLength = "1024";
                      historySize = "0";
                      password = "0";
@@ -1292,7 +1292,7 @@
                      canSave = "1";
                      Visible = "1";
                      hovertime = "1000";
-                     text = "UsedCardsImageMap";
+                     text = "UsedCardsImage";
                      maxLength = "1024";
                      historySize = "0";
                      password = "0";
@@ -1581,7 +1581,7 @@
                      canSave = "1";
                      Visible = "1";
                      hovertime = "1000";
-                     text = "penetrationCardImageMap";
+                     text = "penetrationCardImage";
                      maxLength = "1024";
                      historySize = "0";
                      password = "0";
@@ -2217,7 +2217,7 @@
                            canSave = "1";
                            Visible = "1";
                            hovertime = "1000";
-                           text = "chip1dollarImageMap";
+                           text = "chip1dollarImage";
                            maxLength = "1024";
                            historySize = "0";
                            password = "0";
@@ -2550,7 +2550,7 @@
                            canSave = "1";
                            Visible = "1";
                            hovertime = "1000";
-                           text = "chip5dollarImageMap";
+                           text = "chip5dollarImage";
                            maxLength = "1024";
                            historySize = "0";
                            password = "0";
@@ -2887,7 +2887,7 @@
                            canSave = "1";
                            Visible = "1";
                            hovertime = "1000";
-                           text = "chip25dollarImageMap";
+                           text = "chip25dollarImage";
                            maxLength = "1024";
                            historySize = "0";
                            password = "0";
@@ -3223,7 +3223,7 @@
                            canSave = "1";
                            Visible = "1";
                            hovertime = "1000";
-                           text = "chip100dollarImageMap";
+                           text = "chip100dollarImage";
                            maxLength = "1024";
                            historySize = "0";
                            password = "0";

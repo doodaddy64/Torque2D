@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="interfaceIcon_IdleImageMap"
+    AssetName="interfaceIcon_IdleImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#interfaceIcon_Idle.png" />

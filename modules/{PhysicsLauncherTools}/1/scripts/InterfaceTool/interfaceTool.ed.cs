@@ -1108,10 +1108,10 @@ function InterfaceTool::createWorldPane(%this, %index, %worldData, %controlPrevi
         buttonType="PushButton";
         useMouseEvents="0";
         isLegacyVersion="0";
-        NormalImage="{EditorAssets}:assetImageMap";
-        HoverImage="{EditorAssets}:asset_hImageMap";
-        DownImage="{EditorAssets}:asset_dImageMap";
-        InactiveImage="{EditorAssets}:asset_iImageMap";
+        NormalImage="{EditorAssets}:assetImage";
+        HoverImage="{EditorAssets}:asset_hImage";
+        DownImage="{EditorAssets}:asset_dImage";
+        InactiveImage="{EditorAssets}:asset_iImage";
             edit = %containerSelectEdit;
             world = %worldData;
             index = %index;
@@ -1226,10 +1226,10 @@ function InterfaceTool::createWorldPane(%this, %index, %worldData, %controlPrevi
         buttonType="PushButton";
         useMouseEvents="0";
         isLegacyVersion="0";
-        NormalImage="{EditorAssets}:assetImageMap";
-        HoverImage="{EditorAssets}:asset_hImageMap";
-        DownImage="{EditorAssets}:asset_dImageMap";
-        InactiveImage="{EditorAssets}:asset_iImageMap";
+        NormalImage="{EditorAssets}:assetImage";
+        HoverImage="{EditorAssets}:asset_hImage";
+        DownImage="{EditorAssets}:asset_dImage";
+        InactiveImage="{EditorAssets}:asset_iImage";
             edit=%iconSelectEdit;
             world = %worldData;
             preview = %previewImage;
@@ -1277,10 +1277,10 @@ function InterfaceTool::createWorldPane(%this, %index, %worldData, %controlPrevi
         groupNum="-1";
         buttonType="PushButton";
         useMouseEvents="0";
-        NormalImage="{EditorAssets}:magnifyingGlassBackingImageMap";
-        HoverImage="{EditorAssets}:magnifyingGlassBacking_hImageMap";
-        DownImage="{EditorAssets}:magnifyingGlassBacking_dImageMap";
-        InactiveImage="{EditorAssets}:magnifyingGlassBacking_iImageMap";
+        NormalImage="{EditorAssets}:magnifyingGlassBackingImage";
+        HoverImage="{EditorAssets}:magnifyingGlassBacking_hImage";
+        DownImage="{EditorAssets}:magnifyingGlassBacking_dImage";
+        InactiveImage="{EditorAssets}:magnifyingGlassBacking_iImage";
             preview=%previewImage;
     };
     %previewImage.addGuiControl(%previewBtn);
@@ -1476,10 +1476,10 @@ function InterfaceTool::createLevelPane(%this, %index, %page, %pageControl, %ima
         buttonType="PushButton";
         useMouseEvents="0";
         isLegacyVersion="0";
-        NormalImage="{EditorAssets}:magnifyingGlassBackingImageMap";
-        HoverImage="{EditorAssets}:magnifyingGlassBacking_hImageMap";
-        DownImage="{EditorAssets}:magnifyingGlassBacking_dImageMap";
-        InactiveImage="{EditorAssets}:magnifyingGlassBacking_iImageMap";
+        NormalImage="{EditorAssets}:magnifyingGlassBackingImage";
+        HoverImage="{EditorAssets}:magnifyingGlassBacking_hImage";
+        DownImage="{EditorAssets}:magnifyingGlassBacking_dImage";
+        InactiveImage="{EditorAssets}:magnifyingGlassBacking_iImage";
             index = %index;
             preview = %previewImage;
     };
@@ -1536,10 +1536,10 @@ function InterfaceTool::createLevelPane(%this, %index, %page, %pageControl, %ima
         buttonType="PushButton";
         useMouseEvents="0";
         isLegacyVersion="0";
-        NormalImage="{EditorAssets}:assetImageMap";
-        HoverImage="{EditorAssets}:asset_hImageMap";
-        DownImage="{EditorAssets}:asset_dImageMap";
-        InactiveImage="{EditorAssets}:asset_iImageMap";
+        NormalImage="{EditorAssets}:assetImage";
+        HoverImage="{EditorAssets}:asset_hImage";
+        DownImage="{EditorAssets}:asset_dImage";
+        InactiveImage="{EditorAssets}:asset_iImage";
             edit=%selectEdit;
             preview=LevelSelectBackground @ %index;
             index=%index;
@@ -2598,7 +2598,7 @@ function It_PreviewDisplayButton::onClick(%this)
     %size = %edit.assetSize;
 
     if (%image $= "")
-        %image = "{PhysicsLauncherTools}:NoPreviewImageMap";
+        %image = "{PhysicsLauncherTools}:NoPreviewImage";
 
     ImagePreviewGui.display(%image);
 }

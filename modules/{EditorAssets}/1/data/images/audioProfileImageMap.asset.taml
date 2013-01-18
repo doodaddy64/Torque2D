@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="audioProfileImageMap"
+    AssetName="audioProfileImage"
     AssetInternal="1"
     ImageFile="@assetFile=#audioIcon"
     filterPad="false" />

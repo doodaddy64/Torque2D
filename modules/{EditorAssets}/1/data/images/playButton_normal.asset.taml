@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="playButton_normalImageMap"
+    AssetName="playButton_normalImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#playButton_normal.png" />

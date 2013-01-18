@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="Rocks_SpriteSetImageMap"
+    AssetName="Rocks_SpriteSetImage"
     imageFile="@assetFile=#Rocks_SpriteSet.png"
     cellCountX="-1"
     cellCountY="-1"

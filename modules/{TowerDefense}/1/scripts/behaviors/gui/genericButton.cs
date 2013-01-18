@@ -30,7 +30,7 @@ function GenericButtonBehavior::onBehaviorAdd(%this)
    %this.owner.UseInputEvents = true;
    %this.touchID = "";
    
-   %this.startImage = %this.owner.getImageMap();
+   %this.startImage = %this.owner.getImage();
    %this.startFrame = %this.owner.getFrame();
    
    $CapturedTouchIDsOwners.add(%this); 
@@ -50,7 +50,7 @@ function GenericButtonBehavior::onTouchDown(%this, %touchID, %worldPos)
    %this.touchID = %touchID;  
       
    if (isObject(%this.clickImage))
-      %this.owner.setImageMap(%this.clickImage, %this.clickFrame);
+      %this.owner.setImage(%this.clickImage, %this.clickFrame);
 
    if (%this.owner.isMethod(%this.buttonDown))
       %this.owner.call(%this.buttonDown, %worldPos, %touchID);
@@ -69,7 +69,7 @@ function GenericButtonBehavior::onTouchUp(%this, %touchID, %worldPos)
       %this.touchID = "";
       
       if (isObject(%this.clickImage))
-         %this.owner.setImageMap(%this.startImage, %this.startFrame);
+         %this.owner.setImage(%this.startImage, %this.startFrame);
       
       if (%this.owner.isMethod(%this.buttonUp))
          %this.owner.call(%this.buttonUp, %worldPos);

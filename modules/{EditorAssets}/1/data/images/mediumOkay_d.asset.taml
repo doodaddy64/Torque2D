@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="mediumOkay_dImageMap"
+    AssetName="mediumOkay_dImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#mediumOkay_d.png" />

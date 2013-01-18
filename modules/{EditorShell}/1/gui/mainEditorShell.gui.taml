@@ -179,7 +179,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:3SSLogoImageMap" />
+        Image="@asset={EditorAssets}:3SSLogoImage" />
     <GuiControl
         Name="ESCommonToolbarGui"
         canSaveDynamicFields="0"

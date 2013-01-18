@@ -48,7 +48,7 @@ function createTumblerBall()
         %ball = new Sprite();
         %ball.Position = getRandom(-10,10) SPC "0";
         %ball.Size = "1";
-        %ball.ImageMap = "TumblerToy:FootballImage";        
+        %ball.Image = "TumblerToy:FootballImage";        
         %ball.BlendColor = getStockColorName(getRandom(0,%stockColorCount-1));
         %ball.setDefaultRestitution( 0.6 );
         %collisionId = %ball.createCircleCollisionShape( 0.5 );        

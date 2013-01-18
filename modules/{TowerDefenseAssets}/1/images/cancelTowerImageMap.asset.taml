@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="cancelTowerImageMap"
+    AssetName="cancelTowerImage"
     imageFile="@assetFile=#cancelTower.png"
     AssetCategory="gui" />

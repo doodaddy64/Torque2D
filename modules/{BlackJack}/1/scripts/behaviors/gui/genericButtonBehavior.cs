@@ -24,7 +24,7 @@ function GenericButtonBehavior::onBehaviorAdd(%this)
     %this.owner.UseInputEvents = true;
     %this.touchID = "";
 
-    %this.startImage = %this.owner.getImageMap();
+    %this.startImage = %this.owner.getImage();
     %this.startFrame = %this.owner.getFrame();
 }
 
@@ -40,7 +40,7 @@ function GenericButtonBehavior::onTouchDown(%this, %touchID, %worldPos)
 
     %this.touchID = %touchID;
 
-    %this.owner.setImageMap(%this.clickImage, %this.clickFrame);
+    %this.owner.setImage(%this.clickImage, %this.clickFrame);
 
     if (%this.playSound)
         alxPlay($Save::GeneralSettings::Sound::ButtonClick);
@@ -58,7 +58,7 @@ function GenericButtonBehavior::onTouchUp(%this, %touchID, %worldPos)
             %this.schedule(%this.delay, reactivate);
         }
 
-        %this.owner.setImageMap(%this.startImage, %this.startFrame);
+        %this.owner.setImage(%this.startImage, %this.startFrame);
 
         if (%this.owner.isMethod(%this.method))
             %this.owner.call(%this.method, %worldPos);

@@ -12,9 +12,9 @@ function initializeAnimationEditor(%scopeSet)
     exec("./scripts/utility.cs");
     exec("./scripts/tagHelpers.cs");
     exec("./scripts/animationBuilder.cs");
-    exec("./scripts/previewWindows/ABImageMapPreviewWindow.cs");    
+    exec("./scripts/previewWindows/ABImagePreviewWindow.cs");    
     exec("./scripts/previewWindows/storyboardWindow.cs");
-    exec("./scripts/previewWindows/imageMapPreviewWindow.cs");
+    exec("./scripts/previewWindows/imagePreviewWindow.cs");
     exec("./scripts/previewWindows/animationPreviewWindow.cs");
     exec("./scripts/previewWindows/genericPreview.cs");
     exec("./scripts/animationContentPane.cs");
@@ -26,7 +26,7 @@ function initializeAnimationEditor(%scopeSet)
     // Load GUIs
     //-----------------------------------------------------------------------------
     %scopeSet.add( TamlRead("./gui/animBuilder.gui.taml") );
-    %scopeSet.add( TamlRead("./gui/imageMapSelect.gui.taml") );
+    %scopeSet.add( TamlRead("./gui/imageSelect.gui.taml") );
     
     //-----------------------------------------------------------------------------
     // Initialization

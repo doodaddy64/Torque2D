@@ -133,7 +133,7 @@ function createBackground()
 
    %obj = new Sprite();
    %obj.setBodyType( "static" );
-   %obj.setImageMap( "TruckToy:background_day" );
+   %obj.setImage( "TruckToy:background_day" );
    %obj.setSize( $worldWidth, 75 );
    %obj.setSceneLayer( $backdropDomain );
    %obj.setSceneGroup( $backdropDomain );
@@ -148,7 +148,7 @@ function createBackground()
    
    %obj = new Scroller();
    %obj.setBodyType( "static" );
-   %obj.setImageMap( "TruckToy:industrial_02" );
+   %obj.setImage( "TruckToy:industrial_02" );
    %obj.setPosition( 0, -1 );
    %obj.setSize( $worldWidth, 8 );
    %obj.setRepeatX( $worldWidth / 8 );   
@@ -171,7 +171,7 @@ function createFloor()
    $GlobalFloor = new Scroller();
    %obj = $GlobalFloor;
    %obj.setBodyType( "static" );
-   %obj.setImageMap( "TruckToy:woodGround" );
+   %obj.setImage( "TruckToy:woodGround" );
    %obj.setSize( $worldWidth, 3 );
    %obj.setPosition( 0, $floorLevel - (%obj.getSizeY()/2) );
    %obj.setRepeatX( $worldWidth / 12 );   
@@ -191,7 +191,7 @@ function createBrokenCementWall( %posX, %posY )
 {
    %obj = new Sprite();   
    %obj.setBodyType( "static" );
-   %obj.setImageMap( "TruckToy:brokenCementWall" );
+   %obj.setImage( "TruckToy:brokenCementWall" );
    %obj.setPosition( %posX, %posY );
    %obj.setSize( 6, 6 );
    %obj.setSceneLayer( $backgroundDomain-2 );
@@ -210,7 +210,7 @@ function createWoodPile( %posX, %posY )
 {
    %obj = new Sprite();   
    %obj.setBodyType( "static" );
-   %obj.setImageMap( "TruckToy:woodPile" );
+   %obj.setImage( "TruckToy:woodPile" );
    %obj.setPosition( %posX, %posY );
    %obj.setSize( 8, 5 );
    %obj.setSceneLayer( $backgroundDomain-2 );
@@ -266,7 +266,7 @@ function createBridge( %posX, %posY, %linkCount )
    
    %rootObj = new Sprite();
    %rootObj.setBodyType( "static" );
-   %rootObj.setImageMap( "TruckToy:cable" );
+   %rootObj.setImage( "TruckToy:cable" );
    %rootObj.setPosition( %posX, %posY );
    %rootObj.setSize( %linkWidth, %linkHeight );
    %rootObj.setSceneLayer( $backgroundDomain-3 );
@@ -280,7 +280,7 @@ function createBridge( %posX, %posY, %linkCount )
    {
       %obj = new Sprite();
          
-      %obj.setImageMap( "TruckToy:cable" );
+      %obj.setImage( "TruckToy:cable" );
       %obj.setPosition( %posX + (%n*%linkWidth), %posY );
       %obj.setSize( %linkWidth, %linkHeight );
       %obj.setSceneLayer( $backgroundDomain-3 );
@@ -326,7 +326,7 @@ function createChain( %posX, %posY, %linkCount )
    
    %rootObj = new Sprite();
    %rootObj.setBodyType( "static" );
-   %rootObj.setImageMap( "TruckToy:chain" );
+   %rootObj.setImage( "TruckToy:chain" );
    %rootObj.setPosition( %posX, %posY );
    %rootObj.setSize( %linkWidth, %linkHeight );
    %rootObj.setSceneLayer( $backgroundDomain-3 );
@@ -339,7 +339,7 @@ function createChain( %posX, %posY, %linkCount )
    for ( %n = 1; %n <= %linkCount; %n++ )
    {
       %obj = new Sprite();
-      %obj.setImageMap( "TruckToy:chain" );
+      %obj.setImage( "TruckToy:chain" );
       %obj.setPosition( %posX, %posY - (%n*%linkHeight) );
       %obj.setSize( %linkWidth, %linkHeight );
       %obj.setSceneLayer( $backgroundDomain-3 );
@@ -372,7 +372,7 @@ function createWreckedBuilding( %posX, %posY )
 {
    %obj = new Sprite();   
    %obj.setBodyType( "static" );
-   %obj.setImageMap( "TruckToy:wreckedBuilding" );
+   %obj.setImage( "TruckToy:wreckedBuilding" );
    %obj.setPosition( %posX, %posY );
    %obj.setSize( 9, 8 );
    %obj.setSceneLayer( $backgroundDomain-1 );
@@ -398,12 +398,12 @@ function createForegroundBrickWall( %wallNumber, %posX, %posY )
       return;
    }
 
-   %imageMap = "TruckToy:brickWall_0" @ %wallNumber;
+   %image = "TruckToy:brickWall_0" @ %wallNumber;
       
    %obj = new Sprite();   
    %obj.setBodyType( "static" );
       
-   %obj.setImageMap( %imageMap );
+   %obj.setImage( %image );
    %obj.setPosition( %posX, %posY );
    %obj.setSize( 10, 5 );
    %obj.setSceneLayer( $foregroundDomain-1 );
@@ -427,12 +427,12 @@ function createForegroundWall( %wallNumber, %posX, %posY )
       return;
    }
 
-   %imageMap = "TruckToy:foregroundWall_0" @ %wallNumber;
+   %image = "TruckToy:foregroundWall_0" @ %wallNumber;
       
    %obj = new Sprite();   
    %obj.setBodyType( "static" );
       
-   %obj.setImageMap( %imageMap );
+   %obj.setImage( %image );
    %obj.setPosition( %posX, %posY );
    %obj.setSize( 6, 6 );
    %obj.setSceneLayer( $foregroundDomain-1 );
@@ -455,11 +455,11 @@ function createBrick( %brickNumber, %posX, %posY, %static )
       return;
    }
    
-   %imageMap = "TruckToy:brick_0" @ %brickNumber;
+   %image = "TruckToy:brick_0" @ %brickNumber;
    
    %obj = new Sprite();   
    if ( %static ) %obj.setBodyType( "static" );
-   %obj.setImageMap( %imageMap );
+   %obj.setImage( %image );
    %obj.setPosition( %posX, %posY );
    %obj.setSize( 1, 0.5 );
    %obj.setSceneLayer( $obstacleDomain );
@@ -479,7 +479,7 @@ function createBrickPile( %posX, %posY )
 {
    %obj = new Sprite();   
    %obj.setBodyType( "static" );
-   %obj.setImageMap( "TruckToy:brickPile" );
+   %obj.setImage( "TruckToy:brickPile" );
    %obj.setPosition( %posX, %posY );
    %obj.setSize( 4, 1 );
    %obj.setSceneLayer( $backgroundDomain-3 );
@@ -500,11 +500,11 @@ function createPlank( %plankNumber, %posX, %posY, %angle, %static )
       return;
    }
    
-   %imageMap = "TruckToy:plank_0" @ %plankNumber;
+   %image = "TruckToy:plank_0" @ %plankNumber;
    
    %obj = new Sprite();   
    if ( %static ) %obj.setBodyType( "static" );
-   %obj.setImageMap( %imageMap );
+   %obj.setImage( %image );
    %obj.setAngle( %angle );
    %obj.setPosition( %posX, %posY );
    %obj.setSize( 5, 1 );   
@@ -540,11 +540,11 @@ function createWreckedCar( %carNumber, %posX, %posY, %angle, %static )
       return;
    }
    
-   %imageMap = "TruckToy:wreckedCar_0" @ %carNumber;
+   %image = "TruckToy:wreckedCar_0" @ %carNumber;
    
    %obj = new Sprite();   
    if ( %static ) %obj.setBodyType( "static" );
-   %obj.setImageMap( %imageMap );
+   %obj.setImage( %image );
    %obj.setAngle( %angle );
    %obj.setPosition( %posX, %posY );
    %obj.setSize( 4, 1.5 );   
@@ -580,7 +580,7 @@ function createTruck( %posX, %posY )
    
    $truckBody = new Sprite();
    $truckBody.setPosition( %posX, %posY );
-   $truckBody.setImageMap( "TruckToy:truckBody" );
+   $truckBody.setImage( "TruckToy:truckBody" );
    $truckBody.setSize( 5, 2.5 );
    $truckBody.setSceneLayer( $truckDomain );
    $truckBody.setSceneGroup( $obstacleDomain );
@@ -602,7 +602,7 @@ function createTruck( %posX, %posY )
    // Rear tire.   
    %tireRear = new Sprite();
    %tireRear.setPosition( %posX-1.4, %posY-1.0 );
-   %tireRear.setImageMap( "TruckToy:tires" );
+   %tireRear.setImage( "TruckToy:tires" );
    %tireRear.setSize( 1.7, 1.7 );
    %tireRear.setSceneLayer( $truckDomain-1 );
    %tireRear.setSceneGroup( $obstacleDomain );
@@ -615,7 +615,7 @@ function createTruck( %posX, %posY )
    // Front tire.
    %tireFront = new Sprite();
    %tireFront.setPosition( %posX+1.7, %posY-1.0 );
-   %tireFront.setImageMap( "TruckToy:tires" );
+   %tireFront.setImage( "TruckToy:tires" );
    %tireFront.setSize( 1.7, 1.7 );
    %tireFront.setSceneLayer( $truckDomain-1 );
    %tireFront.setSceneGroup( $obstacleDomain );

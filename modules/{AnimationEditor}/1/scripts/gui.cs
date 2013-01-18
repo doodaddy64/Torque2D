@@ -102,7 +102,7 @@ function ABChangeImageClick::onMouseUp(%this)
 
 function ABChangeImageButton::onClick(%this)
 {
-    AnimationBuilder.changeImageMap();
+    AnimationBuilder.changeImage();
 }
 
 function AnimBuilderHelpButton::onClick(%this)
@@ -115,7 +115,7 @@ function ABNameField::onWake(%this)
     %this.initialize($ABAssetNameTextEditMessageString);
 }
 
-function ABImageMapField::onWake(%this)
+function ABImageField::onWake(%this)
 {
     %this.initialize($ABAssetLocationTextEditMessageString);
 }
@@ -144,7 +144,7 @@ function ABSaveButton::update(%this)
         %active = false;
         
     // Don't allow saving if the image location is blank
-    if (ABImageMapField.isEmpty()) 
+    if (ABImageField.isEmpty()) 
         %active = false;
       
     %this.setActive(%active);

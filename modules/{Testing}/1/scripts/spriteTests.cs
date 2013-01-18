@@ -35,16 +35,16 @@ function createTestScene()
 function createDefaultRenderProxy()
 {
     // Create default image.
-    %defaultImageMap = new ImageAsset()
+    %defaultImage = new ImageAsset()
     {
         ImageFile = expandPath( "^{Testing}/assets/images/defaultImage.png" );
     };
-    %defaultAssetId = AssetDatabase.addPrivateAsset( %defaultImageMap );
+    %defaultAssetId = AssetDatabase.addPrivateAsset( %defaultImage );
 
     // Create no-image render proxy.
     $NoImageRenderProxy = new RenderProxy()
     {
-        ImageMap = %defaultAssetId;
+        Image = %defaultAssetId;
     };    
 }
 
@@ -54,7 +54,7 @@ function createLargeSprite()
 {    
     %sprite = new Sprite(Curiosity)
     {
-        ImageMap = "{Testing}:CuriosityImage";
+        Image = "{Testing}:CuriosityImage";
         frame = 0;
         size = "20 20";
     };
@@ -94,7 +94,7 @@ function createBox2DScene()
         %sprite = new Sprite()
         {
             //Animation = "{Testing}:MiniTileMapAnim";
-            ImageMap = "{Testing}:CuriosityImage";
+            Image = "{Testing}:CuriosityImage";
             position = getRandom( -40, 40 ) SPC getRandom( 100, 40 );
             size = "5 5";
             angle = getRandom(0,360);

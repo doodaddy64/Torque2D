@@ -25,7 +25,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:PopupOverlayImageMap" />
+        Image="@asset={EditorAssets}:PopupOverlayImage" />
     <GuiSpriteCtrl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -39,7 +39,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={Web}:webView_ContainerImageMap">
+        Image="@asset={Web}:webView_ContainerImage">
         <GuiImageButtonCtrl
             Name="Wwg_CloseButton"
             canSaveDynamicFields="0"

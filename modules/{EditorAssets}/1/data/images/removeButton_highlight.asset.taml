@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="removeButton_highlightImageMap"
+    AssetName="removeButton_highlightImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#removeButton_highlight.png" />

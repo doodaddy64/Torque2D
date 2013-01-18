@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="transformToolHandle_dImageMap"
+    AssetName="transformToolHandle_dImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#transformToolHandle_d.png" />

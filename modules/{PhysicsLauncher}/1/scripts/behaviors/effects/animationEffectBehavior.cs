@@ -15,7 +15,7 @@ if (!isObject(AnimationEffectBehavior))
     %template.description  = "Play an animation for object events.";
 
     %template.addBehaviorField(asset, "The effect's assigned asset", asset, "");
-    %template.addBehaviorField(frame, "The frame number for the imageMap", int, 0);
+    %template.addBehaviorField(frame, "The frame number for the image", int, 0);
     %template.addBehaviorField(instanceName, "The animation name.", string, "");
 
     %template.addBehaviorInput(Play, "Play animation", "Tells the behavior that it should play its animation.");
@@ -39,7 +39,7 @@ function AnimationEffectBehavior::Play(%this, %fromBehavior, %fromOutput)
     
     if (%assetType $= "ImageAsset")
     {
-        %this.owner.setImageMap(%asset);
+        %this.owner.setImage(%asset);
         %this.owner.setFrame(%this.frame);
     }
     else if (%assetType $= "AnimationAsset")
@@ -96,8 +96,8 @@ function AnimationEffectBehavior::getFrameCount(%this)
 {
     if (AssetDatabase.getAssetType(%this.asset) $= "ImageAsset")
     {
-        %imageMapDatablock = AssetDatabase.acquireAsset(%this.asset);
-        return %imageMapDatablock.getFrameCount(); 
+        %imageDatablock = AssetDatabase.acquireAsset(%this.asset);
+        return %imageDatablock.getFrameCount(); 
     }
          
     return 0;

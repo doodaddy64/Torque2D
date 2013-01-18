@@ -254,7 +254,7 @@ function Scene::addToLevel(%scene, %levelFile, %dbFileName)
     return %newScene;
 }
 
-function Scene::getImageMapReferenceList(%this, %imageMap, %referenceList, %animations, %sprites, %animatedSprites, %scrollers)
+function Scene::getImageReferenceList(%this, %image, %referenceList, %animations, %sprites, %animatedSprites, %scrollers)
 {
     if(%animations $= "")
         %animations = true;
@@ -278,14 +278,14 @@ function Scene::getImageMapReferenceList(%this, %imageMap, %referenceList, %anim
 
         if(((%className $= "t2dStaticSprite") && %sprites) || ((%className $= "Scroller") && %scrollers))
         {
-            %testImageMap = %object.getImageMap();
+            %testImage = %object.getImage();
 
-            if(%testImageMap.getId() == %imageMap.getId())
+            if(%testImage.getId() == %image.getId())
                 %referenceList.add(%object);
         }
         else if((%className $= "t2dAnimatedSprite") && %animatedSprites)
         {
-            if(%object.animationName.imageMap.getId() == %imageMap.getId())
+            if(%object.animationName.image.getId() == %image.getId())
                 %referenceList.add(%object);
         }
     } 
@@ -300,7 +300,7 @@ function Scene::getImageMapReferenceList(%this, %imageMap, %referenceList, %anim
 
         if((%className $= "AnimationAsset") && %animations)
         {
-            if(%datablock.imageMap.getId() == %imageMap.getId())
+            if(%datablock.image.getId() == %image.getId())
                 %referenceList.add(%datablock);
         }
         else if((%className $= "ImageAsset"))

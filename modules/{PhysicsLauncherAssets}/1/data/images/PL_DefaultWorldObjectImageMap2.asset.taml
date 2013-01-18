@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="PL_DefaultWorldObjectImageMap2"
+    AssetName="PL_DefaultWorldObjectImage2"
     AssetCategory="sprites"
     ImageFile="@assetFile=#Crate_Damage_1"
     CellCountX="1"

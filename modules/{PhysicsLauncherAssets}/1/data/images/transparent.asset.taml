@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="transparentImageMap"
+    AssetName="transparentImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#transparent.png" />

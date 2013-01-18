@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="particleEffectIconImageMap"
+    AssetName="particleEffectIconImage"
     AssetInternal="1"
     ImageFile="@assetFile=#particleEffect"
     filterPad="false" />

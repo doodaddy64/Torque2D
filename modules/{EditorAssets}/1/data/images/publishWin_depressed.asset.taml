@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="publishWin_depressedImageMap"
+    AssetName="publishWin_depressedImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#publishWin_depressed.png" />

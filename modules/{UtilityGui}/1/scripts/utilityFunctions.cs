@@ -98,7 +98,7 @@ function OpenImageFileForFields(%previewImage, %textEdit, %callBack, %gameGuiDir
       
    %dlg = new OpenFileDialog()
    {
-      Filters = $T2D::ImageMapSpec;
+      Filters = $T2D::ImageSpec;
       ChangePath = false;
       MustExist = true;
       MultipleFiles = true;
@@ -250,7 +250,7 @@ function ConvertSpriteToOtherType(%spriteToConvert)
    {
       %fieldName = %spriteToConvert.getField(%i);
       
-      if ((%fieldName $= "imageMap") || (%fieldName $= "animationName") || (%fieldName $= "frame") )
+      if ((%fieldName $= "image") || (%fieldName $= "animationName") || (%fieldName $= "frame") )
          continue;
       
       %convertedSprite.setFieldValue(%fieldName, %spriteToConvert.getFieldValue(%fieldName));

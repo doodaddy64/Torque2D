@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="TD_DwarfImageMap"
+    AssetName="TD_DwarfImage"
     imageFile="@assetFile=#TD_Dwarf.png"
     cellCountX="8"
     cellCountY="8"

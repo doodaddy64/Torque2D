@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="Banana_BunchesImageMap"
+    AssetName="Banana_BunchesImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#Banana_Bunches.png"
     CellCountX="4"

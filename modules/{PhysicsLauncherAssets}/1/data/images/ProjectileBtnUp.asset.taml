@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="ProjectileBtnUpImageMap"
+    AssetName="ProjectileBtnUpImage"
     AssetCategory="gui"
     ImageFile="@assetFile=#ProjectileBtnUp.png" />

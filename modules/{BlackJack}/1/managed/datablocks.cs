@@ -1,140 +1,140 @@
 $managedDatablockSet = new SimSet() {
       setType = "Datablocks";
 
-   new ImageAsset(chip1dollarImageMap) {
+   new ImageAsset(chip1dollarImage) {
       imageFile = "data/images/chip1dollar";
       imageMode = "FULL";
          NameTags = "4";
    };
-   new ImageAsset(chip5dollarImageMap) {
+   new ImageAsset(chip5dollarImage) {
       imageFile = "data/images/chip5dollar";
       imageMode = "FULL";
          NameTags = "4";
    };
-   new ImageAsset(chip25dollarImageMap) {
+   new ImageAsset(chip25dollarImage) {
       imageFile = "data/images/chip25dollar";
       imageMode = "FULL";
          NameTags = "4";
    };
-   new ImageAsset(chip100dollarImageMap) {
+   new ImageAsset(chip100dollarImage) {
       imageFile = "data/images/chip100dollar";
       imageMode = "FULL";
          NameTags = "4";
    };
-   new ImageAsset(betBoxImageMap) {
+   new ImageAsset(betBoxImage) {
       imageFile = "data/images/betBox";
       imageMode = "FULL";
    };
-   new ImageAsset(avatarEmptyImageMap) {
+   new ImageAsset(avatarEmptyImage) {
       imageFile = "data/images/betBox";
       imageMode = "FULL";
          NameTags = "6";
    };
-   new ImageAsset(penetrationCardImageMap) {
+   new ImageAsset(penetrationCardImage) {
       imageFile = "data/images/penetrationCard";
       imageMode = "FULL";
          NameTags = "5";
    };
-   new ImageAsset(TableImageMap) {
+   new ImageAsset(TableImage) {
       imageFile = "data/images/Table";
       imageMode = "FULL";
          NameTags = "2";
    };
-   new ImageAsset(ChipTrayImageMap) {
+   new ImageAsset(ChipTrayImage) {
       imageFile = "data/images/ChipTray";
       imageMode = "FULL";
          NameTags = "2";
    };
-   new ImageAsset(PlayerSpaceImageMap) {
+   new ImageAsset(PlayerSpaceImage) {
       imageFile = "data/images/PlayerSpace";
       imageMode = "FULL";
          NameTags = "2";
    };
-   new ImageAsset(RulesOverlayImageMap) {
+   new ImageAsset(RulesOverlayImage) {
       imageFile = "data/images/RulesOverlay";
       imageMode = "FULL";
          NameTags = "2";
    };
-   new ImageAsset(UsedCardsImageMap) {
+   new ImageAsset(UsedCardsImage) {
       imageFile = "data/images/UsedCards";
       imageMode = "FULL";
          NameTags = "5";
    };
-   new ImageAsset(CardHolderImageMap) {
+   new ImageAsset(CardHolderImage) {
       imageFile = "data/images/CardHolder";
       imageMode = "FULL";
          NameTags = "5";
    };
-   new ImageAsset(BlackJack_BenImageMap) {
+   new ImageAsset(BlackJack_BenImage) {
       imageFile = "data/images/BlackJack_Ben";
       imageMode = "FULL";
          NameTags = "8";
    };
-   new ImageAsset(BlackJack_CassieImageMap) {
+   new ImageAsset(BlackJack_CassieImage) {
       imageFile = "data/images/BlackJack_Cassie";
       imageMode = "FULL";
          NameTags = "8";
    };
-   new ImageAsset(BlackJack_DougImageMap) {
+   new ImageAsset(BlackJack_DougImage) {
       imageFile = "data/images/BlackJack_Doug";
       imageMode = "FULL";
          NameTags = "8";
    };
-   new ImageAsset(BlackJack_MitchImageMap) {
+   new ImageAsset(BlackJack_MitchImage) {
       imageFile = "data/images/BlackJack_Mitch";
       imageMode = "FULL";
          NameTags = "8";
    };
-   new ImageAsset(BlackJack_PlayerImageMap) {
+   new ImageAsset(BlackJack_PlayerImage) {
       imageFile = "data/images/BlackJack_Player";
       imageMode = "FULL";
          NameTags = "8";
    };
-   new ImageAsset(BustImageMap) {
+   new ImageAsset(BustImage) {
       imageFile = "data/images/Bust";
       imageMode = "FULL";
          NameTags = "6";
    };
-   new ImageAsset(BlackjackImageMap) {
+   new ImageAsset(BlackjackImage) {
       imageFile = "data/images/Blackjack";
       imageMode = "FULL";
          NameTags = "6";
    };
-   new ImageAsset(LoseImageMap) {
+   new ImageAsset(LoseImage) {
       imageFile = "data/images/Lose";
       imageMode = "FULL";
          NameTags = "6";
    };
-   new ImageAsset(WinImageMap) {
+   new ImageAsset(WinImage) {
       imageFile = "data/images/Win";
       imageMode = "FULL";
          NameTags = "6";
    };
-   new ImageAsset(ShufflingImageMap) {
+   new ImageAsset(ShufflingImage) {
       imageFile = "data/images/Shuffling";
       imageMode = "FULL";
          NameTags = "6";
    };
-   new ImageAsset(Carpet_BackdropImageMap) {
+   new ImageAsset(Carpet_BackdropImage) {
       imageFile = "data/images/Carpet_Backdrop";
       imageMode = "FULL";
          NameTags = "3";
    };
-   new ImageAsset(BlackJack_ElieImageMap) {
+   new ImageAsset(BlackJack_ElieImage) {
       imageFile = "data/images/BlackJack_Elie";
       imageMode = "FULL";
          NameTags = "8";
    };
-   new ImageAsset(BlackJack_JDImageMap) {
+   new ImageAsset(BlackJack_JDImage) {
       imageFile = "data/images/BlackJack_JD";
       imageMode = "FULL";
          NameTags = "8";
    };
-   new ImageAsset(BlackJack_JonImageMap) {
+   new ImageAsset(BlackJack_JonImage) {
       imageFile = "data/images/BlackJack_Jon";
       imageMode = "FULL";
    };
-   new ImageAsset(fontImageMap) {
+   new ImageAsset(fontImage) {
       imageFile = "data/images/font";
       cellCountX = "16";
       cellCountY = "6";
@@ -146,7 +146,7 @@ $managedDatablockSet = new SimSet() {
       imageFile = "data/images/BankBackground";
       imageMode = "FULL";
    };
-   new ImageAsset(PushImageMap) {
+   new ImageAsset(PushImage) {
       imageFile = "data/images/Push";
       imageMode = "FULL";
       preload = "0";

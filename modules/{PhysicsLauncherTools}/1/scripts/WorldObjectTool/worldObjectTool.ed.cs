@@ -446,7 +446,7 @@ function WorldObjectTool::createAddObjectButtonGui(%this)
         canSave="1";
         Visible="1";
         hovertime="1000";
-        Image="{EditorAssets}:addButton_normalImageMap";
+        Image="{EditorAssets}:addButton_normalImage";
         wrap="0";
         useSourceRect="0";
         sourceRect="0 0 0 0";
@@ -605,10 +605,10 @@ function WorldObjectTool::CreateObjectHighlightButton(%this, %i)
             groupNum="-1";
             buttonType="PushButton";
             useMouseEvents="0";
-            NormalImage="{EditorAssets}:redCloseImageMap";
-            HoverImage="{EditorAssets}:redClose_hImageMap";
-            DownImage="{EditorAssets}:redClose_dImageMap";
-            InactiveImage="{EditorAssets}:redClose_iImageMap";
+            NormalImage="{EditorAssets}:redCloseImage";
+            HoverImage="{EditorAssets}:redClose_hImage";
+            DownImage="{EditorAssets}:redClose_dImage";
+            InactiveImage="{EditorAssets}:redClose_iImage";
                 index = %i;
         };
         %control.addGuiControl(%remove);

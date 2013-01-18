@@ -25,7 +25,7 @@
         Visible="1"
         Active="1"
         hovertime="1000"
-        Image="@asset={EditorAssets}:PopupOverlayImageMap" />
+        Image="@asset={EditorAssets}:PopupOverlayImage" />
     <GuiSpriteCtrl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -39,7 +39,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:delete_popupImageMap">
+        Image="@asset={EditorAssets}:delete_popupImage">
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -73,10 +73,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumOkayImageMap"
-            HoverImage="@asset={EditorAssets}:mediumOkay_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumOkay_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumOkay_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumOkayImage"
+            HoverImage="@asset={EditorAssets}:mediumOkay_hImage"
+            DownImage="@asset={EditorAssets}:mediumOkay_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumOkay_iImage" />
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -111,10 +111,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumCancelImageMap"
-            HoverImage="@asset={EditorAssets}:mediumCancel_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumCancel_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumCancel_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumCancelImage"
+            HoverImage="@asset={EditorAssets}:mediumCancel_hImage"
+            DownImage="@asset={EditorAssets}:mediumCancel_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumCancel_iImage" />
         <GuiSpriteCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -227,7 +227,7 @@
             Visible="1"
             Active="0"
             hovertime="1000"
-            Image="@asset={EditorAssets}:DeleteList_ContainerImageMap">
+            Image="@asset={EditorAssets}:DeleteList_ContainerImage">
             <GuiScrollCtrl
                 canSaveDynamicFields="0"
                 isContainer="1"

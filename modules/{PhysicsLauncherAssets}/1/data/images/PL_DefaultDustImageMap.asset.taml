@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="PL_DefaultDustImageMap"
+    AssetName="PL_DefaultDustImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#dust_default"
     CellCountX="4"

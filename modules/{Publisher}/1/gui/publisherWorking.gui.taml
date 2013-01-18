@@ -25,7 +25,7 @@
         Visible="1"
         Active="1"
         hovertime="1000"
-        Image="@asset={EditorAssets}:PopupOverlayImageMap" />
+        Image="@asset={EditorAssets}:PopupOverlayImage" />
     <GuiSpriteCtrl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -39,7 +39,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:publish_popupImageMap">
+        Image="@asset={EditorAssets}:publish_popupImage">
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"

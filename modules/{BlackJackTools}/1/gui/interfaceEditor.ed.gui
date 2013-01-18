@@ -163,7 +163,7 @@
                   canSave = "1";
                   Visible = "1";
                   hovertime = "1000";
-                  text = "Carpet_BackdropImageMap";
+                  text = "Carpet_BackdropImage";
                   maxLength = "1024";
                   historySize = "0";
                   password = "0";
@@ -287,7 +287,7 @@
                      Visible = "1";
                      tooltipprofile = "GuiDefaultProfile";
                      hovertime = "1000";
-                     text = "BlackJack_PlayerImageMap";
+                     text = "BlackJack_PlayerImage";
                      maxLength = "1024";
                      historySize = "0";
                      password = "0";
@@ -2687,7 +2687,7 @@
                         Visible = "1";
                         tooltipprofile = "GuiDefaultProfile";
                         hovertime = "1000";
-                        text = "BlackjackImageMap";
+                        text = "BlackjackImage";
                         maxLength = "1024";
                         historySize = "0";
                         password = "0";
@@ -2896,7 +2896,7 @@
                         Visible = "1";
                         tooltipprofile = "GuiDefaultProfile";
                         hovertime = "1000";
-                        text = "BustImageMap";
+                        text = "BustImage";
                         maxLength = "1024";
                         historySize = "0";
                         password = "0";
@@ -3105,7 +3105,7 @@
                         Visible = "1";
                         tooltipprofile = "GuiDefaultProfile";
                         hovertime = "1000";
-                        text = "PushImageMap";
+                        text = "PushImage";
                         maxLength = "1024";
                         historySize = "0";
                         password = "0";
@@ -3314,7 +3314,7 @@
                         Visible = "1";
                         tooltipprofile = "GuiDefaultProfile";
                         hovertime = "1000";
-                        text = "WinImageMap";
+                        text = "WinImage";
                         maxLength = "1024";
                         historySize = "0";
                         password = "0";
@@ -3524,7 +3524,7 @@
                         Visible = "1";
                         tooltipprofile = "GuiDefaultProfile";
                         hovertime = "1000";
-                        text = "LoseImageMap";
+                        text = "LoseImage";
                         maxLength = "1024";
                         historySize = "0";
                         password = "0";
@@ -3942,7 +3942,7 @@
                         Visible = "1";
                         tooltipprofile = "GuiDefaultProfile";
                         hovertime = "1000";
-                        text = "ShufflingImageMap";
+                        text = "ShufflingImage";
                         maxLength = "1024";
                         historySize = "0";
                         password = "0";

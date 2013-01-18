@@ -345,10 +345,10 @@ function PhysicsLauncherTools::audioButtonInitialize(%button)
     %button.soundHandle = "";
     %button.soundScheduleHandle = "";   
     
-    %button.NormalImage = "{EditorAssets}:smallPlayImageMap";
-    %button.HoverImage = "{EditorAssets}:smallPlay_hImageMap";
-    %button.DownImage = "{EditorAssets}:smallPlay_dImageMap";
-    %button.InactiveImage = "{EditorAssets}:smallPlay_iImageMap";
+    %button.NormalImage = "{EditorAssets}:smallPlayImage";
+    %button.HoverImage = "{EditorAssets}:smallPlay_hImage";
+    %button.DownImage = "{EditorAssets}:smallPlay_dImage";
+    %button.InactiveImage = "{EditorAssets}:smallPlay_iImage";
 }
 
 function PhysicsLauncherTools::audioButtonClicked(%button, %soundAsset)
@@ -370,10 +370,10 @@ function PhysicsLauncherTools::audioButtonStop(%button, %soundAsset)
         cancel(%button.soundScheduleHandle); 
     
     alxStop(%button.soundHandle);
-    %button.setNormalImage("{EditorAssets}:smallPlayImageMap");
-    %button.setHoverImage("{EditorAssets}:smallPlay_hImageMap");
-    %button.setDownImage("{EditorAssets}:smallPlay_dImageMap");
-    %button.setInactiveImage("{EditorAssets}:smallPlay_iImageMap");
+    %button.setNormalImage("{EditorAssets}:smallPlayImage");
+    %button.setHoverImage("{EditorAssets}:smallPlay_hImage");
+    %button.setDownImage("{EditorAssets}:smallPlay_dImage");
+    %button.setInactiveImage("{EditorAssets}:smallPlay_iImage");
 }
 
 function PhysicsLauncherTools::audioButtonStart(%button, %soundAsset)
@@ -381,10 +381,10 @@ function PhysicsLauncherTools::audioButtonStart(%button, %soundAsset)
     if (AssetDatabase.isDeclaredAsset(%soundAsset))
     {    
         %button.soundHandle = alxPlay(%soundAsset);
-        %button.setNormalImage("{EditorAssets}:smallStopImageMap");
-        %button.setHoverImage("{EditorAssets}:smallStop_hImageMap");
-        %button.setDownImage("{EditorAssets}:smallStop_dImageMap");
-        %button.setInactiveImage("{EditorAssets}:smallStop_iImageMap");
+        %button.setNormalImage("{EditorAssets}:smallStopImage");
+        %button.setHoverImage("{EditorAssets}:smallStop_hImage");
+        %button.setDownImage("{EditorAssets}:smallStop_dImage");
+        %button.setInactiveImage("{EditorAssets}:smallStop_iImage");
         
         // Schedule the stop
         %time = alxGetAudioLength(%soundAsset);
@@ -420,19 +420,19 @@ function PhysicsLauncherTools::audioButtonPairStop(%button)
         cancel(%button.soundScheduleHandle); 
     
     alxStop(%button.soundHandle);
-    %button.setNormalImage("{EditorAssets}:smallPlayImageMap");
-    %button.setHoverImage("{EditorAssets}:smallPlay_hImageMap");
-    %button.setDownImage("{EditorAssets}:smallPlay_dImageMap");
-    %button.setInactiveImage("{EditorAssets}:smallPlay_iImageMap");
+    %button.setNormalImage("{EditorAssets}:smallPlayImage");
+    %button.setHoverImage("{EditorAssets}:smallPlay_hImage");
+    %button.setDownImage("{EditorAssets}:smallPlay_dImage");
+    %button.setInactiveImage("{EditorAssets}:smallPlay_iImage");
 }
 
 function PhysicsLauncherTools::audioButtonPairPause(%button)
 {
     alxPause(%button.soundHandle);
-    %button.setNormalImage("{EditorAssets}:smallPlayImageMap");
-    %button.setHoverImage("{EditorAssets}:smallPlay_hImageMap");
-    %button.setDownImage("{EditorAssets}:smallPlay_dImageMap");
-    %button.setInactiveImage("{EditorAssets}:smallPlay_iImageMap");
+    %button.setNormalImage("{EditorAssets}:smallPlayImage");
+    %button.setHoverImage("{EditorAssets}:smallPlay_hImage");
+    %button.setDownImage("{EditorAssets}:smallPlay_dImage");
+    %button.setInactiveImage("{EditorAssets}:smallPlay_iImage");
 }
 
 function PhysicsLauncherTools::audioButtonPairStart(%button, %soundAsset)
@@ -440,10 +440,10 @@ function PhysicsLauncherTools::audioButtonPairStart(%button, %soundAsset)
     if (AssetDatabase.isDeclaredAsset(%soundAsset))
     {    
         %button.soundHandle = alxPlay(%soundAsset);
-        %button.setNormalImage("{EditorAssets}:smallPauseImageMap");
-        %button.setHoverImage("{EditorAssets}:smallPause_hImageMap");
-        %button.setDownImage("{EditorAssets}:smallPause_dImageMap");
-        %button.setInactiveImage("{EditorAssets}:smallPause_iImageMap");
+        %button.setNormalImage("{EditorAssets}:smallPauseImage");
+        %button.setHoverImage("{EditorAssets}:smallPause_hImage");
+        %button.setDownImage("{EditorAssets}:smallPause_dImage");
+        %button.setInactiveImage("{EditorAssets}:smallPause_iImage");
         
         // Schedule the stop
         %time = alxGetAudioLength(%soundAsset);

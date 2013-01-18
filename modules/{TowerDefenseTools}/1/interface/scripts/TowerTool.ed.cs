@@ -887,7 +887,7 @@ function TowerPreview::format(%this)
    if ($TowerSpriteRadioSelection $= "Static")
       %frameSize = TowerPreview.resource.getFrameSize(0);
    else
-      %frameSize = TowerPreview.resource.imageMap.getFrameSize(0);
+      %frameSize = TowerPreview.resource.image.getFrameSize(0);
       
    %previewCenter = TowerPreview.getCenter();
    
@@ -1131,7 +1131,7 @@ function TowerStaticRadioButton::onClick(%this)
    
    ToggleTowerStaticSpriteControls(true);
    
-   TowerSpriteDisplay.setText($SelectedTower.getImageMap());
+   TowerSpriteDisplay.setText($SelectedTower.getImage());
    
    TowerPreviewDropdown.refresh();
 
@@ -1170,7 +1170,7 @@ function TowerAnimatedRadioButton::onClick(%this)
 function TowerSpriteDisplay::refresh(%this)
 {
    if ($SelectedTower.getClassName() $= "t2dStaticSprite")
-      %this.setText($SelectedTower.getImageMap());
+      %this.setText($SelectedTower.getImage());
    else
       %this.setText($SelectedTower.animationSet);
 }
@@ -1248,12 +1248,12 @@ function TowerStaticSpriteFrameEditBox::refresh(%this)
    if ($SelectedTower.getClassName() !$= "t2dStaticSprite")
       return;   
    
-   if ($SelectedTower.getImageMap().getFrameCount())
+   if ($SelectedTower.getImage().getFrameCount())
       %this.text = $SelectedTower.getFrame();
    else
       %this.text = 0;
    
-   SetTowerStaticSpriteFrameAvailability($SelectedTower.getImageMap().getFrameCount() > 1);
+   SetTowerStaticSpriteFrameAvailability($SelectedTower.getImage().getFrameCount() > 1);
 }
 
 /// <summary>
@@ -1331,19 +1331,19 @@ function TowerIconDisplay::refresh(%this)
    switch$ ($SelectedTower.getName())
    {
       case "Tower1":
-         %this.setText(TowerSlot1Icon.getImageMap());
+         %this.setText(TowerSlot1Icon.getImage());
       
       case "Tower2":
-         %this.setText(TowerSlot2Icon.getImageMap());
+         %this.setText(TowerSlot2Icon.getImage());
       
       case "Tower3":
-         %this.setText(TowerSlot3Icon.getImageMap());
+         %this.setText(TowerSlot3Icon.getImage());
       
       case "Tower4":
-         %this.setText(TowerSlot4Icon.getImageMap());
+         %this.setText(TowerSlot4Icon.getImage());
       
       case "Tower5":
-         %this.setText(TowerSlot5Icon.getImageMap());
+         %this.setText(TowerSlot5Icon.getImage());
    }
 }
 
@@ -1415,12 +1415,12 @@ function TowerIconFrameEditBox::refresh(%this)
    
    if (%towerSlotIcon !$= "")
    {
-      if (%towerSlotIcon.getImageMap().getFrameCount())
+      if (%towerSlotIcon.getImage().getFrameCount())
          %this.setText(%towerSlotIcon.getFrame());
       else
          %this.text = 0;
 
-      SetTowerIconFrameAvailability(%towerSlotIcon.getImageMap().getFrameCount() > 1);
+      SetTowerIconFrameAvailability(%towerSlotIcon.getImage().getFrameCount() > 1);
    }
 }
 
@@ -1578,12 +1578,12 @@ function SaveTowerData()
          $SelectedTower = $persistentObjectSet.findObjectByInternalName(%towerInternalName);
       }
       
-      $SelectedTower.setImageMap(TowerSpriteDisplay.getText());
+      $SelectedTower.setImage(TowerSpriteDisplay.getText());
       
       TowerStaticSpriteFrameEditBox.onValidate();
       $SelectedTower.setFrame(TowerStaticSpriteFrameEditBox.getValue());
       
-      %size = $SelectedTower.getImageMap().getFrameSize(0);
+      %size = $SelectedTower.getImage().getFrameSize(0);
       %size = Vector2Scale(%size, $TDMetersPerPixel);
       $SelectedTower.setSize(%size);
    }
@@ -1601,7 +1601,7 @@ function SaveTowerData()
       $SelectedTower.animationSet = TowerSpriteDisplay.getText();
       $SelectedTower.animationName = $SelectedTower.animationSet.IdleSouthAnim;
       
-      %size = $SelectedTower.getAnimation().imageMap.getFrameSize(0);
+      %size = $SelectedTower.getAnimation().image.getFrameSize(0);
       %size = Vector2Scale(%size, $TDMetersPerPixel);
       $SelectedTower.setSize(%size);
    }
@@ -1626,27 +1626,27 @@ function SaveTowerData()
    switch$ ($SelectedTower.getName())
    {
       case "Tower1":
-         TowerSlot1Icon.setImageMap(TowerIconDisplay.getText());
+         TowerSlot1Icon.setImage(TowerIconDisplay.getText());
          AddAssetToLevelDatablocks(TowerIconDisplay.getText());
          TowerSlot1Icon.setFrame(TowerIconFrameEditBox.getValue());
       
       case "Tower2":
-         TowerSlot2Icon.setImageMap(TowerIconDisplay.getText());
+         TowerSlot2Icon.setImage(TowerIconDisplay.getText());
          AddAssetToLevelDatablocks(TowerIconDisplay.getText());
          TowerSlot2Icon.setFrame(TowerIconFrameEditBox.getValue());         
       
       case "Tower3":
-         TowerSlot3Icon.setImageMap(TowerIconDisplay.getText());
+         TowerSlot3Icon.setImage(TowerIconDisplay.getText());
          AddAssetToLevelDatablocks(TowerIconDisplay.getText());
          TowerSlot3Icon.setFrame(TowerIconFrameEditBox.getValue());         
       
       case "Tower4":
-         TowerSlot4Icon.setImageMap(TowerIconDisplay.getText());
+         TowerSlot4Icon.setImage(TowerIconDisplay.getText());
          AddAssetToLevelDatablocks(TowerIconDisplay.getText());
          TowerSlot4Icon.setFrame(TowerIconFrameEditBox.getValue());
       
       case "Tower5":
-         TowerSlot5Icon.setImageMap(TowerIconDisplay.getText());
+         TowerSlot5Icon.setImage(TowerIconDisplay.getText());
          AddAssetToLevelDatablocks(TowerIconDisplay.getText());
          TowerSlot5Icon.setFrame(TowerIconFrameEditBox.getValue());
    }

@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="Banana_SingleImageMap"
+    AssetName="Banana_SingleImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#Banana_Single.png" />

@@ -25,7 +25,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:largestBoxImageMap" />
+        Image="@asset={EditorAssets}:largestBoxImage" />
     <GuiControl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -151,10 +151,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="Lt_PowerUpButton"
             canSaveDynamicFields="0"
@@ -174,10 +174,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -250,10 +250,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="Lt_StretchDistanceUpButton"
             canSaveDynamicFields="0"
@@ -273,10 +273,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -415,10 +415,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
         <GuiImageButtonCtrl
             Name="Lt_PullbackSoundButtonPlay"
             canSaveDynamicFields="0"
@@ -438,10 +438,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:smallPlayImageMap"
-            HoverImage="@asset={EditorAssets}:smallPlay_hImageMap"
-            DownImage="@asset={EditorAssets}:smallPlay_dImageMap"
-            InactiveImage="@asset={EditorAssets}:smallPlay_iImageMap" />
+            NormalImage="@asset={EditorAssets}:smallPlayImage"
+            HoverImage="@asset={EditorAssets}:smallPlay_hImage"
+            DownImage="@asset={EditorAssets}:smallPlay_dImage"
+            InactiveImage="@asset={EditorAssets}:smallPlay_iImage" />
         <GuiImageButtonCtrl
             Name="Lt_PullbackSoundButtonStop"
             canSaveDynamicFields="0"
@@ -461,10 +461,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:smallStopImageMap"
-            HoverImage="@asset={EditorAssets}:smallStop_hImageMap"
-            DownImage="@asset={EditorAssets}:smallStop_dImageMap"
-            InactiveImage="@asset={EditorAssets}:smallStop_iImageMap" />
+            NormalImage="@asset={EditorAssets}:smallStopImage"
+            HoverImage="@asset={EditorAssets}:smallStop_hImage"
+            DownImage="@asset={EditorAssets}:smallStop_dImage"
+            InactiveImage="@asset={EditorAssets}:smallStop_iImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -508,7 +508,7 @@
             Visible="1"
             Active="1"
             hovertime="1000"
-            text="SlingshotForegroundImageMap"
+            text="SlingshotForegroundImage"
             maxLength="1024"
             historySize="0"
             password="0"
@@ -553,10 +553,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
     </GuiControl>
     <GuiTextCtrl
         canSaveDynamicFields="0"
@@ -615,7 +615,7 @@
             Visible="1"
             Active="1"
             hovertime="1000"
-            text="SlingshotBackgroundImageMap"
+            text="SlingshotBackgroundImage"
             maxLength="1024"
             historySize="0"
             password="0"
@@ -660,10 +660,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -707,7 +707,7 @@
             Visible="1"
             Active="1"
             hovertime="1000"
-            text="RubberbandImageMap"
+            text="RubberbandImage"
             maxLength="1024"
             historySize="0"
             password="0"
@@ -752,10 +752,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -799,7 +799,7 @@
             Visible="1"
             Active="1"
             hovertime="1000"
-            text="RubberbandImageMap"
+            text="RubberbandImage"
             maxLength="1024"
             historySize="0"
             password="0"
@@ -844,10 +844,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -891,7 +891,7 @@
             Visible="1"
             Active="1"
             hovertime="1000"
-            text="SlingshotSeatImageMap"
+            text="SlingshotSeatImage"
             maxLength="1024"
             historySize="0"
             password="0"
@@ -936,10 +936,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -988,10 +988,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={PhysicsLauncherTools}:launcherHandle_redImageMap"
-            HoverImage="@asset={PhysicsLauncherTools}:launcherHandle_red_hImageMap"
-            DownImage="@asset={PhysicsLauncherTools}:launcherHandle_red_dImageMap"
-            InactiveImage="@asset={PhysicsLauncherTools}:launcherHandle_red_iImageMap">
+            NormalImage="@asset={PhysicsLauncherTools}:launcherHandle_redImage"
+            HoverImage="@asset={PhysicsLauncherTools}:launcherHandle_red_hImage"
+            DownImage="@asset={PhysicsLauncherTools}:launcherHandle_red_dImage"
+            InactiveImage="@asset={PhysicsLauncherTools}:launcherHandle_red_iImage">
             <GuiMouseEventCtrl
                 Name="Lt_BandForegroundStartMouseEventControl"
                 canSaveDynamicFields="0"
@@ -1027,10 +1027,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={PhysicsLauncherTools}:launcherHandle_redImageMap"
-            HoverImage="@asset={PhysicsLauncherTools}:launcherHandle_red_hImageMap"
-            DownImage="@asset={PhysicsLauncherTools}:launcherHandle_red_dImageMap"
-            InactiveImage="@asset={PhysicsLauncherTools}:launcherHandle_red_iImageMap">
+            NormalImage="@asset={PhysicsLauncherTools}:launcherHandle_redImage"
+            HoverImage="@asset={PhysicsLauncherTools}:launcherHandle_red_hImage"
+            DownImage="@asset={PhysicsLauncherTools}:launcherHandle_red_dImage"
+            InactiveImage="@asset={PhysicsLauncherTools}:launcherHandle_red_iImage">
             <GuiMouseEventCtrl
                 Name="Lt_BandForegroundEndMouseEventControl"
                 canSaveDynamicFields="0"
@@ -1066,10 +1066,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={PhysicsLauncherTools}:launcherHandle_greenImageMap"
-            HoverImage="@asset={PhysicsLauncherTools}:launcherHandle_green_hImageMap"
-            DownImage="@asset={PhysicsLauncherTools}:launcherHandle_green_dImageMap"
-            InactiveImage="@asset={PhysicsLauncherTools}:launcherHandle_green_iImageMap">
+            NormalImage="@asset={PhysicsLauncherTools}:launcherHandle_greenImage"
+            HoverImage="@asset={PhysicsLauncherTools}:launcherHandle_green_hImage"
+            DownImage="@asset={PhysicsLauncherTools}:launcherHandle_green_dImage"
+            InactiveImage="@asset={PhysicsLauncherTools}:launcherHandle_green_iImage">
             <GuiMouseEventCtrl
                 Name="Lt_BandBackgroundStartMouseEventControl"
                 canSaveDynamicFields="0"
@@ -1105,10 +1105,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={PhysicsLauncherTools}:launcherHandle_greenImageMap"
-            HoverImage="@asset={PhysicsLauncherTools}:launcherHandle_green_hImageMap"
-            DownImage="@asset={PhysicsLauncherTools}:launcherHandle_green_dImageMap"
-            InactiveImage="@asset={PhysicsLauncherTools}:launcherHandle_green_iImageMap">
+            NormalImage="@asset={PhysicsLauncherTools}:launcherHandle_greenImage"
+            HoverImage="@asset={PhysicsLauncherTools}:launcherHandle_green_hImage"
+            DownImage="@asset={PhysicsLauncherTools}:launcherHandle_green_dImage"
+            InactiveImage="@asset={PhysicsLauncherTools}:launcherHandle_green_iImage">
             <GuiMouseEventCtrl
                 Name="Lt_BandBackgroundEndMouseEventControl"
                 canSaveDynamicFields="0"

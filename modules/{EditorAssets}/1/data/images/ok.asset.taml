@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="okImageMap"
+    AssetName="okImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#ok.png" />

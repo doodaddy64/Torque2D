@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="Crate_Damage_2_AnimImageMap"
+    AssetName="Crate_Damage_2_AnimImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#Crate_Damage_2_Anim.png"
     CellCountX="5"

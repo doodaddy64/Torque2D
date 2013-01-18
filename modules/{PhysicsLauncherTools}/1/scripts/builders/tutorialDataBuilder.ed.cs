@@ -54,7 +54,7 @@ function TutorialDataBuilder::getTutorialAsset(%name)
     if (isObject(%tutorial))
         %asset = %tutorial.Image[0];
     else
-        return "{PhysicsLauncherTools}:NoPreviewImageMap";
+        return "{PhysicsLauncherTools}:NoPreviewImage";
 
     %temp = AssetDatabase.acquireAsset(%asset);
     %type = %temp.getClassName();
@@ -62,5 +62,5 @@ function TutorialDataBuilder::getTutorialAsset(%name)
     if (%type $= "ImageAsset")
         return %asset;
 
-    return "{PhysicsLauncherTools}:NoPreviewImageMap";
+    return "{PhysicsLauncherTools}:NoPreviewImage";
 }

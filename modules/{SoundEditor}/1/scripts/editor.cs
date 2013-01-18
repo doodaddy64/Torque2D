@@ -522,11 +522,11 @@ function Si_SoundStopButton::onClick( %this )
     SoundEditor.playPreviewSchedule = "";
     Si_SoundIconDisplay.stop();
 
-    Si_SoundIconDisplay.setImage("{EditorAssets}:speaker_OffImageMap");
-    Si_SoundPlayButton.NormalImage = "{EditorAssets}:smallPlayImageMap";
-    Si_SoundPlayButton.HoverImage = "{EditorAssets}:smallPlay_hImageMap";
-    Si_SoundPlayButton.DownImage = "{EditorAssets}:smallPlay_dImageMap";
-    Si_SoundPlayButton.InactiveImage = "{EditorAssets}:smallPlay_iImageMap";
+    Si_SoundIconDisplay.setImage("{EditorAssets}:speaker_OffImage");
+    Si_SoundPlayButton.NormalImage = "{EditorAssets}:smallPlayImage";
+    Si_SoundPlayButton.HoverImage = "{EditorAssets}:smallPlay_hImage";
+    Si_SoundPlayButton.DownImage = "{EditorAssets}:smallPlay_dImage";
+    Si_SoundPlayButton.InactiveImage = "{EditorAssets}:smallPlay_iImage";
 }
 
 function Si_SoundPlayButton::onClick( %this )
@@ -535,10 +535,10 @@ function Si_SoundPlayButton::onClick( %this )
     if ( alxIsPlaying( SoundEditor.previewSoundHandle ) )
     {
         alxPause( SoundEditor.previewSoundHandle );
-        Si_SoundPlayButton.NormalImage = "{EditorAssets}:smallPlayImageMap";
-        Si_SoundPlayButton.HoverImage = "{EditorAssets}:smallPlay_hImageMap";
-        Si_SoundPlayButton.DownImage = "{EditorAssets}:smallPlay_dImageMap";
-        Si_SoundPlayButton.InactiveImage = "{EditorAssets}:smallPlay_iImageMap";
+        Si_SoundPlayButton.NormalImage = "{EditorAssets}:smallPlayImage";
+        Si_SoundPlayButton.HoverImage = "{EditorAssets}:smallPlay_hImage";
+        Si_SoundPlayButton.DownImage = "{EditorAssets}:smallPlay_dImage";
+        Si_SoundPlayButton.InactiveImage = "{EditorAssets}:smallPlay_iImage";
         return;
     }
 
@@ -551,10 +551,10 @@ function Si_SoundPlayButton::onClick( %this )
     // to perform the requested action.  This is especially important with larger
     // audio files because the copy-then-load proceedure can be long.
     Si_SoundIconDisplay.update();
-    Si_SoundPlayButton.NormalImage = "{EditorAssets}:smallPauseImageMap";
-    Si_SoundPlayButton.HoverImage = "{EditorAssets}:smallPause_hImageMap";
-    Si_SoundPlayButton.DownImage = "{EditorAssets}:smallPause_dImageMap";
-    Si_SoundPlayButton.InactiveImage = "{EditorAssets}:smallPause_iImageMap";
+    Si_SoundPlayButton.NormalImage = "{EditorAssets}:smallPauseImage";
+    Si_SoundPlayButton.HoverImage = "{EditorAssets}:smallPause_hImage";
+    Si_SoundPlayButton.DownImage = "{EditorAssets}:smallPause_dImage";
+    Si_SoundPlayButton.InactiveImage = "{EditorAssets}:smallPause_iImage";
 
     // Create preview profile.
     SoundEditor.updateSoundAsset();
@@ -606,16 +606,16 @@ function Si_SoundIconDisplay::update(%this)
             %this.state = 1;
         if (%this.state < 1)
             %this.state = 1;
-        %this.setImage("{EditorAssets}:speaker_On0" @ %this.state @ "ImageMap");
+        %this.setImage("{EditorAssets}:speaker_On0" @ %this.state @ "Image");
         %this.state++;
         %this.updateSchedule = %this.schedule(750, update);
     }
     else
     {
-        if (%this.Image $= "{EditorAssets}:speaker_On03ImageMap")
-            %this.setImage("{EditorAssets}:speaker_OffImageMap");
+        if (%this.Image $= "{EditorAssets}:speaker_On03Image")
+            %this.setImage("{EditorAssets}:speaker_OffImage");
         else
-            %this.setImage("{EditorAssets}:speaker_On03ImageMap");
+            %this.setImage("{EditorAssets}:speaker_On03Image");
     }
 }
 

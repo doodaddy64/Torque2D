@@ -67,7 +67,7 @@ function GenericPreviewWindow::onExtentChange(%this, %newDimensions)
    %this.setCurrentCameraPosition(0, 0, %cameraWidth, %cameraHeight);
 }
 
-/// void(GenericPreviewWindow this, ImageAsset imageMap)
+/// void(GenericPreviewWindow this, ImageAsset image)
 /// Displays the specified image map in this window.
 /// @param this The GenericPreviewWindow.
 /// @param animation The animation to display.
@@ -114,19 +114,19 @@ function GenericPreviewWindow::update(%this)
          %this.sprite = new t2dStaticSprite ();
          %this.sprite.scene = %this.scene;
          %size = %this.resource.getFrameSize(0);
-         %this.sprite.setImageMap(%this.resource);
+         %this.sprite.setImage(%this.resource);
          %this.sprite.setFrame(%this.frame);
          
       case "t2dAnimatedSprite":
          %this.sprite = new t2dAnimatedSprite();
          %this.sprite.scene = %this.scene;
-         %size = %this.resource.imageMap.getFrameSize(0);
+         %size = %this.resource.image.getFrameSize(0);
          %this.sprite.playAnimation(%this.resource);
          
       case "BitmapFontObject":
          %this.sprite = new BitmapFontObject();
          %this.sprite.scene = %this.scene;
-         %this.sprite.setImageMap(%this.resource);
+         %this.sprite.setImage(%this.resource);
          %size = %this.resource.getFrameSize(0);
    }
    

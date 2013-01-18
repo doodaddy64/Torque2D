@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="delete_popupImageMap"
+    AssetName="delete_popupImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#delete_popup.png" />

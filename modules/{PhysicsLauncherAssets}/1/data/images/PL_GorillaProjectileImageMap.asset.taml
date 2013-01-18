@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="PL_GorillaProjectileImageMap"
+    AssetName="PL_GorillaProjectileImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#Gorilla_Sprite_Sheet"
     CellCountX="10"

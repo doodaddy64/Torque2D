@@ -40,10 +40,10 @@ function StoryboardContentPane::createFrameControl(%this, %frame, %index)
     return %preview;
 }
 
-function StoryboardContentPane::update(%this, %imageMapAssetId, %frames)
+function StoryboardContentPane::update(%this, %imageAssetId, %frames)
 {
-    %this.image = %imageMapAssetId;
-    %imageMap = AssetDatabase.acquireAsset(%imageMapAssetId);
+    %this.image = %imageAssetId;
+    %image = AssetDatabase.acquireAsset(%imageAssetId);
 
     %this.deleteContents();
 
@@ -60,14 +60,14 @@ function StoryboardContentPane::update(%this, %imageMapAssetId, %frames)
 
     %dropSpot = new SceneObject()
     {
-        size = %imageMap.getFrameSize(0);
+        size = %image.getFrameSize(0);
     };
 
     %this.add(%dropSpot);
     %dropSpot.position = %width + (getWord(%dropSpot.size, 0) / 2) SPC "0";
 
-    %width += %imageMap.getFrameSize(0);
+    %width += %image.getFrameSize(0);
 
-    AssetDatabase.releaseAsset(%imageMapAssetId);
+    AssetDatabase.releaseAsset(%imageAssetId);
     %this.refresh();
 }

@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="testIcon_hImageMap"
+    AssetName="testIcon_hImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#testIcon_h.png" />

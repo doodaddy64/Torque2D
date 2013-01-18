@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="ProjectileToolButtonImageMap"
+    AssetName="ProjectileToolButtonImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#projectileToolButton" />

@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="scrollUp_dImageMap"
+    AssetName="scrollUp_dImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#scrollUp_d.png" />

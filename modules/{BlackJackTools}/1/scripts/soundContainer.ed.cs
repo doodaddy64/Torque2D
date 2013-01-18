@@ -34,7 +34,7 @@ function getAudioProfileFromSoundContainer(%container)
 }
 
 /// <summary>
-/// Sets the imagemap of a sound button based on the isplaying flag. If isPlaying
+/// Sets the image of a sound button based on the isplaying flag. If isPlaying
 /// is true, sets the "Pause" image. If isPlaying is false, sets the "Play" image.
 /// </summary>
 /// <param name="container">The container holding the sound button.</param>

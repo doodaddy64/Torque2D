@@ -30,7 +30,7 @@
         buttonType="RadioButton"
         useMouseEvents="0"
         NormalImage="@asset={EditorShell}:assetsIconNormalImage"
-        HoverImage="@asset={EditorShell}:assetsIcon_hImageMap"
+        HoverImage="@asset={EditorShell}:assetsIcon_hImage"
         DownImage="@asset={EditorShell}:assetsIconDepressedImage"
         InactiveImage="@asset={EditorShell}:assetsIconNormalImage" />
     <GuiImageButtonCtrl
@@ -51,7 +51,7 @@
         buttonType="PushButton"
         useMouseEvents="0"
         NormalImage="@asset={EditorShell}:testIconNormalImage"
-        HoverImage="@asset={EditorShell}:testIcon_hImageMap"
+        HoverImage="@asset={EditorShell}:testIcon_hImage"
         DownImage="@asset={EditorShell}:testIconDepressedImage"
         InactiveImage="@asset={EditorShell}:testIconNormalImage" />
     <GuiImageButtonCtrl
@@ -72,7 +72,7 @@
         buttonType="PushButton"
         useMouseEvents="0"
         NormalImage="@asset={EditorShell}:publishIconNormalImage"
-        HoverImage="@asset={EditorShell}:publishIcon_hImageMap"
+        HoverImage="@asset={EditorShell}:publishIcon_hImage"
         DownImage="@asset={EditorShell}:publishIconDepressedImage"
         InactiveImage="@asset={EditorShell}:publishIconNormalImage" />
     <GuiImageButtonCtrl
@@ -93,7 +93,7 @@
         buttonType="PushButton"
         useMouseEvents="0"
         NormalImage="@asset={EditorShell}:exitIconNormalImage"
-        HoverImage="@asset={EditorShell}:exitIcon_hImageMap"
+        HoverImage="@asset={EditorShell}:exitIcon_hImage"
         DownImage="@asset={EditorShell}:exitIconDepressedImage"
         InactiveImage="@asset={EditorShell}:exitIconNormalImage" />
 </GuiControl>

@@ -165,10 +165,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:magnifyingGlassImageMap"
-            HoverImage="@asset={EditorAssets}:magnifyingGlass_hImageMap"
-            DownImage="@asset={EditorAssets}:magnifyingGlass_dImageMap"
-            InactiveImage="@asset={EditorAssets}:magnifyingGlass_iImageMap" />
+            NormalImage="@asset={EditorAssets}:magnifyingGlassImage"
+            HoverImage="@asset={EditorAssets}:magnifyingGlass_hImage"
+            DownImage="@asset={EditorAssets}:magnifyingGlass_dImage"
+            InactiveImage="@asset={EditorAssets}:magnifyingGlass_iImage" />
         <GuiSeparatorCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -243,11 +243,11 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImageCache="@asset={EditorAssets}:assetImageMap"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImageCache="@asset={EditorAssets}:assetImage"
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -309,10 +309,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:stopImageMap"
-            HoverImage="@asset={EditorAssets}:stop_hImageMap"
-            DownImage="@asset={EditorAssets}:stop_dImageMap"
-            InactiveImage="@asset={EditorAssets}:stop_iImageMap" />
+            NormalImage="@asset={EditorAssets}:stopImage"
+            HoverImage="@asset={EditorAssets}:stop_hImage"
+            DownImage="@asset={EditorAssets}:stop_dImage"
+            InactiveImage="@asset={EditorAssets}:stop_iImage" />
         <GuiImageButtonCtrl
             Name="Pt_PreviewPlayBtn"
             canSaveDynamicFields="0"
@@ -332,10 +332,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:playImageMap" 
-            HoverImage="@asset={EditorAssets}:play_hImageMap" 
-            DownImage="@asset={EditorAssets}:play_dImageMap" 
-            InactiveImage="@asset={EditorAssets}:play_iImageMap" />
+            NormalImage="@asset={EditorAssets}:playImage" 
+            HoverImage="@asset={EditorAssets}:play_hImage" 
+            DownImage="@asset={EditorAssets}:play_dImage" 
+            InactiveImage="@asset={EditorAssets}:play_iImage" />
         <GuiTextEditCtrl
             Name="Pt_PreviewSoundFileEdit"
             canSaveDynamicFields="0"
@@ -393,11 +393,11 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImageCache="@asset={EditorAssets}:assetImageMap"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImageCache="@asset={EditorAssets}:assetImage"
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
         <GuiTextEditCtrl
             Name="Pt_PreviewFileEdit"
             canSaveDynamicFields="0"
@@ -455,11 +455,11 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImageCache="@asset={EditorAssets}:assetImageMap"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImageCache="@asset={EditorAssets}:assetImage"
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -494,10 +494,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:smallPlayImageMap"
-            HoverImage="@asset={EditorAssets}:smallPlay_hImageMap"
-            DownImage="@asset={EditorAssets}:smallPlay_dImageMap"
-            InactiveImage="@asset={EditorAssets}:smallPlay_iImageMap" />
+            NormalImage="@asset={EditorAssets}:smallPlayImage"
+            HoverImage="@asset={EditorAssets}:smallPlay_hImage"
+            DownImage="@asset={EditorAssets}:smallPlay_dImage"
+            InactiveImage="@asset={EditorAssets}:smallPlay_iImage" />
         <GuiImageButtonCtrl
             Name="Pt_PreviewSoundStopBtn"
             canSaveDynamicFields="0"
@@ -517,7 +517,7 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:smallStopImageMap" />
+            NormalImage="@asset={EditorAssets}:smallStopImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -566,10 +566,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:magnifyingGlassImageMap"
-            HoverImage="@asset={EditorAssets}:magnifyingGlass_hImageMap"
-            DownImage="@asset={EditorAssets}:magnifyingGlass_dImageMap"
-            InactiveImage="@asset={EditorAssets}:magnifyingGlass_iImageMap" />
+            NormalImage="@asset={EditorAssets}:magnifyingGlassImage"
+            HoverImage="@asset={EditorAssets}:magnifyingGlass_hImage"
+            DownImage="@asset={EditorAssets}:magnifyingGlass_dImage"
+            InactiveImage="@asset={EditorAssets}:magnifyingGlass_iImage" />
         <GuiSeparatorCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -646,11 +646,11 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImageCache="@asset={EditorAssets}:assetImageMap"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImageCache="@asset={EditorAssets}:assetImage"
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
         <GuiMouseEventCtrl
             class="It_AssetBrowseEditClick"
             isContainer="0"
@@ -838,7 +838,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={EditorAssets}:plusImageMap" />
+        NormalImage="@asset={EditorAssets}:plusImage" />
     <GuiImageButtonCtrl
         Name="Pt_ProjectileFrictionDownBtn"
         canSaveDynamicFields="0"
@@ -858,7 +858,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={EditorAssets}:minusImageMap" />
+        NormalImage="@asset={EditorAssets}:minusImage" />
     <GuiImageButtonCtrl
         Name="Pt_ProjectileRestitutionDownBtn"
         canSaveDynamicFields="0"
@@ -878,7 +878,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={EditorAssets}:minusImageMap" />
+        NormalImage="@asset={EditorAssets}:minusImage" />
     <GuiImageButtonCtrl
         Name="Pt_ProjectileValueDownBtn"
         canSaveDynamicFields="0"
@@ -898,7 +898,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={EditorAssets}:minusImageMap" />
+        NormalImage="@asset={EditorAssets}:minusImage" />
     <GuiImageButtonCtrl
         Name="Pt_ProjectileMassDownBtn"
         canSaveDynamicFields="0"
@@ -918,7 +918,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={EditorAssets}:minusImageMap" />
+        NormalImage="@asset={EditorAssets}:minusImage" />
     <GuiImageButtonCtrl
         Name="Pt_ProjectileFrictionUpBtn"
         canSaveDynamicFields="0"
@@ -938,7 +938,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={EditorAssets}:plusImageMap" />
+        NormalImage="@asset={EditorAssets}:plusImage" />
     <GuiImageButtonCtrl
         Name="Pt_ProjectileRestitutionUpBtn"
         canSaveDynamicFields="0"
@@ -958,7 +958,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={EditorAssets}:plusImageMap" />
+        NormalImage="@asset={EditorAssets}:plusImage" />
     <GuiImageButtonCtrl
         Name="Pt_ProjectileValueUpBtn"
         canSaveDynamicFields="0"
@@ -978,7 +978,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={EditorAssets}:plusImageMap" />
+        NormalImage="@asset={EditorAssets}:plusImage" />
     <GuiTextCtrl
         canSaveDynamicFields="0"
         isContainer="0"

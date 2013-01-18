@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="cancelButtonImageMap"
+    AssetName="cancelButtonImage"
     imageFile="@assetFile=#cancelButton.png"
     AssetCategory="gui" />

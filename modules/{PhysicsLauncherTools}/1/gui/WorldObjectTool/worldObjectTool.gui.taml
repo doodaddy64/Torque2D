@@ -25,7 +25,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:largeBoxImageMap" />
+        Image="@asset={EditorAssets}:largeBoxImage" />
     <GuiControl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -149,10 +149,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="Wot_FrictionLevelUpButton"
             canSaveDynamicFields="0"
@@ -172,10 +172,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -247,10 +247,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="Wot_RestitutionLevelUpButton"
             canSaveDynamicFields="0"
@@ -270,10 +270,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -345,10 +345,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="Wot_HitPointsUpButton"
             canSaveDynamicFields="0"
@@ -368,10 +368,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
     </GuiControl>
     <GuiCheckBoxCtrl
         Name="Wot_MakeImmovableCheckbox"
@@ -464,10 +464,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="Wot_NumberOfDamageStatesUpButton"
             canSaveDynamicFields="0"
@@ -487,10 +487,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
     </GuiControl>
     <GuiTextCtrl
         canSaveDynamicFields="0"
@@ -623,10 +623,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:playImageMap"
-            HoverImage="@asset={EditorAssets}:play_hImageMap"
-            DownImage="@asset={EditorAssets}:play_dImageMap"
-            InactiveImage="@asset={EditorAssets}:play_iImageMap" />
+            NormalImage="@asset={EditorAssets}:playImage"
+            HoverImage="@asset={EditorAssets}:play_hImage"
+            DownImage="@asset={EditorAssets}:play_dImage"
+            InactiveImage="@asset={EditorAssets}:play_iImage" />
         <GuiImageButtonCtrl
             Name="Wot_PreviewStopButton"
             canSaveDynamicFields="0"
@@ -646,10 +646,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:stopImageMap"
-            HoverImage="@asset={EditorAssets}:stop_hImageMap"
-            DownImage="@asset={EditorAssets}:stop_dImageMap"
-            InactiveImage="@asset={EditorAssets}:stop_iImageMap" />
+            NormalImage="@asset={EditorAssets}:stopImage"
+            HoverImage="@asset={EditorAssets}:stop_hImage"
+            DownImage="@asset={EditorAssets}:stop_dImage"
+            InactiveImage="@asset={EditorAssets}:stop_iImage" />
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -725,10 +725,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
         <GuiImageButtonCtrl
             Name="Wot_SoundPlayButton"
             canSaveDynamicFields="0"
@@ -748,10 +748,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:smallPlayImageMap"
-            HoverImage="@asset={EditorAssets}:smallPlay_hImageMap"
-            DownImage="@asset={EditorAssets}:smallPlay_dImageMap"
-            InactiveImage="@asset={EditorAssets}:smallPlay_iImageMap" />
+            NormalImage="@asset={EditorAssets}:smallPlayImage"
+            HoverImage="@asset={EditorAssets}:smallPlay_hImage"
+            DownImage="@asset={EditorAssets}:smallPlay_dImage"
+            InactiveImage="@asset={EditorAssets}:smallPlay_iImage" />
         <GuiImageButtonCtrl
             Name="Wot_SoundStopButton"
             canSaveDynamicFields="0"
@@ -771,10 +771,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:smallStopImageMap"
-            HoverImage="@asset={EditorAssets}:smallStop_hImageMap"
-            DownImage="@asset={EditorAssets}:smallStop_dImageMap"
-            InactiveImage="@asset={EditorAssets}:smallStop_iImageMap" />
+            NormalImage="@asset={EditorAssets}:smallStopImage"
+            HoverImage="@asset={EditorAssets}:smallStop_hImage"
+            DownImage="@asset={EditorAssets}:smallStop_dImage"
+            InactiveImage="@asset={EditorAssets}:smallStop_iImage" />
         <GuiTextEditCtrl
             Name="Wot_ImageFileField"
             canSaveDynamicFields="0"
@@ -835,10 +835,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:assetImageMap"
-            HoverImage="@asset={EditorAssets}:asset_hImageMap"
-            DownImage="@asset={EditorAssets}:asset_dImageMap"
-            InactiveImage="@asset={EditorAssets}:asset_iImageMap" />
+            NormalImage="@asset={EditorAssets}:assetImage"
+            HoverImage="@asset={EditorAssets}:asset_hImage"
+            DownImage="@asset={EditorAssets}:asset_dImage"
+            InactiveImage="@asset={EditorAssets}:asset_iImage" />
         <SceneWindow
             Name="Wot_PreviewWindow"
             canSaveDynamicFields="0"
@@ -1050,10 +1050,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="Wot_MassUpButton"
             canSaveDynamicFields="0"
@@ -1073,10 +1073,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
     </GuiControl>
     <GuiControl
         canSaveDynamicFields="0"
@@ -1148,10 +1148,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="Wot_PointsWhenDestroyedUpButton"
             canSaveDynamicFields="0"
@@ -1171,10 +1171,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
     </GuiControl>
     <GuiButtonCtrl
         Name="Wot_EditCollisionButton"

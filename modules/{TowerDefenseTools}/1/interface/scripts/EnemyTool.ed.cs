@@ -684,7 +684,7 @@ function EnemyPreview::format(%this)
    if ($EnemySpriteRadioSelection $= "Static")
       %frameSize = EnemyPreview.resource.getFrameSize(0);
    else
-      %frameSize = EnemyPreview.resource.imageMap.getFrameSize(0);
+      %frameSize = EnemyPreview.resource.image.getFrameSize(0);
       
    %previewCenter = EnemyPreview.getCenter();
    
@@ -795,7 +795,7 @@ function EnemyStaticRadioButton::onClick(%this)
       
    $EnemySpriteRadioSelection = "Static";
    
-   EnemySpriteDisplay.setText($SelectedEnemy.getImageMap());   
+   EnemySpriteDisplay.setText($SelectedEnemy.getImage());   
    
    ToggleEnemyStaticSpriteControls(true);
    
@@ -835,7 +835,7 @@ function EnemyAnimatedRadioButton::onClick(%this)
 function EnemySpriteDisplay::refresh(%this)
 {
    if ($SelectedEnemy.getClassName() $= "t2dStaticSprite")
-      %this.setText($SelectedEnemy.getImageMap());
+      %this.setText($SelectedEnemy.getImage());
    else
       %this.setText($SelectedEnemy.animationSet);
 }
@@ -948,12 +948,12 @@ function EnemyStaticSpriteFrameEditBox::refresh(%this)
    if ($SelectedEnemy.getClassName() !$= "t2dStaticSprite")
       return;
    
-   if ($SelectedEnemy.getImageMap().getFrameCount())
+   if ($SelectedEnemy.getImage().getFrameCount())
       %this.text = $SelectedEnemy.getFrame();
    else
       %this.text = 0;
    
-   SetEnemyStaticSpriteFrameAvailability($SelectedEnemy.getImageMap().getFrameCount() > 1);
+   SetEnemyStaticSpriteFrameAvailability($SelectedEnemy.getImage().getFrameCount() > 1);
 }
 
 /// <summary>
@@ -1097,12 +1097,12 @@ function SaveEnemyData()
          $SelectedEnemy = $persistentObjectSet.findObjectByInternalName(%enemyInternalName);
       }
       
-      $SelectedEnemy.setImageMap(EnemySpriteDisplay.getText());
+      $SelectedEnemy.setImage(EnemySpriteDisplay.getText());
       
       EnemyStaticSpriteFrameEditBox.onValidate();
       $SelectedEnemy.setFrame(EnemyStaticSpriteFrameEditBox.getValue());
       
-      %size = $SelectedEnemy.getImageMap().getFrameSize(0);
+      %size = $SelectedEnemy.getImage().getFrameSize(0);
       %size = Vector2Scale(%size, $TDMetersPerPixel);
       $SelectedEnemy.setSize(%size);
       
@@ -1138,7 +1138,7 @@ function SaveEnemyData()
       $SelectedEnemy.animationSet = EnemySpriteDisplay.getText();
       $SelectedEnemy.animationName = $SelectedEnemy.animationSet.MoveSouthAnim;
       
-      %size = $SelectedEnemy.getAnimation().imageMap.getFrameSize(0);
+      %size = $SelectedEnemy.getAnimation().image.getFrameSize(0);
       %size = Vector2Scale(%size, $TDMetersPerPixel);
       $SelectedEnemy.setSize(%size);
    }

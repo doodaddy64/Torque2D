@@ -260,7 +260,7 @@ function TowerShootsBehavior::setup(%this)
         %temp = %this.owner.getAnimation();
         %this.owner.playAnimation(%this.animArray[%this.idleAnim]);
         
-        %size = %this.animArray[%this.idleAnim].imageMap.getFrameSize(0);
+        %size = %this.animArray[%this.idleAnim].image.getFrameSize(0);
         %size = Vector2Scale(%size, $TDMetersPerPixel);
         %this.owner.setSize(%size);
    }

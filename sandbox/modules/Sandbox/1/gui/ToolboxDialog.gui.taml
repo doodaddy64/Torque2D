@@ -68,9 +68,9 @@
 			groupNum="-1"
 			buttonType="PushButton"
 			useMouseEvents="1"
-			NormalImage="@asset=Sandbox:ReplayBtn128x128UpImageMap"
-			HoverImage="@asset=Sandbox:ReplayBtn128x128HoverImageMap"
-			DownImage="@asset=Sandbox:ReplayBtn128x128DownImageMap" />		
+			NormalImage="@asset=Sandbox:ReplayBtn128x128UpImage"
+			HoverImage="@asset=Sandbox:ReplayBtn128x128HoverImage"
+			DownImage="@asset=Sandbox:ReplayBtn128x128DownImage" />		
 		
 	<!-- Background Color -->
 	<GuiTextCtrl

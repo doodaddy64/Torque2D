@@ -818,11 +818,11 @@ function createVerticalScrollContainer(%profile)
 		buttonType="PushButton";
 		useMouseEvents="1";
 		isLegacyVersion="0";
-		NormalImage="{EditorAssets}:scrollUpImageMap";
-		HoverImage="{EditorAssets}:scrollUp_hImageMap";
-		DownImage="{EditorAssets}:scrollUp_dImageMap";
-		InactiveImage="{EditorAssets}:scrollUp_iImageMap";
-		    normalImageCache="{EditorAssets}:scrollUpImageMap";
+		NormalImage="{EditorAssets}:scrollUpImage";
+		HoverImage="{EditorAssets}:scrollUp_hImage";
+		DownImage="{EditorAssets}:scrollUp_dImage";
+		InactiveImage="{EditorAssets}:scrollUp_iImage";
+		    normalImageCache="{EditorAssets}:scrollUpImage";
 	};
 	%scrollContainer.addGuiControl(%upButton);
 
@@ -864,11 +864,11 @@ function createVerticalScrollContainer(%profile)
 		buttonType="PushButton";
 		useMouseEvents="1";
 		isLegacyVersion="0";
-		NormalImage="{EditorAssets}:scrollDownImageMap";
-		HoverImage="{EditorAssets}:scrollDown_hImageMap";
-		DownImage="{EditorAssets}:scrollDown_dImageMap";
-		InactiveImage="{EditorAssets}:scrollDown_iImageMap";
-		    normalImageCache="{EditorAssets}:scrollDownImageMap";
+		NormalImage="{EditorAssets}:scrollDownImage";
+		HoverImage="{EditorAssets}:scrollDown_hImage";
+		DownImage="{EditorAssets}:scrollDown_dImage";
+		InactiveImage="{EditorAssets}:scrollDown_iImage";
+		    normalImageCache="{EditorAssets}:scrollDownImage";
 	};
 	%scrollContainer.addGuiControl(%downButton);
 

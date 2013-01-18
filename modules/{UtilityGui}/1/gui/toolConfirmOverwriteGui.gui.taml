@@ -25,7 +25,7 @@
         Visible="1"
         Active="1"
         hovertime="1000"
-        Image="@asset={EditorAssets}:PopupOverlayImageMap" />
+        Image="@asset={EditorAssets}:PopupOverlayImage" />
     <GuiControl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -87,9 +87,9 @@
             buttonType="PushButton"
             useMouseEvents="0"
             isLegacyVersion="0"
-            NormalImage="@asset={EditorAssets}:okImageMap"
-            HoverImage="@asset={EditorAssets}:okImageMap"
-            DownImage="@asset={EditorAssets}:okImageMap" />
+            NormalImage="@asset={EditorAssets}:okImage"
+            HoverImage="@asset={EditorAssets}:okImage"
+            DownImage="@asset={EditorAssets}:okImage" />
         <GuiImageButtonCtrl
             Name="OverwriteCancelBtn"
             canSaveDynamicFields="0"
@@ -108,9 +108,9 @@
             buttonType="PushButton"
             useMouseEvents="0"
             isLegacyVersion="0"
-            NormalImage="@asset={EditorAssets}:iconCancelImageMap"
-            HoverImage="@asset={EditorAssets}:iconCancelImageMap"
-            DownImage="@asset={EditorAssets}:iconCancelImageMap" />
+            NormalImage="@asset={EditorAssets}:iconCancelImage"
+            HoverImage="@asset={EditorAssets}:iconCancelImage"
+            DownImage="@asset={EditorAssets}:iconCancelImage" />
         <GuiMLTextCtrl
             Name="ConfirmOverwriteMsgCtrl"
             canSaveDynamicFields="0"

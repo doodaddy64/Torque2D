@@ -14,8 +14,8 @@
     buttonSound="{PhysicsLauncherAssets}:Button_Click_01_Rev1Sound"
     music="{PhysicsLauncherAssets}:music_menu_finalSound"
     showCreditsButton="1"
-    soundBtnOff="{PhysicsLauncherAssets}:VolumeBtn128x128OffImageMap"
-    soundBtnOn="{PhysicsLauncherAssets}:VolumeBtn128x128OnImageMap">
+    soundBtnOff="{PhysicsLauncherAssets}:VolumeBtn128x128OffImage"
+    soundBtnOn="{PhysicsLauncherAssets}:VolumeBtn128x128OnImage">
     <GuiSpriteCtrl
         Name="mainMenuBackground"
         canSaveDynamicFields="0"
@@ -30,7 +30,7 @@
         Visible="1"
         Active="1"
         hovertime="1000"
-        Image="@asset={PhysicsLauncherAssets}:MainMenuBackgroundImageImageMap" />
+        Image="@asset={PhysicsLauncherAssets}:MainMenuBackgroundImageImage" />
     <GuiImageButtonCtrl
         Name="menuPlayButton"
         canSaveDynamicFields="0"
@@ -48,9 +48,9 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:PlayBtnUpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:PlayBtnHoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:PlayBtnDownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:PlayBtnUpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:PlayBtnHoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:PlayBtnDownImage" />
     <GuiImageButtonCtrl
         Name="menuExitButton"
         canSaveDynamicFields="0"
@@ -68,9 +68,9 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:ExitBtnUpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:ExitBtnHoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:ExitBtnDownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:ExitBtnUpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:ExitBtnHoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:ExitBtnDownImage" />
     <GuiImageButtonCtrl
         Name="menuSoundButton"
         canSaveDynamicFields="0"
@@ -88,9 +88,9 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:VolumeBtn128x128OnImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:VolumeBtn128x128OnImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:VolumeBtn128x128OnImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:VolumeBtn128x128OnImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:VolumeBtn128x128OnImage"
+        DownImage="@asset={PhysicsLauncherAssets}:VolumeBtn128x128OnImage" />
     <GuiImageButtonCtrl
         Name="menuCreditsButton"
         canSaveDynamicFields="0"
@@ -108,7 +108,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:CreditsBtnUpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:CreditsBtnHoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:CreditsBtnDownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:CreditsBtnUpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:CreditsBtnHoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:CreditsBtnDownImage" />
 </GuiControl>

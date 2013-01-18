@@ -11,8 +11,8 @@
     Visible="1"
     Active="0"
     hovertime="1000"
-    soundBtnOff="{PhysicsLauncherAssets}:VolumeBtn256x128OffImageMap"
-    soundBtnOn="{PhysicsLauncherAssets}:VolumeBtn256x128OnImageMap">
+    soundBtnOff="{PhysicsLauncherAssets}:VolumeBtn256x128OffImage"
+    soundBtnOn="{PhysicsLauncherAssets}:VolumeBtn256x128OnImage">
     <GuiSpriteCtrl
         Name="pauseBackground"
         canSaveDynamicFields="0"
@@ -27,7 +27,7 @@
         Visible="1"
         Active="1"
         hovertime="1000"
-        Image="@asset={PhysicsLauncherAssets}:PauseScreenImageImageMap" />
+        Image="@asset={PhysicsLauncherAssets}:PauseScreenImageImage" />
     <GuiTextCtrl
         Name="LevelNameLabel"
         canSaveDynamicFields="0"
@@ -77,9 +77,9 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="1"
-        NormalImage="@asset={PhysicsLauncherAssets}:ResumeBtnUpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:ResumeBtnHoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:ResumeBtnDownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:ResumeBtnUpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:ResumeBtnHoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:ResumeBtnDownImage" />
     <GuiImageButtonCtrl
         Name="pauseRestartButton"
         canSaveDynamicFields="0"
@@ -97,9 +97,9 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="1"
-        NormalImage="@asset={PhysicsLauncherAssets}:ReplayBtn256x128UpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:ReplayBtn256x128HoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:ReplayBtn256x128DownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:ReplayBtn256x128UpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:ReplayBtn256x128HoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:ReplayBtn256x128DownImage" />
     <GuiImageButtonCtrl
         Name="pauseLevelSelectButton"
         canSaveDynamicFields="0"
@@ -117,9 +117,9 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="1"
-        NormalImage="@asset={PhysicsLauncherAssets}:LevelSelectBtn256x128UpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:LevelSelectBtn256x128HoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:LevelSelectBtn256x128DownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LevelSelectBtn256x128UpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:LevelSelectBtn256x128HoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:LevelSelectBtn256x128DownImage" />
     <GuiImageButtonCtrl
         Name="pauseSoundButton"
         canSaveDynamicFields="0"
@@ -137,9 +137,9 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="1"
-        NormalImage="@asset={PhysicsLauncherAssets}:VolumeBtn256x128OnImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:VolumeBtn256x128OnImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:VolumeBtn256x128OnImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:VolumeBtn256x128OnImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:VolumeBtn256x128OnImage"
+        DownImage="@asset={PhysicsLauncherAssets}:VolumeBtn256x128OnImage" />
     <GuiImageButtonCtrl
         Name="pauseHelpButton"
         canSaveDynamicFields="0"
@@ -157,7 +157,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="1"
-        NormalImage="@asset={PhysicsLauncherAssets}:HelpBtnUpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:HelpBtnHoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:HelpBtnDownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:HelpBtnUpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:HelpBtnHoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:HelpBtnDownImage" />
 </GuiControl>

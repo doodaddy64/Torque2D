@@ -9,7 +9,7 @@ function SpriteBase::setAsset(%this, %asset)
     
     if (%assetType $= "ImageAsset")
     {
-        %this.setImageMap(%asset);
+        %this.setImage(%asset);
     }
     else if (%assetType $= "AnimationAsset")
     {
@@ -28,8 +28,8 @@ function SpriteBase::getAsset(%this)
 {
     if (%this.animation !$= "")
         return strchr(%this.Animation, "{");
-    else if (%this.getImageMap() !$= "")
-        return strchr(%this.getImageMap(), "{");
+    else if (%this.getImage() !$= "")
+        return strchr(%this.getImage(), "{");
     else
         warn("Sprite::getAsset -- No asset found on Sprite " @ %this);
 }
@@ -42,16 +42,16 @@ function Sprite::setSizeFromAsset(%this, %asset, %metersPerPixel)
     
     if (%assetType $= "ImageAsset")
     {
-        %imageMapAsset = AssetDatabase.acquireAsset(%asset);
-        %sizePixels = %imageMapAsset.getFrameSize(0);
-        AssetDatabase.releaseAsset(%imageMapAsset.getAssetId());
+        %imageAsset = AssetDatabase.acquireAsset(%asset);
+        %sizePixels = %imageAsset.getFrameSize(0);
+        AssetDatabase.releaseAsset(%imageAsset.getAssetId());
     }
     else if (%assetType $= "AnimationAsset")
     {
         %animationAsset = AssetDatabase.acquireAsset(%asset);
-        %animationImageMapAsset = AssetDatabase.acquireAsset(strchr(%animationAsset.imagemap, "{"));
-        %sizePixels = %animationImageMapAsset.getFrameSize(0);
-        AssetDatabase.releaseAsset(%animationImageMapAsset.getAssetId());
+        %animationImageAsset = AssetDatabase.acquireAsset(strchr(%animationAsset.image, "{"));
+        %sizePixels = %animationImageAsset.getFrameSize(0);
+        AssetDatabase.releaseAsset(%animationImageAsset.getAssetId());
         AssetDatabase.releaseAsset(%animationAsset.getAssetId());
     }
     else

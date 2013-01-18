@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="pause_hImageMap"
+    AssetName="pause_hImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#pause_h.png" />

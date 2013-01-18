@@ -31,7 +31,7 @@
     </TextObject>
     <Sprite
         Name="rangeCircle"
-		imageMap="@asset={TowerDefenseAssets}:rangeCircleImageMap"
+		image="@asset={TowerDefenseAssets}:rangeCircleImage"
         SceneLayer="5"
         size="3.000 3.000"
         Position="-16.116907 -5.149422"
@@ -39,7 +39,7 @@
          />
     <Sprite
         Name="PauseShot"
-		imageMap="@asset={TowerDefenseAssets}:pauseButtonImageMap"
+		image="@asset={TowerDefenseAssets}:pauseButtonImage"
         Position="-6.369515 15.803532"
         CollisionCallback="1"
         collisionActiveSend="1"
@@ -62,14 +62,14 @@
     </Sprite>
     <Sprite
         Name="HighlightObject"
-		imageMap="@asset={TowerDefenseAssets}:highlightImageMap"
+		image="@asset={TowerDefenseAssets}:highlightImage"
         SceneLayer="10"
         Position="-23.384546 6.160453"
         BodyType="static"
         CollisionGroups="0" />
     <Sprite
         Name="BarImage"
-		imageMap="@asset={TowerDefenseAssets}:healthBarImageMap"
+		image="@asset={TowerDefenseAssets}:healthBarImage"
         size="1.000 0.094"
         Position="-22.253485 6.337187"
         BodyType="static"
@@ -79,7 +79,7 @@
         CollisionPhysicsSend="0" />
     <Sprite
         Name="BarFrame"
-		imageMap="@asset={TowerDefenseAssets}:healthBarFrameImageMap"
+		image="@asset={TowerDefenseAssets}:healthBarFrameImage"
         size="1.000 0.094"
         Position="-21.140078 6.337187"
         BodyType="static"
@@ -90,7 +90,7 @@
         CollisionPhysicsSend="0" />
     <Sprite
         Name="upgradeButton"
-		imageMap="@asset={TowerDefenseAssets}:upgradeButtonImageMap"
+		image="@asset={TowerDefenseAssets}:upgradeButtonImage"
         size="0.656 0.719"
         Position="-27.219515 7.188406"
         BodyType="static"
@@ -106,7 +106,7 @@
     </Sprite>
     <Sprite
         Name="sellButton"
-		imageMap="@asset={TowerDefenseAssets}:sellButtonImageMap"
+		image="@asset={TowerDefenseAssets}:sellButtonImage"
         size="0.656 0.672"
         Position="-25.369421 7.135094"
         BodyType="static"
@@ -122,7 +122,7 @@
     </Sprite>
     <Sprite
         Name="confirmButton"
-		imageMap="@asset={TowerDefenseAssets}:confirmButtonImageMap"
+		image="@asset={TowerDefenseAssets}:confirmButtonImage"
         size="0.672 0.703"
         Position="-27.134422 5.200156"
         BodyType="static"
@@ -138,7 +138,7 @@
     </Sprite>
     <Sprite
         Name="towerCancelButton"
-		imageMap="@asset={TowerDefenseAssets}:cancelButtonImageMap"
+		image="@asset={TowerDefenseAssets}:cancelButtonImage"
         size="0.656 0.656"
         Position="-25.293484 5.342625"
         BodyType="static"
@@ -154,7 +154,7 @@
     </Sprite>
     <Sprite
         Name="TowerSlot1Icon"
-		imageMap="@asset={TowerDefenseAssets}:FireballTowerIcon"
+		image="@asset={TowerDefenseAssets}:FireballTowerIcon"
         class="TowerButton"
         SceneLayer="1"
         Position="-6.500000 -5.000000"
@@ -171,7 +171,7 @@
     </Sprite>
     <Sprite
         Name="TowerSlot2Icon"
-		imageMap="@asset={TowerDefenseAssets}:IceTowerIcon"
+		image="@asset={TowerDefenseAssets}:IceTowerIcon"
         class="TowerButton"
         SceneLayer="1"
         Position="-4.500000 -5.000000"
@@ -188,7 +188,7 @@
     </Sprite>
     <Sprite
         Name="TowerSlot3Icon"
-		imageMap="@asset={TowerDefenseAssets}:CannonTowerIcon"
+		image="@asset={TowerDefenseAssets}:CannonTowerIcon"
         class="TowerButton"
         SceneLayer="1"
         Position="-2.500000 -5.000000"
@@ -205,7 +205,7 @@
     </Sprite>
     <Sprite
         Name="TowerSlot4Icon"
-		imageMap="@asset={TowerDefenseAssets}:PoisonTowerIcon"
+		image="@asset={TowerDefenseAssets}:PoisonTowerIcon"
         class="TowerButton"
         SceneLayer="1"
         Position="-0.500000 -5.000000"
@@ -222,7 +222,7 @@
     </Sprite>
     <Sprite
         Name="TowerSlot5Icon"
-		imageMap="@asset={TowerDefenseAssets}:VolleyTowerIcon"
+		image="@asset={TowerDefenseAssets}:VolleyTowerIcon"
         class="TowerButton"
         SceneLayer="1"
         Position="1.500000 -5.000000"
@@ -239,7 +239,7 @@
     </Sprite>
     <Sprite
         Name="cancelTower"
-		imageMap="@asset={TowerDefenseAssets}:cancelTowerImageMap"
+		image="@asset={TowerDefenseAssets}:cancelTowerImage"
         Position="3.500000 -5.000000"
         BodyType="static"
         Visible="0"
@@ -255,7 +255,7 @@
     </Sprite>
     <Sprite
         Name="startNextWaveButton"
-		imageMap="@asset={TowerDefenseAssets}:startNextWaveButtonImageMap"
+		image="@asset={TowerDefenseAssets}:startNextWaveButtonImage"
         SceneLayer="1"
         size="0.781 0.922"
         Position="5.500000 -5.000000"
@@ -274,7 +274,7 @@
     </Sprite>
     <Sprite
         Name="pauseButton"
-		imageMap="@asset={TowerDefenseAssets}:pauseButtonImageMap"
+		image="@asset={TowerDefenseAssets}:pauseButtonImage"
         SceneLayer="1"
         size="0.781 0.922"
         Position="7.000000 -5.000000"
@@ -778,31 +778,31 @@
     </Sprite>
     <Sprite
         Name="livesContainer"
-		imageMap="@asset={TowerDefenseAssets}:topHudContainerImageMap"
+		image="@asset={TowerDefenseAssets}:topHudContainerImage"
         size="3.391 1.094"
         Position="5.968781 5.338766"
         BodyType="static" />
     <Sprite
         Name="scoreContainer"
-		imageMap="@asset={TowerDefenseAssets}:topHudContainerImageMap"
+		image="@asset={TowerDefenseAssets}:topHudContainerImage"
         size="3.391 1.094"
         Position="2.031250 5.328125"
         BodyType="static" />
     <Sprite
         Name="fundsContainer"
-		imageMap="@asset={TowerDefenseAssets}:topHudContainerImageMap"
+		image="@asset={TowerDefenseAssets}:topHudContainerImage"
         size="3.391 1.094"
         Position="-2.125000 5.328125"
         BodyType="static" />
     <Sprite
         Name="waveInfoContainer"
-		imageMap="@asset={TowerDefenseAssets}:waveInfoContainerSprite"
+		image="@asset={TowerDefenseAssets}:waveInfoContainerSprite"
         size="3.172 1.234"
         Position="-6.109375 5.250000"
         BodyType="static" />
     <BitmapFontObject
         Name="waveCountdownBitmapFont"
-		imageMap="@asset={TowerDefenseAssets}:font_75Sprite"
+		image="@asset={TowerDefenseAssets}:font_75Sprite"
         size="2.250 0.563"
         Position="-5.168828 5.306250"
         BodyType="static"
@@ -811,7 +811,7 @@
         Frame="0" />
     <BitmapFontObject
         Name="waveTotalBitmapFont"
-		imageMap="@asset={TowerDefenseAssets}:font_75Sprite"
+		image="@asset={TowerDefenseAssets}:font_75Sprite"
         size="1.125 0.563"
         Position="-5.074203 5.640000"
         BodyType="static"
@@ -820,7 +820,7 @@
         Frame="0" />
     <BitmapFontObject
         Name="waveCountSlashBitmapFont"
-		imageMap="@asset={TowerDefenseAssets}:font_75Sprite"
+		image="@asset={TowerDefenseAssets}:font_75Sprite"
         size="0.563 0.563"
         Position="-5.924594 5.640000"
         BodyType="static"
@@ -829,7 +829,7 @@
         Frame="0" />
     <BitmapFontObject
         Name="currentWaveBitmapFont"
-		imageMap="@asset={TowerDefenseAssets}:font_75Sprite"
+		image="@asset={TowerDefenseAssets}:font_75Sprite"
         size="1.125 0.563"
         Position="-5.933485 5.640000"
         BodyType="static"
@@ -838,7 +838,7 @@
         Frame="0" />
     <BitmapFontObject
         Name="scoreBitmapFont"
-		imageMap="@asset={TowerDefenseAssets}:font_75Sprite"
+		image="@asset={TowerDefenseAssets}:font_75Sprite"
         size="2.250 0.563"
         Position="3.394797 5.600000"
         BodyType="static"
@@ -847,7 +847,7 @@
         Frame="0" />
     <BitmapFontObject
         Name="livesBitmapFont"
-		imageMap="@asset={TowerDefenseAssets}:font_75Sprite"
+		image="@asset={TowerDefenseAssets}:font_75Sprite"
         size="1.125 0.563"
         Position="7.365391 5.600000"
         BodyType="static"
@@ -856,7 +856,7 @@
         Frame="0" />
     <BitmapFontObject
         Name="fundsBitmapFont"
-		imageMap="@asset={TowerDefenseAssets}:font_75Sprite"
+		image="@asset={TowerDefenseAssets}:font_75Sprite"
         size="2.250 0.563"
         Position="-0.756750 5.600000"
         BodyType="static"
@@ -865,25 +865,25 @@
         Frame="0" />
     <Sprite
         Name="livesIcon"
-		imageMap="@asset={TowerDefenseAssets}:livesIconImageMap"
+		image="@asset={TowerDefenseAssets}:livesIconImage"
         size="0.516 0.438"
         Position="5.072047 5.451031"
         BodyType="static" />
     <Sprite
         Name="scoreIcon"
-		imageMap="@asset={TowerDefenseAssets}:scoreIconImageMap"
+		image="@asset={TowerDefenseAssets}:scoreIconImage"
         size="0.578 0.422"
         Position="1.286828 5.457812"
         BodyType="static" />
     <Sprite
         Name="fundsIcon"
-		imageMap="@asset={TowerDefenseAssets}:fundsIconImageMap"
+		image="@asset={TowerDefenseAssets}:fundsIconImage"
         size="0.703 0.406"
         Position="-2.875000 5.468750"
         BodyType="static" />
     <Sprite
         Name="waveInfoIcon"
-		imageMap="@asset={TowerDefenseAssets}:waveInfoIconImageMap"
+		image="@asset={TowerDefenseAssets}:waveInfoIconImage"
         size="0.391 0.297"
         Position="-6.859375 5.328125"
         BodyType="static" />

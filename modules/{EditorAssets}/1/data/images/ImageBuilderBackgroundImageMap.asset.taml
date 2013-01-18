@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="ImageBuilderBackgroundImageMap"
+    AssetName="ImageBuilderBackgroundImage"
     AssetInternal="1"
     ImageFile="@assetFile=#background"
     filterPad="false" />

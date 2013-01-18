@@ -677,10 +677,10 @@ function ProjectileBuilder::createDefaultProjectile()
         SleepingCallback="1";
 		Active="0";
 		SceneLayer="15";
-        IconDepressed="{PhysicsLauncherAssets}:GorillaButtonDownImageMap";
-        IconHover="{PhysicsLauncherAssets}:GorillaButtonHoverImageMap";
-        IconInactive="{PhysicsLauncherAssets}:GorillaButtonInactiveImageMap";
-        IconNormal="{PhysicsLauncherAssets}:GorillaButtonUpImageMap";
+        IconDepressed="{PhysicsLauncherAssets}:GorillaButtonDownImage";
+        IconHover="{PhysicsLauncherAssets}:GorillaButtonHoverImage";
+        IconInactive="{PhysicsLauncherAssets}:GorillaButtonInactiveImage";
+        IconNormal="{PhysicsLauncherAssets}:GorillaButtonUpImage";
 		PointValue="10000";
         activated="0";
     };

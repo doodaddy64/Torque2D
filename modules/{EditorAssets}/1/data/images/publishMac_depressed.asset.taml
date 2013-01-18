@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="publishMac_depressedImageMap"
+    AssetName="publishMac_depressedImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#publishMac_depressed.png" />

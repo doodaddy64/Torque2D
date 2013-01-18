@@ -138,21 +138,21 @@ function CreateNewSpriteSheet(%tag)
    {
       case "Table":
          echo("@@@ Table creating new sprite sheet");
-         launchNewImageMap(true);
+         launchNewImage(true);
       case "Carpet":
          echo("@@@ Carpet creating new sprite sheet");
-         launchNewImageMap(true);
+         launchNewImage(true);
       case "Chips":
          echo("@@@ Chips creating new sprite sheet");
-         launchNewImageMap(true);
+         launchNewImage(true);
       case "Shoe":
          echo("@@@ Shoe creating new sprite sheet");
-         launchNewImageMap(true);
+         launchNewImage(true);
       case "HUD":
          echo("@@@ HUD creating new sprite sheet");
-         launchNewImageMap(true);
+         launchNewImage(true);
       default:
-         launchNewImageMap(true);
+         launchNewImage(true);
    } 
 }
 
@@ -191,7 +191,7 @@ function CreateNewGuiImage(%tag)
    
    %dlg = new OpenFileDialog()
    {
-      Filters = $T2D::ImageMapSpec;
+      Filters = $T2D::ImageSpec;
       ChangePath = false;
       MustExist = true;
       MultipleFiles = true;
@@ -355,19 +355,19 @@ function EditSpriteSheet(%datablockName, %tag)
          
       case "Table":
          echo("@@@ Table opening sprite sheet");
-         launchEditImageMap(%datablockName);
+         launchEditImage(%datablockName);
       case "Carpet":
          echo("@@@ Carpet opening sprite sheet");
-         launchEditImageMap(%datablockName);
+         launchEditImage(%datablockName);
       case "Chips":
          echo("@@@ Chips opening sprite sheet");
-         launchEditImageMap(%datablockName);
+         launchEditImage(%datablockName);
       case "Shoe":
          echo("@@@ Shoe opening sprite sheet");
-         launchEditImageMap(%datablockName);
+         launchEditImage(%datablockName);
       case "HUD":
          echo("@@@ HUD opening sprite sheet");
-         launchEditImageMap(%datablockName);
+         launchEditImage(%datablockName);
       default:
          if(%datablockName.NameTags == 1)
          {
@@ -383,7 +383,7 @@ function EditSpriteSheet(%datablockName, %tag)
             Canvas.pushDialog(CustomDeckToolGui);
          }
          else
-            launchEditImageMap(%datablockName);
+            launchEditImage(%datablockName);
    } 
 }
 

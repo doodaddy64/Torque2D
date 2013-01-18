@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="GroundImageMap"
+    AssetName="GroundImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#ground.png" />

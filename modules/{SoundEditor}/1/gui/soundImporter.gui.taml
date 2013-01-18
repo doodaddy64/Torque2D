@@ -25,7 +25,7 @@
         Visible="1"
         Active="1"
         hovertime="1000"
-        Image="@asset={EditorAssets}:PopupOverlayImageMap" />
+        Image="@asset={EditorAssets}:PopupOverlayImage" />
     <GuiSpriteCtrl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -39,7 +39,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:sound_popupImageMap">
+        Image="@asset={EditorAssets}:sound_popupImage">
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -160,10 +160,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:hardDriveImageMap"
-            HoverImage="@asset={EditorAssets}:hardDrive_hImageMap"
-            DownImage="@asset={EditorAssets}:hardDrive_dImageMap"
-            InactiveImage="@asset={EditorAssets}:hardDrive_iImageMap" />
+            NormalImage="@asset={EditorAssets}:hardDriveImage"
+            HoverImage="@asset={EditorAssets}:hardDrive_hImage"
+            DownImage="@asset={EditorAssets}:hardDrive_dImage"
+            InactiveImage="@asset={EditorAssets}:hardDrive_iImage" />
         <GuiCheckBoxCtrl
             Name="SoundImporterChannel"
             canSaveDynamicFields="0"
@@ -227,10 +227,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="1"
-            NormalImage="@asset={EditorAssets}:playImageMap"
-            HoverImage="@asset={EditorAssets}:play_hImageMap"
-            DownImage="@asset={EditorAssets}:play_dImageMap"
-            InactiveImage="@asset={EditorAssets}:play_iImageMap" />
+            NormalImage="@asset={EditorAssets}:playImage"
+            HoverImage="@asset={EditorAssets}:play_hImage"
+            DownImage="@asset={EditorAssets}:play_dImage"
+            InactiveImage="@asset={EditorAssets}:play_iImage" />
         <GuiImageButtonCtrl
             Name="Si_SoundStopButton"
             canSaveDynamicFields="0"
@@ -250,10 +250,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="1"
-            NormalImage="@asset={EditorAssets}:stopImageMap"
-            HoverImage="@asset={EditorAssets}:stop_hImageMap"
-            DownImage="@asset={EditorAssets}:stop_dImageMap"
-            InactiveImage="@asset={EditorAssets}:stop_iImageMap" />
+            NormalImage="@asset={EditorAssets}:stopImage"
+            HoverImage="@asset={EditorAssets}:stop_hImage"
+            DownImage="@asset={EditorAssets}:stop_dImage"
+            InactiveImage="@asset={EditorAssets}:stop_iImage" />
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -285,7 +285,7 @@
             Active="0"
             tooltipprofile="GuiToolTipProfile"
             hovertime="1000"
-            Image="@asset={EditorAssets}:SoundTag_ContainerImageMap">
+            Image="@asset={EditorAssets}:SoundTag_ContainerImage">
             <GuiScrollCtrl
                 canSaveDynamicFields="0"
                 isContainer="1"
@@ -370,10 +370,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:smallAddImageMap"
-            HoverImage="@asset={EditorAssets}:smallAdd_hImageMap"
-            DownImage="@asset={EditorAssets}:smallAdd_dImageMap"
-            InactiveImage="@asset={EditorAssets}:smallAdd_iImageMap" />
+            NormalImage="@asset={EditorAssets}:smallAddImage"
+            HoverImage="@asset={EditorAssets}:smallAdd_hImage"
+            DownImage="@asset={EditorAssets}:smallAdd_dImage"
+            InactiveImage="@asset={EditorAssets}:smallAdd_iImage" />
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -413,10 +413,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumOkayImageMap"
-            HoverImage="@asset={EditorAssets}:mediumOkay_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumOkay_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumOkay_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumOkayImage"
+            HoverImage="@asset={EditorAssets}:mediumOkay_hImage"
+            DownImage="@asset={EditorAssets}:mediumOkay_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumOkay_iImage" />
         <GuiImageButtonCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -438,10 +438,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumCancelImageMap"
-            HoverImage="@asset={EditorAssets}:mediumCancel_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumCancel_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumCancel_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumCancelImage"
+            HoverImage="@asset={EditorAssets}:mediumCancel_hImage"
+            DownImage="@asset={EditorAssets}:mediumCancel_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumCancel_iImage" />
         <GuiSeparatorCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -475,7 +475,7 @@
             hovertime="1000"
             tooltipprofile="GuiToolTipProfile"
             ToolTip="The three bars will be orange if the Sound is playing. Use this to test if the Sound and if your speakers are working."
-            Image="@asset={EditorAssets}:speaker_OffImageMap" />
+            Image="@asset={EditorAssets}:speaker_OffImage" />
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"

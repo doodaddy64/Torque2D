@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="SplashScreenImageMap"
+    AssetName="SplashScreenImage"
     AssetCategory="gui"
     AssetInternal="1"
     imageFile="@assetFile=#SplashScreen.png" />

@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="addButton_depressedImageMap"
+    AssetName="addButton_depressedImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#addButton_depressed.png" />

@@ -73,12 +73,12 @@ function LevelTool::onWake(%this)
    %this.musicFile = SceneBehaviorObject.callOnBehaviors("getSongProfile");
    LevelToolBGMEditBox.text = %this.musicFile;
    LevelToolBGMEditBox.setActive(false);
-   LevelToolBackgroundImage.setBitmap(backgroundImage.getImageMap().imageFile);
-   LevelToolBackgroundEditBox.text = backgroundImage.getImageMap();
+   LevelToolBackgroundImage.setBitmap(backgroundImage.getImage().imageFile);
+   LevelToolBackgroundEditBox.text = backgroundImage.getImage();
    LevelToolBackgroundEditBox.setActive(false);
    
-   LevelToolLivesIcon.setBitmap(livesIcon.getImageMap().imageFile);
-   LevelToolCurrencyIcon.setBitmap(fundsIcon.getImageMap().imageFile);
+   LevelToolLivesIcon.setBitmap(livesIcon.getImage().imageFile);
+   LevelToolCurrencyIcon.setBitmap(fundsIcon.getImage().imageFile);
    SetLevelToolDirtyState(false);
 }
 
@@ -135,7 +135,7 @@ function LevelTool::saveLevelInfo(%this)
     SceneBehaviorObject.callOnBehaviors(setLives, LevelToolStartingLivesEditBox.getText());
     SceneBehaviorObject.callOnBehaviors(setStartFunds, LevelToolCurrencyEditBox.getText());
     SceneBehaviorObject.callOnBehaviors(setSongProfile, LevelToolBGMEditBox.getText());
-    backgroundImage.setImageMap(LevelToolBackgroundEditBox.getText());
+    backgroundImage.setImage(LevelToolBackgroundEditBox.getText());
     
     %this.startingLives = LevelToolStartingLivesEditBox.getValue();
     %this.startingFunds = LevelToolCurrencyEditBox.getValue();

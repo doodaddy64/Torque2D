@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="magnifyingGlass_hImageMap"
+    AssetName="magnifyingGlass_hImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#magnifyingGlass_h.png" />

@@ -141,7 +141,7 @@ function NumericalDisplayBehavior::getWholeNumberDigitCount(%this, %amount)
 /// Sets a digit object for the digitIndex with the given number sheet cell.
 /// </summary>
 /// <param name="digitIndex">Index position of the digit.</param>
-/// <param name="numberSheetCell">Celled number sheet imagemap.</param>
+/// <param name="numberSheetCell">Celled number sheet image.</param>
 /// <param name="digitCount">Number of digits.</param>
 function NumericalDisplayBehavior::setDigit(%this, %digitIndex, %numberSheetCell, %digitCount)
 {

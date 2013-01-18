@@ -25,7 +25,7 @@
         Visible="1"
         Active="1"
         hovertime="1000"
-        Image="@asset={EditorTools}:PopupOverlayImageMap" />
+        Image="@asset={EditorTools}:PopupOverlayImage" />
     <GuiControl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -87,9 +87,9 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumOkayImageMap"
-            HoverImage="@asset={EditorAssets}:mediumOkay_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumOkay_dImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumOkayImage"
+            HoverImage="@asset={EditorAssets}:mediumOkay_hImage"
+            DownImage="@asset={EditorAssets}:mediumOkay_dImage" />
         <GuiImageButtonCtrl
             Name="ActionCancelBtn"
             canSaveDynamicFields="0"
@@ -107,9 +107,9 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumCancelImageMap"
-            HoverImage="@asset={EditorAssets}:mediumCancel_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumCancel_dImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumCancelImage"
+            HoverImage="@asset={EditorAssets}:mediumCancel_hImage"
+            DownImage="@asset={EditorAssets}:mediumCancel_dImage" />
         <GuiMLTextCtrl
             Name="ConfirmActionMsgCtrl"
             canSaveDynamicFields="0"

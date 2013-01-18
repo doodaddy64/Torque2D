@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="Projectile_FireballImageMap"
+    AssetName="Projectile_FireballImage"
     imageFile="@assetFile=#Projectile_Fireball.png"
     cellCountX="4"
     cellCountY="4"

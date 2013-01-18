@@ -7,7 +7,7 @@ function createMichToy( %scopeSet )
 {
 	%sprite = new Sprite();
 	SandboxScene.addToScene( %sprite );
-	%sprite.ImageMap = "MichToy:DefaultImage";
+	%sprite.Image = "MichToy:DefaultImage";
 	%sprite.Size = "60";
 	%sprite.AngularVelocity = 90;
 }

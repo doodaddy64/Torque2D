@@ -4,7 +4,7 @@
     cameraSize="8 6"
     DebugRendering="0">
     <Sprite
-        imageMap="@asset={BlackjackAssets}:TableImageMap"
+        image="@asset={BlackjackAssets}:TableImage"
         SceneLayer="21"
         size="8.000 6.000"
         BodyType="static"
@@ -48,7 +48,7 @@
     </Sprite>
     <Sprite
         Name="tableCards"
-        imageMap="@asset={BlackjackAssets}:GGDeckSprite"
+        image="@asset={BlackjackAssets}:GGDeckSprite"
         size="0.563 0.828"
         Position="-5.133344 0.686977"
         Angle="45"
@@ -68,7 +68,7 @@
     </Sprite>
     <Sprite
         Name="bankStack1"
-        imageMap="@asset={BlackjackAssets}:chip1dollarImageMap"
+        image="@asset={BlackjackAssets}:chip1dollarImage"
         SceneLayer="2"
         size="0.625 0.625"
         Position="-1.624547 -2.187500"
@@ -88,7 +88,7 @@
     </Sprite>
     <Sprite
         Name="bankStack2"
-        imageMap="@asset={BlackjackAssets}:chip5dollarImageMap"
+        image="@asset={BlackjackAssets}:chip5dollarImage"
         SceneLayer="2"
         size="0.625 0.625"
         Position="-2.331555 -1.970961"
@@ -108,7 +108,7 @@
     </Sprite>
     <Sprite
         Name="bankStack3"
-        imageMap="@asset={BlackjackAssets}:chip25dollarImageMap"
+        image="@asset={BlackjackAssets}:chip25dollarImage"
         SceneLayer="2"
         size="0.625 0.625"
         Position="-2.987773 -1.694391"
@@ -128,7 +128,7 @@
     </Sprite>
     <Sprite
         Name="BankStack4"
-        imageMap="@asset={BlackjackAssets}:chip100dollarImageMap"
+        image="@asset={BlackjackAssets}:chip100dollarImage"
         Enabled="0"
         SceneLayer="2"
         size="0.625 0.625"
@@ -166,7 +166,7 @@
          />
     <Sprite
         Name="penetrationCard"
-        imageMap="@asset={BlackjackAssets}:penetrationCardImageMap"
+        image="@asset={BlackjackAssets}:penetrationCardImage"
         size="0.563 0.828"
         Position="-5.231219 -0.788750"
         Angle="-45"
@@ -184,14 +184,14 @@
     </Sprite>
     <Sprite
         Name="DealerChipRack"
-        imageMap="@asset={BlackjackAssets}:ChipTrayImageMap"
+        image="@asset={BlackjackAssets}:ChipTrayImage"
         SceneLayer="20"
         size="2.875 1.148"
         Position="0.101563 2.914063"
         BodyType="static"
          />
     <Sprite
-        imageMap="@asset={BlackjackAssets}:PlayerSpaceImageMap"
+        image="@asset={BlackjackAssets}:PlayerSpaceImage"
         SceneLayer="20"
         size="0.703 1.000"
         Position="0.000578 1.882813"
@@ -206,14 +206,14 @@
     </Sprite>
     <Sprite
         Name="TableRulesImage"
-        imageMap="@asset={BlackjackAssets}:Rules_OverlaySprite"
+        image="@asset={BlackjackAssets}:Rules_OverlaySprite"
         SceneLayer="20"
         size="3.688 1.039"
         Position="0.018344 1.247531"
         BodyType="static"
          />
     <Sprite
-        imageMap="@asset={BlackjackAssets}:CardHolderImageMap"
+        image="@asset={BlackjackAssets}:CardHolderImage"
         SceneLayer="20"
         size="1.453 2.539"
         Position="2.768234 2.768234"
@@ -233,7 +233,7 @@
     </Sprite>
     <Sprite
         Name="DiscardArea"
-        imageMap="@asset={BlackjackAssets}:UsedCardsImageMap"
+        image="@asset={BlackjackAssets}:UsedCardsImage"
         SceneLayer="6"
         size="0.781 1.039"
         Position="-2.805922 2.465852"
@@ -341,7 +341,7 @@
         </SceneObject.Behaviors>
     </SceneObject>
     <Sprite
-        imageMap="@asset={BlackjackAssets}:PlayerSpaceImageMap"
+        image="@asset={BlackjackAssets}:PlayerSpaceImage"
         SceneLayer="20"
         size="0.703 1.000"
         Position="2.419055 -0.234375"
@@ -363,7 +363,7 @@
         </Sprite.Behaviors>
     </Sprite>
     <Sprite
-        imageMap="@asset={BlackjackAssets}:PlayerSpaceImageMap"
+        image="@asset={BlackjackAssets}:PlayerSpaceImage"
         SceneLayer="20"
         size="0.703 1.000"
         Position="0.011867 -0.849648"
@@ -383,7 +383,7 @@
         </Sprite.Behaviors>
     </Sprite>
     <Sprite
-        imageMap="@asset={BlackjackAssets}:PlayerSpaceImageMap"
+        image="@asset={BlackjackAssets}:PlayerSpaceImage"
         SceneLayer="20"
         size="0.703 1.000"
         Position="-2.309336 -0.210938"
@@ -406,7 +406,7 @@
     </Sprite>
     <Sprite
         Name="BetArea2"
-        imageMap="@asset={BlackjackAssets}:betBoxImageMap"
+        image="@asset={BlackjackAssets}:betBoxImage"
         SceneLayer="21"
         size="0.750 0.750"
         Position="-1.704391 0.619555"
@@ -440,7 +440,7 @@
     </Sprite>
     <Sprite
         Name="BetArea1"
-        imageMap="@asset={BlackjackAssets}:betBoxImageMap"
+        image="@asset={BlackjackAssets}:betBoxImage"
         SceneLayer="21"
         size="0.750 0.750"
         Position="0.007750 0.207367"
@@ -473,7 +473,7 @@
     </Sprite>
     <Sprite
         Name="BetArea0"
-        imageMap="@asset={BlackjackAssets}:betBoxImageMap"
+        image="@asset={BlackjackAssets}:betBoxImage"
         SceneLayer="21"
         size="0.750 0.750"
         Position="1.836938 0.629250"
@@ -507,7 +507,7 @@
     </Sprite>
     <BitmapFontObject
         Name="AIBankDisplay1BitmapFont"
-        imageMap="@asset={BlackjackAssets}:fontImageMap"
+        image="@asset={BlackjackAssets}:fontImage"
         size="0.000 0.125"
         Position="-0.076359 -1.531023"
         BodyType="static"
@@ -522,7 +522,7 @@
     </BitmapFontObject>
     <BitmapFontObject
         Name="AIBankDisplay0BitmapFont"
-        imageMap="@asset={BlackjackAssets}:fontImageMap"
+        image="@asset={BlackjackAssets}:fontImage"
         size="0.000 0.125"
         Position="3.380250 -0.216609"
         BodyType="static"
@@ -538,7 +538,7 @@
     </BitmapFontObject>
     <BitmapFontObject
         Name="AIBankDisplay2BitmapFont"
-        imageMap="@asset={BlackjackAssets}:fontImageMap"
+        image="@asset={BlackjackAssets}:fontImage"
         size="0.000 0.125"
         Position="-3.401477 -0.474227"
         BodyType="static"
@@ -554,7 +554,7 @@
     </BitmapFontObject>
     <BitmapFontObject
         Name="BetAreaNumericalDisplay1BitmapFont"
-        imageMap="@asset={BlackjackAssets}:fontImageMap"
+        image="@asset={BlackjackAssets}:fontImage"
         size="0.000 0.125"
         Position="0.020086 -0.115273"
         BodyType="static"
@@ -569,7 +569,7 @@
     </BitmapFontObject>
     <BitmapFontObject
         Name="SplitBetAreaNumericalDisplay1BitmapFont"
-        imageMap="@asset={BlackjackAssets}:fontImageMap"
+        image="@asset={BlackjackAssets}:fontImage"
         size="0.000 0.125"
         Position="-0.647742 -0.138617"
         BodyType="static"
@@ -584,7 +584,7 @@
     </BitmapFontObject>
     <BitmapFontObject
         Name="SplitBetAreaNumericalDisplay2BitmapFont"
-        imageMap="@asset={BlackjackAssets}:fontImageMap"
+        image="@asset={BlackjackAssets}:fontImage"
         size="0.000 0.125"
         Position="-2.417414 0.622992"
         BodyType="static"
@@ -600,7 +600,7 @@
     </BitmapFontObject>
     <BitmapFontObject
         Name="BetAreaNumericalDisplay0BitmapFont"
-        imageMap="@asset={BlackjackAssets}:fontImageMap"
+        image="@asset={BlackjackAssets}:fontImage"
         size="0.000 0.125"
         Position="1.901789 0.301320"
         BodyType="static"
@@ -616,7 +616,7 @@
     </BitmapFontObject>
     <BitmapFontObject
         Name="SplitBetAreaNumericalDisplay0BitmapFont"
-        imageMap="@asset={BlackjackAssets}:fontImageMap"
+        image="@asset={BlackjackAssets}:fontImage"
         size="0.000 0.125"
         Position="1.256016 -0.158258"
         BodyType="static"
@@ -632,7 +632,7 @@
     </BitmapFontObject>
     <BitmapFontObject
         Name="BetAreaNumericalDisplay2BitmapFont"
-        imageMap="@asset={BlackjackAssets}:fontImageMap"
+        image="@asset={BlackjackAssets}:fontImage"
         size="0.000 0.125"
         Position="-1.680422 0.266172"
         BodyType="static"
@@ -648,7 +648,7 @@
     </BitmapFontObject>
     <BitmapFontObject
         Name="BottomBarAIBankDisplay0"
-        imageMap="@asset={BlackjackAssets}:fontImageMap"
+        image="@asset={BlackjackAssets}:fontImage"
         Position="3.620000 -2.730000"
         BodyType="static"
         textAlignment="Right"
@@ -663,7 +663,7 @@
     </BitmapFontObject>
     <BitmapFontObject
         Name="BottomBarAIBankDisplay1"
-        imageMap="@asset={BlackjackAssets}:fontImageMap"
+        image="@asset={BlackjackAssets}:fontImage"
         Position="1.320000 -2.730000"
         BodyType="static"
         textAlignment="Right"
@@ -678,21 +678,21 @@
     </BitmapFontObject>
     <Sprite
         Name="BottomBarAIAvatarImage0"
-        imageMap="@asset={BlackjackAssets}:BlackJack_PlayerImageMap"
+        image="@asset={BlackjackAssets}:BlackJack_PlayerImage"
         size="0.391 0.391"
         Position="1.966531 -2.773438"
         BodyType="static"
          />
     <Sprite
         Name="BottomBarAIAvatarImage1"
-        imageMap="@asset={BlackjackAssets}:BlackJack_PlayerImageMap"
+        image="@asset={BlackjackAssets}:BlackJack_PlayerImage"
         size="0.391 0.391"
         Position="-0.341805 -2.773438"
         BodyType="static"
          />
     <Sprite
         Name="BottomBarAIBackground1"
-        imageMap="@asset={BlackjackAssets}:GUI_Bar_AIcreditsSprite"
+        image="@asset={BlackjackAssets}:GUI_Bar_AIcreditsSprite"
         SceneLayer="1"
         size="1.949 0.398"
         Position="0.670062 -2.788672"
@@ -700,7 +700,7 @@
          />
     <Sprite
         Name="BottomBarAIBackground0"
-        imageMap="@asset={BlackjackAssets}:GUI_Bar_AIcreditsSprite"
+        image="@asset={BlackjackAssets}:GUI_Bar_AIcreditsSprite"
         SceneLayer="1"
         size="1.949 0.398"
         Position="2.973109 -2.792969"

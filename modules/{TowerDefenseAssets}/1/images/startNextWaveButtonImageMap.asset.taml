@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="startNextWaveButtonImageMap"
+    AssetName="startNextWaveButtonImage"
     imageFile="@assetFile=#startNextWaveButton.png"
     AssetCategory="gui" />

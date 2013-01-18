@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="buttonReplace_overImageMap"
+    AssetName="buttonReplace_overImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#buttonReplace_over.png" />

@@ -145,10 +145,10 @@ package TowerDefensePackage
          //case "Terrain":
             //echo("@@@ Terrain creating new sprite sheet");
          //default:
-            //launchNewImageMap(true);
+            //launchNewImage(true);
       //}
       
-      launchNewImageMap(true);
+      launchNewImage(true);
    }
 
    function CreateNewAnimation(%tag)
@@ -177,7 +177,7 @@ function CreateNewGuiImage(%tag)
    
    %dlg = new OpenFileDialog()
    {
-      Filters = $T2D::ImageMapSpec;
+      Filters = $T2D::ImageSpec;
       ChangePath = false;
       MustExist = true;
       MultipleFiles = true;
@@ -339,10 +339,10 @@ function copyGuiAssetToPath(%oldLoc, %newLoc)
          //case "Terrain":
             //echo("@@@ Terrain opening sprite sheet");
          //default:
-            //launchEditImageMap(%datablockName);
+            //launchEditImage(%datablockName);
       //} 
       
-      launchEditImageMap(%datablockName);
+      launchEditImage(%datablockName);
    }
 
    function EditAnimation(%datablockName, %tag)

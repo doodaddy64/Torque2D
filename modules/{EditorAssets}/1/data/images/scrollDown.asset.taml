@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="scrollDownImageMap"
+    AssetName="scrollDownImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#scrollDown.png" />

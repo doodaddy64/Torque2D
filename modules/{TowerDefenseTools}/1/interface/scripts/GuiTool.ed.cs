@@ -165,7 +165,7 @@ function GUIToolOpenImageFile(%fieldName)
       $GameGuiDir = $GameDir @ "/gui/images/";
    %dlg = new OpenFileDialog()
    {
-      Filters = $T2D::ImageMapSpec;
+      Filters = $T2D::ImageSpec;
       ChangePath = false;
       MustExist = true;
       MultipleFiles = true;
@@ -537,52 +537,52 @@ function GuiTool::saveGuiSet(%this)
    
    
    // Level
-   waveInfoContainer.imageMap = GUILevelTabLargeIconPreview.asset;
+   waveInfoContainer.image = GUILevelTabLargeIconPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabLargeIconPreview.asset);
 
-   scoreContainer.imageMap = GUILevelTabSmallIconPreview.asset;
+   scoreContainer.image = GUILevelTabSmallIconPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabSmallIconPreview.asset);
 
-   livesContainer.imageMap = GUILevelTabSmallIconPreview.asset;
+   livesContainer.image = GUILevelTabSmallIconPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabSmallIconPreview.asset);
 
-   fundsContainer.imageMap = GUILevelTabSmallIconPreview.asset;
+   fundsContainer.image = GUILevelTabSmallIconPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabSmallIconPreview.asset);
 
-   pauseButton.imageMap = GUILevelTabPauseBtnPreview.asset;
+   pauseButton.image = GUILevelTabPauseBtnPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabPauseBtnPreview.asset);
 
-   livesIcon.imageMap = GUILevelTabHealthPreview.asset;
+   livesIcon.image = GUILevelTabHealthPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabHealthPreview.asset);
 
-   fundsIcon.imageMap = GUILevelTabCurrencyPreview.asset;   
+   fundsIcon.image = GUILevelTabCurrencyPreview.asset;   
    AddAssetToLevelDatablocks(GUILevelTabCurrencyPreview.asset);
 
-   waveInfoIcon.imageMap = GUILevelTabWavePreview.asset;
+   waveInfoIcon.image = GUILevelTabWavePreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabWavePreview.asset);
 
-   scoreIcon.imageMap = GUILevelTabPointsPreview.asset;
+   scoreIcon.image = GUILevelTabPointsPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabPointsPreview.asset);
 
-   rangeCircle.imageMap = GUILevelTabRangePreview.asset;
+   rangeCircle.image = GUILevelTabRangePreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabRangePreview.asset);
 
-   cancelTower.imageMap = GUILevelTabCancelTowerPreview.asset;
+   cancelTower.image = GUILevelTabCancelTowerPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabCancelTowerPreview.asset);
 
-   upgradeButton.imageMap = GUILevelTabUpgradePreview.asset;
+   upgradeButton.image = GUILevelTabUpgradePreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabUpgradePreview.asset);
 
-   sellButton.imageMap = GUILevelTabSellPreview.asset;
+   sellButton.image = GUILevelTabSellPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabSellPreview.asset);
 
-   confirmButton.imageMap = GUILevelTabAcceptPreview.asset;
+   confirmButton.image = GUILevelTabAcceptPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabAcceptPreview.asset);
 
-   towerCancelButton.imageMap = GUILevelTabCancelPreview.asset;
+   towerCancelButton.image = GUILevelTabCancelPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabCancelPreview.asset);
 
-   startNextWaveButton.imageMap = GUILevelTabStartPreview.asset;
+   startNextWaveButton.image = GUILevelTabStartPreview.asset;
    AddAssetToLevelDatablocks(GUILevelTabStartPreview.asset);
 
    LDEonApply();
@@ -1032,73 +1032,73 @@ function GUILevelSelectHomeBtnDropdown::onSelect(%this)
 function GuiTool::initLevelTab(%this)
 {
    // These are all scene objects.
-   if (isObject(waveInfoContainer.imageMap) && isObject(GUILevelTabLargeIconPreview))
+   if (isObject(waveInfoContainer.image) && isObject(GUILevelTabLargeIconPreview))
    {
-       GUILevelTabLargeIconPreview.setBitmap(waveInfoContainer.imageMap.imageFile);
-       GUILevelTabLargeIconEdit.text = fileName(waveInfoContainer.imageMap.imageFile);
+       GUILevelTabLargeIconPreview.setBitmap(waveInfoContainer.image.imageFile);
+       GUILevelTabLargeIconEdit.text = fileName(waveInfoContainer.image.imageFile);
        GUILevelTabLargeIconEdit.setActive(false);
    }
 
-   if (isObject(scoreContainer.imageMap) && isObject(GUILevelTabSmallIconPreview))
+   if (isObject(scoreContainer.image) && isObject(GUILevelTabSmallIconPreview))
    {
-       GUILevelTabSmallIconPreview.setBitmap(scoreContainer.imageMap.imageFile);
-       GUILevelTabSmallIconEdit.text = fileName(scoreContainer.imageMap.imageFile);
+       GUILevelTabSmallIconPreview.setBitmap(scoreContainer.image.imageFile);
+       GUILevelTabSmallIconEdit.text = fileName(scoreContainer.image.imageFile);
        GUILevelTabSmallIconEdit.setActive(false);
    }
 
-   if (isObject(waveInfoContainer.imageMap) && isObject(GUILevelTabBottomPreview))
+   if (isObject(waveInfoContainer.image) && isObject(GUILevelTabBottomPreview))
    {
-       GUILevelTabBottomPreview.setBitmap(waveInfoContainer.imageMap.imageFile);
-       GUILevelTabBottomEdit.text = fileName(waveInfoContainer.imageMap.imageFile);
+       GUILevelTabBottomPreview.setBitmap(waveInfoContainer.image.imageFile);
+       GUILevelTabBottomEdit.text = fileName(waveInfoContainer.image.imageFile);
        GUILevelTabBottomEdit.setActive(false);
    }
    
-   GUILevelTabPauseBtnPreview.setBitmap(pauseButton.getImageMap().imageFile);
-   GUILevelTabPauseBtnEdit.text = fileName(pauseButton.getImageMap().imageFile);
+   GUILevelTabPauseBtnPreview.setBitmap(pauseButton.getImage().imageFile);
+   GUILevelTabPauseBtnEdit.text = fileName(pauseButton.getImage().imageFile);
    GUILevelTabPauseBtnEdit.setActive(false);
 
-   GUILevelTabHealthPreview.setBitmap(livesIcon.getImageMap().imageFile);
-   GUILevelTabHealthEdit.text = fileName(livesIcon.getImageMap().imageFile);
+   GUILevelTabHealthPreview.setBitmap(livesIcon.getImage().imageFile);
+   GUILevelTabHealthEdit.text = fileName(livesIcon.getImage().imageFile);
    GUILevelTabHealthEdit.setActive(false);
 
-   GUILevelTabCurrencyPreview.setBitmap(fundsIcon.getImageMap().imageFile);
-   GUILevelTabCurrencyEdit.text = fileName(fundsIcon.getImageMap().imageFile);
+   GUILevelTabCurrencyPreview.setBitmap(fundsIcon.getImage().imageFile);
+   GUILevelTabCurrencyEdit.text = fileName(fundsIcon.getImage().imageFile);
    GUILevelTabCurrencyEdit.setActive(false);
 
-   GUILevelTabWavePreview.setBitmap(waveInfoIcon.getImageMap().imageFile);
-   GUILevelTabWaveEdit.text = fileName(waveInfoIcon.getImageMap().imageFile);
+   GUILevelTabWavePreview.setBitmap(waveInfoIcon.getImage().imageFile);
+   GUILevelTabWaveEdit.text = fileName(waveInfoIcon.getImage().imageFile);
    GUILevelTabWaveEdit.setActive(false);
 
-   GUILevelTabPointsPreview.setBitmap(scoreIcon.getImageMap().imageFile);
-   GUILevelTabPointsEdit.text = fileName(scoreIcon.getImageMap().imageFile);
+   GUILevelTabPointsPreview.setBitmap(scoreIcon.getImage().imageFile);
+   GUILevelTabPointsEdit.text = fileName(scoreIcon.getImage().imageFile);
    GUILevelTabPointsEdit.setActive(false);
 
-   GUILevelTabRangePreview.setBitmap(rangeCircle.getImageMap().imageFile);
-   GUILevelTabRangeEdit.text = fileName(rangeCircle.getImageMap().imageFile);
+   GUILevelTabRangePreview.setBitmap(rangeCircle.getImage().imageFile);
+   GUILevelTabRangeEdit.text = fileName(rangeCircle.getImage().imageFile);
    GUILevelTabRangeEdit.setActive(false);
 
-   GUILevelTabCancelTowerPreview.setBitmap(cancelTower.getImageMap().imageFile);
-   GUILevelTabCancelTowerEdit.text = fileName(cancelTower.getImageMap().imageFile);
+   GUILevelTabCancelTowerPreview.setBitmap(cancelTower.getImage().imageFile);
+   GUILevelTabCancelTowerEdit.text = fileName(cancelTower.getImage().imageFile);
    GUILevelTabCancelTowerEdit.setActive(false);
 
-   GUILevelTabUpgradePreview.setBitmap(upgradeButton.getImageMap().imageFile);
-   GUILevelTabUpgradeEdit.text = fileName(upgradeButton.getImageMap().imageFile);
+   GUILevelTabUpgradePreview.setBitmap(upgradeButton.getImage().imageFile);
+   GUILevelTabUpgradeEdit.text = fileName(upgradeButton.getImage().imageFile);
    GUILevelTabUpgradeEdit.setActive(false);
 
-   GUILevelTabSellPreview.setBitmap(sellButton.getImageMap().imageFile);
-   GUILevelTabSellEdit.text = fileName(sellButton.getImageMap().imageFile);
+   GUILevelTabSellPreview.setBitmap(sellButton.getImage().imageFile);
+   GUILevelTabSellEdit.text = fileName(sellButton.getImage().imageFile);
    GUILevelTabSellEdit.setActive(false);
 
-   GUILevelTabAcceptPreview.setBitmap(confirmButton.getImageMap().imageFile);
-   GUILevelTabAcceptEdit.text = fileName(confirmButton.getImageMap().imageFile);
+   GUILevelTabAcceptPreview.setBitmap(confirmButton.getImage().imageFile);
+   GUILevelTabAcceptEdit.text = fileName(confirmButton.getImage().imageFile);
    GUILevelTabAcceptEdit.setActive(false);
 
-   GUILevelTabCancelPreview.setBitmap(towerCancelButton.getImageMap().imageFile);
-   GUILevelTabCancelEdit.text = fileName(towerCancelButton.getImageMap().imageFile);
+   GUILevelTabCancelPreview.setBitmap(towerCancelButton.getImage().imageFile);
+   GUILevelTabCancelEdit.text = fileName(towerCancelButton.getImage().imageFile);
    GUILevelTabCancelEdit.setActive(false);
 
-   GUILevelTabStartPreview.setBitmap(startNextWaveButton.getImageMap().imageFile);
-   GUILevelTabStartEdit.text = fileName(startNextWaveButton.getImageMap().imageFile);
+   GUILevelTabStartPreview.setBitmap(startNextWaveButton.getImage().imageFile);
+   GUILevelTabStartEdit.text = fileName(startNextWaveButton.getImage().imageFile);
    GUILevelTabStartEdit.setActive(false);
 }
 

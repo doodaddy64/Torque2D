@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="saveButtonImageMap"
+    AssetName="saveButtonImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#saveButton.png" />

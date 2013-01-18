@@ -104,7 +104,7 @@ function menuCreditsButton::onClick(%this)
 function menuSoundButton::onClick(%this)
 {
     %bitmap = strchr(menuSoundButton.NormalImage, ":");
-    if (%bitmap $= ":VolumeBtn128x128OnImageMap")
+    if (%bitmap $= ":VolumeBtn128x128OnImage")
     {
         for (%channel = 1; %channel <= 3; %channel++)
         {

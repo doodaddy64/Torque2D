@@ -25,7 +25,7 @@
         Visible="1"
         Active="1"
         hovertime="1000"
-        Image="@asset={EditorAssets}:PopupOverlayImageMap" />
+        Image="@asset={EditorAssets}:PopupOverlayImage" />
     <GuiControl
         Name="Ip_PreviewContainer"
         canSaveDynamicFields="0"
@@ -90,7 +90,7 @@
             Visible="1"
             Active="1"
             hovertime="1000"
-            Image="@asset={PhysicsLauncherAssets}:WorldImageOneImageMap"
+            Image="@asset={PhysicsLauncherAssets}:WorldImageOneImage"
             wrap="0"
             useSourceRect="0"
             sourceRect="0 0 0 0">
@@ -122,7 +122,7 @@
                     Visible="1"
                     Active="1"
                     hovertime="1000"
-                    Image="@asset={PhysicsLauncherAssets}:ScoreContainerImageMap"
+                    Image="@asset={PhysicsLauncherAssets}:ScoreContainerImage"
                     wrap="0"
                     useSourceRect="0"
                     sourceRect="0 0 0 0">
@@ -173,7 +173,7 @@
                     Visible="1"
                     Active="1"
                     hovertime="1000"
-                    Image="@asset={PhysicsLauncherAssets}:ScoreContainerImageMap"
+                    Image="@asset={PhysicsLauncherAssets}:ScoreContainerImage"
                     wrap="0"
                     useSourceRect="0"
                     sourceRect="0 0 0 0">
@@ -224,7 +224,7 @@
                     Visible="1"
                     Active="1"
                     hovertime="1000"
-                    Image="@asset={PhysicsLauncherAssets}:ScoreContainerImageMap"
+                    Image="@asset={PhysicsLauncherAssets}:ScoreContainerImage"
                     wrap="0"
                     useSourceRect="0"
                     sourceRect="0 0 0 0">
@@ -246,9 +246,9 @@
                         buttonType="PushButton"
                         useMouseEvents="0"
                         isLegacyVersion="0"
-                        NormalImage="@asset={PhysicsLauncherAssets}:RewardImage24x24ImageMap"
-                        HoverImage="@asset={PhysicsLauncherAssets}:RewardImage24x24ImageMap"
-                        DownImage="@asset={PhysicsLauncherAssets}:RewardImage24x24ImageMap" />
+                        NormalImage="@asset={PhysicsLauncherAssets}:RewardImage24x24Image"
+                        HoverImage="@asset={PhysicsLauncherAssets}:RewardImage24x24Image"
+                        DownImage="@asset={PhysicsLauncherAssets}:RewardImage24x24Image" />
                     <GuiTextCtrl
                         Name="PreviewRewardCount"
                         canSaveDynamicFields="0"

@@ -1,6 +1,6 @@
 <AnimationAsset
     AssetName="PL_DefaultWorldObjectAnim1"
     AssetCategory="sprites"
-    ImageMap="@asset={PhysicsLauncherAssets}:PL_DefaultWorldObjectImageMap"
+    Image="@asset={PhysicsLauncherAssets}:PL_DefaultWorldObjectImage"
     AnimationFrames="0"
     AnimationTime="1" />

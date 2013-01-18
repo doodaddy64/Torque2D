@@ -221,18 +221,18 @@ function CEPlayAnimButton::onClick(%this)
     if (CollisionEditor.playingAnimation)
     {
         CollisionEditor.updateAnimation("pause");
-        CEPlayAnimButton.setNormalImage("{EditorAssets}:playImageMap");
-        CEPlayAnimButton.setHoverImage("{EditorAssets}:play_hImageMap");
-        CEPlayAnimButton.setDownImage("{EditorAssets}:play_dImageMap");
-        CEPlayAnimButton.setInactiveImage("{EditorAssets}:play_iImageMap");
+        CEPlayAnimButton.setNormalImage("{EditorAssets}:playImage");
+        CEPlayAnimButton.setHoverImage("{EditorAssets}:play_hImage");
+        CEPlayAnimButton.setDownImage("{EditorAssets}:play_dImage");
+        CEPlayAnimButton.setInactiveImage("{EditorAssets}:play_iImage");
     }
     else
     {
         CollisionEditor.updateAnimation("play");
-        CEPlayAnimButton.setNormalImage("{EditorAssets}:pauseImageMap");
-        CEPlayAnimButton.setHoverImage("{EditorAssets}:pause_hImageMap");
-        CEPlayAnimButton.setDownImage("{EditorAssets}:pause_dImageMap");
-        CEPlayAnimButton.setInactiveImage("{EditorAssets}:pause_iImageMap");
+        CEPlayAnimButton.setNormalImage("{EditorAssets}:pauseImage");
+        CEPlayAnimButton.setHoverImage("{EditorAssets}:pause_hImage");
+        CEPlayAnimButton.setDownImage("{EditorAssets}:pause_dImage");
+        CEPlayAnimButton.setInactiveImage("{EditorAssets}:pause_iImage");
     }
 }
 
@@ -241,10 +241,10 @@ function CEStopAnimButton::onClick(%this)
     if (CollisionEditor.playingAnimation)
     {
         CollisionEditor.updateAnimation("stop");
-        CEPlayAnimButton.setNormalImage("{EditorAssets}:playImageMap");
-        CEPlayAnimButton.setHoverImage("{EditorAssets}:play_hImageMap");
-        CEPlayAnimButton.setDownImage("{EditorAssets}:play_dImageMap");
-        CEPlayAnimButton.setInactiveImage("{EditorAssets}:play_iImageMap");
+        CEPlayAnimButton.setNormalImage("{EditorAssets}:playImage");
+        CEPlayAnimButton.setHoverImage("{EditorAssets}:play_hImage");
+        CEPlayAnimButton.setDownImage("{EditorAssets}:play_dImage");
+        CEPlayAnimButton.setInactiveImage("{EditorAssets}:play_iImage");
     }
 }
 
@@ -257,10 +257,10 @@ function CollisionEditorGui::addStateEntry(%this, %stateLabel, %stateAsset, %fra
         CollisionEditor.playingAnimation = true;
         CEPlayAnimButton.setActive(true);
         CEStopAnimButton.setActive(true);
-        CEPlayAnimButton.setNormalImage("{EditorAssets}:pauseImageMap");
-        CEPlayAnimButton.setHoverImage("{EditorAssets}:pause_hImageMap");
-        CEPlayAnimButton.setDownImage("{EditorAssets}:pause_dImageMap");
-        CEPlayAnimButton.setInactiveImage("{EditorAssets}:pause_iImageMap");
+        CEPlayAnimButton.setNormalImage("{EditorAssets}:pauseImage");
+        CEPlayAnimButton.setHoverImage("{EditorAssets}:pause_hImage");
+        CEPlayAnimButton.setDownImage("{EditorAssets}:pause_dImage");
+        CEPlayAnimButton.setInactiveImage("{EditorAssets}:pause_iImage");
     }
     
     %newState = new ScriptObject()
@@ -298,7 +298,7 @@ function CEViewDropdown::onSelect(%this, %selectionId)
     }
     else
     {
-        %previewObject.imageMap = %stateEntry.asset;
+        %previewObject.image = %stateEntry.asset;
         %previewObject.Frame = %stateEntry.frame;
     }
 }

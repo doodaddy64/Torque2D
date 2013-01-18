@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="Trail_LeafImageMap"
+    AssetName="Trail_LeafImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#Trail_Leaf.png" />

@@ -112,7 +112,7 @@ package PhysicsLauncherPackage
 {
     function CreateNewSpriteSheet(%tag)
     {
-        launchNewImageMap(true);
+        launchNewImage(true);
     }
 
     function CreateNewAnimation(%tag)
@@ -127,7 +127,7 @@ package PhysicsLauncherPackage
 
         %dlg = new OpenFileDialog()
         {
-            Filters = $T2D::ImageMapSpec;
+            Filters = $T2D::ImageSpec;
             ChangePath = false;
             MustExist = true;
             MultipleFiles = false;
@@ -144,7 +144,7 @@ package PhysicsLauncherPackage
                 return;
             }
             
-            generateGuiImageMapFromFile(%fileName);
+            generateGuiImageFromFile(%fileName);
         }
 
         %dlg.delete();
@@ -167,7 +167,7 @@ package PhysicsLauncherPackage
 
     function EditSpriteSheet(%assetId)
     {
-        launchEditImageMap(%assetId);
+        launchEditImage(%assetId);
     }
 
     function EditAnimation(%assetId)

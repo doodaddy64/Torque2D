@@ -6,9 +6,9 @@
 $ImageEditorMinCellSizeX = 4;
 $ImageEditorMinCellSizeY = 4;
 
-function ImageEditor::editImageMap(%this, %imageMap)
+function ImageEditor::editImage(%this, %image)
 {
-    if (!isObject(%imageMap))
+    if (!isObject(%image))
         return;
       
     if (isObject($ImageEditorScene))
@@ -17,7 +17,7 @@ function ImageEditor::editImageMap(%this, %imageMap)
     $ImageEditorScene = new Scene(ImageEditorScene);
 
     Canvas.pushDialog(ImageBuilderGui);
-    ImageEditor.launchImageEditor(%imageMap);
+    ImageEditor.launchImageEditor(%image);
 }
 
 // --------------------------------------------------------------------
@@ -27,22 +27,22 @@ function ImageEditor::editImageMap(%this, %imageMap)
 // existing image map is being edited.  We copy the image map datablock
 // into a temporary holder so if we cancel we can reset the settings.
 // --------------------------------------------------------------------
-function ImageEditor::launchImageEditor(%this, %imageMap)
+function ImageEditor::launchImageEditor(%this, %image)
 {  
     ImageEditor.setupPreviewWindow();
 
     // Store the starting name for name checks
-    %this.sourceName = %imageMap.AssetName;
-    %this.assetName = %imageMap.AssetName;
-    %this.sourceDatablock = %imageMap.getID();
+    %this.sourceName = %image.AssetName;
+    %this.assetName = %image.AssetName;
+    %this.sourceDatablock = %image.getID();
 
-    populateTemporaryAsset(%imageMap, "TempImageMap");
+    populateTemporaryAsset(%image, "TempImage");
     
     %this.assetSourceId = %this.tempDatablock.getAssetId();
 
-    if (%imageMap.imageFile !$= "")
+    if (%image.imageFile !$= "")
     {
-        ImageBuilderImageLocation.setText(%imageMap.imageFile); 
+        ImageBuilderImageLocation.setText(%image.imageFile); 
     }
         
     ImageEditorTagList.refresh(0, "");
@@ -61,7 +61,7 @@ function ImageEditor::launchImageEditor(%this, %imageMap)
 // ImageEditor::saveImage()
 //
 // This gets called when the user clicks the save button, it clears
-// out the proper data and adds the newly created imageMap to the
+// out the proper data and adds the newly created image to the
 // managed datablock (if it isn't already there in the case of editing), 
 // as well as calling the object libraries to refresh.
 // --------------------------------------------------------------------
@@ -71,13 +71,13 @@ function ImageEditor::saveImage(%this)
     ImageEditor.forcePreviewClear = false;
     Canvas.popDialog(ImageBuilderGui);
     
-    %imageMap = %this.sourceDatablock;
-    %previewImageMap = %this.tempDatablock;
+    %image = %this.sourceDatablock;
+    %previewImage = %this.tempDatablock;
 
     %imageDBName = ImageEditorTxtImageName.getValue();
     %imageDBName = strreplace(%imageDBName, " ", "_");   
 
-    restoreDB(%previewImageMap.getID(), %imageMap.getID(), %imageDBName);
+    restoreDB(%previewImage.getID(), %image.getID(), %imageDBName);
     
     // Copy tags
     %this.copyTags(%this.tempDatablock, %this.sourceDatablock); 
@@ -87,9 +87,9 @@ function ImageEditor::saveImage(%this)
     {
         %pathNoExtension = expandPath("^{UserAssets}/images/") @ %imageDBName;
 
-        TamlWrite(%imageMap, %pathNoExtension @ ".asset.taml");
+        TamlWrite(%image, %pathNoExtension @ ".asset.taml");
         
-        %imageMap.delete();
+        %image.delete();
         
         %moduleDefinition = ModuleDatabase.getDefinitionFromId("{UserAssets}");
         AssetDatabase.addSingleDeclaredAsset(%moduleDefinition, %pathNoExtension @ ".asset.taml");
@@ -104,21 +104,21 @@ function ImageEditor::saveImage(%this)
         // We have changed the name of the asset we are editing. Need to update
         if (%imageDBName !$= %this.sourceName)
         {
-            %assetModule = AssetDatabase.getAssetModule(%imageMap.getAssetId()).ModuleId;
+            %assetModule = AssetDatabase.getAssetModule(%image.getAssetId()).ModuleId;
             %newID = %assetModule @ ":" @ %imageDBName;
             
-            AssetDatabase.renameDeclaredAsset(%imageMap.getAssetId(), %newID);
-            AssetDatabase.renameReferencedAsset(%imageMap.getAssetId(), %newID);
+            AssetDatabase.renameDeclaredAsset(%image.getAssetId(), %newID);
+            AssetDatabase.renameReferencedAsset(%image.getAssetId(), %newID);
             
             if (isFile(%path @ %this.sourceName @ ".asset.taml"))
                 fileDelete(%path @ %this.sourceName @ ".asset.taml");
-            TamlWrite(%imageMap, %path @ %imageDBName @ ".asset.taml");
+            TamlWrite(%image, %path @ %imageDBName @ ".asset.taml");
         }
         else
         {
-            TamlWrite(%imageMap, %path @ %this.sourceName @ ".asset.taml");
+            TamlWrite(%image, %path @ %this.sourceName @ ".asset.taml");
             
-            //%assetModule = AssetDatabase.getAssetModule(%imageMap.getAssetId()).ModuleId;
+            //%assetModule = AssetDatabase.getAssetModule(%image.getAssetId()).ModuleId;
             //%assetID = %assetModule @ ":" @ %this.sourceName;        
             //
             //if (!AssetDatabase.isDeclaredAsset(%assetID))
@@ -133,10 +133,10 @@ function ImageEditor::saveImage(%this)
         
         // If the image file does not already exist in the UserAssets directory
         // copy it there
-        %newImageFileLocation = findImageFileLocation(%path, fileBase(%imageMap.ImageFile));
+        %newImageFileLocation = findImageFileLocation(%path, fileBase(%image.ImageFile));
         if (%newImageFileLocation $= "")
         {
-            %oldImageFileLocation = findImageFileLocation(filePath(%imageMap.ImageFile), fileBase(%imageMap.ImageFile));
+            %oldImageFileLocation = findImageFileLocation(filePath(%image.ImageFile), fileBase(%image.ImageFile));
             if (%oldImageFileLocation !$= "")
             {
                 %newImageFileLocation = %path @ fileBase(%oldImageFileLocation) @ fileExt(%oldImageFileLocation);
@@ -206,15 +206,15 @@ function ImageEditor::cancel(%this)
 // --------------------------------------------------------------------
 function ImageEditor::imageFileBrowser(%this)
 {
-    %imageMap = %this.selectedImage;
+    %image = %this.selectedImage;
 
-    if (!isObject(%imageMap))
+    if (!isObject(%image))
         return; 
 
     %dlg = new OpenFileDialog()
     {
-        Filters = $T2D::ImageMapSpec;
-        //DefaultFile = %imageMap.getImageName();
+        Filters = $T2D::ImageSpec;
+        //DefaultFile = %image.getImageName();
         ChangePath = false;
         MustExist = true;
         MultipleFiles = false;
@@ -260,7 +260,7 @@ function ImageEditor::imageFileBrowser(%this)
         %noExt = strreplace(%noExt, ".png", "");
         %noExt = strreplace(%noExt, ".pvr", "");
 
-        %imageMap.imageFile = %noExt;
+        %image.imageFile = %noExt;
         %this.reCreateImage(%this.selectedImage);
         ImageEditorAutoApply();
     }
@@ -277,34 +277,34 @@ function ImageEditor::imageFileBrowser(%this)
 function ImageEditor::delete(%this)
 {
     // prompt the user with how many references this image map has
-    checkImageMapReference(%this.sourceDatablock, Toolmanager.getLastWindow().getScene(), "ImageEditor.cancel();");
+    checkImageReference(%this.sourceDatablock, Toolmanager.getLastWindow().getScene(), "ImageEditor.cancel();");
 
     // [neo, 15/6/2007 - #3231]
     // This doesnt exist so forward it to the SBCreateTrash method.
-    // checkImageMapReferences(%this.sourceDatablock, Toolmanager.getLastWindow().getScene(), "ImageEditor.cancel();");   
+    // checkImageReferences(%this.sourceDatablock, Toolmanager.getLastWindow().getScene(), "ImageEditor.cancel();");   
 
     // Save image map ref as this will be cleared when we call cancel()
-    %imageMap = %this.sourceDatablock;
+    %image = %this.sourceDatablock;
 
     // Close first so it cleans up correctly
     %this.cancel();
 
     // Take out the trash...
-    SBCreateTrash::deleteImageMap(%imageMap);
+    SBCreateTrash::deleteImage(%image);
 
     // set the tool to the selection tool otherwise next click you'll try and create
     // and image that doesn't exist 
     LevelBuilderToolManager::setTool(LevelEditorSelectionTool);
 }
 
-function ImageEditor::copyTags(%this, %imageMapSource, %imageMapDest)
+function ImageEditor::copyTags(%this, %imageSource, %imageDest)
 {
     // Clear tags on the destination asset
-    %this.clearTags(%imageMapDest);
+    %this.clearTags(%imageDest);
     
     //
-    %assetSourceID = %imageMapSource.getAssetID();
-    %assetDestID = %imageMapDest.getAssetID();
+    %assetSourceID = %imageSource.getAssetID();
+    %assetDestID = %imageDest.getAssetID();
     %assetTagsManifest = AssetDatabase.getAssetTags();
     %assetTagCount = %assetTagsManifest.getAssetTagCount(%assetSourceID);
     for (%i = 0; %i < %assetTagCount; %i++)
@@ -313,9 +313,9 @@ function ImageEditor::copyTags(%this, %imageMapSource, %imageMapDest)
     }
 }
 
-function ImageEditor::clearTags(%this, %imageMap)
+function ImageEditor::clearTags(%this, %image)
 {
-    %assetID = %imageMap.getAssetID();
+    %assetID = %image.getAssetID();
     %assetTagsManifest = AssetDatabase.getAssetTags();
     %assetTagCount = %assetTagsManifest.getAssetTagCount(%assetID);
     for (%i = 0; %i < %assetTagCount; %i++)
@@ -371,18 +371,18 @@ function ImageEditor::removeLastCopiedImageFile(%this)
 // ImageEditor::reCreateImage()
 //
 // re-creates the image for the image, this does a majority of the work
-// it will loop through and set each imagemap setting appropriately
+// it will loop through and set each image setting appropriately
 // based on image mode.  It will also set some defaults and some fail 
 // safes to make sure people cannot set invalid values.
 // --------------------------------------------------------------------
-function ImageEditor::reCreateImage(%this, %imageMap)
+function ImageEditor::reCreateImage(%this, %image)
 {  
-    if (!isObject(%imageMap))
+    if (!isObject(%image))
         return;
 
-    %image = %imageMap.getImageFile();
+    %image = %image.getImageFile();
 
-    %srcSize = %imageMap.getImageSize();
+    %srcSize = %image.getImageSize();
 
     %sizeX = getWord(%srcSize, 0);
     %sizeY = getWord(%srcSize, 1);
@@ -508,29 +508,29 @@ function ImageEditor::reCreateImage(%this, %imageMap)
     //}
  
     // Set common configuration.
-    %imageMap.imageFile = %image;
-    %imageMap.filterMode = "None";
-    %imageMap.cellCountX = %cellCountX;
-    %imageMap.cellCountY = %cellCountY;
+    %image.imageFile = %image;
+    %image.filterMode = "None";
+    %image.cellCountX = %cellCountX;
+    %image.cellCountY = %cellCountY;
 
-    %srcSize = %imageMap.getImageSize();
+    %srcSize = %image.getImageSize();
   
     // Split-up bitmap size.
     %sizeX = getWord(%srcSize, 0);
     %sizeY = getWord(%srcSize, 1);      
 
     // Calculate cell configuration.
-    %imageMap.cellCountX   = %cellCountX;
-    %imageMap.cellCountY   = %cellCountY;
-    %imageMap.cellHeight   = %cellHeight;
-    %imageMap.cellWidth    = %cellWidth;
-    %imageMap.cellOffsetX  = 0;
-    %imageMap.cellOffsetY  = 0;
-    %imageMap.cellStrideX  = 0;
-    %imageMap.cellStrideY  = 0;
-    %imageMap.cellRowOrder = true;
-    %imageMap.filterMode = "NONE";
-    %imageMap.filterPad = false;
+    %image.cellCountX   = %cellCountX;
+    %image.cellCountY   = %cellCountY;
+    %image.cellHeight   = %cellHeight;
+    %image.cellWidth    = %cellWidth;
+    %image.cellOffsetX  = 0;
+    %image.cellOffsetY  = 0;
+    %image.cellStrideX  = 0;
+    %image.cellStrideY  = 0;
+    %image.cellRowOrder = true;
+    %image.filterMode = "NONE";
+    %image.filterPad = false;
 
    
     if (ImageEditor.sourceName !$= %this.AssetName)

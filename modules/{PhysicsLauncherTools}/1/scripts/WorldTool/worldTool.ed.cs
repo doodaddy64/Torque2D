@@ -769,7 +769,7 @@ function WorldTool::createLevelContainerFooter(%this)
         Visible="1";
         Active="1";
         hovertime="1000";
-        Image="{EditorAssets}:moveLevelArrowImageMap";
+        Image="{EditorAssets}:moveLevelArrowImage";
     };
     %control.addGuiControl(%button);
 
@@ -871,7 +871,7 @@ function WorldTool::createAddWorldButton(%this, %index)
         wrap="0";
         useSourceRect="0";
         sourceRect="0 0 0 0";
-        Image="{EditorAssets}:addButton_normalImageMap";
+        Image="{EditorAssets}:addButton_normalImage";
     };
     %control.addGuiControl(%previewImage);
     
@@ -908,15 +908,15 @@ function WorldTool::addWorld(%this, %index)
 {
     %newWorld = new ScriptObject()
     {
-        ContainerImage="{PhysicsLauncherAssets}:ScoreContainerImageMap";
-        WorldBackground0="{PhysicsLauncherAssets}:LevelSelectMenuBackgroundImageMap";
-        WorldImage="{PhysicsLauncherAssets}:WorldImageOneImageMap";
-        WorldImageBlank="{PhysicsLauncherAssets}:worldPanelBackgroundBlankImageMap";
+        ContainerImage="{PhysicsLauncherAssets}:ScoreContainerImage";
+        WorldBackground0="{PhysicsLauncherAssets}:LevelSelectMenuBackgroundImage";
+        WorldImage="{PhysicsLauncherAssets}:WorldImageOneImage";
+        WorldImageBlank="{PhysicsLauncherAssets}:worldPanelBackgroundBlankImage";
         WorldLevelCount="0";
         WorldLocked="1";
-        WorldLockedImage="{PhysicsLauncherAssets}:LockedWorldImageOneImageMap";
+        WorldLockedImage="{PhysicsLauncherAssets}:LockedWorldImageOneImage";
         WorldProgress="0";
-        WorldSelectBackground="{PhysicsLauncherAssets}:WorldSelectMenuBackgroundImageImageMap";
+        WorldSelectBackground="{PhysicsLauncherAssets}:WorldSelectMenuBackgroundImageImage";
     };
     PhysicsLauncherToolsEventManager.postEvent("_AddWorldButtonRequest", %index SPC %newWorld);
 }
@@ -1061,10 +1061,10 @@ function WorldTool::addLevel(%this)
 
     %this.currentWorlds[%this.worldIndex].WorldLevelCount = %levelCount + 1;
     %this.currentWorlds[%this.worldIndex].LevelList[%levelCount] = %newLevelName;
-    %this.currentWorlds[%this.worldIndex].LevelImageList[%levelCount] = "{PhysicsLauncherAssets}:LevelImageImageMap";
+    %this.currentWorlds[%this.worldIndex].LevelImageList[%levelCount] = "{PhysicsLauncherAssets}:LevelImageImage";
     %this.currentWorlds[%this.worldIndex].LevelHighScore[%levelCount] = "0";
     %this.currentWorlds[%this.worldIndex].LevelLocked[%levelCount] = "1";
-    %this.currentWorlds[%this.worldIndex].LevelLockedImage[%levelCount] = "{PhysicsLauncherAssets}:LockedLevelImageImageMap";
+    %this.currentWorlds[%this.worldIndex].LevelLockedImage[%levelCount] = "{PhysicsLauncherAssets}:LockedLevelImageImage";
     %this.currentWorlds[%this.worldIndex].LevelStars[%levelCount] = "0";
 
     %pageCount = mFloor((%this.currentWorlds[%this.worldIndex].WorldLevelCount - 1) / 15);
@@ -1076,7 +1076,7 @@ function WorldTool::addLevel(%this)
         if ( %this.currentWorlds[%this.worldIndex].WorldBackground[%i] $= "" && %this.currentWorlds[%this.worldIndex].WorldBackground[0] !$= "" )
             %this.currentWorlds[%this.worldIndex].WorldBackground[%i] = %this.currentWorlds[%this.worldIndex].WorldBackground[0];
         else if ( %this.currentWorlds[%this.worldIndex].WorldBackground[%i] $= "" )
-            %this.currentWorlds[%this.worldIndex].WorldBackground[%i] = "{PhysicsLauncherAssets}:LevelSelectMenuBackgroundImageMap";
+            %this.currentWorlds[%this.worldIndex].WorldBackground[%i] = "{PhysicsLauncherAssets}:LevelSelectMenuBackgroundImage";
             
     }
 
@@ -1200,7 +1200,7 @@ function WorldTool::createAddLevelButton(%this, %index)
         wrap="0";
         useSourceRect="0";
         sourceRect="0 0 0 0";
-        Image="{EditorAssets}:addButton_normalImageMap";
+        Image="{EditorAssets}:addButton_normalImage";
     };
     %control.addGuiControl(%previewImage);
 
@@ -1717,10 +1717,10 @@ function WorldTool::CreateSingleLevelHighlightButton(%this, %levelName)
         groupNum="-1";
         buttonType="PushButton";
         useMouseEvents="0";
-        NormalImage="{EditorAssets}:redCloseImageMap";
-        HoverImage="{EditorAssets}:redClose_hImageMap";
-        DownImage="{EditorAssets}:redClose_dImageMap";
-        InactiveImage="{EditorAssets}:redClose_iImageMap";
+        NormalImage="{EditorAssets}:redCloseImage";
+        HoverImage="{EditorAssets}:redClose_hImage";
+        DownImage="{EditorAssets}:redClose_dImage";
+        InactiveImage="{EditorAssets}:redClose_iImage";
             index=0;
     };
     %button.addGuiControl(%removeLevelBtn);
@@ -1837,10 +1837,10 @@ function WorldTool::CreateTopLevelHighlightButton(%this, %levelName)
         groupNum="-1";
         buttonType="PushButton";
         useMouseEvents="0";
-        NormalImage="{EditorAssets}:redCloseImageMap";
-        HoverImage="{EditorAssets}:redClose_hImageMap";
-        DownImage="{EditorAssets}:redClose_dImageMap";
-        InactiveImage="{EditorAssets}:redClose_iImageMap";
+        NormalImage="{EditorAssets}:redCloseImage";
+        HoverImage="{EditorAssets}:redClose_hImage";
+        DownImage="{EditorAssets}:redClose_dImage";
+        InactiveImage="{EditorAssets}:redClose_iImage";
             index=0;
     };
     %button.addGuiControl(%removeLevelBtn);
@@ -1986,10 +1986,10 @@ function WorldTool::CreateBottomLevelHighlightButton(%this, %position, %levelNam
         groupNum="-1";
         buttonType="PushButton";
         useMouseEvents="0";
-        NormalImage="{EditorAssets}:redCloseImageMap";
-        HoverImage="{EditorAssets}:redClose_hImageMap";
-        DownImage="{EditorAssets}:redClose_dImageMap";
-        InactiveImage="{EditorAssets}:redClose_iImageMap";
+        NormalImage="{EditorAssets}:redCloseImage";
+        HoverImage="{EditorAssets}:redClose_hImage";
+        DownImage="{EditorAssets}:redClose_dImage";
+        InactiveImage="{EditorAssets}:redClose_iImage";
             index=%position;
     };
     %button.addGuiControl(%removeLevelBtn);
@@ -2134,10 +2134,10 @@ function WorldTool::CreateMidLevelHighlightButton(%this, %position, %levelName)
         groupNum="-1";
         buttonType="PushButton";
         useMouseEvents="0";
-        NormalImage="{EditorAssets}:redCloseImageMap";
-        HoverImage="{EditorAssets}:redClose_hImageMap";
-        DownImage="{EditorAssets}:redClose_dImageMap";
-        InactiveImage="{EditorAssets}:redClose_iImageMap";
+        NormalImage="{EditorAssets}:redCloseImage";
+        HoverImage="{EditorAssets}:redClose_hImage";
+        DownImage="{EditorAssets}:redClose_dImage";
+        InactiveImage="{EditorAssets}:redClose_iImage";
             index=%position;
     };
     %button.addGuiControl(%removeLevelBtn);
@@ -2311,10 +2311,10 @@ function WorldTool::CreateSingleWorldHighlightButton(%this,%position, %worldName
         groupNum="-1";
         buttonType="PushButton";
         useMouseEvents="0";
-        NormalImage="{EditorAssets}:redCloseImageMap";
-        HoverImage="{EditorAssets}:redClose_hImageMap";
-        DownImage="{EditorAssets}:redClose_dImageMap";
-        InactiveImage="{EditorAssets}:redClose_iImageMap";
+        NormalImage="{EditorAssets}:redCloseImage";
+        HoverImage="{EditorAssets}:redClose_hImage";
+        DownImage="{EditorAssets}:redClose_dImage";
+        InactiveImage="{EditorAssets}:redClose_iImage";
             index=%position;
     };
     %button.addGuiControl(%removeBtn);
@@ -2441,10 +2441,10 @@ function WorldTool::CreateTopWorldHighlightButton(%this,%position, %worldName)
         groupNum="-1";
         buttonType="PushButton";
         useMouseEvents="0";
-        NormalImage="{EditorAssets}:redCloseImageMap";
-        HoverImage="{EditorAssets}:redClose_hImageMap";
-        DownImage="{EditorAssets}:redClose_dImageMap";
-        InactiveImage="{EditorAssets}:redClose_iImageMap";
+        NormalImage="{EditorAssets}:redCloseImage";
+        HoverImage="{EditorAssets}:redClose_hImage";
+        DownImage="{EditorAssets}:redClose_dImage";
+        InactiveImage="{EditorAssets}:redClose_iImage";
             index=%position;
     };
     %button.addGuiControl(%removeBtn);
@@ -2599,10 +2599,10 @@ function WorldTool::CreateBottomWorldHighlightButton(%this, %position, %worldNam
         groupNum="-1";
         buttonType="PushButton";
         useMouseEvents="0";
-        NormalImage="{EditorAssets}:redCloseImageMap";
-        HoverImage="{EditorAssets}:redClose_hImageMap";
-        DownImage="{EditorAssets}:redClose_dImageMap";
-        InactiveImage="{EditorAssets}:redClose_iImageMap";
+        NormalImage="{EditorAssets}:redCloseImage";
+        HoverImage="{EditorAssets}:redClose_hImage";
+        DownImage="{EditorAssets}:redClose_dImage";
+        InactiveImage="{EditorAssets}:redClose_iImage";
             index=%position;
     };
     %button.addGuiControl(%removeBtn);
@@ -2757,10 +2757,10 @@ function WorldTool::CreateMidWorldHighlightButton(%this, %position, %worldName)
         groupNum="-1";
         buttonType="PushButton";
         useMouseEvents="0";
-        NormalImage="{EditorAssets}:redCloseImageMap";
-        HoverImage="{EditorAssets}:redClose_hImageMap";
-        DownImage="{EditorAssets}:redClose_dImageMap";
-        InactiveImage="{EditorAssets}:redClose_iImageMap";
+        NormalImage="{EditorAssets}:redCloseImage";
+        HoverImage="{EditorAssets}:redClose_hImage";
+        DownImage="{EditorAssets}:redClose_dImage";
+        InactiveImage="{EditorAssets}:redClose_iImage";
             index=%position;
     };
     %button.addGuiControl(%removeBtn);

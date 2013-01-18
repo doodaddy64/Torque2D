@@ -25,7 +25,7 @@
         Visible="1"
         Active="1"
         hovertime="1000"
-        Image="@asset={EditorAssets}:PopupOverlayImageMap" />
+        Image="@asset={EditorAssets}:PopupOverlayImage" />
     <GuiSpriteCtrl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -39,7 +39,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:delete_popupImageMap">
+        Image="@asset={EditorAssets}:delete_popupImage">
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -89,10 +89,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumTrashCanImageMap"
-            HoverImage="@asset={EditorAssets}:mediumTrashCan_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumTrashCan_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumTrashCan_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumTrashCanImage"
+            HoverImage="@asset={EditorAssets}:mediumTrashCan_hImage"
+            DownImage="@asset={EditorAssets}:mediumTrashCan_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumTrashCan_iImage" />
         <GuiImageButtonCtrl
             Name="Pt_DeleteCancelBtn"
             canSaveDynamicFields="0"
@@ -110,10 +110,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumCancelImageMap"
-            HoverImage="@asset={EditorAssets}:mediumCancel_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumCancel_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumCancel_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumCancelImage"
+            HoverImage="@asset={EditorAssets}:mediumCancel_hImage"
+            DownImage="@asset={EditorAssets}:mediumCancel_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumCancel_iImage" />
         <GuiTextCtrl
             Name="Pt_ConfirmDeleteMsgCtrl"
             canSaveDynamicFields="0"
@@ -199,7 +199,7 @@
             Visible="1"
             Active="0"
             hovertime="1000"
-            Image="@asset={EditorAssets}:DeleteList_ContainerImageMap">
+            Image="@asset={EditorAssets}:DeleteList_ContainerImage">
             <GuiScrollCtrl
                 canSaveDynamicFields="0"
                 isContainer="1"

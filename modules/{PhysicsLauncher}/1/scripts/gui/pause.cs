@@ -76,7 +76,7 @@ function pauseResumeButton::onClick(%this)
 function pauseSoundButton::onClick(%this)
 {
     %bitmap = strchr(pauseSoundButton.NormalImage, ":");
-    if (%bitmap $= ":VolumeBtn256x76OnImageMap")
+    if (%bitmap $= ":VolumeBtn256x76OnImage")
     {
         for (%channel = 1; %channel <= 3; %channel++)
         {

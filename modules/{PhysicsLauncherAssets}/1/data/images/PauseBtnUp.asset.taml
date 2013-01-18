@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="PauseBtnUpImageMap"
+    AssetName="PauseBtnUpImage"
     AssetCategory="gui"
     ImageFile="@assetFile=#PauseBtnUp.png" />

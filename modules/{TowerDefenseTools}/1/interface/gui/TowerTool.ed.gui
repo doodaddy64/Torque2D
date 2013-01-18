@@ -1574,7 +1574,7 @@
             canSave = "1";
             Visible = "1";
             hovertime = "1000";
-            text = "Path_SpriteSetImageMap";
+            text = "Path_SpriteSetImage";
             maxLength = "1024";
             historySize = "0";
             password = "0";

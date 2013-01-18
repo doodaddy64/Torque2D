@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="LockedWorldImageOneImageMap"
+    AssetName="LockedWorldImageOneImage"
     AssetCategory="gui"
     ImageFile="@assetFile=#LockedWorldImageOne.png" />

@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="3SSLogoImageMap"
+    AssetName="3SSLogoImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#3SSLogo.png" />

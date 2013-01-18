@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="BitmapFontImageMap"
+    AssetName="BitmapFontImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#font"
     CellCountX="16"

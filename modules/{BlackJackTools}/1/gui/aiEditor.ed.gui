@@ -461,7 +461,7 @@
                   canSave = "1";
                   Visible = "1";
                   hovertime = "1000";
-                  text = "BlackJack_DougImageMap";
+                  text = "BlackJack_DougImage";
                   maxLength = "1024";
                   historySize = "0";
                   password = "0";

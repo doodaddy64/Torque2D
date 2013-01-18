@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="RightRotateButtonImageMap"
+    AssetName="RightRotateButtonImage"
     ImageFile="@assetFile=#rotateRightButton"
     CellCountX="1"
     CellCountY="1" />

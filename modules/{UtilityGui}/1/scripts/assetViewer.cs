@@ -37,7 +37,7 @@ function AssetViewer::initialize(%this, %requestingTool, %allowEdit, %allowDelet
         %this.baseQuery.clear();
 
     if (%this.audioProfileAsset $= "")
-        %this.audioProfileAsset = "{EditorAssets}:iconAudioSampleImageMap";
+        %this.audioProfileAsset = "{EditorAssets}:iconAudioSampleImage";
         
     AssetDatabase.findAllAssets(%this.baseQuery, true);
 }

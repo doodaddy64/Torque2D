@@ -11,11 +11,11 @@
     Visible="1"
     Active="0"
     hovertime="1000"
-    noRewardImage="{PhysicsLauncherAssets}:NoRewardImage24x24ImageMap"
-    pageIndicatorOff="{PhysicsLauncherAssets}:PageIndicatorBtnUpImageMap"
-    pageIndicatorOn="{PhysicsLauncherAssets}:PageIndicatorBtnDownImageMap"
+    noRewardImage="{PhysicsLauncherAssets}:NoRewardImage24x24Image"
+    pageIndicatorOff="{PhysicsLauncherAssets}:PageIndicatorBtnUpImage"
+    pageIndicatorOn="{PhysicsLauncherAssets}:PageIndicatorBtnDownImage"
     pageIndicatorSize="24 24"
-    rewardImage="{PhysicsLauncherAssets}:RewardImage24x24ImageMap"
+    rewardImage="{PhysicsLauncherAssets}:RewardImage24x24Image"
     rewardImageSize="24 24"
     showScore="1">
     <GuiSpriteCtrl
@@ -32,7 +32,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={PhysicsLauncherAssets}:levelSelectMenuBackgroundImageMap" />
+        Image="@asset={PhysicsLauncherAssets}:levelSelectMenuBackgroundImage" />
     <GuiImageButtonCtrl
         Name="LevelSelectBackBtn"
         canSaveDynamicFields="0"
@@ -50,9 +50,9 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:PreviousBtnUpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:PreviousBtnHoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:PreviousBtnDownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:PreviousBtnUpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:PreviousBtnHoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:PreviousBtnDownImage" />
     <GuiImageButtonCtrl
         Name="LevelSelectHomeBtn"
         canSaveDynamicFields="0"
@@ -70,9 +70,9 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:BackBtnUpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:BackBtnHoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:BackBtnDownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:BackBtnUpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:BackBtnHoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:BackBtnDownImage" />
     <GuiImageButtonCtrl
         Name="LevelSelectNextBtn"
         canSaveDynamicFields="0"
@@ -90,9 +90,9 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:NextBtnUpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:NextBtnHoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:NextBtnDownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:NextBtnUpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:NextBtnHoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:NextBtnDownImage" />
     <GuiImageButtonCtrl
         Name="LevelSelectButton1"
         canSaveDynamicFields="0"
@@ -110,7 +110,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel1"
         canSaveDynamicFields="0"
@@ -160,7 +160,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel2"
         canSaveDynamicFields="0"
@@ -210,7 +210,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel3"
         canSaveDynamicFields="0"
@@ -260,7 +260,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel4"
         canSaveDynamicFields="0"
@@ -310,7 +310,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel5"
         canSaveDynamicFields="0"
@@ -360,7 +360,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel6"
         canSaveDynamicFields="0"
@@ -410,7 +410,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel7"
         canSaveDynamicFields="0"
@@ -460,7 +460,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel8"
         canSaveDynamicFields="0"
@@ -510,7 +510,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel9"
         canSaveDynamicFields="0"
@@ -560,7 +560,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel10"
         canSaveDynamicFields="0"
@@ -610,7 +610,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel11"
         canSaveDynamicFields="0"
@@ -660,7 +660,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel12"
         canSaveDynamicFields="0"
@@ -710,7 +710,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel13"
         canSaveDynamicFields="0"
@@ -760,7 +760,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel14"
         canSaveDynamicFields="0"
@@ -810,7 +810,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:LockedLevelImageImage" />
     <GuiTextCtrl
         Name="LevelSelectLabel15"
         canSaveDynamicFields="0"

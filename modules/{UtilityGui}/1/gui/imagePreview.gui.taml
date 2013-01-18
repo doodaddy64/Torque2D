@@ -54,7 +54,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:clickToCloseOverlayImageMap" />
+        Image="@asset={EditorAssets}:clickToCloseOverlayImage" />
     <GuiImageButtonCtrl
         Name="Ip_DoneBtn"
         canSaveDynamicFields="0"

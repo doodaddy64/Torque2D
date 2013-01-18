@@ -24,7 +24,7 @@
         canSave="1"
         Visible="1"
         hovertime="1000"
-        Image="@asset={PhysicsLauncherAssets}:transparentImageMap"
+        Image="@asset={PhysicsLauncherAssets}:transparentImage"
         wrap="0"
         useSourceRect="0"
         sourceRect="0 0 0 0" />
@@ -41,7 +41,7 @@
         canSave="1"
         Visible="1"
         hovertime="1000"
-        Image="@asset={PhysicsLauncherAssets}:TutorialImageImageMap" />
+        Image="@asset={PhysicsLauncherAssets}:TutorialImageImage" />
     <GuiImageButtonCtrl
         Name="helpOKButton"
         canSaveDynamicFields="0"
@@ -59,7 +59,7 @@
         buttonType="PushButton"
         useMouseEvents="1"
         isLegacyVersion="0"
-        NormalImage="@asset={PhysicsLauncherAssets}:OkBtnUpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:OkBtnHoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:OkBtnDownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:OkBtnUpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:OkBtnHoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:OkBtnDownImage" />
 </GuiControl>

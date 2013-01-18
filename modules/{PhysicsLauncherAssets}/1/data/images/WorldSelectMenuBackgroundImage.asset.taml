@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="WorldSelectMenuBackgroundImageImageMap"
+    AssetName="WorldSelectMenuBackgroundImageImage"
     AssetCategory="gui"
     ImageFile="@assetFile=#WorldSelectMenuBackgroundImage.png" />

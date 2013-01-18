@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="CoconutImageMap"
+    AssetName="CoconutImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#Coconut.png"
     CellCountX="4"

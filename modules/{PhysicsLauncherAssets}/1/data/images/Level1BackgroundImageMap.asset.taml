@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="Level1BackgroundImageMap"
+    AssetName="Level1BackgroundImage"
     AssetCategory="sprites"
     ImageFile="@assetFile=#worldBackground1" />

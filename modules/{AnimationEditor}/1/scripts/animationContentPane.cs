@@ -7,8 +7,8 @@ function AnimationContentPane::createFrameControl(%this, %frame)
 {
     %preview = new GuiSpriteCtrl()
     {
-        superClass = ImageMapPreviewSprite;
-        class = "ABImageMapPreviewSprite";
+        superClass = ImagePreviewSprite;
+        class = "ABImagePreviewSprite";
         Profile = "GuiDragAndDropProfile";
         position = "0 0";
         extent = "110 110";
@@ -50,7 +50,7 @@ function AnimationContentPane::display(%this, %image)
         %this.add(%this.createFrameControl(%i));
     }
     AssetDatabase.releaseAsset(%image);
-    AnimBuilderEventManager.postEvent("_CellPaneUpdateComplete", "Ab_ImageMapPreviewWindow " @ %frameCount);
+    AnimBuilderEventManager.postEvent("_CellPaneUpdateComplete", "Ab_ImagePreviewWindow " @ %frameCount);
 }
 
 function AnimationContentPane::update(%this, %frameCount)

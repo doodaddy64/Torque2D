@@ -3,25 +3,25 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-datablock ImageAsset(TDTerrainPathS1ImageMap)
+datablock ImageAsset(TDTerrainPathS1Image)
 {
 	imageFile = "../gui/images/PathS1";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS1ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS1Image);
 
-datablock ImageAsset(TDTerrainPathS1FadeImageMap)
+datablock ImageAsset(TDTerrainPathS1FadeImage)
 {
 	imageFile = "../gui/images/PathS1_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS1FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS1FadeImage);
 
-datablock ImageAsset(TDTerrainPathS1QuadImageMap)
+datablock ImageAsset(TDTerrainPathS1QuadImage)
 {
 	imageFile = "../gui/images/PathS1";
    imageMode = "CELL";
@@ -46,9 +46,9 @@ datablock ImageAsset(TDTerrainPathS1QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS1QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS1QuadImage);
 
-datablock ImageAsset(TDTerrainPathS1FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathS1FadeQuadImage)
 {
 	imageFile = "../gui/images/PathS1_Fade";
    imageMode = "CELL";
@@ -73,27 +73,27 @@ datablock ImageAsset(TDTerrainPathS1FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS1FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS1FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathP1ImageMap)
+datablock ImageAsset(TDTerrainPathP1Image)
 {
 	imageFile = "../gui/images/PathP1";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP1ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP1Image);
 
-datablock ImageAsset(TDTerrainPathP1FadeImageMap)
+datablock ImageAsset(TDTerrainPathP1FadeImage)
 {
 	imageFile = "../gui/images/PathP1_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP1FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP1FadeImage);
 
-datablock ImageAsset(TDTerrainPathP1QuadImageMap)
+datablock ImageAsset(TDTerrainPathP1QuadImage)
 {
 	imageFile = "../gui/images/PathP1";
    imageMode = "CELL";
@@ -118,9 +118,9 @@ datablock ImageAsset(TDTerrainPathP1QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP1QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP1QuadImage);
 
-datablock ImageAsset(TDTerrainPathP1FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathP1FadeQuadImage)
 {
 	imageFile = "../gui/images/PathP1_Fade";
    imageMode = "CELL";
@@ -145,27 +145,27 @@ datablock ImageAsset(TDTerrainPathP1FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP1FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP1FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathE1ImageMap)
+datablock ImageAsset(TDTerrainPathE1Image)
 {
 	imageFile = "../gui/images/PathE1";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE1ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE1Image);
 
-datablock ImageAsset(TDTerrainPathE1FadeImageMap)
+datablock ImageAsset(TDTerrainPathE1FadeImage)
 {
 	imageFile = "../gui/images/PathE1_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE1FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE1FadeImage);
 
-datablock ImageAsset(TDTerrainPathE1QuadImageMap)
+datablock ImageAsset(TDTerrainPathE1QuadImage)
 {
 	imageFile = "../gui/images/PathE1";
    imageMode = "CELL";
@@ -190,9 +190,9 @@ datablock ImageAsset(TDTerrainPathE1QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE1QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE1QuadImage);
 
-datablock ImageAsset(TDTerrainPathE1FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathE1FadeQuadImage)
 {
 	imageFile = "../gui/images/PathE1_Fade";
    imageMode = "CELL";
@@ -217,27 +217,27 @@ datablock ImageAsset(TDTerrainPathE1FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE1FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE1FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathS2ImageMap)
+datablock ImageAsset(TDTerrainPathS2Image)
 {
 	imageFile = "../gui/images/PathS2";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS2ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS2Image);
 
-datablock ImageAsset(TDTerrainPathS2FadeImageMap)
+datablock ImageAsset(TDTerrainPathS2FadeImage)
 {
 	imageFile = "../gui/images/PathS2_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS2FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS2FadeImage);
 
-datablock ImageAsset(TDTerrainPathS2QuadImageMap)
+datablock ImageAsset(TDTerrainPathS2QuadImage)
 {
 	imageFile = "../gui/images/PathS2";
    imageMode = "CELL";
@@ -262,9 +262,9 @@ datablock ImageAsset(TDTerrainPathS2QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS2QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS2QuadImage);
 
-datablock ImageAsset(TDTerrainPathS2FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathS2FadeQuadImage)
 {
 	imageFile = "../gui/images/PathS2_Fade";
    imageMode = "CELL";
@@ -289,27 +289,27 @@ datablock ImageAsset(TDTerrainPathS2FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS2FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS2FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathP2ImageMap)
+datablock ImageAsset(TDTerrainPathP2Image)
 {
 	imageFile = "../gui/images/PathP2";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP2ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP2Image);
 
-datablock ImageAsset(TDTerrainPathP2FadeImageMap)
+datablock ImageAsset(TDTerrainPathP2FadeImage)
 {
 	imageFile = "../gui/images/PathP2_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP2FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP2FadeImage);
 
-datablock ImageAsset(TDTerrainPathP2QuadImageMap)
+datablock ImageAsset(TDTerrainPathP2QuadImage)
 {
 	imageFile = "../gui/images/PathP2";
    imageMode = "CELL";
@@ -334,9 +334,9 @@ datablock ImageAsset(TDTerrainPathP2QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP2QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP2QuadImage);
 
-datablock ImageAsset(TDTerrainPathP2FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathP2FadeQuadImage)
 {
 	imageFile = "../gui/images/PathP2_Fade";
    imageMode = "CELL";
@@ -361,27 +361,27 @@ datablock ImageAsset(TDTerrainPathP2FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP2FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP2FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathE2ImageMap)
+datablock ImageAsset(TDTerrainPathE2Image)
 {
 	imageFile = "../gui/images/PathE2";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE2ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE2Image);
 
-datablock ImageAsset(TDTerrainPathE2FadeImageMap)
+datablock ImageAsset(TDTerrainPathE2FadeImage)
 {
 	imageFile = "../gui/images/PathE2_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE2FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE2FadeImage);
 
-datablock ImageAsset(TDTerrainPathE2QuadImageMap)
+datablock ImageAsset(TDTerrainPathE2QuadImage)
 {
 	imageFile = "../gui/images/PathE2";
    imageMode = "CELL";
@@ -406,9 +406,9 @@ datablock ImageAsset(TDTerrainPathE2QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE2QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE2QuadImage);
 
-datablock ImageAsset(TDTerrainPathE2FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathE2FadeQuadImage)
 {
 	imageFile = "../gui/images/PathE2_Fade";
    imageMode = "CELL";
@@ -433,27 +433,27 @@ datablock ImageAsset(TDTerrainPathE2FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE2FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE2FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathS3ImageMap)
+datablock ImageAsset(TDTerrainPathS3Image)
 {
 	imageFile = "../gui/images/PathS3";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS3ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS3Image);
 
-datablock ImageAsset(TDTerrainPathS3FadeImageMap)
+datablock ImageAsset(TDTerrainPathS3FadeImage)
 {
 	imageFile = "../gui/images/PathS3_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS3FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS3FadeImage);
 
-datablock ImageAsset(TDTerrainPathS3QuadImageMap)
+datablock ImageAsset(TDTerrainPathS3QuadImage)
 {
 	imageFile = "../gui/images/PathS3";
    imageMode = "CELL";
@@ -478,9 +478,9 @@ datablock ImageAsset(TDTerrainPathS3QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS3QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS3QuadImage);
 
-datablock ImageAsset(TDTerrainPathS3FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathS3FadeQuadImage)
 {
 	imageFile = "../gui/images/PathS3_Fade";
    imageMode = "CELL";
@@ -505,27 +505,27 @@ datablock ImageAsset(TDTerrainPathS3FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS3FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS3FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathP3ImageMap)
+datablock ImageAsset(TDTerrainPathP3Image)
 {
 	imageFile = "../gui/images/PathP3";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP3ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP3Image);
 
-datablock ImageAsset(TDTerrainPathP3FadeImageMap)
+datablock ImageAsset(TDTerrainPathP3FadeImage)
 {
 	imageFile = "../gui/images/PathP3_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP3FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP3FadeImage);
 
-datablock ImageAsset(TDTerrainPathP3QuadImageMap)
+datablock ImageAsset(TDTerrainPathP3QuadImage)
 {
 	imageFile = "../gui/images/PathP3";
    imageMode = "CELL";
@@ -550,9 +550,9 @@ datablock ImageAsset(TDTerrainPathP3QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP3QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP3QuadImage);
 
-datablock ImageAsset(TDTerrainPathP3FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathP3FadeQuadImage)
 {
 	imageFile = "../gui/images/PathP3_Fade";
    imageMode = "CELL";
@@ -577,27 +577,27 @@ datablock ImageAsset(TDTerrainPathP3FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP3FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP3FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathE3ImageMap)
+datablock ImageAsset(TDTerrainPathE3Image)
 {
 	imageFile = "../gui/images/PathE3";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE3ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE3Image);
 
-datablock ImageAsset(TDTerrainPathE3FadeImageMap)
+datablock ImageAsset(TDTerrainPathE3FadeImage)
 {
 	imageFile = "../gui/images/PathE3_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE3FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE3FadeImage);
 
-datablock ImageAsset(TDTerrainPathE3QuadImageMap)
+datablock ImageAsset(TDTerrainPathE3QuadImage)
 {
 	imageFile = "../gui/images/PathE3";
    imageMode = "CELL";
@@ -622,9 +622,9 @@ datablock ImageAsset(TDTerrainPathE3QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE3QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE3QuadImage);
 
-datablock ImageAsset(TDTerrainPathE3FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathE3FadeQuadImage)
 {
 	imageFile = "../gui/images/PathE3_Fade";
    imageMode = "CELL";
@@ -649,27 +649,27 @@ datablock ImageAsset(TDTerrainPathE3FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE3FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE3FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathS4ImageMap)
+datablock ImageAsset(TDTerrainPathS4Image)
 {
 	imageFile = "../gui/images/PathS4";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS4ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS4Image);
 
-datablock ImageAsset(TDTerrainPathS4FadeImageMap)
+datablock ImageAsset(TDTerrainPathS4FadeImage)
 {
 	imageFile = "../gui/images/PathS4_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS4FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS4FadeImage);
 
-datablock ImageAsset(TDTerrainPathS4QuadImageMap)
+datablock ImageAsset(TDTerrainPathS4QuadImage)
 {
 	imageFile = "../gui/images/PathS4";
    imageMode = "CELL";
@@ -694,9 +694,9 @@ datablock ImageAsset(TDTerrainPathS4QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS4QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS4QuadImage);
 
-datablock ImageAsset(TDTerrainPathS4FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathS4FadeQuadImage)
 {
 	imageFile = "../gui/images/PathS4_Fade";
    imageMode = "CELL";
@@ -721,27 +721,27 @@ datablock ImageAsset(TDTerrainPathS4FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathS4FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathS4FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathP4ImageMap)
+datablock ImageAsset(TDTerrainPathP4Image)
 {
 	imageFile = "../gui/images/PathP4";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP4ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP4Image);
 
-datablock ImageAsset(TDTerrainPathP4FadeImageMap)
+datablock ImageAsset(TDTerrainPathP4FadeImage)
 {
 	imageFile = "../gui/images/PathP4_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP4FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP4FadeImage);
 
-datablock ImageAsset(TDTerrainPathP4QuadImageMap)
+datablock ImageAsset(TDTerrainPathP4QuadImage)
 {
 	imageFile = "../gui/images/PathP4";
    imageMode = "CELL";
@@ -766,9 +766,9 @@ datablock ImageAsset(TDTerrainPathP4QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP4QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP4QuadImage);
 
-datablock ImageAsset(TDTerrainPathP4FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathP4FadeQuadImage)
 {
 	imageFile = "../gui/images/PathP4_Fade";
    imageMode = "CELL";
@@ -793,27 +793,27 @@ datablock ImageAsset(TDTerrainPathP4FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathP4FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathP4FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathE4ImageMap)
+datablock ImageAsset(TDTerrainPathE4Image)
 {
 	imageFile = "../gui/images/PathE4";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE4ImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE4Image);
 
-datablock ImageAsset(TDTerrainPathE4FadeImageMap)
+datablock ImageAsset(TDTerrainPathE4FadeImage)
 {
 	imageFile = "../gui/images/PathE4_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE4FadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE4FadeImage);
 
-datablock ImageAsset(TDTerrainPathE4QuadImageMap)
+datablock ImageAsset(TDTerrainPathE4QuadImage)
 {
 	imageFile = "../gui/images/PathE4";
    imageMode = "CELL";
@@ -838,9 +838,9 @@ datablock ImageAsset(TDTerrainPathE4QuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE4QuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE4QuadImage);
 
-datablock ImageAsset(TDTerrainPathE4FadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathE4FadeQuadImage)
 {
 	imageFile = "../gui/images/PathE4_Fade";
    imageMode = "CELL";
@@ -865,27 +865,27 @@ datablock ImageAsset(TDTerrainPathE4FadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathE4FadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathE4FadeQuadImage);
 
-datablock ImageAsset(TDTerrainPathTImageMap)
+datablock ImageAsset(TDTerrainPathTImage)
 {
 	imageFile = "../gui/images/PathT";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathTImageMap);
+$ignoredDatablockSet.add(TDTerrainPathTImage);
 
-datablock ImageAsset(TDTerrainPathTFadeImageMap)
+datablock ImageAsset(TDTerrainPathTFadeImage)
 {
 	imageFile = "../gui/images/PathT_Fade";
 	imageMode = full;
 	filterPad = false;
 };
 
-$ignoredDatablockSet.add(TDTerrainPathTFadeImageMap);
+$ignoredDatablockSet.add(TDTerrainPathTFadeImage);
 
-datablock ImageAsset(TDTerrainPathTQuadImageMap)
+datablock ImageAsset(TDTerrainPathTQuadImage)
 {
 	imageFile = "../gui/images/PathT";
    imageMode = "CELL";
@@ -910,9 +910,9 @@ datablock ImageAsset(TDTerrainPathTQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathTQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathTQuadImage);
 
-datablock ImageAsset(TDTerrainPathTFadeQuadImageMap)
+datablock ImageAsset(TDTerrainPathTFadeQuadImage)
 {
 	imageFile = "../gui/images/PathT_Fade";
    imageMode = "CELL";
@@ -937,4 +937,4 @@ datablock ImageAsset(TDTerrainPathTFadeQuadImageMap)
    force16bit = "0";
 };
 
-$ignoredDatablockSet.add(TDTerrainPathTFadeQuadImageMap);
+$ignoredDatablockSet.add(TDTerrainPathTFadeQuadImage);

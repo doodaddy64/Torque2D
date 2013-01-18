@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="NoRewardImage24x24ImageMap"
+    AssetName="NoRewardImage24x24Image"
     AssetCategory="gui"
     ImageFile="@assetFile=#NoRewardImage24x24.png" />

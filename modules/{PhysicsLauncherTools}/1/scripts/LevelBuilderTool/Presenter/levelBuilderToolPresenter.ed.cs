@@ -298,16 +298,16 @@ function LevelBuilderToolPresenter::refreshBackgroundsTab(%this)
         
     %this.applyBackgroundFormat();
     
-    %this.RightView.setForegroundAssetDisplay(AssetDatabase.getAssetName(Foreground.getImageMap()));
+    %this.RightView.setForegroundAssetDisplay(AssetDatabase.getAssetName(Foreground.getImage()));
     %this.RightView.selectForegroundParallaxSpeed(%this.convertParallaxSpeedToText(Foreground.callOnBehaviors(getHorizontalScrollSpeed)));
     
-    %this.RightView.setBackground1AssetDisplay(AssetDatabase.getAssetName(Background1.getImageMap()));
+    %this.RightView.setBackground1AssetDisplay(AssetDatabase.getAssetName(Background1.getImage()));
     %this.RightView.selectBackground1ParallaxSpeed(%this.convertParallaxSpeedToText(Background1.callOnBehaviors(getHorizontalScrollSpeed)));
     
-    %this.RightView.setBackground2AssetDisplay(AssetDatabase.getAssetName(Background2.getImageMap()));
+    %this.RightView.setBackground2AssetDisplay(AssetDatabase.getAssetName(Background2.getImage()));
     %this.RightView.selectBackground2ParallaxSpeed(%this.convertParallaxSpeedToText(Background2.callOnBehaviors(getHorizontalScrollSpeed)));
     
-    %this.RightView.setSkyAssetDisplay(AssetDatabase.getAssetName(Sky.getImageMap()));
+    %this.RightView.setSkyAssetDisplay(AssetDatabase.getAssetName(Sky.getImage()));
     %this.RightView.selectSkyParallaxSpeed(%this.convertParallaxSpeedToText(Sky.callOnBehaviors(getHorizontalScrollSpeed)));
 }
 
@@ -668,7 +668,7 @@ function LevelBuilderToolPresenter::onRightViewDuplicateSelected(%this)
         HorizSizing = "relative";
         VertSizing = "relative";
         MinExtent = "2 2";
-        Image = "{PhysicsLauncherTools}:DimImageMap";
+        Image = "{PhysicsLauncherTools}:DimImage";
         Profile = "GuiModelessDialogProfile";
         extent= %t2dObjectCtrl.getExtent();
     };
@@ -1073,7 +1073,7 @@ function LevelBuilderToolPresenter::onRightViewForegroundAssetSelect(%this)
 
 function ForegroundAssetSelect::setSelectedAsset(%this, %asset)
 {
-    Foreground.setImageMap(%asset);
+    Foreground.setImage(%asset);
     LevelBuilderToolPresenter.RightView.setForegroundAssetDisplay(AssetDatabase.getAssetName(%asset));
 }
 
@@ -1084,7 +1084,7 @@ function LevelBuilderToolPresenter::onRightViewBackground1AssetSelect(%this)
 
 function Background1AssetSelect::setSelectedAsset(%this, %asset)
 {
-    Background1.setImageMap(%asset);
+    Background1.setImage(%asset);
     LevelBuilderToolPresenter.RightView.setBackground1AssetDisplay(AssetDatabase.getAssetName(%asset));
 }
 
@@ -1095,7 +1095,7 @@ function LevelBuilderToolPresenter::onRightViewBackground2AssetSelect(%this)
 
 function Background2AssetSelect::setSelectedAsset(%this, %asset)
 {
-    Background2.setImageMap(%asset);
+    Background2.setImage(%asset);
     LevelBuilderToolPresenter.RightView.setBackground2AssetDisplay(AssetDatabase.getAssetName(%asset));
 }
 
@@ -1106,7 +1106,7 @@ function LevelBuilderToolPresenter::onRightViewSkyAssetSelect(%this)
 
 function SkyAssetSelect::setSelectedAsset(%this, %asset)
 {
-    Sky.setImageMap(%asset);
+    Sky.setImage(%asset);
     LevelBuilderToolPresenter.RightView.setSkyAssetDisplay(AssetDatabase.getAssetName(%asset));
 }
 
@@ -1145,24 +1145,24 @@ function ObjectPreview::setup(%this, %sceneObject)
             %isAnimated = true;
         }
         else
-            %asset = %sceneObject.getImageMap();
+            %asset = %sceneObject.getImage();
     }
     
     if (%isAnimated)
     {
         %animationAsset = AssetDatabase.acquireAsset(%asset);
-        %animationImageMapAsset = AssetDatabase.acquireAsset(%animationAsset.imagemap);
-        %sprite.setSize(%animationImageMapAsset.getFrameSize(0));
-        AssetDatabase.releaseAsset(%animationImageMapAsset.getAssetId());
+        %animationImageAsset = AssetDatabase.acquireAsset(%animationAsset.image);
+        %sprite.setSize(%animationImageAsset.getFrameSize(0));
+        AssetDatabase.releaseAsset(%animationImageAsset.getAssetId());
         %sprite.playAnimation(%animationAsset.getAssetId());
         AssetDatabase.releaseAsset(%animationAsset.getAssetId());
     }
     else
     {
-        %imageMapAsset = AssetDatabase.acquireAsset(%asset);
-        %sprite.setSize(%imageMapAsset.getFrameSize(0));
-        %sprite.setImageMap(%imageMapAsset.getAssetId());
-        AssetDatabase.releaseAsset(%imageMapAsset.getAssetId());
+        %imageAsset = AssetDatabase.acquireAsset(%asset);
+        %sprite.setSize(%imageAsset.getFrameSize(0));
+        %sprite.setImage(%imageAsset.getAssetId());
+        AssetDatabase.releaseAsset(%imageAsset.getAssetId());
     }
     
         

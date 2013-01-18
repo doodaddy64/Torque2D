@@ -28,7 +28,7 @@ function CurrencyEditorGUI::getControlIndex(%this, %control)
 /// </summary>
 function CurrencyEditorGUI::setSelectedAsset(%this, %asset)
 {
-   // Update imageMap name and preview
+   // Update image name and preview
    %currencyElement = CurrencyEditorCurrencyArray.getObject($CurrentCurrencyElementIndex);   
 
    %imagePath = %currencyElement.findObjectByInternalName("ImagePathTextEdit", true);
@@ -127,9 +127,9 @@ function CurrencyEditorGUI::refresh(%this)
          %valueText.setText(%value);
          
          // Update ImagePathTextEdit and ImagePreview
-         %imageMap = %this.bankStack[%i].getImageMap();
+         %image = %this.bankStack[%i].getImage();
          %imagePath = %currencyElement.findObjectByInternalName("ImagePathTextEdit", true);
-         %imagePath.setText(%imageMap);
+         %imagePath.setText(%image);
          
          %imageFrame = %currencyElement.findObjectByInternalName("ImageFrameTextEdit", true);
          %imageFrame.setValue(%this.bankStack[%i].getFrame());

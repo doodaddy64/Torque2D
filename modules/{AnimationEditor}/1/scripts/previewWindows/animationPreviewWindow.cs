@@ -68,7 +68,7 @@ function AnimationPreviewWindow::onExtentChange(%this, %newDimensions)
    %this.setCurrentCameraPosition(0, 0, %cameraWidth, %cameraHeight);
 }
 
-/// void(AnimationPreviewWindow this, ImageAsset imageMap)
+/// void(AnimationPreviewWindow this, ImageAsset image)
 /// Displays the specified image map in this window.
 /// @param this The AnimationPreviewWindow.
 /// @param animation The animation to display.
@@ -105,12 +105,12 @@ function AnimationPreviewWindow::update(%this)
    
    %this.sprite.setVisible(true);
    
-   %imageMap = AssetDatabase.acquireAsset(AnimationBuilder.sourceImageMap);
+   %image = AssetDatabase.acquireAsset(AnimationBuilder.sourceImage);
    
    // Frame size.
-   %size = %imageMap.getFrameSize(0);
+   %size = %image.getFrameSize(0);
    
-   AssetDatabase.releaseAsset(%imageMap.getAssetId());
+   AssetDatabase.releaseAsset(%image.getAssetId());
    
    %width = getWord(%size, 0);
    %height = getWord(%size, 1);

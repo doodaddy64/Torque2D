@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="Fire_Tower_Base_FireImageMap"
+    AssetName="Fire_Tower_Base_FireImage"
     imageFile="@assetFile=#Fire_Tower_Base_Fire.png"
     cellCountX="8"
     cellCountY="2"

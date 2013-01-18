@@ -29,9 +29,9 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="1"
-        NormalImage="@asset={PhysicsLauncherAssets}:PauseBtnUpImageMap"
-        HoverImage="@asset={PhysicsLauncherAssets}:PauseBtnHoverImageMap"
-        DownImage="@asset={PhysicsLauncherAssets}:PauseBtnDownImageMap" />
+        NormalImage="@asset={PhysicsLauncherAssets}:PauseBtnUpImage"
+        HoverImage="@asset={PhysicsLauncherAssets}:PauseBtnHoverImage"
+        DownImage="@asset={PhysicsLauncherAssets}:PauseBtnDownImage" />
     <GuiSpriteCtrl
         Name="HudScoreContainer"
         canSaveDynamicFields="0"
@@ -47,7 +47,7 @@
         Active="1"
         tooltipprofile="GuiDefaultProfile"
         hovertime="1000"
-        Image="@asset={PhysicsLauncherAssets}:ScoreContainerImageMap">
+        Image="@asset={PhysicsLauncherAssets}:ScoreContainerImage">
         <GuiTextCtrl
             Name="HighScoreLabel"
             canSaveDynamicFields="0"

@@ -25,7 +25,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:PopupOverlayImageMap" />
+        Image="@asset={EditorAssets}:PopupOverlayImage" />
     <GuiSpriteCtrl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -39,7 +39,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={ColorPicker}:colorPicker_popupImageMap">
+        Image="@asset={ColorPicker}:colorPicker_popupImage">
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -349,7 +349,7 @@
                 hovertime="1000"
                 tooltipprofile="GuiToolTipProfile"
                 ToolTip="Drag to select the color range you want to use."
-                Image="@asset={ColorPicker}:colorPickerSliderImageMap" />
+                Image="@asset={ColorPicker}:colorPickerSliderImage" />
         </GuiColorPickerCtrl>
         <GuiColorPickerCtrl
             Name="ColorPickerBlendSelect"
@@ -389,7 +389,7 @@
                 hovertime="1000"
                 tooltipprofile="GuiToolTipProfile"
                 ToolTip="Drag to select the exact color you want to use."
-                Image="@asset={ColorPicker}:colorPickerGrabberImageMap" />
+                Image="@asset={ColorPicker}:colorPickerGrabberImage" />
         </GuiColorPickerCtrl>
         <GuiImageButtonCtrl
             Name="ColorPickerCancelButton"
@@ -411,10 +411,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumCancelImageMap"
-            HoverImage="@asset={EditorAssets}:mediumCancel_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumCancel_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumCancel_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumCancelImage"
+            HoverImage="@asset={EditorAssets}:mediumCancel_hImage"
+            DownImage="@asset={EditorAssets}:mediumCancel_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumCancel_iImage" />
         <GuiImageButtonCtrl
             Name="ColorPickerDoneButton"
             canSaveDynamicFields="0"
@@ -435,10 +435,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumOkayImageMap"
-            HoverImage="@asset={EditorAssets}:mediumOkay_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumOkay_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumOkay_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumOkayImage"
+            HoverImage="@asset={EditorAssets}:mediumOkay_hImage"
+            DownImage="@asset={EditorAssets}:mediumOkay_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumOkay_iImage" />
         <GuiImageButtonCtrl
             Name="ColorPickerChannelBUpButton"
             canSaveDynamicFields="0"
@@ -458,10 +458,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
         <GuiImageButtonCtrl
             Name="ColorPickerChannelGUpButton"
             canSaveDynamicFields="0"
@@ -481,10 +481,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
         <GuiImageButtonCtrl
             Name="ColorPickerChannelRUpButton"
             canSaveDynamicFields="0"
@@ -504,10 +504,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
         <GuiImageButtonCtrl
             Name="ColorPickerChannelBDownButton"
             canSaveDynamicFields="0"
@@ -527,10 +527,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="ColorPickerChannelRDownButton"
             canSaveDynamicFields="0"
@@ -550,10 +550,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="ColorPickerChannelGDownButton"
             canSaveDynamicFields="0"
@@ -573,10 +573,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiControl
             Name="ColorPickerPreview"
             canSaveDynamicFields="0"

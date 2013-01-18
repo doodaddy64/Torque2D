@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="projectilesIcon_hImageMap"
+    AssetName="projectilesIcon_hImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#projectilesIcon_h.png" />

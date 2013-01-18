@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="iconCancelImageMap"
+    AssetName="iconCancelImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#iconCancel.png" />

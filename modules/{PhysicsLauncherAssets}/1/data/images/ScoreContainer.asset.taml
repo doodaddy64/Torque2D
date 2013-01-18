@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="ScoreContainerImageMap"
+    AssetName="ScoreContainerImage"
     AssetCategory="gui"
     ImageFile="@assetFile=#ScoreContainer.png" />

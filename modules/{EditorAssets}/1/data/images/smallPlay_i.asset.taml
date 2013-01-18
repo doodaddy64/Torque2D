@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="smallPlay_iImageMap"
+    AssetName="smallPlay_iImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#smallPlay_i.png" />

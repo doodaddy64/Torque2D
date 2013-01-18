@@ -108,7 +108,7 @@ function GeneralSettingsEditorGui::IsDirty(%this)
 function GeneralSettingsEditorGui::refresh(%this)
 {
    //GeneralSettingsFontSheetTextEdit
-   GeneralSettingsFontSheetTextEdit.setText(bitmapFontTemplate.imageMap);
+   GeneralSettingsFontSheetTextEdit.setText(bitmapFontTemplate.image);
    GeneralSettingsFontSheetTextEdit.setActive(false);
    
    //GeneralSettingsStartingBankTextEdit
@@ -203,7 +203,7 @@ function GeneralSettingsEditorGui::doSave(%this)
    GeneralSettingsStartingBankTextEdit.onValidate();   
 
    //GeneralSettingsFontSheetTextEdit
-   bitmapFontTemplate.imageMap = GeneralSettingsFontSheetTextEdit.getText();
+   bitmapFontTemplate.image = GeneralSettingsFontSheetTextEdit.getText();
    
    //GeneralSettingsStartingBankTextEdit
    $Save::GeneralSettings::StartingBankCash = GeneralSettingsStartingBankTextEdit.getText();
@@ -253,7 +253,7 @@ function GeneralSettingsEditorGui::doSave(%this)
       
    export("$Save::GeneralSettings::*","^project/data/files/export_generalSettings.cs", true, false); 
 
-    AddAssetToLevelDatablocks(bitmapFontTemplate.imageMap);
+    AddAssetToLevelDatablocks(bitmapFontTemplate.image);
 
    LBProjectObj.saveLevel();   
    SaveAllLevelDatablocks();

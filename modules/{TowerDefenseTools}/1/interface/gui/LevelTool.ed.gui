@@ -535,7 +535,7 @@
             canSave = "1";
             Visible = "1";
             hovertime = "1000";
-            text = "backgroundImageMap";
+            text = "backgroundImage";
             maxLength = "1024";
             historySize = "0";
             password = "0";

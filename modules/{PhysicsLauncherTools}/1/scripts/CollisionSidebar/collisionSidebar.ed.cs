@@ -200,7 +200,7 @@ function CollisionSidebar::selectObject(%this, %data)
     %this.selectedObject = %object;
 
     // Get temp object to replicate what the prefab is, since we are not editing the prefab itself
-    // need the dimensions, collision shapes, and visual representation (imageMap or animation)
+    // need the dimensions, collision shapes, and visual representation (image or animation)
     eval(%command @ "(" @ %object @ ", " @ %this @ ");");
 }
 

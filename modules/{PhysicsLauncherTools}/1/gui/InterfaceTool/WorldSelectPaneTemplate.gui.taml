@@ -43,7 +43,7 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:zoomButton_normalImageMap" />
+            NormalImage="@asset={EditorAssets}:zoomButton_normalImage" />
     </GuiControl>
     <GuiTextEditCtrl
         Name="Itwsp_ContainerSelectEdit"
@@ -83,7 +83,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={EditorAssets}:assetImageMap" />
+        NormalImage="@asset={EditorAssets}:assetImage" />
     <GuiTextCtrl
         canSaveDynamicFields="0"
         isContainer="0"
@@ -152,7 +152,7 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="0"
-        NormalImage="@asset={EditorAssets}:assetImageMap" />
+        NormalImage="@asset={EditorAssets}:assetImage" />
     <GuiTextCtrl
         Name="Itwsp_WorldNameLabel"
         canSaveDynamicFields="0"

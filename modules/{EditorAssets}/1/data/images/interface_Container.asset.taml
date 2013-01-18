@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="interface_ContainerImageMap"
+    AssetName="interface_ContainerImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#interface_Container.png" />

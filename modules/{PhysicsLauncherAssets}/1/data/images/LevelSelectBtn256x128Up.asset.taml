@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="LevelSelectBtn256x128UpImageMap"
+    AssetName="LevelSelectBtn256x128UpImage"
     AssetCategory="gui"
     ImageFile="@assetFile=#LevelSelectBtn256x128Up.png" />

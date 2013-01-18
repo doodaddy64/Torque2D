@@ -128,14 +128,14 @@ function TableEditorGUI::refresh(%this)
    TableEditorTableNameEditText.setActive(true);
    
    // Update Table Image
-   TableEditorTableImageEditText.setText(%this.currentTableObject.getImageMap());
+   TableEditorTableImageEditText.setText(%this.currentTableObject.getImage());
    TableEditorTableImageFrameEditBox.setValue(%this.currentTableObject.getFrame());
    TableEditorTableImageEditText.refreshDisplay();
    
    // Update Table Rules Image
    if (isObject(TableRulesImage))
    {
-      TableEditorRulesImageEditText.setText(TableRulesImage.getImageMap());
+      TableEditorRulesImageEditText.setText(TableRulesImage.getImage());
       TableEditorRulesImageFrameEditBox.setValue(TableRulesImage.getFrame());
       TableEditorRulesImageEditText.refreshDisplay();
    }
@@ -143,7 +143,7 @@ function TableEditorGUI::refresh(%this)
    // Update Betting Circle Image
    if (isObject(BetArea0))
    {
-      TableEditorBetCircleImageEditText.setText(BetArea0.getImageMap());
+      TableEditorBetCircleImageEditText.setText(BetArea0.getImage());
       TableEditorBetCircleImageFrameEditBox.setValue(BetArea0.getFrame());
       TableEditorBetCircleImageEditText.refreshDisplay();
    }
@@ -151,7 +151,7 @@ function TableEditorGUI::refresh(%this)
    // Update Card Box Image
    if (isObject($TableSeatArray[0]))
    {
-      TableEditorCardBoxImageEditText.setText($TableSeatArray[0].owner.getImageMap());
+      TableEditorCardBoxImageEditText.setText($TableSeatArray[0].owner.getImage());
       TableEditorCardBoxImageFrameEditBox.setValue($TableSeatArray[0].owner.getFrame());
       TableEditorCardBoxImageEditText.refreshDisplay();
    }
@@ -159,7 +159,7 @@ function TableEditorGUI::refresh(%this)
    // Update Dealer Chip Rack
    if (isObject(DealerChipRack))
    {
-      TableEditorDealerChipRackImageEditText.setText(DealerChipRack.getImageMap());
+      TableEditorDealerChipRackImageEditText.setText(DealerChipRack.getImage());
       TableEditorDealerChipRackImageFrameEditBox.setValue(DealerChipRack.getFrame());
       TableEditorDealerChipRackImageEditText.refreshDisplay();
    }
@@ -658,44 +658,44 @@ function TableEditorGUI::doSave(%this)
    // Set Table Image
    if (isObject(TableEditorTableImageEditText.getText()))
    {
-      %this.currentTableObject.setImageMap(TableEditorTableImageEditText.getText());
+      %this.currentTableObject.setImage(TableEditorTableImageEditText.getText());
       %this.currentTableObject.setFrame(TableEditorTableImageFrameEditBox.getValue());
    }
    
    // Set Table Rules Image
    if (isObject(TableRulesImage) && isObject(TableEditorRulesImageEditText.getText()))
    {
-      TableRulesImage.setImageMap(TableEditorRulesImageEditText.getText());
+      TableRulesImage.setImage(TableEditorRulesImageEditText.getText());
       TableRulesImage.setFrame(TableEditorRulesImageFrameEditBox.getValue());
    }
    
    // Set Betting Circle Image
-   %bettingCircleImageMap = TableEditorBetCircleImageEditText.getText();
+   %bettingCircleImage = TableEditorBetCircleImageEditText.getText();
    %bettingCircleImageFrame = TableEditorBetCircleImageFrameEditBox.getValue();
    %seatBehaviorList = %this.getBehaviorList("TableSeatBehavior");
    for (%i = 0; %i < getWordCount(%seatBehaviorList); %i++)
    {
       %seat = getWord(%seatBehaviorList, %i);
       %mainBetArea = %seat.mainBetArea;
-      %mainBetArea.setImageMap(%bettingCircleImageMap);
+      %mainBetArea.setImage(%bettingCircleImage);
       %mainBetArea.setFrame(%bettingCircleImageFrame);
    }
    
    // Set Card Box Image
-   %cardBoxImageMap = TableEditorCardBoxImageEditText.getText();
+   %cardBoxImage = TableEditorCardBoxImageEditText.getText();
    %cardBoxImageFrame = TableEditorCardBoxImageFrameEditBox.getValue();
    %seatBehaviorList = %this.getBehaviorList("TableSeatBehavior");
    for (%i = 0; %i < getWordCount(%seatBehaviorList); %i++)
    {
       %seatObject = getWord(%seatBehaviorList, %i).owner;
-      %seatObject.setImageMap(%cardBoxImageMap);
+      %seatObject.setImage(%cardBoxImage);
       %seatObject.setFrame(%cardBoxImageFrame);
    }
    
    // Set Dealer Chip Rack   
    if (isObject(DealerChipRack))
    {
-      DealerChipRack.setImageMap(TableEditorDealerChipRackImageEditText.getText());
+      DealerChipRack.setImage(TableEditorDealerChipRackImageEditText.getText());
       DealerChipRack.setFrame(TableEditorDealerChipRackImageFrameEditBox.getValue());
    }
    
@@ -767,9 +767,9 @@ function TableEditorGUI::doSave(%this)
          CurrencyEditorGUI.bankStack[%i].setEnabled(%isEnabledCheckBox.getValue());
          CurrencyEditorGUI.bankStack[%i].setVisible(%isEnabledCheckBox.getValue());
          
-         // Set imageMap
-         %imageMapName = %currencyElement.findObjectByInternalName("ImagePathTextEdit", true).getText();
-         CurrencyEditorGUI.bankStack[%i].setImageMap(%imageMapName);
+         // Set image
+         %imageName = %currencyElement.findObjectByInternalName("ImagePathTextEdit", true).getText();
+         CurrencyEditorGUI.bankStack[%i].setImage(%imageName);
 
          %imageFrameValue = %currencyElement.findObjectByInternalName("ImageFrameTextEdit", true).getValue();
          CurrencyEditorGUI.bankStack[%i].setFrame(%imageFrameValue);
@@ -1240,7 +1240,7 @@ function ShoeBodyImageEditBox::refresh(%this)
 {
    if (isObject($ShoeEditorCurrentObject))
    {
-      %this.text = $ShoeEditorCurrentObject.getImageMap();
+      %this.text = $ShoeEditorCurrentObject.getImage();
       ShoeBodyImageFrameEditBox.setValue($ShoeEditorCurrentObject.getFrame());
    }
    else
@@ -1271,7 +1271,7 @@ function ShoeBodyImageEditBox::onSave(%this)
 {
    if (isObject($ShoeEditorCurrentObject))
    {
-      $ShoeEditorCurrentObject.setImageMap(%this.getText());
+      $ShoeEditorCurrentObject.setImage(%this.getText());
       $ShoeEditorCurrentObject.setFrame(ShoeBodyImageFrameEditBox.getValue());
    }
 }
@@ -1391,7 +1391,7 @@ function ShoePenetrationImageEditBox::refresh(%this)
 {
    if (isObject(penetrationCard))
    {
-      %this.text = penetrationCard.getImageMap();
+      %this.text = penetrationCard.getImage();
       ShoePenetrationImageFrameEditBox.setValue(penetrationCard.getFrame());
    }
    else
@@ -1422,7 +1422,7 @@ function ShoePenetrationImageEditBox::onSave(%this)
 {
    if (isObject(penetrationCard))
    {
-      penetrationCard.setImageMap(%this.getText());
+      penetrationCard.setImage(%this.getText());
       penetrationCard.setFrame(ShoePenetrationImageFrameEditBox.getValue());
    }
 }
@@ -1489,7 +1489,7 @@ function ShoeDiscardImageEditBox::refresh(%this)
 {
    if (isObject(DiscardArea))
    {
-      %this.text = DiscardArea.getImageMap();
+      %this.text = DiscardArea.getImage();
       ShoeDiscardImageFrameEditBox.setValue(DiscardArea.getFrame());
    }
    else
@@ -1520,7 +1520,7 @@ function ShoeDiscardImageEditBox::onSave(%this)
 {
    if (isObject(DiscardArea))
    {
-      DiscardArea.setImageMap(%this.getText());
+      DiscardArea.setImage(%this.getText());
       DiscardArea.setFrame(ShoeDiscardImageFrameEditBox.getValue());
    }
 }
@@ -1587,7 +1587,7 @@ function ShoeDeckImageEditBox::refresh(%this)
 {
    if (isObject(tableCards))
    {
-      %this.text = tableCards.getImageMap();
+      %this.text = tableCards.getImage();
    }
    else
    {
@@ -1615,7 +1615,7 @@ function ShoeDeckImageEditBox::refreshDisplay(%this)
 function ShoeDeckImageEditBox::onSave(%this)
 {
    if (isObject(tableCards))
-      tableCards.setImageMap(%this.getText());
+      tableCards.setImage(%this.getText());
 }
 
 /// <summary>
@@ -1782,7 +1782,7 @@ function TableEditorPlayerList::refresh(%this)
              && (%object.callOnBehaviors(getIsAvailable)))
          {
             (TableEditorPlayerContainer@%index).Visible = true;
-            (TableEditorPlayerPreviewBitmap@%index).display(%object.getImageMap(), "t2dStaticSprite");
+            (TableEditorPlayerPreviewBitmap@%index).display(%object.getImage(), "t2dStaticSprite");
             (TableEditorPlayerPreviewBitmap@%index).sprite.setFrame(%object.getFrame());            
             
             %button = (TableEditorPlayerButton@%index);

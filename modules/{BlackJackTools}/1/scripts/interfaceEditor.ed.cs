@@ -258,11 +258,11 @@ function InterfaceEditorGui::serializeButtonContainer(%this, %container, %button
 /// <summary>
 /// Initializes a gui container.
 /// </summary>
-function InterfaceEditorGui::initializeIconContainer(%this, %preview, %iconText, %frameText, %imageMap, %frame)
+function InterfaceEditorGui::initializeIconContainer(%this, %preview, %iconText, %frameText, %image, %frame)
 {
-   %iconText.setText(%imageMap);
+   %iconText.setText(%image);
    %frameText.setValue(%frame);
-   %preview.display(%imageMap, "t2dStaticSprite");
+   %preview.display(%image, "t2dStaticSprite");
    %preview.sprite.setFrame(%frame);
 }
 
@@ -274,7 +274,7 @@ function InterfaceEditorGui::saveIconContainer(%this, %iconText, %frameText, %ob
 {
    if (isObject(%object))
    {
-      %object.setImageMap(%iconText.getText());
+      %object.setImage(%iconText.getText());
       %object.setFrame(%frameText.getValue());
    }
 }
@@ -298,27 +298,27 @@ function InterfaceEditorGui::refresh(%this)
    //------------------------------
    
    // Casino Carpet
-   InterfaceEditorCasinoCarpetText.setText(CasinoCarpetBackground.getImageMap());
+   InterfaceEditorCasinoCarpetText.setText(CasinoCarpetBackground.getImage());
    InterfaceEditorCasinoCarpetFrameEditBox.setValue(CasinoCarpetBackground.getFrame());
    InterfaceEditorCasinoCarpetPreview.refresh();
    
    // Bank Container
-   InterfaceEditorBankContainerText.setText(BankBackgroundObject.getImageMap());
+   InterfaceEditorBankContainerText.setText(BankBackgroundObject.getImage());
    InterfaceEditorBankContainerFrameEditBox.setValue(BankBackgroundObject.getFrame());
    InterfaceEditorBankContainerPreview.refresh();
    
    // Player Avatar
-   InterfaceEditorPlayerAvatarText.setText(userAi.getImageMap());
+   InterfaceEditorPlayerAvatarText.setText(userAi.getImage());
    InterfaceEditorPlayerAvatarFrameEditBox.setValue(userAi.getFrame());
    InterfaceEditorPlayerAvatarPreview.refresh();
    
    // Indication Arrow
-   InterfaceEditorIndicationArrowText.setText(currentHandIcon.getImageMap());
+   InterfaceEditorIndicationArrowText.setText(currentHandIcon.getImage());
    InterfaceEditorIndicationArrowFrameEditBox.setValue(currentHandIcon.getFrame());
    InterfaceEditorIndicationArrowPreview.refresh();
    
    // Npc Bank Image
-   InterfaceEditorNpcBankImageText.setText(BottomBarAIBackgroundTemplate.getImageMap());
+   InterfaceEditorNpcBankImageText.setText(BottomBarAIBackgroundTemplate.getImage());
    InterfaceEditorNpcBankFrameEditBox.setValue(BottomBarAIBackgroundTemplate.getFrame());
    InterfaceEditorNpcBankImagePreview.refresh();
 
@@ -343,19 +343,19 @@ function InterfaceEditorGui::refresh(%this)
    // Icons Tab
    //------------------------------
    %this.initializeIconContainer(InterfaceEditorBlackjackIconPreview, InterfaceEditorBlackjackIconText, 
-                                 InterfaceEditorBlackjackIconFrameEditBox, blackjackIcon.getImageMap(), blackjackIcon.getFrame()); 
+                                 InterfaceEditorBlackjackIconFrameEditBox, blackjackIcon.getImage(), blackjackIcon.getFrame()); 
    %this.initializeIconContainer(InterfaceEditorBustIconPreview, InterfaceEditorBustIconText, 
-                                 InterfaceEditorBustIconFrameEditBox, bustIcon.getImageMap(), bustIcon.getFrame()); 
+                                 InterfaceEditorBustIconFrameEditBox, bustIcon.getImage(), bustIcon.getFrame()); 
    %this.initializeIconContainer(InterfaceEditorWinIconPreview, InterfaceEditorWinIconText, 
-                                 InterfaceEditorWinIconFrameEditBox, winIcon.getImageMap(), winIcon.getFrame()); 
+                                 InterfaceEditorWinIconFrameEditBox, winIcon.getImage(), winIcon.getFrame()); 
    %this.initializeIconContainer(InterfaceEditorLoseIconPreview, InterfaceEditorLoseIconText, 
-                                 InterfaceEditorLoseIconFrameEditBox, loseIcon.getImageMap(), loseIcon.getFrame()); 
+                                 InterfaceEditorLoseIconFrameEditBox, loseIcon.getImage(), loseIcon.getFrame()); 
    %this.initializeIconContainer(InterfaceEditorShufflingIconPreview, InterfaceEditorShufflingIconText, 
-                                 InterfaceEditorShufflingIconFrameEditBox, shufflingIcon.getImageMap(), shufflingIcon.getFrame()); 
+                                 InterfaceEditorShufflingIconFrameEditBox, shufflingIcon.getImage(), shufflingIcon.getFrame()); 
    %this.initializeIconContainer(InterfaceEditorPushIconPreview, InterfaceEditorPushIconText, 
-                                 InterfaceEditorPushIconFrameEditBox, pushIcon.getImageMap(), pushIcon.getFrame()); 
+                                 InterfaceEditorPushIconFrameEditBox, pushIcon.getImage(), pushIcon.getFrame()); 
    %this.initializeIconContainer(InterfaceEditorBankruptIconPreview, InterfaceEditorBankruptIconText, 
-                                 InterfaceEditorBankruptIconFrameEditBox, BankruptIcon.getImageMap(), BankruptIcon.getFrame()); 
+                                 InterfaceEditorBankruptIconFrameEditBox, BankruptIcon.getImage(), BankruptIcon.getFrame()); 
    InterfaceEditorBlackjackIconFrameEditBox.onValidate();
    InterfaceEditorBustIconFrameEditBox.onValidate();
    InterfaceEditorWinIconFrameEditBox.onValidate();
@@ -430,38 +430,38 @@ function InterfaceEditorGui::doSave(%this)
    //------------------------------
    
    // Casino Carpet
-   %imageMap = InterfaceEditorCasinoCarpetText.getText();
-   CasinoCarpetBackground.setImageMap(%imageMap);   
+   %image = InterfaceEditorCasinoCarpetText.getText();
+   CasinoCarpetBackground.setImage(%image);   
    CasinoCarpetBackground.setFrame(InterfaceEditorCasinoCarpetFrameEditBox.getValue());
    
    // Bank Container
-   %imageMap = InterfaceEditorBankContainerText.getText();
-   BankBackgroundObject.setImageMap(%imageMap);
+   %image = InterfaceEditorBankContainerText.getText();
+   BankBackgroundObject.setImage(%image);
    BankBackgroundObject.setFrame(InterfaceEditorBankContainerFrameEditBox.getValue());
    
    // Player Avatar
-   %imageMap = InterfaceEditorPlayerAvatarText.getText();
+   %image = InterfaceEditorPlayerAvatarText.getText();
    %frame = InterfaceEditorPlayerAvatarFrameEditBox.getValue();
-   userAi.setImageMap(%imageMap);  
+   userAi.setImage(%image);  
    userAi.setFrame(%frame);
-   BottomBarPlayerAvatarImage.setImageMap(%imageMap);
+   BottomBarPlayerAvatarImage.setImage(%image);
    BottomBarPlayerAvatarImage.setFrame(%frame);
    
    // Indication Arrow
-   %imageMap = InterfaceEditorIndicationArrowText.getText();
-   currentHandIcon.setImageMap(%imageMap); 
+   %image = InterfaceEditorIndicationArrowText.getText();
+   currentHandIcon.setImage(%image); 
    currentHandIcon.setFrame(InterfaceEditorIndicationArrowFrameEditBox.getValue());
       
    // Npc Bank Image
-   %imageMap = InterfaceEditorNpcBankImageText.getText();
+   %image = InterfaceEditorNpcBankImageText.getText();
    %frame = InterfaceEditorNpcBankFrameEditBox.getValue();
    
-   BottomBarAIBackgroundTemplate.setImageMap(%imageMap);
+   BottomBarAIBackgroundTemplate.setImage(%image);
    BottomBarAIBackgroundTemplate.setFrame(%frame);
    
-   $BottomBarBackground[0].setImageMap(%imageMap);
+   $BottomBarBackground[0].setImage(%image);
    $BottomBarBackground[0].setFrame(%frame);
-   $BottomBarBackground[1].setImageMap(%imageMap);
+   $BottomBarBackground[1].setImage(%image);
    $BottomBarBackground[1].setFrame(%frame);
    
    //------------------------------
@@ -1084,8 +1084,8 @@ function InterfaceEditorCasinoCarpetPreview::refresh(%this)
 /// </summary>
 function InterfaceEditorCasinoCarpetFrameEditBox::refresh(%this)
 {
-   if (isObject(CasinoCarpetBackground.getImageMap()))
-      %this.text = CasinoCarpetBackground.getImageMap().getFrame();
+   if (isObject(CasinoCarpetBackground.getImage()))
+      %this.text = CasinoCarpetBackground.getImage().getFrame();
    else
       %this.text = "0";
 }
@@ -1148,8 +1148,8 @@ function InterfaceEditorBankContainerPreview::refresh(%this)
 /// </summary>
 function InterfaceEditorBankContainerFrameEditBox::refresh(%this)
 {
-   if (isObject(BankBackgroundObject.getImageMap()))
-      %this.text = BankBackgroundObject.getImageMap().getFrame();
+   if (isObject(BankBackgroundObject.getImage()))
+      %this.text = BankBackgroundObject.getImage().getFrame();
    else
       %this.text = "0";
 }
@@ -1212,8 +1212,8 @@ function InterfaceEditorPlayerAvatarPreview::refresh(%this)
 /// </summary>
 function InterfaceEditorPlayerAvatarFrameEditBox::refresh(%this)
 {
-   if (isObject(userAi.getImageMap()))
-      %this.text = userAi.getImageMap().getFrame();
+   if (isObject(userAi.getImage()))
+      %this.text = userAi.getImage().getFrame();
    else
       %this.text = "0";
 }
@@ -1276,8 +1276,8 @@ function InterfaceEditorIndicationArrowPreview::refresh(%this)
 /// </summary>
 function InterfaceEditorIndicationArrowFrameEditBox::refresh(%this)
 {
-   if (isObject(currentHandIcon.getImageMap()))
-      %this.text = currentHandIcon.getImageMap().getFrame();
+   if (isObject(currentHandIcon.getImage()))
+      %this.text = currentHandIcon.getImage().getFrame();
    else
       %this.text = "0";
 }
@@ -1340,8 +1340,8 @@ function InterfaceEditorNpcBankImagePreview::refresh(%this)
 /// </summary>
 function InterfaceEditorNpcBankFrameEditBox::refresh(%this)
 {
-   if (isObject(BottomBarAIBackgroundTemplate.getImageMap()))
-      %this.text = BottomBarAIBackgroundTemplate.getImageMap().getFrame();
+   if (isObject(BottomBarAIBackgroundTemplate.getImage()))
+      %this.text = BottomBarAIBackgroundTemplate.getImage().getFrame();
    else
       %this.text = "0";
 }

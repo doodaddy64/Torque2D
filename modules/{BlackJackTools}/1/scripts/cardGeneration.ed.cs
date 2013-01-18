@@ -2290,7 +2290,7 @@ function createDeckSprite(%name, %image)
    // Eval the script
    eval(%datablock);
    
-   // If you need to recompile based on changes to the imageMap:
+   // If you need to recompile based on changes to the image:
    // %name.compile();
    
    // 2. Add image map to ProjectNameTags

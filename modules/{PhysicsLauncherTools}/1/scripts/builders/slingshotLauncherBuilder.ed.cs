@@ -158,8 +158,8 @@ function SlingshotLauncherBuilder::createSlingshotLauncherTemplate()
     %slingshotBackground.setBodyType("static");
     %slingshotBackground.setSceneLayer($SlingshotLauncherBuilder::ForkBackgroundObjectLayer);
     
-    SlingshotLauncherBuilder::setForkForegroundAsset(%launcherSimSet, "{PhysicsLauncherAssets}:SlingshotForegroundImageMap");
-    SlingshotLauncherBuilder::setForkBackgroundAsset(%launcherSimSet, "{PhysicsLauncherAssets}:SlingshotBackgroundImageMap");
+    SlingshotLauncherBuilder::setForkForegroundAsset(%launcherSimSet, "{PhysicsLauncherAssets}:SlingshotForegroundImage");
+    SlingshotLauncherBuilder::setForkBackgroundAsset(%launcherSimSet, "{PhysicsLauncherAssets}:SlingshotBackgroundImage");
     
     // Update size of collision object to match graphics
     SlingshotLauncherBuilder::updateLauncherCollisionObjectSize(%launcherSceneGroupName);
@@ -173,7 +173,7 @@ function SlingshotLauncherBuilder::createSlingshotLauncherTemplate()
     %seat.setVisible(false);
     %seat.setBodyType("static");
     %seat.setSceneLayer($SlingshotLauncherBuilder::SeatObjectLayer);
-    SlingshotLauncherBuilder::setSeatAsset(%launcherSimSet, "{PhysicsLauncherAssets}:SlingshotSeatImageMap");
+    SlingshotLauncherBuilder::setSeatAsset(%launcherSimSet, "{PhysicsLauncherAssets}:SlingshotSeatImage");
     
     //--------------------------------------------------------------------------
     // Set up rubberbands
@@ -184,7 +184,7 @@ function SlingshotLauncherBuilder::createSlingshotLauncherTemplate()
     %band0.setBodyType("static"); 
     %band0.setVisible(false);
     %band0.setSceneLayer($SlingshotLauncherBuilder::Band0ObjectLayer);
-    SlingshotLauncherBuilder::setBandAsset(%launcherSimSet, 0, "{PhysicsLauncherAssets}:RubberbandImageMap");
+    SlingshotLauncherBuilder::setBandAsset(%launcherSimSet, 0, "{PhysicsLauncherAssets}:RubberbandImage");
     
     %scaleBetweenPointsBehavior0 = ScaleBetweenPointsBehavior.createInstance();
     %scaleBetweenPointsBehavior0.setAttachmentPoints($SlingshotLauncherBuilder::Band0AttachmentPointStartDefault, $SlingshotLauncherBuilder::Band0AttachmentPointEndDefault);
@@ -196,7 +196,7 @@ function SlingshotLauncherBuilder::createSlingshotLauncherTemplate()
     %band1.setBodyType("static"); 
     %band1.setVisible(false);
     %band1.setSceneLayer($SlingshotLauncherBuilder::Band1ObjectLayer);
-    SlingshotLauncherBuilder::setBandAsset(%launcherSimSet, 1, "{PhysicsLauncherAssets}:RubberbandImageMap"); 
+    SlingshotLauncherBuilder::setBandAsset(%launcherSimSet, 1, "{PhysicsLauncherAssets}:RubberbandImage"); 
     
     %scaleBetweenPointsBehavior1 = ScaleBetweenPointsBehavior.createInstance();
     %scaleBetweenPointsBehavior1.setAttachmentPoints($SlingshotLauncherBuilder::Band1AttachmentPointStartDefault, $SlingshotLauncherBuilder::Band1AttachmentPointEndDefault);

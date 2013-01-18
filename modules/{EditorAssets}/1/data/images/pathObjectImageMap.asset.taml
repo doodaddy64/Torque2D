@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="pathObjectImageMap"
+    AssetName="pathObjectImage"
     AssetInternal="1"
     ImageFile="@assetFile=#paths"
     filterPad="false" />

@@ -4,11 +4,11 @@
 //-----------------------------------------------------------------------------
 
 // --------------------------------------------------------------------
-// launchNewImageMap()
+// launchNewImage()
 //
 // This will launch the file browser to create a new image map.
 // --------------------------------------------------------------------
-function launchNewImageMap()
+function launchNewImage()
 { 
     %baseName = "UntitledSprite";
     %appendix = "1";
@@ -21,35 +21,35 @@ function launchNewImageMap()
     %fileBase = "";
 
     // Create temporary image asset
-    %imageMap = new ImageAsset()
+    %image = new ImageAsset()
     {
         AssetName = %fileBase;
         //ImageFile = "^{EditorAssets}/data/images/DefaultImage";
         ImageFile = "";
     };
 
-    $pref::T2D::imageMapEchoErrors = 1;
+    $pref::T2D::imageEchoErrors = 1;
 
     ImageEditor.forcePreviewClear = true;
     ImageEditor.editing = false;   
 
-    ImageEditor.editImageMap(%imageMap); 
+    ImageEditor.editImage(%image); 
 }
 
 // --------------------------------------------------------------------
-// launchEditImageMap()
+// launchEditImage()
 //
 // Passing an image map into this will cause the Image Builder to be 
 // launched editing that image map.
 // --------------------------------------------------------------------
-function launchEditImageMap(%assetID)
+function launchEditImage(%assetID)
 {   
     ImageEditor.editing = true;
     
-    %imageMap = AssetDatabase.acquireAsset(%assetID);
+    %image = AssetDatabase.acquireAsset(%assetID);
     
-    //ImageEditor.assetSourceId = %imageMap.getAssetId();
-    ImageEditor.editImageMap(%imageMap);
+    //ImageEditor.assetSourceId = %image.getAssetId();
+    ImageEditor.editImage(%image);
 }
 
 function validateDatablockName(%name)
@@ -94,7 +94,7 @@ function updateDependentObjects(%previousName, %newName)
     // Get all the managed datablocks
     %datablockCount = $managedDatablockSet.getCount();
 
-    // Loop through the animation datablocks and update imageMap names
+    // Loop through the animation datablocks and update image names
     for(%i = 0; %i < %datablockCount; %i++)
     {
         %datablock = $managedDatablockSet.getObject(%i);
@@ -102,16 +102,16 @@ function updateDependentObjects(%previousName, %newName)
         // Animations
         if (%datablock.isMemberOfClass("AnimationAsset"))
         {
-            if (%datablock.imageMap $= %previousName)
+            if (%datablock.image $= %previousName)
             {
-                %datablock.imageMap = %newName;
+                %datablock.image = %newName;
                 //%datablock.calculateAnimation();
                 GuiFormManager::SendContentMessage($LBCAnimatedSprite, %this, "refresh 1");
             }
         }
     }
    
-    // Loop through all scene objects and update imageMaps
+    // Loop through all scene objects and update images
     %scene = ToolManager.getLastWindow().getScene();
 
     %count = %scene.getSceneObjectCount();
@@ -123,10 +123,10 @@ function updateDependentObjects(%previousName, %newName)
         // Sprites and scrollers
         if (%object.isMemberofClass("t2dStaticSprite") || %object.isMemberofClass("Scroller"))
         {
-            %imageMapName = %object.getImageMap().getName();
+            %imageName = %object.getImage().getName();
 
-            if (%imageMapName $= %previousName)
-                %object.setImageMap(%newName);
+            if (%imageName $= %previousName)
+                %object.setImage(%newName);
         }
 
         if (%object.isMemberOfClass("t2dAnimatedSprite"))
@@ -138,18 +138,18 @@ function updateDependentObjects(%previousName, %newName)
 }
 
 // --------------------------------------------------------------------
-// loadImageMapSettings()
+// loadImageSettings()
 //
 // This is the first function that will load all of the base image map 
 // settings, it will then check which image mode it is and call an
 // image mode specific function to load the mode type settings, if
 // the image is in full mode then it doesn't need to call anything else.
 // --------------------------------------------------------------------
-function loadImageMapSettings(%imageMap)
+function loadImageSettings(%image)
 {  
     ImageEditor.loadingSettings = true;
 
-    $ImageEditorSelectedImage = %imageMap;
+    $ImageEditorSelectedImage = %image;
 
     // Set name.
     %assetName = ImageEditor.assetName;
@@ -159,32 +159,32 @@ function loadImageMapSettings(%imageMap)
         ImageEditorTxtImageName.setText(%assetName);
     }
         
-    if (%imageMap.imageFile !$= "")
+    if (%image.imageFile !$= "")
     {
-        ImageBuilderImageLocation.setText(%imageMap.imageFile); 
+        ImageBuilderImageLocation.setText(%image.imageFile); 
     }
 
     // Fetch cell counts.
-    %cellCountX = %imageMap.cellCountX;
-    %cellCountY = %imageMap.cellCountY;
+    %cellCountX = %image.cellCountX;
+    %cellCountY = %image.cellCountY;
    
     // Clamp cell counts.
     if (%cellCountX < 1)
     {
         %cellCountX = 1;
-        %imageMap.cellCountX = 1;
+        %image.cellCountX = 1;
     }
     if (%cellCountY < 1)
     {
         %cellCountY = 1;
-        %imageMap.cellCountY = 1;
+        %image.cellCountY = 1;
     }
    
     // Update controls.
     ImageEditorCellCountX.setText(%cellCountX);
     ImageEditorCellCountY.setText(%cellCountY);
 
-    loadImageMapCellSettings(%imageMap);      
+    loadImageCellSettings(%image);      
 
    
     // Originally you could set the check boxes for these values and save
@@ -206,21 +206,21 @@ function loadImageMapSettings(%imageMap)
     ImageEditor.loadingSettings = false;
 }
 // --------------------------------------------------------------------
-// loadImageMapCellSettings()
+// loadImageCellSettings()
 //
 // The will load the cell specific settings from the image map selected.
 // --------------------------------------------------------------------
-function loadImageMapCellSettings(%imageMap)
+function loadImageCellSettings(%image)
 {
-    %cellCountX = %imageMap.cellCountX;
-    %cellCountY = %imageMap.cellCountY;
-    %cellHeight = %imageMap.getCellHeight();
-    %cellWidth = %imageMap.getCellWidth();
-    %cellOffsetX = %imageMap.cellOffsetX;
-    %cellOffsetY = %imageMap.cellOffsetY;
-    %cellStrideX = %imageMap.cellStrideX;
-    %cellStrideY = %imageMap.cellStrideY;
-    %cellRowOrder = %imageMap.cellRowOrder;
+    %cellCountX = %image.cellCountX;
+    %cellCountY = %image.cellCountY;
+    %cellHeight = %image.getCellHeight();
+    %cellWidth = %image.getCellWidth();
+    %cellOffsetX = %image.cellOffsetX;
+    %cellOffsetY = %image.cellOffsetY;
+    %cellStrideX = %image.cellStrideX;
+    %cellStrideY = %image.cellStrideY;
+    %cellRowOrder = %image.cellRowOrder;
 
     ImageEditorCellCountX.setText(%cellCountX);
     ImageEditorCellCountY.setText(%cellCountY);
@@ -228,7 +228,7 @@ function loadImageMapCellSettings(%imageMap)
     ImageEditorCellWidth.setText(%cellWidth); 
 }
 
-function generateGuiImageMapFromFile(%filePath)
+function generateGuiImageFromFile(%filePath)
 {
     %baseFileName = fileName(%filePath);
     %newFileLocation = expandPath("^{UserAssets}/images/" @ %baseFileName); 
@@ -277,29 +277,29 @@ function generateUniqueFileName(%fileLocation)
     return %newFileLocation;
 }
 
-function saveImageAsSpriteAsset(%fileToCopy, %newFileLocation, %isNewImageMap)
+function saveImageAsSpriteAsset(%fileToCopy, %newFileLocation, %isNewImage)
 {
     pathCopy(%fileToCopy, %newFileLocation);
     
-    if (%isNewImageMap)
+    if (%isNewImage)
     {
         %fileOnlyName = fileName(%newFileLocation);
         %extension = fileExt(%newFileLocation);
         %fileOnlyName = strreplace(%fileOnlyName, %extension, "");
         
-        %imageMap = new ImageAsset();
+        %image = new ImageAsset();
         
         %pathNoExtension = strreplace(%newFileLocation, %extension, "");
         
-        %name = %fileOnlyName @ "ImageMap";
-        %imageMap.assetName = %name;
-        %imageMap.AssetCategory = "gui";
-        %imageMap.imageFile = %pathNoExtension;
-        %imageMap.filterMode = "NONE";
+        %name = %fileOnlyName @ "Image";
+        %image.assetName = %name;
+        %image.AssetCategory = "gui";
+        %image.imageFile = %pathNoExtension;
+        %image.filterMode = "NONE";
         
-        TamlWrite(%imageMap, %pathNoExtension @ ".asset.taml");
+        TamlWrite(%image, %pathNoExtension @ ".asset.taml");
         
-        %imageMap.delete();
+        %image.delete();
         
         %moduleDefinition = ModuleDatabase.getDefinitionFromId("{UserAssets}");
         AssetDatabase.addSingleDeclaredAsset(%moduleDefinition, %pathNoExtension @ ".asset.taml");
@@ -316,10 +316,10 @@ function saveImageAsSpriteAsset(%fileToCopy, %newFileLocation, %isNewImageMap)
         {
             %assetId = %assetQuery.getAsset(%index);
             
-            %imageMap = AssetDatabase.acquireAsset(%assetId);
+            %image = AssetDatabase.acquireAsset(%assetId);
             
-            if (expandPath(%imageMap.imageFile) $= %newFileLocation)
-                %imageMap.compile();
+            if (expandPath(%image.imageFile) $= %newFileLocation)
+                %image.compile();
                 
             AssetDatabase.releaseAsset(%assetId);
         }
@@ -331,7 +331,7 @@ function saveImageAsSpriteAsset(%fileToCopy, %newFileLocation, %isNewImageMap)
 function populateTemporaryAsset(%originalDatablock, %newName)
 {
     %assetQuery = new AssetQuery();
-    AssetDatabase.findAssetName(%assetQuery, "TempImageMap");
+    AssetDatabase.findAssetName(%assetQuery, "TempImage");
     
     if (%assetQuery.Count > 0)
     {
@@ -341,21 +341,21 @@ function populateTemporaryAsset(%originalDatablock, %newName)
     {
         ImageEditor.tempDatablock  = new ImageAsset()
         {
-            AssetName = "TempImageMap";
+            AssetName = "TempImage";
             imageFile = "^{EditorAssets}/data/images/DefaultImage";
             imageMode = FULL;
             AssetInternal = true;
         };
         
-        TamlWrite(ImageEditor.tempDatablock, "^{EditorAssets}/data/images/TempImageMap.asset.taml");
+        TamlWrite(ImageEditor.tempDatablock, "^{EditorAssets}/data/images/TempImage.asset.taml");
     
         ImageEditor.tempDatablock.delete();
         
         %moduleDefinition = ModuleDatabase.getDefinitionFromId("{EditorAssets}");
-        AssetDatabase.addSingleDeclaredAsset(%moduleDefinition, "^{EditorAssets}/data/images/TempImageMap.asset.taml");
+        AssetDatabase.addSingleDeclaredAsset(%moduleDefinition, "^{EditorAssets}/data/images/TempImage.asset.taml");
         
         // Acquire the asset datablock for use
-        ImageEditor.tempDatablock = AssetDatabase.acquireAsset("{EditorAssets}:TempImageMap");
+        ImageEditor.tempDatablock = AssetDatabase.acquireAsset("{EditorAssets}:TempImage");
     }
     
     ImageEditor.tempDatablock.imageFile = %originalDatablock.imageFile;
@@ -406,7 +406,7 @@ function findImageFileLocation(%filePath, %fileBase)
         if(%fileBase $= fileBase(%f))
         { 
             %ext = fileExt(%f);
-            if (strstr($T2D::ImageMapSpec, %ext) != -1) 
+            if (strstr($T2D::ImageSpec, %ext) != -1) 
                 return %f;
         }
    }

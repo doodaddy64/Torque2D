@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="magnifyingGlassBacking_iImageMap"
+    AssetName="magnifyingGlassBacking_iImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#magnifyingGlassBacking_i.png" />

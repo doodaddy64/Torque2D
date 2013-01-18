@@ -685,7 +685,7 @@ function WToolEnemyPreviewDropdown::onSelect(%this)
             WToolEnemyPreview.sprite.setFlipY();
     }
     else
-        WToolEnemyPreview.display(%enemy.getImageMap(), "t2dStaticSprite");
+        WToolEnemyPreview.display(%enemy.getImage(), "t2dStaticSprite");
 
     WToolNameLabel.text = %enemy.getInternalName();
     WToolHealthLabel.text = %enemy.callOnBehaviors("getHealth");
@@ -1104,7 +1104,7 @@ function WaveManager::populateWaveDisplay(%this, %wave)
                     WTEPreviewDisplay.sprite.setFlipY();
             }
             else
-                %enemyPane.WTEPreviewDisplay.display(%group.enemy.getImageMap(), "t2dStaticSprite");
+                %enemyPane.WTEPreviewDisplay.display(%group.enemy.getImage(), "t2dStaticSprite");
 
             %enemyPane.WTEPreviewGroupSpawnDelay.text = (%group.spawnDelay $= "Manual" ? 0 : %group.spawnDelay);
 

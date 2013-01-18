@@ -48,7 +48,7 @@ function GenSettingsOpenPreviewImageFile(%preview)
       $GameImageDir = $GameDir @ "/gui/images/";
    %dlg = new OpenFileDialog()
    {
-      Filters = $T2D::ImageMapSpec;
+      Filters = $T2D::ImageSpec;
       ChangePath = false;
       MustExist = true;
       MultipleFiles = true;
@@ -284,13 +284,13 @@ function GeneralSettings::saveSettings(%this)
    mainMenuGui.fontSheet = %this.fontSheet;
    AddAssetToLevelDatablocks(%this.fontSheet);
    
-   waveCountdownBitmapFont.setImageMap(%this.fontSheet);
-   waveTotalBitmapFont.setImageMap(%this.fontSheet);
-   waveCountSlashBitmapFont.setImageMap(%this.fontSheet);
-   currentWaveBitmapFont.setImageMap(%this.fontSheet);
-   scoreBitmapFont.setImageMap(%this.fontSheet);
-   livesBitmapFont.setImageMap(%this.fontSheet);
-   fundsBitmapFont.setImageMap(%this.fontSheet);
+   waveCountdownBitmapFont.setImage(%this.fontSheet);
+   waveTotalBitmapFont.setImage(%this.fontSheet);
+   waveCountSlashBitmapFont.setImage(%this.fontSheet);
+   currentWaveBitmapFont.setImage(%this.fontSheet);
+   scoreBitmapFont.setImage(%this.fontSheet);
+   livesBitmapFont.setImage(%this.fontSheet);
+   fundsBitmapFont.setImage(%this.fontSheet);
 
    mainMenuGui.buttonSound = %this.musicPath @ fileName(%this.buttonSound);
    mainMenuGui.music = %this.musicPath @ fileName(%this.titleMusic);

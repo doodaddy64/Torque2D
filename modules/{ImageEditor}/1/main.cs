@@ -23,7 +23,7 @@ function initializeImageEditor(%scopeSet)
     //-----------------------------------------------------------------------------
     // Initialization
     //----------------------------------------------------------------------------- 
-    $T2D::ImageMapSpec = "All Supported Graphics (*.jpg;*.jpeg;*.png;)|*.png;*.jpg;*.jpeg|";
+    $T2D::ImageSpec = "All Supported Graphics (*.jpg;*.jpeg;*.png;)|*.png;*.jpg;*.jpeg|";
     
     // Create the editor object for namespace usage
     if (!isObject(ImageEditor))

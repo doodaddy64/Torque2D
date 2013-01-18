@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="playImageMap"
+    AssetName="playImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#play.png" />

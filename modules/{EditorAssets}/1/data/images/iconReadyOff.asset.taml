@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="iconReadyOffImageMap"
+    AssetName="iconReadyOffImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#iconReadyOff.png" />

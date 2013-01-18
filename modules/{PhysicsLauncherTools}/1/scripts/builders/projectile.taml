@@ -11,10 +11,10 @@
     SleepingCallback="1"
     activated="0"
     animationName="PL_DefaultProjectileAnim"
-    IconDepressed="{PhysicsLauncherAssets}:GorillaButtonDownImageMap"
-    IconHover="{PhysicsLauncherAssets}:GorillaButtonHoverImageMap"
-    IconInactive="{PhysicsLauncherAssets}:GorillaButtonInactiveImageMap"
-    IconNormal="{PhysicsLauncherAssets}:GorillaButtonUpImageMap"
+    IconDepressed="{PhysicsLauncherAssets}:GorillaButtonDownImage"
+    IconHover="{PhysicsLauncherAssets}:GorillaButtonHoverImage"
+    IconInactive="{PhysicsLauncherAssets}:GorillaButtonInactiveImage"
+    IconNormal="{PhysicsLauncherAssets}:GorillaButtonUpImage"
     Name="DefaultProjectile"
     PointValue="10000">
     <Sprite.Behaviors>

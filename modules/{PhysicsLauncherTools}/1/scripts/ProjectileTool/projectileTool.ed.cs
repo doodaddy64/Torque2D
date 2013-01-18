@@ -292,7 +292,7 @@ function ProjectileTool::refreshProjectileView(%this)
         canSave = "0";
         Visible="1";
         hovertime="1000";
-        Image="{EditorAssets}:addButton_normalImageMap";
+        Image="{EditorAssets}:addButton_normalImage";
         wrap="0";
         useSourceRect="0";
         sourceRect="0 0 0 0";
@@ -468,9 +468,9 @@ function ProjectileTool::CreateProjectileHighlightButton(%this, %i)
             buttonType="PushButton";
             useMouseEvents="0";
             isLegacyVersion="0";
-            NormalImage="{EditorAssets}:redCloseImageMap";
-            HoverImage="{EditorAssets}:redClose_hImageMap";
-            DownImage="{EditorAssets}:redClose_dImageMap";
+            NormalImage="{EditorAssets}:redCloseImage";
+            HoverImage="{EditorAssets}:redClose_hImage";
+            DownImage="{EditorAssets}:redClose_dImage";
                 index = %i;
         };
         %control.addGuiControl(%remove);

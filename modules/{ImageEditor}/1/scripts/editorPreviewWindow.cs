@@ -109,11 +109,11 @@ function ImageEditor::setupPreviewWindow(%this)
     //%this.backgroundSprite.setSceneLayer(%this.backgroundLayer);
 //
     //%assetQuery = new AssetQuery();
-    //AssetDatabase.findAssetName(%assetQuery, "ImageBuilderBackgroundImageMap");
+    //AssetDatabase.findAssetName(%assetQuery, "ImageBuilderBackgroundImage");
     //%assetId = %assetQuery.getAsset(0);
     //%assetQuery.delete();
 //
-    //%this.backgroundSprite.ImageMap = %assetId;
+    //%this.backgroundSprite.Image = %assetId;
     //%this.backgroundSprite.border = true;
     //%this.backgroundSprite.setBlendColor("0.500000 0.500000 0.500000 1.000000");
 
@@ -127,10 +127,10 @@ function ImageEditor::setupPreviewWindow(%this)
 // checks which mode the image map is in and loads the preview images
 // appropriately.
 // --------------------------------------------------------------------
-function ImageEditor::loadPreview(%this, %imageMap)
+function ImageEditor::loadPreview(%this, %image)
 {  
     // do some sanity checks
-    if (!isObject(%imageMap) || %imageMap.getClassName() !$= "ImageAsset")
+    if (!isObject(%image) || %image.getClassName() !$= "ImageAsset")
         return;
         
     if (!$ImageEditorLoaded)
@@ -141,14 +141,14 @@ function ImageEditor::loadPreview(%this, %imageMap)
     %this.loadingPreview = true;   
 
     // store the selected image
-    %this.selectedImage = %imageMap;
+    %this.selectedImage = %image;
 
     // grab the max width and height
     %maxWidth = %this.maxWidth;
     %maxHeight = %this.maxHeight;
     
     // grab the source image size
-    %srcSize = %imageMap.getImageSize();
+    %srcSize = %image.getImageSize();
     %srcWidth = getWord(%srcSize, 0);
     %srcHeight = getWord(%srcSize, 1);
   
@@ -166,7 +166,7 @@ function ImageEditor::loadPreview(%this, %imageMap)
     %posX = mRound(PreviewContainerOTDialog.getExtent().x/2 - %width/2);
     %posY = mRound(PreviewContainerOTDialog.getExtent().y/2 - %height/2);
     
-    %imageFile = %imageMap.getImageFile();
+    %imageFile = %image.getImageFile();
     
     ImageBuilderBitmapPreview.setPosition(%posX, %posY);
     ImageBuilderBitmapPreview.setExtent(%width, %height);
@@ -179,13 +179,13 @@ function ImageEditor::loadPreview(%this, %imageMap)
         ImageBuilderBitmapPreview.visible = true;
     
     // Create grid
-    %rowCount = %imageMap.getCellCountY();
-    %colCount = %imageMap.getCellCountX();
-    %cellWidth = %imageMap.getCellWidth();
-    %cellHeight = %imageMap.getCellHeight();
+    %rowCount = %image.getCellCountY();
+    %colCount = %image.getCellCountX();
+    %cellWidth = %image.getCellWidth();
+    %cellHeight = %image.getCellHeight();
     createGridOverlay(PreviewContainerOTDialog, %posX SPC %posY, %width SPC %height, %rowCount, %colCount, (%cellWidth / %scale) SPC (%cellHeight / %scale), true);
     
-    loadImageMapSettings(%imageMap);
+    loadImageSettings(%image);
 
     ImageEditor.loadingPreview = false;
 }
@@ -295,10 +295,10 @@ function createGridOverlay(%guiControl, %position, %extent, %rows, %columns, %ce
     %guiControl.addGuiControl(%guiControl.gridOverlay);
 }
 
-/*function ImageEditor::loadPreview(%this, %imageMap)
+/*function ImageEditor::loadPreview(%this, %image)
 {  
     // do some sanity checks
-    if (!isObject(%imageMap) || %imageMap.getClassName() !$= "ImageAsset")
+    if (!isObject(%image) || %image.getClassName() !$= "ImageAsset")
         return;
 
     if (!$ImageEditorLoaded)
@@ -309,7 +309,7 @@ function createGridOverlay(%guiControl, %position, %extent, %rows, %columns, %ce
     %this.loadingPreview = true;   
 
     // store the selected image
-    %this.selectedImage = %imageMap;
+    %this.selectedImage = %image;
 
     // grab the max width and height
     %maxWidth = %this.maxWidth;
@@ -334,12 +334,12 @@ function createGridOverlay(%guiControl, %position, %extent, %rows, %columns, %ce
         // then check if our previous frame count is greater
         // than our current framecount, if so we can clear
         // those frames & borders that will be un-used
-        if (%this.frameCount > %imageMap.getFrameCount())
-            %this.clearPreview(%imageMap.getFrameCount());
+        if (%this.frameCount > %image.getFrameCount())
+            %this.clearPreview(%image.getFrameCount());
     } 
    
     // grab the source image size
-    %srcSize = %imageMap.getImageSize();
+    %srcSize = %image.getImageSize();
     %srcWidth = getWord(%srcSize, 0);
     %srcHeight = getWord(%srcSize, 1);
   
@@ -354,7 +354,7 @@ function createGridOverlay(%guiControl, %position, %extent, %rows, %columns, %ce
     %maxWidth = %srcWidth / %scale;
     %maxHeight = %srcHeight / %scale;
 
-    %frameCount = %imageMap.getFrameCount();
+    %frameCount = %image.getFrameCount();
     %this.frameCount = %frameCount;
      
     %sqrt = mSqrt(%frameCount);
@@ -390,17 +390,17 @@ function createGridOverlay(%guiControl, %position, %extent, %rows, %columns, %ce
     %this.sprite.setPosition(%posX, %posY);
     %this.sprite.setSceneLayer(%this.previewLayer); 
     %assetQuery = new AssetQuery();            
-    AssetDatabase.findAssetName(%assetQuery, %imageMap.AssetName);
+    AssetDatabase.findAssetName(%assetQuery, %image.AssetName);
     %asset = %assetQuery.getAsset(0);
     %assetQuery.delete(); 
     
-    %this.sprite.setImageMap(%asset);
+    %this.sprite.setImage(%asset);
     
     //%tempImageAsset = new ImageAsset();
-    //%tempImageAsset.ImageFile = %imageMap.ImageFile;
+    //%tempImageAsset.ImageFile = %image.ImageFile;
     //%userAssetModule = ModuleDatabase.findModule("{UserAssets}", 1);
     //AssetDatabase.addSingleDeclaredAsset(%userAssetModule, expandPath("^{UserAssets}/audio/" @ %soundProfile.AssetName @ ".asset.taml"));
-    //%this.sprite.setImageMap(%tempImageAsset);
+    //%this.sprite.setImage(%tempImageAsset);
 
     
      
@@ -417,9 +417,9 @@ function createGridOverlay(%guiControl, %position, %extent, %rows, %columns, %ce
         %this.sprite[%i].setSceneLayer(%this.previewLayer);
         
         %assetQuery = new AssetQuery();            
-        AssetDatabase.findAssetName(%assetQuery, %imageMap.AssetName);
+        AssetDatabase.findAssetName(%assetQuery, %image.AssetName);
         
-        %this.sprite[%i].setImageMap(%assetQuery.getAsset(0), %i);
+        %this.sprite[%i].setImage(%assetQuery.getAsset(0), %i);
         %assetQuery.delete();
         
         %this.sprite[%i].row = %rowCount;
@@ -442,7 +442,7 @@ function createGridOverlay(%guiControl, %position, %extent, %rows, %columns, %ce
         }
     }
    
-    loadImageMapSettings(%imageMap);
+    loadImageSettings(%image);
 
     ImageEditor.loadingPreview = false;
 }*/
@@ -472,12 +472,12 @@ function ImageEditor::createBorderLine(%this)
     };
 
     %assetQuery = new AssetQuery();
-    AssetDatabase.findAssetName(%assetQuery, "ImageBuilderBackgroundImageMap");
+    AssetDatabase.findAssetName(%assetQuery, "ImageBuilderBackgroundImage");
     %assetId = %assetQuery.getAsset(0);
     %assetQuery.delete();
 
     %line.setSceneLayer(%this.borderLayer);
-    %line.ImageMap = %assetId;
+    %line.Image = %assetId;
     %line.setBlendColor("1 1 1 1");
     %line.setVisible(false);
 
@@ -534,7 +534,7 @@ function ImageEditor::resizeImageBorder(%this, %borderObj, %pos, %size, %borderP
 // --------------------------------------------------------------------
 function ImageEditor::clearPreview(%this, %fromFrame)
 {
-    %imageMap = %this.selectedImage;
+    %image = %this.selectedImage;
     %frameCount = %this.frameCount;
    
     if (%fromFrame $= "")
@@ -623,7 +623,7 @@ function ImageEditor::setupBackgroundBasicColors(%this)
     %posY = %baseY - (%maxHeight/2) + (%objHeight/2);
    
     %assetQuery = new AssetQuery();
-    AssetDatabase.findAssetName(%assetQuery, "ImageBuilderBackgroundImageMap");
+    AssetDatabase.findAssetName(%assetQuery, "ImageBuilderBackgroundImage");
     %assetId = %assetQuery.getAsset(0);
     %assetQuery.delete();
     
@@ -638,7 +638,7 @@ function ImageEditor::setupBackgroundBasicColors(%this)
 
         %colorBox.setSize(%objWidth, %objHeight);
         %colorBox.setPosition(%posX, %posY);
-        %colorBox.ImageMap = %assetId;
+        %colorBox.Image = %assetId;
         %colorBox.setBlendColor(%color[%i]);
     }
 }
@@ -692,7 +692,7 @@ function ImageEditor::setupObjectBorderBasicColors(%this)
     %posY = %baseY - (%maxHeight/2) + (%objHeight/2);
 
     %assetQuery = new AssetQuery();
-    AssetDatabase.findAssetName(%assetQuery, "ImageBuilderBackgroundImageMap");
+    AssetDatabase.findAssetName(%assetQuery, "ImageBuilderBackgroundImage");
     %assetId = %assetQuery.getAsset(0);
     %assetQuery.delete();
       
@@ -705,7 +705,7 @@ function ImageEditor::setupObjectBorderBasicColors(%this)
         };
         %colorBox.setSize(%objWidth, %objHeight);
         %colorBox.setPosition(%posX, %posY);
-        %colorBox.ImageMap = %assetId;
+        %colorBox.Image = %assetId;
         %colorBox.setBlendColor(%color[%i]);
     }
 }

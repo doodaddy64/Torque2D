@@ -113,7 +113,7 @@ function cleanTemporaryAssets()
     }
 }
 
-function generateTemporaryAnimation(%imageMapAssetId, %new)
+function generateTemporaryAnimation(%imageAssetId, %new)
 {
     if (%new)
         %tempName = generateUniqueAnimName();
@@ -124,7 +124,7 @@ function generateTemporaryAnimation(%imageMapAssetId, %new)
     {
         AssetName = %tempName;
         AssetCategory = "temporary";
-        ImageMap = %imageMapAssetId;
+        Image = %imageAssetId;
     };
 
     // Replace this with Private asset when Melv finishes that....
@@ -142,7 +142,7 @@ function generateTemporaryAnimation(%imageMapAssetId, %new)
 
 function AnimationAsset::copy(%this, %objectToCopy)
 {
-    %this.ImageMap = %objectToCopy.ImageMap;
+    %this.Image = %objectToCopy.Image;
     %this.animationFrames = %objectToCopy.animationFrames;
     %this.animationTime = %objectToCopy.animationTime;
     %this.animationCycle = %objectToCopy.animationCycle;

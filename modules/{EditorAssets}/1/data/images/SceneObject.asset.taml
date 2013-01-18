@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="sceneObjectImageMap"
+    AssetName="sceneObjectImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#SceneObject.png" />

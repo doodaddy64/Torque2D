@@ -804,7 +804,7 @@ function AiCardAiUsingList::refresh(%this)
              && (%object.callOnBehaviors(getStrategy) == $AiCardCurrentIndex))
          {
             (AiCardAiUsingContainer@%index).Visible = true;
-            (AiCardAiUsingPreviewBitmap@%index).display(%object.getImageMap(), "t2dStaticSprite");
+            (AiCardAiUsingPreviewBitmap@%index).display(%object.getImage(), "t2dStaticSprite");
             (AiCardAiUsingPreviewBitmap@%index).sprite.setFrame(%object.getFrame());            
             (AiCardAiUsingButton@%index).text = "Edit " @ %object.getInternalName();
             (AiCardAiUsingButton@%index).object = %object;

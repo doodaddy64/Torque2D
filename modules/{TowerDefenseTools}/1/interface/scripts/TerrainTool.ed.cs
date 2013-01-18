@@ -475,70 +475,70 @@ function TerrainTool::setSaveCloseState(%this, %state)
 function TerrainTool::buildDisplayGridImages(%this, %grid)
 {
    // Full sized images
-   %grid.addImage(%this.TOWERCELLIMAGE, TDTerrainPathTImageMap, 0);
-   %grid.addImage(%this.TOWERCELLIMAGE+%this.PATHFADEOFFSET, TDTerrainPathTFadeImageMap, 0);
+   %grid.addImage(%this.TOWERCELLIMAGE, TDTerrainPathTImage, 0);
+   %grid.addImage(%this.TOWERCELLIMAGE+%this.PATHFADEOFFSET, TDTerrainPathTFadeImage, 0);
    
-   %grid.addImage(%this.PATHSTARTIMAGE[0], TDTerrainPathS1ImageMap, 0);
-   %grid.addImage(%this.PATHSTARTIMAGE[0]+%this.PATHFADEOFFSET, TDTerrainPathS1FadeImageMap, 0);
-   %grid.addImage(%this.PATHIMAGE[0], TDTerrainPathP1ImageMap, 0);
-   %grid.addImage(%this.PATHIMAGE[0]+%this.PATHFADEOFFSET, TDTerrainPathP1FadeImageMap, 0);
-   %grid.addImage(%this.PATHENDIMAGE[0], TDTerrainPathE1ImageMap, 0);
-   %grid.addImage(%this.PATHENDIMAGE[0]+%this.PATHFADEOFFSET, TDTerrainPathE1FadeImageMap, 0);
+   %grid.addImage(%this.PATHSTARTIMAGE[0], TDTerrainPathS1Image, 0);
+   %grid.addImage(%this.PATHSTARTIMAGE[0]+%this.PATHFADEOFFSET, TDTerrainPathS1FadeImage, 0);
+   %grid.addImage(%this.PATHIMAGE[0], TDTerrainPathP1Image, 0);
+   %grid.addImage(%this.PATHIMAGE[0]+%this.PATHFADEOFFSET, TDTerrainPathP1FadeImage, 0);
+   %grid.addImage(%this.PATHENDIMAGE[0], TDTerrainPathE1Image, 0);
+   %grid.addImage(%this.PATHENDIMAGE[0]+%this.PATHFADEOFFSET, TDTerrainPathE1FadeImage, 0);
    
-   %grid.addImage(%this.PATHSTARTIMAGE[1], TDTerrainPathS2ImageMap, 0);
-   %grid.addImage(%this.PATHSTARTIMAGE[1]+%this.PATHFADEOFFSET, TDTerrainPathS2FadeImageMap, 0);
-   %grid.addImage(%this.PATHIMAGE[1], TDTerrainPathP2ImageMap, 0);
-   %grid.addImage(%this.PATHIMAGE[1]+%this.PATHFADEOFFSET, TDTerrainPathP2FadeImageMap, 0);
-   %grid.addImage(%this.PATHENDIMAGE[1], TDTerrainPathE2ImageMap, 0);
-   %grid.addImage(%this.PATHENDIMAGE[1]+%this.PATHFADEOFFSET, TDTerrainPathE2FadeImageMap, 0);
+   %grid.addImage(%this.PATHSTARTIMAGE[1], TDTerrainPathS2Image, 0);
+   %grid.addImage(%this.PATHSTARTIMAGE[1]+%this.PATHFADEOFFSET, TDTerrainPathS2FadeImage, 0);
+   %grid.addImage(%this.PATHIMAGE[1], TDTerrainPathP2Image, 0);
+   %grid.addImage(%this.PATHIMAGE[1]+%this.PATHFADEOFFSET, TDTerrainPathP2FadeImage, 0);
+   %grid.addImage(%this.PATHENDIMAGE[1], TDTerrainPathE2Image, 0);
+   %grid.addImage(%this.PATHENDIMAGE[1]+%this.PATHFADEOFFSET, TDTerrainPathE2FadeImage, 0);
    
-   %grid.addImage(%this.PATHSTARTIMAGE[2], TDTerrainPathS3ImageMap, 0);
-   %grid.addImage(%this.PATHSTARTIMAGE[2]+%this.PATHFADEOFFSET, TDTerrainPathS3FadeImageMap, 0);
-   %grid.addImage(%this.PATHIMAGE[2], TDTerrainPathP3ImageMap, 0);
-   %grid.addImage(%this.PATHIMAGE[2]+%this.PATHFADEOFFSET, TDTerrainPathP3FadeImageMap, 0);
-   %grid.addImage(%this.PATHENDIMAGE[2], TDTerrainPathE3ImageMap, 0);
-   %grid.addImage(%this.PATHENDIMAGE[2]+%this.PATHFADEOFFSET, TDTerrainPathE3FadeImageMap, 0);
+   %grid.addImage(%this.PATHSTARTIMAGE[2], TDTerrainPathS3Image, 0);
+   %grid.addImage(%this.PATHSTARTIMAGE[2]+%this.PATHFADEOFFSET, TDTerrainPathS3FadeImage, 0);
+   %grid.addImage(%this.PATHIMAGE[2], TDTerrainPathP3Image, 0);
+   %grid.addImage(%this.PATHIMAGE[2]+%this.PATHFADEOFFSET, TDTerrainPathP3FadeImage, 0);
+   %grid.addImage(%this.PATHENDIMAGE[2], TDTerrainPathE3Image, 0);
+   %grid.addImage(%this.PATHENDIMAGE[2]+%this.PATHFADEOFFSET, TDTerrainPathE3FadeImage, 0);
    
-   %grid.addImage(%this.PATHSTARTIMAGE[3], TDTerrainPathS4ImageMap, 0);
-   %grid.addImage(%this.PATHSTARTIMAGE[3]+%this.PATHFADEOFFSET, TDTerrainPathS4FadeImageMap, 0);
-   %grid.addImage(%this.PATHIMAGE[3], TDTerrainPathP4ImageMap, 0);
-   %grid.addImage(%this.PATHIMAGE[3]+%this.PATHFADEOFFSET, TDTerrainPathP4FadeImageMap, 0);
-   %grid.addImage(%this.PATHENDIMAGE[3], TDTerrainPathE4ImageMap, 0);
-   %grid.addImage(%this.PATHENDIMAGE[3]+%this.PATHFADEOFFSET, TDTerrainPathE4FadeImageMap, 0);
+   %grid.addImage(%this.PATHSTARTIMAGE[3], TDTerrainPathS4Image, 0);
+   %grid.addImage(%this.PATHSTARTIMAGE[3]+%this.PATHFADEOFFSET, TDTerrainPathS4FadeImage, 0);
+   %grid.addImage(%this.PATHIMAGE[3], TDTerrainPathP4Image, 0);
+   %grid.addImage(%this.PATHIMAGE[3]+%this.PATHFADEOFFSET, TDTerrainPathP4FadeImage, 0);
+   %grid.addImage(%this.PATHENDIMAGE[3], TDTerrainPathE4Image, 0);
+   %grid.addImage(%this.PATHENDIMAGE[3]+%this.PATHFADEOFFSET, TDTerrainPathE4FadeImage, 0);
    
    // Images broken up into quads
    for (%i=0; %i<4; %i++)
    {
-      %grid.addImage(%this.TOWERCELLIMAGEQUAD+%i, TDTerrainPathTQuadImageMap, %i);
-      %grid.addImage(%this.TOWERCELLIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathTFadeQuadImageMap, %i);
+      %grid.addImage(%this.TOWERCELLIMAGEQUAD+%i, TDTerrainPathTQuadImage, %i);
+      %grid.addImage(%this.TOWERCELLIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathTFadeQuadImage, %i);
       
-      %grid.addImage(%this.PATH01STARTIMAGEQUAD+%i, TDTerrainPathS1QuadImageMap, %i);
-      %grid.addImage(%this.PATH01STARTIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathS1FadeQuadImageMap, %i);
-      %grid.addImage(%this.PATH01IMAGEQUAD+%i, TDTerrainPathP1QuadImageMap, %i);
-      %grid.addImage(%this.PATH01IMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathP1FadeQuadImageMap, %i);
-      %grid.addImage(%this.PATH01ENDIMAGEQUAD+%i, TDTerrainPathE1QuadImageMap, %i);
-      %grid.addImage(%this.PATH01ENDIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathE1FadeQuadImageMap, %i);
+      %grid.addImage(%this.PATH01STARTIMAGEQUAD+%i, TDTerrainPathS1QuadImage, %i);
+      %grid.addImage(%this.PATH01STARTIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathS1FadeQuadImage, %i);
+      %grid.addImage(%this.PATH01IMAGEQUAD+%i, TDTerrainPathP1QuadImage, %i);
+      %grid.addImage(%this.PATH01IMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathP1FadeQuadImage, %i);
+      %grid.addImage(%this.PATH01ENDIMAGEQUAD+%i, TDTerrainPathE1QuadImage, %i);
+      %grid.addImage(%this.PATH01ENDIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathE1FadeQuadImage, %i);
       
-      %grid.addImage(%this.PATH02STARTIMAGEQUAD+%i, TDTerrainPathS2QuadImageMap, %i);
-      %grid.addImage(%this.PATH02STARTIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathS2FadeQuadImageMap, %i);
-      %grid.addImage(%this.PATH02IMAGEQUAD+%i, TDTerrainPathP2QuadImageMap, %i);
-      %grid.addImage(%this.PATH02IMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathP2FadeQuadImageMap, %i);
-      %grid.addImage(%this.PATH02ENDIMAGEQUAD+%i, TDTerrainPathE2QuadImageMap, %i);
-      %grid.addImage(%this.PATH02ENDIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathE2FadeQuadImageMap, %i);
+      %grid.addImage(%this.PATH02STARTIMAGEQUAD+%i, TDTerrainPathS2QuadImage, %i);
+      %grid.addImage(%this.PATH02STARTIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathS2FadeQuadImage, %i);
+      %grid.addImage(%this.PATH02IMAGEQUAD+%i, TDTerrainPathP2QuadImage, %i);
+      %grid.addImage(%this.PATH02IMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathP2FadeQuadImage, %i);
+      %grid.addImage(%this.PATH02ENDIMAGEQUAD+%i, TDTerrainPathE2QuadImage, %i);
+      %grid.addImage(%this.PATH02ENDIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathE2FadeQuadImage, %i);
       
-      %grid.addImage(%this.PATH03STARTIMAGEQUAD+%i, TDTerrainPathS3QuadImageMap, %i);
-      %grid.addImage(%this.PATH03STARTIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathS3FadeQuadImageMap, %i);
-      %grid.addImage(%this.PATH03IMAGEQUAD+%i, TDTerrainPathP3QuadImageMap, %i);
-      %grid.addImage(%this.PATH03IMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathP3FadeQuadImageMap, %i);
-      %grid.addImage(%this.PATH03ENDIMAGEQUAD+%i, TDTerrainPathE3QuadImageMap, %i);
-      %grid.addImage(%this.PATH03ENDIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathE3FadeQuadImageMap, %i);
+      %grid.addImage(%this.PATH03STARTIMAGEQUAD+%i, TDTerrainPathS3QuadImage, %i);
+      %grid.addImage(%this.PATH03STARTIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathS3FadeQuadImage, %i);
+      %grid.addImage(%this.PATH03IMAGEQUAD+%i, TDTerrainPathP3QuadImage, %i);
+      %grid.addImage(%this.PATH03IMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathP3FadeQuadImage, %i);
+      %grid.addImage(%this.PATH03ENDIMAGEQUAD+%i, TDTerrainPathE3QuadImage, %i);
+      %grid.addImage(%this.PATH03ENDIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathE3FadeQuadImage, %i);
       
-      %grid.addImage(%this.PATH04STARTIMAGEQUAD+%i, TDTerrainPathS4QuadImageMap, %i);
-      %grid.addImage(%this.PATH04STARTIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathS4FadeQuadImageMap, %i);
-      %grid.addImage(%this.PATH04IMAGEQUAD+%i, TDTerrainPathP4QuadImageMap, %i);
-      %grid.addImage(%this.PATH04IMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathP4FadeQuadImageMap, %i);
-      %grid.addImage(%this.PATH04ENDIMAGEQUAD+%i, TDTerrainPathE4QuadImageMap, %i);
-      %grid.addImage(%this.PATH04ENDIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathE4FadeQuadImageMap, %i);
+      %grid.addImage(%this.PATH04STARTIMAGEQUAD+%i, TDTerrainPathS4QuadImage, %i);
+      %grid.addImage(%this.PATH04STARTIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathS4FadeQuadImage, %i);
+      %grid.addImage(%this.PATH04IMAGEQUAD+%i, TDTerrainPathP4QuadImage, %i);
+      %grid.addImage(%this.PATH04IMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathP4FadeQuadImage, %i);
+      %grid.addImage(%this.PATH04ENDIMAGEQUAD+%i, TDTerrainPathE4QuadImage, %i);
+      %grid.addImage(%this.PATH04ENDIMAGEQUAD+%this.PATHFADEOFFSET+%i, TDTerrainPathE4FadeQuadImage, %i);
    }
 }
 
@@ -809,7 +809,7 @@ function TerrainTool::buildGraphicsBrushes(%this)
       %sprite.scene = %this.scene;
       
       // Set the image map
-      %sprite.setImageMap( %brush.asset.getName(), %brush.frame );
+      %sprite.setImage( %brush.asset.getName(), %brush.frame );
       
       // Set the appropriate size
       %sprite.setSize( %brush.asset.getFrameSize(0) );
@@ -831,7 +831,7 @@ function TerrainTool::buildGraphicsBrushes(%this)
          extent = "64 64";
          position = "2 2";
          brushIndex = %i;
-         imageMap = %brush.asset;
+         image = %brush.asset;
          frame = %brush.frame;
          ToolTip = %brush.asset.getName() @ " frame " @ %brush.frame;
       };
@@ -1321,10 +1321,10 @@ function TerrainTool::onAddGraphicButton(%this)
 /// </summary>
 function TerrainTool::onRemoveGraphicButton(%this)
 {
-   if (%this.currentGraphicsImageMap $= "")
+   if (%this.currentGraphicsImage $= "")
       return;
    
-   %this.removeGraphicsBrushFrame(%this.currentGraphicsImageMap, %this.currentGraphicsFrame);
+   %this.removeGraphicsBrushFrame(%this.currentGraphicsImage, %this.currentGraphicsFrame);
 }
 
 // Called by the Asset Library when an asset is selected
@@ -1378,10 +1378,10 @@ function TerrainTool::isGraphicsBrush(%this, %asset, %frame)
 /// <summary>
 /// This function removes all frames of the passed image map from the graphics palette.
 /// </summary>
-/// <param name="imageMap">The name of the image map to remove from the graphics palette.</param>
-function TerrainTool::removeGraphicsBrush(%this, %imageMap)
+/// <param name="image">The name of the image map to remove from the graphics palette.</param>
+function TerrainTool::removeGraphicsBrush(%this, %image)
 {
-   //echo("@@@ TerrainTool::removeGraphicsBrush(): " @ %imageMap);
+   //echo("@@@ TerrainTool::removeGraphicsBrush(): " @ %image);
    
    %found = false;
    
@@ -1389,7 +1389,7 @@ function TerrainTool::removeGraphicsBrush(%this, %imageMap)
    while (%index < $brushSet.getCount())
    {
       %brush = $brushSet.getObject(%index);
-      if (%brush.asset $= %imageMap)
+      if (%brush.asset $= %image)
       {
          %found = true;
          
@@ -1425,9 +1425,9 @@ function TerrainTool::removeGraphicsBrush(%this, %imageMap)
 /// <summary>
 /// This function removes the specified frame of an image map from the graphics palette.
 /// </summary>
-/// <param name="imageMap">The image map that the image frame belongs to.</param>
+/// <param name="image">The image map that the image frame belongs to.</param>
 /// <param name="frame">The frame number of the graphic to remove from the palette.</param>
-function TerrainTool::removeGraphicsBrushFrame(%this, %imageMap, %frame)
+function TerrainTool::removeGraphicsBrushFrame(%this, %image, %frame)
 {
    %found = false;
    
@@ -1435,7 +1435,7 @@ function TerrainTool::removeGraphicsBrushFrame(%this, %imageMap, %frame)
    for (%i=0; %i<%count; %i++)
    {
       %brush = $brushSet.getObject(%i);
-      if (%brush.asset $= %imageMap && %brush.frame == %frame)
+      if (%brush.asset $= %image && %brush.frame == %frame)
       {
          %found = true;
          
@@ -1830,14 +1830,14 @@ function TerrainTool::editGraphics(%this, %mouseX, %mouseY, %isDrag)
 {
    %dirty = false;
    
-   if (%this.currentOperation == %this.PAINTOPERATION && %this.currentGraphicsImageMap !$= "")
+   if (%this.currentOperation == %this.PAINTOPERATION && %this.currentGraphicsImage !$= "")
    {
-      %cellInteger = GraphicsGrid.findImage(%this.currentGraphicsImageMap, %this.currentGraphicsFrame, %this.currentGraphicsRotation);
+      %cellInteger = GraphicsGrid.findImage(%this.currentGraphicsImage, %this.currentGraphicsFrame, %this.currentGraphicsRotation);
       if (%cellInteger $= "")
       {
          // First time painting with this image so add it to the grid
          %cellInteger = GraphicsGrid.findNextFreeImageKey(1);
-         GraphicsGrid.addImage(%cellInteger, %this.currentGraphicsImageMap, %this.currentGraphicsFrame, %this.currentGraphicsRotation);
+         GraphicsGrid.addImage(%cellInteger, %this.currentGraphicsImage, %this.currentGraphicsFrame, %this.currentGraphicsRotation);
       }
 
       %worldPos = %mouseX @ " " @ %mouseY;
@@ -1848,14 +1848,14 @@ function TerrainTool::editGraphics(%this, %mouseX, %mouseY, %isDrag)
       
       %dirty = true;
    }
-   else if (%this.currentOperation == %this.FILLOPERATION && !%isDrag && %this.currentGraphicsImageMap !$= "")
+   else if (%this.currentOperation == %this.FILLOPERATION && !%isDrag && %this.currentGraphicsImage !$= "")
    {
-      %cellInteger = GraphicsGrid.findImage(%this.currentGraphicsImageMap, %this.currentGraphicsFrame, %this.currentGraphicsRotation);
+      %cellInteger = GraphicsGrid.findImage(%this.currentGraphicsImage, %this.currentGraphicsFrame, %this.currentGraphicsRotation);
       if (%cellInteger $= "")
       {
          // First time painting with this image so add it to the grid
          %cellInteger = GraphicsGrid.findNextFreeImageKey(1);
-         GraphicsGrid.addImage(%cellInteger, %this.currentGraphicsImageMap, %this.currentGraphicsFrame, %this.currentGraphicsRotation);
+         GraphicsGrid.addImage(%cellInteger, %this.currentGraphicsImage, %this.currentGraphicsFrame, %this.currentGraphicsRotation);
       }
       
       // Fill the entire grid with the image
@@ -1897,7 +1897,7 @@ function TerrainTool::editGraphics(%this, %mouseX, %mouseY, %isDrag)
 /// </summary>
 function TerrainTool::clearCurrentGraphicsBrush(%this)
 {
-   %this.currentGraphicsImageMap = "";
+   %this.currentGraphicsImage = "";
    %this.currentGraphicsFrame = -1;
    %this.currentGraphicsRotation = 0;
    
@@ -2309,7 +2309,7 @@ function TerrainToolBrushesTabBook::onTabSelected(%this, %tabName)
          TerrainTool-->FillButton.setActive(true);
          
          // Populate the preview control
-         TerrainTool-->PreviewArea.bitmap = TDTerrainPathTImageMap.getImageName();
+         TerrainTool-->PreviewArea.bitmap = TDTerrainPathTImage.getImageName();
          TerrainTool-->PreviewAreaWindow.setVisible(0);
 
          // Grid show buttons
@@ -2329,11 +2329,11 @@ function TerrainToolBrushesTabBook::onTabSelected(%this, %tabName)
 function TerrainToolGraphicsBrushButton::onClick(%this)
 {
 
-   TerrainTool.currentGraphicsImageMap = %this.imageMap;
+   TerrainTool.currentGraphicsImage = %this.image;
    TerrainTool.currentGraphicsFrame = %this.frame;
    TerrainTool.currentGraphicsRotation = 0;
 
-   TerrainTool-->PreviewAreaWindow.display(TerrainTool.currentGraphicsImageMap.getName(), "t2dStaticSprite");
+   TerrainTool-->PreviewAreaWindow.display(TerrainTool.currentGraphicsImage.getName(), "t2dStaticSprite");
    TerrainTool-->PreviewAreaWindow.sprite.setFrame(TerrainTool.currentGraphicsFrame);
    TerrainTool-->PreviewAreaWindow.sprite.setAngle(TerrainTool.currentGraphicsRotation * -90);
    TerrainTool-->PreviewAreaWindow.setVisible(1);
@@ -2436,7 +2436,7 @@ function TerrainToolLayoutBrushButton::onClick(%this)
 /// </summary>
 function TerrainToolTowerBrushButton::onClick(%this)
 {
-   TerrainTool-->PreviewArea.bitmap = TDTerrainPathTImageMap.getImageName();
+   TerrainTool-->PreviewArea.bitmap = TDTerrainPathTImage.getImageName();
          
    if (TerrainTool.currentOperation == TerrainTool.ERASEOPERATION)
    {

@@ -8,7 +8,7 @@ function AnimationBuilder::onAdd(%this)
     %this.tempAnimation = "";
     %this.newAnimation = false;
     %this.animationIsDirty = false;
-    %this.sourceImageMap = "";
+    %this.sourceImage = "";
     %this.animationName = "";
     
     // Default animation values.
@@ -16,7 +16,7 @@ function AnimationBuilder::onAdd(%this)
     %this.defaultAnimationCycle = true;
     %this.defaultRandomStart = false;
     %this.defaultName = "Animation";
-    %this.defaultImageMapName = "Sprite";
+    %this.defaultImageName = "Sprite";
 
     // Bounds
     %this.maxFPS = $MaxFPS;
@@ -33,14 +33,14 @@ function AnimationBuilder::updateGui(%this)
 
     if (isObject(%this.tempAnimation))
     {
-        ABStoryboardWindow.update(%this.sourceImageMap, %this.tempAnimation.animationFrames);
+        ABStoryboardWindow.update(%this.sourceImage, %this.tempAnimation.animationFrames);
         ABCycleAnimationCheck.setValue(%this.tempAnimation.animationCycle);
         if (%this.animationName !$= %this.tempAnimation.AssetName)
         {
             %this.animationName = %this.tempAnimation.AssetName;
         }
         ABNameField.setText(%this.animationName);
-        ABImageMapField.setText(AssetDatabase.getAssetName(%this.sourceImageMap));
+        ABImageField.setText(AssetDatabase.getAssetName(%this.sourceImage));
 
         %frameCount = getWordCount(%this.tempAnimation.animationFrames);
 
@@ -73,11 +73,11 @@ function AnimationBuilder::open(%this)
 
     if (isObject(%this.tempAnimation))
     {
-        Ab_ImageMapPreviewWindow.display(%this.sourceImageMap);
+        Ab_ImagePreviewWindow.display(%this.sourceImage);
         ABTagContainer.populateTagList(%this.animationId);
     }
-    else if (isObject(%this.sourceImageMap))
-        %this.tempAnimation = generateTemporaryAnimation(%this.sourceImageMap);
+    else if (isObject(%this.sourceImage))
+        %this.tempAnimation = generateTemporaryAnimation(%this.sourceImage);
     else
         warn("AnimationBuilder::open - no animation to edit.");
 
@@ -89,7 +89,7 @@ function AnimationBuilder::open(%this)
 function AnimationBuilder::close(%this)
 {
     Canvas.popDialog(AnimationBuilderGui);
-    Ab_ImageMapPreviewWindow.clear();
+    Ab_ImagePreviewWindow.clear();
     ABAnimationPreviewWindow.clear();
 
     %this.newAnimation = false;
@@ -99,7 +99,7 @@ function AnimationBuilder::close(%this)
 
     %this.animationName = "";
     %this.tempAnimation = "";
-    %this.sourceImageMap = "";
+    %this.sourceImage = "";
     %this.animationIsDirty = false;
 
     cleanTemporaryAssets();
@@ -115,38 +115,38 @@ function AnimationBuilder::createAnimation(%this)
     %this.newAnimation = true;
 
     ABNameField.setText = "";
-    ABImageMapName.text = "";
+    ABImageName.text = "";
 
     if (isObject(ABStoryBoardWindow.staticSpriteGroup))
         ABStoryBoardWindow.staticSpriteGroup.deleteContents();
 
-    Ab_ImageMapPreviewWindow.clear();
+    Ab_ImagePreviewWindow.clear();
     ABStoryboardWindow.clear();
 
     %this.open();
 }
 
-function AnimationBuilder::newAnimation(%this, %imageMapAssetId, %newAnim)
+function AnimationBuilder::newAnimation(%this, %imageAssetId, %newAnim)
 {
     if (%this.tempAnimation !$= "" && %newAnim)
     {
         AssetDatabase.releaseAsset(%this.tempAnimation);
         %this.tempAnimation = "";
     }
-    Ab_ImageMapPreviewWindow.clear();
+    Ab_ImagePreviewWindow.clear();
 
     cleanTemporaryAssets();
 
     // Check to see if the selected image map is a declared asset
     // If not, back out
-    if (!AssetDatabase.isDeclaredAsset(%imageMapAssetId))
+    if (!AssetDatabase.isDeclaredAsset(%imageAssetId))
         return;
 
     %this.newAnimation = true;
-    %this.sourceImageMap = %imageMapAssetId;
+    %this.sourceImage = %imageAssetId;
     %this.animationId = "";
     %this.animationName = "";
-    %this.tempAnimation = generateTemporaryAnimation(%this.sourceImageMap, %this.newAnimation);
+    %this.tempAnimation = generateTemporaryAnimation(%this.sourceImage, %this.newAnimation);
     %this.open();
 }
 
@@ -157,7 +157,7 @@ function AnimationBuilder::editAnimation(%this, %animationAssetId)
         AssetDatabase.releaseAsset(%this.tempAnimation);
         %this.tempAnimation = "";
     }
-    Ab_ImageMapPreviewWindow.clear();
+    Ab_ImagePreviewWindow.clear();
 
     cleanTemporaryAssets();
 
@@ -167,9 +167,9 @@ function AnimationBuilder::editAnimation(%this, %animationAssetId)
 
     %this.animationId = %animationAssetId;
     %this.animationName = %assetDatablock.AssetName;
-    %this.sourceImageMap = %assetDatablock.imageMap;
+    %this.sourceImage = %assetDatablock.image;
 
-    %this.tempAnimation = generateTemporaryAnimation(%this.sourceImageMap, %this.newAnimation);
+    %this.tempAnimation = generateTemporaryAnimation(%this.sourceImage, %this.newAnimation);
     %this.tempAnimation.copy(%assetDatablock);
 
     AssetDatabase.releaseAsset(%animationAssetId);
@@ -373,9 +373,9 @@ function AnimationBuilder::setAllFrames(%this)
         return;
 
     %this.clearFrames();
-    %image = AssetDatabase.acquireAsset(%this.tempAnimation.ImageMap);
+    %image = AssetDatabase.acquireAsset(%this.tempAnimation.Image);
     %frameCount = %image.getFrameCount();
-    AssetDatabase.releaseAsset(%this.tempAnimation.ImageMap);
+    AssetDatabase.releaseAsset(%this.tempAnimation.Image);
     
     for (%i = 0; %i < %frameCount; %i++)
         %this.appendFrame(%i);
@@ -439,9 +439,9 @@ function AnimationBuilder::createDraggingControl(%this, %sprite, %spritePosition
     };
 
     //if (%sprite.getClassName() $= "GuiSpriteCtrl")
-        //echo(" @@@ Image: " @ %this.sourceImageMap @ " Frame: " @ %sprite.getImageFrame());
+        //echo(" @@@ Image: " @ %this.sourceImage @ " Frame: " @ %sprite.getImageFrame());
     //else
-        //echo(" @@@ Image: " @ %this.sourceImageMap @ " Frame: " @ %sprite.getFrame());
+        //echo(" @@@ Image: " @ %this.sourceImage @ " Frame: " @ %sprite.getFrame());
 
     // Place the guis.
     AnimationBuilderGui.add(%dragControl);
@@ -483,7 +483,7 @@ function AnimationBuilder::deleteTagFromList(%this, %tag)
 {
 }
 
-function AnimationBuilder::changeImageMap(%this)
+function AnimationBuilder::changeImage(%this)
 {
     // If the user already has an image loaded but no animation frames or tags made/changed, 
     // Select will bring up the Asset Selector without any prompts

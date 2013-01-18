@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="backgroundImageMap"
+    AssetName="backgroundImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#background.png" />

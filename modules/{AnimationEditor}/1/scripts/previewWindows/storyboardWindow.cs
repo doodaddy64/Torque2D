@@ -23,16 +23,16 @@ function StoryboardWindow::onRemove(%this)
       %this.staticSpriteGroup.delete();
 }
 
-function ImageMapStoryboardWindow::update(%this, %imageMapAssetId, %frames)
+function ImageStoryboardWindow::update(%this, %imageAssetId, %frames)
 {
-    %imageMap = AssetDatabase.acquireAsset(%imageMapAssetId);
+    %image = AssetDatabase.acquireAsset(%imageAssetId);
 
     %this.staticSpriteGroup.deleteContents();
 
     %count = getWordCount(%frames);
-    %spacing = %imageMap.getFrameSize(0) / 4;
+    %spacing = %image.getFrameSize(0) / 4;
 
-    %height = %imageMap.getFrameSize(0);
+    %height = %image.getFrameSize(0);
     %width = %spacing;
 
     for (%i = 0; %i < %count; %i++)
@@ -41,10 +41,10 @@ function ImageMapStoryboardWindow::update(%this, %imageMapAssetId, %frames)
         %sprite = new sprite()
         {
             scene = %this.scene;
-            class = "ImageMapStoryboardSprite";
-            imageMap = %imageMapAssetId;
+            class = "ImageStoryboardSprite";
+            image = %imageAssetId;
             frame = %frame;
-            size = %imageMap.getFrameSize(0);
+            size = %image.getFrameSize(0);
             UseInputEvents = true;
             frameNumber = %i;
             window = %this;
@@ -64,13 +64,13 @@ function ImageMapStoryboardWindow::update(%this, %imageMapAssetId, %frames)
     %dropSpot = new SceneObject()
     {
         scene = %this.scene;
-        size = %imageMap.getFrameSize(0);
+        size = %image.getFrameSize(0);
     };
 
     %this.staticSpriteGroup.add(%dropSpot);
     %dropSpot.position = %width + (getWord(%dropSpot.size, 0) / 2) SPC "0";
 
-    %width += %imageMap.getFrameSize(0);
+    %width += %image.getFrameSize(0);
 
     %this.setCurrentCameraArea(0, 0 - (%height / 2), %width, %height / 2);
 
@@ -81,13 +81,13 @@ function ImageMapStoryboardWindow::update(%this, %imageMapAssetId, %frames)
 
     %this.setExtent(%windowWidth, %windowHeight);
 
-    %this.objectWidth = getWord(%imageMap.getFrameSize(0), 0);
+    %this.objectWidth = getWord(%image.getFrameSize(0), 0);
     %this.spacing = %spacing;
 
-    AssetDatabase.releaseAsset(%imageMapAssetId);
+    AssetDatabase.releaseAsset(%imageAssetId);
 }
 
-function ImageMapStoryboardSprite::onTouchDragged(%this, %modifier, %position, %clicks)
+function ImageStoryboardSprite::onTouchDragged(%this, %modifier, %position, %clicks)
 {
     %windowPos = %this.window.getWindowPoint(%position);
     %mousePoint = %this.window.getCanvasPoint(%windowPos);

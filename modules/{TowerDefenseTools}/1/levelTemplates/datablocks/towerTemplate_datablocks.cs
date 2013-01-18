@@ -2,7 +2,7 @@ $levelDatablocks = new SimSet() {
    canSaveDynamicFields = "1";
       setType = "Datablocks";
 
-   new ImageAsset(backgroundImageMap) {
+   new ImageAsset(backgroundImage) {
       imageFile = "data/images/background";
       imageMode = "FULL";
       useHDImage = "0";
@@ -25,7 +25,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(clearImageMap) {
+   new ImageAsset(clearImage) {
       imageFile = "data/images/clear";
       imageMode = "FULL";
       useHDImage = "0";
@@ -48,7 +48,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(healthBarImageMap) {
+   new ImageAsset(healthBarImage) {
       imageFile = "data/images/healthBar";
       imageMode = "FULL";
       useHDImage = "0";
@@ -71,7 +71,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(healthBarFrameImageMap) {
+   new ImageAsset(healthBarFrameImage) {
       imageFile = "data/images/healthBarFrame";
       imageMode = "FULL";
       useHDImage = "0";
@@ -94,7 +94,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(Spawn_MarkerImageMap) {
+   new ImageAsset(Spawn_MarkerImage) {
       imageFile = "data/images/Spawn_Marker";
       imageMode = "FULL";
       useHDImage = "0";
@@ -117,7 +117,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(topHudContainerImageMap) {
+   new ImageAsset(topHudContainerImage) {
       imageFile = "data/images/topHudContainer";
       imageMode = "FULL";
       useHDImage = "0";
@@ -140,7 +140,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(pauseButtonImageMap) {
+   new ImageAsset(pauseButtonImage) {
       imageFile = "data/images/pauseButton";
       imageMode = "FULL";
       useHDImage = "0";
@@ -163,7 +163,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(startNextWaveButtonImageMap) {
+   new ImageAsset(startNextWaveButtonImage) {
       imageFile = "data/images/startNextWaveButton";
       imageMode = "FULL";
       useHDImage = "0";
@@ -186,7 +186,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(waveInfoIconImageMap) {
+   new ImageAsset(waveInfoIconImage) {
       imageFile = "data/images/waveInfoIcon";
       imageMode = "FULL";
       useHDImage = "0";
@@ -209,7 +209,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(fundsIconImageMap) {
+   new ImageAsset(fundsIconImage) {
       imageFile = "data/images/fundsIcon";
       imageMode = "FULL";
       useHDImage = "0";
@@ -232,7 +232,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(scoreIconImageMap) {
+   new ImageAsset(scoreIconImage) {
       imageFile = "data/images/scoreIcon";
       imageMode = "FULL";
       useHDImage = "0";
@@ -255,7 +255,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(livesIconImageMap) {
+   new ImageAsset(livesIconImage) {
       imageFile = "data/images/livesIcon";
       imageMode = "FULL";
       useHDImage = "0";
@@ -278,7 +278,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(cancelTowerImageMap) {
+   new ImageAsset(cancelTowerImage) {
       imageFile = "data/images/cancelTower";
       imageMode = "FULL";
       useHDImage = "0";
@@ -301,7 +301,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(sellButtonImageMap) {
+   new ImageAsset(sellButtonImage) {
       imageFile = "data/images/sellButton";
       imageMode = "FULL";
       useHDImage = "0";
@@ -324,7 +324,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(upgradeButtonImageMap) {
+   new ImageAsset(upgradeButtonImage) {
       imageFile = "data/images/upgradeButton";
       imageMode = "FULL";
       useHDImage = "0";
@@ -347,7 +347,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(confirmButtonImageMap) {
+   new ImageAsset(confirmButtonImage) {
       imageFile = "data/images/confirmButton";
       imageMode = "FULL";
       useHDImage = "0";
@@ -370,7 +370,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(cancelButtonImageMap) {
+   new ImageAsset(cancelButtonImage) {
       imageFile = "data/images/cancelButton";
       imageMode = "FULL";
       useHDImage = "0";
@@ -393,7 +393,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(rangeCircleImageMap) {
+   new ImageAsset(rangeCircleImage) {
       imageFile = "data/images/rangeCircle";
       imageMode = "FULL";
       useHDImage = "0";
@@ -416,7 +416,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(highlightImageMap) {
+   new ImageAsset(highlightImage) {
       imageFile = "data/images/highlight";
       imageMode = "FULL";
       useHDImage = "0";
@@ -439,7 +439,7 @@ $levelDatablocks = new SimSet() {
       optimised = "0";
       force16bit = "0";
    };
-   new ImageAsset(Path_SpriteSetImageMap) {
+   new ImageAsset(Path_SpriteSetImage) {
       imageFile = "data/images/Path_SpriteSet";
       imageMode = "CELL";
       useHDImage = "0";
@@ -463,7 +463,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
          NameTags = "3";
    };
-   new ImageAsset(Rocks_SpriteSetImageMap) {
+   new ImageAsset(Rocks_SpriteSetImage) {
       imageFile = "data/images/Rocks_SpriteSet";
       imageMode = "CELL";
       useHDImage = "0";
@@ -487,7 +487,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
          NameTags = "3";
    };
-   new ImageAsset(TD_DwarfImageMap) {
+   new ImageAsset(TD_DwarfImage) {
       imageFile = "data/images/TD_Dwarf";
       imageMode = "CELL";
       useHDImage = "0";
@@ -512,7 +512,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "2";
    };
    new AnimationAsset(TD_DwarfWalkSouth) {
-      imageMap = "TD_DwarfImageMap";
+      image = "TD_DwarfImage";
       animationFrames = "0 1 2 3 8 9 10 11 16 17 18 19 25 25 26 27";
       animationTime = "1";
       animationCycle = "1";
@@ -523,7 +523,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "2";
    };
    new AnimationAsset(TD_DwarfWalkWest) {
-      imageMap = "TD_DwarfImageMap";
+      image = "TD_DwarfImage";
       animationFrames = "4 5 6 7 12 13 14 15 20 21 22 23 28 29 30 31";
       animationTime = "1";
       animationCycle = "1";
@@ -534,7 +534,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "2";
    };
    new AnimationAsset(TD_DwarfWalkNorth) {
-      imageMap = "TD_DwarfImageMap";
+      image = "TD_DwarfImage";
       animationFrames = "32 33 34 35 40 41 42 43 48 49 50 51 56 57 58 59";
       animationTime = "1";
       animationCycle = "1";
@@ -545,7 +545,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "2";
    };
    new AnimationAsset(TD_DwarfDeath) {
-      imageMap = "TD_DwarfImageMap";
+      image = "TD_DwarfImage";
       animationFrames = "36 37 38 39 44 45 46 47 52 53 54 55 60 61 62 63";
       animationTime = "1";
       animationCycle = "0";
@@ -555,7 +555,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
          NameTags = "2";
    };
-   new ImageAsset(FireTower_Base_FireImageMap) {
+   new ImageAsset(FireTower_Base_FireImage) {
       imageFile = "data/images/FireTower_Base_Fire";
       imageMode = "CELL";
       useHDImage = "0";
@@ -579,7 +579,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(FireTower_Base_FireAnim) {
-      imageMap = "FireTower_Base_FireImageMap";
+      image = "FireTower_Base_FireImage";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -589,7 +589,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
          NameTags = "1";
    };
-   new ImageAsset(Projectile_FireballImageMap) {
+   new ImageAsset(Projectile_FireballImage) {
       imageFile = "data/images/Projectile_Fireball";
       imageMode = "CELL";
       useHDImage = "0";
@@ -613,7 +613,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(Projectile_FireballAnim) {
-      imageMap = "Projectile_FireballImageMap";
+      image = "Projectile_FireballImage";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1.06666994";
       animationCycle = "1";
@@ -623,7 +623,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
          NameTags = "4";
    };
-   new ImageAsset(FireTower_Base_IdleImageMap) {
+   new ImageAsset(FireTower_Base_IdleImage) {
       imageFile = "data/images/FireTower_Base_Idle";
       imageMode = "CELL";
       useHDImage = "0";
@@ -647,7 +647,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(FireTower_Base_IdleAnimation) {
-      imageMap = "FireTower_Base_IdleImageMap";
+      image = "FireTower_Base_IdleImage";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -682,7 +682,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "2";
    };
    new AnimationAsset(TD_Knight_MoveNorth) {
-      imageMap = "TD_Knight_CompSprite";
+      image = "TD_Knight_CompSprite";
       animationFrames = "32 33 34 35 40 41 42 43 48 49 50 51 56 57 58 59";
       animationTime = "1";
       animationCycle = "1";
@@ -693,7 +693,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "2";
    };
    new AnimationAsset(TD_Knight_MoveWest) {
-      imageMap = "TD_Knight_CompSprite";
+      image = "TD_Knight_CompSprite";
       animationFrames = "4 5 6 7 12 13 14 15 20 21 22 23 28 29 30 31";
       animationTime = "1";
       animationCycle = "1";
@@ -704,7 +704,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "2";
    };
    new AnimationAsset(TD_Knight_MoveSouth) {
-      imageMap = "TD_Knight_CompSprite";
+      image = "TD_Knight_CompSprite";
       animationFrames = "0 1 2 3 8 9 10 11 16 17 18 19 24 25 26 27";
       animationTime = "1";
       animationCycle = "1";
@@ -715,7 +715,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "2";
    };
    new AnimationAsset(TD_Knight_Death) {
-      imageMap = "TD_Knight_CompSprite";
+      image = "TD_Knight_CompSprite";
       animationFrames = "36 37 38 39 44 45 46 47 52 53 54 55 60 61 62 63";
       animationTime = "1";
       animationCycle = "0";
@@ -818,7 +818,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(FireTower_Upgrade1_IdleAnimation) {
-      imageMap = "FireTower_Upgrade1_IdleSprite";
+      image = "FireTower_Upgrade1_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -829,7 +829,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(FireTower_Upgrade1_FireAnimation) {
-      imageMap = "FireTower_Upgrade1_FireSprite";
+      image = "FireTower_Upgrade1_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -840,7 +840,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(FireTower_Upgrade2_IdleAnimation) {
-      imageMap = "FireTower_Upgrade2_IdleSprite";
+      image = "FireTower_Upgrade2_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -851,7 +851,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(FireTower_Upgrade2_FireAnimation) {
-      imageMap = "FireTower_Upgrade2_FireSprite";
+      image = "FireTower_Upgrade2_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -932,7 +932,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(Impact_ParticleAnimation) {
-      imageMap = "Impact_ParticleSprite1";
+      image = "Impact_ParticleSprite1";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -988,7 +988,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(TD_Barbarian_WalkSouth) {
-      imageMap = "TD_Barbarian_CompSprite";
+      image = "TD_Barbarian_CompSprite";
       animationFrames = "0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32 33 34 40 41 42 43";
       animationTime = "2";
       animationCycle = "1";
@@ -998,7 +998,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(TD_Barbarian_North) {
-      imageMap = "TD_Barbarian_CompSprite";
+      image = "TD_Barbarian_CompSprite";
       animationFrames = "50 51 52 53 54 60 61 62 63 64 70 71 72 73 74 80 81 82 83 84 90 91 92 93";
       animationTime = "2";
       animationCycle = "1";
@@ -1008,7 +1008,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(TD_Barbarian_WalkWest) {
-      imageMap = "TD_Barbarian_CompSprite";
+      image = "TD_Barbarian_CompSprite";
       animationFrames = "5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 35 36 37 38 39 45 46 47 48";
       animationTime = "2";
       animationCycle = "1";
@@ -1018,7 +1018,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(TD_Barbarian_Death) {
-      imageMap = "TD_Barbarian_CompSprite";
+      image = "TD_Barbarian_CompSprite";
       animationFrames = "55 56 57 58 59 65 66 67 68 69 75 76 77 78 79 85 86 87 88 89 95 96 97 98 99";
       animationTime = "2.08333325";
       animationCycle = "0";
@@ -1097,7 +1097,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(TD_Wizard_WalkSouth) {
-      imageMap = "TD_Wizard_CompSprite";
+      image = "TD_Wizard_CompSprite";
       animationFrames = "0 1 2 3 8 9 10 11 16 17 18 19 24 25 26 27";
       animationTime = "1.06666672";
       animationCycle = "1";
@@ -1107,7 +1107,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(TD_Wizard_WalkNorth) {
-      imageMap = "TD_Wizard_CompSprite";
+      image = "TD_Wizard_CompSprite";
       animationFrames = "32 33 34 35 40 41 42 43 48 49 50 51 56 57 58 59";
       animationTime = "1.06666672";
       animationCycle = "1";
@@ -1117,7 +1117,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(TD_Wizard_WalkWest) {
-      imageMap = "TD_Wizard_CompSprite";
+      image = "TD_Wizard_CompSprite";
       animationFrames = "4 5 6 7 12 13 14 15 20 21 22 23 28 29 30 31";
       animationTime = "1.06666672";
       animationCycle = "1";
@@ -1127,7 +1127,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(TD_Wizard_Death) {
-      imageMap = "TD_Wizard_CompSprite";
+      image = "TD_Wizard_CompSprite";
       animationFrames = "36 37 38 39 44 45 46 47 52 53 54 55 60 61 62 63";
       animationTime = "1.06666672";
       animationCycle = "0";
@@ -1419,7 +1419,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(Fire_Tower_Base_Fire_V2) {
-      imageMap = "Fire_Tower_Base_Fire_V2Sprite1";
+      image = "Fire_Tower_Base_Fire_V2Sprite1";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -1429,7 +1429,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(Fire_Tower_Base_Idle_V2) {
-      imageMap = "Fire_Tower_Base_Idle_V2Sprite1";
+      image = "Fire_Tower_Base_Idle_V2Sprite1";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1.06666672";
       animationCycle = "1";
@@ -1439,7 +1439,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(FireTower_Upgrade1_Fire_V2) {
-      imageMap = "FireTower_Upgrade1_Fire_V2Sprite1";
+      image = "FireTower_Upgrade1_Fire_V2Sprite1";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -1449,7 +1449,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(FireTower_Upgrade1_Idle_V2) {
-      imageMap = "FireTower_Upgrade1_Idle_V2Sprite1";
+      image = "FireTower_Upgrade1_Idle_V2Sprite1";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1.06666672";
       animationCycle = "1";
@@ -1459,7 +1459,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(FireTower_Upgrade2_Fire_V2) {
-      imageMap = "FireTower_Upgrade2_Fire_V2Sprite1";
+      image = "FireTower_Upgrade2_Fire_V2Sprite1";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -1470,7 +1470,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(FireTower_Upgrade2_Idle_V2Animation) {
-      imageMap = "FireTower_Upgrade2_Idle_V2Sprite1";
+      image = "FireTower_Upgrade2_Idle_V2Sprite1";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1.06666672";
       animationCycle = "1";
@@ -1840,7 +1840,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Ice_Tower_Base_FireAnimation) {
-      imageMap = "Ice_Tower_Base_FireSprite";
+      image = "Ice_Tower_Base_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -1851,7 +1851,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Ice_Tower_Base_IdleAnimation) {
-      imageMap = "Ice_Tower_Base_IdleSprite";
+      image = "Ice_Tower_Base_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -1862,7 +1862,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Ice_Tower_Upgrade1_FireAnimation) {
-      imageMap = "Ice_Tower_Upgrade1_FireSprite";
+      image = "Ice_Tower_Upgrade1_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -1873,7 +1873,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Ice_Tower_Upgrade1_IdleAnimation) {
-      imageMap = "Ice_Tower_Upgrade1_IdleSprite";
+      image = "Ice_Tower_Upgrade1_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -1884,7 +1884,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Ice_Tower_Upgrade2_FireAnimation) {
-      imageMap = "Ice_Tower_Upgrade2_FireSprite";
+      image = "Ice_Tower_Upgrade2_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -1895,7 +1895,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Poison_Tower_Base_FireAnimation) {
-      imageMap = "Poison_Tower_Base_FireSprite";
+      image = "Poison_Tower_Base_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -1906,7 +1906,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Poison_Tower_Base_IdleAnimation) {
-      imageMap = "Poison_Tower_Base_IdleSprite";
+      image = "Poison_Tower_Base_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -1917,7 +1917,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Poison_Tower_Upgrade1_FireAnimation) {
-      imageMap = "Poison_Tower_Upgrade1_FireSprite";
+      image = "Poison_Tower_Upgrade1_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -1928,7 +1928,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Poison_Tower_Upgrade1_IdleAnimation) {
-      imageMap = "Poison_Tower_Upgrade1_IdleSprite";
+      image = "Poison_Tower_Upgrade1_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -1939,7 +1939,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Poison_Tower_Upgrade2_FireAnimation) {
-      imageMap = "Poison_Tower_Upgrade2_FireSprite";
+      image = "Poison_Tower_Upgrade2_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -1950,7 +1950,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Poison_Tower_Upgrade2_IdleAnimation) {
-      imageMap = "Poison_Tower_Upgrade2_IdleSprite";
+      image = "Poison_Tower_Upgrade2_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -1961,7 +1961,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Ice_Tower_Upgrade2_IdleAnimation) {
-      imageMap = "Ice_Tower_Upgrade2_IdleSprite";
+      image = "Ice_Tower_Upgrade2_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2136,7 +2136,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(Ice_Projectile_1Animation) {
-      imageMap = "Ice_Projectile_1Sprite";
+      image = "Ice_Projectile_1Sprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2146,7 +2146,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(Ice_Projectile_2Animation) {
-      imageMap = "Ice_Projectile_2Sprite";
+      image = "Ice_Projectile_2Sprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2156,7 +2156,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(Poison_Projectile3Animation) {
-      imageMap = "Poison_Projectile3Sprite";
+      image = "Poison_Projectile3Sprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2167,7 +2167,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "4";
    };
    new AnimationAsset(Ice_Projectile_3Animation) {
-      imageMap = "Ice_Projectile_3Sprite";
+      image = "Ice_Projectile_3Sprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2177,7 +2177,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(Poison_Projectile1Animation) {
-      imageMap = "Poison_Projectile1Sprite";
+      image = "Poison_Projectile1Sprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2187,7 +2187,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(Poison_Projectile2Animation) {
-      imageMap = "Poison_Projectile2Sprite";
+      image = "Poison_Projectile2Sprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2197,7 +2197,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(Projectile_Meteor_StrikeAnimation) {
-      imageMap = "Projectile_Meteor_StrikeSprite";
+      image = "Projectile_Meteor_StrikeSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2230,7 +2230,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(Projectile_Galvanic_BlastAnimation) {
-      imageMap = "Projectile_Galvanic_BlastSprite";
+      image = "Projectile_Galvanic_BlastSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2528,7 +2528,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Cannon_Tower_Base_FireAnimation) {
-      imageMap = "Cannon_Tower_Base_FireSprite";
+      image = "Cannon_Tower_Base_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -2539,7 +2539,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Cannon_Tower_Base_IdleAnimation) {
-      imageMap = "Cannon_Tower_Base_IdleSprite";
+      image = "Cannon_Tower_Base_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2550,7 +2550,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Cannon_Tower_Upgrade1_FireAnimation) {
-      imageMap = "Cannon_Tower_Upgrade1_FireSprite";
+      image = "Cannon_Tower_Upgrade1_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -2561,7 +2561,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Cannon_Tower_Upgrade1_IdleAnimation) {
-      imageMap = "Cannon_Tower_Upgrade1_IdleSprite";
+      image = "Cannon_Tower_Upgrade1_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2572,7 +2572,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Cannon_Tower_Upgrade2_FireAnimation) {
-      imageMap = "Cannon_Tower_Upgrade2_FireSprite";
+      image = "Cannon_Tower_Upgrade2_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -2583,7 +2583,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Cannon_Tower_Upgrade2_IdleAnimation) {
-      imageMap = "Cannon_Tower_Upgrade2_IdleSprite";
+      image = "Cannon_Tower_Upgrade2_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2594,7 +2594,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Volley_Tower_Base_FireAnimation) {
-      imageMap = "Volley_Tower_Base_FireSprite";
+      image = "Volley_Tower_Base_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -2605,7 +2605,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Volley_Tower_Base_IdleAnimation) {
-      imageMap = "Volley_Tower_Base_IdleSprite";
+      image = "Volley_Tower_Base_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2616,7 +2616,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Volley_Tower_Upgrade1_FireAnimation) {
-      imageMap = "Volley_Tower_Upgrade1_FireSprite";
+      image = "Volley_Tower_Upgrade1_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -2627,7 +2627,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Volley_Tower_Upgrade1_IdleAnimation) {
-      imageMap = "Volley_Tower_Upgrade1_IdleSprite";
+      image = "Volley_Tower_Upgrade1_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2638,7 +2638,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Volley_Tower_Upgrade2_FireAnimation) {
-      imageMap = "Volley_Tower_Upgrade2_FireSprite";
+      image = "Volley_Tower_Upgrade2_FireSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -2649,7 +2649,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "1";
    };
    new AnimationAsset(Volley_Tower_Upgrade2_IdleAnimation) {
-      imageMap = "Volley_Tower_Upgrade2_IdleSprite";
+      image = "Volley_Tower_Upgrade2_IdleSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2732,7 +2732,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "4";
    };
    new AnimationAsset(Cannonball_projectile_1Animation) {
-      imageMap = "Cannonball_projectile_1Sprite";
+      image = "Cannonball_projectile_1Sprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2742,7 +2742,7 @@ $levelDatablocks = new SimSet() {
       playForward = "1";
    };
    new AnimationAsset(Cannonball_Projectile_2Animation) {
-      imageMap = "Cannonball_Projectile_2Sprite";
+      image = "Cannonball_Projectile_2Sprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2753,7 +2753,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "4";
    };
    new AnimationAsset(Cannonball_Projectile_3Animation) {
-      imageMap = "Cannonball_Projectile_3Sprite";
+      image = "Cannonball_Projectile_3Sprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2835,7 +2835,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "4";
    };
    new AnimationAsset(Volley_Projectiles1Animation) {
-      imageMap = "Volley_Projectiles1Sprite1";
+      image = "Volley_Projectiles1Sprite1";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2846,7 +2846,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "4";
    };
    new AnimationAsset(Volley_Projectiles2Animation) {
-      imageMap = "Volley_Projectiles2Sprite1";
+      image = "Volley_Projectiles2Sprite1";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2857,7 +2857,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "4";
    };
    new AnimationAsset(Volley_Projectiles3Animation) {
-      imageMap = "Volley_Projectiles3Sprite1";
+      image = "Volley_Projectiles3Sprite1";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "1";
@@ -2916,7 +2916,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "4";
    };
    new AnimationAsset(Impact_ExplosionAnimation) {
-      imageMap = "Impact_ExplosionSprite";
+      image = "Impact_ExplosionSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -2951,7 +2951,7 @@ $levelDatablocks = new SimSet() {
          NameTags = "4";
    };
    new AnimationAsset(Impact_PoisonCloudAnimation) {
-      imageMap = "Impact_PoisonCloudSprite";
+      image = "Impact_PoisonCloudSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -3514,7 +3514,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(IceCloudAnimation) {
-      imageMap = "IceCloudSprite";
+      image = "IceCloudSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";
@@ -3547,7 +3547,7 @@ $levelDatablocks = new SimSet() {
       force16bit = "0";
    };
    new AnimationAsset(Impact_FireCloudAnimation) {
-      imageMap = "Impact_FireCloudSprite";
+      image = "Impact_FireCloudSprite";
       animationFrames = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15";
       animationTime = "1";
       animationCycle = "0";

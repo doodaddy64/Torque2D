@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="plus_hImageMap"
+    AssetName="plus_hImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#plus_h.png" />

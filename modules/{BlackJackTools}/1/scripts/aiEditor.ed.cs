@@ -480,7 +480,7 @@ function AiAvatarImageEditBox::refresh(%this)
 {
    if (isObject($AiEditorCurrentObject))
    {
-      %this.text = $AiEditorCurrentObject.getImageMap();
+      %this.text = $AiEditorCurrentObject.getImage();
    }
    else
    {
@@ -500,7 +500,7 @@ function AiAvatarImageEditBox::onSave(%this)
 {
    if (isObject($AiEditorCurrentObject))
    {
-      $AiEditorCurrentObject.setImageMap(%this.getText());
+      $AiEditorCurrentObject.setImage(%this.getText());
       $AiEditorCurrentObject.setFrame(AiAvatarImageFrameEditBox.getValue());
    }
 }
@@ -512,7 +512,7 @@ function AiAvatarImageEditBox::onValidate(%this)
 {
    // This field is set with AssetLibrary, no need to validate.
 
-   if (%this.getText() !$= $AiEditorCurrentObject.getImageMap())
+   if (%this.getText() !$= $AiEditorCurrentObject.getImage())
       AiEditorWindow.SetDirtyValue(true);
 }
 

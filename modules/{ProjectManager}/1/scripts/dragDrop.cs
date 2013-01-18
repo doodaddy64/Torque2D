@@ -17,7 +17,7 @@ function T2DProject::onBeginDropFiles( %this, %fileCount )
 }
 function T2DProject::onDropFile( %this, %filePath )
 {
-   // Check imagemap extension
+   // Check image extension
    %fileExt = fileExt( %filePath );
    if( (%fileExt $= ".png") || (%fileExt $= ".jpg") || (%fileExt $= ".jpeg") )
       %this.onDropImageFile(%filePath);

@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="borderLineImageMap"
+    AssetName="borderLineImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#borderLine.PNG" />

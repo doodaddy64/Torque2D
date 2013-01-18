@@ -25,7 +25,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={EditorAssets}:PopupOverlayImageMap" />
+        Image="@asset={EditorAssets}:PopupOverlayImage" />
     <GuiSpriteCtrl
         canSaveDynamicFields="0"
         isContainer="1"
@@ -39,7 +39,7 @@
         Visible="1"
         Active="0"
         hovertime="1000"
-        Image="@asset={ImageEditor}:spriteSheet_popupImageMap">
+        Image="@asset={ImageEditor}:spriteSheet_popupImage">
         <GuiTextCtrl
             canSaveDynamicFields="0"
             isContainer="0"
@@ -523,10 +523,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumOkayImageMap"
-            HoverImage="@asset={EditorAssets}:mediumOkay_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumOkay_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumOkay_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumOkayImage"
+            HoverImage="@asset={EditorAssets}:mediumOkay_hImage"
+            DownImage="@asset={EditorAssets}:mediumOkay_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumOkay_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorCancelButton"
             canSaveDynamicFields="0"
@@ -547,10 +547,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:mediumCancelImageMap"
-            HoverImage="@asset={EditorAssets}:mediumCancel_hImageMap"
-            DownImage="@asset={EditorAssets}:mediumCancel_dImageMap"
-            InactiveImage="@asset={EditorAssets}:mediumCancel_iImageMap" />
+            NormalImage="@asset={EditorAssets}:mediumCancelImage"
+            HoverImage="@asset={EditorAssets}:mediumCancel_hImage"
+            DownImage="@asset={EditorAssets}:mediumCancel_dImage"
+            InactiveImage="@asset={EditorAssets}:mediumCancel_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorAddTagButton"
             canSaveDynamicFields="0"
@@ -570,10 +570,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:smallAddImageMap"
-            HoverImage="@asset={EditorAssets}:smallAdd_hImageMap"
-            DownImage="@asset={EditorAssets}:smallAdd_dImageMap"
-            InactiveImage="@asset={EditorAssets}:smallAdd_iImageMap" />
+            NormalImage="@asset={EditorAssets}:smallAddImage"
+            HoverImage="@asset={EditorAssets}:smallAdd_hImage"
+            DownImage="@asset={EditorAssets}:smallAdd_dImage"
+            InactiveImage="@asset={EditorAssets}:smallAdd_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorCellCountXButtonDown"
             canSaveDynamicFields="0"
@@ -593,10 +593,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorCellCountXButtonUp"
             canSaveDynamicFields="0"
@@ -616,10 +616,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorCellCountYButtonDown"
             canSaveDynamicFields="0"
@@ -639,10 +639,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorCellWidthButtonDown"
             canSaveDynamicFields="0"
@@ -662,10 +662,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorCellHeightButtonDown"
             canSaveDynamicFields="0"
@@ -685,10 +685,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:minusImageMap"
-            HoverImage="@asset={EditorAssets}:minus_hImageMap"
-            DownImage="@asset={EditorAssets}:minus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:minusImage"
+            HoverImage="@asset={EditorAssets}:minus_hImage"
+            DownImage="@asset={EditorAssets}:minus_dImage"
+            InactiveImage="@asset={EditorAssets}:minus_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorCellCountYButtonUp"
             canSaveDynamicFields="0"
@@ -708,10 +708,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorCellWidthButtonUp"
             canSaveDynamicFields="0"
@@ -731,10 +731,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorCellHeightButtonUp"
             canSaveDynamicFields="0"
@@ -754,10 +754,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:plusImageMap"
-            HoverImage="@asset={EditorAssets}:plus_hImageMap"
-            DownImage="@asset={EditorAssets}:plus_dImageMap"
-            InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
+            NormalImage="@asset={EditorAssets}:plusImage"
+            HoverImage="@asset={EditorAssets}:plus_hImage"
+            DownImage="@asset={EditorAssets}:plus_dImage"
+            InactiveImage="@asset={EditorAssets}:plus_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorZoomButton"
             canSaveDynamicFields="0"
@@ -775,10 +775,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:magnifyingGlassImageMap"
-            HoverImage="@asset={EditorAssets}:magnifyingGlass_hImageMap"
-            DownImage="@asset={EditorAssets}:magnifyingGlass_dImageMap"
-            InactiveImage="@asset={EditorAssets}:magnifyingGlass_iImageMap" />
+            NormalImage="@asset={EditorAssets}:magnifyingGlassImage"
+            HoverImage="@asset={EditorAssets}:magnifyingGlass_hImage"
+            DownImage="@asset={EditorAssets}:magnifyingGlass_dImage"
+            InactiveImage="@asset={EditorAssets}:magnifyingGlass_iImage" />
         <GuiImageButtonCtrl
             Name="ImageEditorFileBrowserButton"
             canSaveDynamicFields="0"
@@ -799,10 +799,10 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
-            NormalImage="@asset={EditorAssets}:hardDriveImageMap"
-            HoverImage="@asset={EditorAssets}:hardDrive_hImageMap"
-            DownImage="@asset={EditorAssets}:hardDrive_dImageMap"
-            InactiveImage="@asset={EditorAssets}:hardDrive_iImageMap" />
+            NormalImage="@asset={EditorAssets}:hardDriveImage"
+            HoverImage="@asset={EditorAssets}:hardDrive_hImage"
+            DownImage="@asset={EditorAssets}:hardDrive_dImage"
+            InactiveImage="@asset={EditorAssets}:hardDrive_iImage" />
         <GuiControl
             Name="PreviewContainerOTDialog"
             canSaveDynamicFields="0"

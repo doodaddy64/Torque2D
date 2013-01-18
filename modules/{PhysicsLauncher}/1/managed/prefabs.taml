@@ -17,10 +17,10 @@
             SleepingCallback="1"
             activated="0"
             animationName="PL_DefaultProjectileAnim"
-            IconDepressed="{PhysicsLauncherAssets}:GorillaButtonDownImageMap"
-            IconHover="{PhysicsLauncherAssets}:GorillaButtonHoverImageMap"
-            IconInactive="{PhysicsLauncherAssets}:GorillaButtonInactiveImageMap"
-            IconNormal="{PhysicsLauncherAssets}:GorillaButtonUpImageMap"
+            IconDepressed="{PhysicsLauncherAssets}:GorillaButtonDownImage"
+            IconHover="{PhysicsLauncherAssets}:GorillaButtonHoverImage"
+            IconInactive="{PhysicsLauncherAssets}:GorillaButtonInactiveImage"
+            IconNormal="{PhysicsLauncherAssets}:GorillaButtonUpImage"
             PointValue="10000">
             <Sprite.Behaviors>
                 <ProjectileBehavior
@@ -168,10 +168,10 @@
             SleepingCallback="1"
             activated="0"
             animationName="PL_DefaultProjectileAnim"
-            IconDepressed="{PhysicsLauncherAssets}:GorillaButtonDownImageMap"
-            IconHover="{PhysicsLauncherAssets}:GorillaButtonHoverImageMap"
-            IconInactive="{PhysicsLauncherAssets}:GorillaButtonInactiveImageMap"
-            IconNormal="{PhysicsLauncherAssets}:GorillaButtonUpImageMap"
+            IconDepressed="{PhysicsLauncherAssets}:GorillaButtonDownImage"
+            IconHover="{PhysicsLauncherAssets}:GorillaButtonHoverImage"
+            IconInactive="{PhysicsLauncherAssets}:GorillaButtonInactiveImage"
+            IconNormal="{PhysicsLauncherAssets}:GorillaButtonUpImage"
             PointValue="10000">
             <Sprite.Behaviors>
                 <ProjectileBehavior
@@ -385,7 +385,7 @@
                 SceneLayer="12"
                 size="4 4"
                 BodyType="static"
-                ImageMap="@asset={PhysicsLauncherAssets}:SlingshotForegroundImageMap"
+                Image="@asset={PhysicsLauncherAssets}:SlingshotForegroundImage"
                 Frame="0" />
             <Sprite
                 Name="ForkBackgroundObjectPrefab0"
@@ -393,7 +393,7 @@
                 SceneLayer="18"
                 size="4 4"
                 BodyType="static"
-                ImageMap="@asset={PhysicsLauncherAssets}:SlingshotBackgroundImageMap"
+                Image="@asset={PhysicsLauncherAssets}:SlingshotBackgroundImage"
                 Frame="0" />
             <Sprite
                 Name="SeatObjectPrefab0"
@@ -402,7 +402,7 @@
                 size="1.5 1.5"
                 BodyType="static"
                 Visible="0"
-                ImageMap="@asset={PhysicsLauncherAssets}:SlingshotSeatImageMap"
+                Image="@asset={PhysicsLauncherAssets}:SlingshotSeatImage"
                 Frame="0" />
             <Sprite
                 Name="Band0ObjectPrefab0"
@@ -411,7 +411,7 @@
                 size="0.5 0.5"
                 BodyType="static"
                 Visible="0"
-                ImageMap="@asset={PhysicsLauncherAssets}:RubberbandImageMap"
+                Image="@asset={PhysicsLauncherAssets}:RubberbandImage"
                 Frame="0">
                 <Sprite.Behaviors>
                     <ScaleBetweenPointsBehavior
@@ -432,7 +432,7 @@
                 size="0.5 0.5"
                 BodyType="static"
                 Visible="0"
-                ImageMap="@asset={PhysicsLauncherAssets}:RubberbandImageMap"
+                Image="@asset={PhysicsLauncherAssets}:RubberbandImage"
                 Frame="0">
                 <Sprite.Behaviors>
                     <ScaleBetweenPointsBehavior
@@ -851,27 +851,27 @@
                     damageModifierGroups="0" />
                 <AnimationEffectBehavior
                     Id="3"
-                    asset="@asset={PhysicsLauncherAssets}:GroundImageMap"
+                    asset="@asset={PhysicsLauncherAssets}:GroundImage"
                     Frame="0"
                     instanceName="IdleAnimationEffectBehavior" />
                 <AnimationEffectBehavior
                     Id="4"
-                    asset="@asset={PhysicsLauncherAssets}:GroundImageMap"
+                    asset="@asset={PhysicsLauncherAssets}:GroundImage"
                     Frame="0"
                     instanceName="DamageAnimationEffectBehavior0" />
                 <AnimationEffectBehavior
                     Id="5"
-                    asset="@asset={PhysicsLauncherAssets}:GroundImageMap"
+                    asset="@asset={PhysicsLauncherAssets}:GroundImage"
                     Frame="0"
                     instanceName="DamageAnimationEffectBehavior1" />
                 <AnimationEffectBehavior
                     Id="6"
-                    asset="@asset={PhysicsLauncherAssets}:GroundImageMap"
+                    asset="@asset={PhysicsLauncherAssets}:GroundImage"
                     Frame="0"
                     instanceName="DamageAnimationEffectBehavior2" />
                 <AnimationEffectBehavior
                     Id="7"
-                    asset="@asset={PhysicsLauncherAssets}:GroundImageMap"
+                    asset="@asset={PhysicsLauncherAssets}:GroundImage"
                     Frame="0"
                     instanceName="DamageAnimationEffectBehavior3" />
                 <VanishBehavior
@@ -881,7 +881,7 @@
                     vanishDuration="1" />
                 <AnimationEffectBehavior
                     Id="9"
-                    asset="@asset={PhysicsLauncherAssets}:GroundImageMap"
+                    asset="@asset={PhysicsLauncherAssets}:GroundImage"
                     Frame="0"
                     instanceName="DamageAnimationEffectBehavior4" />
                 <SoundEffectBehavior

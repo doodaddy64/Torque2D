@@ -57,7 +57,7 @@ function CollisionShapePreview::createTransformControls(%this)
             Extent="18 18";
             Visible="0";
             Active="1";
-            Image="{3SSCollisionEditor}:transformToolHandleImageMap";
+            Image="{3SSCollisionEditor}:transformToolHandleImage";
         };
         
         // Add control to the preview window
@@ -139,14 +139,14 @@ function TransformHandleMouseEventControl::onMouseEnter(%this, %modifier, %mouse
 {
     %spriteControl = %this.getParent();
     
-    %spriteControl.Image = "{3SSCollisionEditor}:transformToolHandle_hImageMap";
+    %spriteControl.Image = "{3SSCollisionEditor}:transformToolHandle_hImage";
 }
 
 function TransformHandleMouseEventControl::onMouseLeave(%this, %modifier, %mousePoint, %mouseClickCount)
 {
     %spriteControl = %this.getParent();
     
-    %spriteControl.Image = "{3SSCollisionEditor}:transformToolHandleImageMap";
+    %spriteControl.Image = "{3SSCollisionEditor}:transformToolHandleImage";
 }
 
 function TransformHandleMouseEventControl::onMouseDown(%this, %modifier, %mousePoint, %mouseClickCount)
@@ -155,7 +155,7 @@ function TransformHandleMouseEventControl::onMouseDown(%this, %modifier, %mouseP
     
     %spriteControl = %this.getParent();
     
-    %spriteControl.Image = "{3SSCollisionEditor}:transformToolHandle_dImageMap";
+    %spriteControl.Image = "{3SSCollisionEditor}:transformToolHandle_dImage";
     
     // Save the drag start (world) point for use in scaling calculations
     %this.dragStartPoint = CEPreviewWindow.globalPointToWorldPoint(%mousePoint);
@@ -169,7 +169,7 @@ function TransformHandleMouseEventControl::onMouseUp(%this, %modifier, %mousePoi
     
     %spriteControl = %this.getParent();
     
-    %spriteControl.Image = "{3SSCollisionEditor}:transformToolHandle_hImageMap";
+    %spriteControl.Image = "{3SSCollisionEditor}:transformToolHandle_hImage";
     
     %this.dragStartPoint = "";
 }

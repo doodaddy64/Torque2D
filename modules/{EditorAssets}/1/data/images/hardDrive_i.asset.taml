@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="hardDrive_iImageMap"
+    AssetName="hardDrive_iImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#hardDrive_i.png" />

@@ -147,7 +147,7 @@ function EditorShellGui::addView(%this, %guiControl, %size)
     }
     else
     {
-        %borderImage = "{EditorShell}:" @ %size @ "_ContainerImageMap";
+        %borderImage = "{EditorShell}:" @ %size @ "_ContainerImage";
     
         %newToolBorderCtrl = new GuiSpriteCtrl()
         {

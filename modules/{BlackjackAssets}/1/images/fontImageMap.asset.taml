@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="fontImageMap"
+    AssetName="fontImage"
     ImageFile="@assetFile=^{BlackjackAssets}/images/font"
     CellCountX="16"
     CellCountY="6"

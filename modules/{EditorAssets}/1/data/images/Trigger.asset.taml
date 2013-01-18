@@ -1,5 +1,5 @@
 <ImageAsset
-    AssetName="TriggerImageMap"
+    AssetName="TriggerImage"
     AssetCategory="gui"
     AssetInternal="1"
     ImageFile="@assetFile=#Trigger.png" />
