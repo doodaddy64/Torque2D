@@ -203,14 +203,14 @@ public:
     inline ParticleAssetField& getFixedForceBaseField( void ) { return mFixedForce.getBase(); }
     inline ParticleAssetField& getFixedForceVariationField( void ) { return mFixedForce.getVariation(); }
     inline ParticleAssetField& getFixedForceLifeField( void ) { return mFixedForce.getLife(); }
-    inline ParticleAssetField& getRandomMotionForceBaseField( void ) { return mRandomMotion.getBase(); }
-    inline ParticleAssetField& getRandomMotionForceVariationField( void ) { return mRandomMotion.getVariation(); }
-    inline ParticleAssetField& getRandomMotionForceLifeField( void ) { return mRandomMotion.getLife(); }
+    inline ParticleAssetField& getRandomMotionBaseField( void ) { return mRandomMotion.getBase(); }
+    inline ParticleAssetField& getRandomMotionVariationField( void ) { return mRandomMotion.getVariation(); }
+    inline ParticleAssetField& getRandomMotionLifeField( void ) { return mRandomMotion.getLife(); }
     inline ParticleAssetField& getEmissionForceForceBaseField( void ) { return mEmissionForce.getBase(); }
     inline ParticleAssetField& getEmissionForceVariationField( void ) { return mEmissionForce.getVariation(); }
-    inline ParticleAssetField& getEmissionAngleForceBaseField( void ) { return mEmissionAngle.getBase(); }
+    inline ParticleAssetField& getEmissionAngleBaseField( void ) { return mEmissionAngle.getBase(); }
     inline ParticleAssetField& getEmissionAngleVariationField( void ) { return mEmissionAngle.getVariation(); }
-    inline ParticleAssetField& getEmissionArcForceBaseField( void ) { return mEmissionArc.getBase(); }
+    inline ParticleAssetField& getEmissionArcBaseField( void ) { return mEmissionArc.getBase(); }
     inline ParticleAssetField& getEmissionArcVariationField( void ) { return mEmissionArc.getVariation(); }
     inline ParticleAssetField& getRedChannelLifeField( void ) { return mRedChannel.getLife(); }
     inline ParticleAssetField& getGreenChannelLifeField( void ) { return mGreenChannel.getLife(); }

@@ -131,8 +131,8 @@ protected:
     bool                    mAutoSizing;
     b2AABB                  mPreTickAABB;
     b2AABB                  mCurrentAABB;
+    Vector2                 mLocalSizeOOBB[4];
     Vector2                 mRenderOOBB[4];
-    Vector2                 mLocalSizeVertices[4];
     S32                     mWorldProxyId;
 
     /// Position / Angle.
@@ -322,7 +322,7 @@ public:
     inline Vector2          getRenderPosition(void) const               { return mRenderPosition; }
     inline F32              getRenderAngle(void) const                  { return mRenderAngle; }
     inline const b2Vec2*    getRenderOOBB(void) const                   { return mRenderOOBB; }
-    inline const b2Vec2*    getLocalSizeVertices( void ) const          { return mLocalSizeVertices; }
+    inline const b2Vec2*    getLocalSizedOOBB( void ) const             { return mLocalSizeOOBB; }
     virtual void            setAngle( const F32 radians );
     inline F32              getAngle(void) const                        { if ( mpScene ) return mpBody->GetAngle(); else return mBodyDefinition.angle; }
     virtual void            setFixedAngle( const bool fixed )           { if ( mpScene ) mpBody->SetFixedRotation( fixed ); else mBodyDefinition.fixedRotation = fixed; }

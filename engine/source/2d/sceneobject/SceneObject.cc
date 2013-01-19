@@ -463,7 +463,7 @@ void SceneObject::OnRegisterScene( Scene* pScene )
     mCollisionFixtureDefs.clear();
 
     // Calculate current AABB.
-    CoreMath::mCalculateAABB( mLocalSizeVertices, mpBody->GetTransform(), &mCurrentAABB );
+    CoreMath::mCalculateAABB( getLocalSizedOOBB(), mpBody->GetTransform(), &mCurrentAABB );
 
     // Create world proxy Id.
     mWorldProxyId = pScene->getWorldQuery()->add( this );
@@ -556,13 +556,13 @@ void SceneObject::resetTickSpatials( const bool resize )
     b2Transform bodyXform = getTransform();
 
     // Calculate current AABB.
-    CoreMath::mCalculateAABB( mLocalSizeVertices, bodyXform, &mCurrentAABB );
+    CoreMath::mCalculateAABB( getLocalSizedOOBB(), bodyXform, &mCurrentAABB );
 
     // Set coincident AABBs.
     mPreTickAABB = mCurrentAABB;
 
     // Calculate render OOBB.
-    CoreMath::mCalculateOOBB( mLocalSizeVertices, bodyXform, mRenderOOBB );
+    CoreMath::mCalculateOOBB( getLocalSizedOOBB(), bodyXform, mRenderOOBB );
 
     // Update world proxy (if in scene).
     if ( mpScene )
@@ -608,7 +608,7 @@ void SceneObject::preIntegrate( const F32 totalTime, const F32 elapsedTime, Debu
     mPreTickAABB     = mCurrentAABB;
 
     // Calculate render OOBB.
-    CoreMath::mCalculateOOBB( mLocalSizeVertices,getTransform(), mRenderOOBB );
+    CoreMath::mCalculateOOBB( getLocalSizedOOBB(), getTransform(), mRenderOOBB );
 }
 
 //-----------------------------------------------------------------------------
@@ -630,7 +630,7 @@ void SceneObject::integrateObject( const F32 totalTime, const F32 elapsedTime, D
         mSpatialDirty = true;
 
         // Calculate current AABB.
-        CoreMath::mCalculateAABB( mLocalSizeVertices, getTransform(), &mCurrentAABB );
+        CoreMath::mCalculateAABB( getLocalSizedOOBB(), getTransform(), &mCurrentAABB );
 
         // Calculate tick AABB.
         b2AABB tickAABB;
@@ -747,7 +747,7 @@ void SceneObject::interpolateObject( const F32 timeDelta )
         b2Transform renderXF( mRenderPosition, b2Rot(mRenderAngle) );
 
         // Calculate render OOBB.
-        CoreMath::mCalculateOOBB( mLocalSizeVertices, renderXF, mRenderOOBB );
+        CoreMath::mCalculateOOBB( getLocalSizedOOBB(), renderXF, mRenderOOBB );
     }
 
     // Update Any Attached GUI.
@@ -1238,11 +1238,11 @@ void SceneObject::setSize( const Vector2& size )
     const F32 halfWidth = size.x * 0.5f;
     const F32 halfHeight = size.y * 0.5f;
 
-    // Set local size vertices.
-    mLocalSizeVertices[0].Set( -halfWidth, -halfHeight );
-    mLocalSizeVertices[1].Set( +halfWidth, -halfHeight );
-    mLocalSizeVertices[2].Set( +halfWidth, +halfHeight );
-    mLocalSizeVertices[3].Set( -halfWidth, +halfHeight );
+    // Set local size OOBB.
+    mLocalSizeOOBB[0].Set( -halfWidth, -halfHeight );
+    mLocalSizeOOBB[1].Set( +halfWidth, -halfHeight );
+    mLocalSizeOOBB[2].Set( +halfWidth, +halfHeight );
+    mLocalSizeOOBB[3].Set( -halfWidth, +halfHeight );
 
     if ( mpScene )
     {

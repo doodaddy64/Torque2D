@@ -90,12 +90,12 @@ public:
     inline ParticleAssetField& getSpeedScaleField( void ) { return mSpeed.getBase(); }
     inline ParticleAssetField& getSpinScaleField( void ) { return mSpin.getBase(); }
     inline ParticleAssetField& getFixedForceScaleField( void ) { return mFixedForce.getBase(); }
-    inline ParticleAssetField& getRandomMotionForceScaleField( void ) { return mRandomMotion.getBase(); }
+    inline ParticleAssetField& getRandomMotionScaleField( void ) { return mRandomMotion.getBase(); }
     inline ParticleAssetField& getAlphaChannelScaleField( void ) { return mAlphaChannel.getBase(); }
 
-    inline ParticleAssetField& getEmissionForceForceBaseField( void ) { return mEmissionForce.getBase(); }
+    inline ParticleAssetField& getEmissionForceBaseField( void ) { return mEmissionForce.getBase(); }
     inline ParticleAssetField& getEmissionForceVariationField( void ) { return mEmissionForce.getVariation(); }
-    inline ParticleAssetField& getEmissionAngleForceBaseField( void ) { return mEmissionAngle.getBase(); }
+    inline ParticleAssetField& getEmissionAngleBaseField( void ) { return mEmissionAngle.getBase(); }
     inline ParticleAssetField& getEmissionAngleVariationField( void ) { return mEmissionAngle.getVariation(); }
     inline ParticleAssetField& getEmissionArcBaseField( void ) { return mEmissionArc.getBase(); }
     inline ParticleAssetField& getEmissionArcVariationField( void ) { return mEmissionArc.getVariation(); }
