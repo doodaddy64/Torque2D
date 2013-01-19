@@ -15,23 +15,22 @@ function runParticleTest()
            
     %emitter = %effectAsset.createEmitter();
     %emitter.setEmitterName( "Sputter" );
-    %emitter.EmitterType = "Area";
+    %emitter.EmitterType = "point";
     %emitter.Image = "MelvToy:MiniTileMapImage";
     %emitter.FixedAspect = true;
 
-    %emitter.selectField( "Lifetime" );    
+    %emitter.selectField( "Lifetime" ); 
         %emitter.setSingleDataKey( 1 );
 
     %emitter.selectField( "Quantity" );    
         %emitter.setSingleDataKey( 100 );
     
-    %emitter.selectField( "SizeX" );
+    %emitter.selectField( "SizeXLife" );
         %emitter.addDataKey( 0, 0 );
-        %emitter.addDataKey( 0.5, 10 );
+        %emitter.addDataKey( 0.5, 5 );
         %emitter.addDataKey( 1, 0 );
             
     %emitter.selectField( "AlphaChannel" );
-        %emitter.setRepeatTime( 1 );
         %emitter.addDataKey( 0, 0 );
         %emitter.addDataKey( 0.5, 1 );
         %emitter.addDataKey( 1, 0 );    

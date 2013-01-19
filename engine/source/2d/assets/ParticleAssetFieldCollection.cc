@@ -71,6 +71,35 @@ void ParticleAssetFieldCollection::addField( ParticleAssetField& particleAssetFi
 
 //-----------------------------------------------------------------------------
 
+ParticleAssetField* ParticleAssetFieldCollection::selectField( const char* pFieldName )
+{
+    // Sanity!
+    AssertFatal( pFieldName != NULL, "ParticleAssetFieldCollection::selectField() - Field name cannot be NULL or empty." );
+
+    // Has a field-name been specified?
+    if ( dStrlen(pFieldName) > 0 )
+    {
+        // Yes, so find the field.
+        mpSelectedField = findField( pFieldName );
+
+        // Did we find the field?
+        if ( mpSelectedField == NULL )
+        {
+            // No, so warn.
+            Con::warnf( "ParticleAssetFieldCollection::selectField() - Could not find the field name '%s'.", pFieldName );
+        }
+    }
+    else
+    {
+        // No, so reset the field.
+        mpSelectedField = NULL;
+    }
+
+    return mpSelectedField;
+}
+
+//-----------------------------------------------------------------------------
+
 ParticleAssetField* ParticleAssetFieldCollection::findField( const char* pFieldName )
 {
     // Sanity!
@@ -85,7 +114,7 @@ ParticleAssetField* ParticleAssetFieldCollection::findField( const char* pFieldN
 
 //-----------------------------------------------------------------------------
 
-S32 ParticleAssetFieldCollection::setSingleKey( F32 value )
+S32 ParticleAssetFieldCollection::setSingleDataKey( F32 value )
 {
     // Have we got a valid field selected?
     if ( !mpSelectedField )
@@ -96,7 +125,7 @@ S32 ParticleAssetFieldCollection::setSingleKey( F32 value )
     }
 
     // Set single data key.
-    return mpSelectedField->setSingleKey( value );
+    return mpSelectedField->setSingleDataKey( value );
 }
 
 //-----------------------------------------------------------------------------
@@ -322,7 +351,7 @@ bool ParticleAssetFieldCollection::setRepeatTime( const F32 repeatTime )
         return false;
     }
 
-    // Set Time Repeat.
+    // Set repeat time.
     return mpSelectedField->setRepeatTime( repeatTime );
 }
 
@@ -338,7 +367,7 @@ F32 ParticleAssetFieldCollection::getRepeatTime( void ) const
         return 0.0f;
     }
 
-    // Get Time Repeat.
+    // Get repeat time.
     return mpSelectedField->getRepeatTime();
 }
 

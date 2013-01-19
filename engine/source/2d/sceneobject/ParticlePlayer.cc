@@ -901,8 +901,8 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
     // **********************************************************************************************************************
 
     pParticleNode->mParticleAge = 0.0f;
-    pParticleNode->mParticleLifetime = ParticleAssetField::calculateFieldBVE(   pParticleAssetEmitter->getQuantityBaseField(),
-                                                                                pParticleAssetEmitter->getQuantityVariationField(),
+    pParticleNode->mParticleLifetime = ParticleAssetField::calculateFieldBVE(   pParticleAssetEmitter->getParticleLifeBaseField(),
+                                                                                pParticleAssetEmitter->getParticleLifeVariationField(),
                                                                                 pParticleAsset->getParticleLifeScaleField(),
                                                                                 particlePlayerAge );
 

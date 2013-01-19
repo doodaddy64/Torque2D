@@ -236,7 +236,7 @@ void ParticleAssetField::resetDataKeys(void)
 
 //-----------------------------------------------------------------------------
 
-S32 ParticleAssetField::setSingleKey( const F32 value )
+S32 ParticleAssetField::setSingleDataKey( const F32 value )
 {
     // Clear Data Keys.
     mDataKeys.clear();
