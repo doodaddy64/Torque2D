@@ -118,8 +118,6 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mOwner( NULL ),
                             mEmitterType( POINT_EMITTER ),
                             mFixedAspect( true ),
-                            mFixedForceAngle( 0.0f ),
-                            mFixedForceDirection( 0.0f, 0.0f ),
                             mOrientationType( FIXED_ORIENTATION ),
                             mKeepAligned( false ),
                             mAlignedAngleOffset( 0.0f ),
@@ -148,6 +146,10 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
     // NOTE:    This is called to set the local AABB.
     setPivotPoint( Vector2::getZero() );
 
+    // Set fixed force angle.
+    // NOTE:    This is called to set the fixed-force-direction.
+    setFixedForceAngle( 0.0f );
+
     // Initialize particle fields.
     mParticleFields.addField( mParticleLife.getBase(), "Lifetime", 1000.0f, 0.0f, 1000.0f, 2.0f );
     mParticleFields.addField( mParticleLife.getVariation(), "LifetimeVariation", 1000.0f, 0.0f, 2000.0f, 0.0f  );
@@ -165,14 +167,14 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
     mParticleFields.addField( mSpin.getBase(), "Spin", 1000.0f, -1000.0f, 1000.0f, 0.0f );
     mParticleFields.addField( mSpin.getVariation(), "SpinVariation", 1000.0f, 0.0f, 2000.0f, 0.0f );
     mParticleFields.addField( mSpin.getLife(), "SpinLife", 1.0f, -1000.0f, 1000.0f, 1.0f );
-    mParticleFields.addField( mFixedForce.getBase(), "FixedForce", 1000.0f, -100.0f, 100.0f, 0.0f );
-    mParticleFields.addField( mFixedForce.getVariation(), "FixedForceVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
-    mParticleFields.addField( mFixedForce.getLife(), "FixedForceLife", 1.0f, -100.0f, 100.0f, 1.0f );
-    mParticleFields.addField( mRandomMotion.getBase(), "RandomMotion", 1000.0f, 0.0f, 100.0f, 0.0f );
-    mParticleFields.addField( mRandomMotion.getVariation(), "RandomMotionVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
+    mParticleFields.addField( mFixedForce.getBase(), "FixedForce", 1000.0f, -1000.0f, 1000.0f, 0.0f );
+    mParticleFields.addField( mFixedForce.getVariation(), "FixedForceVariation", 1000.0f, 0.0f, 2000.0f, 0.0f );
+    mParticleFields.addField( mFixedForce.getLife(), "FixedForceLife", 1.0f, -1000.0f, 1000.0f, 1.0f );
+    mParticleFields.addField( mRandomMotion.getBase(), "RandomMotion", 1000.0f, 0.0f, 1000.0f, 0.0f );
+    mParticleFields.addField( mRandomMotion.getVariation(), "RandomMotionVariation", 1000.0f, 0.0f, 2000.0f, 0.0f );
     mParticleFields.addField( mRandomMotion.getLife(), "RandomMotionLife", 1.0f, -100.0f, 100.0f, 1.0f );
-    mParticleFields.addField( mEmissionForce.getBase(), "EmissionForce", 1000.0f, -100.0f, 100.0f, 5.0f );
-    mParticleFields.addField( mEmissionForce.getVariation(), "EmissionForceVariation", 1000.0f, -100.0f, 100.0f, 5.0f );
+    mParticleFields.addField( mEmissionForce.getBase(), "EmissionForce", 1000.0f, -100.0f, 1000.0f, 5.0f );
+    mParticleFields.addField( mEmissionForce.getVariation(), "EmissionForceVariation", 1000.0f, -500.0f, 500.0f, 5.0f );
     mParticleFields.addField( mEmissionAngle.getBase(), "EmissionAngle", 1000.0f, -180.0f, 180.0f, 0.0f );
     mParticleFields.addField( mEmissionAngle.getVariation(), "EmissionAngleVariation", 1000.0f, 0.0f, 360.0f, 0.0f );
     mParticleFields.addField( mEmissionArc.getBase(), "EmissionArc", 1000.0f, 0.0f, 360.0f, 360.0f );
@@ -333,11 +335,14 @@ void ParticleAssetEmitter::setFixedForceAngle( F32 fixedForceAngle )
     // Set Fixed-Force Angle.
     mFixedForceAngle = fixedForceAngle;
 
-    // Refresh the asset.
-    refreshAsset();
+    // Calculate the angle in radians.
+    const F32 fixedForceAngleRadians = mDegToRad(mFixedForceAngle);
 
     // Set Fixed-Force Direction.
-    mFixedForceDirection.Set( mSin(mDegToRad(mFixedForceAngle)), mCos(mDegToRad(mFixedForceAngle)) );
+    mFixedForceDirection.Set( mCos(fixedForceAngleRadians), mSin(fixedForceAngleRadians) );
+
+    // Refresh the asset.
+    refreshAsset();
 }
 
 //------------------------------------------------------------------------------

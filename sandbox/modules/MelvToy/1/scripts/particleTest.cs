@@ -30,8 +30,9 @@ function runParticleTest()
     //%emitter.selectField( "SpeedVariation" );    
         //%emitter.setSingleDataKey( 4 );
 
+
     %emitter.selectField( "Quantity" );    
-        %emitter.setSingleDataKey( 2000 );
+        %emitter.setSingleDataKey( 1000 );
     
     %emitter.selectField( "SizeXLife" );
         %emitter.addDataKey( 0, 0 );
@@ -39,15 +40,23 @@ function runParticleTest()
         %emitter.addDataKey( 0.9, 2 );
         %emitter.addDataKey( 1, 0 );
 
-    %emitter.selectField( "SpinVariation" );
+    %emitter.selectField( "Spin" );    
         %emitter.setSingleDataKey( 360 );
+
+    //%emitter.selectField( "SpinVariation" );
+        //%emitter.setSingleDataKey( 360 );
         
-    %emitter.selectField( "RandomMotion" );
-        %emitter.setSingleDataKey( 100 );
+    //%emitter.selectField( "RandomMotion" );
+        //%emitter.setSingleDataKey( 200 );
+
+    //%emitter.selectField( "FixedForce" );
+        //%emitter.setSingleDataKey( 100 );
+        //%emitter.FixedForceAngle = 0;
             
     %emitter.selectField( "AlphaChannel" );
         %emitter.addDataKey( 0, 0 );
-        %emitter.addDataKey( 0.5, 1 );
+        %emitter.addDataKey( 0.1, 1 );
+        %emitter.addDataKey( 0.9, 1 );
         %emitter.addDataKey( 1, 0 );    
         
     %emitter.deselectField();  

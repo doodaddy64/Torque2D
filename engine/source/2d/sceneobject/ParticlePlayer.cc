@@ -1246,7 +1246,7 @@ void ParticlePlayer::integrateParticle( EmitterNode* pEmitterNode, ParticleSyste
             const F32 randomMotion = pParticleNode->mRenderRandomMotion * 0.5f;
 
             // Add time-integrated random motion into velocity.
-            pParticleNode->mVelocity += elapsedTime * Vector2( CoreMath::mGetRandomF(-randomMotion, randomMotion), CoreMath::mGetRandomF(-randomMotion, randomMotion) );
+            pParticleNode->mVelocity += Vector2( CoreMath::mGetRandomF(-randomMotion, randomMotion) * elapsedTime, CoreMath::mGetRandomF(-randomMotion, randomMotion) * elapsedTime );
         }
 
         // Do we have any fixed force?
