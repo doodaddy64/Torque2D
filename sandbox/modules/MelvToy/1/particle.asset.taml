@@ -2,12 +2,12 @@
     AssetName="TestParticle">
     <ParticleAssetEmitter
         EmitterName="Sputter"
-        EmitterType="AREA"
+        EmitterType="LINEX"
         FixedForceAngle="-90"
         AttachPositionToEmitter="1"
-        Image="@asset=MelvToy:Particles5"
-        Frame="2"
-        RandomImageFrame="1">
+        OldestInFront="1"
+        Image="@asset=MelvToy:Particles1"
+        Frame="1">
         <ParticleAssetEmitter.Fields>
             <Quantity
                 Keys="0 5000" />
@@ -16,15 +16,15 @@
             <Speed
                 Keys="0 2" />
             <FixedForce
-                Keys="0 5" />
+                Keys="0 50" />
             <SizeXLife
-                Keys="0 0 0.1 0.5 0.5 1 0.9 0.2 1 0" />
+                Keys="0 0 0.1 2 0.5 1 0.9 0.1 1 0" />
             <RandomMotion
                 Keys="0 80" />
             <SpeedVariation
                 Keys="0 1" />
             <AlphaChannel
-                Keys="0 0 0.1 1 0.9 1 1 0" />
+                Keys="0 0 0.1 1 0.9 1 1 1" />
         </ParticleAssetEmitter.Fields>
     </ParticleAssetEmitter>
 </ParticleAsset>

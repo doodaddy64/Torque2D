@@ -29,7 +29,7 @@ void ParticleSystem::destroy( void )
 //------------------------------------------------------------------------------
 
 ParticleSystem::ParticleSystem() :
-                    mParticlePoolBlockSize(128)
+                    mParticlePoolBlockSize(512)
 {
     // Reset the free particle head.
     mpFreeParticleNodes = NULL;
