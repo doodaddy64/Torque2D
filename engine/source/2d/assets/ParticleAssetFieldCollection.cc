@@ -85,6 +85,22 @@ ParticleAssetField* ParticleAssetFieldCollection::findField( const char* pFieldN
 
 //-----------------------------------------------------------------------------
 
+S32 ParticleAssetFieldCollection::setSingleKey( F32 value )
+{
+    // Have we got a valid field selected?
+    if ( !mpSelectedField )
+    {
+        // No, so warn.
+        Con::warnf( "ParticleAssetFieldCollection::setSingleKey() - No field selected." );
+        return -1;
+    }
+
+    // Set single data key.
+    return mpSelectedField->setSingleKey( value );
+}
+
+//-----------------------------------------------------------------------------
+
 S32 ParticleAssetFieldCollection::addDataKey( F32 time, F32 value )
 {
     // Have we got a valid field selected?

@@ -498,6 +498,15 @@ ConsoleMethod(ParticleAssetEmitter, getSelectedField, bool, 2, 2,   "() Gets the
 
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(ParticleAssetEmitter, setSingleKey, S32, 3, 3,    "(value) Sets a single key at time-zero with the specified value.  All existing keys are cleared.\n"
+                                                                "@param value The value to set the key to.\n"
+                                                                "@return Returns the index of the new data-key (always zero) or -1 on failure.")
+{
+    return object->getParticleFields().setSingleKey( dAtof(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(ParticleAssetEmitter, addDataKey, S32, 4, 4,  "(time, value) Add Data-Key to Graph.\n"
                                                             "@param time The key time.\n"
                                                             "@param value The value at specified time\n"

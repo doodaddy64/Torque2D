@@ -77,6 +77,7 @@ public:
     inline F32 getDefaultValue( void ) const { return mDefaultValue; }
 
     void resetDataKeys( void );
+    S32 setSingleKey( const F32 value );
     S32 addDataKey( const F32 time, const F32 value );
     bool removeDataKey( const U32 index );
     void clearDataKeys( void );

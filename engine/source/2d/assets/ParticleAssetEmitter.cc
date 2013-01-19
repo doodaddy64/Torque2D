@@ -148,8 +148,8 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
     setPivotPoint( Vector2::getZero() );
 
     // Initialize particle fields.
-    mParticleFields.addField( mParticleLife.getBase(), "ParticleLife", 1000.0f, 0.0f, 1000.0f, 2.0f );
-    mParticleFields.addField( mParticleLife.getVariation(), "ParticleLifeVariation", 1000.0f, 0.0f, 2000.0f, 0.0f  );
+    mParticleFields.addField( mParticleLife.getBase(), "Lifetime", 1000.0f, 0.0f, 1000.0f, 2.0f );
+    mParticleFields.addField( mParticleLife.getVariation(), "LifetimeVariation", 1000.0f, 0.0f, 2000.0f, 0.0f  );
     mParticleFields.addField( mQuantity.getBase(), "Quantity", 1000.0f, 0.0f, 1000.0f, 10.0f );
     mParticleFields.addField( mQuantity.getVariation(), "QuantityVariation", 1000.0f, 0.0f, 1000.0f, 0.0f );
     mParticleFields.addField( mSizeX.getBase(), "SizeX",  1000.0f, 0.0f, 100.0f, 2.0f );

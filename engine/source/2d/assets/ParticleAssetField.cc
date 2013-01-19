@@ -236,6 +236,17 @@ void ParticleAssetField::resetDataKeys(void)
 
 //-----------------------------------------------------------------------------
 
+S32 ParticleAssetField::setSingleKey( const F32 value )
+{
+    // Clear Data Keys.
+    mDataKeys.clear();
+
+    // Add a single key with the specified value.
+    return addDataKey( 0.0f, value );
+}
+
+//-----------------------------------------------------------------------------
+
 S32 ParticleAssetField::addDataKey( const F32 time, const F32 value )
 {
     // Check Max Time.

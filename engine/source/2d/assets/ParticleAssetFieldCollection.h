@@ -44,6 +44,7 @@ public:
     inline const typeFieldHash& getFields( void ) const { return mFields; }
     ParticleAssetField* findField( const char* pFieldName );
 
+    S32 setSingleKey( const F32 value );
     S32 addDataKey( F32 time, F32 value );
     bool removeDataKey( S32 index );
     bool clearDataKeys( void );

@@ -10,33 +10,30 @@ function runParticleTest()
     %effectAsset = new ParticleAsset();
     %effectAsset.assetName = %particleAssetName;      
     
-    %effectAsset.Lifetime = 10;
-    %effectAsset.LifeMode = "cycle";    
-    
-    %effectAsset.selectField( "SizeXScale" );
-        %effectAsset.addDataKey( 0, 1 );
-        %effectAsset.addDataKey( 0.1, 2 );
-        %effectAsset.addDataKey( 8.9, 5 );
-        %effectAsset.addDataKey( 10, 1 );    
-        
-    %effectAsset.selectField( "SizeYScale" );
-        %effectAsset.addDataKey( 0, 1 );
-        %effectAsset.addDataKey( 1, 5 );
-        %effectAsset.addDataKey( 9, 3 );
-        %effectAsset.addDataKey( 10, 1 );
-        
-    %effectAsset.deselectField();
+    %effectAsset.LifeMode = "infinite";    
+    //%effectAsset.Lifetime = 1;        
            
     %emitter = %effectAsset.createEmitter();
     %emitter.setEmitterName( "Sputter" );
     %emitter.EmitterType = "Area";
     %emitter.Image = "MelvToy:MiniTileMapImage";
+    %emitter.FixedAspect = true;
+
+    %emitter.selectField( "Lifetime" );    
+        %emitter.setSingleDataKey( 1 );
+
+    %emitter.selectField( "Quantity" );    
+        %emitter.setSingleDataKey( 100 );
     
+    %emitter.selectField( "SizeX" );
+        %emitter.addDataKey( 0, 0 );
+        %emitter.addDataKey( 0.5, 10 );
+        %emitter.addDataKey( 1, 0 );
+            
     %emitter.selectField( "AlphaChannel" );
         %emitter.setRepeatTime( 1 );
         %emitter.addDataKey( 0, 0 );
-        %emitter.addDataKey( 0.1, 1 );
-        %emitter.addDataKey( 0.9, 1 );
+        %emitter.addDataKey( 0.5, 1 );
         %emitter.addDataKey( 1, 0 );    
         
     %emitter.deselectField();  
@@ -55,6 +52,7 @@ function runParticleTest()
     
     %particlePlayer = new ParticlePlayer();
     SandboxScene.addToScene( %particlePlayer );
+    %particlePlayer.setSize( 40 );
     %particlePlayer.Particle = "MelvToy:" @ %particleAssetName;
     %particlePlayer.play();
     
