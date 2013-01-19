@@ -1746,10 +1746,10 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
 
     // Particles.
     dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Particles", NULL );
-    dSprintf( mDebugText, sizeof( mDebugText ), "- Alloc=%d, Free=%d, Used=%d<%d>",
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Allocated=%d, Used=%d<%d>, Free=%d",
         debugStats.particlesAlloc,
-        debugStats.particlesFree,
-        debugStats.particlesUsed, debugStats.maxParticlesUsed );
+        debugStats.particlesUsed, debugStats.maxParticlesUsed,
+        debugStats.particlesFree );
     dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
     linePositionY += linePositionOffsetY;
 

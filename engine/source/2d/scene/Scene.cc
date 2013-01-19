@@ -31,6 +31,10 @@
 #include "2d/SceneRenderObject.h"
 #endif
 
+#ifndef _PARTICLE_SYSTEM_H_
+#include "2d/core/particleSystem.h"
+#endif
+
 // Script bindings.
 #include "Scene_ScriptBinding.h"
 
@@ -686,10 +690,10 @@ void Scene::processTick( void )
     mDebugStats.objectsCount  = (U32)mSceneObjects.size();
     mDebugStats.worldProfile  = mpWorld->GetProfile();
 
-    // Reset particle stats.
-    mDebugStats.particlesAlloc = 0;
-    mDebugStats.particlesFree = 0;
-    mDebugStats.particlesUsed = 0;
+    // Set particle stats.
+    mDebugStats.particlesAlloc = ParticleSystem::Instance->getAllocatedParticleCount();
+    mDebugStats.particlesUsed = ParticleSystem::Instance->getActiveParticleCount();
+    mDebugStats.particlesFree = mDebugStats.particlesAlloc - mDebugStats.particlesUsed;
 
     // Finish if scene is paused.
     if ( !getScenePause() )
