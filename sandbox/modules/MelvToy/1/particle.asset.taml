@@ -2,15 +2,17 @@
     AssetName="TestParticle">
     <ParticleAssetEmitter
         EmitterName="Sputter"
+        IntenseParticles="1"
         Image="@asset=MelvToy:MiniTileMapImage"
-        Frame="0">
+        Frame="0"
+        RandomImageFrame="1">
         <ParticleAssetEmitter.Fields>
             <Quantity
                 Keys="0 100" />
             <Lifetime
                 Keys="0 1" />
             <SizeXLife
-                Keys="0 0 0.5 10 1 0" />
+                Keys="0 0 0.5 5 1 0" />
             <AlphaChannel
                 Keys="0 0 0.5 1 1 0" />
         </ParticleAssetEmitter.Fields>

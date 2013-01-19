@@ -32,6 +32,7 @@ public:
         Vector2                 mVelocity;
         F32                     mOrientationAngle;
         Vector2                 mRenderOOBB[4];
+        U32                     mImageFrame;
         b2Transform             mRotationTransform;
         AnimationController     mAnimationController;
 

@@ -14,10 +14,12 @@ function runParticleTest()
     //%effectAsset.Lifetime = 1;        
            
     %emitter = %effectAsset.createEmitter();
-    %emitter.setEmitterName( "Sputter" );
+    %emitter.EmitterName = "Sputter";
     %emitter.EmitterType = "point";
+    %emitter.IntenseParticles = true;
     %emitter.Image = "MelvToy:MiniTileMapImage";
     %emitter.FixedAspect = true;
+    %emitter.RandomImageFrame = true;
 
     %emitter.selectField( "Lifetime" ); 
         %emitter.setSingleDataKey( 1 );

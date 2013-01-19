@@ -195,7 +195,10 @@ void ParticlePlayer::OnUnregisterScene( Scene* pScene )
 void ParticlePlayer::integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats )
 {
     // Finish if no need to integrate.
-    if ( !mPlaying || mCameraIdle || mPaused || mEmitters.size() == 0 )
+    if (    !mPlaying ||
+            mCameraIdle ||
+            mPaused ||
+            mEmitters.size() == 0 )
         return;
 
     // Yes, so update the particle player age.
@@ -203,6 +206,10 @@ void ParticlePlayer::integrateObject( const F32 totalTime, const F32 elapsedTime
 
     // Fetch particle asset.
     ParticleAsset* pParticleAsset = mParticleAsset;
+
+    // Finish if no particle asset assigned.
+    if ( pParticleAsset == NULL )
+        return;
 
     // Iterate the emitters.
     for( typeEmitterVector::iterator emitterItr = mEmitters.begin(); emitterItr != mEmitters.end(); ++emitterItr )
@@ -477,9 +484,15 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
         // Are we in static mode?
         if ( isStaticMode )
         {
-            // Yes, so fetch frame area.
-            texelFrameArea = imageAsset->getImageFrameArea( pParticleAssetEmitter->getImageFrame() ).mTexelArea;
+            // Yes, so fetch the frame texture.
             frameTexture = imageAsset->getImageTexture();
+
+            // Are we using a random image frame?
+            if ( !pParticleAssetEmitter->getRandomImageFrame() )
+            {
+                // No, so fetch frame area.
+                texelFrameArea = imageAsset->getImageFrameArea( pParticleAssetEmitter->getImageFrame() ).mTexelArea;
+            }
         }
 
         // Fetch ordered particles flag.
@@ -497,6 +510,13 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
         // Process All particle nodes.
         while ( pParticleNode != pParticleNodeHead )
         {
+            // Are we in static mode are using a random image frame?
+            if ( isStaticMode && pParticleAssetEmitter->getRandomImageFrame() )
+            {
+                // Yes, so fetch frame area.
+                texelFrameArea = imageAsset->getImageFrameArea( pParticleNode->mImageFrame ).mTexelArea;
+            }
+
             // Are we using an animation?
             if ( !isStaticMode )
             {
@@ -1084,11 +1104,28 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
 
 
     // **********************************************************************************************************************
-    // Animation Controller.
+    // Image, Frame and Animation Controller.
     // **********************************************************************************************************************
 
     // Is the emitter in static mode?
-    if ( !pParticleAssetEmitter->isStaticMode() )
+    if ( pParticleAssetEmitter->isStaticMode() )
+    {
+        // Yes, so is random image frame active?
+        if ( pParticleAssetEmitter->getRandomImageFrame() )
+        {
+            // Yes, so fetch the frame count for the image asset.
+            const U32 frameCount = pParticleAssetEmitter->getImageAsset()->getFrameCount();
+
+            // Choose a random frame.
+            pParticleNode->mImageFrame = (U32)CoreMath::mGetRandomI( 0, frameCount-1 );
+        }
+        else
+        {
+            // No, so set the emitter image frame.
+            pParticleNode->mImageFrame = pParticleAssetEmitter->getImageFrame();
+        }
+    }
+    else
     {
         // No, so fetch the animation asset.
         const AssetPtr<AnimationAsset>& animationAsset = pParticleAssetEmitter->getAnimationAsset();
@@ -1354,10 +1391,19 @@ void ParticlePlayer::initializeParticleAsset( void )
     for( U32 emitterIndex = 0; emitterIndex < emitterCount; ++emitterIndex )
     {
         // Fetch the asset emitter.
-        ParticleAssetEmitter* pEmitter = pParticleAsset->getEmitter( emitterIndex );
+        ParticleAssetEmitter* pParticleAssetEmitter = pParticleAsset->getEmitter( emitterIndex );
+
+        // Fetch both image and animation assets.
+        const AssetPtr<ImageAsset>& imageAsset = pParticleAssetEmitter->getImageAsset();
+        const AssetPtr<AnimationAsset>& animationAsset = pParticleAssetEmitter->getAnimationAsset();
+
+        // Skip if the emitter does not have a valid assigned asset to render.
+        if (( pParticleAssetEmitter->isStaticMode() && (imageAsset.isNull() || imageAsset->getFrameCount() == 0 ) ) ||
+            ( !pParticleAssetEmitter->isStaticMode() && (animationAsset.isNull() || animationAsset->getValidatedAnimationFrames().size() == 0 ) ) )
+            continue;
 
         // Create a new emitter node.
-        EmitterNode* pEmitterNode = new EmitterNode( this, pEmitter );
+        EmitterNode* pEmitterNode = new EmitterNode( this, pParticleAssetEmitter );
 
         // Store new emitter node.
         mEmitters.push_back( pEmitterNode );

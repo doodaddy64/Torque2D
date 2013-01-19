@@ -137,6 +137,7 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mStaticMode( true ),
                             mImageAsset( NULL ),
                             mImageFrame( 0 ),
+                            mRandomImageFrame( false ),
                             mAnimationAsset( NULL ),
                             mBlendMode( true ),
                             mSrcBlendFactor( GL_SRC_ALPHA ),
@@ -221,6 +222,7 @@ void ParticleAssetEmitter::initPersistFields()
 
     addProtectedField("Image", TypeImageAssetPtr, Offset(mImageAsset, ParticleAssetEmitter), &setImage, &getImage, &writeImage, "");
     addProtectedField("Frame", TypeS32, Offset(mImageFrame, ParticleAssetEmitter), &setImageFrame, &defaultProtectedGetFn, &writeImageFrame, "");
+    addProtectedField("RandomImageFrame", TypeBool, Offset(mRandomImageFrame, ParticleAssetEmitter), &setRandomImageFrame, &defaultProtectedGetFn, &writeRandomImageFrame, "");
     addProtectedField("Animation", TypeAnimationAssetPtr, Offset(mAnimationAsset, ParticleAssetEmitter), &setAnimation, &getAnimation, &writeAnimation, "");
 
     addProtectedField("BlendMode", TypeBool, Offset(mBlendMode, ParticleAssetEmitter), &setBlendMode, &defaultProtectedGetFn, &writeBlendMode, "");
