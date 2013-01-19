@@ -131,6 +131,7 @@ public:
     inline bool getFixedAspect( void ) const { return mFixedAspect; }
     void setFixedForceAngle( const F32 fixedForceAngle );
     inline F32 getFixedForceAngle( void ) const { return mFixedForceAngle; }
+    inline const Vector2& getFixedForceDirection( void ) const { return mFixedForceDirection; }
     inline void setOrientationType( const ParticleOrientationType particleOrientationType ) { mOrientationType = particleOrientationType; refreshAsset(); }
     inline ParticleOrientationType getOrientationType( void ) const { return mOrientationType; }
     inline void setKeepAligned( const bool keepAligned ) { mKeepAligned = keepAligned; refreshAsset(); }
@@ -187,7 +188,7 @@ public:
     inline ParticleAssetField& getParticleLifeBaseField( void ) { return mParticleLife.getBase(); }
     inline ParticleAssetField& getParticleLifeVariationField( void ) { return mParticleLife.getVariation(); }
     inline ParticleAssetField& getQuantityBaseField( void ) { return mQuantity.getBase(); }
-    inline ParticleAssetField& getQuantitVariationField( void ) { return mQuantity.getVariation(); }
+    inline ParticleAssetField& getQuantityVariationField( void ) { return mQuantity.getVariation(); }
     inline ParticleAssetField& getSizeXBaseField( void ) { return mSizeX.getBase(); }
     inline ParticleAssetField& getSizeXVariationField( void ) { return mSizeX.getVariation(); }
     inline ParticleAssetField& getSizeXLifeField( void ) { return mSizeX.getLife(); }

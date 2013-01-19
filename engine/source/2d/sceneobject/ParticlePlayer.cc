@@ -902,7 +902,7 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
 
     pParticleNode->mParticleAge = 0.0f;
     pParticleNode->mParticleLifetime = ParticleAssetField::calculateFieldBVE(   pParticleAssetEmitter->getQuantityBaseField(),
-                                                                                pParticleAssetEmitter->getQuantityBaseField(),
+                                                                                pParticleAssetEmitter->getQuantityVariationField(),
                                                                                 pParticleAsset->getParticleLifeScaleField(),
                                                                                 particlePlayerAge );
 
@@ -1122,7 +1122,13 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
 
 void ParticlePlayer::integrateParticle( EmitterNode* pEmitterNode, ParticleSystem::ParticleNode* pParticleNode, F32 particleAge, F32 elapsedTime )
 {
-#if 0
+    // Fetch particle asset.
+    ParticleAsset* pParticleAsset = mParticleAsset;
+
+    // Fetch the asset emitter.
+    ParticleAssetEmitter* pParticleAssetEmitter = pEmitterNode->getAssetEmitter();
+
+
     // **********************************************************************************************************************
     // Copy Old Tick Position.
     // **********************************************************************************************************************
@@ -1133,15 +1139,13 @@ void ParticlePlayer::integrateParticle( EmitterNode* pEmitterNode, ParticleSyste
     // Scale Size.
     // **********************************************************************************************************************
 
-
-
     // Scale Size-X.
-    pParticleNode->mRenderSize.x = mClampF(    pParticleNode->mSize.x * mSizeX.mLife.getGraphValue( particleAge ),
-                                                mSizeX.mBase.getMinValue(),
-                                                mSizeX.mBase.getMaxValue() );
+    pParticleNode->mRenderSize.x = mClampF( pParticleNode->mSize.x * pParticleAssetEmitter->getSizeXLifeField().getFieldValue( particleAge ),
+                                            pParticleAssetEmitter->getSizeXBaseField().getMinValue(),
+                                            pParticleAssetEmitter->getSizeXBaseField().getMaxValue());
 
-    // Is the Particle Aspect-Locked?
-    if ( mFixedAspect )
+    // Is the particle using a fixed aspect?
+    if ( pParticleAssetEmitter->getFixedAspect() )
     {
         // Yes, so simply copy Size-X.
         pParticleNode->mRenderSize.y = pParticleNode->mRenderSize.x;
@@ -1149,69 +1153,52 @@ void ParticlePlayer::integrateParticle( EmitterNode* pEmitterNode, ParticleSyste
     else
     {
         // No, so Scale Size-Y.
-        pParticleNode->mRenderSize.y = mClampF(    pParticleNode->mSize.y * mSizeY.mLife.getGraphValue( particleAge ),
-                                                    mSizeY.mBase.getMinValue(),
-                                                    mSizeY.mBase.getMaxValue() );
+        pParticleNode->mRenderSize.y = mClampF( pParticleNode->mSize.y * pParticleAssetEmitter->getSizeYLifeField().getFieldValue( particleAge ),
+                                                pParticleAssetEmitter->getSizeYBaseField().getMinValue(),
+                                                pParticleAssetEmitter->getSizeYBaseField().getMaxValue() );
     }
 
 
     // **********************************************************************************************************************
     // Scale Speed.
     // **********************************************************************************************************************
-    pParticleNode->mRenderSpeed = mClampF(  pParticleNode->mSpeed * mSpeed.mLife.getGraphValue( particleAge ),
-                                            mSpeed.mBase.getMinValue(),
-                                            mSpeed.mBase.getMaxValue() );
-
-
-    // **********************************************************************************************************************
-    // Scale Spin (if Keep Aligned is not selected)
-    // **********************************************************************************************************************
-    if ( !(mOrientationType == ALIGNED && mKeepAligned) )
-        pParticleNode->mRenderSpin = pParticleNode->mSpin * mSpin.mLife.getGraphValue( particleAge );
-
+    pParticleNode->mRenderSpeed = mClampF(  pParticleNode->mSpeed * pParticleAssetEmitter->getSpeedLifeField().getFieldValue( particleAge ),
+                                            pParticleAssetEmitter->getSpeedBaseField().getMinValue(),
+                                            pParticleAssetEmitter->getSpeedBaseField().getMaxValue() );
 
 
     // **********************************************************************************************************************
     // Scale Fixed-Force.
     // **********************************************************************************************************************
-    pParticleNode->mRenderFixedForce = mClampF( pParticleNode->mFixedForce * mFixedForce.mLife.getGraphValue( particleAge ),
-                                                mFixedForce.mBase.getMinValue(),
-                                                mFixedForce.mBase.getMaxValue() );
+    pParticleNode->mRenderFixedForce = mClampF( pParticleNode->mFixedForce * pParticleAssetEmitter->getFixedForceLifeField().getFieldValue( particleAge ),
+                                                pParticleAssetEmitter->getFixedForceBaseField().getMinValue(),
+                                                pParticleAssetEmitter->getFixedForceBaseField().getMaxValue() );
 
 
     // **********************************************************************************************************************
     // Scale Random-Motion.
     // **********************************************************************************************************************
-    pParticleNode->mRenderRandomMotion = mClampF(   pParticleNode->mRandomMotion * mRandomMotion.mLife.getGraphValue( particleAge ),
-                                                    mRandomMotion.mBase.getMinValue(),
-                                                    mRandomMotion.mBase.getMaxValue() );
+    pParticleNode->mRenderRandomMotion = mClampF(   pParticleNode->mRandomMotion * pParticleAssetEmitter->getRandomMotionLifeField().getFieldValue( particleAge ),
+                                                    pParticleAssetEmitter->getRandomMotionBaseField().getMinValue(),
+                                                    pParticleAssetEmitter->getRandomMotionBaseField().getMaxValue() );
 
 
     // **********************************************************************************************************************
-    // Scale Colour.
+    // Calculate RGBA Components.
     // **********************************************************************************************************************
 
-    // Red.
-    pParticleNode->mColour.red = mClampF(   mRedChannel.mLife.getGraphValue( particleAge ),
-                                            mRedChannel.mLife.getMinValue(),
-                                            mRedChannel.mLife.getMaxValue() );
+    // Fetch the channels.
+    const ParticleAssetField& redChannel = pParticleAssetEmitter->getRedChannelLifeField();
+    const ParticleAssetField& greenChannel = pParticleAssetEmitter->getGreenChannelLifeField();
+    const ParticleAssetField& blueChannel = pParticleAssetEmitter->getBlueChannelLifeField();
+    const ParticleAssetField& alphaChannel = pParticleAssetEmitter->getAlphaChannelLifeField();
+    const ParticleAssetField& alphaChannelScale = pParticleAsset->getAlphaChannelScaleField();
 
-    // Green.
-    pParticleNode->mColour.green = mClampF( mGreenChannel.mLife.getGraphValue( particleAge ),
-                                            mGreenChannel.mLife.getMinValue(),
-                                            mGreenChannel.mLife.getMaxValue() );
-
-    // Blue.
-    pParticleNode->mColour.blue = mClampF(  mBlueChannel.mLife.getGraphValue( particleAge ),
-                                            mBlueChannel.mLife.getMinValue(),
-                                            mBlueChannel.mLife.getMaxValue() );
-
-    // Alpha.
-    pParticleNode->mColour.alpha = mClampF( mAlphaChannel.mLife.getGraphValue( particleAge ) * pParentEffectObject->mAlphaChannel.mBase.getGraphValue( particleAge ),
-                                            mAlphaChannel.mLife.getMinValue(),
-                                            mAlphaChannel.mLife.getMaxValue() );
-
-
+    // Calculate the color.
+    pParticleNode->mColor.set(  mClampF( redChannel.getFieldValue( particleAge ), redChannel.getMinValue(), redChannel.getMaxValue() ),
+                                mClampF( greenChannel.getFieldValue( particleAge ),greenChannel.getMinValue(), greenChannel.getMaxValue() ),
+                                mClampF( blueChannel.getFieldValue( particleAge ), blueChannel.getMinValue(),blueChannel.getMaxValue() ),
+                                mClampF( alphaChannel.getFieldValue( particleAge ) * alphaChannelScale.getFieldValue( 0.0f ), alphaChannel.getMinValue(), alphaChannel.getMaxValue() ) );
 
 
     // **********************************************************************************************************************
@@ -1219,83 +1206,85 @@ void ParticlePlayer::integrateParticle( EmitterNode* pEmitterNode, ParticleSyste
     // **********************************************************************************************************************
 
 
-    // Update Animation Controller (if used).
-    if ( !mStaticMode )
+    // Is the emitter in static mode?
+    if ( !pParticleAssetEmitter->isStaticMode() )
+    {
+        // No, so update animation.
         pParticleNode->mAnimationController.updateAnimation( elapsedTime );
+    }
 
 
     // **********************************************************************************************************************
     // Calculate New Velocity...
     // **********************************************************************************************************************
 
-    // Only Calculate Velocity if not a Single Particle.
-    if ( !mSingleParticle )
+    // Calculate the velocity if not a single particle.
+    if ( !pParticleAssetEmitter->getSingleParticle() )
     {
-        // Calculate Random Motion (if we've got any).
+        // Calculate random motion (if we've got any).
         if ( mNotZero( pParticleNode->mRenderRandomMotion ) )
         {
-            // Fetch Random Motion.
-            F32 randomMotion = pParticleNode->mRenderRandomMotion * 0.5f;
-            // Add Time-Integrated Random-Motion into Velocity.
+            // Fetch random motion.
+            const F32 randomMotion = pParticleNode->mRenderRandomMotion * 0.5f;
+
+            // Add time-integrated random motion into velocity.
             pParticleNode->mVelocity += elapsedTime * Vector2( CoreMath::mGetRandomF(-randomMotion, randomMotion), CoreMath::mGetRandomF(-randomMotion, randomMotion) );
         }
 
-        // Add Time-Integrated Fixed-Force into Velocity ( if we've got any ).
+        // Do we have any fixed force?
         if ( mNotZero( pParticleNode->mRenderFixedForce ) )
-            pParticleNode->mVelocity += (mFixedForceDirection * pParticleNode->mRenderFixedForce * elapsedTime);
-
-        // Suppress Movement?
-        if ( !pParticleNode->mSuppressMovement )
         {
-            // No, so adjust Particle Position.
-            pParticleNode->mPosition += (pParticleNode->mVelocity * pParticleNode->mRenderSpeed * elapsedTime);
+            // Yes, so time-integrate a fixed force to the velocity.
+            pParticleNode->mVelocity += (pParticleAssetEmitter->getFixedForceDirection() * pParticleNode->mRenderFixedForce * elapsedTime);
         }
 
+        // Are we suppressing movement?
+        if ( !pParticleNode->mSuppressMovement )
+        {
+            // No, so adjust particle position.
+            pParticleNode->mPosition += (pParticleNode->mVelocity * pParticleNode->mRenderSpeed * elapsedTime);
+        }
     }
 
 
     // **********************************************************************************************************************
     // Are we Aligning to motion?
     // **********************************************************************************************************************
-    if ( mOrientationType == ALIGNED && mKeepAligned )
+    if ( pParticleAssetEmitter->getKeepAligned() && pParticleAssetEmitter->getOrientationType() == ParticleAssetEmitter::ALIGNED_ORIENTATION )
     {
         // Yes, so calculate last movement direction.
         F32 movementAngle = mRadToDeg( mAtan( pParticleNode->mVelocity.x, -pParticleNode->mVelocity.y ) );
-        // Adjust for Negative ArcTan-Quadrants.
+
+        // Adjust for negative ArcTan quadrants.
         if ( movementAngle < 0.0f )
             movementAngle += 360.0f;
 
         // Set new Orientation Angle.
-        pParticleNode->mOrientationAngle = -movementAngle - mAlignedAngleOffset;
+        pParticleNode->mOrientationAngle = -movementAngle - pParticleAssetEmitter->getAlignedAngleOffset();
 
-
-        // **********************************************************************************************************************
-        // Calculate Local Clip-Boundary.
-        // **********************************************************************************************************************
 
         // Calculate Rotation Matrix.
         pParticleNode->mRotationTransform.Set( pParticleNode->mPosition, mDegToRad(pParticleNode->mOrientationAngle) );
     }
     else
     {
+        // No, so calculate the render spin.
+        pParticleNode->mRenderSpin = pParticleNode->mSpin * pParticleAssetEmitter->getSpinLifeField().getFieldValue( particleAge );
+
         // Have we got some Spin?
         if ( mNotZero(pParticleNode->mRenderSpin) )
         {
             // Yes, so add into Orientation.
             pParticleNode->mOrientationAngle += pParticleNode->mRenderSpin * elapsedTime;
-            // Keep within range.
+
+            // Clamp the orientation angle.
             pParticleNode->mOrientationAngle = mFmod( pParticleNode->mOrientationAngle, 360.0f );
         }
 
-
-        // If the size has changed or we have some Spin then we need to recalculate the Local Clip-Boundary.
+        // If the size has changed or we have some spin then we need to recalculate the OOBB.
         if ( mNotZero(pParticleNode->mRenderSpin) || pParticleNode->mRenderSize != pParticleNode->mLastRenderSize )
         {
-            // **********************************************************************************************************************
-            // Calculate Local Clip-Boundary.
-            // **********************************************************************************************************************
-
-            // Calculate Rotation Matrix.
+            // Calculate the rotation transform.
             pParticleNode->mRotationTransform.Set( pParticleNode->mPosition, mDegToRad(pParticleNode->mOrientationAngle) );
         }
 
@@ -1303,21 +1292,30 @@ void ParticlePlayer::integrateParticle( EmitterNode* pEmitterNode, ParticleSyste
         pParticleNode->mLastRenderSize = pParticleNode->mRenderSize;
     }
 
-    // Calculate Clip Boundary.
-    Vector2 renderSize = pParticleNode->mRenderSize;
-    Vector2 clipBoundary[4];
-    clipBoundary[0] = mGlobalClipBoundary[0] * renderSize;
-    clipBoundary[1] = mGlobalClipBoundary[1] * renderSize;
-    clipBoundary[2] = mGlobalClipBoundary[2] * renderSize;
-    clipBoundary[3] = mGlobalClipBoundary[3] * renderSize;
-    CoreMath::mCalculateOOBB( clipBoundary, pParticleNode->mRotationTransform, pParticleNode->mOOBB );
+    // Fetch the local AABB..
+    const Vector2& localAABB0 = pParticleAssetEmitter->getLocalPivotAABB0();
+    const Vector2& localAABB1 = pParticleAssetEmitter->getLocalPivotAABB1();
+    const Vector2& localAABB2 = pParticleAssetEmitter->getLocalPivotAABB2();
+    const Vector2& localAABB3 = pParticleAssetEmitter->getLocalPivotAABB3();
+
+    // Fetch the render size.
+    const Vector2& renderSize = pParticleNode->mRenderSize;
+
+    // Calculate the scaled AABB.
+    Vector2 scaledAABB[4];
+    scaledAABB[0] = localAABB0 * renderSize;
+    scaledAABB[1] = localAABB1 * renderSize;
+    scaledAABB[2] = localAABB2 * renderSize;
+    scaledAABB[3] = localAABB3 * renderSize;
+
+    // Calculate the world OOBB..
+    CoreMath::mCalculateOOBB( scaledAABB, pParticleNode->mRotationTransform, pParticleNode->mRenderOOBB );
 
 
     // **********************************************************************************************************************
     // Set Post Tick Position.
     // **********************************************************************************************************************
     pParticleNode->mPostTickPosition = pParticleNode->mPosition;
-#endif
 }
 
 //-----------------------------------------------------------------------------
