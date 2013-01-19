@@ -301,23 +301,6 @@ ConsoleMethod(ParticleAssetEmitter, getAttachRotationToEmitter, bool, 2, 2, "Get
     return object->getAttachRotationToEmitter();
 }
 
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(ParticleAssetEmitter, setOrderedParticles, void, 3, 3,  "(ordered?) - Set whether the particles are ordered or not.  Non-ordered is much faster rendering!\n"
-                                                                    "@param ordered Whether the particles are ordered or not.\n"
-                                                                    "@return No return value." )
-{
-    object->setOrderedParticles( dAtob(argv[2]) );
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(ParticleAssetEmitter, getOrderedParticles, bool, 2, 2,  "() - Gets whether the particles are ordered or not.\n"
-                                                                    "@return Whether the particles are ordered or not." )
-{
-    return object->getOrderedParticles();
-}
-
 //------------------------------------------------------------------------------
 
 ConsoleMethod(ParticleAssetEmitter, setOldestInFront, void, 3, 3,   "(oldestInFront) Sets whether to render particles as oldest on front or not.\n"

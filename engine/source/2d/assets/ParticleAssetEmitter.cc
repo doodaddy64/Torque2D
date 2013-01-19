@@ -127,7 +127,6 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mEmitterEmission( false ),
                             mLinkEmissionRotation( false ),
                             mIntenseParticles( false ),
-                            mOrderedParticles( false ),
                             mSingleParticle( false ),
                             mAttachPositionToEmitter( false ),
                             mAttachRotationToEmitter( false ),
@@ -216,7 +215,6 @@ void ParticleAssetEmitter::initPersistFields()
     addProtectedField("EmitterEmission", TypeBool, Offset(mEmitterEmission, ParticleAssetEmitter), &setEmitterEmission, &defaultProtectedGetFn, &writeEmitterEmission, "");
     addProtectedField("LinkEmissionRotation", TypeBool, Offset(mLinkEmissionRotation, ParticleAssetEmitter), &setLinkEmissionRotation, &defaultProtectedGetFn, &writeLinkEmissionRotation, "");
     addProtectedField("IntenseParticles", TypeBool, Offset(mIntenseParticles, ParticleAssetEmitter), &setIntenseParticles, &defaultProtectedGetFn, &writeIntenseParticles, "");
-    addProtectedField("OrderedParticles", TypeBool, Offset(mOrderedParticles, ParticleAssetEmitter), &setOrderedParticles, &defaultProtectedGetFn, &writeOrderedParticles, "");
     addProtectedField("SingleParticle", TypeBool, Offset(mSingleParticle, ParticleAssetEmitter), &setSingleParticle, &defaultProtectedGetFn, &writeSingleParticle, "");
     addProtectedField("AttachPositionToEmitter", TypeBool, Offset(mAttachPositionToEmitter, ParticleAssetEmitter), &setAttachPositionToEmitter, &defaultProtectedGetFn, &writeAttachPositionToEmitter, "");
     addProtectedField("AttachRotationToEmitter", TypeBool, Offset(mAttachRotationToEmitter, ParticleAssetEmitter), &setAttachRotationToEmitter, &defaultProtectedGetFn, &writeAttachRotationToEmitter, "");
@@ -261,7 +259,6 @@ void ParticleAssetEmitter::copyTo(SimObject* object)
    pParticleAssetEmitter->setEmitterEmission( getEmitterEmission() );
    pParticleAssetEmitter->setLinkEmissionRotation( getLinkEmissionRotation() );
    pParticleAssetEmitter->setIntenseParticles( getIntenseParticles() );
-   pParticleAssetEmitter->setOrderedParticles( getOrderedParticles() );
    pParticleAssetEmitter->setSingleParticle( getSingleParticle() );
    pParticleAssetEmitter->setAttachPositionToEmitter( getAttachPositionToEmitter() );
    pParticleAssetEmitter->setAttachRotationToEmitter( getAttachPositionToEmitter() );

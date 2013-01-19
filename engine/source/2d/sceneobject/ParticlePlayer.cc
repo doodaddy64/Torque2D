@@ -476,14 +476,11 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
             }
         }
 
-        // Fetch ordered particles flag.
-        const bool orderedParticles = pParticleAssetEmitter->getOrderedParticles();
-
         // Fetch the oldest-in-front flag.
         const bool oldestInFront = pParticleAssetEmitter->getOldestInFront();
 
         // Fetch the starting particle (using appropriate particle order).
-        ParticleSystem::ParticleNode* pParticleNode = orderedParticles || oldestInFront ? pEmitterNode->getFirstParticle() : pEmitterNode->getLastParticle();
+        ParticleSystem::ParticleNode* pParticleNode = oldestInFront ? pEmitterNode->getFirstParticle() : pEmitterNode->getLastParticle();
 
         // Fetch the particle node head.
         ParticleSystem::ParticleNode* pParticleNodeHead = pEmitterNode->getParticleNodeHead();
@@ -527,7 +524,7 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
                 pParticleNode->mColor );
 
             // Move to next Particle ( using appropriate sort-order ).
-            pParticleNode = orderedParticles || oldestInFront ? pParticleNode->mNextNode : pParticleNode->mPreviousNode;
+            pParticleNode = oldestInFront ? pParticleNode->mNextNode : pParticleNode->mPreviousNode;
         };
     }
 }
