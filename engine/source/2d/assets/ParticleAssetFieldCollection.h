@@ -37,7 +37,7 @@ public:
 
     void addField( ParticleAssetField& particleAssetField, const char* pFieldName, F32 maxTime, F32 minValue, F32 maxValue, F32 defaultValue );
 
-    inline ParticleAssetField* selectField( const char* pFieldName );
+    ParticleAssetField* selectField( const char* pFieldName );
     inline void deselectField( void ) { mpSelectedField = NULL; }
     inline const ParticleAssetField* getSelectedField( void ) const { return mpSelectedField; }
 
