@@ -83,16 +83,16 @@ private:
     bool                                    mAttachRotationToEmitter;
     bool                                    mOldestInFront;
 
+    bool                                    mBlendMode;
+    S32                                     mSrcBlendFactor;
+    S32                                     mDstBlendFactor;
+    F32                                     mAlphaTest;
+
     bool                                    mStaticMode;
     AssetPtr<ImageAsset>                    mImageAsset;
     U32                                     mImageFrame;
     bool                                    mRandomImageFrame;
     AssetPtr<AnimationAsset>                mAnimationAsset;
-
-    bool                                    mBlendMode;
-    S32                                     mSrcBlendFactor;
-    S32                                     mDstBlendFactor;
-    F32                                     mAlphaTest;
 
     /// Particle fields.
     ParticleAssetFieldCollection            mParticleFields;
@@ -119,8 +119,6 @@ public:
     virtual ~ParticleAssetEmitter();
 
     static void initPersistFields();
-    virtual bool onAdd();
-    virtual void onRemove();
     virtual void copyTo(SimObject* object);
 
     inline ParticleAsset* getOwner( void ) const { return mOwner; }

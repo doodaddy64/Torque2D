@@ -100,27 +100,6 @@ void ParticlePlayer::initPersistFields()
     addProtectedField( "Particle", TypeParticleAssetPtr, Offset(mParticleAsset, ParticlePlayer), &setParticle, &defaultProtectedGetFn, defaultProtectedWriteFn, "" );
     addProtectedField( "CameraIdleDistance", TypeF32, Offset(mCameraIdleDistance, ParticlePlayer),&defaultProtectedSetFn, &defaultProtectedGetFn, &writeCameraIdleDistance,"" );
     addProtectedField( "ParticleInterpolation", TypeBool, Offset(mParticleInterpolation, ParticlePlayer), &defaultProtectedSetFn, &defaultProtectedGetFn, &writeParticleInterpolation,"" );
-
-}
-
-//------------------------------------------------------------------------------
-
-bool ParticlePlayer::onAdd()
-{
-    // Call Parent.
-    if(!Parent::onAdd())
-        return false;
-
-    // Return Okay.
-    return true;
-}
-
-//------------------------------------------------------------------------------
-
-void ParticlePlayer::onRemove()
-{
-    // Call Parent.
-    Parent::onRemove();
 }
 
 //------------------------------------------------------------------------------
@@ -138,6 +117,8 @@ void ParticlePlayer::copyTo(SimObject* object)
 
    // Copy the fields.
    pParticlePlayer->setParticle( getParticle() );
+   pParticlePlayer->setCameraIdleDistance( getCameraIdleDistance() );
+   pParticlePlayer->setParticleInterpolation( getParticleInterpolation() );
 }
 
 //------------------------------------------------------------------------------

@@ -220,35 +220,15 @@ void ParticleAssetEmitter::initPersistFields()
     addProtectedField("AttachRotationToEmitter", TypeBool, Offset(mAttachRotationToEmitter, ParticleAssetEmitter), &setAttachRotationToEmitter, &defaultProtectedGetFn, &writeAttachRotationToEmitter, "");
     addProtectedField("OldestInFront", TypeBool, Offset(mOldestInFront, ParticleAssetEmitter), &setOldestInFront, &defaultProtectedGetFn, &writeOldestInFront, "");
 
-    addProtectedField("Image", TypeImageAssetPtr, Offset(mImageAsset, ParticleAssetEmitter), &setImage, &getImage, &writeImage, "");
-    addProtectedField("Frame", TypeS32, Offset(mImageFrame, ParticleAssetEmitter), &setImageFrame, &defaultProtectedGetFn, &writeImageFrame, "");
-    addProtectedField("RandomImageFrame", TypeBool, Offset(mRandomImageFrame, ParticleAssetEmitter), &setRandomImageFrame, &defaultProtectedGetFn, &writeRandomImageFrame, "");
-    addProtectedField("Animation", TypeAnimationAssetPtr, Offset(mAnimationAsset, ParticleAssetEmitter), &setAnimation, &getAnimation, &writeAnimation, "");
-
     addProtectedField("BlendMode", TypeBool, Offset(mBlendMode, ParticleAssetEmitter), &setBlendMode, &defaultProtectedGetFn, &writeBlendMode, "");
     addProtectedField("SrcBlendFactor", TypeEnum, Offset(mSrcBlendFactor, ParticleAssetEmitter), &setSrcBlendFactor, &defaultProtectedGetFn, &writeSrcBlendFactor, 1, &srcBlendFactorTable, "");
     addProtectedField("DstBlendFactor", TypeEnum, Offset(mDstBlendFactor, ParticleAssetEmitter), &setDstBlendFactor, &defaultProtectedGetFn, &writeDstBlendFactor, 1, &dstBlendFactorTable, "");
     addProtectedField("AlphaTest", TypeF32, Offset(mAlphaTest, ParticleAssetEmitter), &setAlphaTest, &defaultProtectedGetFn, &writeAlphaTest, "");
-}
 
-//------------------------------------------------------------------------------
-
-bool ParticleAssetEmitter::onAdd()
-{
-    // Call Parent.
-    if(!Parent::onAdd())
-        return false;
-
-    // Return Okay.
-    return true;
-}
-
-//------------------------------------------------------------------------------
-
-void ParticleAssetEmitter::onRemove()
-{
-    // Call Parent.
-    Parent::onRemove();
+    addProtectedField("Image", TypeImageAssetPtr, Offset(mImageAsset, ParticleAssetEmitter), &setImage, &getImage, &writeImage, "");
+    addProtectedField("Frame", TypeS32, Offset(mImageFrame, ParticleAssetEmitter), &setImageFrame, &defaultProtectedGetFn, &writeImageFrame, "");
+    addProtectedField("RandomImageFrame", TypeBool, Offset(mRandomImageFrame, ParticleAssetEmitter), &setRandomImageFrame, &defaultProtectedGetFn, &writeRandomImageFrame, "");
+    addProtectedField("Animation", TypeAnimationAssetPtr, Offset(mAnimationAsset, ParticleAssetEmitter), &setAnimation, &getAnimation, &writeAnimation, "");
 }
 
 //------------------------------------------------------------------------------
@@ -270,8 +250,8 @@ void ParticleAssetEmitter::copyTo(SimObject* object)
    pParticleAssetEmitter->setFixedAspect( getFixedAspect() );
    pParticleAssetEmitter->setFixedForceAngle( getFixedForceAngle() );
    pParticleAssetEmitter->setOrientationType( getOrientationType() );
-   pParticleAssetEmitter->setAlignedAngleOffset( getAlignedAngleOffset() );
    pParticleAssetEmitter->setKeepAligned( getKeepAligned() );
+   pParticleAssetEmitter->setAlignedAngleOffset( getAlignedAngleOffset() );
    pParticleAssetEmitter->setRandomAngleOffset( getRandomAngleOffset() );
    pParticleAssetEmitter->setRandomArc( getRandomArc() );
    pParticleAssetEmitter->setFixedAngleOffset( getFixedAngleOffset() );
@@ -279,11 +259,27 @@ void ParticleAssetEmitter::copyTo(SimObject* object)
    pParticleAssetEmitter->setEmitterEmission( getEmitterEmission() );
    pParticleAssetEmitter->setLinkEmissionRotation( getLinkEmissionRotation() );
    pParticleAssetEmitter->setIntenseParticles( getIntenseParticles() );
+   pParticleAssetEmitter->setOrderedParticles( getOrderedParticles() );
    pParticleAssetEmitter->setSingleParticle( getSingleParticle() );
    pParticleAssetEmitter->setAttachPositionToEmitter( getAttachPositionToEmitter() );
    pParticleAssetEmitter->setAttachRotationToEmitter( getAttachPositionToEmitter() );
-   pParticleAssetEmitter->setOrderedParticles( getOrderedParticles() );
    pParticleAssetEmitter->setOldestInFront( getOldestInFront() );
+
+   pParticleAssetEmitter->setBlendMode( getBlendMode() );
+   pParticleAssetEmitter->setSrcBlendFactor( getSrcBlendFactor() );
+   pParticleAssetEmitter->setDstBlendFactor( getDstBlendFactor() );
+   pParticleAssetEmitter->setAlphaTest( getAlphaTest() );
+
+   pParticleAssetEmitter->setRandomImageFrame( getRandomImageFrame() );
+   if ( pParticleAssetEmitter->isStaticMode() )
+   {
+       pParticleAssetEmitter->setImage( getImage() );
+       pParticleAssetEmitter->setImageFrame( getImageFrame() );
+   }
+   else
+   {
+       pParticleAssetEmitter->setAnimation( getAnimation() );
+   }
 
    // Copy particle fields.
    mParticleFields.copyTo( pParticleAssetEmitter->mParticleFields );

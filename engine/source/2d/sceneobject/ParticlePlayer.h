@@ -118,8 +118,6 @@ public:
     virtual ~ParticlePlayer();
 
     static void initPersistFields();
-    virtual bool onAdd();
-    virtual void onRemove();
     virtual void copyTo(SimObject* object);
     virtual void safeDelete( void );
 

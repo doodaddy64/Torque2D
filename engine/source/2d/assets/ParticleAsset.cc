@@ -155,26 +155,6 @@ void ParticleAsset::initPersistFields()
 
 //------------------------------------------------------------------------------
 
-bool ParticleAsset::onAdd()
-{
-    // Call Parent.
-    if(!Parent::onAdd())
-        return false;
-
-    // Return Okay.
-    return true;
-}
-
-//------------------------------------------------------------------------------
-
-void ParticleAsset::onRemove()
-{
-    // Call Parent.
-    Parent::onRemove();
-}
-
-//------------------------------------------------------------------------------
-
 void ParticleAsset::copyTo(SimObject* object)
 {
     // Fetch particle asset object.
