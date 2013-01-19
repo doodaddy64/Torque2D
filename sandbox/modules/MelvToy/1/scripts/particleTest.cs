@@ -15,43 +15,48 @@ function runParticleTest()
            
     %emitter = %effectAsset.createEmitter();
     %emitter.EmitterName = "Sputter";
-    %emitter.EmitterType = "point";
-    //%emitter.IntenseParticles = true;
-    %emitter.Image = "MelvToy:MiniTileMapImage";
+    %emitter.EmitterType = "area";
+    %emitter.IntenseParticles = false;
+    %emitter.Image = "MelvToy:Particles5";
+    %emitter.Frame = 2;
     %emitter.FixedAspect = true;
     %emitter.RandomImageFrame = true;
+    %emitter.OldestInFront =false;
+    %emitter.AttachPositionToEmitter = true;
+    %emitter.AttachRotationToEmitter = false;
 
     %emitter.selectField( "Lifetime" ); 
-        %emitter.setSingleDataKey( 10 );
-
-    %emitter.selectField( "Speed" );    
         %emitter.setSingleDataKey( 1 );
 
-    //%emitter.selectField( "SpeedVariation" );    
-        //%emitter.setSingleDataKey( 4 );
+    %emitter.selectField( "Speed" );    
+        %emitter.setSingleDataKey( 2 );
+
+    %emitter.selectField( "SpeedVariation" );    
+        %emitter.setSingleDataKey( 1 );
 
 
     %emitter.selectField( "Quantity" );    
-        %emitter.setSingleDataKey( 1000 );
+        %emitter.setSingleDataKey( 5000 );
     
     %emitter.selectField( "SizeXLife" );
         %emitter.addDataKey( 0, 0 );
-        %emitter.addDataKey( 0.2, 3 );
-        %emitter.addDataKey( 0.9, 2 );
+        %emitter.addDataKey( 0.1, 0.5 );
+        %emitter.addDataKey( 0.5, 1 );
+        %emitter.addDataKey( 0.9, 0.2 );
         %emitter.addDataKey( 1, 0 );
 
-    %emitter.selectField( "Spin" );    
-        %emitter.setSingleDataKey( 360 );
+    //%emitter.selectField( "Spin" );    
+        //%emitter.setSingleDataKey( 360 );
 
     //%emitter.selectField( "SpinVariation" );
         //%emitter.setSingleDataKey( 360 );
         
-    //%emitter.selectField( "RandomMotion" );
-        //%emitter.setSingleDataKey( 200 );
+    %emitter.selectField( "RandomMotion" );
+        %emitter.setSingleDataKey( 80 );
 
-    //%emitter.selectField( "FixedForce" );
-        //%emitter.setSingleDataKey( 100 );
-        //%emitter.FixedForceAngle = 0;
+    %emitter.selectField( "FixedForce" );
+        %emitter.setSingleDataKey( 5 );
+        %emitter.FixedForceAngle = -90;
             
     %emitter.selectField( "AlphaChannel" );
         %emitter.addDataKey( 0, 0 );
@@ -75,9 +80,14 @@ function runParticleTest()
     
     %particlePlayer = new ParticlePlayer();
     SandboxScene.addToScene( %particlePlayer );
-    %particlePlayer.setSize( 40 );
+    %particlePlayer.setSize( 90, 1 );
+    %particlePlayer.ParticleInterpolation = true;
     %particlePlayer.Particle = "MelvToy:" @ %particleAssetName;
     %particlePlayer.play();
+    //%particlePlayer.setLinearVelocity( 10, 0 );
+    %particlePlayer.setAngularVelocity( -90 );
+    
+    //SandboxScene.setDebugSceneObject( %particlePlayer );
     
     //%particlePlayerFilePath = expandPath( "^MelvToy/particlePlayer.taml" );
     //TamlWrite( %particlePlayer, %particlePlayerFilePath );

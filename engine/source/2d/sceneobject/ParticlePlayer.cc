@@ -175,6 +175,9 @@ void ParticlePlayer::OnUnregisterScene( Scene* pScene )
 
 void ParticlePlayer::integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats )
 {
+    // Call parent.
+    Parent::integrateObject( totalTime, elapsedTime, pDebugStats );
+
     // Finish if no need to integrate.
     if (    !mPlaying ||
             mCameraIdle ||
@@ -301,7 +304,7 @@ void ParticlePlayer::integrateObject( const F32 totalTime, const F32 elapsedTime
             else if ( localEmission == 0 )
             {
                 // No, so reset accumulated time.
-                //mTimeSinceLastGeneration = 0.0f;
+                //pEmitterNode->setTimeSinceLastGeneration( 0.0f );
             }
         }
     }
@@ -311,6 +314,9 @@ void ParticlePlayer::integrateObject( const F32 totalTime, const F32 elapsedTime
 
 void ParticlePlayer::interpolateObject( const F32 timeDelta )
 {    
+    // Call parent.
+    Parent::interpolateObject( timeDelta );
+
     // Finish if no need to interpolate.
     if ( !mParticleInterpolation || !mPlaying || mCameraIdle || mPaused )
         return;
@@ -452,7 +458,7 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
             {
                 // Yes, so rotate into emitter-space.
                 // NOTE:- We need clockwise rotation here.
-                glRotatef( getRenderAngle(), 0.0f, 0.0f, 1.0f );
+                glRotatef( mRadToDeg(getRenderAngle()), 0.0f, 0.0f, 1.0f );
             }
         }
 
@@ -527,6 +533,9 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
             pParticleNode = oldestInFront ? pParticleNode->mNextNode : pParticleNode->mPreviousNode;
         };
     }
+
+    // Flush.
+    pBatchRenderer->flush( getScene()->getDebugStats().batchIsolatedFlush );
 }
 
 //-----------------------------------------------------------------------------

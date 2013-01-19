@@ -2,20 +2,27 @@
     AssetName="TestParticle">
     <ParticleAssetEmitter
         EmitterName="Sputter"
-        Image="@asset=MelvToy:MiniTileMapImage"
-        Frame="0"
+        EmitterType="AREA"
+        FixedForceAngle="-90"
+        AttachPositionToEmitter="1"
+        Image="@asset=MelvToy:Particles5"
+        Frame="2"
         RandomImageFrame="1">
         <ParticleAssetEmitter.Fields>
             <Quantity
-                Keys="0 1000" />
-            <Spin
-                Keys="0 360" />
+                Keys="0 5000" />
             <Lifetime
-                Keys="0 10" />
-            <Speed
                 Keys="0 1" />
+            <Speed
+                Keys="0 2" />
+            <FixedForce
+                Keys="0 5" />
             <SizeXLife
-                Keys="0 0 0.2 3 0.9 2 1 0" />
+                Keys="0 0 0.1 0.5 0.5 1 0.9 0.2 1 0" />
+            <RandomMotion
+                Keys="0 80" />
+            <SpeedVariation
+                Keys="0 1" />
             <AlphaChannel
                 Keys="0 0 0.1 1 0.9 1 1 0" />
         </ParticleAssetEmitter.Fields>
