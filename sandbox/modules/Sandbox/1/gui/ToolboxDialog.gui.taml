@@ -60,6 +60,7 @@
 			
 		<!-- Toy Selection -->
 		<GuiTextCtrl
+			Name="ToySelectLabel"
 			canSaveDynamicFields="0"
 			isContainer="0"
 			Profile="GuiTextProfile"
@@ -102,7 +103,7 @@
 			
 		<!-- Reload Toy -->
 		<GuiImageButtonCtrl
-			Name="reloadToyButton"
+			Name="ReloadToyButton"
 			canSaveDynamicFields="0"
 			isContainer="0"
 			Profile="GuiDefaultProfile"
@@ -118,6 +119,8 @@
 			groupNum="-1"
 			buttonType="PushButton"
 			useMouseEvents="1"
+			toolTipProfile="GuiToolTipProfile"
+			toolTip="Reloads the current toy."			
 			NormalImage="@asset=Sandbox:ReplayBtn128x128UpImage"
 			HoverImage="@asset=Sandbox:ReplayBtn128x128HoverImage"
 			DownImage="@asset=Sandbox:ReplayBtn128x128DownImage" />	

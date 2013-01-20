@@ -21,9 +21,6 @@ function scanForToys()
     
     // Clear the sandbox toys.
     SandboxToys.clear();
-
-    // Clear the toy GUI list.    
-    ToySelectList.clear();
     
     // Fetch toy module count.
     %toyModuleCount = getWordCount( %toyModules );
@@ -35,14 +32,7 @@ function scanForToys()
         %moduleDefinition = getWord( %toyModules, %i );
         
         // Add to toy sandbox toys.
-        SandboxToys.add( %moduleDefinition );
-        
-        // Add to toy GUI list.
-        ToySelectList.add( %moduleDefinition.moduleId, %moduleDefinition.getId() );
-        
-        // Select the toy if it's the default one.
-        if ( %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId )
-            ToySelectList.setSelected( %moduleDefinition.getId() );
+        SandboxToys.add( %moduleDefinition );       
     }
 }
 

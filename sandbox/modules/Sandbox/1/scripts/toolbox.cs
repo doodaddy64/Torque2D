@@ -3,11 +3,15 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
+$toyAllCategoryIndex = 1;
+$defaultToySelected = false;
+
+//-----------------------------------------------------------------------------
+
 function initializeToolbox()
 {   
     // Populate the stock colors.
     %colorCount = getStockColorCount();
-    //%colorCount = 12;
     for ( %i = 0; %i < %colorCount; %i++ )
     {
         // Fetch stock color name.
@@ -21,14 +25,28 @@ function initializeToolbox()
             BackgroundColorSelectList.setSelected( %i );
     }
     
+    // Populate the toy categories.
+    ToyCategorySelectList.add( "All", $toyAllCategoryIndex );
+    ToyCategorySelectList.add( "Features (Physics)", $toyAllCategoryIndex+1 );
+    ToyCategorySelectList.add( "Features (Rendering)", $toyAllCategoryIndex+2 );
+    ToyCategorySelectList.add( "Stress Testing", $toyAllCategoryIndex+3 );
+    ToyCategorySelectList.add( "Fun", $toyAllCategoryIndex+4 );
+    ToyCategorySelectList.add( "Development", $toyAllCategoryIndex+5 );
+    ToyCategorySelectList.add( "Miscellaneous", $toyAllCategoryIndex+6 );
+    
+    // Set the "All" category as the default.
+    // NOTE:    This is important to use so that the user-configurable default toy
+    //          can be selected at start-up.
+    ToyCategorySelectList.setSelected( $toyAllCategoryIndex );
+       
     // Is this on the desktop?
     if ( $platform $= "windows" || $platform $= "macos" )
     {
         // Yes, so make the controls screen controls visible.
-        ResolutionSelectLabel.setVisible( true );
-        ResolutionSelectList.setVisible( true );
-        FullscreenOptionLabel.setVisible( true );
-        FullscreenOptionCheckBox.setVisible( true );
+        ResolutionSelectLabel.Active = true;
+        ResolutionSelectList.Active = true;
+        FullscreenOptionLabel.Active = true;
+        FullscreenOptionCheckBox.Active = true;
         
         // Fetch the active resolution.
         %activeResolution = getRes();
@@ -98,6 +116,69 @@ function toggleToolbox(%make)
 
 //-----------------------------------------------------------------------------
 
+function ToyCategorySelectList::onSelect(%this)
+{
+    // Fetch the index.
+    %index = %this.getSelected();
+
+    // Clear the toy GUI list.    
+    ToySelectList.clear();
+    
+    // Unload the active toy.
+    unloadToy();   
+
+    // Fetch the toy count.
+    %toyCount = SandboxToys.getCount();
+
+    // Populate toys in the selected category.
+    for ( %toyIndex = 0; %toyIndex < %toyCount; %toyIndex++ )
+    {
+        // Fetch the toy module.
+        %moduleDefinition = SandboxToys.getObject( %toyIndex );
+
+        // Skip the toy module if the "all" category is not selected and if the toy is not in the selected category.
+        if ( %index != $toyAllCategoryIndex && %moduleDefinition.ToyCategoryIndex != %index )
+            continue;
+
+        // Add the toy GUI list.
+        ToySelectList.add( %moduleDefinition.moduleId, %moduleDefinition.getId() );
+        
+        // Select the toy if it's the default and we've not selected a toy yet.
+        if ( !$defaultToySelected && %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId )
+            ToySelectList.setSelected( %moduleDefinition.getId() );
+    }
+    
+    // Flag as the default toy selected.
+    $defaultToySelected = true;
+   
+    // Was a toy selected?
+    if ( ToySelectList.getSelected() == 0 )
+    {
+        // No, so are there any toys to select?
+        if ( ToySelectList.size() > 0 )
+        {
+            // Yes, so select the first one.
+            ToySelectList.setFirstSelected();
+        }
+        else
+        {
+            // No, so recreate the sandbox scene just in-case any previous toy has left remenants.
+            createSandboxScene();
+        }        
+    }
+    
+    // Fetch whether a toy is selected or not.
+    %toySelected = ToySelectList.getSelected() != 0;
+    
+    // (De)activate the toy selection and reloading appropriately.
+    ToySelectLabel.Active = %toySelected;
+    ToySelectList.Active = %toySelected;
+    ReloadToyButton.Active = %toySelected;            
+    
+}
+
+//-----------------------------------------------------------------------------
+
 function ToySelectList::onSelect(%this)
 {
     // Fetch the index.
@@ -147,7 +228,7 @@ function ResolutionSelectList::onSelect(%this)
 
 //-----------------------------------------------------------------------------
 
-function reloadToyButton::onClick(%this)
+function ReloadToyButton::onClick(%this)
 {
     // Finish if no toy is loaded.
     if ( !isObject($activeToy) )
@@ -247,10 +328,10 @@ function updateToolboxOptions()
     else
     {
         // No, so make the screen controls visible.
-        ResolutionSelectLabel.setVisible( false );
-        ResolutionSelectList.setVisible( false );
-        FullscreenOptionLabel.setVisible( false );
-        FullscreenOptionCheckBox.setVisible( false );
+        ResolutionSelectLabel.Active = false;
+        ResolutionSelectList.Active = false;
+        FullscreenOptionLabel.Active = false;
+        FullscreenOptionCheckBox.Active = false;
     }    
 }
 

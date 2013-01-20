@@ -3,6 +3,7 @@
 	VersionId="1"
 	Description="Mich's testing toy."
 	Type="toy"
+	ToyCategoryIndex="6"
 	ScriptFile="main.cs"
 	ScopeSet="MichToySet"
 	CreateFunction="createMichToy"

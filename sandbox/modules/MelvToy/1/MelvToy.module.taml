@@ -3,6 +3,7 @@
 	VersionId="1"
 	Description="Melv's testing toy."
 	Type="toy"
+	ToyCategoryIndex="6"
 	ScriptFile="main.cs"
 	ScopeSet="MelvToySet"
 	CreateFunction="createMelvToy"

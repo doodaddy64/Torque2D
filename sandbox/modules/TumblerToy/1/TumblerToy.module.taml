@@ -3,6 +3,7 @@
 	VersionId="1"
 	Description="Box2D's tumbler toy."
 	Type="toy"
+	ToyCategoryIndex="2"
 	ScriptFile="main.cs"
 	ScopeSet="TumblerToySet"
 	CreateFunction="createTumblerToy"

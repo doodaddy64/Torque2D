@@ -3,6 +3,7 @@
 	VersionId="1"
 	Description="A monster truck toy."
 	Type="toy"
+	ToyCategoryIndex="5"
 	ScriptFile="main.cs"
 	ScopeSet="TruckToySet"
 	CreateFunction="createTruckToy"
