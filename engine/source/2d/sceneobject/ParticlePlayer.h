@@ -124,6 +124,7 @@ public:
     virtual void OnRegisterScene( Scene* pScene );
     virtual void OnUnregisterScene( Scene* pScene );
 
+    virtual void preIntegrate( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats );
     void integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats );
     void interpolateObject( const F32 timeDelta );
 

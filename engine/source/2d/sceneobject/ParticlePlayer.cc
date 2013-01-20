@@ -171,6 +171,54 @@ void ParticlePlayer::OnUnregisterScene( Scene* pScene )
     Parent::OnUnregisterScene( pScene );
 }
 
+//-----------------------------------------------------------------------------
+
+void ParticlePlayer::preIntegrate( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats )
+{
+    // Call Parent.
+    Parent::preIntegrate( totalTime, elapsedTime, pDebugStats );
+
+    // Finish if the camera idle distance is zero.
+    if ( mIsZero(mCameraIdleDistance) )
+        return;
+
+    // Fetch current position.
+    const Vector2 position = getPosition();
+
+    // Calculate camera idle distance squared.
+    const F32 cameraIdleDistanceSqr = mCameraIdleDistance * mCameraIdleDistance;
+
+    // Fetch scene windows.
+    SimSet& sceneWindows = getScene()->getAttachedSceneWindows();
+
+    // Find a scene window that stops the pause.
+    for( SimSet::iterator itr = sceneWindows.begin(); itr != sceneWindows.end(); itr++ )
+    {
+        // Fetch the scene window.
+        SceneWindow* pSceneWindow = static_cast<SceneWindow*>(*itr);
+
+        // Are we within the camera distance?
+        if ( (pSceneWindow->getCurrentCameraPosition() - position).LengthSquared() < cameraIdleDistanceSqr )
+        {
+            // Yes, so play.
+            if ( !getIsPlaying() )
+                play( true );
+
+            // Flag as not camera idle.
+            mCameraIdle = false;
+
+            return;
+        }
+    }
+
+    // If playing then stop.
+    if ( getIsPlaying() )
+        stop( false, false );
+
+    // Flag as camera idle.
+    mCameraIdle = true;
+}
+
 //------------------------------------------------------------------------------
 
 void ParticlePlayer::integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats )
