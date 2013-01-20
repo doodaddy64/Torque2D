@@ -20,7 +20,7 @@ function runParticleTest()
     %emitter.Image = "MelvToy:Particles1";
     %emitter.Frame = 0;
     %emitter.FixedAspect = true;
-    %emitter.RandomImageFrame = false;
+    %emitter.RandomImageFrame = true;
     %emitter.OldestInFront = true;
     %emitter.AttachPositionToEmitter = true;
     %emitter.AttachRotationToEmitter = false;
@@ -82,6 +82,7 @@ function runParticleTest()
     SandboxScene.addToScene( %particlePlayer );
     %particlePlayer.setSize( 90, 1 );
     %particlePlayer.ParticleInterpolation = false;
+    %particlePlayer.CameraIdleDistance = 50;
     %particlePlayer.Particle = "MelvToy:" @ %particleAssetName;
     %particlePlayer.play();
     //%particlePlayer.setLinearVelocity( 10, 0 );
