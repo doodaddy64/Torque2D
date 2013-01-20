@@ -681,6 +681,7 @@
     <ClInclude Include="..\..\source\2d\assets\ParticleAssetFieldCollection.h" />
     <ClInclude Include="..\..\source\2d\assets\ParticleAsset_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\core\BatchRender.h" />
+    <ClInclude Include="..\..\source\2d\core\CoreMath.h" />
     <ClInclude Include="..\..\source\2d\core\ParticleSystem.h" />
     <ClInclude Include="..\..\source\2d\core\RenderProxy.h" />
     <ClInclude Include="..\..\source\2d\core\RenderProxy_ScriptBinding.h" />

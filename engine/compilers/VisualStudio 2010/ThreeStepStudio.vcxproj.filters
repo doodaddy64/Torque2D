@@ -2975,6 +2975,9 @@
     <ClInclude Include="..\..\source\2d\core\ParticleSystem.h">
       <Filter>Source Files\2d\core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\source\2d\core\CoreMath.h">
+      <Filter>Source Files\2d\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\source\math\mMath_ASM.asm">
