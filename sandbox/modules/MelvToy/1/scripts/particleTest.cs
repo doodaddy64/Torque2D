@@ -8,7 +8,7 @@ function runParticleTest()
     %particleAssetName = "TestParticle";
     
     %effectAsset = new ParticleAsset();
-    %effectAsset.assetName = %particleAssetName;      
+    %effectAsset.assetName = %particleAssetName;   
     
     %effectAsset.LifeMode = "infinite";    
     //%effectAsset.Lifetime = 1;        
@@ -18,7 +18,7 @@ function runParticleTest()
     %emitter.EmitterType = "linex";
     %emitter.IntenseParticles = false;
     %emitter.Image = "MelvToy:Particles1";
-    %emitter.Frame = 1;
+    %emitter.Frame = 0;
     %emitter.FixedAspect = true;
     %emitter.RandomImageFrame = false;
     %emitter.OldestInFront = true;
@@ -29,14 +29,14 @@ function runParticleTest()
         %emitter.setSingleDataKey( 1 );
 
     %emitter.selectField( "Speed" );    
-        %emitter.setSingleDataKey( 2 );
+        %emitter.setSingleDataKey( 1 );
 
     %emitter.selectField( "SpeedVariation" );    
-        %emitter.setSingleDataKey( 1 );
+        %emitter.setSingleDataKey( 0 );
 
 
     %emitter.selectField( "Quantity" );    
-        %emitter.setSingleDataKey( 5000 );
+        %emitter.setSingleDataKey( 500 );
     
     %emitter.selectField( "SizeXLife" );
         %emitter.addDataKey( 0, 0 );
@@ -81,7 +81,7 @@ function runParticleTest()
     %particlePlayer = new ParticlePlayer();
     SandboxScene.addToScene( %particlePlayer );
     %particlePlayer.setSize( 90, 1 );
-    %particlePlayer.ParticleInterpolation = true;
+    %particlePlayer.ParticleInterpolation = false;
     %particlePlayer.Particle = "MelvToy:" @ %particleAssetName;
     %particlePlayer.play();
     //%particlePlayer.setLinearVelocity( 10, 0 );
@@ -92,7 +92,16 @@ function runParticleTest()
     //%particlePlayerFilePath = expandPath( "^MelvToy/particlePlayer.taml" );
     //TamlWrite( %particlePlayer, %particlePlayerFilePath );
     //TamlRead( %particlePlayerFilePath );
-        
+    
+    
+      schedule( 5000, 0, changeParticleAsset );
 	
 	//quit();
+}
+
+function changeParticleAsset()
+{
+   %asset = AssetDatabase.acquireAsset( "MelvToy:TestParticle" );
+   %emitter = %asset.findEmitter( "Sputter" );
+   %emitter.Frame = 1;
 }

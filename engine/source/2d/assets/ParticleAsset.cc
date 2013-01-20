@@ -216,22 +216,9 @@ void ParticleAsset::onDeleteNotify( SimObject* object )
 
 //------------------------------------------------------------------------------
 
-void ParticleAsset::onAssetRefresh( void ) 
-{
-    // Ignore if not yet added to the sim.
-    if ( !isProperlyAdded() )
-        return;
-
-    // Call parent.
-    Parent::onAssetRefresh();
-}
-
-
-//------------------------------------------------------------------------------
-
 bool ParticleAsset::isAssetValid( void ) const
 {
-    return true;
+    return mEmitters.size() > 0;
 }
 
 //------------------------------------------------------------------------------

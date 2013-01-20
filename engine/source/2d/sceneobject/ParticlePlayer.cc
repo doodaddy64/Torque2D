@@ -1357,6 +1357,9 @@ void ParticlePlayer::onTamlAddParent( SimObject* pParentObject )
 
 void ParticlePlayer::initializeParticleAsset( void )
 {
+    // Note if we were playing.
+    const bool wasPlaying = getIsPlaying();
+
     // Destroy any existing particle asset.
     destroyParticleAsset();
 
@@ -1395,6 +1398,10 @@ void ParticlePlayer::initializeParticleAsset( void )
         // Store new emitter node.
         mEmitters.push_back( pEmitterNode );
     }
+
+    // Start playing if we were playing before the update.
+    if ( wasPlaying )
+        play( false );
 }
 
 //-----------------------------------------------------------------------------
@@ -1407,7 +1414,8 @@ void ParticlePlayer::destroyParticleAsset( void )
     // Destroy all emitters.
     while( mEmitters.size() > 0 )
     {
-        delete mEmitters[0];
+        delete mEmitters[mEmitters.size()-1];
+        mEmitters.pop_back();
     }
     mEmitters.clear();
 }

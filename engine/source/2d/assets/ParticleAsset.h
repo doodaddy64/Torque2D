@@ -152,7 +152,6 @@ public:
 
 protected:
     virtual void initializeAsset( void );
-    virtual void onAssetRefresh( void );
 
     void onTamlCustomWrite( TamlCollection& customCollection );
     void onTamlCustomRead( const TamlCollection& customCollection );

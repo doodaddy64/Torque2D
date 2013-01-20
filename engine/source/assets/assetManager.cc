@@ -1332,8 +1332,8 @@ bool AssetManager::refreshAsset( const char* pAssetId )
             // Fetch pointed asset.
             StringTableEntry pointedAsset = refreshNotifyItr->key->getAssetId();
 
-            // Ignore if the pointed asset is not a dependency.
-            if ( !doesAssetDependOn( pointedAsset, assetId ) )
+            // Ignore if the pointed asset is not the asset or a dependency.
+            if ( pointedAsset == StringTable->EmptyString || ( pointedAsset != assetId && !doesAssetDependOn( pointedAsset, assetId ) ) )
                 continue;
 
             // Perform refresh notification callback.
@@ -1412,8 +1412,8 @@ bool AssetManager::refreshAsset( const char* pAssetId )
                 // Fetch pointed asset.
                 StringTableEntry pointedAsset = refreshNotifyItr->key->getAssetId();
 
-                // Ignore if the pointed asset is not a dependency.
-                if ( !doesAssetDependOn( pointedAsset, assetId ) )
+                // Ignore if the pointed asset is not the asset or a dependency.
+                if ( pointedAsset == StringTable->EmptyString || ( pointedAsset != assetId && !doesAssetDependOn( pointedAsset, assetId ) ) )
                     continue;
 
                 // Perform refresh notification callback.
