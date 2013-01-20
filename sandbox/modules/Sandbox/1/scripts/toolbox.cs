@@ -173,8 +173,7 @@ function ToyCategorySelectList::onSelect(%this)
     // (De)activate the toy selection and reloading appropriately.
     ToySelectLabel.Active = %toySelected;
     ToySelectList.Active = %toySelected;
-    ReloadToyButton.Active = %toySelected;            
-    
+    ReloadToyButton.Active = %toySelected;
 }
 
 //-----------------------------------------------------------------------------
