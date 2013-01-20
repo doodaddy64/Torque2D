@@ -28,7 +28,7 @@ if(!isObject(GuiDefaultProfile)) new GuiControlProfile (GuiDefaultProfile)
     fillColorNA = "244 244 244";
 
     // border color
-    border = 1;
+    border = 0;
     borderColor   = "100 100 100 255";
     borderColorHL = "128 128 128";
     borderColorNA = "64 64 64";
