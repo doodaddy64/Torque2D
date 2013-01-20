@@ -94,7 +94,7 @@ function runParticleTest()
     //TamlRead( %particlePlayerFilePath );
     
     
-      schedule( 5000, 0, changeParticleAsset );
+    //schedule( 5000, 0, changeParticleAsset );
 	
 	//quit();
 }
