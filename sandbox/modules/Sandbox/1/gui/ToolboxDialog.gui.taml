@@ -5,7 +5,7 @@
     VertSizing="height"
     Position="0 0"
     Extent="640 480"
-    MinExtent="8 8"
+    MinExtent="450 450"
     Visible="1">
 
 	<!-- Toy Selection Panel -->
@@ -16,7 +16,7 @@
 		Position="32 32"
 		Extent="320 360">	
 		
-		<!-- Toy Selection -->
+		<!-- Toy Category -->
 		<GuiTextCtrl
 			canSaveDynamicFields="0"
 			isContainer="0"
@@ -24,7 +24,49 @@
 			HorizSizing="right"
 			VertSizing="bottom"
 			Position="0 0"
-			Extent="70 15"
+			Extent="120 15"
+			MinExtent="8 2"
+			canSave="1"
+			Visible="1"
+			Active="0"
+			hovertime="1000"
+			toolTipProfile="GuiToolTipProfile"
+			toolTip="Selects the toy category to play with."
+			text="Toy Category:"
+			maxLength="255"
+			truncate="0" />	
+		<GuiPopUpMenuCtrl
+			Name="ToyCategorySelectList"
+			canSaveDynamicFields="0"
+			isContainer="0"
+			Profile="GuiPopUpMenuProfile"
+			HorizSizing="right"
+			VertSizing="bottom"
+			Position="0 24"
+			Extent="157 25"
+			MinExtent="8 2"
+			canSave="1"
+			Visible="1"
+			Active="1"
+			hovertime="1000"
+			toolTipProfile="GuiToolTipProfile"
+			toolTip="Selects the toy category to play with."
+			tooltipWidth="250"
+			maxLength="1024"
+			maxPopupHeight="200"
+			sbUsesNAColor="0"
+			reverseTextList="0"
+			bitmapBounds="16 16" />	
+			
+		<!-- Toy Selection -->
+		<GuiTextCtrl
+			canSaveDynamicFields="0"
+			isContainer="0"
+			Profile="GuiTextProfile"
+			HorizSizing="right"
+			VertSizing="bottom"
+			Position="0 30"
+			Extent="70 75"
 			MinExtent="8 2"
 			canSave="1"
 			Visible="1"
@@ -32,7 +74,7 @@
 			hovertime="1000"
 			toolTipProfile="GuiToolTipProfile"
 			toolTip="Selects the toy to play with."
-			text="Toys:"
+			text="Toy:"
 			maxLength="255"
 			truncate="0" />	
 		<GuiPopUpMenuCtrl
@@ -42,7 +84,7 @@
 			Profile="GuiPopUpMenuProfile"
 			HorizSizing="right"
 			VertSizing="bottom"
-			Position="0 24"
+			Position="0 84"
 			Extent="157 25"
 			MinExtent="8 2"
 			canSave="1"
@@ -57,7 +99,7 @@
 			sbUsesNAColor="0"
 			reverseTextList="0"
 			bitmapBounds="16 16" />
-
+			
 		<!-- Reload Toy -->
 		<GuiImageButtonCtrl
 			Name="reloadToyButton"
@@ -66,7 +108,7 @@
 			Profile="GuiDefaultProfile"
 			HorizSizing="right"
 			VertSizing="bottom"
-			Position="156 17"
+			Position="156 77"
 			Extent="40 40"
 			MinExtent="8 2"
 			canSave="1"
