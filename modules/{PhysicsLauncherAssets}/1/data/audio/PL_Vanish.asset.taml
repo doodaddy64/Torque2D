@@ -1,4 +1,0 @@
-<AudioAsset
-    AssetName="PL_VanishSound"
-    AssetAutoUnload="0"
-    AudioFile="@assetFile=#PL_Vanish.wav" />

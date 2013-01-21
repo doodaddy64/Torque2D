@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="SendToBack_normal"
-    AssetInternal="1"
-    ImageFile="@assetFile=#SendToBack_normal"
-    AutoUnload="0" />

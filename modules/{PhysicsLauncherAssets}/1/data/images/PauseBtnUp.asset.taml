@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="PauseBtnUpImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#PauseBtnUp.png" />

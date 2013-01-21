@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="iconOpenImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#iconOpen.png" />

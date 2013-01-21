@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="howToPlay1Image"
-    imageFile="@assetFile=#howToPlay1.png"
-	AssetCategory="gui" />

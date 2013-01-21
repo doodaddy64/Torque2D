@@ -1,4 +1,0 @@
-<AudioAsset
-    AssetName="PL_LaunchSound"
-    AssetAutoUnload="0"
-    AudioFile="@assetFile=#PL_Launch.wav" />

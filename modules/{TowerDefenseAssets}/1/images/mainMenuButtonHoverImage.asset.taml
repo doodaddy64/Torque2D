@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="mainMenuButtonHoverImage"
-    imageFile="@assetFile=#mainMenuButtonHover.png"
-	AssetCategory="gui" />

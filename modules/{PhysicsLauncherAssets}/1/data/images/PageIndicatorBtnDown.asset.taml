@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="PageIndicatorBtnDownImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#PageIndicatorBtnDown.png" />

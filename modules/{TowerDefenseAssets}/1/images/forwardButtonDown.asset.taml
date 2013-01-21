@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="forwardButtonDownImage"
-    imageFile="@assetFile=#forwardButtonDown.png"
-	AssetCategory="gui" />

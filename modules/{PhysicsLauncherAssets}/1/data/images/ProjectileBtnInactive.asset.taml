@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="ProjectileBtnInactiveImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#ProjectileBtnInactive.png" />

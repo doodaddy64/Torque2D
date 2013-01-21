@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="LoseScreenImageImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#LoseScreenImage.png" />

@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="noImageImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#noImage.png" />

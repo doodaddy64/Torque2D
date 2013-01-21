@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="CreditsImageImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#CreditsImage.png" />

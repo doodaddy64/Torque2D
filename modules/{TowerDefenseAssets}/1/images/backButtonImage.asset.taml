@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="BackButtonImage"
-    imageFile="@assetFile=#backButton.png"
-	AssetCategory="gui" />

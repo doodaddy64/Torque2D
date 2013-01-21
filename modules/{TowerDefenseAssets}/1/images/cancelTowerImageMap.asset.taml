@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="cancelTowerImage"
-    imageFile="@assetFile=#cancelTower.png"
-    AssetCategory="gui" />

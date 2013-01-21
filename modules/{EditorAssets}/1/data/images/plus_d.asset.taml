@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="plus_dImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#plus_d.png" />

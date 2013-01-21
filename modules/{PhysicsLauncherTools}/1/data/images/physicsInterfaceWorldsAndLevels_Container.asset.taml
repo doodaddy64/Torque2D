@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="interfaceToolScrollContainerImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#physicsInterfaceWorldsAndLevels_Container.png" />

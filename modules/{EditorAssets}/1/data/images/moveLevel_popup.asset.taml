@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="moveLevel_popupImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#moveLevel_popup.png" />

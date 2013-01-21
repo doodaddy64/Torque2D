@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="OkBtnDownImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#OkBtnDown.png" />

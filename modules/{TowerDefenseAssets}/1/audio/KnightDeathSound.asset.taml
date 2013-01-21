@@ -1,4 +1,0 @@
-<AudioAsset
-    AssetName="KnightDeathSound"
-    AssetAutoUnload="0"
-    AudioFile="@assetFile=#TD_KnightDeathSound.wav" />

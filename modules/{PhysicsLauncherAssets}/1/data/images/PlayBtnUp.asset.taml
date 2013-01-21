@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="PlayBtnUpImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#PlayBtnUp.png" />

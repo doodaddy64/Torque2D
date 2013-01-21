@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="worldsIcon_IdleImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#worldsIcon_Idle.png" />

@@ -1,7 +1,0 @@
-<AssetManifest>
-	<AssetManifest.Search>
-		<Location		
-			Path="^{PhysicsLauncherTools}/data/images"
-			Extension="asset.taml"/>
-	</AssetManifest.Search>
-</AssetManifest>

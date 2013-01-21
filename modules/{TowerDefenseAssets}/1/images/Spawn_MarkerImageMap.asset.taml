@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="Spawn_MarkerImage"
-    imageFile="@assetFile=#Spawn_Marker.png"
-    AssetCategory="sprites" />

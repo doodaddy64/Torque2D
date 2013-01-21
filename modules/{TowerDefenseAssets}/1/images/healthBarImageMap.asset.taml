@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="healthBarImage"
-    imageFile="@assetFile=#healthBar.png"
-    AssetCategory="gui" />

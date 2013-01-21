@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="colorPickerButton_iImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#colorPickerButton_inactive.png" />

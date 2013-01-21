@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="iconAddImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#iconAdd.png" />

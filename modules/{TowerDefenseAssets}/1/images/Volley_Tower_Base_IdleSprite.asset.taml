@@ -1,8 +1,0 @@
-<ImageAsset
-    AssetName="Volley_Tower_Base_IdleSprite"
-    imageFile="@assetFile=#Volley_Tower_Base_Idle.png"
-    cellCountX="8"
-    cellCountY="2"
-    cellWidth="64"
-    cellHeight="96"
-	AssetCategory="sprites" />

@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="colorPickerSliderImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#colorPickerSlider.png" />

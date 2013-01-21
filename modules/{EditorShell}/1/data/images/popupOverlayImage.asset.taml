@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="popupOverlayImage"
-    AssetCategory="gui"
-	AssetInternal="1"
-    imageFile="@assetFile=#popupOverlay.png" />

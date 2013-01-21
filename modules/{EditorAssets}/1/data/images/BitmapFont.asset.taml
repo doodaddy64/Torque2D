@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="BitmapFontImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#BitmapFont.png" />

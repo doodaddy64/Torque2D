@@ -16,6 +16,9 @@ setScriptExecEcho( false );
 // Controls whether all script execution is traced (echoed) to the console or not.
 trace( false );
 
+// Sets whether to ignore compiled TorqueScript files (DSOs) or not.
+$Scripts::ignoreDSOs = true;
+
 // Controls whether global 
 $pref::T2D::imageAssetGlobalFilterMode = "Smooth";
 
@@ -24,7 +27,7 @@ $pref::T2D::imageAssetGlobalFilterMode = "Smooth";
 // The name of the game. Used to form the path to save preferences. Defaults to C++ engine define TORQUE_GAME_NAME
 // if not specified.
 // Appending version string to avoid conflicts with existing versions and other versions.
-setCompanyAndProduct("GarageGames", "3StepStudio" @ getThreeStepStudioVersion());
+setCompanyAndProduct("GarageGames", "Sandbox" );
 
 // Set module database information echo.
 ModuleDatabase.EchoInfo = false;
@@ -32,25 +35,14 @@ ModuleDatabase.EchoInfo = false;
 // Set asset database information echo.
 AssetDatabase.EchoInfo = false;
 
-// Is a module merge available?
-if ( ModuleDatabase.isModuleMergeAvailable() )
-{
-    // Yes, so merge modules.
-    if ( ModuleDatabase.mergeModules( "modules", true, false ) == false )
-    {
-        error( "A serious error occurred merging modules!" );
-        quit();
-    }
-}
-
 // Scan modules.
 ModuleDatabase.scanModules( "modules" );
 
-// Load boot module.
-ModuleDatabase.LoadExplicit( "{EditorBoot}" );
+// Load sandbox module.
+ModuleDatabase.LoadExplicit( "Sandbox" );
 
 //-----------------------------------------------------------------------------
 
-// MM: This is a test and will be removed!
-//ModuleDatabase.schedule( 1, LoadExplicit, "{Testing}" );
-//ModuleDatabase.schedule( 1, LoadExplicit, "{MelvTesting}" );
+function onExit()
+{
+}

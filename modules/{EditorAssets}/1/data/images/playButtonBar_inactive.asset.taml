@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="playButtonBar_inactiveImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#playButtonBar_inactive.png" />

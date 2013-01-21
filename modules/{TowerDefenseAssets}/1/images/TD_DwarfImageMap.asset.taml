@@ -1,8 +1,0 @@
-<ImageAsset
-    AssetName="TD_DwarfImage"
-    imageFile="@assetFile=#TD_Dwarf.png"
-    cellCountX="8"
-    cellCountY="8"
-    cellWidth="64"
-    cellHeight="64"
-	AssetCategory="sprites" />

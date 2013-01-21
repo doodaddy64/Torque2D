@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="ExitButtonImage"
-    AssetInternal="1"
-    ImageFile="@assetFile=#exitButton.png" />

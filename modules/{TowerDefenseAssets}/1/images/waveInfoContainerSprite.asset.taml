@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="waveInfoContainerSprite"
-    imageFile="@assetFile=#waveInfoContainer.png"
-    AssetCategory="gui" />

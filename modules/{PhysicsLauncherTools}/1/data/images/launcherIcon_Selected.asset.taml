@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="launcherIcon_SelectedImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#launcherIcon_Selected.png" />

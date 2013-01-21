@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="SplashScreenImage"
-    AssetCategory="gui"
-    imageFile="@assetFile=#SplashScreen.png" />

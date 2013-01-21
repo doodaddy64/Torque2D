@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="zoomButton_depressedImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#zoomButton_depressed.png" />

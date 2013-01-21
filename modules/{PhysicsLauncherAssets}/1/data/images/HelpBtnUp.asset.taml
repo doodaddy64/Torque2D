@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="HelpBtnUpImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#HelpBtnUp.png" />

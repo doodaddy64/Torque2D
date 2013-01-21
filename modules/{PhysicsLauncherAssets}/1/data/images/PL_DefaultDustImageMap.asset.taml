@@ -1,8 +1,0 @@
-<ImageAsset
-    AssetName="PL_DefaultDustImage"
-    AssetCategory="sprites"
-    ImageFile="@assetFile=#dust_default"
-    CellCountX="4"
-    CellCountY="4"
-    CellWidth="32"
-    CellHeight="32" />

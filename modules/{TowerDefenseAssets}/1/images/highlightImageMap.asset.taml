@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="highlightImage"
-    imageFile="@assetFile=#highlight.png"
-    AssetCategory="gui" />

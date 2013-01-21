@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="playButton_highlightImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#playButton_highlight.png" />

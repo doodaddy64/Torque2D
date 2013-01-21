@@ -1,7 +1,0 @@
-<AssetManifest>
-	<AssetManifest.Search>
-		<Location		
-			Path="^{AssetLibrary}/data/images"
-			Extension="asset.taml"/>
-	</AssetManifest.Search>
-</AssetManifest>

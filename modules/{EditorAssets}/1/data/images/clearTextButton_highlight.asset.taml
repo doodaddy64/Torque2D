@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="clearTextButton_highlightImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#clearTextButton_highlight.png" />

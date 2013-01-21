@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="pauseMenuBackgroundImage"
-    AssetCategory="gui"
-    imageFile="@assetFile=#pauseMenuBackground.png" />

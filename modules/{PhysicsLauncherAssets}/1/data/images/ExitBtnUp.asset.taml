@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="ExitBtnUpImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#ExitBtnUp.png" />

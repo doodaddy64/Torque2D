@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="builderIcon_IdleImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#builderIcon_Idle.png" />

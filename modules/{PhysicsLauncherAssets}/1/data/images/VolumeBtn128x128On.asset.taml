@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="VolumeBtn128x128OnImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#VolumeBtn128x128On.png" />

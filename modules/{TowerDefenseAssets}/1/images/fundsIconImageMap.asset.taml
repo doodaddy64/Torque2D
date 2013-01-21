@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="fundsIconImage"
-    imageFile="@assetFile=#fundsIcon.png"
-    AssetCategory="gui" />

@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="MainMenuBackgroundImageImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#MainMenuBackgroundImage.png" />

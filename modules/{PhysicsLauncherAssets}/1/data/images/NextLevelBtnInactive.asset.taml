@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="NextLevelBtnInactiveImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#NextLevelBtnInactive.png" />

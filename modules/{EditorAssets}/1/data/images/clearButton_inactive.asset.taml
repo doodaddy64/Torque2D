@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="clearButton_inactiveImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#clearButton_inactive.png" />

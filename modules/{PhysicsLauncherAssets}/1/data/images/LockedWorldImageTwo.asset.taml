@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="LockedWorldImageTwoImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#LockedWorldImageTwo.png" />

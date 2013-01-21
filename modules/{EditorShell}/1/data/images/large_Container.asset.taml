@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="large_ContainerImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#large_Container.png" />

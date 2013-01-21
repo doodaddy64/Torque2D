@@ -1,7 +1,0 @@
-<AssetManifest>
-	<AssetManifest.Search>
-		<Location
-			Path="^AssetPicker/gui"
-			Extension="taml"/>
-	</AssetManifest.Search>
-</AssetManifest>

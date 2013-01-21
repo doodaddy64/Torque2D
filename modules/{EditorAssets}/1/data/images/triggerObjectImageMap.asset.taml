@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="triggerObjectImage"
-    AssetInternal="1"
-    ImageFile="@assetFile=#trigger"
-    filterPad="false" />

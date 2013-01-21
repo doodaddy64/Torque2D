@@ -1,8 +1,0 @@
-<ImageAsset
-    AssetName="BitmapFontImage"
-    AssetCategory="sprites"
-    ImageFile="@assetFile=#font"
-    CellCountX="16"
-    CellCountY="6"
-    CellWidth="16"
-    CellHeight="16" />

@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="fontImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#font.png" />

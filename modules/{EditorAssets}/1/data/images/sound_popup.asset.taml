@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="sound_popupImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#sound_popup.png" />

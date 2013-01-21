@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="ProjectileBtnHoverImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#ProjectileBtnHover.png" />

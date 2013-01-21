@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="newObjectImage"
-    AssetInternal="1"
-    ImageFile="@assetFile=#newIcon"
-    filterPad="false" />

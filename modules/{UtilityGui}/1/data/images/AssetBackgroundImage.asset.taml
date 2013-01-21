@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="AssetBackgroundImage"
-    AssetInternal="1"
-    ImageFile="@assetFile=#AssetBackground.png" />

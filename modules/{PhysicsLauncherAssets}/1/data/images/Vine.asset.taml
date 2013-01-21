@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="VineImage"
-    AssetCategory="sprites"
-    ImageFile="@assetFile=#Vine.png" />

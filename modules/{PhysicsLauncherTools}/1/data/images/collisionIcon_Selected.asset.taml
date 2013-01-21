@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="collisionIcon_SelectedImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#collisionIcon_Selected.png" />

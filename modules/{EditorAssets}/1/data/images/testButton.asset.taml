@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="TestButtonImage"
-    AssetInternal="1"
-    ImageFile="@assetFile=#testButton.png" />

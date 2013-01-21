@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="topHudContainerImage"
-    imageFile="@assetFile=#topHudContainer.png"
-    AssetCategory="gui" />

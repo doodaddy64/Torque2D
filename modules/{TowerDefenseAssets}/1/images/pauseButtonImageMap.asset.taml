@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="pauseButtonImage"
-    imageFile="@assetFile=#pauseButton.png"
-    AssetCategory="gui" />

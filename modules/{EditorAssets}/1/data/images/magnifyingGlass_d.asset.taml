@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="magnifyingGlass_dImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#magnifyingGlass_d.png" />

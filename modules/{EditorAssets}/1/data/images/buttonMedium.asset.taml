@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="buttonMediumImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#buttonMedium.png" />

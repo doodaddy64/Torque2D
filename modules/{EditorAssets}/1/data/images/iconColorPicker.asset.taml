@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="iconColorPickerImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#iconColorPicker.png" />

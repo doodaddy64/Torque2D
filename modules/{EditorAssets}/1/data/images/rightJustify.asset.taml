@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="rightJustifyImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#rightJustify.png" />

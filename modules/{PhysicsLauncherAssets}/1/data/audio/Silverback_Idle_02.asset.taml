@@ -1,4 +1,0 @@
-<AudioAsset
-    AssetName="Silverback_Idle_02Sound"
-    AudioFile="@assetFile=#Silverback_Idle_02.wav"
-    AutoUnload="0" />

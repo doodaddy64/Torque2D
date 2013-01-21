@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="WorldImageOneImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#WorldImageOne.png" />

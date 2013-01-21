@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="NextBtnDownImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#NextBtnDown.png" />

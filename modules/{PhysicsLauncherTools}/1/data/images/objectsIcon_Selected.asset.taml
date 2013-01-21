@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="objectsIcon_SelectedImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#objectsIcon_Selected.png" />

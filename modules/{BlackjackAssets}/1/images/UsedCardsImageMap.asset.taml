@@ -1,3 +1,0 @@
-<ImageAsset
-    AssetName="UsedCardsImage"
-    ImageFile="@assetFile=^{BlackjackAssets}/images/UsedCards" />

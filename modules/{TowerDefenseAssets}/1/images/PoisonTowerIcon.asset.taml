@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="PoisonTowerIcon"
-    imageFile="@assetFile=#tower3.png"
-    AssetCategory="gui" />

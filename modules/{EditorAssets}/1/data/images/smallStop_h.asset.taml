@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="smallStop_hImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#smallStop_h.png" />

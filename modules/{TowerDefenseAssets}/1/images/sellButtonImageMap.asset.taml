@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="sellButtonImage"
-    imageFile="@assetFile=#sellButton.png"
-    AssetCategory="gui" />

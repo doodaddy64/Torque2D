@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="buttonLargeImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#buttonLarge.png" />

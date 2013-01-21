@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="magnifyingGlassBackingImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#magnifyingGlassBacking.png" />

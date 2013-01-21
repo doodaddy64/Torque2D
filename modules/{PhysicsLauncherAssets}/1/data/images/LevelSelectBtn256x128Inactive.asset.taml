@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="LevelSelectBtn256x128InactiveImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#LevelSelectBtn256x128Inactive.png" />

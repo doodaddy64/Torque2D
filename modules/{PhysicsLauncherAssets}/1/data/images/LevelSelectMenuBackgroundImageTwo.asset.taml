@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="LevelSelectMenuBackgroundImageTwoImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#LevelSelectMenuBackgroundImageTwo.png" />

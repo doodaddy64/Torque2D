@@ -1,6 +1,0 @@
-<AnimationAsset
-    AssetName="PL_DefaultBoxAnim1"
-    AssetCategory="sprites"
-    Image="@asset={PhysicsLauncherAssets}:PL_DefaultWorldObjectImage2"
-    AnimationFrames="0"
-    AnimationTime="1" />

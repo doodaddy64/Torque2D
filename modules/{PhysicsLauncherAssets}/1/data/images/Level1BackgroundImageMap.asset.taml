@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="Level1BackgroundImage"
-    AssetCategory="sprites"
-    ImageFile="@assetFile=#worldBackground1" />

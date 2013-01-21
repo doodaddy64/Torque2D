@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="fullBoxImage"
-    AssetCategory="gui"
-	AssetInternal="1"
-    imageFile="@assetFile=#fullBox.png" />

@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="PushImage"
-    ImageFile="@assetFile=^{BlackjackAssets}/images/Push"
-    preload="0" />

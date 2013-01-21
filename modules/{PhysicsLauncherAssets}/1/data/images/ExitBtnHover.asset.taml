@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="ExitBtnHoverImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#ExitBtnHover.png" />

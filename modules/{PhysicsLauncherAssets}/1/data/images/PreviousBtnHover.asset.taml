@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="PreviousBtnHoverImage"
-    AssetCategory="gui"
-    ImageFile="@assetFile=#PreviousBtnHover.png" />

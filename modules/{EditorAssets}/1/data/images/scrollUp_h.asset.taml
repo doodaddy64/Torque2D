@@ -1,5 +1,0 @@
-<ImageAsset
-    AssetName="scrollUp_hImage"
-    AssetCategory="gui"
-    AssetInternal="1"
-    ImageFile="@assetFile=#scrollUp_h.png" />
