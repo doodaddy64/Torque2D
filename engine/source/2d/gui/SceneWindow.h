@@ -39,6 +39,7 @@ public:
         // Source.
         RectF           mSourceArea;
         F32             mCameraZoom;
+        F32             mCameraAngle;
 
         // Destination.
         RectF           mDestinationArea;
@@ -50,6 +51,7 @@ public:
         {
            mSourceArea = RectF(0.0f, 0.0f, 10.0f, 10.0f);
            mCameraZoom = 1.0f;
+           mCameraAngle = 0.0f;
            mDestinationArea = RectF(0.0f, 0.0f, 10.0f, 10.0f);
            mSceneMin = Point2F(0.0f, 0.0f);
            mSceneMax = Point2F(10.0f, 10.0f);
@@ -221,37 +223,39 @@ public:
 
     /// Current Camera,
     virtual void setCurrentCameraArea( const RectF& cameraWindow );
+    inline RectF getCurrentCameraArea( void ) const                     { return mCameraCurrent.mSourceArea; }
+    inline F32 getCurrentCameraWidth( void ) const                      { return mCameraCurrent.mSourceArea.len_x(); }
+    inline F32 getCurrentCameraHeight( void ) const                     { return mCameraCurrent.mSourceArea.len_y(); }
     virtual void setCurrentCameraPosition( Vector2 centerPosition, F32 width, F32 height );
-    void setCurrentCameraZoom( F32 zoomFactor );
+    inline Vector2 getCurrentCameraPosition( void ) const               { return mCameraCurrent.mSourceArea.centre(); }
+    void setCurrentCameraZoom( const F32 zoomFactor );
+    inline F32 getCurrentCameraZoom( void ) const                       { return mCameraCurrent.mCameraZoom; }
+    void setCurrentCameraAngle( const F32 cameraAngle );
+    inline F32 getCurrentCameraAngle( void ) const                      { return mRadToDeg(mCameraCurrent.mCameraAngle); }
 
     /// Target Camera.
     virtual void setTargetCameraArea( const RectF& cameraWindow );
     virtual void setTargetCameraPosition( Vector2 centerPosition, F32 width, F32 height );
-    void setTargetCameraZoom( F32 zoomFactor );
+    void setTargetCameraZoom( const F32 zoomFactor );
+    void setTargetCameraAngle( const F32 cameraAngle );
 
     /// Camera Interpolation Time/Mode.
-    void setCameraInterpolationTime( F32 interpolationTime );
-    void setCameraInterpolationMode( CameraInterpolationMode interpolationMode );
+    void setCameraInterpolationTime( const F32 interpolationTime );
+    void setCameraInterpolationMode( const CameraInterpolationMode interpolationMode );
 
     /// Camera Movement.
-    void startCameraMove( F32 interpolationTime );
+    void startCameraMove( const F32 interpolationTime );
     void stopCameraMove( void );
     void completeCameraMove( void );
-    void undoCameraMove( F32 interpolationTime );
+    void undoCameraMove( const F32 interpolationTime );
     F32 interpolate( F32 from, F32 to, F32 delta );
     F32 linearInterpolate( F32 from, F32 to, F32 delta );
     F32 sigmoidInterpolate( F32 from, F32 to, F32 delta );
     void updateCamera( void );
 
-    /// Camera Accessors.
-    inline Vector2 getCurrentCameraPosition( void ) const               { return mCameraCurrent.mSourceArea.centre(); }
-    inline RectF getCurrentCameraArea( void ) const                     { return mCameraCurrent.mSourceArea; }
     inline Vector2 getCurrentCameraRenderPosition( void )               { calculateCameraView( &mCameraCurrent ); return mCameraCurrent.mDestinationArea.centre(); }
     inline RectF getCurrentCameraRenderArea( void )                     { calculateCameraView( &mCameraCurrent ); return mCameraCurrent.mDestinationArea; }
     inline F32 getCameraInterpolationTime( void )                       { return mCameraTransitionTime; }
-    inline F32 getCurrentCameraWidth( void ) const                      { return mCameraCurrent.mSourceArea.len_x(); }
-    inline F32 getCurrentCameraHeight( void ) const                     { return mCameraCurrent.mSourceArea.len_y(); }
-    inline F32 getCurrentCameraZoom( void ) const                       { return mCameraCurrent.mCameraZoom; }
     inline const Vector2 getCurrentCameraWindowScale( void ) const      { return mCameraCurrent.mSceneWindowScale; }
     inline const CameraView& getCurrentCamera(void) const               { return mCameraCurrent; }
     inline const Vector2& getCameraShake(void) const                    { return mCameraShakeOffset; }
@@ -259,7 +263,7 @@ public:
     inline bool isCameraMoving( void ) const                            { return mMovingCamera; }
 
     /// Camera Shake.
-    void startCameraShake( F32 magnitude, F32 time );
+    void startCameraShake( const F32 magnitude, const F32 time );
     void stopCameraShake( void );
 
     static void initPersistFields();

@@ -412,6 +412,8 @@ void GuiSceneObjectCtrl::onRender(Point2I offset, const RectI& updateRect)
       // Render Object in GUI-space.
       SceneRenderState guiSceneRenderState(
           clipBounds,
+          clipBounds.centre(),
+          0.0f,
           MASK_ALL,
           MASK_ALL,
           Vector2::getOne(),

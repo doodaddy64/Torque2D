@@ -901,6 +901,16 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
     // Debug Profiling.
     PROFILE_START(Scene_RenderSceneVisibleQuery);
 
+    // Rotate the render AABB by the camera angle.
+    b2AABB cameraAABB;
+    CoreMath::mRotateAABB( pSceneRenderState->mRenderAABB, pSceneRenderState->mRenderAngle, cameraAABB );
+
+    // Rotate the world matrix by the camera angle.
+    const Vector2& cameraPosition = pSceneRenderState->mRenderPosition;
+    glTranslatef( cameraPosition.x, cameraPosition.y, 0.0f );
+    glRotatef( mRadToDeg(pSceneRenderState->mRenderAngle), 0.0f, 0.0f, 1.0f );
+    glTranslatef( -cameraPosition.x, -cameraPosition.y, 0.0f );
+
     // Clear world query.
     mpWorldQuery->clearQuery();
 
@@ -909,7 +919,7 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
     mpWorldQuery->setQueryFilter( queryFilter );
 
     // Query render AABB.
-    mpWorldQuery->renderQueryArea( pSceneRenderState->mRenderAABB );
+    mpWorldQuery->renderQueryArea( cameraAABB );
 
     // Debug Profiling.
     PROFILE_END();  //Scene_RenderSceneVisibleQuery

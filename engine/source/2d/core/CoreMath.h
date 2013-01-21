@@ -117,8 +117,31 @@ inline void mOOBBtoAABB( b2Vec2* pOOBBVertices, b2AABB& aabb )
         lower = b2Min(lower, v);
         upper = b2Max(upper, v);
     }
-    aabb.lowerBound = lower;
-    aabb.upperBound = upper;
+    aabb.lowerBound.Set( lower.x, lower.y );
+    aabb.upperBound.Set( upper.x, upper.y );
+}
+
+/// Rotate an AABB.
+inline void mRotateAABB( const b2AABB& aabb, const F32& angle, b2AABB& transformedAABB )
+{
+    // Fetch the AABB center.
+    const b2Vec2 centerPosition = aabb.GetCenter();
+
+    // Convert to an OOBB with the specified offset.
+    b2Vec2 localOOBB[4];
+    CoreMath::mAABBtoOOBB( aabb, localOOBB );
+    localOOBB[0] -= centerPosition;
+    localOOBB[1] -= centerPosition;
+    localOOBB[2] -= centerPosition;
+    localOOBB[3] -= centerPosition;
+
+    // Rotate the OOBB.
+    CoreMath::mCalculateOOBB( localOOBB, b2Transform( b2Vec2(0.0f, 0.0f), b2Rot(angle) ), localOOBB );
+
+    // Convert back to an AABB with the inverse specified offset.
+    CoreMath::mOOBBtoAABB( localOOBB, transformedAABB );
+    transformedAABB.lowerBound += centerPosition;
+    transformedAABB.upperBound += centerPosition;
 }
 
 /// Returns a point on the given line AB that is closest to 'point'.

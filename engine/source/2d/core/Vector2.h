@@ -124,7 +124,7 @@ struct Vector2 : b2Vec2
     inline void round(const F32 epsilon = FLT_EPSILON)                  { F32 recip = 1.0f/epsilon; x = mFloor(x * recip + 0.5f) * epsilon; y = mFloor(y * recip + 0.5f) * epsilon; }
 
     inline StringTableEntry stringThis(void) const                      { char buffer[32]; dSprintf(buffer, 32, "%g %g", x, y ); return StringTable->insert(buffer); }
-    inline const char* scriptThis(void) const                           { char* pBuffer = Con::getReturnBuffer(32); dSprintf(pBuffer, 32, "%g %g", x, y ); return pBuffer; }
+    inline const char* scriptThis(void) const                           { char* pBuffer = Con::getReturnBuffer(32); dSprintf(pBuffer, 32, "%.5g %.5g", x, y ); return pBuffer; }
 };
 
 #endif // _VECTOR2_H_

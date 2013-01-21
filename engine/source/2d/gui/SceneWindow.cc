@@ -207,6 +207,7 @@ void SceneWindow::setCurrentCameraArea( const RectF& cameraWindow )
     // Set Camera Target.
     mCameraCurrent.mSourceArea = cameraWindow;
     mCameraCurrent.mCameraZoom = 1.0f;
+    mCameraCurrent.mCameraAngle = 0.0f;
 
     // Set Camera Target to Current.
     mCameraTarget = mCameraCurrent;
@@ -236,16 +237,27 @@ void SceneWindow::setCurrentCameraPosition( Vector2 centerPosition, F32 width, F
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::setCurrentCameraZoom( F32 zoomFactor )
+void SceneWindow::setCurrentCameraZoom( const F32 zoomFactor )
 {
     // Stop Camera Move ( if any ).
     if ( mMovingCamera ) stopCameraMove();
 
-    // Clamp zoom factor.
-    zoomFactor = getMax( zoomFactor, 0.000001f  );
+    // Set Camera Target.
+    mCameraCurrent.mCameraZoom = getMax( zoomFactor, 0.000001f  );
+
+    // Set Camera Target to Current.
+    mCameraTarget = mCameraCurrent;
+}
+
+//-----------------------------------------------------------------------------
+
+void SceneWindow::setCurrentCameraAngle( const F32 cameraAngle )
+{
+    // Stop Camera Move ( if any ).
+    if ( mMovingCamera ) stopCameraMove();
 
     // Set Camera Target.
-    mCameraCurrent.mCameraZoom = zoomFactor;
+    mCameraCurrent.mCameraAngle = mFmod( cameraAngle, b2_pi2 );
 
     // Set Camera Target to Current.
     mCameraTarget = mCameraCurrent;
@@ -291,18 +303,29 @@ void SceneWindow::setTargetCameraPosition( Vector2 centerPosition, F32 width, F3
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::setTargetCameraZoom( F32 zoomFactor )
+void SceneWindow::setTargetCameraZoom( const F32 zoomFactor )
 {
     // Stop Camera Move ( if any ).
     if ( mMovingCamera ) stopCameraMove();
 
     // Set Camera Target.
-    mCameraTarget.mCameraZoom = zoomFactor;
+    mCameraTarget.mCameraZoom = getMax( zoomFactor, 0.000001f );
 }
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::setCameraInterpolationTime( F32 interpolationTime )
+void SceneWindow::setTargetCameraAngle( const F32 cameraAngle )
+{
+    // Stop Camera Move ( if any ).
+    if ( mMovingCamera ) stopCameraMove();
+
+    // Set Camera Target.
+    mCameraTarget.mCameraAngle = mFmod( cameraAngle, b2_pi2 );
+}
+
+//-----------------------------------------------------------------------------
+
+void SceneWindow::setCameraInterpolationTime( const F32 interpolationTime )
 {
     // Set Interpolation Time.
     mCameraTransitionTime = interpolationTime;
@@ -310,7 +333,7 @@ void SceneWindow::setCameraInterpolationTime( F32 interpolationTime )
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::setCameraInterpolationMode( CameraInterpolationMode interpolationMode )
+void SceneWindow::setCameraInterpolationMode( const CameraInterpolationMode interpolationMode )
 {
     // Set Interpolation Mode.
     mCameraInterpolationMode = interpolationMode;
@@ -318,7 +341,7 @@ void SceneWindow::setCameraInterpolationMode( CameraInterpolationMode interpolat
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::startCameraMove( F32 interpolationTime )
+void SceneWindow::startCameraMove( const F32 interpolationTime )
 {
     // Are we mounted to an object and trying to move?
     if ( isCameraMounted() )
@@ -335,7 +358,8 @@ void SceneWindow::startCameraMove( F32 interpolationTime )
     // Stop move if we're at target already.
     if (    mCameraCurrent.mSourceArea.point  == mCameraTarget.mSourceArea.point &&
             mCameraCurrent.mSourceArea.extent == mCameraTarget.mSourceArea.extent &&
-            mCameraCurrent.mCameraZoom          == mCameraTarget.mCameraZoom )
+            mIsEqual( mCameraCurrent.mCameraZoom, mCameraTarget.mCameraZoom ) &&
+            mIsEqual( mCameraTarget.mCameraAngle, mCameraTarget.mCameraAngle ) )
     {
         // Reset Camera Move.
         mMovingCamera = false;
@@ -406,7 +430,7 @@ void SceneWindow::completeCameraMove( void )
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::undoCameraMove( F32 interpolationTime )
+void SceneWindow::undoCameraMove( const F32 interpolationTime )
 {
     // Are we mounted to an object?
     if ( isCameraMounted() )
@@ -465,6 +489,7 @@ void SceneWindow::updateCamera( void )
     mCameraCurrent.mSourceArea.extent.x   = interpolate( mCameraSource.mSourceArea.extent.x, mCameraTarget.mSourceArea.extent.x, normCameraTime );
     mCameraCurrent.mSourceArea.extent.y   = interpolate( mCameraSource.mSourceArea.extent.y, mCameraTarget.mSourceArea.extent.y, normCameraTime );
     mCameraCurrent.mCameraZoom            = interpolate( mCameraSource.mCameraZoom, mCameraTarget.mCameraZoom, normCameraTime );
+    mCameraCurrent.mCameraAngle           = interpolate( mCameraSource.mCameraAngle, mCameraTarget.mCameraAngle, normCameraTime );
 }
 
 //-----------------------------------------------------------------------------
@@ -512,23 +537,27 @@ F32 SceneWindow::sigmoidInterpolate( F32 from, F32 to, F32 delta )
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::startCameraShake( F32 magnitude, F32 time )
+void SceneWindow::startCameraShake( const F32 magnitude, const F32 time )
 {
     // Is the time zero?
     if ( mIsZero( time ) && mIsZero( magnitude ) )
     {
         // Yes, so simply stop the camera shaking.
         stopCameraShake();
+
         // Finish here.
         return;
     }
 
     // Set Current Shake.
     mCurrentShake = mFabs(magnitude);
+
     // Set Shake Life.
     mShakeLife = time;
+
     // Calculate Shake Ramp.
     mShakeRamp = mCurrentShake / mShakeLife;
+
     // Flag camera shaking.
     mCameraShaking = true;
 }
@@ -1503,6 +1532,8 @@ void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
     // Create a scene render state.
     SceneRenderState sceneRenderState(
         mCameraCurrent.mDestinationArea,
+        mCameraCurrent.mDestinationArea.centre(),
+        mCameraCurrent.mCameraAngle,
         mRenderLayerMask,
         mRenderGroupMask,
         Vector2( mCameraCurrent.mSceneWindowScale ),
@@ -1618,12 +1649,13 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
     // Camera Window #1.
     dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Camera", NULL );
     Vector2 cameraPosition = getCurrentCameraPosition();
-    dSprintf( mDebugText, sizeof( mDebugText ), "- Pos=(%0.1f,%0.1f), Size=(%0.1f,%0.1f), Zoom=%0.1f, Lower=(%0.1f,%0.1f), Upper=(%0.1f,%0.1f)", 
+    dSprintf( mDebugText, sizeof( mDebugText ), "- Pos=(%0.1f,%0.1f), Size=(%0.1f,%0.1f), Zoom=%0.1f, Angle=%0.1f, Lower=(%0.1f,%0.1f), Upper=(%0.1f,%0.1f)", 
         cameraPosition.x,
         cameraPosition.y,
         mCameraCurrent.mSourceArea.extent.x,
         mCameraCurrent.mSourceArea.extent.y,
         mCameraCurrent.mCameraZoom,
+        mRadToDeg(mCameraCurrent.mCameraAngle),
         mCameraCurrent.mSourceArea.point.x,
         mCameraCurrent.mSourceArea.point.y,
         mCameraCurrent.mSourceArea.point.x + mCameraCurrent.mSourceArea.extent.x,

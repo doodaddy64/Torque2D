@@ -9,8 +9,10 @@ ConsoleMethod(SceneWindow, getWindowExtents, const char*, 2, 2, "() Fetch Window
 {
     // Get Size Argument Buffer.
     char* pExtentsBuffer = Con::getReturnBuffer(64);
+
     // Format Buffer.
     dSprintf( pExtentsBuffer, 64, "%d %d %d %d", object->getPosition().x, object->getPosition().y, object->getExtent().x, object->getExtent().y );
+
     // Return Buffer.
     return pExtentsBuffer;
 }
@@ -137,8 +139,10 @@ ConsoleMethod(SceneWindow, getCurrentCameraArea, const char*, 2, 2, "() Get curr
 
     // Create Returnable Buffer.
     char* pBuffer = Con::getReturnBuffer(64);
+
     // Format Buffer.
-    dSprintf(pBuffer, 64, "%g %g %g %g", cameraWindow.point.x, cameraWindow.point.y, cameraWindow.point.x+cameraWindow.extent.x, cameraWindow.point.y+cameraWindow.extent.y);
+    dSprintf(pBuffer, 64, "%.5g %.5g %.5g %.5g", cameraWindow.point.x, cameraWindow.point.y, cameraWindow.point.x+cameraWindow.extent.x, cameraWindow.point.y+cameraWindow.extent.y);
+
     // Return Buffer.
     return pBuffer;
 }   
@@ -258,6 +262,23 @@ ConsoleMethod(SceneWindow, getCurrentCameraZoom, F32, 2, 2, "() Get current came
     // Get Current Camera Zoom.
     return object->getCurrentCameraZoom();
 } 
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, setCurrentCameraAngle, void, 3, 3, "(angle) - Sets the current camera angle.\n"
+                                                              "@param angle The current camera angle in degrees.\n"
+                                                              "@return No return value.")
+{
+    object->setCurrentCameraAngle( mDegToRad(dAtof(argv[2])) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, getCurrentCameraAngle, F32, 2, 2,    "() Gets the current camera angle.\n"
+                                                                "@return The current camera angle in degrees.")
+{
+    return object->getCurrentCameraAngle();
+}
 
 //-----------------------------------------------------------------------------
 
@@ -407,6 +428,15 @@ ConsoleMethod(SceneWindow, setTargetCameraZoom, void, 3, 3, "(zoomFactor) - Set 
 {
     // Set Target Camera Zoom.
     object->setTargetCameraZoom( dAtof(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, setTargetCameraAngle, void, 3, 3,    "(angle) - Sets the target camera angle.\n"
+                                                                "@param angle The target camera angle in degrees.\n"
+                                                              " @return No return value.")
+{
+    object->setTargetCameraAngle( mDegToRad(dAtof(argv[2])) );
 }
 
 //-----------------------------------------------------------------------------

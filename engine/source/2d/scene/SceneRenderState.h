@@ -18,6 +18,8 @@ struct SceneRenderState
 {
     SceneRenderState(
         const RectF& renderArea,
+        const Vector2& renderPosition,
+        const F32 renderAngle,
         U32 renderLayerMask,
         U32 renderGroupMask,
         const Vector2& renderScale,
@@ -25,6 +27,8 @@ struct SceneRenderState
     {
         mRenderArea       = renderArea;
         mRenderAABB       = CoreMath::mRectFtoAABB( renderArea );
+        mRenderPosition   = renderPosition;
+        mRenderAngle      = renderAngle;
         mRenderScale      = renderScale;
         mRenderLayerMask  = renderLayerMask;
         mRenderGroupMask  = renderGroupMask;
@@ -32,6 +36,8 @@ struct SceneRenderState
     }
 
     RectF           mRenderArea;
+    Vector2         mRenderPosition;
+    F32             mRenderAngle;
     b2AABB          mRenderAABB;
     U32             mRenderLayerMask;
     U32             mRenderGroupMask;
