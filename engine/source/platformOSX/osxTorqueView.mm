@@ -195,7 +195,7 @@
     Canvas->setCursorPos(Point2I((S32) clickLocation.x, (S32) clickLocation.y));
     
     // Grab any modifiers
-    U32 modifiers;
+    U32 modifiers = 0;
     [self getModifierKey:modifiers event:event];
     
     // Build the input event
@@ -339,7 +339,7 @@
     location.y = bounds.size.height - location.y;
     
     // Grab any modifiers
-    U32 modifiers;
+    U32 modifiers = 0;
     [self getModifierKey:modifiers event:event];
     
     // Move the cursor
@@ -398,7 +398,7 @@
         return;
     
     // Grab any modifiers
-    U32 modifiers;
+    U32 modifiers = 0;
     [self getModifierKey:modifiers event:event];
     
     InputEvent torqueEvent;
