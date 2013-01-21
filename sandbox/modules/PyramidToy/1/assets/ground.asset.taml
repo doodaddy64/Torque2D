@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="ground"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#ground.png" />

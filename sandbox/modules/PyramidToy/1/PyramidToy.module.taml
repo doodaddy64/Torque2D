@@ -1,0 +1,13 @@
+<ModuleDefinition
+	ModuleId="PyramidToy"
+	VersionId="1"
+	Description="Box2D Pyramid Test."
+	Type="toy"
+	ToyCategoryIndex="2"
+	ScriptFile="main.cs"
+	ScopeSet="PyramidToySet"
+	CreateFunction="createPyramidToy"
+	DestroyFunction="destroyPyramidToy"
+	DeclaredAssetManifest="^PyramidToy/DeclaredAssets.Manifest.taml"
+	/>
+
