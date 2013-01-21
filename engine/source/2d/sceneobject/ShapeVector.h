@@ -96,18 +96,18 @@ protected:
        static_cast<ShapeVector*>(obj)->setPolyCustom(count, data);
        return false;
     }
-    static bool writePolyList( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(ShapeVector); return pCastObject->mPolygonBasisList.size() > 0; }
+    static bool writePolyList( void* obj, StringTableEntry pFieldName ) { return static_cast<ShapeVector*>(obj)->mPolygonBasisList.size() > 0; }
 
     static bool setLineColor(void* obj, const char* data) { static_cast<ShapeVector*>(obj)->setLineColorString(data); return false; }
-    static bool writeLineColor( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(ShapeVector); return pCastObject->mLineColor != ColorF(1.0f,1.0f,1.0f,1.0f); }
+    static bool writeLineColor( void* obj, StringTableEntry pFieldName ) { return static_cast<ShapeVector*>(obj)->mLineColor != ColorF(1.0f,1.0f,1.0f,1.0f); }
     static bool setFillColor(void* obj, const char* data) { static_cast<ShapeVector*>(obj)->setFillColorString(data); return false; }
-    static bool writeFillColor( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(ShapeVector); return pCastObject->mFillColor != ColorF(0.5f,0.5f,0.5f,1.0f); }
+    static bool writeFillColor( void* obj, StringTableEntry pFieldName ) { return static_cast<ShapeVector*>(obj)->mFillColor != ColorF(0.5f,0.5f,0.5f,1.0f); }
     static bool setFillMode(void* obj, const char* data) { static_cast<ShapeVector*>(obj)->setFillMode(dAtob(data)); return false; }
-    static bool writeFillMode( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(ShapeVector); return pCastObject->mFillMode == true; }
+    static bool writeFillMode( void* obj, StringTableEntry pFieldName ) { return static_cast<ShapeVector*>(obj)->mFillMode == true; }
     static bool setIsCircle(void* obj, const char* data) { static_cast<ShapeVector*>(obj)->setIsCircle(dAtob(data)); return false; }
-    static bool writeIsCircle( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(ShapeVector); return pCastObject->mIsCircle == true; }
+    static bool writeIsCircle( void* obj, StringTableEntry pFieldName ) { return static_cast<ShapeVector*>(obj)->mIsCircle == true; }
     static bool setCircleRadius(void* obj, const char* data) { static_cast<ShapeVector*>(obj)->setCircleRadius(dAtof(data)); return false; }
-    static bool writeCircleRadius( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(ShapeVector); return pCastObject->mIsCircle != 1; }
+    static bool writeCircleRadius( void* obj, StringTableEntry pFieldName ) { return static_cast<ShapeVector*>(obj)->mIsCircle != 1; }
 };
 
 #endif // _SHAPE_VECTOR_H_

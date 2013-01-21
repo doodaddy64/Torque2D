@@ -400,15 +400,6 @@ ConsoleMethod(Scene, getScenePause, bool, 2, 2, "() Gets scene pause status.\n"
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, synchronizePrefabs, void, 2, 2, "() - Synchronize all scene objects to their assigned prefabs.  Does nothing on scene objects where no prefab is assigned.\n"
-                                                        "@return No return Value.")
-{
-    // Synchronize prefabs.
-    object->synchronizePrefabs();
-}
-
-//-----------------------------------------------------------------------------
-
 ConsoleMethod(Scene, getJointCount, S32, 2, 2,  "() Gets the joint count.\n"
                                                         "@return Returns no value")
 {

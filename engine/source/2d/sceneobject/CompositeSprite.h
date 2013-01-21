@@ -75,14 +75,14 @@ protected:
 protected:
     static bool         setDefaultSpriteAngle(void* obj, const char* data)                  { STATIC_VOID_CAST_TO(CompositeSprite, SpriteBatch, obj)->setDefaultSpriteAngle(mDegToRad(dAtof(data))); return false; }
     static const char*  getDefaultSpriteAngle(void* obj, const char* data)                  { return Con::getFloatArg( mRadToDeg(STATIC_VOID_CAST_TO(CompositeSprite, SpriteBatch, obj)->getDefaultSpriteAngle()) ); }
-    static bool         writeDefaultSpriteAngle( void* obj, StringTableEntry pFieldName )   { PREFAB_WRITE_CHECK(CompositeSprite); return mNotZero( static_cast<SpriteBatch*>(pCastObject)->getDefaultSpriteAngle() ); }
-    static bool         writeBatchIsolated( void* obj, StringTableEntry pFieldName )        { PREFAB_WRITE_CHECK(CompositeSprite); return pCastObject->getBatchIsolated(); }
-    static bool         writeBatchSortMode( void* obj, StringTableEntry pFieldName )        { PREFAB_WRITE_CHECK(CompositeSprite); return pCastObject->getBatchSortMode() != SceneRenderQueue::RENDER_SORT_OFF; }
+    static bool         writeDefaultSpriteAngle( void* obj, StringTableEntry pFieldName )   { return mNotZero( static_cast<SpriteBatch*>(obj)->getDefaultSpriteAngle() ); }
+    static bool         writeBatchIsolated( void* obj, StringTableEntry pFieldName )        { return static_cast<CompositeSprite*>(obj)->getBatchIsolated(); }
+    static bool         writeBatchSortMode( void* obj, StringTableEntry pFieldName )        { return static_cast<CompositeSprite*>(obj)->getBatchSortMode() != SceneRenderQueue::RENDER_SORT_OFF; }
 
     static bool         setBatchLayout(void* obj, const char* data)                         { static_cast<CompositeSprite*>(obj)->setBatchLayout( getBatchLayoutTypeEnum(data) ); return false; }
-    static bool         writeBatchLayout( void* obj, StringTableEntry pFieldName )          { PREFAB_WRITE_CHECK(CompositeSprite); return pCastObject->getBatchLayout() != CompositeSprite::RECTILINEAR_LAYOUT; }
+    static bool         writeBatchLayout( void* obj, StringTableEntry pFieldName )          { return static_cast<CompositeSprite*>(obj)->getBatchLayout() != CompositeSprite::RECTILINEAR_LAYOUT; }
     static bool         setBatchCulling(void* obj, const char* data)                        { STATIC_VOID_CAST_TO(CompositeSprite, SpriteBatch, obj)->setBatchCulling(dAtob(data)); return false; }
-    static bool         writeBatchCulling( void* obj, StringTableEntry pFieldName )         { PREFAB_WRITE_CHECK(CompositeSprite); return !pCastObject->getBatchCulling(); }
+    static bool         writeBatchCulling( void* obj, StringTableEntry pFieldName )         { return !static_cast<CompositeSprite*>(obj)->getBatchCulling(); }
 };
 
 #endif // _COMPOSITE_SPRITE_H_

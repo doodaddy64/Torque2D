@@ -1056,10 +1056,6 @@ void BehaviorComponent::onTamlCustomWrite( TamlCollection& customCollection )
     // Call parent.
     Parent::onTamlCustomWrite( customCollection );
 
-    // Finish if we have a prefab assigned.
-    if ( hasPrefab() )
-        return;
-
     // Fetch behavior count.
     const U32 behaviorCount = (U32)mBehaviors.size();
 
@@ -1160,10 +1156,6 @@ void BehaviorComponent::onTamlCustomRead( const TamlCollection& customCollection
 {
     // Call parent.
     Parent::onTamlCustomRead( customCollection );
-
-    // Finish if we have a prefab assigned.
-    if ( hasPrefab() )
-        return;
 
     // Find behavior collection name.
     const TamlCollectionProperty* pCollectionProperty = customCollection.findProperty( BEHAVIOR_COLLECTION_NAME );
@@ -1436,10 +1428,6 @@ void BehaviorComponent::write( Stream &stream, U32 tabStop, U32 flags /* = 0 */ 
 
 void BehaviorComponent::readBehaviors()
 {
-    // Finish if we have a prefab assigned.
-    if ( hasPrefab() )
-        return;
-
     // Sanity!
     AssertFatal( mBehaviors.size() == 0, "BehaviorComponent::readBehaviors() already called!" );
 
@@ -1622,9 +1610,6 @@ bool BehaviorComponent::handlesConsoleMethod( const char *fname, S32 *routingId 
    // but behaviors are a special case because they always want to be called BEFORE
    // the parent to act.
    if( dStricmp( fname, "delete" ) == 0 )
-      return Parent::handlesConsoleMethod( fname, routingId );
-
-   if( dStricmp( fname, "setPrefab" ) == 0 )
       return Parent::handlesConsoleMethod( fname, routingId );
 
    for( SimSet::iterator nItr = mBehaviors.begin(); nItr != mBehaviors.end(); nItr++ )

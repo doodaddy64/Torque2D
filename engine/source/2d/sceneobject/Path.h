@@ -348,7 +348,7 @@ protected:
 
 protected:
     static bool setPathType(void* obj, const char* data);
-    static bool writePathType( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Path); return pCastObject->mPathType != FOLLOW_LINEAR; }
+    static bool writePathType( void* obj, StringTableEntry pFieldName ) { return static_cast<Path*>(obj)->mPathType != FOLLOW_LINEAR; }
 
 };
 

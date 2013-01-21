@@ -238,9 +238,6 @@ protected:
     virtual void            onTamlCustomWrite( TamlCollection& customCollection );
     virtual void            onTamlCustomRead( const TamlCollection& customCollection );
 
-    /// Prefab.
-    virtual bool            synchronizePrefab( void );
-
 public:
     SceneObject();
     virtual ~SceneObject();
@@ -598,17 +595,17 @@ protected:
 protected:
     /// Lifetime.
     static bool             setLifetime(void* obj, const char* data)    { static_cast<SceneObject*>(obj)->setLifetime(dAtof(data)); return false; }
-    static bool             writeLifetime( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getLifetime() > 0.0f ; }
+    static bool             writeLifetime( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getLifetime() > 0.0f ; }
 
     /// Scene layers.
     static bool             setSceneLayer(void* obj, const char* data)  { static_cast<SceneObject*>(obj)->setSceneLayer(dAtoi(data)); return false; }
-    static bool             writeSceneLayer( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getSceneLayer() > 0 ; }
+    static bool             writeSceneLayer( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getSceneLayer() > 0 ; }
     static bool             setSceneLayerDepth(void* obj, const char* data)  { static_cast<SceneObject*>(obj)->setSceneLayerDepth(dAtof(data)); return false; }
-    static bool             writeSceneLayerDepth( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return mNotZero(pCastObject->getSceneLayerDepth()); }
+    static bool             writeSceneLayerDepth( void* obj, StringTableEntry pFieldName ) { return mNotZero(static_cast<SceneObject*>(obj)->getSceneLayerDepth()); }
 
     /// Scene groups.
     static bool             setSceneGroup(void* obj, const char* data)  { static_cast<SceneObject*>(obj)->setSceneGroup(dAtoi(data)); return false; }
-    static bool             writeSceneGroup( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getSceneGroup() > 0 ; }
+    static bool             writeSceneGroup( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getSceneGroup() > 0 ; }
 
     /// Area.
     static bool             setSize(void* obj, const char* data)
@@ -634,7 +631,7 @@ protected:
     static bool             writeAngle( void* obj, StringTableEntry pFieldName ) { return mNotZero(static_cast<SceneObject*>(obj)->getAngle()); }
     static bool             setFixedAngle(void* obj, const char* data)  { static_cast<SceneObject*>(obj)->setFixedAngle(dAtob(data)); return false; }
     static const char*      getFixedAngle(void* obj, const char* data)  { return Con::getBoolArg( static_cast<SceneObject*>(obj)->getFixedAngle() ); }
-    static bool             writeFixedAngle( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getFixedAngle() == true; }
+    static bool             writeFixedAngle( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getFixedAngle() == true; }
 
     /// Body.
     static bool setBodyType(void* obj, const char* data)
@@ -650,78 +647,78 @@ protected:
         return false;
     }
     static const char*      getBodyType(void* obj, const char* data)        { return getBodyTypeDescription( static_cast<SceneObject*>(obj)->getBodyType() ); }
-    static bool             writeBodyType( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getBodyType() != b2_dynamicBody; }
+    static bool             writeBodyType( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getBodyType() != b2_dynamicBody; }
     static bool             setActive(void* obj, const char* data)          { static_cast<SceneObject*>(obj)->setActive(dAtob(data)); return false; }
     static const char*      getActive(void* obj, const char* data)          { return Con::getBoolArg( static_cast<SceneObject*>(obj)->getActive() ); }
-    static bool             writeActive( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getActive() == false; }
+    static bool             writeActive( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getActive() == false; }
     static bool             setAwake(void* obj, const char* data)           { static_cast<SceneObject*>(obj)->setAwake(dAtob(data)); return false; }
     static const char*      getAwake(void* obj, const char* data)           { return Con::getBoolArg( static_cast<SceneObject*>(obj)->getAwake() ); }
-    static bool             writeAwake( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getAwake() == false; }
+    static bool             writeAwake( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getAwake() == false; }
     static bool             setBullet(void* obj, const char* data)          { static_cast<SceneObject*>(obj)->setBullet(dAtob(data)); return false; }
     static const char*      getBullet(void* obj, const char* data)          { return Con::getBoolArg( static_cast<SceneObject*>(obj)->getBullet() ); }
-    static bool             writeBullet( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getBullet() == true; }
+    static bool             writeBullet( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getBullet() == true; }
     static bool             setSleepingAllowed(void* obj, const char* data) { static_cast<SceneObject*>(obj)->setSleepingAllowed(dAtob(data)); return false; }
     static const char*      getSleepingAllowed(void* obj, const char* data) { return Con::getBoolArg( static_cast<SceneObject*>(obj)->getSleepingAllowed() ); }
-    static bool             writeSleepingAllowed( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getSleepingAllowed() == false; }
+    static bool             writeSleepingAllowed( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getSleepingAllowed() == false; }
 
     /// Collision control.
     static bool             setDefaultDensity(void* obj, const char* data)  { static_cast<SceneObject*>(obj)->setDefaultDensity(dAtof(data)); return false; }
-    static bool             writeDefaultDensity( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return mNotEqual(pCastObject->getDefaultDensity(), 1.0f); }
+    static bool             writeDefaultDensity( void* obj, StringTableEntry pFieldName ) { return mNotEqual(static_cast<SceneObject*>(obj)->getDefaultDensity(), 1.0f); }
     static bool             setDefaultFriction(void* obj, const char* data) { static_cast<SceneObject*>(obj)->setDefaultFriction(dAtof(data)); return false; }
-    static bool             writeDefaultFriction( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return mNotEqual(pCastObject->getDefaultFriction(), 0.2f); }
+    static bool             writeDefaultFriction( void* obj, StringTableEntry pFieldName ) {return mNotEqual(static_cast<SceneObject*>(obj)->getDefaultFriction(), 0.2f); }
     static bool             setDefaultRestitution(void* obj, const char* data) { static_cast<SceneObject*>(obj)->setDefaultRestitution(dAtof(data)); return false; }
-    static bool             writeDefaultRestitution( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return mNotEqual(pCastObject->getDefaultRestitution(), 0.0f); }
+    static bool             writeDefaultRestitution( void* obj, StringTableEntry pFieldName ) { return mNotEqual(static_cast<SceneObject*>(obj)->getDefaultRestitution(), 0.0f); }
     static bool             setCollisionGroups(void* obj, const char* data) { static_cast<SceneObject*>(obj)->setCollisionGroups(dAtoi(data)); return false; }
-    static bool             writeCollisionGroups( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getCollisionGroupMask() != MASK_ALL; }
+    static bool             writeCollisionGroups( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getCollisionGroupMask() != MASK_ALL; }
     static bool             setCollisionLayers(void* obj, const char* data) { static_cast<SceneObject*>(obj)->setCollisionLayers(dAtoi(data)); return false; }
-    static bool             writeCollisionLayers( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getCollisionLayerMask() != MASK_ALL; }
-    static bool             writeCollisionSuppress( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getCollisionSuppress() == true; }
+    static bool             writeCollisionLayers( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getCollisionLayerMask() != MASK_ALL; }
+    static bool             writeCollisionSuppress( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getCollisionSuppress() == true; }
     static bool             setGatherContacts(void* obj, const char* data)  { static_cast<SceneObject*>(obj)->setGatherContacts(dAtoi(data)); return false; }
-    static bool             writeGatherContacts( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getGatherContacts() == true; }
+    static bool             writeGatherContacts( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getGatherContacts() == true; }
 
     /// Velocities.
     static bool             setLinearVelocity(void* obj, const char* data)  { static_cast<SceneObject*>(obj)->setLinearVelocity(Vector2(data)); return false; }
     static const char*      getLinearVelocity(void* obj, const char* data)  { return static_cast<SceneObject*>(obj)->getLinearVelocity().scriptThis(); }
-    static bool             writeLinearVelocity( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getLinearVelocity().notZero(); }
+    static bool             writeLinearVelocity( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getLinearVelocity().notZero(); }
     static bool             setAngularVelocity(void* obj, const char* data) { static_cast<SceneObject*>(obj)->setAngularVelocity(mDegToRad(dAtof(data))); return false; }
     static const char*      getAngularVelocity(void* obj, const char* data) { return Con::getFloatArg( mRadToDeg(static_cast<SceneObject*>(obj)->getAngularVelocity() ) ); }
-    static bool             writeAngularVelocity( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return mNotZero(pCastObject->getAngularVelocity()); }
+    static bool             writeAngularVelocity( void* obj, StringTableEntry pFieldName ) { return mNotZero(static_cast<SceneObject*>(obj)->getAngularVelocity()); }
     static bool             setLinearDamping(void* obj, const char* data)   { static_cast<SceneObject*>(obj)->setLinearDamping(dAtof(data)); return false; }
     static const char*      getLinearDamping(void* obj, const char* data)   { return Con::getFloatArg( static_cast<SceneObject*>(obj)->getLinearDamping() ); }
-    static bool             writeLinearDamping( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return mNotZero(pCastObject->getLinearDamping()); }
+    static bool             writeLinearDamping( void* obj, StringTableEntry pFieldName ) { return mNotZero(static_cast<SceneObject*>(obj)->getLinearDamping()); }
     static bool             setAngularDamping(void* obj, const char* data)  { static_cast<SceneObject*>(obj)->setAngularDamping(dAtof(data)); return false; }
     static const char*      getAngularDamping(void* obj, const char* data)  { return Con::getFloatArg( static_cast<SceneObject*>(obj)->getAngularDamping() ); }
-    static bool             writeAngularDamping( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return mNotZero(pCastObject->getAngularDamping()); }
+    static bool             writeAngularDamping( void* obj, StringTableEntry pFieldName ) { return mNotZero(static_cast<SceneObject*>(obj)->getAngularDamping()); }
 
     /// Gravity scaling.
     static bool             setGravityScale(void* obj, const char* data)    { static_cast<SceneObject*>(obj)->setGravityScale(dAtof(data)); return false; }
     static const char*      getGravityScale(void* obj, const char* data)    { return Con::getFloatArg( static_cast<SceneObject*>(obj)->getGravityScale() ); }
-    static bool             writeGravityScale( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return mNotEqual(pCastObject->getGravityScale(), 1.0f); }
+    static bool             writeGravityScale( void* obj, StringTableEntry pFieldName ) { return mNotEqual(static_cast<SceneObject*>(obj)->getGravityScale(), 1.0f); }
 
     /// Render visibility.
-    static bool             writeVisible( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getVisible() == false; }
+    static bool             writeVisible( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getVisible() == false; }
 
     /// Render flipping.
-    static bool             writeFlipX( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getFlipX() == true; }
-    static bool             writeFlipY( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getFlipY() == true; }
+    static bool             writeFlipX( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getFlipX() == true; }
+    static bool             writeFlipY( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getFlipY() == true; }
 
     /// Render blending.
-    static bool             writeBlendMode( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getBlendMode() == false; }
-    static bool             writeSrcBlendFactor( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getSrcBlendFactor() != GL_SRC_ALPHA; }
-    static bool             writeDstBlendFactor( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getDstBlendFactor() != GL_ONE_MINUS_SRC_ALPHA; }
-    static bool             writeBlendColor( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getBlendColor() != ColorF(1.0f, 1.0f, 1.0f, 1.0f); }
-    static bool             writeAlphaTest( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getAlphaTest() >= 0.0f; }
+    static bool             writeBlendMode( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getBlendMode() == false; }
+    static bool             writeSrcBlendFactor( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getSrcBlendFactor() != GL_SRC_ALPHA; }
+    static bool             writeDstBlendFactor( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getDstBlendFactor() != GL_ONE_MINUS_SRC_ALPHA; }
+    static bool             writeBlendColor( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getBlendColor() != ColorF(1.0f, 1.0f, 1.0f, 1.0f); }
+    static bool             writeAlphaTest( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getAlphaTest() >= 0.0f; }
 
     /// Render sorting.
-    static bool             writeSortPoint( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getSortPoint().notZero(); }
+    static bool             writeSortPoint( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getSortPoint().notZero(); }
 
     /// Input events.
-    static bool             writeUseInputEvents( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getUseInputEvents() == true; }
+    static bool             writeUseInputEvents( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getUseInputEvents() == true; }
 
     /// Script callbacks.
-    static bool             writeUpdateCallback( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getUpdateCallback() == true; }
-    static bool             writeCollisionCallback( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getCollisionCallback() == true; }
-    static bool             writeSleepingCallback( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(SceneObject); return pCastObject->getSleepingCallback() == true; }
+    static bool             writeUpdateCallback( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getUpdateCallback() == true; }
+    static bool             writeCollisionCallback( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getCollisionCallback() == true; }
+    static bool             writeSleepingCallback( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getSleepingCallback() == true; }
 
     /// Scene.
     static bool             setScene(void* obj, const char* data)

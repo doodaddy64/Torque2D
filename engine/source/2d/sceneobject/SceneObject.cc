@@ -886,33 +886,6 @@ void SceneObject::setEnabled( const bool enabled )
 
 //-----------------------------------------------------------------------------
 
-bool SceneObject::synchronizePrefab( void )
-{
-    // Debug Profiling.
-    PROFILE_SCOPE(SceneObject_SynchronizePrefab);
-
-    // Snapshot the current objects state that we don't want to change.
-    const Vector2 position   = getPosition();
-    const Vector2 size       = getSize();
-    const F32 angle          = getAngle();
-
-    // Call parent.
-    if ( !Parent::synchronizePrefab() )
-        return false;
-
-    // Restore the state we don't want to change.
-    setPosition( position );
-    setAngle( angle );
-
-    // Set size if not auto-sizing.
-    if ( !getAutoSizing() )
-        setSize( size );
-
-    return true;
-}
-
-//-----------------------------------------------------------------------------
-
 void SceneObject::setLifetime( const F32 lifetime )
 {
     // Debug Profiling.
@@ -3383,10 +3356,6 @@ void SceneObject::onTamlCustomWrite( TamlCollection& customCollection )
     // Call parent.
     Parent::onTamlCustomWrite( customCollection );
 
-    // Finish if we have a prefab assigned.
-    if ( hasPrefab() )
-        return;
-
     // Fetch collision shape count.
     const U32 collisionShapeCount = getCollisionShapeCount();
 
@@ -3546,10 +3515,6 @@ void SceneObject::onTamlCustomRead( const TamlCollection& customCollection )
 
     // Call parent.
     Parent::onTamlCustomRead( customCollection );
-
-    // Finish if we have a prefab assigned.
-    if ( hasPrefab() )
-        return;
 
     // Find collision shape collection.
     const TamlCollectionProperty* pCollisionShapeProperty = customCollection.findProperty( shapeCollectionName );

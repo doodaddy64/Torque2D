@@ -100,16 +100,16 @@ public:
 protected:
     static bool setImage(void* obj, const char* data)                   { static_cast<BitmapFontObject*>(obj)->setImage( data ); return false; }
     static const char* getImage(void* obj, const char* data)            { return static_cast<BitmapFontObject*>(obj)->getImage(); }
-    static bool writeImage( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(BitmapFontObject); return pCastObject->mImageAsset.notNull(); }
+    static bool writeImage( void* obj, StringTableEntry pFieldName )    { return static_cast<BitmapFontObject*>(obj)->mImageAsset.notNull(); }
     static bool setText( void* obj, const char* data )                  { static_cast<BitmapFontObject*>( obj )->setText( data ); return false; }
     static const char* getText( void* obj, const char* data )           { return static_cast<BitmapFontObject*>( obj )->getText().getPtr8(); }
-    static bool writeText( void* obj, StringTableEntry pFieldName )     { PREFAB_WRITE_CHECK(BitmapFontObject); return pCastObject->mText.length() != 0; }
+    static bool writeText( void* obj, StringTableEntry pFieldName )     { return static_cast<BitmapFontObject*>(obj)->mText.length() != 0; }
     static bool setTextAlignment( void* obj, const char* data );
-    static bool writeTextAlignment( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(BitmapFontObject); return pCastObject->getTextAlignment() != BitmapFontObject::ALIGN_CENTER; }
+    static bool writeTextAlignment( void* obj, StringTableEntry pFieldName ) {return static_cast<BitmapFontObject*>(obj)->getTextAlignment() != BitmapFontObject::ALIGN_CENTER; }
     static bool setCharacterSize( void* obj, const char* data )         { static_cast<BitmapFontObject*>( obj )->setCharacterSize( Utility::mGetStringElementVector(data) ); return false; }
-    static bool writeCharacterSize( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(BitmapFontObject); return pCastObject->getCharacterSize().isEqual(Vector2::getOne()); }
+    static bool writeCharacterSize( void* obj, StringTableEntry pFieldName ) { return static_cast<BitmapFontObject*>(obj)->getCharacterSize().isEqual(Vector2::getOne()); }
     static bool setCharacterPadding( void* obj, const char* data )      { static_cast<BitmapFontObject*>( obj )->setCharacterPadding( dAtoi(data) ); return false; }
-    static bool writeCharacterPadding( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(BitmapFontObject); return pCastObject->getCharacterPadding() != 0; }
+    static bool writeCharacterPadding( void* obj, StringTableEntry pFieldName ) { return static_cast<BitmapFontObject*>(obj)->getCharacterPadding() != 0; }
 };
 
 #endif // _BITMAP_FONT_OBJECT_H_

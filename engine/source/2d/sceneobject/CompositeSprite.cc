@@ -364,10 +364,6 @@ void CompositeSprite::onTamlCustomWrite( TamlCollection& customCollection )
     // Call parent.
     Parent::onTamlCustomWrite( customCollection );
 
-    // Finish if we have a prefab assigned.
-    if ( hasPrefab() )
-        return;
-
     // Fetch sprite count.
     const U32 spriteCount = getSpriteCount();
 
@@ -388,10 +384,6 @@ void CompositeSprite::onTamlCustomRead( const TamlCollection& customCollection )
 {
     // Call parent.
     Parent::onTamlCustomRead( customCollection );
-
-    // Finish if we have a prefab assigned.
-    if ( hasPrefab() )
-        return;
 
     // Find sprites collection.
     const TamlCollectionProperty* pSpritesProperty = customCollection.findProperty( StringTable->insert("Sprites") );

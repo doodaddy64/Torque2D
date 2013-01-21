@@ -168,7 +168,7 @@ protected:
     /// Persistence.
     virtual void onTamlAddParent( SimObject* pParentObject );
 
-    static bool     setParticle(void* obj, const char* data)                                { PREFAB_WRITE_CHECK(ParticlePlayer); pCastObject->setParticle(data); return false; };
+    static bool     setParticle(void* obj, const char* data)                                { static_cast<ParticlePlayer*>( obj )->setParticle(data); return false; };
     static bool     writeCameraIdleDistance( void* obj, StringTableEntry pFieldName )       { return static_cast<ParticlePlayer*>( obj )->getCameraIdleDistance() > 0.0f; }
     static bool     writeParticleInterpolation( void* obj, StringTableEntry pFieldName )    { return static_cast<ParticlePlayer*>( obj )->getParticleInterpolation(); }
 

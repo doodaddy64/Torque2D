@@ -360,9 +360,6 @@ public:
     inline void             setScenePause( bool status )                { mScenePause = status; }
     inline bool             getScenePause( void ) const                 { return mScenePause; };
 
-    /// Prefabs.
-    void                    synchronizePrefabs( void );
-
     /// Joint access.
     inline U32              getJointCount( void ) const                 { return mJoints.size(); }
     b2Joint*                getJoint( const U32 jointId );

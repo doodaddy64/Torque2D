@@ -38,12 +38,12 @@ public:
 protected:
     static bool setImage(void* obj, const char* data) { DYNAMIC_VOID_CAST_TO(RenderProxy, SpriteProxyBase, obj)->setImage( data ); return false; };
     static const char* getImage(void* obj, const char* data) { return DYNAMIC_VOID_CAST_TO(RenderProxy, SpriteProxyBase, obj)->getImage(); }
-    static bool writeImage( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(RenderProxy); if ( !pCastObject->isStaticMode() ) return false; return pCastObject->mImageAsset.notNull(); }
+    static bool writeImage( void* obj, StringTableEntry pFieldName ) { RenderProxy* pCastObject = static_cast<RenderProxy*>(obj); if ( !pCastObject->isStaticMode() ) return false; return pCastObject->mImageAsset.notNull(); }
     static bool setImageFrame(void* obj, const char* data) { DYNAMIC_VOID_CAST_TO(RenderProxy, SpriteProxyBase, obj)->setImageFrame(dAtoi(data)); return false; };
-    static bool writeImageFrame( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(RenderProxy); if ( !pCastObject->isStaticMode() ) return false; return pCastObject->mImageAsset.notNull(); }
+    static bool writeImageFrame( void* obj, StringTableEntry pFieldName ) { RenderProxy* pCastObject = static_cast<RenderProxy*>(obj); if ( !pCastObject->isStaticMode() ) return false; return pCastObject->mImageAsset.notNull(); }
     static bool setAnimation(void* obj, const char* data) { DYNAMIC_VOID_CAST_TO(RenderProxy, SpriteProxyBase, obj)->setAnimation(data, false); return false; };
     static const char* getAnimation(void* obj, const char* data) { return DYNAMIC_VOID_CAST_TO(RenderProxy, SpriteProxyBase, obj)->getAnimation(); }
-    static bool writeAnimation( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(RenderProxy); if ( pCastObject->isStaticMode() ) return false; return pCastObject->mAnimationAsset.notNull(); }
+    static bool writeAnimation( void* obj, StringTableEntry pFieldName ) { RenderProxy* pCastObject = static_cast<RenderProxy*>(obj); if ( pCastObject->isStaticMode() ) return false; return pCastObject->mAnimationAsset.notNull(); }
 };
 
 #endif // _RENDER_PROXY_H_

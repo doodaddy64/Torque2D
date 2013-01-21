@@ -293,9 +293,6 @@ protected:
     private:
     SimFieldDictionary *mFieldDictionary;    ///< Storage for dynamic fields.
 
-    /// Prefab.
-    StringTableEntry        mPrefabName;
-
 protected:
     /// Taml callbacks.
     virtual void onTamlPreWrite( void ) {}
@@ -323,11 +320,6 @@ protected:
     static bool writeSuperclass( void* obj, StringTableEntry pFieldName )            { SimObject* simObject = static_cast<SimObject*>(obj); return simObject->mSuperClassName != NULL && simObject->mSuperClassName != StringTable->EmptyString; }
     static bool writeClass( void* obj, StringTableEntry pFieldName )                 { SimObject* simObject = static_cast<SimObject*>(obj); return simObject->mClassName != NULL && simObject->mClassName != StringTable->EmptyString; }
 
-    /// Prefab.
-    static bool setPrefab(void* obj, const char* data)                              { static_cast<SimObject*>(obj)->setPrefab( data ); return false; }
-    static bool writePrefab( void* obj, StringTableEntry pFieldName )               { return static_cast<SimObject*>(obj)->hasPrefab(); }
-    #define PREFAB_WRITE_CHECK(type) type* pCastObject = static_cast<type*>(obj); if ( pCastObject->hasPrefab() ) return false
-
     // Accessors
     public:
     StringTableEntry getClassNamespace() const { return mClassName; };
@@ -339,12 +331,6 @@ protected:
     inline void pushScriptCallbackGuard( void )  { mScriptCallbackGuard++; }
     inline void popScriptCallbackGuard( void )   { mScriptCallbackGuard--; AssertFatal( mScriptCallbackGuard >= 0, "Invalid script callback guard." ); }
     inline S32 getScriptCallbackGuard( void )    { return mScriptCallbackGuard; }
-
-    /// Prefab.
-    bool                    setPrefab( const char* pPrefabName );
-    inline StringTableEntry getPrefab( void ) const                     { return mPrefabName; }
-    inline bool             hasPrefab( void ) const                     { return mPrefabName != StringTable->EmptyString; }
-    virtual bool            synchronizePrefab( void );
 
 protected:
     // By setting the value of mNSLinkMask in the constructor of a class that 

@@ -70,11 +70,11 @@ public:
 protected:
     /// Callback Management.
     static bool             setEnterCallback(void* obj, const char* data) { static_cast<Trigger*>(obj)->setEnterCallback(dAtob(data)); return false; };
-    static bool             writeEnterCallback( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Trigger); return pCastObject->mEnterCallback == false; }
+    static bool             writeEnterCallback( void* obj, StringTableEntry pFieldName ) {return static_cast<Trigger*>(obj)->mEnterCallback == false; }
     static bool             setStayCallback(void* obj, const char* data)  { static_cast<Trigger*>(obj)->setStayCallback(dAtob(data)); return false; };
-    static bool             writeStayCallback( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Trigger); return pCastObject->mStayCallback == true; }
+    static bool             writeStayCallback( void* obj, StringTableEntry pFieldName ) { return  static_cast<Trigger*>(obj)->mStayCallback == true; }
     static bool             setLeaveCallback(void* obj, const char* data) { static_cast<Trigger*>(obj)->setLeaveCallback(dAtob(data)); return false; };
-    static bool             writeLeaveCallback( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Trigger); return pCastObject->mLeaveCallback == false; }
+    static bool             writeLeaveCallback( void* obj, StringTableEntry pFieldName ) {return  static_cast<Trigger*>(obj)->mLeaveCallback == false; }
 };
 
 #endif // _TRIGGER_H_

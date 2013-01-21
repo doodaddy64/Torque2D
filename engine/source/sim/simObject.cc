@@ -45,9 +45,6 @@ SimObject::SimObject( const U8 namespaceLinkMask ) : mNSLinkMask( namespaceLinkM
 
    mClassName = NULL;
    mSuperClassName = NULL;
-
-    /// Prefab.
-    mPrefabName = StringTable->EmptyString;
 }
 
 //---------------------------------------------------------------------------
@@ -1400,9 +1397,6 @@ void SimObject::initPersistFields()
    addProtectedField("superclass", TypeString, Offset(mSuperClassName, SimObject), &setSuperClass, &defaultProtectedGetFn, &writeSuperclass, "Script Class of object.");
    addProtectedField("class",      TypeString, Offset(mClassName,      SimObject), &setClass,      &defaultProtectedGetFn, &writeClass, "Script SuperClass of object.");
    endGroup("Namespace Linking");
-
-    /// Prefab.
-    addProtectedField("Prefab", TypeString, Offset(mPrefabName, SimObject), &setPrefab, &defaultProtectedGetFn, &writePrefab, "" );
 }
 
 //-----------------------------------------------------------------------------
@@ -1671,160 +1665,4 @@ ConsoleMethod(SimObject, setClassNamespace, void, 2, 3, "")
 ConsoleMethod(SimObject, setSuperClassNamespace, void, 2, 3, "")
 {
    object->setSuperClassNamespace(argv[2]);
-}
-
-//-----------------------------------------------------------------------------
-
-bool SimObject::setPrefab( const char* pPrefabName )
-{
-    // Fetch prefab name.
-    StringTableEntry prefabName = StringTable->insert( pPrefabName );
-
-    // Finish if no change.
-    if ( prefabName == mPrefabName )
-        return true;
-
-    // Set the prefab name.
-    mPrefabName = prefabName;
-
-    // Synchronize prefab
-    return synchronizePrefab();
-}
-
-//-----------------------------------------------------------------------------
-
-bool SimObject::synchronizePrefab( void )
-{
-    // Finish if no prefab is assigned.
-    if ( !hasPrefab() )
-        return false;
-
-    // Find prefab object.
-    SimObject* pPrefab = Sim::findObject( getPrefab() );
-
-    // Did we find the object?
-    if ( pPrefab == NULL )
-    {
-        // No, so warn.
-        Con::warnf("SimObject::synchronizePrefab() - Could not find the prefab object '%s'.", getPrefab() );
-        return false;
-    }
-
-    // Are we assigning a prefab to itself?
-    if ( pPrefab == this )
-    {
-        // Yes, so warn.
-        Con::warnf("SimObject::synchronizePrefab() - Could not set prefab object '%s' to itself.", getPrefab() );
-        return false;
-    }
-
-    // Are we the same class as the prefab?
-    if ( getClassRep() != pPrefab->getClassRep() )
-    {
-        // No, so warn.
-        Con::warnf("SimObject::synchronizePrefab() - Could not set prefab object '%s' of type '%s' to type '%s'.",
-            getPrefab(), pPrefab->getClassName(), getClassName() );
-        return false;
-    }
-
-    // Synchronize the object to the prefab.
-    pPrefab->copyTo( this );
-
-    return true;
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SimObject, setPrefab, bool, 3, 3,     "(string prefabName) - Sets the prefab name to use for this sim object.\n"
-                                                    "@param prefabName The prefab name to use for this sim object.\n"
-                                                    "@return Whether the prefab was assigned or not.")
-{
-    // Set prefab.
-    return object->setPrefab( argv[2] );
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SimObject, getPrefab, const char*, 2, 2,  "() Gets the prefab name used by this sim object (if any).\n"
-                                                        "@return (string prefabName) The prefab name used by this sim object (if any).")
-{
-    // Get prefab.
-    return object->getPrefab();
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SimObject, synchronizePrefab, void, 2, 2,    "() - Synchronize the sim object to the assigned prefab.  Does nothing if no prefab is assigned.\n"
-                                                                "@return No return Value.")
-{
-    // Synchronize prefab.
-    object->synchronizePrefab();
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SimObject, hasPrefab, bool, 2, 2,     "() Gets whether the sim object has a prefab assigned or not.\n"
-                                                    "@return (bool prefabAssigned) Whether the sim object has a prefab assigned or not.")
-{
-    // Get if prefab is assigned or not.
-    return object->hasPrefab();
-}
-
-//---------------------------------------------------------------------------
-
-ConsoleFunction(clonePrefab, S32, 2, 3,     "(prefabName, [bool copyDynamicFields? = false]) Clones a prefab assigning the new object to the prefab.\n"
-                                            "@param prefabName The prefab name to clone/assign.\n"
-                                            "@param copyDynamicFields Whether the dynamic fields should be copied to the cloned object or not.  Optional: Defaults to false.\n"
-                                            "@return The cloned prefab or zero if failure.")
-{
-    // Fetch prefab id.
-    const char* pPrefabId = argv[1];
-
-    // Find the prefab.
-    SimObject* pPrefabObject = Sim::findObject( pPrefabId );
-
-    // Did we find the prefab object?
-    if ( pPrefabObject == NULL )
-    {
-        // No, so warn.
-        Con::warnf("clonePrefab() - Cannot find prefab '%s'.", pPrefabId );
-        return 0;
-    }
-
-    // Fetch copy dynamic fields flag.
-    const bool copyDynamicFields = ( argc >= 3 ) ? dAtob( argv[2] ) : false;
-
-    // Fetch the prefab name.
-    StringTableEntry prefabName = pPrefabObject->getName();
-
-    // Does the prefab have a name?
-    if ( prefabName == NULL || prefabName == StringTable->EmptyString )
-    {
-        // No, so warn.
-        Con::warnf( "clonePrefab() - Cannot clone prefab '%s' as it does not have an assigned name.", pPrefabId );
-        return 0;
-    }
-
-    // Create new object of the same type.
-    SimObject* pNewObject = dynamic_cast<SimObject*>( ConsoleObject::create( pPrefabObject->getClassName() ) );
-
-    // Did we create a new object?
-    if ( pNewObject == NULL )
-    {
-        // No, so warn.
-        Con::warnf("clonePrefab() - Cannot create prefab '%s' - Failed to generate the same class type.", pPrefabId );
-        return 0;
-    }
-
-    // Register the object.
-    pNewObject->registerObject();
-
-    // Assign prefab name.
-    pNewObject->setPrefab( prefabName );
-
-    // Copy over dynamic fields if requested.
-    if ( copyDynamicFields )
-        pNewObject->assignDynamicFieldsFrom( pPrefabObject );
-
-    return pNewObject->getId();
 }

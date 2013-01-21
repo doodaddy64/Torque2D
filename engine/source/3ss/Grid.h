@@ -428,19 +428,19 @@ public:
     DECLARE_CONOBJECT(Grid);
 
 protected:
-    static bool writeImageListSerialize( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Grid); return pCastObject->mImageListSerialize == true; }
-    static bool writeNoCellSerialize( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Grid); return pCastObject->mNoCellSerialize == true; }
+    static bool writeImageListSerialize( void* obj, StringTableEntry pFieldName )   { return static_cast<Grid*>(obj)->mImageListSerialize == true; }
+    static bool writeNoCellSerialize( void* obj, StringTableEntry pFieldName )      { return static_cast<Grid*>(obj)->mNoCellSerialize == true; }
     static bool setCellCountField(void* obj, const char* data);
     static const char* getCellCountField(void* obj, const char* data);
-    static bool writeDefaultCellWeight( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Grid); return mNotEqual(pCastObject->mDefaultCellWeight, 1.0f); }
-    static bool writeDefaultCellInteger( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Grid); return pCastObject->mDefaultCellInteger != 0; }
-    static bool writeBuildGraph( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Grid); return pCastObject->mBuildGraph == true; }
-    static bool writeAllowDiagonalEdges( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Grid); return pCastObject->mAllowDiagonalEdges == true; }
+    static bool writeDefaultCellWeight( void* obj, StringTableEntry pFieldName )    { return mNotEqual(static_cast<Grid*>(obj)->mDefaultCellWeight, 1.0f); }
+    static bool writeDefaultCellInteger( void* obj, StringTableEntry pFieldName )   { return static_cast<Grid*>(obj)->mDefaultCellInteger != 0; }
+    static bool writeBuildGraph( void* obj, StringTableEntry pFieldName )           {return static_cast<Grid*>(obj)->mBuildGraph == true; }
+    static bool writeAllowDiagonalEdges( void* obj, StringTableEntry pFieldName )   { return static_cast<Grid*>(obj)->mAllowDiagonalEdges == true; }
     static bool writeOptimisePathNodeVariance( void* obj, StringTableEntry pFieldName ) { return mNotEqual(static_cast<Grid*>(obj)->mOptimisePathNodeVariance, 0.25f); }
-    static bool writeRenderCellImages( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Grid); return pCastObject->mRenderCellImages == true; }
-    static bool writeRenderGrid( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Grid); return pCastObject->mRenderGrid == true; }
-    static bool writeRenderGridColor( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Grid); return pCastObject->mRenderGridColor != ColorI(255,255,255); }
-    static bool writeRenderGridStep( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Grid); return pCastObject->mRenderGridStep != 1; }  
+    static bool writeRenderCellImages( void* obj, StringTableEntry pFieldName )     { return static_cast<Grid*>(obj)->mRenderCellImages == true; }
+    static bool writeRenderGrid( void* obj, StringTableEntry pFieldName )           { return static_cast<Grid*>(obj)->mRenderGrid == true; }
+    static bool writeRenderGridColor( void* obj, StringTableEntry pFieldName )      { return static_cast<Grid*>(obj)->mRenderGridColor != ColorI(255,255,255); }
+    static bool writeRenderGridStep( void* obj, StringTableEntry pFieldName )       { return static_cast<Grid*>(obj)->mRenderGridStep != 1; }  
 };
 
 //-----------------------------------------------------------------------------

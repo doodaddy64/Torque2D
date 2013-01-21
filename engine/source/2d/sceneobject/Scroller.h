@@ -119,14 +119,14 @@ private:
     void renderRegionNoSplit( BatchRender* pBatchRenderer, TextureHandle& texture, const ScrollSplitRegion& splitRegion );
 
 protected:
-    static bool setRepeatX(void* obj, const char* data)                { PREFAB_WRITE_CHECK(Scroller); pCastObject->setRepeatX( dAtof(data) ); return false; }
-    static bool writeRepeatX( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Scroller); return mNotEqual( pCastObject->mRepeatX, 1.0f); }
-    static bool setRepeatY(void* obj, const char* data)                { PREFAB_WRITE_CHECK(Scroller); pCastObject->setRepeatY( dAtof(data) ); return false; }
-    static bool writeRepeatY( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Scroller); return mNotEqual( pCastObject->mRepeatY, 1.0f); }
-    static bool writeScrollX( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Scroller); return mNotZero(pCastObject->mScrollX); }
-    static bool writeScrollY( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Scroller); return mNotZero(pCastObject->mScrollY); }
-    static bool writeScrollPositionX( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Scroller); return mNotZero(pCastObject->mTextureOffsetX); }
-    static bool writeScrollPositionY( void* obj, StringTableEntry pFieldName ) { PREFAB_WRITE_CHECK(Scroller); return mNotZero(pCastObject->mTextureOffsetY); }
+    static bool setRepeatX(void* obj, const char* data)                { static_cast<Scroller*>(obj)->setRepeatX( dAtof(data) ); return false; }
+    static bool writeRepeatX( void* obj, StringTableEntry pFieldName ) { return mNotEqual( static_cast<Scroller*>(obj)->mRepeatX, 1.0f); }
+    static bool setRepeatY(void* obj, const char* data)                { static_cast<Scroller*>(obj)->setRepeatY( dAtof(data) ); return false; }
+    static bool writeRepeatY( void* obj, StringTableEntry pFieldName ) { return mNotEqual( static_cast<Scroller*>(obj)->mRepeatY, 1.0f); }
+    static bool writeScrollX( void* obj, StringTableEntry pFieldName ) { return mNotZero(static_cast<Scroller*>(obj)->mScrollX); }
+    static bool writeScrollY( void* obj, StringTableEntry pFieldName ) { return mNotZero(static_cast<Scroller*>(obj)->mScrollY); }
+    static bool writeScrollPositionX( void* obj, StringTableEntry pFieldName ) { return mNotZero(static_cast<Scroller*>(obj)->mTextureOffsetX); }
+    static bool writeScrollPositionY( void* obj, StringTableEntry pFieldName ) { return mNotZero(static_cast<Scroller*>(obj)->mTextureOffsetY); }
 };
 
 #endif // _SCROLLER_H_

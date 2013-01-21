@@ -1534,24 +1534,6 @@ U32 Scene::getChildCount( void )
 
 //-----------------------------------------------------------------------------
 
-void Scene::synchronizePrefabs( void )
-{
-    for( typeSceneObjectVector::iterator sceneObjectItr = mSceneObjects.begin(); sceneObjectItr != mSceneObjects.end(); ++sceneObjectItr )
-    {
-        // Fetch scene Object.
-        SceneObject* pSceneObject = *sceneObjectItr;
-
-        // Skip if it's a child object.
-        if ( pSceneObject->getIsChild() )
-            continue;
-
-        // Synchronize the prefab.
-        pSceneObject->synchronizePrefab();
-    }
-}
-
-//-----------------------------------------------------------------------------
-
 b2Joint* Scene::getJoint( const U32 jointId )
 {
     // Find joint.
