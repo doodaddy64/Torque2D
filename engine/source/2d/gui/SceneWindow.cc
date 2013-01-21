@@ -575,7 +575,7 @@ void SceneWindow::stopCameraShake( void )
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::mount( SceneObject* pSceneObject, Vector2 mountOffset, F32 mountForce, bool sendToMount )
+void SceneWindow::mount( SceneObject* pSceneObject, const Vector2& mountOffset, const F32 mountForce, const bool sendToMount, const bool mountAngle )
 {
     // Sanity!
     AssertFatal( pSceneObject != NULL, "Scene object cannot be NULL." );
@@ -621,10 +621,15 @@ void SceneWindow::mount( SceneObject* pSceneObject, Vector2 mountOffset, F32 mou
 
     // Set Mount Object Reference.
     mpMountedTo = pSceneObject;
+
     // Store Mount Offset.
     mMountOffset = mountOffset;
+
     // Set Mount Force.
     mMountForce = mountForce;
+
+    // Set Mount Angle.
+    mMountAngle = mountAngle;
 
     // Add Camera Mount Reference.
     pSceneObject->addCameraMountReference( this );
@@ -1187,6 +1192,10 @@ void SceneWindow::calculateCameraMount( const F32 elapsedTime )
 
     // Calculate Target Position.
     const Point2F targetPos = Point2F( mountPos.x - halfWidth, mountPos.y - halfHeight );
+
+    // Mount the angle?
+    if ( mMountAngle )
+        mCameraCurrent.mCameraAngle = -mpMountedTo->getAngle();
 
     // Rigid Mount?
     if ( mIsZero( mMountForce ) )

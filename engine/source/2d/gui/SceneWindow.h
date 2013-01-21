@@ -83,6 +83,7 @@ private:
     Vector2             mMountOffset;
     U32                 mMountToID;
     F32                 mMountForce;
+    bool                mMountAngle;
 
     /// View Limit.
     bool                mViewLimitActive;
@@ -197,7 +198,7 @@ public:
     void sceneToWindowPoint( const Vector2& srcPoint, Vector2& dstPoint ) const;
 
     /// Mounting.
-    void mount( SceneObject* pSceneObject, Vector2 mountOffset, F32 mountForce, bool sendToMount );
+    void mount( SceneObject* pSceneObject, const Vector2& mountOffset, const F32 mountForce, const bool sendToMount, const bool mountAngle );
     void dismount( void );
     void dismountMe( SceneObject* pSceneObject );
     void calculateCameraMount( const F32 elapsedTime );

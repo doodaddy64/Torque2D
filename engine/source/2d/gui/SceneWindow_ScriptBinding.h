@@ -549,8 +549,13 @@ ConsoleMethod(SceneWindow, stopCameraShake, void, 2, 2, "() Stops the camera sha
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, mount, void, 3, 7, "(SceneObject, [offsetX / offsetY], [mountForce], [sendToMount?]) - Mounts Camera onto a specified object."
-              "@return No return value")
+ConsoleMethod(SceneWindow, mount, void, 3, 8,   "(sceneObject, [offsetX / offsetY], [mountForce], [sendToMount?], [mountAngle?]) - Mounts the camera onto the specified object."
+                                                "@param sceneObject The scene object to mount the camera to.\n"
+                                                "@param offsetX / offsetY The offset from the objects position to mount the camera to.  Optional: Defaults to no offset.\n"
+                                                "@param mountForce The force to use to keep the camera mounted to the object.  Zero is a rigid mount.  Optional: Defaults to zero.\n"
+                                                "@param sendToMount Whether to immediately move the camera to the objects position or not.  Optional: Defaults to true.\n"
+                                                "@param mountAngle Whether to mount the cameras angle to the objects angle or not.  Optional: Defaults to false.\n"
+                                                "@return No return value")
 {
     // Grab the object. Always specified.
     SceneObject* pSceneObject = dynamic_cast<SceneObject*>(Sim::findObject(argv[2]));
@@ -567,19 +572,25 @@ ConsoleMethod(SceneWindow, mount, void, 3, 7, "(SceneObject, [offsetX / offsetY]
     // Calculate Mount-Offset.
     Vector2 mountOffset(0.0f, 0.0f);
 
+    U32 nextArg;
     if (argc > 3)
     {
         // Fetch Element Count.
         elementCount = Utility::mGetStringElementCount(argv[3]);
 
         // (object, "offsetX offsetY", ...)
-        if ((elementCount == 2) && (argc < 7))
+        if ( elementCount == 2 )
+        {
             mountOffset = Utility::mGetStringElementVector(argv[3]);
+            nextArg = 4;
+        }
 
         // (object, offsetX, offsetY, ...)
-        else if ((elementCount == 1) && (argc > 4))
+        else if ( elementCount == 1 && argc >= 5 )
+        {
             mountOffset = Vector2(dAtof(argv[3]), dAtof(argv[4]));
-
+            nextArg = 5;
+        }
         // Invalid.
         else
         {
@@ -589,22 +600,22 @@ ConsoleMethod(SceneWindow, mount, void, 3, 7, "(SceneObject, [offsetX / offsetY]
 
     }
 
-    // Set the next arg index.
-    // The argv index of the first parameter after the offset.
-    U32 firstArg = 6 - elementCount;
-
     // Grab the mount force - if it's specified.
     F32 mountForce = 0.0f;
-    if ( (U32)argc > firstArg )
-        mountForce = dAtof(argv[firstArg]);
+    if ( (U32)argc > nextArg )
+        mountForce = dAtof(argv[nextArg++]);
 
     // Grab the send to mount flag.
     bool sendToMount = true;
-    if ( (U32)argc > (firstArg + 1) )
-        sendToMount = dAtob(argv[firstArg + 1]);
+    if ( (U32)argc > nextArg )
+        sendToMount = dAtob(argv[nextArg++]);
+
+    bool mountAngle = false;
+    if ( (U32)argc > nextArg )
+        mountAngle = dAtob(argv[nextArg++]);
 
     // Mount Object.
-    object->mount( pSceneObject, mountOffset, mountForce, sendToMount );
+    object->mount( pSceneObject, mountOffset, mountForce, sendToMount, mountAngle );
 }
 
 //-----------------------------------------------------------------------------

@@ -590,7 +590,7 @@ function createTruck( %posX, %posY )
    SandboxScene.addToScene( $truckBody );
    
    // Mount camera to truck body.
-   SandboxWindow.mount( $truckBody );
+   SandboxWindow.mount( $truckBody, "0 0", 0, true, true );
 
 
    // ************************************************************************   
