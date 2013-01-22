@@ -1,11 +1,11 @@
 <GuiControl
     Name="MainOverlay"
     Profile="GuiDefaultProfile"
-    HorizSizing="width"
-    VertSizing="height"
+    HorizSizing="relative"
+    VertSizing="relative"
     Position="0 0"
-    Extent="640 480"
-    MinExtent="450 450"
+    Extent="100 100"
+    MinExtent="100 100"
     Visible="1">
 
     <!-- Close Toolbox -->
@@ -15,8 +15,8 @@
         canSaveDynamicFields="0"
         isContainer="0"
         Profile="GuiDefaultProfile"
-        HorizSizing="right"
-        VertSizing="bottom"
+        HorizSizing="left"
+        VertSizing="top"
         Position="0 0"
         Extent="71 71"
         MinExtent="8 2"

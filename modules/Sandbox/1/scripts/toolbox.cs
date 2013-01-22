@@ -84,10 +84,10 @@ function initializeToolbox()
             %outputIndex++;
         }
     }
-    else
-    {
-        Canvas.pushDialog(MainOverlay, 2);
-    }
+    //else
+    //{
+        SandboxWindow.add(MainOverlay);
+    //}
 }
 
 //-----------------------------------------------------------------------------
