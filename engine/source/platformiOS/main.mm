@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "AppDelegate.h"
+#import "platformiOS/AppDelegate.h"
 
 #include "platformiOS/platformiOS.h"
 #include "platformiOS/iOSEvents.h"

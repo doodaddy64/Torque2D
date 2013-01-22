@@ -13,7 +13,7 @@ function createSandboxWindow()
 
         // Set profile.        
         SandboxWindow.Profile = SandboxWindowProfile;
-        
+
         // Push the window.
         Canvas.setContent( SandboxWindow );                     
     }
@@ -29,7 +29,7 @@ function createSandboxWindow()
     SandboxWindow.setObjectInputEventLayerFilter( %allBits );
     SandboxWindow.setLockMouse( false );
     SandboxWindow.setCurrentCameraPosition( 0, 0, 100, 75 );
-    SandboxWindow.setCurrentCameraZoom( 1 );    
+    SandboxWindow.setCurrentCameraZoom( 1 );
 }
 
 //-----------------------------------------------------------------------------
@@ -102,5 +102,5 @@ function setSceneToWindow()
     updateToolboxOptions();
     
     // Activate the sandbox auto-camera.
-    setSandboxAutoCamera( true );    
+    setSandboxAutoCamera( true );        
 }

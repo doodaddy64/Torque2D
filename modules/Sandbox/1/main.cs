@@ -9,6 +9,7 @@ function createSandbox( %scopeSet )
     loadSandboxPreferences();
     
     // Load system scripts
+    exec( "./scripts/constants.cs");
     exec( "./scripts/canvas.cs" );
     exec( "./scripts/openal.cs" );
     exec( "./scripts/console.cs" );
@@ -43,6 +44,9 @@ function createSandbox( %scopeSet )
     %scopeSet.add( TamlRead("./gui/ToolboxDialog.gui.taml") );
     GlobalActionMap.bind( keyboard, "minus", toggleToolbox );
 
+    // Load and configure the main overlay.
+    %scopeSet.add( TamlRead("./gui/MainOverlay.gui.taml") );
+    
     // Scan for toys.
     scanForToys();
 

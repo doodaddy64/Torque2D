@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 GarageGames. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "platformiOS/AppDelegate.h"
 
 #import "ViewController.h"
 

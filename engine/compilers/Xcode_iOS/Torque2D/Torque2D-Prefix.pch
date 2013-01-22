@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'iTorque2D' target in the 'iTorque2D' project
+// Prefix header for all source files of the 'Torque2D' target in the 'Torque2D' project
 //
 
 #import <Availability.h>

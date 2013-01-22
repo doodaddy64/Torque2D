@@ -470,7 +470,7 @@ void glGetDoublev( GLint pname, GLdouble * params )
 }
 void glPolygonMode( GLint, GLint )
 {
-	AssertFatal( 0, "glPolygonMode(): this method call needs to be implemented");
+	//AssertFatal( 0, "glPolygonMode(): this method call needs to be implemented");
 }
 void glLockArraysEXT( GLint, GLint )
 {

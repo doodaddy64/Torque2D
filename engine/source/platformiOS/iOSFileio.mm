@@ -727,7 +727,7 @@ bool recurseDumpDirectories(const char *basePath, const char *path, Vector<Strin
    
    // construct the file path
    dSprintf(pathbuf, len, "%s/%s", basePath, path);
-   pathbuf[len] = '\0';
+   pathbuf[len - 1] = '\0';
    
    // be sure it opens.
    dir = opendir(pathbuf);
@@ -837,7 +837,7 @@ static bool recurseDumpPath(const char* curPath, Vector<Platform::FileInfo>& fil
       U32 len = dStrlen(curPath) + entry->d_namlen + 2;
       char pathbuf[len];
       dSprintf( pathbuf, len, "%s/%s", curPath, entry->d_name);
-      pathbuf[len] = '\0';
+      pathbuf[len - 1] = '\0';
       
       // ok, deal with directories and files seperately.
       if( entry->d_type == DT_DIR )

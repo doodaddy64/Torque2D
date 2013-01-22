@@ -546,7 +546,7 @@ ConsoleFunction(firstWord, const char *, 2, 2, "( sourceString ) Use the firstWo
       len = word - argv[1];
    char *ret = Con::getReturnBuffer(len + 1);
    dStrncpy(ret, argv[1], len);
-   ret[len] = 0;
+   ret[len - 1] = 0;
    return ret;
 }
 

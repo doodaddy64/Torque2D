@@ -53,7 +53,7 @@ void Platform::restartInstance()
    U32 len = CFStringGetMaximumSizeForEncoding(CFStringGetLength(mut), kCFStringEncodingUTF8);
    char *execCString = new char[len+1];
    CFStringGetCString(mut, execCString, len, kCFStringEncodingUTF8);
-   execCString[len] = '\0';
+   execCString[len - 1] = '\0';
    
    Con::printf("---- %s -----",execCString);
    system(execCString);

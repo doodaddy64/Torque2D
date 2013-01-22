@@ -1030,13 +1030,6 @@
 		2AF3633716A9BBE0004ED7AA /* ParticleSystem.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleSystem.cc; sourceTree = "<group>"; };
 		2AF3633816A9BBE0004ED7AA /* ParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleSystem.h; sourceTree = "<group>"; };
 		2AF80CFF16A80CB400CE13F1 /* ParticleAssetEmitter_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleAssetEmitter_ScriptBinding.h; sourceTree = "<group>"; };
-		331525D51B0C541827EB81DA /* main.manifestGenerator.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.manifestGenerator.cs; path = ../../../../main.manifestGenerator.cs; sourceTree = "<group>"; };
-		331525E70D6BA99395C51D2E /* main.keybindtest.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.keybindtest.cs; path = ../../../../main.keybindtest.cs; sourceTree = "<group>"; };
-		3315260D4A59442F9EE0325F /* main.michtests.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.michtests.cs; path = ../../../../main.michtests.cs; sourceTree = "<group>"; };
-		3315288687D4CE9B2FE4E16D /* main.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.cs; path = ../../../../main.cs; sourceTree = "<group>"; };
-		33152AF26E0ACEE4FF46ECA0 /* main.runAllUnitTests.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.runAllUnitTests.cs; path = ../../../../main.runAllUnitTests.cs; sourceTree = "<group>"; };
-		33152BE3E433DAD3976CBEB6 /* main.toolscompile.cs */ = {isa = PBXFileReference; lastKnownFileType = file.cs; name = main.toolscompile.cs; path = ../../../../main.toolscompile.cs; sourceTree = "<group>"; };
-		33152F95E14CDE5AD0C14F36 /* modules */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = modules; path = ../../../../modules; sourceTree = "<group>"; };
 		86063A231654180000362D83 /* platformOSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platformOSX.h; sourceTree = "<group>"; };
 		86063A241654180000362D83 /* platformOSX.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = platformOSX.mm; sourceTree = "<group>"; };
 		8609FE2E16556DD2004662ED /* osxSemaphore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxSemaphore.mm; sourceTree = "<group>"; };
@@ -2057,31 +2050,9 @@
 			name = tests;
 			sourceTree = "<group>";
 		};
-		331529E814517115E8BE2862 /* Scripts */ = {
-			isa = PBXGroup;
-			children = (
-				33152F95E14CDE5AD0C14F36 /* modules */,
-				3315288687D4CE9B2FE4E16D /* main.cs */,
-				331525E70D6BA99395C51D2E /* main.keybindtest.cs */,
-				331525D51B0C541827EB81DA /* main.manifestGenerator.cs */,
-				3315260D4A59442F9EE0325F /* main.michtests.cs */,
-				33152AF26E0ACEE4FF46ECA0 /* main.runAllUnitTests.cs */,
-				33152BE3E433DAD3976CBEB6 /* main.toolscompile.cs */,
-			);
-			path = Scripts;
-			sourceTree = "<group>";
-		};
-		864ECFF21652812100012416 /* Editor_Scripts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Editor_Scripts;
-			sourceTree = "<group>";
-		};
 		865A20BD1651589F00527C44 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				864ECFF21652812100012416 /* Editor_Scripts */,
 				865A21E5165182DA00527C44 /* qt_menu.nib */,
 				865A20BE165158CA00527C44 /* torque2d.icns */,
 			);
@@ -2402,7 +2373,6 @@
 				869FF8BB1651518C002FE082 /* Frameworks */,
 				869FF8B91651518C002FE082 /* Products */,
 				865A20B01651530B00527C44 /* Config.xcconfig */,
-				331529E814517115E8BE2862 /* Scripts */,
 			);
 			sourceTree = "<group>";
 		};

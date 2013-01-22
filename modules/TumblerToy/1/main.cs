@@ -3,7 +3,7 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-$maxBalls = 500;
+$maxBalls = 200;
 $currentBalls = 0;
 $createTumblerBallSchedule = "";
 
