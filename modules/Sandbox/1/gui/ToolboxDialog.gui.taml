@@ -8,6 +8,14 @@
     MinExtent="450 450"
     Visible="1">
 
+    <!-- Toolbox Controls -->
+	<GuiControl
+		Profile="GuiDefaultProfile"
+		HorizSizing="right"
+		VertSizing="top"
+		Position="980 440"
+		Extent="320 120">
+        
     <!-- Close Toolbox -->
     <GuiImageButtonCtrl
         Name="ToolBoxCancelButton"
@@ -18,7 +26,7 @@
         HorizSizing="right"
         VertSizing="bottom"
         Position="0 0"
-        Extent="30 30"
+        Extent="37 37"
         MinExtent="8 2"
         canSave="1"
         Visible="1"
@@ -32,7 +40,8 @@
         NormalImage="@asset=Sandbox:mediumCancelNormal"
         HoverImage="@asset=Sandbox:mediumCancelHover"
         DownImage="@asset=Sandbox:mediumCancelDown" />
-
+    </GuiControl>
+    
 	<!-- Toy Selection Panel -->
 	<GuiControl
 		Profile="GuiDefaultProfile"

@@ -87,6 +87,8 @@ function initializeToolbox()
     else
     {
         SandboxWindow.add(MainOverlay);
+        %overlayPosition = ( getWord(SandboxWindow.Extent, 0) - 142) SPC (getWord(SandboxWindow.Extent, 1) - 142);
+        MainOverlay.position = %overlayPosition;
     }
 }
 
