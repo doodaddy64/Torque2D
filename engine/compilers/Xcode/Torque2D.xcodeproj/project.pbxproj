@@ -495,10 +495,6 @@
 		865A20C216515ACE00527C44 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		865A20C316515ACE00527C44 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		865A20C416515ACE00527C44 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		865A20D216515B4200527C44 /* libQtCore.4.8.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libQtCore.4.8.2.dylib; path = ../../lib/Qt/lib/Xcode/Dylibs/libQtCore.4.8.2.dylib; sourceTree = "<group>"; };
-		865A20D316515B4200527C44 /* libQtGui.4.8.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libQtGui.4.8.2.dylib; path = ../../lib/Qt/lib/Xcode/Dylibs/libQtGui.4.8.2.dylib; sourceTree = "<group>"; };
-		865A20D416515B4300527C44 /* libQtNetwork.4.8.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libQtNetwork.4.8.2.dylib; path = ../../lib/Qt/lib/Xcode/Dylibs/libQtNetwork.4.8.2.dylib; sourceTree = "<group>"; };
-		865A20D516515B4300527C44 /* libQtWebKit.4.9.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libQtWebKit.4.9.2.dylib; path = ../../lib/Qt/lib/Xcode/Dylibs/libQtWebKit.4.9.2.dylib; sourceTree = "<group>"; };
 		865A20E7165161B100527C44 /* libqgif.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libqgif.dylib; path = ../../lib/Qt/lib/Xcode/Dylibs/libqgif.dylib; sourceTree = "<group>"; };
 		865A20E8165161B100527C44 /* libqjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libqjpeg.dylib; path = ../../lib/Qt/lib/Xcode/Dylibs/libqjpeg.dylib; sourceTree = "<group>"; };
 		865A21E9165187B600527C44 /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
@@ -1699,10 +1695,6 @@
 			children = (
 				865A20E7165161B100527C44 /* libqgif.dylib */,
 				865A20E8165161B100527C44 /* libqjpeg.dylib */,
-				865A20D216515B4200527C44 /* libQtCore.4.8.2.dylib */,
-				865A20D316515B4200527C44 /* libQtGui.4.8.2.dylib */,
-				865A20D416515B4300527C44 /* libQtNetwork.4.8.2.dylib */,
-				865A20D516515B4300527C44 /* libQtWebKit.4.9.2.dylib */,
 				865A20C916515AEF00527C44 /* System */,
 				869FF8BE1651518C002FE082 /* Other Frameworks */,
 			);
