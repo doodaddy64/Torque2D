@@ -495,8 +495,6 @@
 		865A20C216515ACE00527C44 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		865A20C316515ACE00527C44 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		865A20C416515ACE00527C44 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		865A20E7165161B100527C44 /* libqgif.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libqgif.dylib; path = ../../lib/Qt/lib/Xcode/Dylibs/libqgif.dylib; sourceTree = "<group>"; };
-		865A20E8165161B100527C44 /* libqjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libqjpeg.dylib; path = ../../lib/Qt/lib/Xcode/Dylibs/libqjpeg.dylib; sourceTree = "<group>"; };
 		865A21E9165187B600527C44 /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
 		865A21EB165187B600527C44 /* b2BroadPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2BroadPhase.cpp; sourceTree = "<group>"; };
 		865A21EC165187B600527C44 /* b2BroadPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2BroadPhase.h; sourceTree = "<group>"; };
@@ -1693,8 +1691,6 @@
 		869FF8BB1651518C002FE082 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				865A20E7165161B100527C44 /* libqgif.dylib */,
-				865A20E8165161B100527C44 /* libqjpeg.dylib */,
 				865A20C916515AEF00527C44 /* System */,
 				869FF8BE1651518C002FE082 /* Other Frameworks */,
 			);
