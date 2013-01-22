@@ -101,6 +101,9 @@ void _StringTable::destroy()
 //--------------------------------------
 StringTableEntry _StringTable::insert(const char* val, const bool  caseSens)
 {
+   if ( val == NULL )
+       return StringTable->EmptyString;
+
    MutexHandle mutex;
    mutex.lock(&mMutex, true);
 
@@ -132,6 +135,9 @@ StringTableEntry _StringTable::insert(const char* val, const bool  caseSens)
 //--------------------------------------
 StringTableEntry _StringTable::insertn(const char* src, S32 len, const bool  caseSens)
 {
+   if ( src == NULL )
+       return StringTable->EmptyString;
+
    MutexHandle mutex;
    mutex.lock(&mMutex, true);
 
@@ -145,6 +151,9 @@ StringTableEntry _StringTable::insertn(const char* src, S32 len, const bool  cas
 //--------------------------------------
 StringTableEntry _StringTable::lookup(const char* val, const bool  caseSens)
 {
+   if ( val == NULL )
+       return StringTable->EmptyString;
+
    MutexHandle mutex;
    mutex.lock(&mMutex, true);
 
@@ -164,6 +173,9 @@ StringTableEntry _StringTable::lookup(const char* val, const bool  caseSens)
 //--------------------------------------
 StringTableEntry _StringTable::lookupn(const char* val, S32 len, const bool  caseSens)
 {
+   if ( val == NULL )
+       return StringTable->EmptyString;
+
    Node **walk, *temp;
    U32 key = hashStringn(val, len);
    walk = &buckets[key % numBuckets];
