@@ -1,14 +1,14 @@
 <GuiControl
     Name="MainOverlay"
     Profile="GuiDefaultProfile"
-    HorizSizing="relative"
-    VertSizing="relative"
+    HorizSizing="right"
+    VertSizing="top"
     Position="0 0"
     Extent="142 142"
     MinExtent="100 100"
     Visible="1">
 
-    <!-- Close Toolbox -->
+    <!-- Show Toolbox -->
     <GuiImageButtonCtrl
         Name="ToggleToolboxButton"
         command="toggleToolbox(true);"
