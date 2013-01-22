@@ -1135,7 +1135,7 @@ void Platform::process()
 
    // assume that we are in the foreground, 
    winState.backgrounded = false;
-   // unless we see that the forground window does not belong to this process.
+   // unless we see that the foreground window does not belong to this process.
    if (window && window != winState.appWindow && gWindowCreated)
    {
       DWORD foregroundProcessId;
@@ -1167,7 +1167,7 @@ static void InitWindowClass()
    wc.cbClsExtra    = 0;
    wc.cbWndExtra    = 0;
    wc.hInstance     = winState.appInstance;
-   wc.hIcon         = LoadIcon(winState.appInstance, MAKEINTRESOURCE(IDI_ICON1));
+   wc.hIcon         = LoadIcon(winState.appInstance, MAKEINTRESOURCE(IDI_TORQUE2D));
    wc.hCursor       = LoadCursor (NULL,IDC_ARROW);
    wc.hbrBackground = (HBRUSH) GetStockObject(BLACK_BRUSH);
    wc.lpszMenuName  = 0;

@@ -3,7 +3,7 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#define IDI_ICON1                       107
+#define IDI_TORQUE2D                     107
 
 // Next default values for new objects
 //
