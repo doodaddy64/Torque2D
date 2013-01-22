@@ -83,7 +83,9 @@ function initializeToolbox()
                 
             %outputIndex++;
         }
-        
+    }
+    else
+    {
         Canvas.pushDialog(MainOverlay, 2);
     }
 }
