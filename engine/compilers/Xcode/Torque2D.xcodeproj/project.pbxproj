@@ -973,8 +973,6 @@
 		86D770C3165687450046D71F /* osxFileDialogs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8609FE3216556F22004662ED /* osxFileDialogs.mm */; };
 		86EA5B401678C7C700598E68 /* osxCocoaUtilities.mm in Sources */ = {isa = PBXBuildFile; fileRef = 86EA5B3F1678C7C700598E68 /* osxCocoaUtilities.mm */; };
 		86EC5AC7165C1E0100757872 /* osxTorqueView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 86EC5AC6165C1E0100757872 /* osxTorqueView.mm */; };
-		86F025BA16AED71200956BB4 /* main.cs in Resources */ = {isa = PBXBuildFile; fileRef = 86F025B816AED71200956BB4 /* main.cs */; };
-		86F025BC16AED71200956BB4 /* modules in Resources */ = {isa = PBXBuildFile; fileRef = 86F025B916AED71200956BB4 /* modules */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1992,8 +1990,6 @@
 		86EA5B3F1678C7C700598E68 /* osxCocoaUtilities.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxCocoaUtilities.mm; sourceTree = "<group>"; };
 		86EC5AC5165C1E0100757872 /* osxTorqueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osxTorqueView.h; sourceTree = "<group>"; };
 		86EC5AC6165C1E0100757872 /* osxTorqueView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxTorqueView.mm; sourceTree = "<group>"; };
-		86F025B816AED71200956BB4 /* main.cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.cs; path = ../../../main.cs; sourceTree = "<group>"; };
-		86F025B916AED71200956BB4 /* modules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = modules; path = ../../../modules; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2373,7 +2369,6 @@
 				869FF8C21651518C002FE082 /* Torque2D */,
 				865A2351165188AF00527C44 /* platformOSX */,
 				865A21E71651875E00527C44 /* Support_Libraries */,
-				86F025BE16AED73B00956BB4 /* Scripts */,
 				865A20BD1651589F00527C44 /* Resources */,
 				869FF8BB1651518C002FE082 /* Frameworks */,
 				869FF8B91651518C002FE082 /* Products */,
@@ -3608,15 +3603,6 @@
 			path = threads;
 			sourceTree = "<group>";
 		};
-		86F025BE16AED73B00956BB4 /* Scripts */ = {
-			isa = PBXGroup;
-			children = (
-				86F025B816AED71200956BB4 /* main.cs */,
-				86F025B916AED71200956BB4 /* modules */,
-			);
-			name = Scripts;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3708,8 +3694,6 @@
 				865A20BF165158CA00527C44 /* torque2d.icns in Resources */,
 				865A21E6165182DA00527C44 /* qt_menu.nib in Resources */,
 				86C281CD16A4307E00F030F4 /* MainMenu.xib in Resources */,
-				86F025BA16AED71200956BB4 /* main.cs in Resources */,
-				86F025BC16AED71200956BB4 /* modules in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
