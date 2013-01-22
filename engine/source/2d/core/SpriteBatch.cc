@@ -685,6 +685,30 @@ Vector2 SpriteBatch::getSpriteSortPoint( void ) const
 
 //------------------------------------------------------------------------------
 
+void SpriteBatch::setSpriteRenderGroup( const char* pRenderGroup )
+{
+    // Finish if a sprite is not selected.
+    if ( !checkSpriteSelected() )
+        return;
+
+    // Set render group.
+    mSelectedSprite->setRenderGroup( pRenderGroup );
+}
+
+//------------------------------------------------------------------------------
+
+StringTableEntry SpriteBatch::getSpriteRenderGroup( void ) const
+{
+    // Finish if a sprite is not selected.
+    if ( !checkSpriteSelected() )
+        return NULL;
+
+    // Get render group.
+    return mSelectedSprite->getRenderGroup();
+}
+
+//------------------------------------------------------------------------------
+
 void SpriteBatch::setSpriteBlendMode( const bool blendMode )
 {
     // Finish if a sprite is not selected.

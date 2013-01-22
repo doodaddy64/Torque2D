@@ -45,6 +45,7 @@ public:
         const F32 depth,
         const Vector2& sortPoint = Vector2::getZero(),
         const S32 serialId = 0,
+        StringTableEntry renderGroup = StringTable->EmptyString,
         void* pCustomData1 = NULL,
         void* pCustomData2 = NULL,
         S32 customDataKey1 = 0,
@@ -58,6 +59,7 @@ public:
         mDepth = depth;
         mSortPoint = sortPoint;
         mSerialId = serialId;
+        mRenderGroup = renderGroup;
         mpCustomData1 = pCustomData1;
         mpCustomData2 = pCustomData2;
         mCustomDataKey1 = customDataKey1;
@@ -77,6 +79,7 @@ public:
         mDepth = 0.0f;
         mSortPoint.SetZero();
         mSerialId = 0;
+        mRenderGroup = StringTable->EmptyString;
 
         mBlendMode = true;
         mSrcBlendFactor = GL_SRC_ALPHA;
@@ -102,6 +105,7 @@ public:
     F32                 mDepth;
     Vector2             mSortPoint;
     S32                 mSerialId;
+    StringTableEntry    mRenderGroup;
 
     bool                mBlendMode;
     GLenum              mSrcBlendFactor;

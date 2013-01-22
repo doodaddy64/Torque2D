@@ -178,6 +178,7 @@ protected:
     bool                mFlipY;
 
     Vector2             mSortPoint;
+    StringTableEntry    mRenderGroup;
 
     bool                mBlendMode;
     GLenum              mSrcBlendFactor;
@@ -235,6 +236,8 @@ public:
 
     inline void setSortPoint( const Vector2& sortPoint ) { mSortPoint = sortPoint; }
     inline Vector2 getSortPoint( void ) const { return mSortPoint; }
+    inline void setRenderGroup( const char* pRenderGroup ) { mRenderGroup = StringTable->insert( pRenderGroup ); }
+    inline StringTableEntry getRenderGroup( void ) const { return mRenderGroup; }
 
     inline void setBlendMode( const bool blendMode ) { mBlendMode = blendMode; }
     inline bool getBlendMode( void ) const { return mBlendMode; }

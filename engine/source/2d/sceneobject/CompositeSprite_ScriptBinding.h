@@ -530,9 +530,9 @@ ConsoleMethod(CompositeSprite, getSpriteFlipY, bool, 2, 2,   "() - Gets whether 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(CompositeSprite, setSpriteSortPoint, void, 3, 4,  "(float localX, float localY) - Sets the sprites local position.\n"
-                                                                "@param localX The local position X.\n"
-                                                                "@param localY The local position Y.\n"
+ConsoleMethod(CompositeSprite, setSpriteSortPoint, void, 3, 4,  "(float localX, float localY) - Sets the sprites sort point.\n"
+                                                                "@param localX The local sort point X.\n"
+                                                                "@param localY The local sort point Y.\n"
                                                                 "@return No return value." )
 {
     Vector2 sortPoint;
@@ -564,11 +564,29 @@ ConsoleMethod(CompositeSprite, setSpriteSortPoint, void, 3, 4,  "(float localX, 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(CompositeSprite, getSpriteSortPoint, const char*, 2, 2,   "() - Gets the sprite local position.\n"
-                                                                        "@return The sprite local position." )
+ConsoleMethod(CompositeSprite, getSpriteSortPoint, const char*, 2, 2,   "() - Gets the sprite local sort point.\n"
+                                                                        "@return The sprite local sort point." )
 {
     return object->getSpriteSortPoint().scriptThis();
 }
+
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(CompositeSprite, setSpriteRenderGroup, void, 3, 3,    "(renderGroup) Sets the name of the render group used to sort the sprite during rendering.\n"
+                                                                    "@param renderGroup The name of the render group to use.  Defaults to nothing.\n"
+                                                                    "@return No return value.")
+{
+    object->setSpriteRenderGroup( argv[2] );
+} 
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(CompositeSprite, getSpriteRenderGroup, const char*, 2, 2, "() Gets the name of the render group used to sort the sprite during rendering.\n"
+                                                                        "@return The render group used to sort the object during rendering.")
+{
+    return object->getSpriteRenderGroup();
+} 
 
 //-----------------------------------------------------------------------------
 

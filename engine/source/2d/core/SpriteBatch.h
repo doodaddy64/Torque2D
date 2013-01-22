@@ -155,6 +155,9 @@ public:
     void setSpriteSortPoint( const Vector2& sortPoint );
     Vector2 getSpriteSortPoint( void ) const;
 
+    void setSpriteRenderGroup( const char* pRenderGroup );
+    StringTableEntry getSpriteRenderGroup( void ) const;
+
     void setSpriteBlendMode( const bool blendMode );
     bool getSpriteBlendMode( void ) const;
     void setSpriteSrcBlendFactor( GLenum srcBlendFactor );

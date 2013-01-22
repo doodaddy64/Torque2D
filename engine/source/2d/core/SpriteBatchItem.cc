@@ -32,6 +32,7 @@ static StringTableEntry spriteSizeName;
 static StringTableEntry spriteFlipXName;
 static StringTableEntry spriteFlipYName;
 static StringTableEntry spriteSortPointName;
+static StringTableEntry spriteRenderGroupName;
 static StringTableEntry spriteBlendModeName;
 static StringTableEntry spriteSrcBlendFactorName;
 static StringTableEntry spriteDstBlendFactorName;
@@ -62,6 +63,7 @@ SpriteBatchItem::SpriteBatchItem() : mProxyId( SpriteBatch::INVALID_SPRITE_PROXY
         spriteFlipXName             = StringTable->insert("FlipX");
         spriteFlipYName             = StringTable->insert("FlipY");
         spriteSortPointName         = StringTable->insert("SortPoint");
+        spriteRenderGroupName       = StringTable->insert("RenderGroup");
         spriteBlendModeName         = StringTable->insert("BlendMode");
         spriteSrcBlendFactorName    = StringTable->insert("SrcBlendFactor");
         spriteDstBlendFactorName    = StringTable->insert("DstBlendFactor");
@@ -119,6 +121,7 @@ void SpriteBatchItem::resetState( void )
     mFlipY = false;
 
     mSortPoint.SetZero();
+    mRenderGroup = StringTable->EmptyString;
 
     mBlendMode = true;
     mSrcBlendFactor = GL_SRC_ALPHA;
@@ -176,6 +179,7 @@ void SpriteBatchItem::copyTo( SpriteBatchItem* pSpriteBatchItem ) const
     pSpriteBatchItem->setFlipX( getFlipX() );
     pSpriteBatchItem->setFlipY( getFlipY() );
     pSpriteBatchItem->setSortPoint( getSortPoint() );
+    pSpriteBatchItem->setRenderGroup( getRenderGroup() );
     pSpriteBatchItem->setBlendMode( getBlendMode() );
     pSpriteBatchItem->setSrcBlendFactor( getSrcBlendFactor() );
     pSpriteBatchItem->setDstBlendFactor( getDstBlendFactor() );
@@ -200,6 +204,7 @@ void SpriteBatchItem::prepareRender( SceneRenderRequest* pSceneRenderRequest, co
     pSceneRenderRequest->mDepth = getDepth();
     pSceneRenderRequest->mSortPoint = getSortPoint();
     pSceneRenderRequest->mSerialId = getBatchId();
+    pSceneRenderRequest->mRenderGroup = getRenderGroup();
     pSceneRenderRequest->mBlendMode = getBlendMode();
     pSceneRenderRequest->mSrcBlendFactor = getSrcBlendFactor();
     pSceneRenderRequest->mDstBlendFactor = getDstBlendFactor();
@@ -376,6 +381,10 @@ void SpriteBatchItem::onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias
     if ( mSortPoint.notZero() )
         pSpriteTypeAlias->addPropertyField( spriteSortPointName, mSortPoint );
 
+    // Write render group.
+    if ( mRenderGroup != StringTable->EmptyString )
+        pSpriteTypeAlias->addPropertyField( spriteRenderGroupName, mRenderGroup );
+
     // Write blend mode.
     if ( !mBlendMode )
         pSpriteTypeAlias->addPropertyField( spriteBlendModeName, mBlendMode );
@@ -496,6 +505,10 @@ void SpriteBatchItem::onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteType
             Vector2 sortPoint;
             pSpriteField->getFieldValue( sortPoint );
             setSortPoint( sortPoint );
+        }
+        else if ( fieldName == spriteRenderGroupName )
+        {
+            setRenderGroup( pSpriteField->getFieldValue() );
         }
         else if ( fieldName == spriteBlendModeName )
         {

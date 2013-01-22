@@ -15,6 +15,7 @@ function runCompositeSpriteTest()
     %composite.setDefaultSpriteSize( 20 );    
     %composite.BatchLayout = "rect";
 	%composite.BatchIsolated = "true";    
+	%composite.BatchSortMode = "batch";
     %composite.setAngularVelocity( -10 );
 	
     for ( %y = -5; %y <= 5; %y++ )
@@ -25,6 +26,7 @@ function runCompositeSpriteTest()
             %composite.setSpriteImage( "MelvToy:MiniTileMapImage", getRandom(0,15) );
             //%composite.setSpriteName( "My Name is" SPC %x SPC %y );
             %composite.setSpriteAngle( getRandom(0,360) );
+            //%composite.setSpriteRenderGroup( "melv" );
             //%composite.setSpriteBlendColor( getStockColorName(getRandom(0,%stockColorCount-1)) );
         }
 	}
