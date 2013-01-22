@@ -77,13 +77,6 @@
 
 #endif // TORQUE_OS_IOS
 
-//-----------------------------------------------------------------------------
-
-
-#ifdef TORQUE_OS_OSX
-#include "editor/levelBuilderiPhoneUtil.h"
-#endif //TORQUE_OS_OSX
-
 // Script binding.
 #include "platform/platform_ScriptBinding.h"
 

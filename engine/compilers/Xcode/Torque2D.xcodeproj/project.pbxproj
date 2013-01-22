@@ -39,7 +39,6 @@
 		865A20CF16515B1E00527C44 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869FF8C11651518C002FE082 /* Foundation.framework */; };
 		865A20D016515B1E00527C44 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 865A20C316515ACE00527C44 /* OpenAL.framework */; };
 		865A20D116515B1E00527C44 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 865A20C416515ACE00527C44 /* OpenGL.framework */; };
-		865A21E6165182DA00527C44 /* qt_menu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 865A21E5165182DA00527C44 /* qt_menu.nib */; };
 		865A227B165187B600527C44 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 865A21EB165187B600527C44 /* b2BroadPhase.cpp */; };
 		865A227C165187B600527C44 /* b2CollideCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 865A21ED165187B600527C44 /* b2CollideCircle.cpp */; };
 		865A227D165187B600527C44 /* b2CollideEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 865A21EE165187B600527C44 /* b2CollideEdge.cpp */; };
@@ -216,17 +215,10 @@
 		86D76FAD165686D80046D71F /* vector.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F2116518D4600D96ADF /* vector.cc */; };
 		86D76FAF165687060046D71F /* crc.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EE116518D4600D96ADF /* crc.cc */; };
 		86D76FB0165687060046D71F /* assetBase.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EE816518D4600D96ADF /* assetBase.cc */; };
-		86D76FB1165687060046D71F /* AIFleeComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F2816518D4600D96ADF /* AIFleeComponent.cpp */; };
-		86D76FB2165687060046D71F /* AIMovementComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F2A16518D4600D96ADF /* AIMovementComponent.cpp */; };
-		86D76FB3165687060046D71F /* AIPathFollowComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F2C16518D4600D96ADF /* AIPathFollowComponent.cpp */; };
-		86D76FB4165687060046D71F /* AIPursuitComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F2E16518D4600D96ADF /* AIPursuitComponent.cpp */; };
-		86D76FB5165687060046D71F /* AISeekComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F3016518D4600D96ADF /* AISeekComponent.cpp */; };
-		86D76FB6165687060046D71F /* AIWanderComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F3216518D4600D96ADF /* AIWanderComponent.cpp */; };
 		86D76FB7165687060046D71F /* behaviorComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F3616518D4600D96ADF /* behaviorComponent.cpp */; };
 		86D76FB8165687060046D71F /* behaviorInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F3A16518D4600D96ADF /* behaviorInstance.cpp */; };
 		86D76FB9165687060046D71F /* behaviorTemplate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F3D16518D4600D96ADF /* behaviorTemplate.cpp */; };
 		86D76FBA165687060046D71F /* dynamicConsoleMethodComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F4016518D4600D96ADF /* dynamicConsoleMethodComponent.cpp */; };
-		86D76FBB165687060046D71F /* ShapeCastComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F4316518D4600D96ADF /* ShapeCastComponent.cpp */; };
 		86D76FBC165687060046D71F /* simComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F4516518D4600D96ADF /* simComponent.cpp */; };
 		86D76FBD165687060046D71F /* consoleDictionary.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC82B316518DF400D96ADF /* consoleDictionary.cc */; };
 		86D76FBE165687060046D71F /* consoleExprEvalState.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC82B516518DF400D96ADF /* consoleExprEvalState.cc */; };
@@ -509,7 +501,6 @@
 		865A20D516515B4300527C44 /* libQtWebKit.4.9.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libQtWebKit.4.9.2.dylib; path = ../../lib/Qt/lib/Xcode/Dylibs/libQtWebKit.4.9.2.dylib; sourceTree = "<group>"; };
 		865A20E7165161B100527C44 /* libqgif.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libqgif.dylib; path = ../../lib/Qt/lib/Xcode/Dylibs/libqgif.dylib; sourceTree = "<group>"; };
 		865A20E8165161B100527C44 /* libqjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libqjpeg.dylib; path = ../../lib/Qt/lib/Xcode/Dylibs/libqjpeg.dylib; sourceTree = "<group>"; };
-		865A21E5165182DA00527C44 /* qt_menu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = qt_menu.nib; path = ../../lib/Qt/lib/Xcode/Resources/qt_menu.nib; sourceTree = "<group>"; };
 		865A21E9165187B600527C44 /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
 		865A21EB165187B600527C44 /* b2BroadPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2BroadPhase.cpp; sourceTree = "<group>"; };
 		865A21EC165187B600527C44 /* b2BroadPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2BroadPhase.h; sourceTree = "<group>"; };
@@ -845,19 +836,6 @@
 		86BC7F2316518D4600D96ADF /* vector2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector2d.h; sourceTree = "<group>"; };
 		86BC7F2416518D4600D96ADF /* vectorHeap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vectorHeap.h; sourceTree = "<group>"; };
 		86BC7F2516518D4600D96ADF /* vectorQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vectorQueue.h; sourceTree = "<group>"; };
-		86BC7F2816518D4600D96ADF /* AIFleeComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AIFleeComponent.cpp; sourceTree = "<group>"; };
-		86BC7F2916518D4600D96ADF /* AIFleeComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIFleeComponent.h; sourceTree = "<group>"; };
-		86BC7F2A16518D4600D96ADF /* AIMovementComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AIMovementComponent.cpp; sourceTree = "<group>"; };
-		86BC7F2B16518D4600D96ADF /* AIMovementComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIMovementComponent.h; sourceTree = "<group>"; };
-		86BC7F2C16518D4600D96ADF /* AIPathFollowComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AIPathFollowComponent.cpp; sourceTree = "<group>"; };
-		86BC7F2D16518D4600D96ADF /* AIPathFollowComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPathFollowComponent.h; sourceTree = "<group>"; };
-		86BC7F2E16518D4600D96ADF /* AIPursuitComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AIPursuitComponent.cpp; sourceTree = "<group>"; };
-		86BC7F2F16518D4600D96ADF /* AIPursuitComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIPursuitComponent.h; sourceTree = "<group>"; };
-		86BC7F3016518D4600D96ADF /* AISeekComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AISeekComponent.cpp; sourceTree = "<group>"; };
-		86BC7F3116518D4600D96ADF /* AISeekComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AISeekComponent.h; sourceTree = "<group>"; };
-		86BC7F3216518D4600D96ADF /* AIWanderComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AIWanderComponent.cpp; sourceTree = "<group>"; };
-		86BC7F3316518D4600D96ADF /* AIWanderComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIWanderComponent.h; sourceTree = "<group>"; };
-		86BC7F3416518D4600D96ADF /* IAIMovement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAIMovement.h; sourceTree = "<group>"; };
 		86BC7F3616518D4600D96ADF /* behaviorComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = behaviorComponent.cpp; sourceTree = "<group>"; };
 		86BC7F3716518D4600D96ADF /* behaviorComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = behaviorComponent.h; sourceTree = "<group>"; };
 		86BC7F3816518D4600D96ADF /* behaviorComponent_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = behaviorComponent_ScriptBinding.h; sourceTree = "<group>"; };
@@ -870,8 +848,6 @@
 		86BC7F3F16518D4600D96ADF /* behaviorTemplate_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = behaviorTemplate_ScriptBinding.h; sourceTree = "<group>"; };
 		86BC7F4016518D4600D96ADF /* dynamicConsoleMethodComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dynamicConsoleMethodComponent.cpp; sourceTree = "<group>"; };
 		86BC7F4116518D4600D96ADF /* dynamicConsoleMethodComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamicConsoleMethodComponent.h; sourceTree = "<group>"; };
-		86BC7F4316518D4600D96ADF /* ShapeCastComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShapeCastComponent.cpp; sourceTree = "<group>"; };
-		86BC7F4416518D4600D96ADF /* ShapeCastComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShapeCastComponent.h; sourceTree = "<group>"; };
 		86BC7F4516518D4600D96ADF /* simComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simComponent.cpp; sourceTree = "<group>"; };
 		86BC7F4616518D4600D96ADF /* simComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simComponent.h; sourceTree = "<group>"; };
 		86BC7F7416518D4600D96ADF /* profiler.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = profiler.cc; sourceTree = "<group>"; };
@@ -1089,10 +1065,6 @@
 		86BC807E16518D4600D96ADF /* fileHeader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fileHeader.cc; sourceTree = "<group>"; };
 		86BC807F16518D4600D96ADF /* fileHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileHeader.h; sourceTree = "<group>"; };
 		86BC808016518D4600D96ADF /* stored.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stored.cc; sourceTree = "<group>"; };
-		86BC808216518D4600D96ADF /* zipTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zipTest.h; sourceTree = "<group>"; };
-		86BC808316518D4600D96ADF /* zipTestMisc.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zipTestMisc.cc; sourceTree = "<group>"; };
-		86BC808416518D4600D96ADF /* zipTestRead.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zipTestRead.cc; sourceTree = "<group>"; };
-		86BC808516518D4600D96ADF /* zipTestWrite.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zipTestWrite.cc; sourceTree = "<group>"; };
 		86BC808616518D4600D96ADF /* zipArchive.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zipArchive.cc; sourceTree = "<group>"; };
 		86BC808716518D4600D96ADF /* zipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zipArchive.h; sourceTree = "<group>"; };
 		86BC808816518D4600D96ADF /* zipCryptStream.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zipCryptStream.cc; sourceTree = "<group>"; };
@@ -1392,7 +1364,6 @@
 		865A20BD1651589F00527C44 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				865A21E5165182DA00527C44 /* qt_menu.nib */,
 				865A20BE165158CA00527C44 /* torque2d.icns */,
 			);
 			name = Resources;
@@ -2045,36 +2016,14 @@
 		86BC7F2616518D4600D96ADF /* component */ = {
 			isa = PBXGroup;
 			children = (
-				86BC7F2716518D4600D96ADF /* ai */,
 				86BC7F3516518D4600D96ADF /* behaviors */,
 				86BC7F4016518D4600D96ADF /* dynamicConsoleMethodComponent.cpp */,
 				86BC7F4116518D4600D96ADF /* dynamicConsoleMethodComponent.h */,
-				86BC7F4216518D4600D96ADF /* physics */,
 				86BC7F4516518D4600D96ADF /* simComponent.cpp */,
 				86BC7F4616518D4600D96ADF /* simComponent.h */,
 			);
 			name = component;
 			path = ../../../source/component;
-			sourceTree = "<group>";
-		};
-		86BC7F2716518D4600D96ADF /* ai */ = {
-			isa = PBXGroup;
-			children = (
-				86BC7F2816518D4600D96ADF /* AIFleeComponent.cpp */,
-				86BC7F2916518D4600D96ADF /* AIFleeComponent.h */,
-				86BC7F2A16518D4600D96ADF /* AIMovementComponent.cpp */,
-				86BC7F2B16518D4600D96ADF /* AIMovementComponent.h */,
-				86BC7F2C16518D4600D96ADF /* AIPathFollowComponent.cpp */,
-				86BC7F2D16518D4600D96ADF /* AIPathFollowComponent.h */,
-				86BC7F2E16518D4600D96ADF /* AIPursuitComponent.cpp */,
-				86BC7F2F16518D4600D96ADF /* AIPursuitComponent.h */,
-				86BC7F3016518D4600D96ADF /* AISeekComponent.cpp */,
-				86BC7F3116518D4600D96ADF /* AISeekComponent.h */,
-				86BC7F3216518D4600D96ADF /* AIWanderComponent.cpp */,
-				86BC7F3316518D4600D96ADF /* AIWanderComponent.h */,
-				86BC7F3416518D4600D96ADF /* IAIMovement.h */,
-			);
-			path = ai;
 			sourceTree = "<group>";
 		};
 		86BC7F3516518D4600D96ADF /* behaviors */ = {
@@ -2092,15 +2041,6 @@
 				86BC7F3F16518D4600D96ADF /* behaviorTemplate_ScriptBinding.h */,
 			);
 			path = behaviors;
-			sourceTree = "<group>";
-		};
-		86BC7F4216518D4600D96ADF /* physics */ = {
-			isa = PBXGroup;
-			children = (
-				86BC7F4316518D4600D96ADF /* ShapeCastComponent.cpp */,
-				86BC7F4416518D4600D96ADF /* ShapeCastComponent.h */,
-			);
-			path = physics;
 			sourceTree = "<group>";
 		};
 		86BC7F4716518D4600D96ADF /* console */ = {
@@ -2474,7 +2414,6 @@
 				86BC807E16518D4600D96ADF /* fileHeader.cc */,
 				86BC807F16518D4600D96ADF /* fileHeader.h */,
 				86BC808016518D4600D96ADF /* stored.cc */,
-				86BC808116518D4600D96ADF /* unitTests */,
 				86BC808616518D4600D96ADF /* zipArchive.cc */,
 				86BC808716518D4600D96ADF /* zipArchive.h */,
 				86BC808816518D4600D96ADF /* zipCryptStream.cc */,
@@ -2488,17 +2427,6 @@
 				86BC809016518D4600D96ADF /* zipTempStream.h */,
 			);
 			path = zip;
-			sourceTree = "<group>";
-		};
-		86BC808116518D4600D96ADF /* unitTests */ = {
-			isa = PBXGroup;
-			children = (
-				86BC808216518D4600D96ADF /* zipTest.h */,
-				86BC808316518D4600D96ADF /* zipTestMisc.cc */,
-				86BC808416518D4600D96ADF /* zipTestRead.cc */,
-				86BC808516518D4600D96ADF /* zipTestWrite.cc */,
-			);
-			path = unitTests;
 			sourceTree = "<group>";
 		};
 		86BC809116518D4600D96ADF /* math */ = {
@@ -2868,7 +2796,6 @@
 			files = (
 				865A20B11651530B00527C44 /* Config.xcconfig in Resources */,
 				865A20BF165158CA00527C44 /* torque2d.icns in Resources */,
-				865A21E6165182DA00527C44 /* qt_menu.nib in Resources */,
 				86C281CD16A4307E00F030F4 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2994,17 +2921,10 @@
 				86D77056165687220046D71F /* zipTempStream.cc in Sources */,
 				86D76FAF165687060046D71F /* crc.cc in Sources */,
 				86D76FB0165687060046D71F /* assetBase.cc in Sources */,
-				86D76FB1165687060046D71F /* AIFleeComponent.cpp in Sources */,
-				86D76FB2165687060046D71F /* AIMovementComponent.cpp in Sources */,
-				86D76FB3165687060046D71F /* AIPathFollowComponent.cpp in Sources */,
-				86D76FB4165687060046D71F /* AIPursuitComponent.cpp in Sources */,
-				86D76FB5165687060046D71F /* AISeekComponent.cpp in Sources */,
-				86D76FB6165687060046D71F /* AIWanderComponent.cpp in Sources */,
 				86D76FB7165687060046D71F /* behaviorComponent.cpp in Sources */,
 				86D76FB8165687060046D71F /* behaviorInstance.cpp in Sources */,
 				86D76FB9165687060046D71F /* behaviorTemplate.cpp in Sources */,
 				86D76FBA165687060046D71F /* dynamicConsoleMethodComponent.cpp in Sources */,
-				86D76FBB165687060046D71F /* ShapeCastComponent.cpp in Sources */,
 				86D76FBC165687060046D71F /* simComponent.cpp in Sources */,
 				86D76FBD165687060046D71F /* consoleDictionary.cc in Sources */,
 				86D76FBE165687060046D71F /* consoleExprEvalState.cc in Sources */,
