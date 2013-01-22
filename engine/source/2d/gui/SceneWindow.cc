@@ -1558,11 +1558,11 @@ void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
 
-    // Render Children.
-    renderChildControls( offset, updateRect );
-
     // Render the metrics.
     renderMetricsOverlay( offset, updateRect );
+
+    // Render Children.
+    renderChildControls( offset, updateRect );
 
     // Update Window.
     setUpdate();
