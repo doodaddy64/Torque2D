@@ -3,7 +3,9 @@
 <WorkingDir/>
 <EntryScript>main.cs</EntryScript>
 <DebugHook>dbgSetParameters( #port#, "#password#", true );</DebugHook>
-<Mods/>
+<Mods>
+<Folder>modules</Folder>
+</Mods>
 <ScannerExts>cs; gui</ScannerExts>
 <Configs>
 <Config>
