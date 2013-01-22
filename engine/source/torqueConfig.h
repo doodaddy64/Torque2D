@@ -161,23 +161,5 @@
 
 #define DSO_VERSION (U32(Con::DSOVersion))
 
-// Someday, it might make sense to do some pragma magic here so we error
-// on inconsistent flags.
-
-//Define if you want to support unit testing in the engine builds - take it out if you want to optimise the build as 
-//much as possible - for example on iPhone. For some reason someone wrote the simpleComponent as a unit test. Must port this over asap.
-//#define TORQUE_ALLOW_UNIT_TESTS
-//#define TORQUE_ALLOW_UNIT_TEST_DEFINES
-
-//Torque minimal build removes journaling, and some other checks in the exec process. It is meant to help
-// with speed on the iPhone devices, and is a minimal start to speeding things up more. The code should
-// be the same / no different when running on device/windows, only extra checks/file reads etc are excluded.
-// (ie the whole journaling system is taken out with this). -Sven
-
-#ifndef TORQUE_OS_IOS
-	//#define TORQUE_ALLOW_JOURNALING
-	//#define	TORQUE_ALLOW_DSO_GENERATION
-#endif //TORQUE_OS_IOS
-
 #endif
 

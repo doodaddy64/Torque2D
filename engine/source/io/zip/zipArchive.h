@@ -250,13 +250,6 @@ class ZipTempStream;
 //////////////////////////////////////////////////////////////////////////
 class ZipArchive
 {
-
-#ifdef TORQUE_ALLOW_UNIT_TESTS
-   friend class ::ZipTestWrite;
-   friend class ::ZipTestRead;
-   friend class ::ZipTestMisc;
-#endif	//TORQUE_ALLOW_UNIT_TESTS
-
 public:
    /// Access modes for zip files and files within the zip
    enum AccessMode

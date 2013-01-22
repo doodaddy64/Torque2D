@@ -421,9 +421,6 @@
     <ClCompile Include="..\..\source\io\zip\extraField.cc" />
     <ClCompile Include="..\..\source\io\zip\fileHeader.cc" />
     <ClCompile Include="..\..\source\io\zip\stored.cc" />
-    <ClCompile Include="..\..\source\io\zip\unitTests\zipTestMisc.cc" />
-    <ClCompile Include="..\..\source\io\zip\unitTests\zipTestRead.cc" />
-    <ClCompile Include="..\..\source\io\zip\unitTests\zipTestWrite.cc" />
     <ClCompile Include="..\..\source\io\zip\zipArchive.cc" />
     <ClCompile Include="..\..\source\io\zip\zipCryptStream.cc" />
     <ClCompile Include="..\..\source\io\zip\zipObject.cc" />
@@ -866,7 +863,6 @@
     <ClInclude Include="..\..\source\io\zip\compressor.h" />
     <ClInclude Include="..\..\source\io\zip\extraField.h" />
     <ClInclude Include="..\..\source\io\zip\fileHeader.h" />
-    <ClInclude Include="..\..\source\io\zip\unitTests\zipTest.h" />
     <ClInclude Include="..\..\source\io\zip\zipArchive.h" />
     <ClInclude Include="..\..\source\io\zip\zipCryptStream.h" />
     <ClInclude Include="..\..\source\io\zip\zipObject.h" />
