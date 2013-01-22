@@ -29,7 +29,7 @@ function runParticleTest()
         %emitter.setSingleDataKey( 1000 );
 
     %emitter.selectField( "Lifetime" ); 
-        %emitter.setSingleDataKey( 2 );
+        %emitter.setSingleDataKey( 10 );
 
     %emitter.selectField( "Speed" );    
         %emitter.setSingleDataKey( 1 );
@@ -84,6 +84,7 @@ function runParticleTest()
     //%particlePlayer.CameraIdleDistance = 50;
     %particlePlayer.Particle = "MelvToy:" @ %particleAssetName;
     %particlePlayer.play();
+    //%particlePlayer.visible = false;
     //%particlePlayer.setLinearVelocity( 10, 0 );
     //%particlePlayer.setAngularVelocity( -180 );
     
@@ -96,7 +97,7 @@ function runParticleTest()
     
     //schedule( 5000, 0, changeParticleAsset );
     
-    SandboxScene.setBatchingEnabled( false );
+    SandboxScene.setBatchingEnabled( true );
 	
 	//quit();
 }
