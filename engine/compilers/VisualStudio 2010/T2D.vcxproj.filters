@@ -119,12 +119,6 @@
     <Filter Include="Source Files\input">
       <UniqueIdentifier>{fcfa64cc-dd46-41c1-9ada-8b4a15051285}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\component\ai">
-      <UniqueIdentifier>{b8aab531-a2bb-426c-a8c4-8714d73fe1cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\component\physics">
-      <UniqueIdentifier>{ed39a5b6-e7c8-4464-b3d7-98afc5512c5a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\collection">
       <UniqueIdentifier>{9ec04d21-b122-45be-bd70-2869fa9cdd8e}</UniqueIdentifier>
     </Filter>
@@ -893,27 +887,6 @@
     </ClCompile>
     <ClCompile Include="..\..\source\graphics\PNGImage.cpp">
       <Filter>Source Files\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\component\ai\AIFleeComponent.cpp">
-      <Filter>Source Files\component\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\component\ai\AIMovementComponent.cpp">
-      <Filter>Source Files\component\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\component\ai\AIPathFollowComponent.cpp">
-      <Filter>Source Files\component\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\component\ai\AIPursuitComponent.cpp">
-      <Filter>Source Files\component\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\component\ai\AISeekComponent.cpp">
-      <Filter>Source Files\component\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\component\ai\AIWanderComponent.cpp">
-      <Filter>Source Files\component\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\component\physics\ShapeCastComponent.cpp">
-      <Filter>Source Files\component\physics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\collection\bitTables.cc">
       <Filter>Source Files\collection</Filter>
@@ -2092,30 +2065,6 @@
     </ClInclude>
     <ClInclude Include="..\..\source\graphics\PNGImage.h">
       <Filter>Source Files\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\component\ai\AIFleeComponent.h">
-      <Filter>Source Files\component\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\component\ai\AIMovementComponent.h">
-      <Filter>Source Files\component\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\component\ai\AIPathFollowComponent.h">
-      <Filter>Source Files\component\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\component\ai\AIPursuitComponent.h">
-      <Filter>Source Files\component\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\component\ai\AISeekComponent.h">
-      <Filter>Source Files\component\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\component\ai\AIWanderComponent.h">
-      <Filter>Source Files\component\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\component\ai\IAIMovement.h">
-      <Filter>Source Files\component\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\component\physics\ShapeCastComponent.h">
-      <Filter>Source Files\component\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\collection\bitTables.h">
       <Filter>Source Files\collection</Filter>
