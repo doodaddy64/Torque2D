@@ -13,7 +13,7 @@ function createSandboxWindow()
 
         // Set profile.        
         SandboxWindow.Profile = SandboxWindowProfile;
-        
+
         // Push the window.
         Canvas.setContent( SandboxWindow );                     
     }
@@ -29,7 +29,39 @@ function createSandboxWindow()
     SandboxWindow.setObjectInputEventLayerFilter( %allBits );
     SandboxWindow.setLockMouse( false );
     SandboxWindow.setCurrentCameraPosition( 0, 0, 100, 75 );
-    SandboxWindow.setCurrentCameraZoom( 1 );    
+    SandboxWindow.setCurrentCameraZoom( 1 );
+    
+    %buttonXPosition = getWord(0, SandboxWindow.Extent);// - 75;
+    %buttonYPosition = getWord(1, SandboxWindow.Extent);// - 75;
+    %position = %buttonXPosition SPC %buttonYPosition;
+
+    %toolBoxButton = new GuiImageButtonCtrl(ToolBoxButton)
+    {
+        Name = "ToolBoxButton";
+        Profile = "GuiDefaultProfile";
+        command = "toggleToolbox(true);";
+        HorizSizing = "relative";
+        VertSizing = "relative";
+        Position = %position;
+        Extent = "71 71";
+        MinExtent = "8 2";
+        Visible = "1";
+        Active = "1";
+        hovertime = "1000";
+        groupNum = "-1";
+        buttonType = "PushButton";
+        useMouseEvents = "1";
+        toolTipProfile = "GuiToolTipProfile";
+        toolTip = "Shows toolbox";
+        NormalImage = "Sandbox:testIconNormal";
+        HoverImage = "Sandbox:testIconHover";
+        DownImage = "Sandbox:testIconDown";
+    };
+
+    if ( isObject(%toolBoxButton) )
+    {
+        SandboxWindow.add(%toolBoxButton);
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -102,5 +134,5 @@ function setSceneToWindow()
     updateToolboxOptions();
     
     // Activate the sandbox auto-camera.
-    setSandboxAutoCamera( true );    
+    setSandboxAutoCamera( true );        
 }
