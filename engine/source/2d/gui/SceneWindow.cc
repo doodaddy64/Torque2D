@@ -1816,14 +1816,16 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
         const U32 sceneLayer = pDebugSceneObject->getSceneLayer();
         const U32 sceneGroup = pDebugSceneObject->getSceneGroup();
         const U32 serialId = pDebugSceneObject->getSerialId();
-        dSprintf( mDebugText, sizeof( mDebugText ), "- Id=%d, Pos=(%0.3f,%0.3f), Angle=%0.3f, Size=(%0.3f,%0.3f), Layer=%d, Group=%d, SerialId=%d",
+        StringTableEntry renderGroup = pDebugSceneObject->getRenderGroup();
+        dSprintf( mDebugText, sizeof( mDebugText ), "- Id=%d, Pos=(%0.3f,%0.3f), Angle=%0.3f, Size=(%0.3f,%0.3f), Layer=%d, Group=%d, SerialId=%d, RenderGroup='%s'",
             pDebugSceneObject->getId(),
             position.x, position.y,
             angle,
             size.x, size.y,
             sceneLayer,
             sceneGroup,
-            serialId
+            serialId,
+            renderGroup
             );
         dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
         linePositionY += linePositionOffsetY;

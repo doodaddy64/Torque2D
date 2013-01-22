@@ -29,6 +29,7 @@ public:
         RENDER_SORT_NEWEST,
         RENDER_SORT_OLDEST,
         RENDER_SORT_BATCH,
+        RENDER_SORT_GROUP,
         RENDER_SORT_XAXIS,
         RENDER_SORT_YAXIS,
         RENDER_SORT_ZAXIS,
@@ -48,6 +49,7 @@ private:
     static S32 QSORT_CALLBACK layeredDepthSort(const void* a, const void* b);
     static S32 QSORT_CALLBACK layeredInverseDepthSort(const void* a, const void* b);
     static S32 QSORT_CALLBACK layerBatchOrderSort(const void* a, const void* b);
+    static S32 QSORT_CALLBACK layerGroupOrderSort(const void* a, const void* b);
     static S32 QSORT_CALLBACK layeredXSortPointSort(const void* a, const void* b);
     static S32 QSORT_CALLBACK layeredYSortPointSort(const void* a, const void* b);
     static S32 QSORT_CALLBACK layeredInverseXSortPointSort(const void* a, const void* b);
@@ -141,6 +143,15 @@ public:
 
                     // Batching means we don't need strict order.
                     mStrictOrderMode = false;
+                    return;
+                }
+
+            case RENDER_SORT_GROUP:
+                {
+                    // Debug Profiling.
+                    PROFILE_SCOPE(SceneRenderQueue_SortGroup);
+
+                    dQsort( mRenderRequests.address(), mRenderRequests.size(), sizeof(SceneRenderRequest*), layerGroupOrderSort );
                     return;
                 }
 

@@ -15,9 +15,9 @@ function runParticleTest()
            
     %emitter = %effectAsset.createEmitter();
     %emitter.EmitterName = "Sputter";
-    %emitter.EmitterType = "linex";
+    %emitter.EmitterType = "area";
     %emitter.IntenseParticles = false;
-    %emitter.Image = "MelvToy:Particles1";
+    %emitter.Image = "MelvToy:MiniTileMapImage";
     %emitter.Frame = 0;
     %emitter.FixedAspect = true;
     %emitter.RandomImageFrame = true;
@@ -25,19 +25,18 @@ function runParticleTest()
     %emitter.AttachPositionToEmitter = true;
     %emitter.AttachRotationToEmitter = false;
 
+    %emitter.selectField( "Quantity" );    
+        %emitter.setSingleDataKey( 1000 );
+
     %emitter.selectField( "Lifetime" ); 
-        %emitter.setSingleDataKey( 1 );
+        %emitter.setSingleDataKey( 2 );
 
     %emitter.selectField( "Speed" );    
         %emitter.setSingleDataKey( 1 );
 
-    %emitter.selectField( "SpeedVariation" );    
-        %emitter.setSingleDataKey( 0 );
+    //%emitter.selectField( "SpeedVariation" );    
+        //%emitter.setSingleDataKey( 0 );
 
-
-    %emitter.selectField( "Quantity" );    
-        %emitter.setSingleDataKey( 500 );
-    
     %emitter.selectField( "SizeXLife" );
         %emitter.addDataKey( 0, 0 );
         %emitter.addDataKey( 0.1, 2 );
@@ -54,9 +53,9 @@ function runParticleTest()
     %emitter.selectField( "RandomMotion" );
         %emitter.setSingleDataKey( 80 );
 
-    %emitter.selectField( "FixedForce" );
-        %emitter.setSingleDataKey( 50 );
-        %emitter.FixedForceAngle = -90;
+    //%emitter.selectField( "FixedForce" );
+        //%emitter.setSingleDataKey( 50 );
+        //%emitter.FixedForceAngle = -90;
 
     %emitter.selectField( "AlphaChannel" );
         %emitter.addDataKey( 0, 0 );
@@ -80,13 +79,13 @@ function runParticleTest()
     
     %particlePlayer = new ParticlePlayer();
     SandboxScene.addToScene( %particlePlayer );
-    %particlePlayer.setSize( 90, 1 );
+    %particlePlayer.setSize( 90, 65 );
     %particlePlayer.ParticleInterpolation = false;
-    %particlePlayer.CameraIdleDistance = 50;
+    //%particlePlayer.CameraIdleDistance = 50;
     %particlePlayer.Particle = "MelvToy:" @ %particleAssetName;
     %particlePlayer.play();
     //%particlePlayer.setLinearVelocity( 10, 0 );
-    %particlePlayer.setAngularVelocity( -180 );
+    //%particlePlayer.setAngularVelocity( -180 );
     
     //SandboxScene.setDebugSceneObject( %particlePlayer );
     
@@ -96,6 +95,8 @@ function runParticleTest()
     
     
     //schedule( 5000, 0, changeParticleAsset );
+    
+    SandboxScene.setBatchingEnabled( false );
 	
 	//quit();
 }

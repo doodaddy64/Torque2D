@@ -966,7 +966,8 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                                 pSceneObject->getRenderPosition(),
                                 pSceneObject->getSceneLayerDepth(),
                                 pSceneObject->getSortPoint(),
-                                pSceneObject->getSerialId() );
+                                pSceneObject->getSerialId(),
+                                pSceneObject->getRenderGroup() );
 
                             // Create a new isolated render queue.
                             pIsolatedSceneRenderRequest->mpIsolatedRenderQueue = SceneRenderQueueFactory.createObject();
@@ -994,7 +995,8 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                             pSceneObject->getRenderPosition(),
                             pSceneObject->getSceneLayerDepth(),
                             pSceneObject->getSortPoint(),
-                            pSceneObject->getSerialId() );
+                            pSceneObject->getSerialId(),
+                            pSceneObject->getRenderGroup() );
 
                         // Prepare the blending for it.
                         pSceneRenderRequest->mBlendMode = pSceneObject->getBlendMode();

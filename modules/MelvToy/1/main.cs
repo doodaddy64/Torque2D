@@ -10,8 +10,8 @@ function createMelvToy( %scopeSet )
     exec( "./scripts/particleTest.cs" );
     
     // Run test.
-    //runCompositeSpriteTest();
-    runParticleTest();
+    runCompositeSpriteTest();
+    //runParticleTest();
 }
 
 //-----------------------------------------------------------------------------

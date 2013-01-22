@@ -218,6 +218,7 @@ protected:
     U32                     mMoveToEventId;
     U32                     mRotateToEventId;
     U32                     mSerialId;
+    StringTableEntry        mRenderGroup;
 
 protected:
     static S32 QSORT_CALLBACK sceneObjectLayerDepthSort(const void* a, const void* b);
@@ -500,8 +501,10 @@ public:
     static                  void resetBlendOptions( void );
 
     /// Render sorting.
-    inline void             setSortPoint( const Vector2& pt )         { mSortPoint = pt; }
+    inline void             setSortPoint( const Vector2& pt )           { mSortPoint = pt; }
     inline const Vector2&   getSortPoint(void) const                    { return mSortPoint; }
+    inline void             setRenderGroup( const char* pRenderGroup )  { mRenderGroup = StringTable->insert(pRenderGroup); }
+    inline StringTableEntry getRenderGroup( void ) const                { return mRenderGroup; }
 
     /// Input events.
     inline void             setUseInputEvents( bool mouseStatus )       { mUseInputEvents = mouseStatus; }
@@ -711,6 +714,7 @@ protected:
 
     /// Render sorting.
     static bool             writeSortPoint( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getSortPoint().notZero(); }
+    static bool             writeRenderGroup( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getRenderGroup() != StringTable->EmptyString; }    
 
     /// Input events.
     static bool             writeUseInputEvents( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getUseInputEvents() == true; }

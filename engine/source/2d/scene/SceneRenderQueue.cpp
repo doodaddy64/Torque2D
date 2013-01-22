@@ -19,6 +19,7 @@ static EnumTable::Enums renderSortLookup[] =
                 { SceneRenderQueue::RENDER_SORT_NEWEST,         "New" },
                 { SceneRenderQueue::RENDER_SORT_OLDEST,         "Old" },
                 { SceneRenderQueue::RENDER_SORT_BATCH,          "Batch" },
+                { SceneRenderQueue::RENDER_SORT_GROUP,          "Group" },
                 { SceneRenderQueue::RENDER_SORT_XAXIS,          "X Axis" },
                 { SceneRenderQueue::RENDER_SORT_YAXIS,          "Y Axis" },
                 { SceneRenderQueue::RENDER_SORT_ZAXIS,          "Z Axis" },
@@ -97,7 +98,7 @@ S32 QSORT_CALLBACK SceneRenderQueue::layeredDepthSort(const void* a, const void*
     const F32 depthA = pSceneRenderRequestA->mDepth;
     const F32 depthB = pSceneRenderRequestB->mDepth;
 
-    return depthA < depthB ? 1 : depthA > depthB ? -1 : pSceneRenderRequestA->mSerialId - pSceneRenderRequestB->mSerialId;;
+    return depthA < depthB ? 1 : depthA > depthB ? -1 : pSceneRenderRequestA->mSerialId - pSceneRenderRequestB->mSerialId;
 }
 
 //-----------------------------------------------------------------------------
@@ -112,7 +113,7 @@ S32 QSORT_CALLBACK SceneRenderQueue::layeredInverseDepthSort(const void* a, cons
     const F32 depthA = pSceneRenderRequestA->mDepth;
     const F32 depthB = pSceneRenderRequestB->mDepth;
 
-    return depthA < depthB ? -1 : depthA > depthB ? 1 : pSceneRenderRequestA->mSerialId - pSceneRenderRequestB->mSerialId;;
+    return depthA < depthB ? -1 : depthA > depthB ? 1 : pSceneRenderRequestA->mSerialId - pSceneRenderRequestB->mSerialId;
 }
 
 //-----------------------------------------------------------------------------
@@ -142,6 +143,22 @@ S32 QSORT_CALLBACK SceneRenderQueue::layerBatchOrderSort(const void* a, const vo
 
     // Use serial Id,
     return pSceneRenderRequestA->mSerialId - pSceneRenderRequestB->mSerialId;
+}
+
+//-----------------------------------------------------------------------------
+
+S32 QSORT_CALLBACK SceneRenderQueue::layerGroupOrderSort(const void* a, const void* b)
+{
+    // Fetch scene render requests.
+    SceneRenderRequest* pSceneRenderRequestA  = *((SceneRenderRequest**)a);
+    SceneRenderRequest* pSceneRenderRequestB  = *((SceneRenderRequest**)b);
+
+    // Fetch the groups.
+    StringTableEntry renderGroupA = pSceneRenderRequestA->mRenderGroup;
+    StringTableEntry renderGroupB = pSceneRenderRequestB->mRenderGroup;
+
+    // Sort by render group (address, arbitrary but static) and use age if render groups are identical.
+    return renderGroupA == renderGroupB ? pSceneRenderRequestA->mSerialId - pSceneRenderRequestB->mSerialId : renderGroupA < renderGroupB ? -1 : 1;
 }
 
 //-----------------------------------------------------------------------------

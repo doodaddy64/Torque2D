@@ -196,8 +196,8 @@ SceneObject::SceneObject() :
     mPeriodicTimerID(0),
     mMoveToEventId(0),
     mRotateToEventId(0),
-    mSerialId(0)
-
+    mSerialId(0),
+    mRenderGroup( StringTable->EmptyString )
 {
     // Initialize collision shape field names.
     if ( !collisionShapePropertiesInitialized )
@@ -359,6 +359,7 @@ void SceneObject::initPersistFields()
 
     /// Render sorting.
     addField("SortPoint", TypeVector2, Offset(mSortPoint, SceneObject), &writeSortPoint, "");
+    addField("RenderGroup", TypeString, Offset(mRenderGroup, SceneObject), &writeRenderGroup, "");
 
     /// Input events.
     addField("UseInputEvents", TypeBool, Offset(mUseInputEvents, SceneObject), &writeUseInputEvents, "");

@@ -3436,6 +3436,23 @@ ConsoleMethod(SceneObject, getSortPointY, F32, 2, 2, "() Gets the y component of
 
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(SceneObject, setRenderGroup, void, 3, 3,  "(renderGroup) Sets the name of the render group used to sort the object during rendering.\n"
+                                                        "@param renderGroup The name of the render group to use.  Defaults to nothing.\n"
+                                                        "@return No return value.")
+{
+    object->setRenderGroup( argv[2] );
+} 
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneObject, getRenderGroup, const char*, 2, 2,   "() Gets the name of the render group used to sort the object during rendering.\n"
+                                                                "@return The render group used to sort the object during rendering.")
+{
+    return object->getRenderGroup();
+} 
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(SceneObject, setUseInputEvents, void, 3, 3, "(bool inputStatus) - Sets whether input events are passed from the scene window are monitored by this object or not.\n"
                                                              "@param inputStatus Whether input events are passed from the scene window are monitored by this object or not.\n"
                                                                  "@return No return Value.")
