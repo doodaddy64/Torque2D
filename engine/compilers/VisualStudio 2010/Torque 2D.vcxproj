@@ -546,8 +546,6 @@
     <ClCompile Include="..\..\source\platformWin32\menus\popupMenuWin32.cc" />
     <ClCompile Include="..\..\source\platformWin32\nativeDialogs\win32DirectoryResolver.cpp" />
     <ClCompile Include="..\..\source\platformWin32\nativeDialogs\win32MsgBox.cpp" />
-    <ClCompile Include="..\..\source\platformWin32\registry\winRegistryAccess.cpp" />
-    <ClCompile Include="..\..\source\platformWin32\registry\winRegistryManager.cpp" />
     <ClCompile Include="..\..\source\platformWin32\threads\mutex.cc" />
     <ClCompile Include="..\..\source\platformWin32\threads\thread.cc" />
     <ClCompile Include="..\..\source\platform\Tickable.cc" />
@@ -1000,8 +998,6 @@
     <ClInclude Include="..\..\source\platformWin32\winOGLVideo.h" />
     <ClInclude Include="..\..\source\platformWin32\winVideo.h" />
     <ClInclude Include="..\..\source\platformWin32\nativeDialogs\win32DirectoryResolver.h" />
-    <ClInclude Include="..\..\source\platformWin32\registry\winRegistryAccess.h" />
-    <ClInclude Include="..\..\source\platformWin32\registry\winRegistryManager.h" />
     <ClInclude Include="..\..\source\sim\scriptGroup.h" />
     <ClInclude Include="..\..\source\sim\scriptObject.h" />
     <ClInclude Include="..\..\source\sim\simBase.h" />

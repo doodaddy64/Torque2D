@@ -23,14 +23,14 @@
 /// snippet!
 ///
 /// Version number is major * 1000 + minor * 100 + revision * 10.
-#define TORQUE_GAME_ENGINE          1800
+#define TORQUE_GAME_ENGINE          1000
 
 /// What's the name of your game? Used in a variety of places.
 // -Mat added iPhone tag
-#define TORQUE_GAME_NAME            "3StepStudio"
+#define TORQUE_GAME_NAME            "Torque 2D MIT"
 
 /// Human readable version string.
-#define TORQUE_GAME_VERSION_STRING  "Alpha"
+#define TORQUE_GAME_VERSION_STRING  "Open Source"
 
 /// Used to suppress unused compiler warnings.
 #define TORQUE_UNUSED( arg )
@@ -39,7 +39,7 @@
 #if defined(TORQUE_OS_IOS)
 
 //PUAP -Mat unless you compile with a custom build step 'IPHONE_OPTIMIZE_OPTIONS' set to '-skip-PNGs', you're PNGs will be altered(optimized)
-//So either deal with that youself or define this so that we load it using apple iPhone functions to get the PNG data to Torque and everything will be peachy
+//So either deal with that yourself or define this so that we load it using apple iPhone functions to get the PNG data to Torque and everything will be peachy
 //i.e. if you have 'IPHONE_OPTIMIZE_OPTIONS' set to '-skip-PNGs' in the user-defined build settings you don't need this, otherwise this will load PNGS properly for you
 //#define USE_APPLE_OPTIMIZED_PNGS
 
@@ -57,7 +57,7 @@
 /* EAGL and GL functions calling wrappers that log on error */
 #define CALL_EAGL_FUNCTION(__FUNC__, ...) ({ EAGLError __error = __FUNC__( __VA_ARGS__ ); if(__error != kEAGLErrorSuccess) Con::printf("%s() called from %s returned error %i\n", #__FUNC__, __FUNCTION__, __error); (__error ? 0 : 1); })
 #define CHECK_GL_ERROR() ({ int __error = glGetError(); if(__error) Con::printf("OpenGL error 0x%04X in %s\n", __error, __FUNCTION__); (__error ? 0 : 1); })
-// define this to print out glErrors, undefine to get rid of it
+// define this to print out glErrors, un-define to get rid of it
 #define TEST_FOR_OPENGL_ERRORS CHECK_GL_ERROR();
 #endif
 

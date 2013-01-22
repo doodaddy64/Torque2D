@@ -47,9 +47,6 @@
     <Filter Include="Source Files\platformWin32\nativeDialogs">
       <UniqueIdentifier>{9da3da8f-0660-4a53-b5cf-3994c2dca7e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\platformWin32\registry">
-      <UniqueIdentifier>{d6bae4a6-e188-4347-a206-425b40e08360}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\platformWin32\threads">
       <UniqueIdentifier>{78695f15-84c6-4505-a999-716fe79bdabe}</UniqueIdentifier>
     </Filter>
@@ -175,7 +172,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="T2D SDK.rc">
+    <ResourceCompile Include="Torque 2D.rc">
       <Filter>Source Files</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -431,12 +428,6 @@
     </ClCompile>
     <ClCompile Include="..\..\source\platformWin32\nativeDialogs\win32MsgBox.cpp">
       <Filter>Source Files\platformWin32\nativeDialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\platformWin32\registry\winRegistryAccess.cpp">
-      <Filter>Source Files\platformWin32\registry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\platformWin32\registry\winRegistryManager.cpp">
-      <Filter>Source Files\platformWin32\registry</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\platformWin32\threads\mutex.cc">
       <Filter>Source Files\platformWin32\threads</Filter>
@@ -1573,12 +1564,6 @@
     </ClInclude>
     <ClInclude Include="..\..\source\platformWin32\nativeDialogs\win32DirectoryResolver.h">
       <Filter>Source Files\platformWin32\nativeDialogs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\platformWin32\registry\winRegistryAccess.h">
-      <Filter>Source Files\platformWin32\registry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\platformWin32\registry\winRegistryManager.h">
-      <Filter>Source Files\platformWin32\registry</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\gui\buttons\guiBitmapButtonCtrl.h">
       <Filter>Source Files\gui\buttons</Filter>
