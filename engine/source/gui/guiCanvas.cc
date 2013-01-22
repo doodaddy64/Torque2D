@@ -15,11 +15,6 @@
 #include "gui/guiCanvas.h"
 #include "game/gameInterface.h"
 
-#ifdef TGB_TRIAL
-#include _WPB(INCLUDE1)
-#include _WPB(INCLUDE2)
-#endif
-
 IMPLEMENT_CONOBJECT(GuiCanvas);
 
 GuiCanvas *Canvas = NULL;
@@ -452,14 +447,10 @@ GuiCanvas::GuiCanvas()
     /// Background color.
     mBackgroundColor.set( 0.0f, 0.0f, 0.0f, 0.0f );
     mUseBackgroundColor = true;
-
-   _WPB(INIT);
 }
 
 GuiCanvas::~GuiCanvas()
 {
-   _WPB(SHUTDOWN);
-
    if(Canvas == this)
       Canvas = 0;
 }
@@ -1297,9 +1288,6 @@ void GuiCanvas::setContentControl(GuiControl *gui)
 
    // Force the canvas to update the sizing of the new content control
    maintainSizing();
-
-
-   _WPB(PROCESS);
 }
 
 GuiControl *GuiCanvas::getContentControl()
@@ -1697,8 +1685,6 @@ void GuiCanvas::renderFrame(bool preRenderOnly, bool bufferSwap /* = true */)
          mouseCursor->render(pos);
       }
    }
-
-   _WPB(SHOW);
 
    PROFILE_END();
 

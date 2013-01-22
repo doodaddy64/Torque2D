@@ -153,32 +153,13 @@
 #  undef TORQUE_ENABLE_PROFILER
 #endif
 
-#ifdef TORQUE_SHIPPING
-#define TSS_WEB_ACCESS "http://3stepstudio.com/"
-#else
-#define TSS_WEB_ACCESS "http://dev.3stepstudio.com/"
-#endif
-
 #ifdef TORQUE_LIB
    #ifndef TORQUE_NO_OGGVORBIS
    #define TORQUE_NO_OGGVORBIS
    #endif
 #endif
 
-#ifdef TORQUE_TOOLS
-#  define TORQUE_INSTANCE_EXCLUSION   "TorqueToolsTest"
-#else
-#  define TORQUE_INSTANCE_EXCLUSION   "TorqueTest"
-#endif
-
 #define DSO_VERSION (U32(Con::DSOVersion))
-
-// This is defined in trial builds to implement trial code.
-#define _WPB(x)
-
-#ifdef TGB_TRIAL
-#  include "drm/trialDefines.h"
-#endif
 
 // Someday, it might make sense to do some pragma magic here so we error
 // on inconsistent flags.
