@@ -1,30 +1,34 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Target name="Device" productName="3StepStudio" productType="com.apple.product-type.application" buildProxy="0">
   <BuildPhases>
     <BuildPhase type="Sources" buildActionMask="2147483647" runOnlyForDeploymentPostprocessing="0" />
     <BuildPhase type="Frameworks" buildActionMask="2147483647" runOnlyForDeploymentPostprocessing="0" />
     <BuildPhase type="Resources" buildActionMask="2147483647" runOnlyForDeploymentPostprocessing="0" />
   </BuildPhases>
-  <BuildConfigs default="Release" defaultConfigurationIsVisible="0" baseConfigurationReference="en.lproj/Config.xcconfig">
+  <BuildConfigs default="Release" defaultConfigurationIsVisible="0" baseConfigurationReference="3StepStudioGame/en.lproj/Config.xcconfig">
     <BuildConfig name="Release">
       <BuildSettings>
         <GCC_PRECOMPILE_PREFIX_HEADER>YES</GCC_PRECOMPILE_PREFIX_HEADER>
-        <GCC_PREFIX_HEADER>"3StepStudio/3StepStudio-Prefix.pch"</GCC_PREFIX_HEADER>
+        <GCC_PREFIX_HEADER>"3StepStudioGame/3StepStudio-Prefix.pch"</GCC_PREFIX_HEADER>
         <GCC_PREPROCESSOR_DEFINITIONS settingType="List">
-          <Item>"$(3SS_EDITOR_FLAGS)"</Item>
-          <Item>__IPHONE__</Item>
+          <Item>"$(TSS_EDITOR_FLAGS)"</Item>
+          <Item>TORQUE_OS_IOS</Item>
           <Item>TORQUE_RELEASE</Item>
           <Item>TORQUE_DISABLE_MEMORY_MANAGER</Item>
-          <Item>USE_COMPONENTS</Item>
-          <Item>TORQUE_OS_IPHONE</Item>
         </GCC_PREPROCESSOR_DEFINITIONS>
-        <HEADER_SEARCH_PATHS>"$(3SS_SOURCE_PATH)"</HEADER_SEARCH_PATHS>
-        <INFOPLIST_FILE>"3StepStudio/3StepStudio-Info.plist"</INFOPLIST_FILE>
+        <HEADER_SEARCH_PATHS settingType="List">
+			<Item>"$(TSS_SOURCE_PATH)"</Item>
+			<Item>"$(TSS_LIB_PATH)"</Item>
+			<Item>"$(TSS_LIB_PATH)lpng"</Item>
+			<Item>"$(TSS_LIB_PATH)ljpeg"</Item>
+			<Item>"$(TSS_LIB_PATH)lungif"</Item>
+		</HEADER_SEARCH_PATHS>
+        <INFOPLIST_FILE>"3StepStudioGame/3StepStudio-Info.plist"</INFOPLIST_FILE>
         <IPHONEOS_DEPLOYMENT_TARGET>5.0</IPHONEOS_DEPLOYMENT_TARGET>
         <LIBRARY_SEARCH_PATHS settingType="List">
           <Item>"$(inherited)"</Item>
-          <Item>"\"./3StepStudio\""</Item>
-          <Item>"\"$(3SS_LIB_PATH)/it2d\""</Item>
+          <Item>"\"./3StepStudioGame\""</Item>
+          <Item>"\"$(TSS_LIB_PATH)/it2d\""</Item>
         </LIBRARY_SEARCH_PATHS>
         <OTHER_LDFLAGS>"-all_load"</OTHER_LDFLAGS>
         <PRODUCT_NAME>"ThreeStepStudio"</PRODUCT_NAME>
@@ -35,22 +39,26 @@
     <BuildConfig name="Debug">
       <BuildSettings>
         <GCC_PRECOMPILE_PREFIX_HEADER>YES</GCC_PRECOMPILE_PREFIX_HEADER>
-        <GCC_PREFIX_HEADER>"3StepStudio/3StepStudio-Prefix.pch"</GCC_PREFIX_HEADER>
+        <GCC_PREFIX_HEADER>"3StepStudioGame/3StepStudio-Prefix.pch"</GCC_PREFIX_HEADER>
         <GCC_PREPROCESSOR_DEFINITIONS settingType="List">
-          <Item>"$(3SS_EDITOR_FLAGS)"</Item>
-          <Item>__IPHONE__</Item>
+          <Item>"$(TSS_EDITOR_FLAGS)"</Item>
+          <Item>TORQUE_OS_IOS</Item>
           <Item>TORQUE_DEBUG</Item>
           <Item>TORQUE_DISABLE_MEMORY_MANAGER</Item>
-          <Item>USE_COMPONENTS</Item>
-          <Item>TORQUE_OS_IPHONE</Item>
         </GCC_PREPROCESSOR_DEFINITIONS>
-        <HEADER_SEARCH_PATHS>"$(3SS_SOURCE_PATH)"</HEADER_SEARCH_PATHS>
-        <INFOPLIST_FILE>"3StepStudio/3StepStudio-Info.plist"</INFOPLIST_FILE>
+        <HEADER_SEARCH_PATHS settingType="List">
+			<Item>"$(TSS_SOURCE_PATH)"</Item>
+			<Item>"$(TSS_LIB_PATH)"</Item>
+			<Item>"$(TSS_LIB_PATH)lpng"</Item>
+			<Item>"$(TSS_LIB_PATH)ljpeg"</Item>
+			<Item>"$(TSS_LIB_PATH)lungif"</Item>
+		</HEADER_SEARCH_PATHS>
+        <INFOPLIST_FILE>"3StepStudioGame/3StepStudio-Info.plist"</INFOPLIST_FILE>
         <IPHONEOS_DEPLOYMENT_TARGET>5.0</IPHONEOS_DEPLOYMENT_TARGET>
         <LIBRARY_SEARCH_PATHS settingType="List">
           <Item>"$(inherited)"</Item>
-          <Item>"\"./3StepStudio\""</Item>
-          <Item>"\"$(3SS_LIB_PATH)/it2d\""</Item>
+          <Item>"\"./3StepStudioGame\""</Item>
+          <Item>"\"$(TSS_LIB_PATH)/it2d\""</Item>
         </LIBRARY_SEARCH_PATHS>
         <OTHER_LDFLAGS>"-all_load"</OTHER_LDFLAGS>
         <PRODUCT_NAME>"ThreeStepStudio"</PRODUCT_NAME>

@@ -5,5 +5,7 @@
     <Folder name="modules" path="../modules" source="RelativeToGroup" buildPhase="Resources" />
     <File name="main.cs" path="../main.cs" source="RelativeToGroup" />
     <File name="Default.png" path="../Default.png" source="RelativeToGroup" />
+    <File name="Default@2x.png" path="../Default@2x.png" source="RelativeToGroup" />
+    <File name="Default-568h@2x.png" path="../Default-568h@2x.png" source="RelativeToGroup" />
   </NamedGroup>
 </Group>

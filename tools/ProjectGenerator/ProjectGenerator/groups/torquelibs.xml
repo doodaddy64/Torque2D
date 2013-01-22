@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Group>
   <NamedGroup name="Torque Support Libs">
-    <EngineLibDirectory name="ljpeg" />
+    <NamedGroup name="ljpeg">
+        <File name="jcapimin.c" path="../../../engine/lib/ljpeg/jcapimin.c" source="CalculateAbsolute" />
+        <File name="jcapistd.c" path="../../../engine/lib/ljpeg/jcapistd.c" source="CalculateAbsolute" />
+        <File name="jccoefct.c" path="../../../engine/lib/ljpeg/jccoefct.c" source="CalculateAbsolute" />
+        <File name="jccolor.c" path="../../../engine/lib/ljpeg/jccolor.c" source="CalculateAbsolute" />
+        <File name="jcdctmgr.c" path="../../../engine/lib/ljpeg/jcdctmgr.c" source="CalculateAbsolute" />
+        <File name="jchuff.c" path="../../../engine/lib/ljpeg/jchuff.c" source="CalculateAbsolute" />
+        <File name="jcinit.c" path="../../../engine/lib/ljpeg/jcinit.c" source="CalculateAbsolute" />
+        <File name="jcmainct.c" path="../../../engine/lib/ljpeg/jcmainct.c" source="CalculateAbsolute" />
+        <File name="jcmarker.c" path="../../../engine/lib/ljpeg/jcmarker.c" source="CalculateAbsolute" />
+        <File name="jcmaster.c" path="../../../engine/lib/ljpeg/jcmaster.c" source="CalculateAbsolute" />
+        <File name="jcomapi.c" path="../../../engine/lib/ljpeg/jcomapi.c" source="CalculateAbsolute" />
+        <File name="jcparam.c" path="../../../engine/lib/ljpeg/jcparam.c" source="CalculateAbsolute" />
+        <File name="jcphuff.c" path="../../../engine/lib/ljpeg/jcphuff.c" source="CalculateAbsolute" />
+        <File name="jcprepct.c" path="../../../engine/lib/ljpeg/jcprepct.c" source="CalculateAbsolute" />
+        <File name="jcsample.c" path="../../../engine/lib/ljpeg/jcsample.c" source="CalculateAbsolute" />
+        <File name="jctrans.c" path="../../../engine/lib/ljpeg/jctrans.c" source="CalculateAbsolute" />
+        <File name="jdapimin.c" path="../../../engine/lib/ljpeg/jdapimin.c" source="CalculateAbsolute" />
+        <File name="jdapistd.c" path="../../../engine/lib/ljpeg/jdapistd.c" source="CalculateAbsolute" />
+        <File name="jdatadst.c" path="../../../engine/lib/ljpeg/jdatadst.c" source="CalculateAbsolute" />
+        <File name="jdatasrc.c" path="../../../engine/lib/ljpeg/jdatasrc.c" source="CalculateAbsolute" />
+        <File name="jdcoefct.c" path="../../../engine/lib/ljpeg/jdcoefct.c" source="CalculateAbsolute" />
+        <File name="jdcolor.c" path="../../../engine/lib/ljpeg/jdcolor.c" source="CalculateAbsolute" />
+        <File name="jddctmgr.c" path="../../../engine/lib/ljpeg/jddctmgr.c" source="CalculateAbsolute" />
+        <File name="jdhuff.c" path="../../../engine/lib/ljpeg/jdhuff.c" source="CalculateAbsolute" />
+        <File name="jdinput.c" path="../../../engine/lib/ljpeg/jdinput.c" source="CalculateAbsolute" />
+        <File name="jdmainct.c" path="../../../engine/lib/ljpeg/jdmainct.c" source="CalculateAbsolute" />
+        <File name="jdmarker.c" path="../../../engine/lib/ljpeg/jdmarker.c" source="CalculateAbsolute" />
+        <File name="jdmaster.c" path="../../../engine/lib/ljpeg/jdmaster.c" source="CalculateAbsolute" />
+        <File name="jdmerge.c" path="../../../engine/lib/ljpeg/jdmerge.c" source="CalculateAbsolute" />
+        <File name="jdphuff.c" path="../../../engine/lib/ljpeg/jdphuff.c" source="CalculateAbsolute" />
+        <File name="jdpostct.c" path="../../../engine/lib/ljpeg/jdpostct.c" source="CalculateAbsolute" />
+        <File name="jdsample.c" path="../../../engine/lib/ljpeg/jdsample.c" source="CalculateAbsolute" />
+        <File name="jdtrans.c" path="../../../engine/lib/ljpeg/jdtrans.c" source="CalculateAbsolute" />
+        <File name="jerror.c" path="../../../engine/lib/ljpeg/jerror.c" source="CalculateAbsolute" />
+        <File name="jfdctflt.c" path="../../../engine/lib/ljpeg/jfdctflt.c" source="CalculateAbsolute" />
+        <File name="jfdctfst.c" path="../../../engine/lib/ljpeg/jfdctfst.c" source="CalculateAbsolute" />
+        <File name="jfdctint.c" path="../../../engine/lib/ljpeg/jfdctint.c" source="CalculateAbsolute" />
+        <File name="jidctflt.c" path="../../../engine/lib/ljpeg/jidctflt.c" source="CalculateAbsolute" />
+        <File name="jidctfst.c" path="../../../engine/lib/ljpeg/jidctfst.c" source="CalculateAbsolute" />
+        <File name="jidctint.c" path="../../../engine/lib/ljpeg/jidctint.c" source="CalculateAbsolute" />
+        <File name="jidctred.c" path="../../../engine/lib/ljpeg/jidctred.c" source="CalculateAbsolute" />
+        <File name="jmemansi.c" path="../../../engine/lib/ljpeg/jmemansi.c" source="CalculateAbsolute" />
+        <File name="jmemmgr.c" path="../../../engine/lib/ljpeg/jmemmgr.c" source="CalculateAbsolute" />
+        <File name="jquant1.c" path="../../../engine/lib/ljpeg/jquant1.c" source="CalculateAbsolute" />
+        <File name="jquant2.c" path="../../../engine/lib/ljpeg/jquant2.c" source="CalculateAbsolute" />
+        <File name="jutils.c" path="../../../engine/lib/ljpeg/jutils.c" source="CalculateAbsolute" />
+    </NamedGroup>
     <EngineLibDirectory name="lpng" />
   </NamedGroup>
 </Group>
