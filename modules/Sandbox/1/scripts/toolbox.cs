@@ -84,10 +84,10 @@ function initializeToolbox()
             %outputIndex++;
         }
     }
-    //else
-    //{
+    else
+    {
         SandboxWindow.add(MainOverlay);
-    //}
+    }
 }
 
 //-----------------------------------------------------------------------------
