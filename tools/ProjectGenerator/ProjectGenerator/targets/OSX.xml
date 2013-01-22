@@ -20,17 +20,18 @@
         <GCC_GENERATE_DEBUGGING_SYMBOLS>NO</GCC_GENERATE_DEBUGGING_SYMBOLS>
         <GCC_OPTIMIZATION_LEVEL>1</GCC_OPTIMIZATION_LEVEL>
         <GCC_PREPROCESSOR_DEFINITIONS settingType="List">
-          <Item>__MACOSX__</Item>
+          <Item>TORQUE_OS_OSX</Item>
+          <Item>TORQUE_RELEASE</Item>
           <Item>TORQUE_DISABLE_MEMORY_MANAGER</Item>
         </GCC_PREPROCESSOR_DEFINITIONS>
         <GCC_VERSION>""</GCC_VERSION>
         <HEADER_SEARCH_PATHS settingType="List">
-          <Item>"$(3SS_SOURCE_PATH)"</Item>
-          <Item>"$(3SS_LIB_PATH)"</Item>
-          <Item>"$(3SS_LIB_PATH)/vorbis/include"</Item>
-          <Item>"$(3SS_LIB_PATH)/lpng"</Item>
-          <Item>"$(3SS_LIB_PATH)/ljpeg"</Item>
-          <Item>"$(3SS_LIB_PATH)/lungif"</Item>
+          <Item>"$(TSS_SOURCE_PATH)"</Item>
+          <Item>"$(TSS_LIB_PATH)"</Item>
+          <Item>"$(TSS_LIB_PATH)/vorbis/include"</Item>
+          <Item>"$(TSS_LIB_PATH)/lpng"</Item>
+          <Item>"$(TSS_LIB_PATH)/ljpeg"</Item>
+          <Item>"$(TSS_LIB_PATH)/lungif"</Item>
           <Item>"$(SYSTEM_LIBRARY_DIR)/Frameworks/CoreServices.framework/Versions/Current/Frameworks/CarbonCore.framework/Headers"</Item>
           <Item>"$(SYSTEM_LIBRARY_DIR)/Frameworks/CoreServices.framework/Versions/Current/Frameworks/OT.framework/Headers"</Item>
           <Item>"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Versions/Current/Frameworks/QD.framework/Headers"</Item>
@@ -67,19 +68,19 @@
         <GCC_GENERATE_DEBUGGING_SYMBOLS>YES</GCC_GENERATE_DEBUGGING_SYMBOLS>
         <GCC_OPTIMIZATION_LEVEL>0</GCC_OPTIMIZATION_LEVEL>
         <GCC_PREPROCESSOR_DEFINITIONS settingType="List">
-          <Item>__MACOSX__</Item>
-          <Item>TORQUE_DISABLE_MEMORY_MANAGER</Item>
-          <Item>TORQUE_DEBUG_GUARD</Item>
+          <Item>TORQUE_OS_OSX</Item>
           <Item>TORQUE_DEBUG</Item>
+          <Item>TORQUE_DEBUG_GUARD</Item>
+          <Item>TORQUE_DISABLE_MEMORY_MANAGER</Item>
         </GCC_PREPROCESSOR_DEFINITIONS>
         <GCC_VERSION>""</GCC_VERSION>
         <HEADER_SEARCH_PATHS settingType="List">
-          <Item>"$(3SS_SOURCE_PATH)"</Item>
-          <Item>"$(3SS_LIB_PATH)"</Item>
-          <Item>"$(3SS_LIB_PATH)/vorbis/include"</Item>
-          <Item>"$(3SS_LIB_PATH)/lpng"</Item>
-          <Item>"$(3SS_LIB_PATH)/ljpeg"</Item>
-          <Item>"$(3SS_LIB_PATH)/lungif"</Item>
+          <Item>"$(TSS_SOURCE_PATH)"</Item>
+          <Item>"$(TSS_LIB_PATH)"</Item>
+          <Item>"$(TSS_LIB_PATH)/vorbis/include"</Item>
+          <Item>"$(TSS_LIB_PATH)/lpng"</Item>
+          <Item>"$(TSS_LIB_PATH)/ljpeg"</Item>
+          <Item>"$(TSS_LIB_PATH)/lungif"</Item>
           <Item>"$(SYSTEM_LIBRARY_DIR)/Frameworks/CoreServices.framework/Versions/Current/Frameworks/CarbonCore.framework/Headers"</Item>
           <Item>"$(SYSTEM_LIBRARY_DIR)/Frameworks/CoreServices.framework/Versions/Current/Frameworks/OT.framework/Headers"</Item>
           <Item>"$(SYSTEM_LIBRARY_DIR)/Frameworks/ApplicationServices.framework/Versions/Current/Frameworks/QD.framework/Headers"</Item>

@@ -254,24 +254,6 @@
 		86D76FD4165687060046D71F /* RemoteDebuggerBridge.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F7D16518D4600D96ADF /* RemoteDebuggerBridge.cc */; };
 		86D76FD5165687060046D71F /* telnetDebugger.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F8016518D4600D96ADF /* telnetDebugger.cc */; };
 		86D76FD6165687060046D71F /* delegateSignal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F8416518D4600D96ADF /* delegateSignal.cpp */; };
-		86D76FD7165687060046D71F /* assetFunctions.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F8816518D4600D96ADF /* assetFunctions.cc */; };
-		86D76FD8165687060046D71F /* levelBuilderBaseEditTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F8A16518D4600D96ADF /* levelBuilderBaseEditTool.cc */; };
-		86D76FD9165687060046D71F /* levelBuilderBaseTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F8C16518D4600D96ADF /* levelBuilderBaseTool.cc */; };
-		86D76FDA165687060046D71F /* levelBuilderBitmapFontTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F8E16518D4600D96ADF /* levelBuilderBitmapFontTool.cpp */; };
-		86D76FDB165687060046D71F /* levelBuilderCameraTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F9016518D4600D96ADF /* levelBuilderCameraTool.cc */; };
-		86D76FDC165687060046D71F /* levelBuilderCreateTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F9216518D4600D96ADF /* levelBuilderCreateTool.cc */; };
-		86D76FDD165687060046D71F /* levelBuilderMouseScriptTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F9616518D4600D96ADF /* levelBuilderMouseScriptTool.cc */; };
-		86D76FDE165687060046D71F /* levelBuilderPathEditTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F9816518D4600D96ADF /* levelBuilderPathEditTool.cc */; };
-		86D76FDF165687060046D71F /* levelBuilderPathTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F9A16518D4600D96ADF /* levelBuilderPathTool.cc */; };
-		86D76FE0165687060046D71F /* levelBuilderSceneEdit.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F9C16518D4600D96ADF /* levelBuilderSceneEdit.cc */; };
-		86D76FE1165687060046D71F /* levelBuilderSceneObjectTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7F9E16518D4600D96ADF /* levelBuilderSceneObjectTool.cc */; };
-		86D76FE2165687060046D71F /* levelBuilderSceneWindow.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FA016518D4600D96ADF /* levelBuilderSceneWindow.cc */; };
-		86D76FE3165687060046D71F /* levelBuilderScrollerTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FA216518D4600D96ADF /* levelBuilderScrollerTool.cc */; };
-		86D76FE4165687060046D71F /* levelBuilderSelectionTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FA416518D4600D96ADF /* levelBuilderSelectionTool.cc */; };
-		86D76FE5165687060046D71F /* levelBuilderShapeVectorTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FA616518D4600D96ADF /* levelBuilderShapeVectorTool.cc */; };
-		86D76FE6165687060046D71F /* levelBuilderSortPointTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FA816518D4600D96ADF /* levelBuilderSortPointTool.cc */; };
-		86D76FE7165687060046D71F /* levelBuilderTriggerTool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FAA16518D4600D96ADF /* levelBuilderTriggerTool.cc */; };
-		86D76FE8165687060046D71F /* preferencesManager.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FAC16518D4600D96ADF /* preferencesManager.cc */; };
 		86D76FE9165687060046D71F /* defaultGame.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FAF16518D4600D96ADF /* defaultGame.cc */; };
 		86D76FEA165687060046D71F /* gameConnection.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FB116518D4600D96ADF /* gameConnection.cc */; };
 		86D76FEB165687060046D71F /* gameInterface.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FB316518D4600D96ADF /* gameInterface.cc */; };
@@ -909,44 +891,6 @@
 		86BC7F8416518D4600D96ADF /* delegateSignal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = delegateSignal.cpp; sourceTree = "<group>"; };
 		86BC7F8516518D4600D96ADF /* delegateSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = delegateSignal.h; sourceTree = "<group>"; };
 		86BC7F8616518D4600D96ADF /* FastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastDelegate.h; sourceTree = "<group>"; };
-		86BC7F8816518D4600D96ADF /* assetFunctions.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = assetFunctions.cc; sourceTree = "<group>"; };
-		86BC7F8916518D4600D96ADF /* assetFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assetFunctions.h; sourceTree = "<group>"; };
-		86BC7F8A16518D4600D96ADF /* levelBuilderBaseEditTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderBaseEditTool.cc; sourceTree = "<group>"; };
-		86BC7F8B16518D4600D96ADF /* levelBuilderBaseEditTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderBaseEditTool.h; sourceTree = "<group>"; };
-		86BC7F8C16518D4600D96ADF /* levelBuilderBaseTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderBaseTool.cc; sourceTree = "<group>"; };
-		86BC7F8D16518D4600D96ADF /* levelBuilderBaseTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderBaseTool.h; sourceTree = "<group>"; };
-		86BC7F8E16518D4600D96ADF /* levelBuilderBitmapFontTool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderBitmapFontTool.cpp; sourceTree = "<group>"; };
-		86BC7F8F16518D4600D96ADF /* levelBuilderBitmapFontTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderBitmapFontTool.h; sourceTree = "<group>"; };
-		86BC7F9016518D4600D96ADF /* levelBuilderCameraTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderCameraTool.cc; sourceTree = "<group>"; };
-		86BC7F9116518D4600D96ADF /* levelBuilderCameraTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderCameraTool.h; sourceTree = "<group>"; };
-		86BC7F9216518D4600D96ADF /* levelBuilderCreateTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderCreateTool.cc; sourceTree = "<group>"; };
-		86BC7F9316518D4600D96ADF /* levelBuilderCreateTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderCreateTool.h; sourceTree = "<group>"; };
-		86BC7F9416518D4600D96ADF /* levelBuilderiPhoneUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderiPhoneUtil.h; sourceTree = "<group>"; };
-		86BC7F9516518D4600D96ADF /* levelBuilderiPhoneUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = levelBuilderiPhoneUtil.mm; sourceTree = "<group>"; };
-		86BC7F9616518D4600D96ADF /* levelBuilderMouseScriptTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderMouseScriptTool.cc; sourceTree = "<group>"; };
-		86BC7F9716518D4600D96ADF /* levelBuilderMouseScriptTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderMouseScriptTool.h; sourceTree = "<group>"; };
-		86BC7F9816518D4600D96ADF /* levelBuilderPathEditTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderPathEditTool.cc; sourceTree = "<group>"; };
-		86BC7F9916518D4600D96ADF /* levelBuilderPathEditTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderPathEditTool.h; sourceTree = "<group>"; };
-		86BC7F9A16518D4600D96ADF /* levelBuilderPathTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderPathTool.cc; sourceTree = "<group>"; };
-		86BC7F9B16518D4600D96ADF /* levelBuilderPathTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderPathTool.h; sourceTree = "<group>"; };
-		86BC7F9C16518D4600D96ADF /* levelBuilderSceneEdit.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderSceneEdit.cc; sourceTree = "<group>"; };
-		86BC7F9D16518D4600D96ADF /* levelBuilderSceneEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderSceneEdit.h; sourceTree = "<group>"; };
-		86BC7F9E16518D4600D96ADF /* levelBuilderSceneObjectTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderSceneObjectTool.cc; sourceTree = "<group>"; };
-		86BC7F9F16518D4600D96ADF /* levelBuilderSceneObjectTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderSceneObjectTool.h; sourceTree = "<group>"; };
-		86BC7FA016518D4600D96ADF /* levelBuilderSceneWindow.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderSceneWindow.cc; sourceTree = "<group>"; };
-		86BC7FA116518D4600D96ADF /* levelBuilderSceneWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderSceneWindow.h; sourceTree = "<group>"; };
-		86BC7FA216518D4600D96ADF /* levelBuilderScrollerTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderScrollerTool.cc; sourceTree = "<group>"; };
-		86BC7FA316518D4600D96ADF /* levelBuilderScrollerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderScrollerTool.h; sourceTree = "<group>"; };
-		86BC7FA416518D4600D96ADF /* levelBuilderSelectionTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderSelectionTool.cc; sourceTree = "<group>"; };
-		86BC7FA516518D4600D96ADF /* levelBuilderSelectionTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderSelectionTool.h; sourceTree = "<group>"; };
-		86BC7FA616518D4600D96ADF /* levelBuilderShapeVectorTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderShapeVectorTool.cc; sourceTree = "<group>"; };
-		86BC7FA716518D4600D96ADF /* levelBuilderShapeVectorTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderShapeVectorTool.h; sourceTree = "<group>"; };
-		86BC7FA816518D4600D96ADF /* levelBuilderSortPointTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderSortPointTool.cc; sourceTree = "<group>"; };
-		86BC7FA916518D4600D96ADF /* levelBuilderSortPointTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderSortPointTool.h; sourceTree = "<group>"; };
-		86BC7FAA16518D4600D96ADF /* levelBuilderTriggerTool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelBuilderTriggerTool.cc; sourceTree = "<group>"; };
-		86BC7FAB16518D4600D96ADF /* levelBuilderTriggerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelBuilderTriggerTool.h; sourceTree = "<group>"; };
-		86BC7FAC16518D4600D96ADF /* preferencesManager.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = preferencesManager.cc; sourceTree = "<group>"; };
-		86BC7FAD16518D4600D96ADF /* preferencesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = preferencesManager.h; sourceTree = "<group>"; };
 		86BC7FAF16518D4600D96ADF /* defaultGame.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = defaultGame.cc; sourceTree = "<group>"; };
 		86BC7FB016518D4600D96ADF /* defaultGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defaultGame.h; sourceTree = "<group>"; };
 		86BC7FB116518D4600D96ADF /* gameConnection.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameConnection.cc; sourceTree = "<group>"; };
@@ -1814,7 +1758,6 @@
 				86BC7F4716518D4600D96ADF /* console */,
 				86BC7F7316518D4600D96ADF /* debug */,
 				86BC7F8216518D4600D96ADF /* delegates */,
-				86BC7F8716518D4600D96ADF /* editor */,
 				86BC7FAE16518D4600D96ADF /* game */,
 				86BC7FB916518D4600D96ADF /* graphics */,
 				86BC7FD716518D4600D96ADF /* gui */,
@@ -2245,52 +2188,6 @@
 			);
 			name = delegates;
 			path = ../../../source/delegates;
-			sourceTree = "<group>";
-		};
-		86BC7F8716518D4600D96ADF /* editor */ = {
-			isa = PBXGroup;
-			children = (
-				86BC7F8816518D4600D96ADF /* assetFunctions.cc */,
-				86BC7F8916518D4600D96ADF /* assetFunctions.h */,
-				86BC7F8A16518D4600D96ADF /* levelBuilderBaseEditTool.cc */,
-				86BC7F8B16518D4600D96ADF /* levelBuilderBaseEditTool.h */,
-				86BC7F8C16518D4600D96ADF /* levelBuilderBaseTool.cc */,
-				86BC7F8D16518D4600D96ADF /* levelBuilderBaseTool.h */,
-				86BC7F8E16518D4600D96ADF /* levelBuilderBitmapFontTool.cpp */,
-				86BC7F8F16518D4600D96ADF /* levelBuilderBitmapFontTool.h */,
-				86BC7F9016518D4600D96ADF /* levelBuilderCameraTool.cc */,
-				86BC7F9116518D4600D96ADF /* levelBuilderCameraTool.h */,
-				86BC7F9216518D4600D96ADF /* levelBuilderCreateTool.cc */,
-				86BC7F9316518D4600D96ADF /* levelBuilderCreateTool.h */,
-				86BC7F9416518D4600D96ADF /* levelBuilderiPhoneUtil.h */,
-				86BC7F9516518D4600D96ADF /* levelBuilderiPhoneUtil.mm */,
-				86BC7F9616518D4600D96ADF /* levelBuilderMouseScriptTool.cc */,
-				86BC7F9716518D4600D96ADF /* levelBuilderMouseScriptTool.h */,
-				86BC7F9816518D4600D96ADF /* levelBuilderPathEditTool.cc */,
-				86BC7F9916518D4600D96ADF /* levelBuilderPathEditTool.h */,
-				86BC7F9A16518D4600D96ADF /* levelBuilderPathTool.cc */,
-				86BC7F9B16518D4600D96ADF /* levelBuilderPathTool.h */,
-				86BC7F9C16518D4600D96ADF /* levelBuilderSceneEdit.cc */,
-				86BC7F9D16518D4600D96ADF /* levelBuilderSceneEdit.h */,
-				86BC7F9E16518D4600D96ADF /* levelBuilderSceneObjectTool.cc */,
-				86BC7F9F16518D4600D96ADF /* levelBuilderSceneObjectTool.h */,
-				86BC7FA016518D4600D96ADF /* levelBuilderSceneWindow.cc */,
-				86BC7FA116518D4600D96ADF /* levelBuilderSceneWindow.h */,
-				86BC7FA216518D4600D96ADF /* levelBuilderScrollerTool.cc */,
-				86BC7FA316518D4600D96ADF /* levelBuilderScrollerTool.h */,
-				86BC7FA416518D4600D96ADF /* levelBuilderSelectionTool.cc */,
-				86BC7FA516518D4600D96ADF /* levelBuilderSelectionTool.h */,
-				86BC7FA616518D4600D96ADF /* levelBuilderShapeVectorTool.cc */,
-				86BC7FA716518D4600D96ADF /* levelBuilderShapeVectorTool.h */,
-				86BC7FA816518D4600D96ADF /* levelBuilderSortPointTool.cc */,
-				86BC7FA916518D4600D96ADF /* levelBuilderSortPointTool.h */,
-				86BC7FAA16518D4600D96ADF /* levelBuilderTriggerTool.cc */,
-				86BC7FAB16518D4600D96ADF /* levelBuilderTriggerTool.h */,
-				86BC7FAC16518D4600D96ADF /* preferencesManager.cc */,
-				86BC7FAD16518D4600D96ADF /* preferencesManager.h */,
-			);
-			name = editor;
-			path = ../../../source/editor;
 			sourceTree = "<group>";
 		};
 		86BC7FAE16518D4600D96ADF /* game */ = {
@@ -3135,24 +3032,6 @@
 				86D76FD4165687060046D71F /* RemoteDebuggerBridge.cc in Sources */,
 				86D76FD5165687060046D71F /* telnetDebugger.cc in Sources */,
 				86D76FD6165687060046D71F /* delegateSignal.cpp in Sources */,
-				86D76FD7165687060046D71F /* assetFunctions.cc in Sources */,
-				86D76FD8165687060046D71F /* levelBuilderBaseEditTool.cc in Sources */,
-				86D76FD9165687060046D71F /* levelBuilderBaseTool.cc in Sources */,
-				86D76FDA165687060046D71F /* levelBuilderBitmapFontTool.cpp in Sources */,
-				86D76FDB165687060046D71F /* levelBuilderCameraTool.cc in Sources */,
-				86D76FDC165687060046D71F /* levelBuilderCreateTool.cc in Sources */,
-				86D76FDD165687060046D71F /* levelBuilderMouseScriptTool.cc in Sources */,
-				86D76FDE165687060046D71F /* levelBuilderPathEditTool.cc in Sources */,
-				86D76FDF165687060046D71F /* levelBuilderPathTool.cc in Sources */,
-				86D76FE0165687060046D71F /* levelBuilderSceneEdit.cc in Sources */,
-				86D76FE1165687060046D71F /* levelBuilderSceneObjectTool.cc in Sources */,
-				86D76FE2165687060046D71F /* levelBuilderSceneWindow.cc in Sources */,
-				86D76FE3165687060046D71F /* levelBuilderScrollerTool.cc in Sources */,
-				86D76FE4165687060046D71F /* levelBuilderSelectionTool.cc in Sources */,
-				86D76FE5165687060046D71F /* levelBuilderShapeVectorTool.cc in Sources */,
-				86D76FE6165687060046D71F /* levelBuilderSortPointTool.cc in Sources */,
-				86D76FE7165687060046D71F /* levelBuilderTriggerTool.cc in Sources */,
-				86D76FE8165687060046D71F /* preferencesManager.cc in Sources */,
 				86D76FE9165687060046D71F /* defaultGame.cc in Sources */,
 				86D76FEA165687060046D71F /* gameConnection.cc in Sources */,
 				86D76FEB165687060046D71F /* gameInterface.cc in Sources */,

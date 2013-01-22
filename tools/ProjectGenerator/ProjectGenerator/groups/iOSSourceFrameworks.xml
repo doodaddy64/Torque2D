@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Group>
   <FrameworkDirectory name="Frameworks">
-    <Framework name="libiOS_Device.a" path="../../../engine/lib/it2d/libiOS_Device.a" source = "CalculateAbsolute" />
     <Framework name="Foundation.framework" path="System/Library/Frameworks/Foundation.framework" source = "SDKROOT" />
     <Framework name="AudioToolbox.framework" path="System/Library/Frameworks/AudioToolbox.framework" source = "SDKROOT" />
     <Framework name="CoreAudio.framework" path="System/Library/Frameworks/CoreAudio.framework" source = "SDKROOT" />

@@ -1,10 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project type="Xcode" platform="OSX" name="Torque2D" engineSourceDirectory="../../../engine/source/" engineLibDirectory="../../../engine/lib/">
   <Groups>
-    <Group type="files" file="groups/assets.xml" />
+	<Group type="files" file="groups/2d.xml" />
+    <Group type="files" file="groups/3ss.xml" />
+    <Group type="files" file="groups/algorithm.xml" />
+	<Group type="files" file="groups/assets.xml" />
     <Group type="files" file="groups/audio.xml" />
     <Group type="files" file="groups/box2D.xml" />
+	<Group type="files" file="groups/collection.xml" />
     <Group type="files" file="groups/component.xml" />
+    <Group type="files" file="groups/console.xml" />
+    <Group type="files" file="groups/debug.xml" />
+	<Group type="files" file="groups/delegates.xml" />
+    <Group type="files" file="groups/game.xml" />
+    <Group type="files" file="groups/graphics.xml" />
+	<Group type="files" file="groups/gui.xml" />
+	<Group type="files" file="groups/input.xml" />
+	<Group type="files" file="groups/io.xml" />
+    <Group type="files" file="groups/math.xml" />
+	<Group type="files" file="groups/memory.xml" />
+	<Group type="files" file="groups/messaging.xml" />
+    <Group type="files" file="groups/module.xml" />
+	<Group type="files" file="groups/network.xml" />
+    <Group type="files" file="groups/persistence.xml" />
+    <Group type="files" file="groups/platform.xml" />
+    <Group type="files" file="groups/platformOSX.xml" />
+    <Group type="files" file="groups/sim.xml" />
+	<Group type="files" file="groups/string.xml" />
     <Group type="files" file="groups/torquelibs.xml" />
     <Group type="files" file="groups/frameworks.xml" />
     <Group type="files" file="groups/resources.xml" />
@@ -57,6 +79,15 @@
       </BuildSettings>
     </BuildConfig>
   </BuildConfigs>
+  <Attributes>
+    <LastUpgradeCheck>0420</LastUpgradeCheck>
+  </Attributes>
+  <Regions developmentRegion="English">
+    <Region name="English" />
+    <Region name="French" />
+    <Region name="German" />
+    <Region name="Japanese" />
+  </Regions>
   <ExcludeDirectories>
     <Directory name=".svn" />
     <Directory name="CVS" />
