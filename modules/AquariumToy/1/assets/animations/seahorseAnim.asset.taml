@@ -1,6 +1,6 @@
 <AnimationAsset
     AssetName="seahorseAnim"
     AssetCategory="sprites"
-    Image="@asset={AquariumToy}:seahorse"
+    Image="@asset=AquariumToy:seahorse"
     AnimationFrames="0 1 2 3 3 2 1 0"
     AnimationTime="0.1" />

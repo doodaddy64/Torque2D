@@ -1,6 +1,6 @@
 <AnimationAsset
     AssetName="rockfishAnim"
     AssetCategory="sprites"
-    Image="@asset={AquariumToy}:rockfish"
+    Image="@asset=AquariumToy:rockfish"
     AnimationFrames="0 1 2 3 3 2 1 0"
     AnimationTime="0.4" />

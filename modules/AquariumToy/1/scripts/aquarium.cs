@@ -2,6 +2,15 @@
 
 function buildAquarium()
 {
+    $FishAnims[0] = "AquariumToy:angelfish1Anim";
+    $FishAnims[1] = "AquariumToy:angelfish2Anim";
+    $FishAnims[2] = "AquariumToy:butterflyfishAnim";
+    $FishAnims[3] = "AquariumToy:pufferfishAnim";
+    $FishAnims[4] = "AquariumToy:rockfishAnim";
+    $FishAnims[5] = "AquariumToy:seahorseAnim";
+    $FishAnims[6] = "AquariumToy:triggerfish1Anim";
+    $FishAnims[7] = "AquariumToy:triggerfish2Anim";
+
     // Background
     %background = new Sprite();
     %background.setBodyType( "static" );
@@ -93,10 +102,11 @@ function spawnFish()
     for ( %i = 0; %i < $FishCount; %i++ )
     {
         %position = getRandom(-45, 45) SPC getRandom(-20, 20);
+        %animIndex = getRandom(0, 7);
         
         %fish = new Sprite()
         {
-            Animation = "AquariumToy:angelfishAnim";
+            Animation = $FishAnims[%animIndex];
             class = "FishClass";
             position = %position;
             size = "15 15";
@@ -128,6 +138,7 @@ function FishClass::onAdd(%this)
     if (getRandom(0, 10) > 5)
     {
         %this.setLinearVelocityX(%this.speed);
+        %this.setFlipX(false);
     }
     else
     {
