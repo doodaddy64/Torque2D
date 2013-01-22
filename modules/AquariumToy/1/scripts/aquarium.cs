@@ -38,6 +38,7 @@ function buildAquarium()
     // Left trigger
     %leftTrigger = new SceneObject() { class = "AquariumBoundary"; };
     
+    %leftTrigger.side = "left";
     %leftTrigger.setSize( 5, 400 );
     %leftTrigger.setPosition( -85, 0);
     %leftTrigger.setSceneLayer( 1 );
@@ -57,6 +58,7 @@ function buildAquarium()
     %rightTrigger = new SceneObject() { class = "AquariumBoundary"; };
     
     %rightTrigger.setSize( 5, 400 );
+    %rightTrigger.side = "right";
     %rightTrigger.setPosition( 85, 0);
     %rightTrigger.setSceneLayer( 1 );
     %rightTrigger.setSceneGroup( 15 );
@@ -74,7 +76,8 @@ function buildAquarium()
 
 function AquariumBoundary::handleCollision(%this, %object, %collisionDetails)
 {
-    echo("@@@ Fish hit boundary");
+    if (%object.class $= "FishClass")
+        %object.recycle(%this.side);
 }
 
 //-----------------------------------------------------------------------------
@@ -129,34 +132,34 @@ function FishClass::onAdd(%this)
 // %this - The object calling the function
 // %mode - The mode setting for the world limit
 // %limit - Which world limit object reached, "right", "left", "top", "bottom"
-function FishClass::onWorldLimit(%this, %mode, %limit)
+function FishClass::recycle(%this, %side)
 {
-   // Fish has turned around, so set a new random speed
-   %this.setSpeed();
-   %layer = getRandom(0, 5);
+    // Fish has turned around, so set a new random speed
+    %this.setSpeed();
+    %layer = getRandom(0, 5);
    
-   // Set up a string comparison switch based on the %limit
-   switch$ (%limit)
-   {
-      // Fish hit "left" boundary
-      // Make it face right and go in that direction
-      // Set a random position in the Y axis
-      case "left":
-         %this.setLinearVelocityX(%this.speed);
-         %this.setLinearVelocityY(getRandom(-10, 10));
-         %this.setFlipX(false);
-         %this.setPositionY(getRandom(-134, 107));
-         %this.setLayer(%layer);
-      
-      // Fish hit "right" boundary
-      // Make it face left and go in that direction
-      // Set a random position in the Y axis  
-      case "right":
-         %this.setLinearVelocityX(-%this.speed);
-         %this.setLinearVelocityY(getRandom(-10, 10));
-         %this.setFlipX(true);
-         %this.setPositionY(getRandom(-134, 107));
-         %this.setLayer(%layer);
+    // Set up a string comparison switch based on the %limit
+    switch$ (%side)
+    {
+        // Fish hit "left" boundary
+        // Make it face right and go in that direction
+        // Set a random position in the Y axis
+        case "left":
+        %this.setLinearVelocityX(%this.speed);
+        %this.setLinearVelocityY(getRandom(-3, 3));
+        %this.setFlipX(false);
+        %this.setPositionY(getRandom(-15, 15));
+        %this.setSceneLayer(%layer);
+
+        // Fish hit "right" boundary
+        // Make it face left and go in that direction
+        // Set a random position in the Y axis  
+        case "right":
+        %this.setLinearVelocityX(-%this.speed);
+        %this.setLinearVelocityY(getRandom(-3, 3));
+        %this.setFlipX(true);
+        %this.setPositionY(getRandom(-15, 15));
+        %this.setSceneLayer(%layer);
    }
 }
 

@@ -104,3 +104,18 @@ function setSceneToWindow()
     // Activate the sandbox auto-camera.
     setSandboxAutoCamera( true );        
 }
+
+//-----------------------------------------------------------------------------
+
+function SandboxScene::onCollision(%this, %sceneObjectA, %sceneObjectB, %collisionDetails)
+{
+    if (%sceneObjectA.isMethod(handleCollision))
+        %sceneObjectA.handleCollision(%sceneObjectB, %collisionDetails);
+    else
+        %sceneObjectA.callOnBehaviors(handleCollision, %sceneObjectB, %collisionDetails);
+
+    if (%sceneObjectB.isMethod(handleCollision))
+        %sceneObjectB.handleCollision(%sceneObjectA, %collisionDetails);
+    else
+        %sceneObjectB.callOnBehaviors(handleCollision, %sceneObjectA, %collisionDetails);
+}
