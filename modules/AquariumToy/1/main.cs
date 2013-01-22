@@ -11,7 +11,7 @@ function createAquariumToy( %scopeSet )
     // Turn-off the sandbox auto-camera.
     setSandboxAutoCamera( false );
     
-    $FishCount = 1;
+    $FishCount = 10;
     
     buildAquarium();
     createAquariumEffects();

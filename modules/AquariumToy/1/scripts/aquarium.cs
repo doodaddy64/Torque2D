@@ -92,10 +92,13 @@ function spawnFish()
 {
     for ( %i = 0; %i < $FishCount; %i++ )
     {
+        %position = getRandom(-45, 45) SPC getRandom(-20, 20);
+        
         %fish = new Sprite()
         {
             Animation = "AquariumToy:angelfishAnim";
             class = "FishClass";
+            position = %position;
             size = "15 15";
             SceneLayer = "2";
             SceneGroup = "14";
@@ -119,11 +122,18 @@ function spawnFish()
 // %scenegraph - Represents the scene this object exists in
 function FishClass::onAdd(%this)
 {
-   // Set a random speed for the fish
-   %this.setSpeed();
+    // Set a random speed for the fish
+    %this.setSpeed();
    
-   // Set the object's velocity based on .speed variable
-   %this.setLinearVelocityX(%this.speed);
+    if (getRandom(0, 10) > 5)
+    {
+        %this.setLinearVelocityX(%this.speed);
+    }
+    else
+    {
+        %this.setLinearVelocityX(-%this.speed);
+        %this.setFlipX(true);
+    }
 }
 
 // This function will be called when the object
@@ -137,30 +147,20 @@ function FishClass::recycle(%this, %side)
     // Fish has turned around, so set a new random speed
     %this.setSpeed();
     %layer = getRandom(0, 5);
-   
-    // Set up a string comparison switch based on the %limit
-    switch$ (%side)
-    {
-        // Fish hit "left" boundary
-        // Make it face right and go in that direction
-        // Set a random position in the Y axis
-        case "left":
-        %this.setLinearVelocityX(%this.speed);
-        %this.setLinearVelocityY(getRandom(-3, 3));
-        %this.setFlipX(false);
-        %this.setPositionY(getRandom(-15, 15));
-        %this.setSceneLayer(%layer);
+    %this.setLinearVelocityY(getRandom(-3, 3));
+    %this.setPositionY(getRandom(-15, 15));
+    %this.setSceneLayer(%layer);
 
-        // Fish hit "right" boundary
-        // Make it face left and go in that direction
-        // Set a random position in the Y axis  
-        case "right":
+    if (%side $= "left")
+    {
+        %this.setLinearVelocityX(%this.speed);
+        %this.setFlipX(false);
+    }
+    else if (%side $= "right")
+    {
         %this.setLinearVelocityX(-%this.speed);
-        %this.setLinearVelocityY(getRandom(-3, 3));
         %this.setFlipX(true);
-        %this.setPositionY(getRandom(-15, 15));
-        %this.setSceneLayer(%layer);
-   }
+    }
 }
 
 // Set the fish's speed to a random value
