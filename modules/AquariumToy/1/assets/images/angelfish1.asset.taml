@@ -1,0 +1,8 @@
+<ImageAsset
+    AssetName="angelFishImage"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#angelfish1.png"
+	CellCountX="2"
+    CellCountY="2"
+    CellWidth="256"
+    CellHeight="256" />

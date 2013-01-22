@@ -1,8 +1,0 @@
-<ImageAsset
-    AssetName="triggerfish1"
-    AssetCategory="sprites"
-    ImageFile="@assetFile=#triggerfish1.png"
-	CellCountX="2"
-    CellCountY="2"
-    CellWidth="256"
-    CellHeight="256" />

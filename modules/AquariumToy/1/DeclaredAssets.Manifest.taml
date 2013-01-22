@@ -1,7 +1,10 @@
 <AssetManifest>
 	<AssetManifest.Search>
 		<Location
-			Path="^AquariumToy/assets"
+			Path="^AquariumToy/assets/images"
 			Extension="asset.taml"/>			
+		<Location
+			Path="^AquariumToy/assets/animations"
+			Extension="asset.taml"/>
 	</AssetManifest.Search>
 </AssetManifest>

@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="rocksfar"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#rocksfar.png" />

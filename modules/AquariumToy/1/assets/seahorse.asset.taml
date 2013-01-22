@@ -1,8 +1,0 @@
-<ImageAsset
-    AssetName="seahorse"
-    AssetCategory="sprites"
-    ImageFile="@assetFile=#seahorse.png"
-	CellCountX="4"
-    CellCountY="1"
-    CellWidth="128"
-    CellHeight="256" />

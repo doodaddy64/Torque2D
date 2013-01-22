@@ -1,4 +1,0 @@
-<ImageAsset
-    AssetName="background"
-    AssetCategory="sprites"
-    ImageFile="@assetFile=#background.jpg" />

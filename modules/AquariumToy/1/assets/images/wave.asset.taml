@@ -1,0 +1,4 @@
+<ImageAsset
+    AssetName="wave"
+    AssetCategory="sprites"
+    ImageFile="@assetFile=#wave.png" />

@@ -42,11 +42,11 @@
 #include "platform/nativeDialogs/fileDialog.h"
 #include "memory/safeDelete.h"
 
+#include <stdio.h>
+
 #ifndef _NETWORK_PROCESS_LIST_H_
 #include "network/networkProcessList.h"
 #endif
-
-#include <stdio.h>
 
 #ifndef _REMOTE_DEBUGGER_BRIDGE_H_
 #include "debug/remote/RemoteDebuggerBridge.h"
@@ -66,16 +66,7 @@
 
 #ifdef TORQUE_OS_IOS
 #include "platformiOS/iOSProfiler.h"
-
-#ifdef _USE_STORE_KIT
-#include "platformiOS/iOSStoreKit.h"
 #endif
-
-#ifdef TORQUE_ALLOW_MUSICPLAYER
-#include "platformiOS/iOSUserMusicLibrary.h"
-#endif
-
-#endif // TORQUE_OS_IOS
 
 // Script binding.
 #include "platform/platform_ScriptBinding.h"
