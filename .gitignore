@@ -4,6 +4,7 @@
 *.xcuserdatad
 .LSOverride
 /tmp/*
+/preferences.cs
 *.dso
 *.edso
 *.user
@@ -18,25 +19,12 @@
 *.exports
 *.opt
 *.tmp
-moc_QtNetworkManager.cc
-moc_WebRender.cc
-moc_QtCookieJar.cc
-moc_QtFileDownloader.cc
-moc_QtHttpRequestHandler.cc
 Torque2D.app
 Torque2D_DEBUG.app
 Torque2D.exe
 Torque2D_DEBUG.exe
 Torque2DGame.app
 Torque2DGame_Debug.app
-3StepStudio.app
-3StepStudio_Debug.app
-3StepStudio.exe
-3StepStudio_Debug.exe
-3StepStudioGame.app
-3StepStudioGame_Debug.app
-3StepStudioGame.exe
-3StepStudioGame_Debug.exe
 linkmap.txt
     
 # Compiled source #
