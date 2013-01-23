@@ -578,6 +578,17 @@ function createTruck( %posX, %posY )
    // ************************************************************************   
    // Truck Body.
    // ************************************************************************      
+
+   %exhaustParticles = new ParticlePlayer();
+   %exhaustParticles.setPosition( %posX-3, %posY );
+   %exhaustParticles.setSceneLayer( $truckDomain );
+   %exhaustParticles.Particle = "TruckToy:exhaust";
+   %exhaustParticles.SizeScale = 0.1;
+   %exhaustParticles.ForceScale = 0.4;
+   %exhaustParticles.EmissionRateScale = 4;
+   SandboxScene.add( %exhaustParticles );
+   %exhaustParticles.play();
+   $truckExhaust = %exhaustParticles;
    
    $truckBody = new Sprite();
    $truckBody.setPosition( %posX, %posY );
@@ -589,11 +600,17 @@ function createTruck( %posX, %posY )
    $truckBody.createPolygonCollisionShape( "-2 0.2 -2 -0.5 0 -.95 2 -0.5 2 0.0 0 0.7 -1.5 0.7" ); 
    //$truckBody.setDebugOn( 5 );
    SandboxScene.add( $truckBody );
+
+    // Attach the exhaust output to the truck body.   
+   //SandboxScene.createWeldJoint( $truckBody, %exhaustParticles, "-2.1 -0.5", "0 0" );
+   %joint = SandboxScene.createRevoluteJoint( $truckBody, $truckExhaust, "-2.3 -0.6", "0 0" );
+   SandboxScene.setRevoluteJointLimit( %joint, 0, 0 );
+   
    
    // Mount camera to truck body.
    SandboxWindow.mount( $truckBody, "0 0", 0, true, true );
 
-   SandboxScene.setDebugSceneObject( $truckBody );
+   //SandboxScene.setDebugSceneObject( $truckBody );
 
 
    // ************************************************************************   
@@ -681,6 +698,8 @@ function truckForward(%val)
         {
             SandboxScene.setWheelJointMotor( $rearMotorJoint, true, $wheelSpeed, 10000 );
             SandboxScene.setWheelJointMotor( $frontMotorJoint, true, $wheelSpeed, 10000 );
+            $truckExhaust.SizeScale *= 4;
+            $truckExhaust.ForceScale /= 2;
         }
               
         $truckMoving = true;
@@ -691,6 +710,8 @@ function truckForward(%val)
         {
             SandboxScene.setWheelJointMotor( $rearMotorJoint, true, 0, 10000 );
             SandboxScene.setWheelJointMotor( $frontMotorJoint, true, 0, 10000 );
+            $truckExhaust.SizeScale /= 4;
+            $truckExhaust.ForceScale *= 2;
         }
               
         $truckMoving = false;

@@ -76,8 +76,10 @@ ParticlePlayer::ParticlePlayer() :
                     mWaitingForParticles( false ),
                     mWaitingForDelete( false )
 {
-    // Fetch the particle engine quantity scale.
-    mParticleEngineQuantityScale = Con::getFloatVariable( "$pref::T2D::particleEngineQuantityScale", 1.0f );
+    // Fetch the particle player scales.
+    mEmissionRateScale = Con::getFloatVariable( PARTICLE_PLAYER_EMISSION_RATE_SCALE, 1.0f );
+    mSizeScale         = Con::getFloatVariable( PARTICLE_PLAYER_SIZE_SCALE, 1.0f );
+    mForceScale        = Con::getFloatVariable( PARTICLE_PLAYER_FORCE_SCALE, 1.0f );
 
     // Register for refresh notifications.
     mParticleAsset.registerRefreshNotify( this );
@@ -100,6 +102,9 @@ void ParticlePlayer::initPersistFields()
     addProtectedField( "Particle", TypeParticleAssetPtr, Offset(mParticleAsset, ParticlePlayer), &setParticle, &defaultProtectedGetFn, defaultProtectedWriteFn, "" );
     addProtectedField( "CameraIdleDistance", TypeF32, Offset(mCameraIdleDistance, ParticlePlayer),&defaultProtectedSetFn, &defaultProtectedGetFn, &writeCameraIdleDistance,"" );
     addProtectedField( "ParticleInterpolation", TypeBool, Offset(mParticleInterpolation, ParticlePlayer), &defaultProtectedSetFn, &defaultProtectedGetFn, &writeParticleInterpolation,"" );
+    addProtectedField( "EmissionRateScale", TypeF32, Offset(mEmissionRateScale, ParticlePlayer), &defaultProtectedSetFn, &defaultProtectedGetFn, &writeEmissionRateScale, "" );
+    addProtectedField( "SizeScale", TypeF32, Offset(mSizeScale, ParticlePlayer), &defaultProtectedSetFn, &defaultProtectedGetFn, &writeSizeScale, "" );
+    addProtectedField( "ForceScale", TypeF32, Offset(mForceScale, ParticlePlayer), &defaultProtectedSetFn, &defaultProtectedGetFn, &writeForceScale, "" );
 }
 
 //------------------------------------------------------------------------------
@@ -324,7 +329,7 @@ void ParticlePlayer::integrateObject( const F32 totalTime, const F32 elapsedTime
             const F32 varEmission = quantityVaritationField.getFieldValue( particlePlayerAge ) * 0.5f;
 
             // Fetch the emission scale.
-            const F32 effectEmission = pParticleAsset->getQuantityScaleField().getFieldValue( particlePlayerAge ) * mParticleEngineQuantityScale;
+            const F32 effectEmission = pParticleAsset->getQuantityScaleField().getFieldValue( particlePlayerAge ) * getEmissionRateScale();
 
             // Calculate the local emission.
             const F32 localEmission = mClampF(  (baseEmission + CoreMath::mGetRandomF(-varEmission, varEmission)) * effectEmission,
@@ -972,7 +977,7 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
     pParticleNode->mSize.x = ParticleAssetField::calculateFieldBVE( pParticleAssetEmitter->getSizeXBaseField(),
                                                                     pParticleAssetEmitter->getSizeXVariationField(),
                                                                     pParticleAsset->getSizeXScaleField(),
-                                                                    particlePlayerAge );
+                                                                    particlePlayerAge ) * getSizeScale();
 
     // Is the particle using a fixed aspect?
     if ( pParticleAssetEmitter->getFixedAspect() )
@@ -986,7 +991,7 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
         pParticleNode->mSize.y = ParticleAssetField::calculateFieldBVE( pParticleAssetEmitter->getSizeYBaseField(),
                                                                         pParticleAssetEmitter->getSizeYVariationField(),
                                                                         pParticleAsset->getSizeYScaleField(),
-                                                                        particlePlayerAge );
+                                                                        particlePlayerAge ) * getSizeScale();
     }
 
     // Reset the render size.
@@ -1008,12 +1013,12 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
         pParticleNode->mSpeed = ParticleAssetField::calculateFieldBVE(  pParticleAssetEmitter->getSpeedBaseField(),
                                                                         pParticleAssetEmitter->getSpeedVariationField(),
                                                                         pParticleAsset->getSpeedScaleField(),
-                                                                        particlePlayerAge );
+                                                                        particlePlayerAge ) * getForceScale();
 
         pParticleNode->mRandomMotion = ParticleAssetField::calculateFieldBVE(   pParticleAssetEmitter->getRandomMotionBaseField(),
                                                                                 pParticleAssetEmitter->getRandomMotionVariationField(),
                                                                                 pParticleAsset->getRandomMotionScaleField(),
-                                                                                particlePlayerAge );
+                                                                                particlePlayerAge ) * getForceScale();
 
 
         // Are we using the emitter emission?
@@ -1022,7 +1027,7 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
             // Yes, so calculate the emission force.
             emissionForce = ParticleAssetField::calculateFieldBV(   pParticleAssetEmitter->getEmissionForceForceBaseField(),
                                                                     pParticleAssetEmitter->getEmissionForceVariationField(),
-                                                                    particlePlayerAge);
+                                                                    particlePlayerAge) * getForceScale();
 
             // Calculate Emission Angle.
             emissionAngle = ParticleAssetField::calculateFieldBV(   pParticleAssetEmitter->getEmissionAngleBaseField(),
@@ -1040,7 +1045,7 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
             // No, so calculate the emission force.
             emissionForce = ParticleAssetField::calculateFieldBV(   pParticleAsset->getEmissionForceBaseField(),
                                                                     pParticleAsset->getEmissionForceVariationField(),
-                                                                    particlePlayerAge);
+                                                                    particlePlayerAge) * getForceScale();
 
             // Calculate Emission Angle.
             emissionAngle = ParticleAssetField::calculateFieldBV(   pParticleAsset->getEmissionAngleBaseField(),
@@ -1087,7 +1092,7 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
     pParticleNode->mFixedForce = ParticleAssetField::calculateFieldBVE( pParticleAssetEmitter->getFixedForceBaseField(),
                                                                         pParticleAssetEmitter->getFixedForceVariationField(),
                                                                         pParticleAsset->getFixedForceScaleField(),
-                                                                        particlePlayerAge );
+                                                                        particlePlayerAge ) * getForceScale();
 
 
     // **********************************************************************************************************************
@@ -1313,7 +1318,7 @@ void ParticlePlayer::integrateParticle( EmitterNode* pEmitterNode, ParticleSyste
         if ( mNotZero( pParticleNode->mRenderFixedForce ) )
         {
             // Yes, so time-integrate a fixed force to the velocity.
-            pParticleNode->mVelocity += (pParticleAssetEmitter->getFixedForceDirection() * pParticleNode->mRenderFixedForce * elapsedTime);
+            pParticleNode->mVelocity += (pParticleAssetEmitter->getFixedForceDirection() * (pParticleNode->mRenderFixedForce * getForceScale()) * elapsedTime);
         }
 
         // Are we suppressing movement?

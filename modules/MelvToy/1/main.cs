@@ -11,7 +11,7 @@ function createMelvToy( %scopeSet )
     
     // Run test.
     //runCompositeSpriteTest();
-    //runParticleTest();
+    runParticleTest();
 }
 
 //-----------------------------------------------------------------------------

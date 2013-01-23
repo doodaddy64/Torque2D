@@ -44,7 +44,9 @@ $pref::Audio::sfxVolume = 1.0;
 $pref::Audio::musicVolume = 1.0;
 
 /// T2D
-$pref::T2D::particleEngineQuantityScale = 1.0;
+$pref::T2D::ParticlePlayerEmissionRateScale = 1.0;
+$pref::T2D::ParticlePlayerSizeScale = 1.0;
+$pref::T2D::ParticlePlayerForceScale = 1.0;
 $pref::T2D::warnFileDeprecated = 1;
 $pref::T2D::warnSceneOccupancy = 1;
 

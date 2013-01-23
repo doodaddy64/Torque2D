@@ -24,6 +24,12 @@
 
 //-----------------------------------------------------------------------------
 
+#define PARTICLE_PLAYER_EMISSION_RATE_SCALE     "$pref::T2D::ParticlePlayerEmissionRateScale"
+#define PARTICLE_PLAYER_SIZE_SCALE              "$pref::T2D::ParticlePlayerSizeScale"
+#define PARTICLE_PLAYER_FORCE_SCALE             "$pref::T2D::ParticlePlayerForceScale"
+
+//-----------------------------------------------------------------------------
+
 class ParticlePlayer : public SceneObject, public AssetPtrCallback
 {
 private:
@@ -108,7 +114,10 @@ private:
     bool                        mPlaying;
     bool                        mPaused;
     F32                         mAge;
-    F32                         mParticleEngineQuantityScale;
+    F32                         mEmissionRateScale;
+    F32                         mSizeScale;
+    F32                         mForceScale;
+
 
     bool                        mWaitingForParticles;
     bool                        mWaitingForDelete;
@@ -141,6 +150,15 @@ public:
     inline void setParticleInterpolation( const bool interpolation ) { mParticleInterpolation = interpolation; }
     inline bool getParticleInterpolation( void ) const { return mParticleInterpolation; }
 
+    inline void setEmissionRateScale( const F32 scale ) { mEmissionRateScale = scale; }
+    inline F32 getEmissionRateScale( void  ) const { return mEmissionRateScale; }
+
+    inline void setSizeScale( const F32 scale ) { mSizeScale = scale; }
+    inline F32 getSizeScale( void  ) const { return mSizeScale; }
+
+    inline void setForceScale( const F32 scale ) { mForceScale = scale; }
+    inline F32 getForceScale( void  ) const { return mForceScale; }
+
     inline const U32 getEmitterCount( void ) const { return (U32)mEmitters.size(); }
 
     void setEmitterPaused( const bool paused, const U32 emitterIndex );
@@ -171,6 +189,9 @@ protected:
     static bool     setParticle(void* obj, const char* data)                                { static_cast<ParticlePlayer*>( obj )->setParticle(data); return false; };
     static bool     writeCameraIdleDistance( void* obj, StringTableEntry pFieldName )       { return static_cast<ParticlePlayer*>( obj )->getCameraIdleDistance() > 0.0f; }
     static bool     writeParticleInterpolation( void* obj, StringTableEntry pFieldName )    { return static_cast<ParticlePlayer*>( obj )->getParticleInterpolation(); }
+    static bool     writeEmissionRateScale( void* obj, StringTableEntry pFieldName )        { return !mIsOne( static_cast<ParticlePlayer*>( obj )->getEmissionRateScale() ); }
+    static bool     writeSizeScale( void* obj, StringTableEntry pFieldName )                { return !mIsOne( static_cast<ParticlePlayer*>( obj )->getSizeScale() ); }
+    static bool     writeForceScale( void* obj, StringTableEntry pFieldName )               { return !mIsOne( static_cast<ParticlePlayer*>( obj )->getForceScale() ); }
 
 private:
     virtual void onAssetRefreshed( AssetPtrBase* pAssetPtrBase );

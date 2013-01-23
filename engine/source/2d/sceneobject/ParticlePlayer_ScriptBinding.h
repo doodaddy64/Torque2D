@@ -20,8 +20,7 @@ ConsoleMethod(ParticlePlayer, getParticleAsset, const char*, 2, 2,  "() Gets the
 
 //-----------------------------------------------------------------------------
 
-
-ConsoleMethod(ParticlePlayer, setCameraIdleDistance, void, 3, 3,    "(idleDistance]) Sets the distance from any camera when the particle player will become idle i.e. stop integrating and rendering.\n"
+ConsoleMethod(ParticlePlayer, setCameraIdleDistance, void, 3, 3,    "(idleDistance) Sets the distance from any camera when the particle player will become idle i.e. stop integrating and rendering.\n"
                                                                     "@param pauseDistance The distance from any camera when the particle player will become idle i.e. stop integrating and rendering.\n"
                                                                     "@return No return value.")
 {
@@ -36,6 +35,56 @@ ConsoleMethod(ParticlePlayer, getCameraIdleDistance, F32, 2, 2,     "() Gets the
     return object->getCameraIdleDistance();
 }
 
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticlePlayer, setEmissionRateScale, void, 3, 3,     "(scale) Sets the scale for the particle player emission rate.\n"
+                                                                    "@param scale The scale for the particle player emission rate.\n"
+                                                                    "@return No return value.")
+{
+    object->setEmissionRateScale( dAtof(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticlePlayer, getEmissionRateScale, F32, 2, 2,     "() Gets the scale for the particle player emission rate.\n"
+                                                                    "@return The scale for the particle player emission rate.")
+{
+    return object->getEmissionRateScale();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticlePlayer, setSizeScale, void, 3, 3,     "(scale) Sets the scale for the particle player particle sizes.\n"
+                                                            "@param scale The scale for the particle player particle sizes.\n"
+                                                            "@return No return value.")
+{
+    object->setSizeScale( dAtof(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticlePlayer, getSizeScale, F32, 2, 2,      "() Gets the scale for the particle player particle sizes.\n"
+                                                            "@return The scale for the particle player particle sizes.")
+{
+    return object->getSizeScale();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticlePlayer, setForceScale, void, 3, 3,    "(scale) Sets the scale for the particle player forces.\n"
+                                                            "@param scale The scale for the particle player forces.\n"
+                                                            "@return No return value.")
+{
+    object->setForceScale( dAtof(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticlePlayer, getForceScale, F32, 2, 2,     "() Gets the scale for the particle player forces.\n"
+                                                            "@return The scale for the particle player forces.")
+{
+    return object->getForceScale();
+}
 //-----------------------------------------------------------------------------
 
 ConsoleMethod(ParticlePlayer, play, bool, 2, 3, "([resetParticles]) Starts the particle player playing.\n"

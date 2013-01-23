@@ -5,43 +5,56 @@
 
 function runParticleTest()
 {
-    %particleAssetName = "TestParticle";
+    %particleAssetName = "Exhaust";
     
     %effectAsset = new ParticleAsset();
     %effectAsset.assetName = %particleAssetName;   
     
     %effectAsset.LifeMode = "infinite";    
     //%effectAsset.Lifetime = 1;        
+
+    %effectAsset.selectField( "EmissionArc" );    
+        %effectAsset.setSingleDataKey( 15 );
+
+    %effectAsset.selectField( "EmissionAngle" );    
+        %effectAsset.setSingleDataKey( 180 );
+
            
     %emitter = %effectAsset.createEmitter();
-    %emitter.EmitterName = "Sputter";
-    %emitter.EmitterType = "area";
+    %emitter.EmitterName = "smoke";
+    %emitter.EmitterType = "point";
     %emitter.IntenseParticles = false;
-    %emitter.Image = "MelvToy:MiniTileMapImage";
+    %emitter.Image = "MelvToy:Particles4";
     %emitter.Frame = 0;
     %emitter.FixedAspect = true;
-    %emitter.RandomImageFrame = true;
+    %emitter.RandomImageFrame = false;
     %emitter.OldestInFront = true;
-    %emitter.AttachPositionToEmitter = true;
+    %emitter.AttachPositionToEmitter = false;
     %emitter.AttachRotationToEmitter = false;
 
     %emitter.selectField( "Quantity" );    
-        %emitter.setSingleDataKey( 100 );
+        %emitter.setSingleDataKey( 20 );
 
     %emitter.selectField( "Lifetime" ); 
-        %emitter.setSingleDataKey( 10 );
+        %emitter.setSingleDataKey( 2 );
 
-    %emitter.selectField( "Speed" );    
+    %emitter.selectField( "LifetimeVariation" ); 
         %emitter.setSingleDataKey( 1 );
 
-    //%emitter.selectField( "SpeedVariation" );    
-        //%emitter.setSingleDataKey( 0 );
+    %emitter.selectField( "Speed" );    
+        %emitter.setSingleDataKey( 1.5 );
 
+    %emitter.selectField( "SpeedVariation" );    
+        %emitter.setSingleDataKey( 1 );
+
+    %emitter.selectField( "SizeXVariation" );
+        %emitter.setSingleDataKey( 2 );
+        
     %emitter.selectField( "SizeXLife" );
         %emitter.addDataKey( 0, 0 );
-        %emitter.addDataKey( 0.1, 2 );
-        %emitter.addDataKey( 0.5, 1 );
-        %emitter.addDataKey( 0.9, 0.1 );
+        %emitter.addDataKey( 0.2, 1 );
+        %emitter.addDataKey( 0.5, 2 );
+        %emitter.addDataKey( 0.9, 1 );
         %emitter.addDataKey( 1, 0 );
 
     //%emitter.selectField( "Spin" );    
@@ -50,18 +63,21 @@ function runParticleTest()
     //%emitter.selectField( "SpinVariation" );
         //%emitter.setSingleDataKey( 360 );
         
-    %emitter.selectField( "RandomMotion" );
-        %emitter.setSingleDataKey( 80 );
+    //%emitter.selectField( "RandomMotion" );
+        //%emitter.setSingleDataKey( 80 );
 
-    //%emitter.selectField( "FixedForce" );
-        //%emitter.setSingleDataKey( 50 );
-        //%emitter.FixedForceAngle = -90;
+    %emitter.selectField( "FixedForce" );
+        %emitter.setSingleDataKey( 1 );
+        %emitter.FixedForceAngle = 90;
+
+    %emitter.selectField( "FixedForceVariation" );
+        %emitter.setSingleDataKey( 1 );
 
     %emitter.selectField( "AlphaChannel" );
         %emitter.addDataKey( 0, 0 );
-        %emitter.addDataKey( 0.1, 1 );
-        %emitter.addDataKey( 0.9, 1 );
-        %emitter.addDataKey( 1, 1 );    
+        %emitter.addDataKey( 0.3, 0.3 );
+        %emitter.addDataKey( 0.8, 0.3 );
+        %emitter.addDataKey( 1, 0 );    
         
     %emitter.deselectField();  
     
