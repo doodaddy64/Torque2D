@@ -1066,7 +1066,7 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
 
         // Calculate the particle velocity.
         const F32 emissionAngleRadians = mDegToRad( emissionAngle );
-        pParticleNode->mVelocity.Set( emissionForce * mSin( emissionAngleRadians ), emissionForce * mCos( emissionAngleRadians ) );
+        pParticleNode->mVelocity.Set( emissionForce * mCos( emissionAngleRadians ), emissionForce * mSin( emissionAngleRadians ) );
     }
 
 

@@ -126,11 +126,11 @@ ParticleAsset::ParticleAsset() :
     mParticleFields.addField( mFixedForce.getBase(), "FixedForceScale", 1000.0f, -100.0f, 100.0f, 1.0f  );
     mParticleFields.addField( mRandomMotion.getBase(), "RandomMotionScale", 1000.0f, 0.0f, 100.0f, 1.0f );
     mParticleFields.addField( mAlphaChannel.getBase(), "VisibilityScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mParticleFields.addField( mEmissionForce.getBase(), "EmissionForceBase", 1000.0f, -100.0f, 100.0f, 5.0f );
+    mParticleFields.addField( mEmissionForce.getBase(), "EmissionForce", 1000.0f, -100.0f, 100.0f, 5.0f );
     mParticleFields.addField( mEmissionForce.getVariation(), "EmissionForceVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
-    mParticleFields.addField( mEmissionAngle.getBase(), "EmissionAngleBase", 1000.0f, -180.0f, 180.0f, 0.0f );
+    mParticleFields.addField( mEmissionAngle.getBase(), "EmissionAngle", 1000.0f, -180.0f, 180.0f, 0.0f );
     mParticleFields.addField( mEmissionAngle.getVariation(), "EmissionAngleVariation", 1000.0f, 0.0f, 360.0f, 0.0f );
-    mParticleFields.addField( mEmissionArc.getBase(), "EmissionArcBase", 1000.0f, 0.0f, 360.0f, 360.0f );
+    mParticleFields.addField( mEmissionArc.getBase(), "EmissionArc", 1000.0f, 0.0f, 360.0f, 360.0f );
     mParticleFields.addField( mEmissionArc.getVariation(), "EmissionArcVariation", 1000.0f, 0.0f, 720.0f, 0.0f );
 }
 
