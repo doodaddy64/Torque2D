@@ -22,9 +22,9 @@ GlobalActionMap.bind( keyboard, "space", setNextDragMode );
 function resetSandboxDragModes()
 {   
     // These control which drag modes are available or not.
-    $dragModeAvailable["off"] = true;
-    $dragModeAvailable["camera"] = true;
-    $dragModeAvailable["pull"] = true;
+    $sandboxDragModeAvailable["off"] = true;
+    $sandboxDragModeAvailable["camera"] = true;
+    $sandboxDragModeAvailable["pull"] = true;
     
     // Set the sandbox drag mode default.
     setSandboxDragMode( "camera" ); 
@@ -35,7 +35,7 @@ function resetSandboxDragModes()
 function setSandboxDragMode( %mode )
 {
     // Is the drag mode available?
-    if ( !$dragModeAvailable[%mode] )
+    if ( !$sandboxDragModeAvailable[%mode] )
     {
         // No, so warn.
         error( "Cannot set sandbox drag mode to " @ %mode @ " as it is currently disabled." );
@@ -55,8 +55,12 @@ function setSandboxDragMode( %mode )
 
 //-----------------------------------------------------------------------------
 
-function setNextDragMode()
+function setNextDragMode( %make )
 {
+    // Finish if being released.
+    if ( !%make )
+        return;
+    
     // Finish if the drag mode is off.
     if ( $sandboxDragMode $= "off" )
         return;
@@ -64,7 +68,7 @@ function setNextDragMode()
     // "camera" to "pull" transition.
     if ( $sandboxDragMode $= "camera" )
     {
-        if ( $dragModeAvailable["pull"] )
+        if ( $sandboxDragModeAvailable["pull"] )
             setSandboxDragMode("pull");
             
         return;
@@ -73,7 +77,7 @@ function setNextDragMode()
     // "pull" to "camera" transition.
     if ( $sandboxDragMode $= "pull" )
     {
-        if ( $dragModeAvailable["camera"] )
+        if ( $sandboxDragModeAvailable["camera"] )
             setSandboxDragMode("camera");
             
         return;
@@ -84,7 +88,7 @@ function setNextDragMode()
 
 function setSandboxDragModeAvailable( %mode, %status )
 {
-    $dragModeAvailable[%mode] = %status;    
+    $sandboxDragModeAvailable[%mode] = %status;    
 }
 
 //-----------------------------------------------------------------------------
