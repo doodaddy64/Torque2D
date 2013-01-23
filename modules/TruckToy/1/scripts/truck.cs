@@ -3,9 +3,9 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-$worldWidth = 20 * 10;
 $cameraWidth = 20;
 $cameraHeight = 15;
+$worldWidth = $cameraWidth * 10;
 $worldLeft = $worldWidth / -2;
 $worldRight = $worldWidth / 2;
 $floorLevel = -4.5;
@@ -42,7 +42,8 @@ function initializeTruckWorld()
    createFloor();
    
    // Truck.
-   createTruck( $worldLeft + ($cameraWidth/6), -2.6 );  
+   //createTruck( $worldLeft + ($cameraWidth/6), -2.6 );  
+   createTruck( $worldLeft + ($cameraWidth/6), 15 );  
    
    // ************************************************************************   
    // Wrecked cars at start.
@@ -134,7 +135,7 @@ function createBackground()
    %obj = new Sprite();
    %obj.setBodyType( "static" );
    %obj.setImage( "TruckToy:background_day" );
-   %obj.setSize( $worldWidth, 75 );
+   %obj.setSize( $worldWidth * ($cameraWidth*2), 75 );
    %obj.setSceneLayer( $backdropDomain );
    %obj.setSceneGroup( $backdropDomain );
    %obj.setCollisionSuppress();
@@ -179,10 +180,10 @@ function createFloor()
    %obj.setSceneGroup( $obstacleDomain );
    %obj.setCollisionGroups( $obstacleDomain );
    %obj.setAwake( false );
-   //%obj.createPolygonBoxCollisionShape( 25, 3 );
    %obj.createEdgeCollisionShape( $worldWidth/-2, 1.5, $worldWidth/2, 1.5 );
+   %obj.createEdgeCollisionShape( $worldWidth/-2, 3, $worldWidth/-2, 50 );
+   %obj.createEdgeCollisionShape( $worldWidth/2, 3, $worldWidth/2, 50 );
    SandboxScene.add( %obj );   
-   SandboxScene.setDebugSceneObject( $GlobalFloor );
 }
 
 // -----------------------------------------------------------------------------
@@ -591,6 +592,8 @@ function createTruck( %posX, %posY )
    
    // Mount camera to truck body.
    SandboxWindow.mount( $truckBody, "0 0", 0, true, true );
+
+   SandboxScene.setDebugSceneObject( $truckBody );
 
 
    // ************************************************************************   
