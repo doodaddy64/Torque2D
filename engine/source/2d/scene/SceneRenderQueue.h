@@ -111,11 +111,6 @@ public:
         // Sort layer appropriately.
         switch( mSortMode )
         {
-            case RENDER_SORT_OFF:
-                {
-                    return;
-                }
-
             case RENDER_SORT_NEWEST:
                 {
                     // Debug Profiling.
@@ -209,9 +204,12 @@ public:
                     return;
                 }
 
+            case RENDER_SORT_OFF:
+                {
+                    return;
+                }
+
             default:
-                // Sanity!
-                AssertFatal( false, "Unknown render request queue sort mode encountered." );
                 break;
         };
     }
