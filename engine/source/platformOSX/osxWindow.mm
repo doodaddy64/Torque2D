@@ -150,18 +150,18 @@ const Point2I& Platform::getWindowSize()
 // the button, then minimizing the window.
 void Platform::minimizeWindow()
 {
-    osxPlatState* platState = [osxPlatState sharedPlatState];
-
-    [[platState window] performMiniaturize:nil];
+    NSApplication *application = [NSApplication sharedApplication];
+    NSWindow *keyWindow = [application keyWindow];
+    [keyWindow miniaturize:keyWindow];
 }
 
 //-----------------------------------------------------------------------------
 // De-minimizes the window.
 void Platform::restoreWindow()
 {
-    osxPlatState* platState = [osxPlatState sharedPlatState];
-
-    [[platState window] deminiaturize:nil];
+    NSApplication *application = [NSApplication sharedApplication];
+    NSWindow *keyWindow = [application keyWindow];
+    [keyWindow deminiaturize:keyWindow];
 }
 
 //-----------------------------------------------------------------------------
