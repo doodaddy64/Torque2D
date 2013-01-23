@@ -8,8 +8,9 @@ function createAquariumToy( %scopeSet )
     exec("./scripts/aquarium.cs");
     SandboxScene.setGravity(0, 0);
     
-    // Turn-off the sandbox auto-camera.
-    setSandboxAutoCamera( false );
+    // Set the sandbox drag mode availability.
+    setSandboxDragModeAvailable( "pan", false );
+    setSandboxDragModeAvailable( "zoom", false );
     
     $FishCount = 10;
     

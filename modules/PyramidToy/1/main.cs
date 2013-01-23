@@ -13,6 +13,9 @@ function createPyramidToy( %scopeSet )
 	
 	createPyramidGround();
 	createToyPyramid(-10, -8, $PyramidBrickCount);
+	
+    // Set the sandbox drag mode.
+    setSandboxDragMode( "pull" ); 
 }
 
 //-----------------------------------------------------------------------------

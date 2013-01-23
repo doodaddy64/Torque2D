@@ -14,7 +14,7 @@ function createSandbox( %scopeSet )
     exec( "./scripts/openal.cs" );
     exec( "./scripts/console.cs" );
     exec( "./scripts/toolbox.cs" );
-    exec( "./scripts/camera.cs" );
+    exec( "./scripts/manipulation.cs" );
 
     // Initialize the canvas.
     initializeCanvas("Sandbox");

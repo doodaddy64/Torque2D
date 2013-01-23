@@ -387,6 +387,19 @@ ConsoleMethod(Scene, getJointCount, S32, 2, 2,  "() Gets the joint count.\n"
 
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(Scene, isJoint, bool, 3, 3,   "(int jointId) Gets whether the joint Id is valid or not.\n"
+                                            "@param jointId The Id of the joint.\n"
+                                            "@return whether the joint Id is valid or not." )
+{
+    // Fetch joint Id.
+    const U32 jointId = dAtoi( argv[2] );
+
+    return object->findJoint( jointId ) != NULL;
+}                                                                  
+
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(Scene, getJointType, const char*, 3, 3,   "(int jointId) Gets the joint type of the specified joint Id.\n"
                                                                 "@param jointId The Id of the joint.\n"
                                                                 "@return The type of joint of the specified joint Id." )
@@ -399,7 +412,7 @@ ConsoleMethod(Scene, getJointType, const char*, 3, 3,   "(int jointId) Gets the 
 
     // Ignore if invalid joint.
     if ( jointType == e_unknownJoint )
-        return "";
+        return StringTable->EmptyString;
 
     return Scene::getJointTypeDescription( jointType );
 }                                                                  

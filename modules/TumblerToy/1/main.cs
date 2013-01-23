@@ -29,6 +29,10 @@ function createTumblerToy( %scopeSet )
     
     // Schedule to create a ball.
     $createTumblerBallSchedule = schedule( 100, 0, createTumblerBall );
+    
+    // Set the drag mode as "pull".
+    setSandboxDragMode( "pull" );
+   
 }
 
 //-----------------------------------------------------------------------------

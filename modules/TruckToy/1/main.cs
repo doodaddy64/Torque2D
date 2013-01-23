@@ -5,8 +5,11 @@
 
 function createTruckToy( %scopeSet )
 {
-    // Turn-off the sandbox auto-camera.
-    setSandboxAutoCamera( false );
+    // Set the sandbox drag mode availability.
+    setSandboxDragModeAvailable( "pan", false );
+    
+    // Set the drag mode as "pull".
+    setSandboxDragMode( "pull" );
     
     // Load scripts.
     exec( "./scripts/truck.cs" );

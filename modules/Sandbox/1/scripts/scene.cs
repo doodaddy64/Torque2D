@@ -101,8 +101,8 @@ function setSceneToWindow()
     // Update the toolbox options.
     updateToolboxOptions();
     
-    // Activate the sandbox auto-camera.
-    setSandboxAutoCamera( true );        
+    // reset the sandbox drag modes.
+    resetSandboxDragModes();       
 }
 
 //-----------------------------------------------------------------------------

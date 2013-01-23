@@ -1374,18 +1374,12 @@ U32 Scene::getChildCount( void )
 
 //-----------------------------------------------------------------------------
 
-b2Joint* Scene::getJoint( const U32 jointId )
+b2Joint* Scene::findJoint( const U32 jointId )
 {
     // Find joint.
     typeJointHash::iterator itr = mJoints.find( jointId );
 
-    if ( itr == mJoints.end() )
-    {
-        Con::warnf("The joint Id of %d is invalid.", jointId);
-        return NULL;
-    }
-
-    return itr->value;
+    return itr == mJoints.end() ? NULL : itr->value;
 }
 
 //-----------------------------------------------------------------------------
@@ -1399,7 +1393,7 @@ b2JointType Scene::getJointType( const U32 jointId )
         return e_unknownJoint;
     }
 
-    return getJoint( jointId )->GetType();
+    return findJoint( jointId )->GetType();
 }
 
 //-----------------------------------------------------------------------------
@@ -1451,7 +1445,7 @@ U32 Scene::createJoint( b2JointDef* pJointDef )
 bool Scene::deleteJoint( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Finish if no joint.
     if ( pJoint == NULL )
@@ -1523,7 +1517,7 @@ void Scene::setDistanceJointLength(
         const F32 length )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1550,7 +1544,7 @@ void Scene::setDistanceJointLength(
 F32 Scene::getDistanceJointLength( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1579,7 +1573,7 @@ void Scene::setDistanceJointFrequency(
         const F32 frequency )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1606,7 +1600,7 @@ void Scene::setDistanceJointFrequency(
 F32 Scene::getDistanceJointFrequency( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1635,7 +1629,7 @@ void Scene::setDistanceJointDampingRatio(
         const F32 dampingRatio )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1662,7 +1656,7 @@ void Scene::setDistanceJointDampingRatio(
 F32 Scene::getDistanceJointDampingRatio( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1717,7 +1711,7 @@ void Scene::setRopeJointMaxLength(
         const F32 maxLength )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1744,7 +1738,7 @@ void Scene::setRopeJointMaxLength(
 F32 Scene::getRopeJointMaxLength( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1799,7 +1793,7 @@ void Scene::setRevoluteJointLimit(
         const F32 lowerAngle, const F32 upperAngle )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1830,7 +1824,7 @@ bool Scene::getRevoluteJointLimit(
         F32& lowerAngle, F32& upperAngle )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1865,7 +1859,7 @@ void Scene::setRevoluteJointMotor(
         const F32 maxMotorTorque )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1898,7 +1892,7 @@ bool Scene::getRevoluteJointMotor(
         F32& maxMotorTorque )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1960,7 +1954,7 @@ void Scene::setWeldJointFrequency(
         const F32 frequency )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -1988,7 +1982,7 @@ void Scene::setWeldJointFrequency(
 F32 Scene::getWeldJointFrequency( const U32 jointId  )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2017,7 +2011,7 @@ void Scene::setWeldJointDampingRatio(
         const F32 dampingRatio )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2044,7 +2038,7 @@ void Scene::setWeldJointDampingRatio(
 F32 Scene::getWeldJointDampingRatio( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2101,7 +2095,7 @@ void Scene::setWheelJointMotor(
         const F32 maxMotorTorque )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2134,7 +2128,7 @@ bool Scene::getWheelJointMotor(
         F32& maxMotorTorque )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2167,7 +2161,7 @@ void Scene::setWheelJointFrequency(
         const F32 frequency )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2194,7 +2188,7 @@ void Scene::setWheelJointFrequency(
 F32 Scene::getWheelJointFrequency( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2223,7 +2217,7 @@ void Scene::setWheelJointDampingRatio(
         const F32 dampingRatio )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2250,7 +2244,7 @@ void Scene::setWheelJointDampingRatio(
 F32 Scene::getWheelJointDampingRatio( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2307,7 +2301,7 @@ void Scene::setFrictionJointMaxForce(
         const F32 maxForce )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2334,7 +2328,7 @@ void Scene::setFrictionJointMaxForce(
 F32 Scene::getFrictionJointMaxForce( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2363,7 +2357,7 @@ void Scene::setFrictionJointMaxTorque(
         const F32 maxTorque )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2391,7 +2385,7 @@ void Scene::setFrictionJointMaxTorque(
 F32 Scene::getFrictionJointMaxTorque( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2448,7 +2442,7 @@ void Scene::setPrismaticJointLimit(
         const F32 lowerTranslation, const F32 upperTranslation )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2479,7 +2473,7 @@ bool Scene::getPrismaticJointLimit(
         F32& lowerTranslation, F32& upperTranslation )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2514,7 +2508,7 @@ void Scene::setPrismaticJointMotor(
         const F32 maxMotorForce )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2547,7 +2541,7 @@ bool Scene::getPrismaticJointMotor(
         F32& maxMotorForce )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2636,7 +2630,7 @@ U32 Scene::createTargetJoint(
     const U32 jointId = createJoint( &jointDef );
 
     // Cast joint.
-    b2MouseJoint* pRealJoint = static_cast<b2MouseJoint*>( getJoint( jointId ) );
+    b2MouseJoint* pRealJoint = static_cast<b2MouseJoint*>( findJoint( jointId ) );
 
     // Access joint.
     // NOTE:-   This is done because initially the target (mouse) joint assumes the target 
@@ -2653,7 +2647,7 @@ void Scene::setTargetJointTarget(
         const b2Vec2& worldTarget )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2679,7 +2673,7 @@ void Scene::setTargetJointTarget(
 b2Vec2 Scene::getTargetJointTarget( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2708,7 +2702,7 @@ void Scene::setTargetJointMaxForce(
         const F32 maxForce )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2735,7 +2729,7 @@ void Scene::setTargetJointMaxForce(
 F32 Scene::getTargetJointMaxForce( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2764,7 +2758,7 @@ void Scene::setTargetJointFrequency(
         const F32 frequency )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2791,7 +2785,7 @@ void Scene::setTargetJointFrequency(
 F32 Scene::getTargetJointFrequency( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2820,7 +2814,7 @@ void Scene::setTargetJointDampingRatio(
         const F32 dampingRatio )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2847,7 +2841,7 @@ void Scene::setTargetJointDampingRatio(
 F32 Scene::getTargetJointDampingRatio( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2907,7 +2901,7 @@ void Scene::setMotorJointLinearOffset(
         const b2Vec2& linearOffset )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2934,7 +2928,7 @@ void Scene::setMotorJointLinearOffset(
 b2Vec2 Scene::getMotorJointLinearOffset( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2963,7 +2957,7 @@ void Scene::setMotorJointAngularOffset(
         const F32 angularOffset )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -2990,7 +2984,7 @@ void Scene::setMotorJointAngularOffset(
 F32 Scene::getMotorJointAngularOffset( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -3019,7 +3013,7 @@ void Scene::setMotorJointMaxForce(
         const F32 maxForce )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -3046,7 +3040,7 @@ void Scene::setMotorJointMaxForce(
 F32 Scene::getMotorJointMaxForce( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -3075,7 +3069,7 @@ void Scene::setMotorJointMaxTorque(
         const F32 maxTorque )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )
@@ -3103,7 +3097,7 @@ void Scene::setMotorJointMaxTorque(
 F32 Scene::getMotorJointMaxTorque( const U32 jointId )
 {
     // Fetch joint.
-    b2Joint* pJoint = getJoint( jointId );
+    b2Joint* pJoint = findJoint( jointId );
 
     // Ignore invalid joint.
     if ( !pJoint )

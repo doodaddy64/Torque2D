@@ -355,8 +355,8 @@ public:
 
     /// Joint access.
     inline U32              getJointCount( void ) const                 { return mJoints.size(); }
-    b2Joint*                getJoint( const U32 jointId );
     b2JointType             getJointType( const U32 jointId );
+    b2Joint*                findJoint( const U32 jointId );
     U32                     findJointId( b2Joint* pJoint );
     U32                     createJoint( b2JointDef* pJointDef );
     bool                    deleteJoint( const U32 jointId );
