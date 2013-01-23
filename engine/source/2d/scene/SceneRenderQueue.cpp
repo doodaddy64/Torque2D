@@ -20,12 +20,12 @@ static EnumTable::Enums renderSortLookup[] =
                 { SceneRenderQueue::RENDER_SORT_OLDEST,         "Old" },
                 { SceneRenderQueue::RENDER_SORT_BATCH,          "Batch" },
                 { SceneRenderQueue::RENDER_SORT_GROUP,          "Group" },
-                { SceneRenderQueue::RENDER_SORT_XAXIS,          "X Axis" },
-                { SceneRenderQueue::RENDER_SORT_YAXIS,          "Y Axis" },
-                { SceneRenderQueue::RENDER_SORT_ZAXIS,          "Z Axis" },
-                { SceneRenderQueue::RENDER_SORT_INVERSE_XAXIS,  "-X Axis" },
-                { SceneRenderQueue::RENDER_SORT_INVERSE_YAXIS,  "-Y Axis" },
-                { SceneRenderQueue::RENDER_SORT_INVERSE_ZAXIS,  "-Z Axis" },
+                { SceneRenderQueue::RENDER_SORT_XAXIS,          "X" },
+                { SceneRenderQueue::RENDER_SORT_YAXIS,          "Y" },
+                { SceneRenderQueue::RENDER_SORT_ZAXIS,          "Z" },
+                { SceneRenderQueue::RENDER_SORT_INVERSE_XAXIS,  "-X" },
+                { SceneRenderQueue::RENDER_SORT_INVERSE_YAXIS,  "-Y" },
+                { SceneRenderQueue::RENDER_SORT_INVERSE_ZAXIS,  "-Z" },
                 };
 
 EnumTable SceneRenderQueue::renderSortTable(sizeof(renderSortLookup) /  sizeof(EnumTable::Enums), &renderSortLookup[0]);
