@@ -113,6 +113,19 @@ function AquariumBoundary::handleCollision(%this, %object, %collisionDetails)
 
 function createAquariumEffects()
 {
+    %obj = new Scroller();
+    %obj.setBodyType( "static" );
+    %obj.setImage( "AquariumToy:wave" );
+    %obj.setPosition( 0, 0 );
+    %obj.setScrollX(1);
+    %obj.setSize( 200, 75 );
+    %obj.setRepeatX( 1 );   
+    %obj.setSceneLayer( 0 );
+    %obj.setSceneGroup( 0 );
+    %obj.setCollisionSuppress();
+    %obj.setAwake( false );
+    %obj.setActive( false );
+    SandboxScene.add( %obj );
 }
 
 //-----------------------------------------------------------------------------
