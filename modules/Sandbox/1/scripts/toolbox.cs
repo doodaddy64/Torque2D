@@ -307,8 +307,8 @@ function updateToolboxOptions()
     if ( $pref::Sandbox::sortOption )
         SandboxScene.setDebugOn( "sort" );
     else
-        SandboxScene.setDebugOff( "sort" );
-                  
+        SandboxScene.setDebugOff( "sort" );        
+                          
     // Set the options check-boxe.
     MetricsOptionCheckBox.setStateOn( $pref::Sandbox::metricsOption );
     JointsOptionCheckBox.setStateOn( $pref::Sandbox::jointsOption );
@@ -318,7 +318,8 @@ function updateToolboxOptions()
     SleepOptionCheckBox.setStateOn( $pref::Sandbox::sleepOption );
     CollisionOptionCheckBox.setStateOn( $pref::Sandbox::collisionOption );
     PositionOptionCheckBox.setStateOn( $pref::Sandbox::positionOption );
-    SortOptionCheckBox.setStateOn( $pref::Sandbox::sortOption ); 
+    SortOptionCheckBox.setStateOn( $pref::Sandbox::sortOption );
+    BatchOptionCheckBox.setStateOn( SandboxScene.getBatchingEnabled() );
     
     // Is this on the desktop?
     if ( $platform $= "windows" || $platform $= "macos" )
