@@ -46,12 +46,18 @@ public:
     /// Notification.
     void registerRefreshNotify( AssetPtrCallback* pCallback )
     {
+        // Sanity!
+        AssertFatal( AssetDatabase.isProperlyAdded(), "AssetPtrBase::registerRefreshNotify() - Cannot register an asset pointer with the asset system." );
+
+        // register refresh notify.
         AssetDatabase.registerAssetPtrRefreshNotify( this, pCallback );
     }
 
     void unregisterRefreshNotify( void )
     {
-        AssetDatabase.unregisterAssetPtrRefreshNotify( this );
+        // Unregister the refresh notify if the asset system is available.
+        if ( AssetDatabase.isProperlyAdded() )
+            AssetDatabase.unregisterAssetPtrRefreshNotify( this );
     }
 };
 
