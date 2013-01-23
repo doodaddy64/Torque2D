@@ -1615,7 +1615,7 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
     const S32 metricsOffset = (S32)font->getStrWidth( "WWWWWWWWWWWW" );
 
     // Set Banner Height.
-    F32 bannerLineHeight = fullMetrics ? 17.0f : 4;
+    F32 bannerLineHeight = fullMetrics ? 17.0f : 1.0f;
 
     // Add an extra line if we're monitoring a scene object.
     if ( pDebugSceneObject != NULL )
