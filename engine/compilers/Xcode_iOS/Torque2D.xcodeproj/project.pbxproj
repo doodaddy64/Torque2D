@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2AC4404E16B0144500FC4091 /* ImageFont.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4404C16B0144500FC4091 /* ImageFont.cc */; };
 		8610F32F16AEEC670015BCEB /* main.cs in Resources */ = {isa = PBXBuildFile; fileRef = 8610F32D16AEEC670015BCEB /* main.cs */; };
 		8610F33016AEEC670015BCEB /* modules in Resources */ = {isa = PBXBuildFile; fileRef = 8610F32E16AEEC670015BCEB /* modules */; };
 		867BACD116AEC8BB0033868F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 867BAC9316AEC8BB0033868F /* AppDelegate.mm */; };
@@ -73,10 +74,8 @@
 		867BAFF716AEC9050033868F /* SceneRenderFactories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD3A16AEC9050033868F /* SceneRenderFactories.cpp */; };
 		867BAFF816AEC9050033868F /* SceneRenderQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD3D16AEC9050033868F /* SceneRenderQueue.cpp */; };
 		867BAFF916AEC9050033868F /* WorldQuery.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD4116AEC9050033868F /* WorldQuery.cc */; };
-		867BAFFA16AEC9050033868F /* BitmapFontObject.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD4616AEC9050033868F /* BitmapFontObject.cc */; };
 		867BAFFB16AEC9050033868F /* CompositeSprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD4916AEC9050033868F /* CompositeSprite.cc */; };
 		867BAFFC16AEC9050033868F /* ParticlePlayer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD4C16AEC9050033868F /* ParticlePlayer.cc */; };
-		867BAFFD16AEC9050033868F /* Path.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD4F16AEC9050033868F /* Path.cc */; };
 		867BAFFE16AEC9050033868F /* SceneObject.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD5216AEC9050033868F /* SceneObject.cc */; };
 		867BB00116AEC9050033868F /* Scroller.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD5D16AEC9050033868F /* Scroller.cc */; };
 		867BB00216AEC9050033868F /* ShapeVector.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD6016AEC9050033868F /* ShapeVector.cc */; };
@@ -466,6 +465,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2AC4404B16B0144500FC4091 /* ImageFont_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFont_ScriptBinding.h; sourceTree = "<group>"; };
+		2AC4404C16B0144500FC4091 /* ImageFont.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFont.cc; sourceTree = "<group>"; };
+		2AC4404D16B0144500FC4091 /* ImageFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFont.h; sourceTree = "<group>"; };
 		8610F32D16AEEC670015BCEB /* main.cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.cs; path = ../../../main.cs; sourceTree = "<group>"; };
 		8610F32E16AEEC670015BCEB /* modules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = modules; path = ../../../modules; sourceTree = "<group>"; };
 		867BAC9216AEC8BB0033868F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -600,18 +602,12 @@
 		867BAD4216AEC9050033868F /* WorldQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldQuery.h; sourceTree = "<group>"; };
 		867BAD4316AEC9050033868F /* WorldQueryFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldQueryFilter.h; sourceTree = "<group>"; };
 		867BAD4416AEC9050033868F /* WorldQueryResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldQueryResult.h; sourceTree = "<group>"; };
-		867BAD4616AEC9050033868F /* BitmapFontObject.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitmapFontObject.cc; sourceTree = "<group>"; };
-		867BAD4716AEC9050033868F /* BitmapFontObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapFontObject.h; sourceTree = "<group>"; };
-		867BAD4816AEC9050033868F /* BitmapFontObject_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapFontObject_ScriptBinding.h; sourceTree = "<group>"; };
 		867BAD4916AEC9050033868F /* CompositeSprite.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompositeSprite.cc; sourceTree = "<group>"; };
 		867BAD4A16AEC9050033868F /* CompositeSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeSprite.h; sourceTree = "<group>"; };
 		867BAD4B16AEC9050033868F /* CompositeSprite_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositeSprite_ScriptBinding.h; sourceTree = "<group>"; };
 		867BAD4C16AEC9050033868F /* ParticlePlayer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticlePlayer.cc; sourceTree = "<group>"; };
 		867BAD4D16AEC9050033868F /* ParticlePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticlePlayer.h; sourceTree = "<group>"; };
 		867BAD4E16AEC9050033868F /* ParticlePlayer_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticlePlayer_ScriptBinding.h; sourceTree = "<group>"; };
-		867BAD4F16AEC9050033868F /* Path.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Path.cc; sourceTree = "<group>"; };
-		867BAD5016AEC9050033868F /* Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Path.h; sourceTree = "<group>"; };
-		867BAD5116AEC9050033868F /* Path_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Path_ScriptBinding.h; sourceTree = "<group>"; };
 		867BAD5216AEC9050033868F /* SceneObject.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneObject.cc; sourceTree = "<group>"; };
 		867BAD5316AEC9050033868F /* SceneObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneObject.h; sourceTree = "<group>"; };
 		867BAD5416AEC9050033868F /* SceneObject_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneObject_ScriptBinding.h; sourceTree = "<group>"; };
@@ -1597,18 +1593,15 @@
 		867BAD4516AEC9050033868F /* sceneobject */ = {
 			isa = PBXGroup;
 			children = (
-				867BAD4616AEC9050033868F /* BitmapFontObject.cc */,
-				867BAD4716AEC9050033868F /* BitmapFontObject.h */,
-				867BAD4816AEC9050033868F /* BitmapFontObject_ScriptBinding.h */,
+				2AC4404B16B0144500FC4091 /* ImageFont_ScriptBinding.h */,
+				2AC4404C16B0144500FC4091 /* ImageFont.cc */,
+				2AC4404D16B0144500FC4091 /* ImageFont.h */,
 				867BAD4916AEC9050033868F /* CompositeSprite.cc */,
 				867BAD4A16AEC9050033868F /* CompositeSprite.h */,
 				867BAD4B16AEC9050033868F /* CompositeSprite_ScriptBinding.h */,
 				867BAD4C16AEC9050033868F /* ParticlePlayer.cc */,
 				867BAD4D16AEC9050033868F /* ParticlePlayer.h */,
 				867BAD4E16AEC9050033868F /* ParticlePlayer_ScriptBinding.h */,
-				867BAD4F16AEC9050033868F /* Path.cc */,
-				867BAD5016AEC9050033868F /* Path.h */,
-				867BAD5116AEC9050033868F /* Path_ScriptBinding.h */,
 				867BAD5216AEC9050033868F /* SceneObject.cc */,
 				867BAD5316AEC9050033868F /* SceneObject.h */,
 				867BAD5416AEC9050033868F /* SceneObject_ScriptBinding.h */,
@@ -2946,10 +2939,8 @@
 				867BAFF716AEC9050033868F /* SceneRenderFactories.cpp in Sources */,
 				867BAFF816AEC9050033868F /* SceneRenderQueue.cpp in Sources */,
 				867BAFF916AEC9050033868F /* WorldQuery.cc in Sources */,
-				867BAFFA16AEC9050033868F /* BitmapFontObject.cc in Sources */,
 				867BAFFB16AEC9050033868F /* CompositeSprite.cc in Sources */,
 				867BAFFC16AEC9050033868F /* ParticlePlayer.cc in Sources */,
-				867BAFFD16AEC9050033868F /* Path.cc in Sources */,
 				867BAFFE16AEC9050033868F /* SceneObject.cc in Sources */,
 				867BB00116AEC9050033868F /* Scroller.cc in Sources */,
 				867BB00216AEC9050033868F /* ShapeVector.cc in Sources */,
@@ -3312,6 +3303,7 @@
 				867BB28116AECA110033868F /* jquant2.c in Sources */,
 				867BB28216AECA110033868F /* jutils.c in Sources */,
 				867BB44416AED2850033868F /* iOSGL2ES.mm in Sources */,
+				2AC4404E16B0144500FC4091 /* ImageFont.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

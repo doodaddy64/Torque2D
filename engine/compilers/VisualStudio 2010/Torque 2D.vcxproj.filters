@@ -1131,13 +1131,7 @@
     <ClCompile Include="..\..\source\2d\assets\ImageAsset.cc">
       <Filter>2d\assets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\2d\sceneobject\BitmapFontObject.cc">
-      <Filter>2d\sceneobject</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\2d\sceneobject\CompositeSprite.cc">
-      <Filter>2d\sceneobject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\2d\sceneobject\Path.cc">
       <Filter>2d\sceneobject</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source\2d\sceneobject\SceneObject.cc">
@@ -1271,6 +1265,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\2d\core\ParticleSystem.cc">
       <Filter>2d\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\2d\sceneobject\ImageFont.cc">
+      <Filter>2d\sceneobject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2342,22 +2339,10 @@
     <ClInclude Include="..\..\source\2d\assets\ImageAsset_ScriptBinding.h">
       <Filter>2d\assets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\2d\sceneobject\BitmapFontObject.h">
-      <Filter>2d\sceneobject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\2d\sceneobject\BitmapFontObject_ScriptBinding.h">
-      <Filter>2d\sceneobject</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\source\2d\sceneobject\CompositeSprite.h">
       <Filter>2d\sceneobject</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\2d\sceneobject\CompositeSprite_ScriptBinding.h">
-      <Filter>2d\sceneobject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\2d\sceneobject\Path.h">
-      <Filter>2d\sceneobject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\2d\sceneobject\Path_ScriptBinding.h">
       <Filter>2d\sceneobject</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\2d\sceneobject\SceneObject.h">
@@ -2595,6 +2580,12 @@
       <Filter>2d\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\torqueConfig.h" />
+    <ClInclude Include="..\..\source\2d\sceneobject\ImageFont.h">
+      <Filter>2d\sceneobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\2d\sceneobject\ImageFont_ScriptBinding.h">
+      <Filter>2d\sceneobject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\source\math\mMath_ASM.asm">
