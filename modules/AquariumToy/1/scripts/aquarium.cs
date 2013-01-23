@@ -1,16 +1,36 @@
 //-----------------------------------------------------------------------------
 
+function getRandomFishInfo(%index)
+{
+    switch(%index)
+    {
+        case 0:
+        %fishInfo = "AquariumToy:angelfish1Anim" @ " 15 15";
+
+        case 1:
+        %fishInfo = "AquariumToy:angelfish2Anim" @ " 15 15";
+        
+        case 2:
+        %fishInfo = "AquariumToy:butterflyfishAnim" @ " 15 15";
+        
+        case 3:
+        %fishInfo = "AquariumToy:pufferfishAnim" @ " 15 15";
+        
+        case 4:
+        %fishInfo = "AquariumToy:rockfishAnim" @ " 15 7.5";
+        
+        case 5:
+        %fishInfo = "AquariumToy:seahorseAnim" @ " 7.5 15";
+        
+        case 6:
+        %fishInfo = "AquariumToy:triggerfish1Anim" @ " 15 15";
+    }
+
+    return %fishInfo;
+}
+
 function buildAquarium()
 {
-    $FishAnims[0] = "AquariumToy:angelfish1Anim";
-    $FishAnims[1] = "AquariumToy:angelfish2Anim";
-    $FishAnims[2] = "AquariumToy:butterflyfishAnim";
-    $FishAnims[3] = "AquariumToy:pufferfishAnim";
-    $FishAnims[4] = "AquariumToy:rockfishAnim";
-    $FishAnims[5] = "AquariumToy:seahorseAnim";
-    $FishAnims[6] = "AquariumToy:triggerfish1Anim";
-    $FishAnims[7] = "AquariumToy:triggerfish2Anim";
-
     // Background
     %background = new Sprite();
     %background.setBodyType( "static" );
@@ -101,18 +121,20 @@ function spawnFish()
 {
     for ( %i = 0; %i < $FishCount; %i++ )
     {
-        %position = getRandom(-45, 45) SPC getRandom(-20, 20);
-        %animIndex = getRandom(0, 7);
+        %position = getRandom(-55, 55) SPC getRandom(-20, 20);
+        %index = getRandom(0, 6);
+        
+        %fishInfo = getRandomFishInfo(%index);
         
         %fish = new Sprite()
         {
-            Animation = $FishAnims[%animIndex];
+            Animation = getWord(%fishInfo, 0);
             class = "FishClass";
             position = %position;
-            size = "15 15";
+            size = getWords(%fishInfo, 1, 2);
             SceneLayer = "2";
             SceneGroup = "14";
-            minSpeed = "15";
+            minSpeed = "5";
             maxSpeed = "15";
             CollisionCallback = true;
         };
