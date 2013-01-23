@@ -47,6 +47,47 @@ ConsoleMethod(ParticleAsset, getLifetime, F32, 2, 2,    "() Gets the lifetime of
 /// Particle asset fields.
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(ParticleAsset, getSelectableFieldCount, S32, 2, 2,    "() Gets the number of available selectable fields.\n"
+                                                                    "@return The number of available selectable fields." )
+{
+    return object->getParticleFields().getFields().size();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ParticleAsset, getSelectableFieldName, const char*, 3, 3, "(fieldIndex) Gets the selectable field at the specified index.\n"
+                                                                        "@return The selectable field name at the specified index." )
+{
+    // Fetch the field hash.
+    const ParticleAssetFieldCollection::typeFieldHash& fieldHash = object->getParticleFields().getFields();
+
+    // Fetch the index.
+    S32 fieldIndex = dAtoi( argv[2] );
+
+    // Is the field index valid?
+    if ( fieldIndex >= 0 && fieldIndex < fieldHash.size() )
+    {
+        // Yes, but because the fields are in a hash-table, we'll have to iterate and get O(index).
+        for( ParticleAssetFieldCollection::typeFieldHash::const_iterator fieldItr = fieldHash.begin(); fieldItr != fieldHash.end(); ++fieldItr, --fieldIndex )
+        {
+            // Skip if this is not the field index we're looking for?
+            if ( fieldIndex != 0 )
+                continue;
+
+            // Found it so return the field name.
+            return fieldItr->value->getFieldName();
+        }
+    }
+
+
+    // Warn.
+    Con::warnf( "ParticleAsset::getSelectableFieldName() - Index '%d' is out of range.", fieldIndex );
+
+    return StringTable->EmptyString;
+}
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(ParticleAsset, selectField, bool, 3, 3,   "(fieldName) Select the specified field by its name.\n"
                                                         "@param fieldName The field name to use for the selection.  Use an empty name to deselect to stop accidental changes.\n"
                                                         "@return Whether the field was successfully selected or not.")
