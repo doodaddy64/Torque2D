@@ -1,0 +1,7 @@
+<AssetManifest>
+	<AssetManifest.Search>
+		<Location
+			Path="^SimpleBehaviorToy/assets"
+			Extension="asset.taml"/>			
+	</AssetManifest.Search>
+</AssetManifest>

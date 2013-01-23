@@ -1,0 +1,13 @@
+<ModuleDefinition
+	ModuleId="SimpleBehaviorToy"
+	VersionId="1"
+	Description="Simple Behavior Example"
+	Type="toy"
+	ToyCategoryIndex="6"
+	ScriptFile="main.cs"
+	ScopeSet="SimpleBehaviorToySet"
+	CreateFunction="createSimpleBehaviorToy"
+	DestroyFunction="destroySimpleBehaviorToy"
+	DeclaredAssetManifest="^SimpleBehaviorToy/DeclaredAssets.Manifest.taml"
+	/>
+
