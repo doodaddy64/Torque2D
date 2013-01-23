@@ -140,7 +140,7 @@ bool AnimationController::playAnimation( const AssetPtr<AnimationAsset>& animati
     // Check we've got some frames.
     if ( validatedFrames.size() == 0 )
     {
-        Con::warnf( "AnimationController::playAnimation() - Cannot play AnimationAsset datablock (%s) - Animation has no validated frames!", mAnimationAsset.getAssetId() );
+        Con::warnf( "AnimationController::playAnimation() - Cannot play AnimationAsset '%s' - Animation has no validated frames!", mAnimationAsset.getAssetId() );
         return false;
     }
 
@@ -282,10 +282,10 @@ void AnimationController::resetTime( void )
 
 void AnimationController::setAnimationFrame( const U32 frameIndex )
 {
-    // We *must* have a valid datablock and be still animating!
+    // Do we have a valid animation asset?
     if ( mAnimationAsset.isNull() )
     {
-        // Warn.
+        // No, so warn.
         Con::warnf("AnimationController::setAnimationFrame() - Cannot set frame; animation is finished or is invalid!");
         return;
     }

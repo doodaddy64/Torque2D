@@ -172,7 +172,7 @@ ConsoleMethod(SpriteBase, getAnimation, const char*, 2, 2,  "() - Gets current a
 
 
     // Get Current Animation.
-    return object->getAnimationController()->getCurrentAnimation();
+    return object->getAnimationController()->getCurrentAnimationAssetId();
 }
 
 //-----------------------------------------------------------------------------

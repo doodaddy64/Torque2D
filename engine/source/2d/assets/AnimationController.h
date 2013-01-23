@@ -46,8 +46,8 @@ public:
 
     TextureHandle&                                  getImageTexture( void )                 { return mAnimationAsset->getImage()->getImageTexture(); };
     const ImageAsset::FrameArea&                    getCurrentImageFrameArea( void ) const;
-    const AnimationAsset*                           getCurrentDataBlock( void ) const       { return mAnimationAsset.notNull() ? mAnimationAsset : NULL; };
-    const StringTableEntry                          getCurrentAnimation( void ) const       { return mAnimationAsset.getAssetId(); };
+    const AnimationAsset*                           getCurrentAnimation( void ) const       { return mAnimationAsset.notNull() ? mAnimationAsset : NULL; };
+    const StringTableEntry                          getCurrentAnimationAssetId( void ) const { return mAnimationAsset.getAssetId(); };
     const U32                                       getCurrentFrame( void ) const;
     const F32                                       getCurrentTime( void ) const            { return mCurrentTime; };
     bool                                            isAnimationValid( void ) const;
