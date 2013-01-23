@@ -30,6 +30,7 @@ function createSandboxWindow()
     SandboxWindow.setLockMouse( false );
     SandboxWindow.setCurrentCameraPosition( 0, 0, 100, 75 );
     SandboxWindow.setCurrentCameraZoom( 1 );
+    SandboxWindow.setCurrentCameraAngle( 0 );
 }
 
 //-----------------------------------------------------------------------------
