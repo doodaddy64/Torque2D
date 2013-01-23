@@ -494,6 +494,11 @@ ConsoleMethod(Scene, createDistanceJoint, S32, 4, 12,   "(sceneObjectA, sceneObj
         return -1;
     }
 
+    if ( argc <= nextArg )
+    {
+        return object->createDistanceJoint( pSceneObjectA, pSceneObjectB, localAnchorA );
+    }
+
     // Local anchor B.
     const U32 anchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
@@ -701,6 +706,11 @@ ConsoleMethod(Scene, createRopeJoint, S32, 4, 10,       "(sceneObjectA, sceneObj
     {
         Con::warnf("Scene::createRopeJoint() - Invalid number of parameters!");
         return -1;
+    }
+
+    if ( argc <= nextArg )
+    {
+        return object->createRopeJoint( pSceneObjectA, pSceneObjectB, localAnchorA );
     }
 
     // Local anchor B.
@@ -1028,6 +1038,11 @@ ConsoleMethod(Scene, createWeldJoint, S32, 4, 11,       "(sceneObjectA, sceneObj
     {
         Con::warnf("Scene::createWeldJoint() - Invalid number of parameters!");
         return -1;
+    }
+
+    if ( argc <= nextArg )
+    {
+        return object->createWeldJoint( pSceneObjectA, pSceneObjectB, localAnchorA );
     }
 
     // Local anchor B.
@@ -1393,6 +1408,11 @@ ConsoleMethod(Scene, createFrictionJoint, S32, 4, 11,   "(sceneObjectA, sceneObj
             Con::warnf("Scene::createFrictionJoint() - Could not find scene object %d.", sceneObjectB);
     }
 
+    if ( argc == 4 )
+    {
+        return object->createFrictionJoint( pSceneObjectA, pSceneObjectB );
+    }
+
     // Local anchor A.
     const U32 anchorAElementCount = Utility::mGetStringElementCount(argv[4]);
 
@@ -1415,6 +1435,11 @@ ConsoleMethod(Scene, createFrictionJoint, S32, 4, 11,   "(sceneObjectA, sceneObj
         return -1;
     }
 
+    if ( argc <= nextArg )
+    {
+        return object->createFrictionJoint( pSceneObjectA, pSceneObjectB, localAnchorA );
+    }
+
     // Local anchor B.
     const U32 anchorBElementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
@@ -1434,11 +1459,6 @@ ConsoleMethod(Scene, createFrictionJoint, S32, 4, 11,   "(sceneObjectA, sceneObj
     {
         Con::warnf("Scene::createFrictionJoint() - Invalid number of parameters!");
         return -1;
-    }
-
-    if ( argc == 4 )
-    {
-        return object->createFrictionJoint( pSceneObjectA, pSceneObjectB );
     }
 
     // Fetch maximum force.
