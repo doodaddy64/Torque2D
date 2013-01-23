@@ -175,15 +175,16 @@ public:
         SCENE_DEBUG_INVALID,
         ///
         SCENE_DEBUG_METRICS            = BIT(0),
-        SCENE_DEBUG_JOINTS             = BIT(1),
-        SCENE_DEBUG_WIREFRAME_RENDER   = BIT(2),
+        SCENE_DEBUG_FPS_METRICS        = BIT(1),
+        SCENE_DEBUG_JOINTS             = BIT(2),
+        SCENE_DEBUG_WIREFRAME_RENDER   = BIT(3),
         ///
-        SCENE_DEBUG_AABB               = BIT(3),
-        SCENE_DEBUG_OOBB               = BIT(4),
-        SCENE_DEBUG_SLEEP              = BIT(5),
-        SCENE_DEBUG_COLLISION_SHAPES   = BIT(6),
-        SCENE_DEBUG_POSITION_AND_COM   = BIT(7),
-        SCENE_DEBUG_SORT_POINTS        = BIT(8),
+        SCENE_DEBUG_AABB               = BIT(4),
+        SCENE_DEBUG_OOBB               = BIT(5),
+        SCENE_DEBUG_SLEEP              = BIT(6),
+        SCENE_DEBUG_COLLISION_SHAPES   = BIT(7),
+        SCENE_DEBUG_POSITION_AND_COM   = BIT(8),
+        SCENE_DEBUG_SORT_POINTS        = BIT(9),
     };
 
     /// Pick mode.

@@ -4503,6 +4503,7 @@ void Scene::addTamlChild( SimObject* pSimObject )
 static EnumTable::Enums DebugOptionsLookup[] =
                 {
                 { Scene::SCENE_DEBUG_METRICS,           "metrics" },
+                { Scene::SCENE_DEBUG_FPS_METRICS,       "fps" },
                 { Scene::SCENE_DEBUG_JOINTS,            "joints" },
                 { Scene::SCENE_DEBUG_WIREFRAME_RENDER,  "wireframe" },
                 ///

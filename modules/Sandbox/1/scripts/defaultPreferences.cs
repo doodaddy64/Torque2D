@@ -10,7 +10,8 @@ $Game::ProductName              = "Torque 2D Sandbox";
 // Sandbox.
 $pref::Sandbox::defaultToyId    = "TruckToy";
 $pref::Sandbox::defaultBackgroundColor = "DimGray";
-$pref::Sandbox::metricsOption   = true;
+$pref::Sandbox::metricsOption   = false;
+$pref::Sandbox::fpsmetricsOption = true;
 $pref::Sandbox::jointsOption    = false;
 $pref::Sandbox::wireframeOption = false;
 $pref::Sandbox::aabbOption      = false;
