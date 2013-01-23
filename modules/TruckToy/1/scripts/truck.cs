@@ -140,7 +140,7 @@ function createBackground()
    %obj.setCollisionSuppress();
    %obj.setAwake( false );
    %obj.setActive( false );
-   SandboxScene.addToScene( %obj );  
+   SandboxScene.add( %obj );  
    
    // ************************************************************************   
    // Industrial Background
@@ -157,7 +157,7 @@ function createBackground()
    %obj.setCollisionSuppress();
    %obj.setAwake( false );
    %obj.setActive( false );
-   SandboxScene.addToScene( %obj );    
+   SandboxScene.add( %obj );    
 }
 
 // -----------------------------------------------------------------------------
@@ -181,7 +181,7 @@ function createFloor()
    %obj.setAwake( false );
    //%obj.createPolygonBoxCollisionShape( 25, 3 );
    %obj.createEdgeCollisionShape( $worldWidth/-2, 1.5, $worldWidth/2, 1.5 );
-   SandboxScene.addToScene( %obj );   
+   SandboxScene.add( %obj );   
    SandboxScene.setDebugSceneObject( $GlobalFloor );
 }
 
@@ -199,7 +199,7 @@ function createBrokenCementWall( %posX, %posY )
    %obj.setCollisionSuppress();
    %obj.setAwake( false );
    %obj.setActive( false );
-   SandboxScene.addToScene( %obj );
+   SandboxScene.add( %obj );
    
    return %obj;   
 }
@@ -218,7 +218,7 @@ function createWoodPile( %posX, %posY )
    %obj.setCollisionSuppress();
    %obj.setAwake( false );
    %obj.setActive( false );
-   SandboxScene.addToScene( %obj );
+   SandboxScene.add( %obj );
    
    return %obj;   
 }
@@ -272,7 +272,7 @@ function createBridge( %posX, %posY, %linkCount )
    %rootObj.setSceneLayer( $backgroundDomain-3 );
    %rootObj.setSceneGroup( $obstacleDomain );
    %rootObj.setCollisionSuppress();
-   SandboxScene.addToScene( %rootObj );
+   SandboxScene.add( %rootObj );
 
    %lastLinkObj = %rootObj;
    
@@ -301,7 +301,7 @@ function createBridge( %posX, %posY, %linkCount )
          %obj.setLinearDamping( 1.0 );
       }
       //%obj.setDebugOn( 5 );
-      SandboxScene.addToScene( %obj );   
+      SandboxScene.add( %obj );   
       
       SandboxScene.createRevoluteJoint( %lastLinkObj, %obj, %halfLinkWidth, 0, -%halfLinkWidth, 0 );
       %joint = SandboxScene.createMotorJoint( %lastLinkObj, %obj );
@@ -332,7 +332,7 @@ function createChain( %posX, %posY, %linkCount )
    %rootObj.setSceneLayer( $backgroundDomain-3 );
    %rootObj.setSceneGroup( $obstacleDomain );
    %rootObj.setCollisionSuppress();
-   SandboxScene.addToScene( %rootObj );
+   SandboxScene.add( %rootObj );
 
    %lastLinkObj = %rootObj;
    
@@ -351,7 +351,7 @@ function createChain( %posX, %posY, %linkCount )
       %obj.setAngularDamping( 1.0 );
       %obj.setLinearDamping( 0.5 );
       //%obj.setDebugOn( 5 );
-      SandboxScene.addToScene( %obj );   
+      SandboxScene.add( %obj );   
       
       SandboxScene.createRevoluteJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
       //%lastLinkObj.setAwake( false );
@@ -380,7 +380,7 @@ function createWreckedBuilding( %posX, %posY )
    %obj.setCollisionSuppress();
    %obj.setAwake( false );
    %obj.setActive( false );
-   SandboxScene.addToScene( %obj );
+   SandboxScene.add( %obj );
    
    createChain( %posX - 3, %posY + 3.4, 10 );   
    createChain( %posX - 1, %posY + 3.2, 10 );   
@@ -411,7 +411,7 @@ function createForegroundBrickWall( %wallNumber, %posX, %posY )
    %obj.setCollisionSuppress();
    %obj.setAwake( false );
    %obj.setActive( false );
-   SandboxScene.addToScene( %obj );
+   SandboxScene.add( %obj );
       
    
    return %obj;   
@@ -440,7 +440,7 @@ function createForegroundWall( %wallNumber, %posX, %posY )
    %obj.setCollisionSuppress();
    %obj.setAwake( false );
    %obj.setActive( false );
-   SandboxScene.addToScene( %obj );
+   SandboxScene.add( %obj );
    
    return %obj;   
 }
@@ -468,7 +468,7 @@ function createBrick( %brickNumber, %posX, %posY, %static )
    %obj.setDefaultFriction( 1.0 );
    %obj.createPolygonBoxCollisionShape( 1, 0.5 );
    %obj.setAwake( false );
-   SandboxScene.addToScene( %obj );
+   SandboxScene.add( %obj );
    
    return %obj;
 }
@@ -487,7 +487,7 @@ function createBrickPile( %posX, %posY )
    %obj.setCollisionSuppress();
    %obj.setAwake( false );
    %obj.setActive( false );
-   SandboxScene.addToScene( %obj );   
+   SandboxScene.add( %obj );   
 }
 
 // -----------------------------------------------------------------------------
@@ -525,7 +525,7 @@ function createPlank( %plankNumber, %posX, %posY, %angle, %static )
    }
    
    //%obj.setDebugOn( 5 );
-   SandboxScene.addToScene( %obj );
+   SandboxScene.add( %obj );
    
    return %obj;   
 }
@@ -565,7 +565,7 @@ function createWreckedCar( %carNumber, %posX, %posY, %angle, %static )
    }
    
    //%obj.setDebugOn( 5 );
-   SandboxScene.addToScene( %obj );
+   SandboxScene.add( %obj );
    
    return %obj;
 }
@@ -587,7 +587,7 @@ function createTruck( %posX, %posY )
    $truckBody.setCollisionGroups( $obstacleDomain );
    $truckBody.createPolygonCollisionShape( "-2 0.2 -2 -0.5 0 -.95 2 -0.5 2 0.0 0 0.7 -1.5 0.7" ); 
    //$truckBody.setDebugOn( 5 );
-   SandboxScene.addToScene( $truckBody );
+   SandboxScene.add( $truckBody );
    
    // Mount camera to truck body.
    SandboxWindow.mount( $truckBody, "0 0", 0, true, true );
@@ -610,7 +610,7 @@ function createTruck( %posX, %posY )
    %tireRear.setDefaultFriction( 1.0 );
    %tireRear.setDefaultDensity( 3.0 );
    %tireRear.createCircleCollisionShape( 0.8 ); 
-   SandboxScene.addToScene( %tireRear );
+   SandboxScene.add( %tireRear );
 
    // Front tire.
    %tireFront = new Sprite();
@@ -623,7 +623,7 @@ function createTruck( %posX, %posY )
    %tireFront.setDefaultFriction( 1.0 );
    %tireFront.setDefaultDensity( 6.0 );
    %tireFront.createCircleCollisionShape( 0.8 ); 
-   SandboxScene.addToScene( %tireFront );   
+   SandboxScene.add( %tireFront );   
    
    // ************************************************************************   
    // Suspension joints.

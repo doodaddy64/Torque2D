@@ -948,6 +948,9 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
                 pParticleNode->mPosition = b2Mul( xform, emissionPosition );
 
             } break;
+                
+            default:
+                break;
         }
     }
 
@@ -1118,6 +1121,9 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
             pParticleNode->mOrientationAngle = mFmod( CoreMath::mGetRandomF( pParticleAssetEmitter->getRandomAngleOffset() - randomArc, pParticleAssetEmitter->getRandomAngleOffset() + randomArc ), 360.0f );
 
         } break;
+        
+        default:
+            break;
     }
 
     // **********************************************************************************************************************

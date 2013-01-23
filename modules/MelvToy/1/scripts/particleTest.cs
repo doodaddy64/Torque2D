@@ -26,7 +26,7 @@ function runParticleTest()
     %emitter.AttachRotationToEmitter = false;
 
     %emitter.selectField( "Quantity" );    
-        %emitter.setSingleDataKey( 1000 );
+        %emitter.setSingleDataKey( 100 );
 
     %emitter.selectField( "Lifetime" ); 
         %emitter.setSingleDataKey( 10 );
@@ -78,7 +78,7 @@ function runParticleTest()
     //TamlRead( %assetFilePath );   
     
     %particlePlayer = new ParticlePlayer();
-    SandboxScene.addToScene( %particlePlayer );
+    SandboxScene.add( %particlePlayer );
     %particlePlayer.setSize( 90, 65 );
     %particlePlayer.ParticleInterpolation = false;
     //%particlePlayer.CameraIdleDistance = 50;
@@ -98,6 +98,9 @@ function runParticleTest()
     //schedule( 5000, 0, changeParticleAsset );
     
     SandboxScene.setBatchingEnabled( true );
+    
+    //TamlWrite( SandboxScene, "scene.taml" );
+    //%newScene = TamlRead( "scene.taml" );
 	
 	//quit();
 }

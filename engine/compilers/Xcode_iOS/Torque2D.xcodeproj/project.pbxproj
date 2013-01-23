@@ -78,8 +78,6 @@
 		867BAFFC16AEC9050033868F /* ParticlePlayer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD4C16AEC9050033868F /* ParticlePlayer.cc */; };
 		867BAFFD16AEC9050033868F /* Path.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD4F16AEC9050033868F /* Path.cc */; };
 		867BAFFE16AEC9050033868F /* SceneObject.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD5216AEC9050033868F /* SceneObject.cc */; };
-		867BAFFF16AEC9050033868F /* SceneObjectGroup.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD5516AEC9050033868F /* SceneObjectGroup.cc */; };
-		867BB00016AEC9050033868F /* SceneObjectSet.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD5916AEC9050033868F /* SceneObjectSet.cc */; };
 		867BB00116AEC9050033868F /* Scroller.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD5D16AEC9050033868F /* Scroller.cc */; };
 		867BB00216AEC9050033868F /* ShapeVector.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD6016AEC9050033868F /* ShapeVector.cc */; };
 		867BB00316AEC9050033868F /* Sprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD6316AEC9050033868F /* Sprite.cc */; };
@@ -617,13 +615,8 @@
 		867BAD5216AEC9050033868F /* SceneObject.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneObject.cc; sourceTree = "<group>"; };
 		867BAD5316AEC9050033868F /* SceneObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneObject.h; sourceTree = "<group>"; };
 		867BAD5416AEC9050033868F /* SceneObject_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneObject_ScriptBinding.h; sourceTree = "<group>"; };
-		867BAD5516AEC9050033868F /* SceneObjectGroup.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneObjectGroup.cc; sourceTree = "<group>"; };
-		867BAD5616AEC9050033868F /* SceneObjectGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneObjectGroup.h; sourceTree = "<group>"; };
 		867BAD5716AEC9050033868F /* SceneObjectMoveToEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneObjectMoveToEvent.h; sourceTree = "<group>"; };
 		867BAD5816AEC9050033868F /* SceneObjectRotateToEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneObjectRotateToEvent.h; sourceTree = "<group>"; };
-		867BAD5916AEC9050033868F /* SceneObjectSet.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneObjectSet.cc; sourceTree = "<group>"; };
-		867BAD5A16AEC9050033868F /* SceneObjectSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneObjectSet.h; sourceTree = "<group>"; };
-		867BAD5B16AEC9050033868F /* SceneObjectSet_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneObjectSet_ScriptBinding.h; sourceTree = "<group>"; };
 		867BAD5C16AEC9050033868F /* SceneObjectTimerEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneObjectTimerEvent.h; sourceTree = "<group>"; };
 		867BAD5D16AEC9050033868F /* Scroller.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scroller.cc; sourceTree = "<group>"; };
 		867BAD5E16AEC9050033868F /* Scroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scroller.h; sourceTree = "<group>"; };
@@ -1619,13 +1612,8 @@
 				867BAD5216AEC9050033868F /* SceneObject.cc */,
 				867BAD5316AEC9050033868F /* SceneObject.h */,
 				867BAD5416AEC9050033868F /* SceneObject_ScriptBinding.h */,
-				867BAD5516AEC9050033868F /* SceneObjectGroup.cc */,
-				867BAD5616AEC9050033868F /* SceneObjectGroup.h */,
 				867BAD5716AEC9050033868F /* SceneObjectMoveToEvent.h */,
 				867BAD5816AEC9050033868F /* SceneObjectRotateToEvent.h */,
-				867BAD5916AEC9050033868F /* SceneObjectSet.cc */,
-				867BAD5A16AEC9050033868F /* SceneObjectSet.h */,
-				867BAD5B16AEC9050033868F /* SceneObjectSet_ScriptBinding.h */,
 				867BAD5C16AEC9050033868F /* SceneObjectTimerEvent.h */,
 				867BAD5D16AEC9050033868F /* Scroller.cc */,
 				867BAD5E16AEC9050033868F /* Scroller.h */,
@@ -2963,8 +2951,6 @@
 				867BAFFC16AEC9050033868F /* ParticlePlayer.cc in Sources */,
 				867BAFFD16AEC9050033868F /* Path.cc in Sources */,
 				867BAFFE16AEC9050033868F /* SceneObject.cc in Sources */,
-				867BAFFF16AEC9050033868F /* SceneObjectGroup.cc in Sources */,
-				867BB00016AEC9050033868F /* SceneObjectSet.cc in Sources */,
 				867BB00116AEC9050033868F /* Scroller.cc in Sources */,
 				867BB00216AEC9050033868F /* ShapeVector.cc in Sources */,
 				867BB00316AEC9050033868F /* Sprite.cc in Sources */,

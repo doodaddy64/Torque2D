@@ -30,7 +30,7 @@ function createPyramidGround()
 	%ground.setRepeatX( $GroundWidth / 12 );   
 	%ground.setPosition(0, -10);
 	%ground.createEdgeCollisionShape( $GroundWidth/-2, 1, $GroundWidth/2, 1 );
-    SandboxScene.addToScene( %ground );
+    SandboxScene.add( %ground );
 }
 
 function createToyPyramid( %posX, %posY, %brickBaseCount)
@@ -63,5 +63,5 @@ function createCrate( %posX, %posY)
    %obj.setSize( 1, 1 );
    %obj.setDefaultFriction( 1.0 );
    %obj.createPolygonBoxCollisionShape( 1, 1 );
-   SandboxScene.addToScene( %obj );
+   SandboxScene.add( %obj );
 }

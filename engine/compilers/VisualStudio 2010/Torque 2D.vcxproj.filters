@@ -1143,12 +1143,6 @@
     <ClCompile Include="..\..\source\2d\sceneobject\SceneObject.cc">
       <Filter>2d\sceneobject</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\2d\sceneobject\SceneObjectGroup.cc">
-      <Filter>2d\sceneobject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\2d\sceneobject\SceneObjectSet.cc">
-      <Filter>2d\sceneobject</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\2d\sceneobject\Scroller.cc">
       <Filter>2d\sceneobject</Filter>
     </ClCompile>
@@ -2372,19 +2366,10 @@
     <ClInclude Include="..\..\source\2d\sceneobject\SceneObject_ScriptBinding.h">
       <Filter>2d\sceneobject</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectGroup.h">
-      <Filter>2d\sceneobject</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectMoveToEvent.h">
       <Filter>2d\sceneobject</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectRotateToEvent.h">
-      <Filter>2d\sceneobject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectSet.h">
-      <Filter>2d\sceneobject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectSet_ScriptBinding.h">
       <Filter>2d\sceneobject</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectTimerEvent.h">

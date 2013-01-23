@@ -40,7 +40,7 @@ function buildAquarium()
     %background.setAwake( false );
     %background.setActive( false );
     %background.setSceneLayer(5);
-    SandboxScene.addToScene( %background );
+    SandboxScene.add( %background );
     
     // Far rocks
     %farRocks = new Sprite();
@@ -51,7 +51,7 @@ function buildAquarium()
     %farRocks.setAwake( false );
     %farRocks.setActive( false );
     %farRocks.setSceneLayer(4);
-    SandboxScene.addToScene( %farRocks );
+    SandboxScene.add( %farRocks );
     
     // Near rocks
     %nearRocks = new Sprite();
@@ -62,7 +62,7 @@ function buildAquarium()
     %nearRocks.setAwake( false );
     %nearRocks.setActive( false );
     %farRocks.setSceneLayer(3);
-    SandboxScene.addToScene( %nearRocks );
+    SandboxScene.add( %nearRocks );
     
     // Left trigger
     %leftTrigger = new SceneObject() { class = "AquariumBoundary"; };
@@ -81,7 +81,7 @@ function buildAquarium()
     %leftTrigger.setCollisionCallback(true);
     %leftTrigger.setBodyType( "static" );
     %leftTrigger.setCollisionShapeIsSensor(0, true);
-    SandboxScene.addToScene( %leftTrigger );
+    SandboxScene.add( %leftTrigger );
     
     // Right trigger
     %rightTrigger = new SceneObject() { class = "AquariumBoundary"; };
@@ -100,7 +100,7 @@ function buildAquarium()
     %rightTrigger.setCollisionCallback(true);
     %rightTrigger.setBodyType( "static" );
     %rightTrigger.setCollisionShapeIsSensor(0, true);
-    SandboxScene.addToScene( %rightTrigger );
+    SandboxScene.add( %rightTrigger );
 }
 
 function AquariumBoundary::handleCollision(%this, %object, %collisionDetails)
@@ -143,7 +143,7 @@ function spawnFish()
         %fish.setCollisionGroups( 15 );
         %fish.setDefaultDensity( 1 );
         %fish.setDefaultFriction( 1.0 );
-        SandboxScene.addToScene( %fish );
+        SandboxScene.add( %fish );
     }
 }
 

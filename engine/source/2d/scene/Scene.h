@@ -30,10 +30,6 @@
 #include "platform/Tickable.h"
 #endif
 
-#ifndef _SCENE_OBJECT_GROUP_H_
-#include "2d/sceneobject/SceneObjectGroup.h"
-#endif
-
 #ifndef _DEBUG_STATS_H_
 #include "2d/scene/DebugStats.h"
 #endif
@@ -70,6 +66,10 @@
 #include "2d/scene/SceneRenderObject.h"
 #endif
 
+#ifndef _BEHAVIOR_COMPONENT_H_
+#include "component/behaviors/behaviorComponent.h"
+#endif
+
 //-----------------------------------------------------------------------------
 
 extern EnumTable jointTypeTable;
@@ -78,7 +78,6 @@ extern EnumTable jointTypeTable;
 
 class SceneObject;
 class SceneWindow;
-class SceneObjectGroup;
 
 ///-----------------------------------------------------------------------------
 
@@ -162,7 +161,8 @@ typedef HashMap<b2Contact*, TickContact>    typeContactHash;
 ///-----------------------------------------------------------------------------
 
 class Scene :
-    public SimSet,
+    public BehaviorComponent,
+    public TamlChildren,
     public PhysicsProxy,
     public b2ContactListener,
     public b2DestructionListener,
@@ -200,7 +200,7 @@ public:
     DebugDraw                   mDebugDraw;
 
 private:
-    typedef SimSet Parent;
+    typedef BehaviorComponent   Parent;
 
     /// World.
     b2World*                    mpWorld;
@@ -340,13 +340,6 @@ public:
     void                    clearScene( bool deleteObjects = true );
     void                    addToScene( SceneObject* pSceneObject );
     void                    removeFromScene( SceneObject* pSceneObject );
-
-    void                    addToScene( SceneObjectGroup* pSceneObjectGroup );
-    void                    removeFromScene( SceneObjectGroup* pSceneObjectGroup );
-    void                    addToScene( SimObject* pObject );
-    void                    removeFromScene( SimObject* pObject );
-    void                    addObject( SimObject* pObject );
-    bool                    findChildObject( SimObject* pObject );
 
     inline typeSceneObjectVectorConstRef getSceneObjects( void ) const  { return mSceneObjects; }
     inline U32              getSceneObjectCount( void ) const           { return mSceneObjects.size(); }
@@ -629,7 +622,7 @@ public:
     void                    detachSceneWindow( SceneWindow* pSceneWindow2D );
     void                    detachAllSceneWindows( void );
     bool                    isSceneWindowAttached( SceneWindow* pSceneWindow2D );
-    inline SimSet&          getAttachedSceneWindows( void ) { return mAttachedSceneWindows; }
+    inline SimSet&          getAttachedSceneWindows( void )             { return mAttachedSceneWindows; }
 
     /// Delete requests.
     void                    addDeleteRequest( SceneObject* pSceneObject );
@@ -650,6 +643,11 @@ public:
     inline bool             getUpdateCallback( void ) const             { return mUpdateCallback; }
     inline void             setRenderCallback( const bool callback )    { mRenderCallback = callback; }
     inline bool             getRenderCallback( void ) const             { return mRenderCallback; }
+
+    /// Taml children.
+    virtual U32 getTamlChildCount( void ) const                         { return (U32)mSceneObjects.size(); }
+    virtual SimObject* getTamlChild( const U32 childIndex ) const;
+    virtual void addTamlChild( SimObject* pSimObject );
 
     static b2JointType getJointTypeEnum(const char* label);
     static const char* getJointTypeDescription( b2JointType jointType );

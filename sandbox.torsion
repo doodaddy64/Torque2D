@@ -10,7 +10,7 @@
 <Configs>
 <Config>
 <Name>Release</Name>
-<Executable>..\3StepStudio.exe</Executable>
+<Executable>Torque2D.exe</Executable>
 <Arguments/>
 <HasExports>true</HasExports>
 <Precompile>false</Precompile>
@@ -19,7 +19,7 @@
 </Config>
 <Config>
 <Name>Debug</Name>
-<Executable>..\3StepStudio_DEBUG.exe</Executable>
+<Executable>Torque2D_DEBUG.exe</Executable>
 <Arguments/>
 <HasExports>false</HasExports>
 <Precompile>false</Precompile>

@@ -9,7 +9,7 @@ function runCompositeSpriteTest()
     %stockColorCount = getStockColorCount();
         
 	%composite = new CompositeSprite();
-	SandboxScene.addToScene( %composite );
+	SandboxScene.add( %composite );
 	
     %composite.setDefaultSpriteStride( 25, 25 );
     %composite.setDefaultSpriteSize( 20 );    
@@ -33,7 +33,7 @@ function runCompositeSpriteTest()
 	
 	//TamlWrite( %composite, "^MelvToy/composite.xml" );
 	//%newComposite = TamlRead( "^MelvToy/composite.xml" );
-	//SandboxScene.addToScene( %newComposite );
+	//SandboxScene.add( %newComposite );
 }
 
 //-----------------------------------------------------------------------------

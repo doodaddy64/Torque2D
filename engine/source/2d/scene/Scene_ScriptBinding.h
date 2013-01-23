@@ -202,25 +202,18 @@ ConsoleMethod(Scene, getUseBackgroundColor, bool, 2, 2, "Gets whether the scene 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, addToScene, void, 3, 3, "(object) Add SceneObject to Scene.\n"
-              "@param object The SceneObject's ID\n"
-              "@return No return value.")
+ConsoleMethod(Scene, add, void, 3, 3,   "(sceneObject) Add the SceneObject to the scene.\n"
+                                        "@param sceneObject The SceneObject to add to the scene.\n"
+                                        "@return No return value.")
 {
-    // Find SceneObject Object.
+    // Find the specified object.
     SceneObject* pSceneObject = dynamic_cast<SceneObject*>(Sim::findObject(argv[2]));
 
-    // Validate Object.
+    // Did we find the object?
     if ( !pSceneObject )
     {
-        // Maybe it's a group.
-        SceneObjectGroup* pSceneObjectGroup = dynamic_cast<SceneObjectGroup*>(Sim::findObject(argv[2]));
-
-        if (!pSceneObjectGroup)
-        {
-           Con::warnf("Scene::addToScene - Couldn't find/Invalid object '%s'.", argv[2]);
-           return;
-        }
-        object->addToScene( pSceneObjectGroup );
+        // No, so warn.
+        Con::warnf("Scene::addToScene() - Could not find the specified object '%s'.", argv[2]);
         return;
     }
 
@@ -230,35 +223,21 @@ ConsoleMethod(Scene, addToScene, void, 3, 3, "(object) Add SceneObject to Scene.
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, removeFromScene, void, 3, 3, "(object) Remove SceneObject from Scene.\n"
-              "@param object The ID of the SceneObject.\n"
-              "@return No return value.")
+ConsoleMethod(Scene, remove, void, 3, 3,    "(sceneObject) Remove the SceneObject from the scene.\n"
+                                            "@param sceneObject The SceneObject to remove from the scene.\n"
+                                            "@return No return value.")
 {
-    // Find Scene Object.
+    // Find the specified object.
     SceneObject* pSceneObject = dynamic_cast<SceneObject*>(Sim::findObject(argv[2]));
 
-    // Validate Object.
+    // Did we find the object?
     if ( !pSceneObject )
     {
-        SceneObjectGroup* pSceneObjectGroup = dynamic_cast<SceneObjectGroup*>(Sim::findObject(argv[2]));
-
-        if (!pSceneObjectGroup)
-        {
-           // Are we warning about scene occupancy.
-           if ( Con::getBoolVariable( "$pref::T2D::warnSceneOccupancy" ) )
-           {
-               // Yes, so warn.
-               Con::warnf("Scene::removeFromScene() - Couldn't find/Invalid object '%s'.", argv[2]);
-           }
-
-           return;
-        }
-
-        object->removeFromScene(pSceneObjectGroup);
-
-        // Finish Here.
+        // No, so warn.
+        Con::warnf("Scene::removeFromScene() - Could not find the specified object '%s'.", argv[2]);
         return;
     }
+
 
     // Remove from Scene.
     object->removeFromScene( pSceneObject );
@@ -266,9 +245,9 @@ ConsoleMethod(Scene, removeFromScene, void, 3, 3, "(object) Remove SceneObject f
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, clearScene, void, 2, 3, "([deleteObjects]) Clear Scene of all SceneObject objects.\n"
-              "@param deleteObjects A boolean flag that sets whether to delete the objects as well as remove them from the scene (default is true).\n"
-              "@return No return value.")
+ConsoleMethod(Scene, clear, void, 2, 3, "([deleteObjects]) Clear the scene of all scene objects.\n"
+                                        "@param deleteObjects A boolean flag that sets whether to delete the objects as well as remove them from the scene (default is true).\n"
+                                        "@return No return value.")
 {
     // Calculate 'Delete Objects' flag.
     bool deleteObjects;
@@ -283,8 +262,8 @@ ConsoleMethod(Scene, clearScene, void, 2, 3, "([deleteObjects]) Clear Scene of a
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, getSceneObjectCount, S32, 2, 2, "() Gets the Scene Object-Count.\n"
-              "@return Returns the number of scene objects in current scene as an integer.")
+ConsoleMethod(Scene, getCount, S32, 2, 2,   "() Gets the count of scene objects in the scnee.\n"
+                                            "@return Returns the number of scene objects in current scene as an integer.")
 {
     // Get Scene Object-Count.
     return object->getSceneObjectCount();
@@ -293,9 +272,9 @@ ConsoleMethod(Scene, getSceneObjectCount, S32, 2, 2, "() Gets the Scene Object-C
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, getSceneObject, S32, 3, 3, "(objectIndex) Gets the selected Scene Object.\n"
-              "@param objectIndex The index of the desired object\n"
-              "@return The ID of the object.")
+ConsoleMethod(Scene, getObject, S32, 3, 3,  "(sceneObjectIndex) Gets the scene object at the selected index.\n"
+                                            "@param sceneObjectIndex The index of the desired object\n"
+                                            "@return The scene object at the specified index.")
 {
     // Fetch Object Index.
     const U32 objectIndex = dAtoi(argv[2]);
@@ -307,7 +286,7 @@ ConsoleMethod(Scene, getSceneObject, S32, 3, 3, "(objectIndex) Gets the selected
     if ( objectIndex >= sceneObjectCount )
     {
         // Error so warn.
-        Con::warnf("Scene::getSceneObject() - Cannot retrieve specified object index (%d) as there are only (%d) object(s) in the scene!", objectIndex, sceneObjectCount );
+        Con::warnf("Scene::getObject() - Cannot retrieve specified object index (%d) as there are only (%d) object(s) in the scene!", objectIndex, sceneObjectCount );
         // Return no object.
         return 0;
     }
@@ -324,7 +303,7 @@ ConsoleMethod(Scene, getSceneObject, S32, 3, 3, "(objectIndex) Gets the selected
     else
     {
         // Error so warn.
-        Con::warnf("Scene::getSceneObject() - Cannot retrieve specified object index (%d)!", objectIndex);
+        Con::warnf("Scene::getObject() - Cannot retrieve specified object index (%d)!", objectIndex);
         // Return no object.
         return 0;
     }

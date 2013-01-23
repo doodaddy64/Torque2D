@@ -19,7 +19,7 @@ function createTumblerToy( %scopeSet )
     
     // Create the tumbler.
     %tumbler = new Sprite();
-    SandboxScene.addToScene( %tumbler );
+    SandboxScene.add( %tumbler );
     %tumbler.createPolygonBoxCollisionShape( 1, 50, 25, 0, 0 );
     %tumbler.createPolygonBoxCollisionShape( 1, 50, -25, 0, 0 );
     %tumbler.createPolygonBoxCollisionShape( 50, 1, 0, 25, 0 );
@@ -47,12 +47,11 @@ function createTumblerBall()
         // Create the ball.
         %ball = new Sprite();
         %ball.Position = getRandom(-10,10) SPC "0";
-        %ball.Size = "1";
+        %ball.Size = "2";
         %ball.Image = "TumblerToy:FootballImage";        
-        %ball.BlendColor = getStockColorName(getRandom(0,%stockColorCount-1));
         %ball.setDefaultRestitution( 0.6 );
-        %collisionId = %ball.createCircleCollisionShape( 0.5 );        
-        SandboxScene.addToScene( %ball );
+        %collisionId = %ball.createCircleCollisionShape( 1 );
+        SandboxScene.add( %ball );
 
         // Increase ball count.
         $currentBalls++;

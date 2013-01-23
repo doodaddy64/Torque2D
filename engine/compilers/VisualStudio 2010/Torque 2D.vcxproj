@@ -258,8 +258,6 @@
     <ClCompile Include="..\..\source\2d\sceneobject\ParticlePlayer.cc" />
     <ClCompile Include="..\..\source\2d\sceneobject\Path.cc" />
     <ClCompile Include="..\..\source\2d\sceneobject\SceneObject.cc" />
-    <ClCompile Include="..\..\source\2d\sceneobject\SceneObjectGroup.cc" />
-    <ClCompile Include="..\..\source\2d\sceneobject\SceneObjectSet.cc" />
     <ClCompile Include="..\..\source\2d\sceneobject\Scroller.cc" />
     <ClCompile Include="..\..\source\2d\sceneobject\ShapeVector.cc" />
     <ClCompile Include="..\..\source\2d\sceneobject\Sprite.cc" />
@@ -644,11 +642,8 @@
     <ClInclude Include="..\..\source\2d\sceneobject\Path.h" />
     <ClInclude Include="..\..\source\2d\sceneobject\Path_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\sceneobject\SceneObject.h" />
-    <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectGroup.h" />
     <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectMoveToEvent.h" />
     <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectRotateToEvent.h" />
-    <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectSet.h" />
-    <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectSet_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\sceneobject\SceneObjectTimerEvent.h" />
     <ClInclude Include="..\..\source\2d\sceneobject\SceneObject_ScriptBinding.h" />
     <ClInclude Include="..\..\source\2d\sceneobject\Scroller.h" />

@@ -189,7 +189,6 @@ SceneObject::SceneObject() :
     mBatchIsolated(false),
     mEnableChild(false),
     mSerialiseKey(0),
-    mpSceneObjectGroup(NULL),
     mEditorTickAllowed(true),
     mPickingAllowed(true),
     mAlwaysInScope(false),

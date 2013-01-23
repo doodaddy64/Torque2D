@@ -1233,10 +1233,6 @@ void Scene::addToScene( SceneObject* pSceneObject )
     // Register with the scene.
     pSceneObject->OnRegisterScene( this );
 
-    // Add the object to our set if it's not already there.
-    if(!findChildObject(pSceneObject))
-       Parent::addObject(pSceneObject);
-
     // Perform callback only if properly added to the simulation.
     if ( pSceneObject->isProperlyAdded() )
     {
@@ -1292,166 +1288,8 @@ void Scene::removeFromScene( SceneObject* pSceneObject )
         }
     }
 
-    // Remove from Set, When Appropriate.
-    SimSet::iterator pObjectLookup = find(begin(), end(), pSceneObject);
-    if (pObjectLookup != end())
-       Parent::removeObject(pSceneObject);
-
-    else if (pSceneObject->getSceneObjectGroup())
-    {
-       if (pSceneObject->getSceneObjectGroup()->getScene() == this)
-          pSceneObject->getSceneObjectGroup()->removeObject(pSceneObject);
-    }
-
     // Perform callback.
     Con::executef( pSceneObject, 2, "onRemoveFromScene", getIdString() );
-}
-
-//-----------------------------------------------------------------------------
-
-void Scene::addToScene(SceneObjectGroup* pSceneObjectGroup)
-{
-    if ( pSceneObjectGroup == NULL )
-        return;
-
-   // Check that object is not already in a scene.
-   if ( pSceneObjectGroup->getScene() )
-   {
-      // Remove from scene.
-      pSceneObjectGroup->getScene()->removeFromScene( pSceneObjectGroup );
-   }
-
-   pSceneObjectGroup->mScene = this;
-
-   if (!findChildObject(pSceneObjectGroup))
-      Parent::addObject(pSceneObjectGroup);
-
-   for (S32 i = 0; i < pSceneObjectGroup->size(); i++)
-      addToScene(pSceneObjectGroup->at(i));
-}
-
-//-----------------------------------------------------------------------------
-
-void Scene::removeFromScene(SceneObjectGroup* pSceneObjectGroup)
-{
-    if ( pSceneObjectGroup == NULL )
-        return;
-
-   // Check if object is actually in a scene.
-   if ( !pSceneObjectGroup->getScene() )
-   {
-      Con::warnf("Scene::removeFromScene() - Object '%s' is not in a scene!.", pSceneObjectGroup->getIdString());
-      return;
-   }
-
-   pSceneObjectGroup->mScene = NULL;
-   
-   for (S32 i = 0; i < pSceneObjectGroup->size(); i++)
-      removeFromScene(pSceneObjectGroup->at(i));
-
-    SimSet::iterator pObjectLookup = find(begin(), end(), pSceneObjectGroup);
-    if (pObjectLookup != end())
-       Parent::removeObject(pSceneObjectGroup);
-
-    else if (pSceneObjectGroup->getSceneObjectGroup())
-    {
-       if (pSceneObjectGroup->getSceneObjectGroup()->getScene() == this)
-          pSceneObjectGroup->getSceneObjectGroup()->removeObject(pSceneObjectGroup);
-    }
-}
-
-//-----------------------------------------------------------------------------
-
-void Scene::addToScene( SimObject* pObject )
-{
-    if ( pObject == NULL )
-        return;
-
-   SceneObject* pSceneObject = dynamic_cast<SceneObject*>(pObject);
-   if (pSceneObject)
-      addToScene(pSceneObject);
-
-   else
-   {
-      SceneObjectGroup* pGroup = dynamic_cast<SceneObjectGroup*>(pObject);
-      if (pGroup)
-         addToScene(pGroup);
-   }
-}
-
-//-----------------------------------------------------------------------------
-
-void Scene::removeFromScene( SimObject* pObject )
-{
-    if ( pObject == NULL )
-        return;
-
-   SceneObject* pSceneObject = dynamic_cast<SceneObject*>(pObject);
-   if (pSceneObject)
-      removeFromScene(pSceneObject);
-
-   else
-   {
-      SceneObjectGroup* pGroup = dynamic_cast<SceneObjectGroup*>(pObject);
-      if (pGroup)
-         removeFromScene(pGroup);
-   }
-}
-
-//-----------------------------------------------------------------------------
-
-void Scene::addObject( SimObject* pObject )
-{
-    if ( pObject == NULL )
-        return;
-
-   SceneObjectGroup* parentGroup = SceneObjectGroup::getSceneObjectGroup(pObject);
-   Scene* parentGraph = SceneObjectGroup::getScene(pObject);
-
-   if (parentGraph == this)
-   {
-      if (parentGroup)
-         parentGroup->removeObject(pObject);
-
-      Parent::addObject(pObject);
-   }
-
-   else
-   {
-      if (parentGraph)
-         parentGraph->removeFromScene(pObject);
-
-      else if (parentGroup)
-         parentGroup->removeObject(pObject);
-
-      addToScene(pObject);
-   }
-}
-
-//-----------------------------------------------------------------------------
-
-bool Scene::findChildObject(SimObject* pObject)
-{
-    if ( pObject == NULL )
-        return false;
-
-   for (S32 i = 0; i < size(); i++)
-   {
-      SimObject* pSimObject = at(i);
-
-      if (pSimObject == pObject)
-         return true;
-
-      SceneObjectGroup* pGroup = dynamic_cast<SceneObjectGroup*>(pSimObject);
-      if (pGroup)
-      {
-         if (pGroup->findChildObject(pObject))
-            return true;
-      }
-   }
-
-   // If we make it here, no.
-   return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -4628,6 +4466,42 @@ void Scene::onTamlCustomRead( const TamlCollection& customCollection )
 U32 Scene::getGlobalSceneCount( void )
 {
     return sSceneCount;
+}
+
+//-----------------------------------------------------------------------------
+
+SimObject* Scene::getTamlChild( const U32 childIndex ) const
+{
+    // Sanity!
+    AssertFatal( childIndex < (U32)mSceneObjects.size(), "Scene::getTamlChild() - Child index is out of range." );
+
+    // For when the assert is not used.
+    if ( childIndex >= (U32)mSceneObjects.size() )
+        return NULL;
+
+    return mSceneObjects[ childIndex ];
+}
+
+//-----------------------------------------------------------------------------
+
+void Scene::addTamlChild( SimObject* pSimObject )
+{
+    // Sanity!
+    AssertFatal( pSimObject != NULL, "Scene::addTamlChild() - Cannot add a NULL child object." );
+
+    // Fetch as a scene object.
+    SceneObject* pSceneObject = dynamic_cast<SceneObject*>( pSimObject );
+
+    // Is it a scene object?
+    if ( pSceneObject == NULL )
+    {
+        // No, so warn.
+        Con::warnf( "Scene::addTamlChild() - Cannot add a child object that isn't a scene object." );
+        return;
+    }
+
+    // Add the scene object.
+    addToScene( pSceneObject );
 }
 
 //-----------------------------------------------------------------------------

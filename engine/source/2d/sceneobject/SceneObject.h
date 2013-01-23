@@ -34,10 +34,6 @@
 #include "2d/core/Utility.h"
 #endif
 
-#ifndef _SCENE_OBJECT_GROUP_H_Fs
-#include "2d/sceneobject/SceneObjectGroup.h"
-#endif
-
 #ifndef _PHYSICS_PROXY_H_
 #include "2d/scene/PhysicsProxy.h"
 #endif
@@ -95,7 +91,6 @@ private:
 public:
     friend class Scene;
     friend class SceneWindow;
-    friend class SceneObjectGroup;
     friend class ContactFilter;
     friend class WorldQuery;
     friend class DebugDraw;
@@ -210,7 +205,6 @@ protected:
     bool                    mBatchIsolated;
     bool                    mEnableChild;
     U32                     mSerialiseKey;
-    SceneObjectGroup*       mpSceneObjectGroup;
     bool                    mEditorTickAllowed;
     bool                    mPickingAllowed;
     bool                    mAlwaysInScope;
@@ -561,7 +555,6 @@ public:
 
     /// Miscellaneous.
     void                    setChild( bool status )                     { mEnableChild = status; }
-    inline SceneObjectGroup* const getSceneObjectGroup(void) const      { return mpSceneObjectGroup; }
     inline const char*      scriptThis(void) const                      { return Con::getIntArg(getId()); }
     inline bool             getIsChild(void) const                      { return mEnableChild; }
     inline bool             getIsPickingAllowed(void) const             { return mPickingAllowed; }
