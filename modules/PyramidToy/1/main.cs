@@ -6,13 +6,13 @@
 function createPyramidToy( %scopeSet )
 {
 	$PyramidBrickCount = 21;
-	$GroundWidth = 60;
+	$GroundWidth = 150;
 	
 	SandboxWindow.setCurrentCameraZoom( 2 );
 	SandboxScene.setGravity( 0, -15 );
 	
 	createPyramidGround();
-	createToyPyramid(-10, -8, $PyramidBrickCount);
+	createToyPyramid(-15, -8, $PyramidBrickCount);
 	
     // Set the sandbox drag mode.
     setSandboxDragMode( "pull" ); 
@@ -47,11 +47,11 @@ function createToyPyramid( %posX, %posY, %brickBaseCount)
    for( %stack = 0; %stack < %brickBaseCount; %stack++ )
    {
       %stackIndexCount = %brickBaseCount - (%stack*2);
-      %stackX = %posX + ( %stack * 1.0 );
-      %stackY = %posY + ( %stack * 1.0 );
+      %stackX = %posX + ( %stack * 1.5 );
+      %stackY = %posY + ( %stack * 1.5 );
       for ( %stackIndex = 0; %stackIndex < %stackIndexCount; %stackIndex++ )
       {
-         createCrate( %stackX + %stackIndex, %stackY);
+         createCrate( %stackX + (%stackIndex*1.5), %stackY);
       }
    }
 }
@@ -63,8 +63,8 @@ function createCrate( %posX, %posY)
    %obj.setUseInputEvents(true);
    %obj.setImage( %imageMap );
    %obj.setPosition( %posX, %posY );
-   %obj.setSize( 1, 1 );
+   %obj.setSize( 1.5 );
    %obj.setDefaultFriction( 1.0 );
-   %obj.createPolygonBoxCollisionShape( 1, 1 );
+   %obj.createPolygonBoxCollisionShape( 1.5, 1.5 );
    SandboxScene.add( %obj );
 }
