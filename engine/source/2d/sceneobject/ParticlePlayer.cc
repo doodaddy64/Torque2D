@@ -430,6 +430,9 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
     if ( !mPlaying || mCameraIdle )
         return;
 
+    // Flush.
+    pBatchRenderer->flush( getScene()->getDebugStats().batchIsolatedFlush );
+
     // Fetch emitter count.
     const U32 emitterCount = mEmitters.size();
 
@@ -588,12 +591,12 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
             pParticleNode = oldestInFront ? pParticleNode->mNextNode : pParticleNode->mPreviousNode;
         };
 
+        // Flush.
+        pBatchRenderer->flush( getScene()->getDebugStats().batchIsolatedFlush );
+
         // Restore the transformation.
         glPopMatrix();
     }
-
-    // Flush.
-    pBatchRenderer->flush( getScene()->getDebugStats().batchIsolatedFlush );
 }
 
 //-----------------------------------------------------------------------------
@@ -827,7 +830,6 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
 
     // Fetch attachment options.
     const bool attachPositionToEmitter = pParticleAssetEmitter->getAttachPositionToEmitter();
-    const bool attachRotationToEmitter = pParticleAssetEmitter->getAttachRotationToEmitter();
 
     // Fetch the emitter offset, angle and size
     const Vector2& emitterOffset = pParticleAssetEmitter->getEmitterOffset() * getSizeScale();

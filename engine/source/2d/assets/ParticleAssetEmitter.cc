@@ -272,7 +272,7 @@ void ParticleAssetEmitter::copyTo(SimObject* object)
    pParticleAssetEmitter->setIntenseParticles( getIntenseParticles() );
    pParticleAssetEmitter->setSingleParticle( getSingleParticle() );
    pParticleAssetEmitter->setAttachPositionToEmitter( getAttachPositionToEmitter() );
-   pParticleAssetEmitter->setAttachRotationToEmitter( getAttachPositionToEmitter() );
+   pParticleAssetEmitter->setAttachRotationToEmitter( getAttachRotationToEmitter() );
    pParticleAssetEmitter->setOldestInFront( getOldestInFront() );
 
    pParticleAssetEmitter->setBlendMode( getBlendMode() );
