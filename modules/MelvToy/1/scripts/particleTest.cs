@@ -22,30 +22,30 @@ function runParticleTest()
            
     %emitter = %effectAsset.createEmitter();
     %emitter.EmitterName = "emitter1";
-    %emitter.EmitterType = "box";
-    %emitter.EmitterSize = "80 35";
-    %emitter.EmitterAngle = 30;
-    %emitter.EmitterOffset = "40 0";
-    %emitter.IntenseParticles = true;
-    %emitter.Image = "MelvToy:Particles1";
-    %emitter.Frame = 0;
+    %emitter.EmitterType = "point";
+    %emitter.EmitterSize = "40 20";
+    %emitter.EmitterAngle = 0;
+    %emitter.EmitterOffset = "0 0";
+    %emitter.IntenseParticles =false;
+    %emitter.Image = "MelvToy:isoTiles1";
+    %emitter.Frame = 13;
     %emitter.FixedAspect = true;
-    %emitter.RandomImageFrame = true;
+    %emitter.RandomImageFrame = false;
     %emitter.OldestInFront = false;
-    %emitter.AttachPositionToEmitter = false;
-    %emitter.AttachRotationToEmitter = false;
+    %emitter.AttachPositionToEmitter = true;
+    %emitter.AttachRotationToEmitter = true;
 
     %emitter.selectField( "Quantity" );    
-        %emitter.setSingleDataKey( 1000 );
+        %emitter.setSingleDataKey( 200 );
 
     %emitter.selectField( "Lifetime" ); 
-        %emitter.setSingleDataKey( 2 );
-
-    %emitter.selectField( "LifetimeVariation" ); 
         %emitter.setSingleDataKey( 1 );
 
+    //%emitter.selectField( "LifetimeVariation" ); 
+        //%emitter.setSingleDataKey( 1 );
+
     %emitter.selectField( "Speed" );    
-        %emitter.setSingleDataKey( 0 );
+        %emitter.setSingleDataKey( 2 );
 
     //%emitter.selectField( "SpeedVariation" );    
         //%emitter.setSingleDataKey( 1 );
@@ -90,21 +90,55 @@ function runParticleTest()
         //%emitter.addDataKey( 0, 1 );
         //%emitter.addDataKey( 0.6, 1 );    
         //%emitter.addDataKey( 1, 0 );    
-//
-    //%emitter.selectField( "AlphaChannel" );
-        //%emitter.addDataKey( 0, 0 );
-        //%emitter.addDataKey( 0.1, 0.5 );
-        //%emitter.addDataKey( 0.8, 0.5 );
-        //%emitter.addDataKey( 1, 0 );    
+
+    %emitter.selectField( "AlphaChannel" );
+        %emitter.addDataKey( 0, 0 );
+        %emitter.addDataKey( 0.1, 1 );
+        %emitter.addDataKey( 0.8, 1 );
+        %emitter.addDataKey( 1, 0 );    
         
     %emitter.deselectField();
     
     %emitter2 = %emitter.clone();
-    %emitter2.name = "emitter2";
-    %emitter2.EmitterOffset = "-40 0";
+    %emitter2.EmitterName = "emitter2";
+    %emitter2.Frame = 14;
+    %emitter2.EmitterType = "line";
+    %emitter2.EmitterAngle = 80;
+    %emitter2.EmitterOffset = "-35 15";
     %effectAsset.addEmitter( %emitter2 );
-    
 
+    %emitter3 = %emitter.clone();
+    %emitter3.EmitterName = "emitter3";
+    %emitter3.Frame = 15;
+    %emitter3.EmitterType = "box";
+    %emitter3.EmitterAngle = 30;
+    %emitter3.EmitterOffset = "-10 20";
+    %effectAsset.addEmitter( %emitter3 );
+
+    %emitter4 = %emitter.clone();
+    %emitter4.name = "emitter4";
+    %emitter4.Frame = 16;
+    %emitter4.EmitterType = "disk";
+    %emitter4.EmitterAngle = 30;
+    %emitter4.EmitterOffset = "20 -20";
+    %effectAsset.addEmitter( %emitter4 );
+    
+    %emitter5 = %emitter.clone();
+    %emitter5.EmitterName = "emitter5";
+    %emitter5.Frame = 17;
+    %emitter5.EmitterType = "ellipse";
+    %emitter5.EmitterAngle = -45;
+    %emitter5.EmitterOffset = "30 15";
+    %effectAsset.addEmitter( %emitter5 );    
+    
+    %emitter6 = %emitter.clone();
+    %emitter6.EmitterName = "emitter6";
+    %emitter6.Frame = 17;
+    %emitter6.EmitterType = "torus";
+    %emitter6.EmitterSize = "30 15";
+    %emitter6.EmitterAngle = -45;
+    %emitter6.EmitterOffset = "-20 -20";
+    %effectAsset.addEmitter( %emitter6 );  
     %assetFilePath = expandPath( "^MelvToy/particle.asset.taml" );
     
 	TamlWrite( %effectAsset, %assetFilePath );
@@ -125,7 +159,7 @@ function runParticleTest()
     %particlePlayer.play();
     //%particlePlayer.visible = false;
     //%particlePlayer.setLinearVelocity( 10, 0 );
-    //%particlePlayer.setAngularVelocity( -180 );
+    %particlePlayer.setAngularVelocity( -180 );
     
     //SandboxScene.setDebugSceneObject( %particlePlayer );
     
