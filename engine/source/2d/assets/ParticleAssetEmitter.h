@@ -51,9 +51,11 @@ public:
         INVALID_EMITTER_TYPE,
 
         POINT_EMITTER,
-        LINEX_EMITTER,
-        LINEY_EMITTER,
-        AREA_EMITTER
+        LINE_EMITTER,
+        BOX_EMITTER,
+        DISK_EMITTER,
+        ELLIPSE_EMITTER,
+        TORUS_EMITTER,
     };
 
 private:
@@ -63,6 +65,9 @@ private:
     ParticleAsset*                          mOwner;
 
     EmitterType                             mEmitterType;
+    Vector2                                 mEmitterOffset;
+    F32                                     mEmitterAngle;
+    Vector2                                 mEmitterSize;
     bool                                    mFixedAspect;
     F32                                     mFixedForceAngle;
     Vector2                                 mFixedForceDirection;
@@ -125,6 +130,12 @@ public:
     inline StringTableEntry getEmitterName( void ) const { return mEmitterName; }
     inline void setEmitterType( const EmitterType emitterType ) { mEmitterType = emitterType; refreshAsset(); }
     inline EmitterType getEmitterType( void ) { return mEmitterType; }
+    inline void setEmitterOffset( const Vector2& offset ) { mEmitterOffset = offset; refreshAsset(); }
+    inline const Vector2& getEmitterOffset( void ) const { return mEmitterOffset; }
+    inline void setEmitterAngle( const F32 angle ) { mEmitterAngle = angle; refreshAsset(); }
+    inline F32 getEmitterAngle( void ) const { return mEmitterAngle; }
+    inline void setEmitterSize( const Vector2& size ) { mEmitterSize = size; refreshAsset(); }
+    inline const Vector2& getEmitterSize( void ) const { return mEmitterSize; }
     inline void setFixedAspect( const bool fixedAspect ) { mFixedAspect = fixedAspect; refreshAsset(); }
     inline bool getFixedAspect( void ) const { return mFixedAspect; }
     void setFixedForceAngle( const F32 fixedForceAngle );
@@ -241,6 +252,12 @@ protected:
     static bool     setEmitterName(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setEmitterName( data ); return false; }
     static bool     setEmitterType(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setEmitterType( getEmitterTypeEnum(data) ); return false; }
     static bool     writeEmitterType( void* obj, StringTableEntry pFieldName )          { return static_cast<ParticleAssetEmitter*>(obj)->getEmitterType() != POINT_EMITTER; }
+    static bool     setEmitterOffset(void* obj, const char* data)                       { static_cast<ParticleAssetEmitter*>(obj)->setEmitterOffset(Vector2(data)); return false; }
+    static bool     writeEmitterOffset( void* obj, StringTableEntry pFieldName )        { return static_cast<ParticleAssetEmitter*>(obj)->getEmitterOffset().notZero(); }
+    static bool     setEmitterAngle(void* obj, const char* data)                        { static_cast<ParticleAssetEmitter*>(obj)->setEmitterAngle(dAtof(data)); return false; }
+    static bool     writeEmitterAngle( void* obj, StringTableEntry pFieldName )         { return mNotZero(static_cast<ParticleAssetEmitter*>(obj)->getEmitterAngle()); }
+    static bool     setEmitterSize(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setEmitterSize(Vector2(data)); return false; }
+    static bool     writeEmitterSize( void* obj, StringTableEntry pFieldName )          { return static_cast<ParticleAssetEmitter*>(obj)->getEmitterSize().notEqual(Vector2(10.0f, 10.0f)); }
     static bool     setFixedAspect(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setFixedAspect(dAtob(data)); return false; }
     static bool     writeFixedAspect( void* obj, StringTableEntry pFieldName )          { return static_cast<ParticleAssetEmitter*>(obj)->getFixedAspect() == false; }
     static bool     setFixedForceAngle(void* obj, const char* data)                     { static_cast<ParticleAssetEmitter*>(obj)->setFixedForceAngle(dAtof(data)); return false; }

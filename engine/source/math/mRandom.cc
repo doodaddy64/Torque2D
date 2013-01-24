@@ -14,20 +14,20 @@ U32 gRandGenSeed = 1376312589;
 void MRandomLCG::setGlobalRandSeed(U32 seed)
 {
 #ifdef	TORQUE_ALLOW_JOURNALING
-	if (Game->isJournalReading())
-		Game->journalRead(&gRandGenSeed);
-	else
-	{
-		gRandGenSeed = seed;
-		if (Game->isJournalWriting())
-			Game->journalWrite(gRandGenSeed);
-	}
+    if (Game->isJournalReading())
+        Game->journalRead(&gRandGenSeed);
+    else
+    {
+        gRandGenSeed = seed;
+        if (Game->isJournalWriting())
+            Game->journalWrite(gRandGenSeed);
+    }
 #else
-	gRandGenSeed = seed;
+    gRandGenSeed = seed;
 #endif	//TORQUE_ALLOW_JOURNALING
 
-	//now actually set the seed
-	gRandGen.setSeed(gRandGenSeed);
+    //now actually set the seed
+    gRandGen.setSeed(gRandGenSeed);
 }
 
 static U32 msSeed = 1376312589;

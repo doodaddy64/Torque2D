@@ -20,10 +20,12 @@
 
 static EnumTable::Enums emitterTypeLookup[] =
                 {
-                { ParticleAssetEmitter::POINT_EMITTER,    "POINT" },
-                { ParticleAssetEmitter::LINEX_EMITTER,    "LINEX" },
-                { ParticleAssetEmitter::LINEY_EMITTER,    "LINEY" },
-                { ParticleAssetEmitter::AREA_EMITTER,     "AREA" },
+                { ParticleAssetEmitter::POINT_EMITTER,      "POINT" },
+                { ParticleAssetEmitter::LINE_EMITTER,       "LINE" },
+                { ParticleAssetEmitter::BOX_EMITTER,        "BOX" },
+                { ParticleAssetEmitter::DISK_EMITTER,       "DISK" },
+                { ParticleAssetEmitter::ELLIPSE_EMITTER,    "ELLIPSE" },
+                { ParticleAssetEmitter::TORUS_EMITTER,      "TORUS" },
                 };
 
 //------------------------------------------------------------------------------
@@ -117,6 +119,9 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mEmitterName( StringTable->EmptyString ),
                             mOwner( NULL ),
                             mEmitterType( POINT_EMITTER ),
+                            mEmitterOffset( 0.0f, 0.0f),
+                            mEmitterAngle( 0.0f ),
+                            mEmitterSize( 10.0f, 10.0f ),
                             mFixedAspect( true ),
                             mOrientationType( FIXED_ORIENTATION ),
                             mKeepAligned( false ),
@@ -203,6 +208,9 @@ void ParticleAssetEmitter::initPersistFields()
 
     addProtectedField("EmitterName", TypeString, Offset(mEmitterName, ParticleAssetEmitter), &setEmitterName, &defaultProtectedGetFn, &defaultProtectedWriteFn, "");
     addProtectedField("EmitterType", TypeEnum, Offset(mEmitterType, ParticleAssetEmitter), &setEmitterType, &defaultProtectedGetFn, &writeEmitterType, 1, &EmitterTypeTable);
+    addProtectedField("EmitterOffset", TypeVector2, Offset(mEmitterOffset, ParticleAssetEmitter), &setEmitterOffset, &defaultProtectedGetFn, &writeEmitterOffset, "");
+    addProtectedField("EmitterAngle", TypeF32, Offset(mEmitterAngle, ParticleAssetEmitter), &setEmitterAngle, &defaultProtectedGetFn, &writeEmitterAngle, "");
+    addProtectedField("EmitterSize", TypeVector2, Offset(mEmitterSize, ParticleAssetEmitter), &setEmitterSize, &defaultProtectedGetFn, &writeEmitterSize, "");
     addProtectedField("FixedAspect", TypeBool, Offset(mFixedAspect, ParticleAssetEmitter), &setFixedAspect, &defaultProtectedGetFn, &writeFixedAspect, "");
     addProtectedField("FixedForceAngle", TypeF32, Offset(mFixedForceAngle, ParticleAssetEmitter), &setFixedForceAngle, &defaultProtectedGetFn, &writeFixedForceAngle, "");
     addProtectedField("OrientationType", TypeEnum, Offset(mOrientationType, ParticleAssetEmitter), &setOrientationType, &defaultProtectedGetFn, &writeOrientationType, 1, &OrientationTypeTable);
@@ -247,6 +255,9 @@ void ParticleAssetEmitter::copyTo(SimObject* object)
    // Copy fields.
    pParticleAssetEmitter->setEmitterName( getEmitterName() );
    pParticleAssetEmitter->setEmitterType( getEmitterType() );
+   pParticleAssetEmitter->setEmitterOffset( getEmitterOffset() );
+   pParticleAssetEmitter->setEmitterSize( getEmitterSize() );
+   pParticleAssetEmitter->setEmitterAngle( getEmitterAngle() );
    pParticleAssetEmitter->setFixedAspect( getFixedAspect() );
    pParticleAssetEmitter->setFixedForceAngle( getFixedForceAngle() );
    pParticleAssetEmitter->setOrientationType( getOrientationType() );
