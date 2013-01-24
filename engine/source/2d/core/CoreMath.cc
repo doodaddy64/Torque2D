@@ -16,7 +16,7 @@
 namespace CoreMath
 {
 
-MRandomLCG gRandomGenerator;
+RandomLCG gRandomGenerator;
 
 //---------------------------------------------------------------------------------------------
 

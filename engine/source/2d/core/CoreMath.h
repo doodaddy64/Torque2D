@@ -36,16 +36,16 @@ struct Vector2;
 
 namespace CoreMath
 {
-extern MRandomLCG gRandomGenerator;
+extern RandomLCG gRandomGenerator;
 
 /// Random Float Range.
-inline F32 mGetRandomF( F32 from, F32 to ) { return gRandomGenerator.randF( from, to ); }
+inline F32 mGetRandomF( F32 from, F32 to ) { return gRandomGenerator.randRangeF( from, to ); }
 
 /// Random Float.
 inline F32 mGetRandomF( void ) { return gRandomGenerator.randF(); }
 
 /// Random Integer Range.
-inline S32 mGetRandomI( U32 from, U32 to ) { return gRandomGenerator.randI( from, to ); }
+inline S32 mGetRandomI( const S32 from, const S32 to ) { return gRandomGenerator.randRangeI( from, to ); }
 
 /// Random Integer.
 inline S32 mGetRandomI( void ) { return gRandomGenerator.randI(); }

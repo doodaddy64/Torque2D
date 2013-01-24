@@ -42,7 +42,7 @@ static bool gWindowCreated = false;
 
 static bool windowNotActive = false;
 
-static MRandomLCG sgPlatRandom;
+static RandomLCG sgPlatRandom;
 static bool sgQueueEvents;
 
 // is keyboard input a standard (non-changing) VK keycode

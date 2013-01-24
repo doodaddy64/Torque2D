@@ -24,7 +24,7 @@ F32 Platform::getRandom()
 {
     osxPlatState *platState = [osxPlatState sharedPlatState];
     
-    MRandomLCG* random = [platState platformRandom];
+    RandomLCG* random = [platState platformRandom];
     
     return random->randF();
 }

@@ -35,7 +35,7 @@ void NetInterface::initRandomData()
       Game->journalWrite(seed);
 #endif //TORQUE_ALLOW_JOURNALING
 
-   MRandomR250 myRandom(seed);
+   RandomR250 myRandom(seed);
    for(U32 i = 0; i < 12; i++)
       mRandomHashData[i] = myRandom.randI();
 }

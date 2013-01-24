@@ -73,7 +73,7 @@ static osxPlatState * tempSharedPlatState = nil;
         _lastTimeTick = 0;
         _argc = 0;
         _alertSemaphore = Semaphore::createSemaphore(0);
-        _platformRandom = new MRandomLCG();
+        _platformRandom = new RandomLCG();
     }
     
     return self;
