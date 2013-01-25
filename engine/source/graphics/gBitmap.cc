@@ -455,7 +455,11 @@ void GBitmap::extrudeMipLevels(bool clearBorders)
       case Luminance:
       case Alpha:
       case RGB565:
-      {
+      case PVR2:
+      case PVR2A:
+      case PVR4:
+      case PVR4A:
+      {     
       }
    }
    if (clearBorders)

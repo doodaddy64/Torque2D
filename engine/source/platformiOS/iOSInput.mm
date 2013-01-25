@@ -112,36 +112,34 @@ struct AsciiData
 #define KEY_FIRST KEY_ESCAPE
 static AsciiData AsciiTable[NUM_KEYS];
 
-#pragma message ("Need to implement the next six functions")
-
 void Input::enableMouse()
 {
-    
+    // Do nothing on iOS
 }
 
 void Input::disableMouse()
 {
-    
+    // Do nothing on iOS
 }
 
 void Input::enableKeyboard()
 {
-    
+    // Do nothing on iOS
 }
 
 void Input::disableKeyboard()
 {
-    
+    // Do nothing on iOS
 }
 
 bool Input::isMouseEnabled()
 {
-    
+    return true;
 }
 
 bool Input::isKeyboardEnabled()
 {
-    
+    return false;
 }
  
 //--------------------------------------------------------------------------

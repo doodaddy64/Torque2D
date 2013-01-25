@@ -117,7 +117,7 @@ void iOSProfilerPrintResult( int item ) {
 //				 );
 		dSprintf(pfbuffer, 1024, "%s, %d, %d, %d\n",
 				 g_iOSProfilerData[item].name, startTimeMS, endTimeMS, endTimeMS - startTimeMS);
-		printf( pfbuffer );
+		printf( pfbuffer, "%s" );
 
 //		dSprintf(buffer, 1024, "\t\t%i (%ims)\t\t\t\t%i (%ims)\t\t\t\t\t%i (%i)\t\t\t%i(%ims)\t\t\t\t\t%s\n",
 //				 data->timePerFrameMach, data->timePerFrameMS, data->averageMach, data->averageMS, data->callsPerFrame, data->averageCallsPerFrame,
@@ -131,14 +131,14 @@ void iOSProfilerPrintResult( int item ) {
 void iOSProfilerPrintAllResults() {
 	
 	dSprintf(pfbuffer, 1024, "\n\n \t Time Per Frame \t Average Time \t Calls Per Frame (avg) \t Time Per Call \t Name \n" );
-	printf(pfbuffer);
+	printf("%s", pfbuffer);
 	
 	for( int i = 0; i < g_iOSProfilerCount; i++ ) {
 		iOSProfilerPrintResult( i );
 	}
 	
 	dSprintf(pfbuffer, 1024, "\n 	<----------------------------------------------------------------------------------->\n " );
-	printf(pfbuffer);	
+	printf("%s", pfbuffer);
 }
 
 

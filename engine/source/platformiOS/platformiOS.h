@@ -15,66 +15,69 @@
 
 #include "platformiOS/iOSOGLVideo.h"
 
+#include "platformiOS/T2DView.h"
+#include "platformiOS/T2DViewController.h"
 
 class iOSPlatState
 {
 public:
-   bool              captureDisplay;
-   bool              fadeWindows;
+    bool              captureDisplay;
+    bool              fadeWindows;
 
-   id				 appID;
-   UIView			 *Window;
-   char              appWindowTitle[256];
-   bool              quit;
-   iOSOGLVideo        *ctx;
-   bool              ctxNeedsUpdate;
-	
-	bool			portrait;
+    id				 appID;
+    UIView			 *Window;
+    char              appWindowTitle[256];
+    bool              quit;
+    T2DView           *ctx;
+    T2DViewController *viewController;
+    bool              ctxNeedsUpdate;
 
-   S32               desktopBitsPixel;
-   S32               desktopWidth;
-   S32               desktopHeight;
-   U32               currentTime;
-   bool				 fullscreen;
-   
-   U32               osVersion;
-   
-   bool              tsmActive;
-   
-   U32               firstThreadId;
-   U32               torqueThreadId;
-   
-   void*             alertSemaphore;
-   S32               alertHit;
-//   DialogRef         alertDlg;
-//   EventQueueRef     mainEventQueue;
-   
-   MRandomLCG        platRandom;
-   
-   bool              mouseLocked;
-   bool              backgrounded;
-   bool              minimized;
-   
-   S32               sleepTicks;
-   S32               lastTimeTick;
-   
-   Point2I           windowSize;
-   
-   U32               appReturn;
-   
-   U32               argc;
-   const char**      argv;
-   
+    bool			portrait;
 
-   StringTableEntry  mainDotCsDir;
-   
-   NSTimer			 *mainLoopTimer;
-   NSTimeInterval	 timerInterval;
-	UIApplication	*application;
-	//-Mat
-	bool		multipleTouchesEnabled;
-	
-   iOSPlatState();
+    S32               desktopBitsPixel;
+    S32               desktopWidth;
+    S32               desktopHeight;
+    U32               currentTime;
+    bool				 fullscreen;
+
+    U32               osVersion;
+
+    bool              tsmActive;
+
+    U32               firstThreadId;
+    U32               torqueThreadId;
+
+    void*             alertSemaphore;
+    S32               alertHit;
+    //   DialogRef         alertDlg;
+    //   EventQueueRef     mainEventQueue;
+
+    MRandomLCG        platRandom;
+
+    bool              mouseLocked;
+    bool              backgrounded;
+    bool              minimized;
+
+    S32               sleepTicks;
+    S32               lastTimeTick;
+
+    Point2I           windowSize;
+
+    U32               appReturn;
+
+    U32               argc;
+    const char**      argv;
+
+
+    StringTableEntry  mainDotCsDir;
+
+    NSTimer			 *mainLoopTimer;
+    NSTimeInterval	 timerInterval;
+    UIApplication	*application;
+    //-Mat
+    bool		multipleTouchesEnabled;
+
+    iOSPlatState();
 };
 
 /// Global singleton that encapsulates a lot of mac platform state & globals.

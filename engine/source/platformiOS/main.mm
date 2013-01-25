@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "platformiOS/AppDelegate.h"
-
-#include "platformiOS/platformiOS.h"
-#include "platformiOS/iOSEvents.h"
-#include "platformiOS/iOSUtil.h"
+#import "platformiOS/platformiOS.h"
+#import "platformiOS/T2DAppDelegate.h"
+#import "platformiOS/iOSEvents.h"
+#import "platformiOS/iOSUtil.h"
 #include "platform/threads/thread.h"
 #include "game/gameInterface.h"
 #include "io/fileObject.h"
@@ -26,8 +25,11 @@ S32 gLastStart = 0;
 
 bool appIsRunning = true;
 
-int _iOSRunTorqueMain( id appID, UIView *Window, UIApplication *app )
+int _iOSRunTorqueMain( id appID, UIView * Window, T2DViewController *viewController)
 {
+    UIApplication *app = [UIApplication sharedApplication];
+    platState.viewController = viewController;
+    
 	platState.appID = appID;
 	platState.firstThreadId = ThreadManager::getCurrentThreadId();
 	platState.Window = Window;
@@ -57,7 +59,7 @@ int _iOSRunTorqueMain( id appID, UIView *Window, UIApplication *app )
 		CAdisplayLinkSupported = YES;
     
 	// start the game going
-    if(!CAdisplayLinkSupported)
+    if (!CAdisplayLinkSupported)
     {
         iOSRunEventLoopTimer(sgTimeManagerProcessInterval);
     }
@@ -93,11 +95,11 @@ int _iOSRunTorqueMain( id appID, UIView *Window, UIApplication *app )
 
 void _iOSGameInnerLoop()
 {
-    if(!appIsRunning)
+    if (!appIsRunning)
     {
         return;
     }
-    else if(Game->isRunning())
+    else if (Game->isRunning())
     {
 		S32 start = Platform::getRealMilliseconds();
 		
@@ -107,7 +109,7 @@ void _iOSGameInnerLoop()
 		
         gLastStart = start;
         
-        if(!CAdisplayLinkSupported)
+        if (!CAdisplayLinkSupported)
         {
             iOSRunEventLoopTimer(time);
         }
@@ -211,11 +213,10 @@ void _iOSGameChangeOrientation(S32 newOrientation)
 
 void iOSRunEventLoopTimer(S32 intervalMs)
 {
-	
-	//Luma: We only want to support NSTimer method, if below 3.1 OS.
-	if(!CAdisplayLinkSupported)
+	// We only want to support NSTimer method, if below 3.1 OS.
+	if (!CAdisplayLinkSupported)
 	{
-		if( intervalMs < 4 )
+		if (intervalMs < 4)
             intervalMs = 4;
         
         // EventTimerInterval is a double.
@@ -243,12 +244,12 @@ static void _iOSGetTxtFileArgs(int &argc, char** argv, int maxargc)
     File::Status err = cmdfile.open("iOSCmdLine.txt", cmdfile.Read);
     
     // Re-organise function to handle memory deletion better
-    if(err == File::Ok)
+    if (err == File::Ok)
     {
         // read in the first kMaxTextLen bytes, kick out if we get errors or no data
         err = cmdfile.read(kMaxTextLen-1, text, &textLen);
         
-        if(((err == File::Ok || err == File::EOS) || textLen > 0))
+        if (((err == File::Ok || err == File::EOS) || textLen > 0))
         {
             // Null terminate
             text[textLen++] = '\0';
@@ -288,13 +289,13 @@ int main(int argc, char *argv[])
         
         printf("Initial Command Line\n");
         
-        for(int i = 0; i < argc; i++)
-            printf("%i : %s", i, argv[i]);
+        for( int i = 0; i < argc; i++ )
+        {
+            printf("%i : %s", i, argv[i] );
+        }
         
         NSString *nsStrVersion = [UIDevice currentDevice ].systemVersion;
-        
         const char *strVersion = [nsStrVersion UTF8String ];
-        
         platState.osVersion = dAtof( strVersion);
         
         // Find Main.cs .
@@ -303,23 +304,22 @@ int main(int argc, char *argv[])
         // Change to the directory that contains main.cs
         Platform::setCurrentDirectory(cwd);
         
-        // Get the actual command line args
-        S32 newArgc = argc;
+        // get the actual command line args
+        S32   newArgc = argc;
         
         const char* newArgv[kMaxCmdlineArgs];
         
         for(int i=0; i < argc && i < kMaxCmdlineArgs; i++)
             newArgv[i] = argv[i];
         
-        // Get the text file args
+        // get the text file args
         S32 textArgc;
-        
         char* textArgv[kMaxCmdlineArgs];
         
         _iOSGetTxtFileArgs(textArgc, textArgv, kMaxCmdlineArgs);
         
-        // Merge them
-        int i = 0;
+        // merge them
+        int i=0;
         
         while(i < textArgc && newArgc < kMaxCmdlineArgs)
             newArgv[newArgc++] = textArgv[i++];
@@ -331,14 +331,16 @@ int main(int argc, char *argv[])
         printf("\nMerged Command Line\n");
         
         for( int i = 0; i < platState.argc; i++ )
+        {
             printf("%i : %s", i, platState.argv[i] );
+        }
         
         printf("\n");
         
+        // now, we run UIApplication which calls back and starts thread or timer
+        platState.appReturn = UIApplicationMain(argc, argv, nil, NSStringFromClass([T2DAppDelegate class]));
+        
         printf("exiting...\n");
-        
-        platState.appReturn = UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-        
-        return platState.appReturn;
+        return(platState.appReturn);
     }
 }

@@ -18,6 +18,9 @@
 #include "platformiOS/iOSWindow.h"
 #import <OpenGLES/EAGLDrawable.h>
 
+#include "platformiOS/platformGL.h"
+#import <GLKit/GLKit.h>
+
 bool setScreenOrientation(bool, bool);
 bool getStatusBarHidden();
 bool setStatusBarHidden(bool);
@@ -233,7 +236,7 @@ void Platform::initWindow(const Point2I &initialSize, const char *name)
     }
 
     //We should now have a good windowSize, it will be default if initial size was bad
-    iOSOGLVideo *glView;
+    T2DView * glView;
     CGRect rect;
 
     rect.origin.x = 0;
@@ -242,26 +245,21 @@ void Platform::initWindow(const Point2I &initialSize, const char *name)
     rect.size.width = platState.windowSize.x;
     rect.size.height = platState.windowSize.y;
 
-    glView = [[iOSOGLVideo alloc] initWithFrame:rect];
-
+    glView = (T2DView *) platState.Window;
+    
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2)
         glView.contentScaleFactor = [[UIScreen mainScreen] scale];
-
-    UIScreen *mainscr = [UIScreen mainScreen];
-
-    //set this as our platfromState glView context
-    [platState.Window addSubview:glView];
-
+    
     platState.ctx = glView;
-
+    
     //get status bar pref // 0 Hidden , 1 BlackOpaque , 2 BlackTranslucent
-
+    
     S32 tempType = Con::getIntVariable("$pref::iOS::StatusBarType");
     setStatusBarType(tempType);
-
+    
     //set screen orientation
     setScreenOrientation(platState.portrait, gScreenUpsideDown);
-
+    
     bool fullScreen;
     U32 bpp = Con::getIntVariable("$pref::iOS::ScreenDepth"); //iOS_DEFAULT_RESOLUTION_BIT_DEPTH;
     if (!bpp)
@@ -269,18 +267,18 @@ void Platform::initWindow(const Point2I &initialSize, const char *name)
         Con::printf("Default BPP Chosen , $pref::iOS::ScreenDepth was not found.");
         bpp = IOS_DEFAULT_RESOLUTION_BIT_DEPTH;
     }
-
+    
     fullScreen = true;
     //
     DisplayDevice::init();
-
+    
     // this will create a rendering context & window
     bool ok = Video::setDevice("OpenGL", platState.windowSize.x, platState.windowSize.y, bpp, fullScreen);
     if (!ok)
     {
         AssertFatal( false, "Could not find a compatible display device!" );
     }
-
+    
     //Luma:	Clear frame buffer to BLACK to start with
     //NOTE:	This should probably be set by the user to be the color closest to Default.png in order to minimize any popping effect... $pref:: anyone? Are $pref::s even valid at this point in the Init process?
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

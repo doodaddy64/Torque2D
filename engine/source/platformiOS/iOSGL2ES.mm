@@ -170,7 +170,8 @@ void glBegin( GLint mode )
 	beginEndVertex_size = 0;
 	beginEndColor_size = 0;
 	beginEndNormal_size = 0;
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 
 void glEnd()
@@ -258,7 +259,8 @@ void glEnd()
 		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
 	}
 	beginEndMode = -1;	
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 
 void glTexCoord2f( GLfloat x, GLfloat y)
@@ -268,7 +270,8 @@ void glTexCoord2f( GLfloat x, GLfloat y)
 	beginEndTexCoord2f[ beginEndTexCoord2f_size*2 ] = x;
 	beginEndTexCoord2f[ beginEndTexCoord2f_size*2+1 ] = y;
 	beginEndTexCoord2f_size++;
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glVertex4f( GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 {
@@ -279,43 +282,50 @@ void glVertex4f( GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 	beginEndVertex[ beginEndVertex_size*4+2 ] = z;
 	beginEndVertex[ beginEndVertex_size*4+3 ] = w;
 	beginEndVertex_size++;
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glVertex2f( GLfloat x, GLfloat y )
 {
 	AssertFatal( (beginEndMode >= 0), "glVertex2f(): called outside glBegin/glEnd");
 	glVertex4f( x, y, 0.0f, 1.0f );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glVertex3f( GLfloat x, GLfloat y, GLfloat z )
 {
 	AssertFatal( (beginEndMode >= 0), "glVertex3f(): called outside glBegin/glEnd");
 	glVertex4f( x, y, z, 1.0f );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glVertex2fv( const F32 * pv )
 {
 	AssertFatal( (beginEndMode >= 0), "glVertex2fv(): called outside glBegin/glEnd");
 	glVertex4f( pv[0], pv[1], 0.0f, 1.0f );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glVertex2i( GLint x, GLint y)
 {
 	AssertFatal( (beginEndMode >= 0), "glVertex2i(): called outside glBegin/glEnd");
 	glVertex4f( GLfloat(x), GLfloat(y), 0.0f, 1.0f );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glVertex3fv( const F32 * pv )
 {
 	AssertFatal( (beginEndMode >= 0), "glVertex3fv(): called outside glBegin/glEnd");
 	glVertex4f( pv[0], pv[1], pv[2], 1.0f );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glVertex4fv( const F32 * pv )
 {
 	AssertFatal( (beginEndMode >= 0), "glVertex3fv(): called outside glBegin/glEnd");
 	glVertex4f( pv[0], pv[1], pv[2], pv[3] );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glNormal3f( GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 {
@@ -325,28 +335,33 @@ void glNormal3f( GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 	beginEndNormal[ beginEndNormal_size*3+1 ] = y;
 	beginEndNormal[ beginEndNormal_size*3+2 ] = z;
 	beginEndNormal_size++;
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glNormal3fv( const F32 * pv)
 {
 	AssertFatal( (beginEndMode >= 0), "glNormal3fv(): called outside glBegin/glEnd");
 	glNormal3f( pv[0], pv[1], pv[2] );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glColor3fv( const F32 * pv)
 {
 	glColor4f( pv[0], pv[1], pv[2], 1.0f );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glColor4fv( const F32 * pv)
 {
 	glColor4f( pv[0], pv[1], pv[2], pv[3] );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glActiveTextureARB( GLint index )
 {
 	glActiveTexture( index );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glMultiTexCoord2fARB( GLint, GLfloat, GLfloat)
 {
@@ -392,27 +407,32 @@ void glPopAttrib()
 void glReadBuffer( GLint )
 {
 	AssertWarn( 0, "glReadBuffer(): this method call needs to be implemented");
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glClientActiveTextureARB( GLint texture )
 {
 	glClientActiveTexture( texture );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glColor3i( GLint  r, GLint g, GLint b )
 {
 	glColor4f( ((GLfloat)r) * INV_32767, ((GLfloat)g) * INV_32767, ((GLfloat)b) * INV_32767, 1.0f );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glColor3ubv( const GLubyte *v )
 {
 	glColor4f( ((GLfloat)v[0]) * INV_255, ((GLfloat)v[1]) * INV_255, ((GLfloat)v[2]) * INV_255, 1.0f );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glColor4ubv( const GLubyte *v )
 {
 	glColor4f( ((GLfloat)v[0]) * INV_255, ((GLfloat)v[1]) * INV_255, ((GLfloat)v[2]) * INV_255, ((GLfloat)v[3]) * INV_255 );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glRecti( GLint x1, GLint y1, GLint x2, GLint y2 )
 {
@@ -423,7 +443,8 @@ void glRecti( GLint x1, GLint y1, GLint x2, GLint y2 )
 	glVertex2i(x2, y2);
 	glVertex2i(x1, y2);
 	glEnd();
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 
 void glGetDoublev( GLint pname, GLdouble * params )
@@ -483,12 +504,14 @@ void glUnlockArraysEXT()
 void glColor3ub( GLint r, GLint g, GLint b )
 {
 	glColor4f( ((GLfloat)r) * INV_255, ((GLfloat)g) * INV_255, ((GLfloat)b) * INV_255, 1.0f );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 void glFogi( GLint pname, GLint param )
 {
 	glFogf( pname, (GLfloat)param );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 /*	-Mat note: only guiCanvas uses this, and before adding this GL2ES stuff we didn't need to use it (it was one of the first things if'ed out)
 void glDrawBuffer( GLint buffid )
@@ -537,18 +560,21 @@ void glClipPlane( GLuint plane, GLdouble * equation )
 	fequ[2] = (GLfloat)equation[2];
 	fequ[3] = (GLfloat)equation[3];
 	glClipPlanef( plane, fequ );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 }
 GLboolean glAreTexturesResident( GLsizei, const GLuint *, GLboolean*)
 {
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 	return GL_FALSE;
 }
 
 void gluOrtho2D( GLfloat left, GLfloat right, GLfloat bottom, GLfloat top )
 {
 	glOrtho( left, right, bottom, top, -1.0f, 1.0f );
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 //	GLfloat zNear = -1.0f;
 //	GLfloat zFar = 1.0f;
 //	GLfloat tx = -(right+left)/(right-left);
@@ -590,7 +616,8 @@ GLint gluProject( GLdouble objx, GLdouble objy, GLdouble objz, const F64 *model,
 	*winx = (GLfloat)vp[0] + (GLfloat)vp[2] * (v.x + 1.0f) * 0.5f;
 	*winy = (GLfloat)vp[1] + (GLfloat)vp[3] * (v.y + 1.0f) * 0.5f;
 	*winz = (v.z + 1.0f) * 0.5f;
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 	return GL_TRUE;
 }
 GLint gluUnProject( GLdouble winx, GLdouble winy, GLdouble winz, const F64 *model, const F64 * proj, const GLint * vp, F64 * x, F64 * y, F64 * z )
@@ -607,6 +634,7 @@ GLint gluUnProject( GLdouble winx, GLdouble winy, GLdouble winz, const F64 *mode
 	*x = v.x;
 	*y = v.y;
 	*z = v.z;
-	TEST_FOR_OPENGL_ERRORS
+	int glError;
+    glError = TEST_FOR_OPENGL_ERRORS
 	return GL_TRUE;
 }

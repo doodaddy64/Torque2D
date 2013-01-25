@@ -36,7 +36,6 @@ S32 TextureManager::mTextureResidentCount = 0;
 #ifdef TORQUE_OS_IOS
 #define EXT_ARRAY_SIZE 4
     static const char* extArray[EXT_ARRAY_SIZE] = { "", ".pvr", ".jpg", ".png"};
-    static const char* extArray_8[EXT_ARRAY_SIZE] = { "", ".pvr", ".jpg", ".png" };
 #else
 struct Forced16BitMapping
 {
@@ -53,7 +52,6 @@ Forced16BitMapping sg16BitMappings[] =
 };
 #define EXT_ARRAY_SIZE 3
 static const char* extArray[EXT_ARRAY_SIZE] = { "", ".jpg", ".png"};
-//static const char* extArray_8[EXT_ARRAY_SIZE] = { "", ".jpg", ".png" };
 #endif
 
 //---------------------------------------------------------------------------------------------------------------------

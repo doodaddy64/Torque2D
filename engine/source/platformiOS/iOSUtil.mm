@@ -34,9 +34,9 @@ char gszTCPAddress[256];
 //-----------------------------------------------------------------------------
 void Platform::outputDebugString( const char *string )
 {
-   fprintf(stderr,  string );
-   fprintf(stderr, "\n" );
-   fflush(stderr);
+    fprintf(stderr, "%s", string);
+    fprintf(stderr, "\n" );
+    fflush(stderr);
 }
 
 //--------------------------------------
@@ -223,10 +223,10 @@ void OpeniOSNetworkingAndConnectToTCPObject(TCPObject *psTCPObject, const char *
 //Luma: ability to quickly tell if this is an iPhone or an iTouch
 bool IsDeviceiPhone(void)
 {
-	NSString* tmp = [[UIDevice currentDevice] model];
+	NSString* tmp;
+    
+    tmp = [[UIDevice currentDevice] model];
 
-	tmp;
-	
 	if([[[UIDevice currentDevice] model] isEqualToString: @"iPhone"])
 	{
 		return true;

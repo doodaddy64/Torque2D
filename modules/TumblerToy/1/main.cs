@@ -39,6 +39,7 @@ function createTumblerToy( %scopeSet )
 
 function createTumblerBall()
 {
+SandboxScene.setBatchingEnabled( true );
     // Reset the event schedule.
     $createTumblerBallSchedule = "";
 
@@ -50,6 +51,9 @@ function createTumblerBall()
     {      
         // Create the ball.
         %ball = new Sprite();
+        %ball.BatchLayout = "rect";
+	%ball.BatchIsolated = "true";
+	%ball.BatchSortMode = "batch";
         %ball.Position = getRandom(-10,10) SPC "0";
         %ball.Size = "2";
         %ball.Image = "TumblerToy:FootballImage";        
@@ -67,6 +71,8 @@ function createTumblerBall()
 
     // Schedule to create a ball.
     $createTumblerBallSchedule = schedule( 100, 0, createTumblerBall );
+    
+    SandboxScene.setBatchingEnabled( true );
 }
 
 //-----------------------------------------------------------------------------

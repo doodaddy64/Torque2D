@@ -13,10 +13,6 @@
 #include "memory/frameAllocator.h"
 #include "string/unicode.h"
 
-#ifdef TORQUE_OS_IOS
-#include "platformiOS/iOSTextEntry.h"
-#endif
-
 IMPLEMENT_CONOBJECT(GuiTextEditCtrl);
 
 U32 GuiTextEditCtrl::smNumAwake = 0;
