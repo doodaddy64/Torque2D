@@ -266,7 +266,7 @@ if(!isObject(SandboxWindowProfile)) new GuiControlProfile (SandboxWindowProfile 
 {
     // fill color
     opaque = false;
-    fillColor = "0 0 0 64";
+    fillColor = "0 0 0 192";
 
     // font
     fontType = ($platform $= "macos") ? "monaco" : "lucida console";

@@ -24,6 +24,8 @@ function destroyPyramidToy( %scopeSet )
 {
 }
 
+//-----------------------------------------------------------------------------
+
 function createPyramidGround()
 {
     %ground = new Scroller();
@@ -35,6 +37,8 @@ function createPyramidGround()
 	%ground.createEdgeCollisionShape( $GroundWidth/-2, 1, $GroundWidth/2, 1 );
     SandboxScene.add( %ground );
 }
+
+//-----------------------------------------------------------------------------
 
 function createToyPyramid( %posX, %posY, %brickBaseCount)
 {
@@ -55,6 +59,8 @@ function createToyPyramid( %posX, %posY, %brickBaseCount)
       }
    }
 }
+
+//-----------------------------------------------------------------------------
 
 function createCrate( %posX, %posY)
 {
