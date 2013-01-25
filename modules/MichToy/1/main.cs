@@ -5,11 +5,12 @@
 
 function createMichToy( %scopeSet )
 {
-	%sprite = new Sprite();
-	SandboxScene.add( %sprite );
-	%sprite.Image = "MichToy:DefaultImage";
-	%sprite.Size = "60";
-	%sprite.AngularVelocity = 90;
+    %sprite = new Sprite();
+    SandboxScene.add( %sprite );
+    
+    %sprite.Image = "MichToy:DefaultImage";
+    %sprite.Size = 60;
+    %sprite.AngularVelocity = 90;
 }
 
 //-----------------------------------------------------------------------------

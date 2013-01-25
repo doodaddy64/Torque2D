@@ -419,8 +419,6 @@ void GBitmap::extrudeMipLevels(bool clearBorders)
    if(numMipLevels == 1)
       allocateBitmap(getWidth(), getHeight(), true, getFormat());
 
-//    AssertFatal(getFormat() != Palettized, "Cannot calc miplevels for palettized bitmaps yet");
-
    switch (getFormat())
    {
       case RGB5551:
@@ -455,12 +453,14 @@ void GBitmap::extrudeMipLevels(bool clearBorders)
       case Luminance:
       case Alpha:
       case RGB565:
+#ifdef TORQUE_OS_IOS
       case PVR2:
       case PVR2A:
       case PVR4:
       case PVR4A:
-      {     
-      }
+#endif
+          break;
+
    }
    if (clearBorders)
    {

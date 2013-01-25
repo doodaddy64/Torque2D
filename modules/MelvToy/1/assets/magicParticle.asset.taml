@@ -1,10 +1,9 @@
 <ParticleAsset
     AssetName="MagicParticle">
     <ParticleAssetEmitter
-        EmitterName="sparkle"
+        EmitterName="sparklePoint"
         IntenseParticles="1"
         Image="@asset=MelvToy:Particles4"
-        Frame="0"
         RandomImageFrame="1">
         <ParticleAssetEmitter.Fields>
             <Quantity
@@ -31,4 +30,69 @@
                 Keys="0 1 0.6 1 1 0" />
         </ParticleAssetEmitter.Fields>
     </ParticleAssetEmitter>
+   <ParticleAssetEmitter
+        EmitterName="sparkleRing"
+		EmitterType="Torus"
+		EmitterSize="40 30"
+        IntenseParticles="1"
+		OrientationType="Aligned"
+        Image="@asset=MelvToy:Particles4"
+        RandomImageFrame="1">
+        <ParticleAssetEmitter.Fields>
+            <Quantity
+                Keys="0 1000" />
+            <LifetimeVariation
+                Keys="0 1" />
+            <Speed
+                Keys="0 0.5" />
+            <SizeXVariation
+                Keys="0 2" />
+            <GreenChannel
+                Keys="0 0 0.3 1 1 0" />
+            <SizeXLife
+                Keys="0 0.1 0.1 1 0.5 2 0.9 1 1 0" />
+            <SpinVariation
+                Keys="0 360" />
+            <SpeedVariation
+                Keys="0 1" />
+            <RedChannel
+                Keys="0 0 1 0.5" />
+            <AlphaChannel
+                Keys="0 0 0.1 0.5 0.8 0.5 1 0" />
+            <BlueChannel
+                Keys="0 1 0.6 1 1 0" />
+        </ParticleAssetEmitter.Fields>
+    </ParticleAssetEmitter>	
+   <ParticleAssetEmitter
+        EmitterName="warpRing"
+		EmitterType="Point"
+		EmitterSize="0 0"
+        IntenseParticles="1"
+        Image="@asset=MelvToy:Particles3"
+        Frame="2">
+        <ParticleAssetEmitter.Fields>
+            <Quantity
+                Keys="0 0.5" />
+            <QuantityVariation
+                Keys="0 1" />				
+            <Lifetime
+                Keys="0 2" />				
+            <LifetimeVariation
+                Keys="0 0" />
+            <Speed
+                Keys="0 0" />
+            <SizeX
+                Keys="0 10" />				
+            <SizeXLife
+                Keys="0 0 1 20" />
+            <GreenChannel
+                Keys="0 0 0.3 1 1 0" />
+            <RedChannel
+                Keys="0 0 1 0.5" />
+            <AlphaChannel
+                Keys="0 0 0.1 0.5 0.8 0.5 1 0" />
+            <BlueChannel
+                Keys="0 1 0.6 1 1 0" />
+        </ParticleAssetEmitter.Fields>
+    </ParticleAssetEmitter>		
 </ParticleAsset>
