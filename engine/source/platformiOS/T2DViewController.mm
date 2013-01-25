@@ -185,6 +185,12 @@ extern void _iOSGameInnerLoop();
     return NO;
 }
 
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationLandscapeRight;
+}
+
 void supportLandscape( bool enable)
 {
     platState.viewController->mOrientationLandscapeLeftSupported = enable;
