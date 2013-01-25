@@ -52,7 +52,7 @@ public:
     //   DialogRef         alertDlg;
     //   EventQueueRef     mainEventQueue;
 
-    MRandomLCG        platRandom;
+    RandomLCG        platRandom;
 
     bool              mouseLocked;
     bool              backgrounded;
