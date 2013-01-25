@@ -18,9 +18,6 @@
 
 extern void clearPendingMultitouchEvents( void );
 
-static BOOL CAdisplayLinkSupported = NO;
-id displayLink = nil;
-
 S32 gLastStart = 0;
 
 bool appIsRunning = true;
@@ -38,8 +35,6 @@ int _iOSRunTorqueMain( id appID, UIView * Window, T2DViewController *viewControl
 	// Hidden by default.
 	platState.application.statusBarHidden = YES;
 	
-#if !defined(TORQUE_MULTITHREAD)
-    
 	printf("performing mainInit()\n");
     
 	platState.lastTimeTick = Platform::getRealMilliseconds();
@@ -48,49 +43,8 @@ int _iOSRunTorqueMain( id appID, UIView * Window, T2DViewController *viewControl
 	{
 		return 0;
 	}
-	
-	// CADisplayLink main loop support
-	// Currently needs to move to app delegate or platstate.
-	NSString *reqSysVer = @"3.1";
-    
-	NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-    
-	if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
-		CAdisplayLinkSupported = YES;
-    
-	// start the game going
-    if (!CAdisplayLinkSupported)
-    {
-        iOSRunEventLoopTimer(sgTimeManagerProcessInterval);
-    }
-    else
-    {
-        /*
-         We can use the CADisplayLink to update the game now. The magic number 1 below is because of what the docs say.
-         
-		 The default value is 1, which results in your application being notified at the refresh rate of the display.
-		 If the value is set to a value larger than 1, the display link notifies your application at a fraction of the
-		 native refresh rate. For example, setting the interval to 2 causes the display link to fire every other frame,
-		 providing half the frame rate.
-         
-		 Setting this value to less than 1 results in undefined behavior and is a programmer error.
-		 */
-        
-        NSInteger updateDelay = 1;
-		
-		displayLink = [NSClassFromString(@"CADisplayLink") displayLinkWithTarget:appID selector:@selector(runMainLoop)];
-        
-		[displayLink setFrameInterval:updateDelay];
-        
-		[displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    }
-	
-	// Need a true or it will think its crashed, and fail.
-	return true;
-	
-#else
-	
-#endif
+
+    return true;
 }
 
 void _iOSGameInnerLoop()
@@ -104,15 +58,9 @@ void _iOSGameInnerLoop()
 		S32 start = Platform::getRealMilliseconds();
 		
         Game->mainLoop();
-		
-        S32 time = sgTimeManagerProcessInterval - (start - gLastStart);
-		
+				
         gLastStart = start;
         
-        if (!CAdisplayLinkSupported)
-        {
-            iOSRunEventLoopTimer(time);
-        }
 	}
 	else
 	{
@@ -214,23 +162,6 @@ void _iOSGameChangeOrientation(S32 newOrientation)
         // Show animations
         //[UIView commitAnimations];
     }
-}
-
-void iOSRunEventLoopTimer(S32 intervalMs)
-{
-	// We only want to support NSTimer method, if below 3.1 OS.
-	if (!CAdisplayLinkSupported)
-	{
-		if (intervalMs < 4)
-            intervalMs = 4;
-        
-        // EventTimerInterval is a double.
-		NSTimeInterval interval = intervalMs / 1000.0;
-        
-		platState.mainLoopTimer = [NSTimer scheduledTimerWithTimeInterval:interval target:platState.appID selector:@selector(runMainLoop) userInfo:nil repeats:NO];
-        
-		platState.sleepTicks = intervalMs;
-	}
 }
 
 static void _iOSGetTxtFileArgs(int &argc, char** argv, int maxargc)

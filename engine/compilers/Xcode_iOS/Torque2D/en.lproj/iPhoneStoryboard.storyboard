@@ -7,7 +7,7 @@
         <!--GLKit View Controller-->
         <scene sceneID="cCP-0k-fSa">
             <objects>
-                <glkViewController autoresizesArchivedViewToFullSize="NO" preferredFramesPerSecond="30" id="8SX-pT-DzL" customClass="T2DViewController" sceneMemberID="viewController">
+                <glkViewController autoresizesArchivedViewToFullSize="NO" preferredFramesPerSecond="60" id="8SX-pT-DzL" customClass="T2DViewController" sceneMemberID="viewController">
                     <glkView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" enableSetNeedsDisplay="NO" id="K2C-LI-t1R" customClass="T2DView">
                         <rect key="frame" x="0.0" y="20" width="480" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

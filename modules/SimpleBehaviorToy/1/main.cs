@@ -10,8 +10,6 @@ function createSimpleBehaviorToy( %scopeSet )
     
     // Set the drag mode as "pull".
     setSandboxDragMode( "pull" );
-    
-    exec
 }
 
 //-----------------------------------------------------------------------------

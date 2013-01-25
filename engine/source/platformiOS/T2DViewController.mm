@@ -156,6 +156,11 @@ extern void _iOSGameInnerLoop();
     self.context = nil;
 }
 
+- (void)update
+{
+    _iOSGameInnerLoop();
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
