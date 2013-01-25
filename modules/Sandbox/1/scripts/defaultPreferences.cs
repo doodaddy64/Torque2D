@@ -29,7 +29,8 @@ $pref::iOS::UseGameKit          = 0;
 $pref::iOS::UseMusic            = 0;
 $pref::iOS::UseMoviePlayer      = 0;
 $pref::iOS::UseAutoRotate       = 0;   
-$pref::iOS::EnableOrientationRotation = 1;   
+$pref::iOS::EnableOrientationRotation = 1;
+$pref::iOS::EnableOtherOrientationRotation = 1;   
 $pref::iOS::StatusBarType       = 0;
 
 /// Audio
