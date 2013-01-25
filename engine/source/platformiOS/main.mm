@@ -152,14 +152,18 @@ void _iOSGameChangeOrientation(S32 newOrientation)
 {
 	_iOSGameSetCurrentOrientation(newOrientation);
     
+    bool enableAutoOrientation = Con::getBoolVariable("$pref::iOS::EnableOrientationRotation");
+    bool screenOrientation = Con::getIntVariable("$pref::iOS::ScreenOrientation");
+    bool allowOtherOrientation = Con::getBoolVariable("$pref::iOS::EnableOtherOrientationRotation");
+    
     // The rotation matching the project orientation must be allowed for any to occur
-    if (Con::getBoolVariable("$pref::iOS::EnableOrientationRotation"))
+    if (enableAutoOrientation)
     {
         // Start "collecting animations"
         [UIView beginAnimations: nil context: nil];
         
         //  If the project is designed for landscape or it allows landscape rotation
-        if ((Con::getIntVariable("$pref::iOS::ScreenOrientation") == 0) || Con::getBoolVariable("$pref::iOS::EnableOtherOrientationRotation"))
+        if (screenOrientation == 0 || allowOtherOrientation)
         {
             if (newOrientation == UIDeviceOrientationLandscapeLeft)
             {
@@ -183,7 +187,7 @@ void _iOSGameChangeOrientation(S32 newOrientation)
         }
         
         // If the project is designed for portrait or it allows portrait rotation
-        if ((Con::getIntVariable("$pref::iOS::ScreenOrientation") == 1) || Con::getBoolVariable("$pref::iOS::EnableOtherOrientationRotation"))
+        if (screenOrientation == 1 ||  allowOtherOrientation)
         {
             if (newOrientation == UIDeviceOrientationPortrait)
             {
