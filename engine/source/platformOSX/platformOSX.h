@@ -62,7 +62,7 @@
     void* _alertSemaphore;
     
     // Random generator
-    MRandomLCG* _platformRandom;
+    RandomLCG* _platformRandom;
     
     // Used to report is mouse is locked to the main window or not
     BOOL _mouseLocked;
@@ -88,7 +88,7 @@
 @property CGDirectDisplayID cgDisplay;
 @property (strong) id applicationID;
 @property void* alertSemaphore;
-@property MRandomLCG* platformRandom;
+@property RandomLCG* platformRandom;
 @property BOOL fullScreen;
 @property U32 argc;
 @property const char** argv;

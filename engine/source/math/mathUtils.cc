@@ -8,7 +8,7 @@
 #include "math/mRandom.h"
 #include "2d/core/Vector2.h"
 
-MRandomLCG sgRandom(0xdeadbeef); ///< Our random number generator.
+RandomLCG sgRandom(0xdeadbeef); ///< Our random number generator.
 
 //------------------------------------------------------------------------------
 // Creates orientation matrix from a direction vector.  Assumes ( 0 0 1 ) is up.

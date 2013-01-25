@@ -630,7 +630,7 @@ ConsoleFunction(setRandomSeed, void, 1, 2, "( startSeed ) Use the setRandomSeed 
     U32 seed = Platform::getRealMilliseconds();
     if (argc == 2)
         seed = dAtoi(argv[1]);
-    MRandomLCG::setGlobalRandSeed(seed);
+    RandomLCG::setGlobalRandSeed(seed);
 }
 
 ConsoleFunction(getRandomSeed, S32, 1, 1, "() Use the getRandomSeed function to get the current seed for the random generator.\n"
@@ -641,14 +641,14 @@ ConsoleFunction(getRandomSeed, S32, 1, 1, "() Use the getRandomSeed function to 
    return gRandGen.getSeed();
 }
 
-S32 mRandI(S32 i1, S32 i2)
+S32 mRandI( const S32 i1, const S32 i2)
 {
-   return gRandGen.randI(i1, i2);
+   return gRandGen.randRangeI(i1, i2);
 }
 
-F32 mRandF(F32 f1, F32 f2)
+F32 mRandF(const F32 f1, const F32 f2)
 {
-   return gRandGen.randF(f1, f2);
+   return gRandGen.randRangeF(f1, f2);
 }
 
 ConsoleFunction(getRandom, F32, 1, 3, "([ min ],[ max ]) Use the getRandom function to get a random floating-point or integer value. This function comes in three forms.\n"
@@ -659,7 +659,7 @@ ConsoleFunction(getRandom, F32, 1, 3, "([ min ],[ max ]) Use the getRandom funct
                                                                 "@sa getRandomSeed")
 {
    if (argc == 2)
-      return F32(gRandGen.randI(0,getMax( dAtoi(argv[1]), 0 )));
+      return F32(gRandGen.randRangeI(0,getMax( dAtoi(argv[1]), 0 )));
    else
    {
       if (argc == 3) 
@@ -672,7 +672,7 @@ ConsoleFunction(getRandom, F32, 1, 3, "([ min ],[ max ]) Use the getRandom funct
             min = max;
             max = t;
          }
-         return F32(gRandGen.randI(min,max));
+         return F32(gRandGen.randRangeI(min,max));
       }
    }
    return gRandGen.randF();

@@ -89,7 +89,6 @@ ParticlePlayer::ParticlePlayer() :
 
 ParticlePlayer::~ParticlePlayer()
 {
-    
 }
 
 //------------------------------------------------------------------------------
@@ -431,6 +430,9 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
     if ( !mPlaying || mCameraIdle )
         return;
 
+    // Flush.
+    pBatchRenderer->flush( getScene()->getDebugStats().batchIsolatedFlush );
+
     // Fetch emitter count.
     const U32 emitterCount = mEmitters.size();
 
@@ -496,6 +498,9 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
 
         // Set alpha-testing.
         pBatchRenderer->setAlphaTestMode( pParticleAssetEmitter->getAlphaTest() );
+
+        // Save the transformation.
+        glPushMatrix();
 
         // Is the Position attached to the emitter?
         if ( pParticleAssetEmitter->getAttachPositionToEmitter() )
@@ -585,10 +590,13 @@ void ParticlePlayer::sceneRender( const SceneRenderState* pSceneRenderState, con
             // Move to next Particle ( using appropriate sort-order ).
             pParticleNode = oldestInFront ? pParticleNode->mNextNode : pParticleNode->mPreviousNode;
         };
-    }
 
-    // Flush.
-    pBatchRenderer->flush( getScene()->getDebugStats().batchIsolatedFlush );
+        // Flush.
+        pBatchRenderer->flush( getScene()->getDebugStats().batchIsolatedFlush );
+
+        // Restore the transformation.
+        glPopMatrix();
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -822,135 +830,177 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
 
     // Fetch attachment options.
     const bool attachPositionToEmitter = pParticleAssetEmitter->getAttachPositionToEmitter();
-    const bool attachRotationToEmitter = pParticleAssetEmitter->getAttachRotationToEmitter();
+
+    // Fetch the emitter offset, angle and size
+    const Vector2& emitterOffset = pParticleAssetEmitter->getEmitterOffset() * getSizeScale();
+    const Vector2& emitterSize = pParticleAssetEmitter->getEmitterSize() * getSizeScale();
+    const F32 emitterAngle = mDegToRad(pParticleAssetEmitter->getEmitterAngle());
 
     // Are we using Single Particle?
     if ( pParticleAssetEmitter->getSingleParticle() )
     {
-        // Yes, so if use Effect Position ( or origin if attached to emitter).
+        // Determine whether to use world-space or emitter-space.
         if ( attachPositionToEmitter )
-            pParticleNode->mPosition.Set(0.0f, 0.0f);
+        {
+            pParticleNode->mPosition = emitterOffset;
+        }
         else
-            pParticleNode->mPosition = particlePlayerPosition;
+        {
+            pParticleNode->mPosition = particlePlayerPosition + emitterOffset;
+        }
     }
     else
     {
         // No, so select Emitter-Type.
         switch( pParticleAssetEmitter->getEmitterType() )
         {
-            // Use pivot point.
+            // Emit at a point defined by the emitters position.
             case ParticleAssetEmitter::POINT_EMITTER:
             {
-                // Yes, so if use Effect Position ( or origin if attached to emitter).
+                // Are we attaching the position to the emitter?
                 if ( attachPositionToEmitter )
-                    pParticleNode->mPosition.Set(0.0f, 0.0f);
-                else
-                    pParticleNode->mPosition = particlePlayerPosition;
-
-            } break;
-
-            // Use Size-X and Pivot-Y.
-            case ParticleAssetEmitter::LINEX_EMITTER:
-            {
-                // Fetch the local sized OOBB.
-                const b2Vec2* pLocalSizedOOBB = getLocalSizedOOBB();
-
-                // Choose a random position along the line-X within the local-sized OOBB at Pivot-Y.
-                F32 minX = pLocalSizedOOBB[0].x;
-                F32 maxX = pLocalSizedOOBB[1].x;
-                F32 midY = (pLocalSizedOOBB[0].y + pLocalSizedOOBB[3].y) * 0.5f;
-
-                // Normalize the X-Axis.
-                if ( minX > maxX )
-                    mSwap( minX, maxX );
-
-                // Calculate chosen position along the line.
-                Vector2 emissionPosition;
-                if ( mIsEqual(minX, maxX) )
                 {
-                    emissionPosition.Set( minX, midY );
+                    // Yes, so transform the particle into emitter-space only.
+                    pParticleNode->mPosition = emitterOffset;
                 }
                 else
                 {
-                    emissionPosition.Set( CoreMath::mGetRandomF( minX, maxX ), midY );
+                    // No, so transform the particle into world-space here.
+                    pParticleNode->mPosition = emitterOffset + particlePlayerPosition;
                 }
-
-                // Rotate into Emitter-Space.
-                //
-                // NOTE:-   If we're attached to the emitter, then we keep the particle coordinates
-                //          in local-space and use the hardware to render them in emitter-space.
-                b2Transform xform;
-                xform.Set( attachPositionToEmitter ? b2Vec2_zero : particlePlayerPosition, (attachPositionToEmitter && attachRotationToEmitter) ? 0.0f : getAngle() );
-                pParticleNode->mPosition = b2Mul( xform, emissionPosition );
 
             } break;
 
-            // Use Y-Size and Pivot-X.
-            case ParticleAssetEmitter::LINEY_EMITTER:
+            // Emit along a line defined by the emitters width.
+            case ParticleAssetEmitter::LINE_EMITTER:
             {
-                // Fetch the local sized OOBB.
-                const b2Vec2* pLocalSizedOOBB = getLocalSizedOOBB();
+                // Calculate half-width.
+                const F32 halfWidth = emitterSize.x * 0.5f;
 
-                // Choose a random position along the line-Y within the lcoal-sized OOBB @ Pivot-X.
-                F32 midX = (pLocalSizedOOBB[0].x + pLocalSizedOOBB[1].x) * 0.5f;
-                F32 minY = pLocalSizedOOBB[0].y;
-                F32 maxY = pLocalSizedOOBB[3].y;
+                // Calculate emitter position.
+                Vector2 emissionPosition( CoreMath::mGetRandomF( -halfWidth, halfWidth ), 0.0f );
 
-                // Normalize the Y-Axis.
-                if ( minY > maxY )
-                    mSwap( minY, maxY );
+                // Transform particle position in emitter-space.
+                pParticleNode->mPosition = b2Mul( b2Rot(emitterAngle), emissionPosition ) + emitterOffset;
 
-                // Calculate chosen position along the line.
-                Vector2 emissionPosition;
-                if ( mIsEqual(minY, maxY) )
+                // Are we attaching the position to the emitter?
+                if ( !attachPositionToEmitter )
                 {
-                    emissionPosition.Set( midX, minY );
+                    // No, so transform the particle into world-space here.
+                    b2Transform xform( particlePlayerPosition, b2Rot( getAngle()) );
+                    pParticleNode->mPosition = b2Mul( xform, pParticleNode->mPosition );
+                }
+
+            } break;
+
+            // Emit inside a box defined by the emitters size.
+            case ParticleAssetEmitter::BOX_EMITTER:
+            {
+                // Calculate half-width/height.
+                const F32 halfWidth = emitterSize.x * 0.5f;
+                const F32 halfHeight = emitterSize.y * 0.5f;
+
+                // Calculate emitter position.
+                Vector2 emissionPosition( CoreMath::mGetRandomF( -halfWidth, halfWidth ), CoreMath::mGetRandomF( -halfHeight, halfHeight ) );
+
+                // Transform particle position in emitter-space.
+                pParticleNode->mPosition = b2Mul( b2Rot(emitterAngle), emissionPosition ) + emitterOffset;
+
+                // Are we attaching the position to the emitter?
+                if ( !attachPositionToEmitter )
+                {
+                    // No, so transform the particle into world-space here.
+                    b2Transform xform( particlePlayerPosition, b2Rot( getAngle()) );
+                    pParticleNode->mPosition = b2Mul( xform, pParticleNode->mPosition );
+                }
+
+            } break;
+
+            // Emit from an ellipse with a radii defined by the emitters size.
+            case ParticleAssetEmitter::DISK_EMITTER:
+            {
+                // Calculate the random angle.
+                const F32 angle = CoreMath::mGetRandomF( 0.0f, b2_pi2 );
+#if 1
+                // Calculate the uniform distribution scale.
+                const F32 distributionScale = mSqrt( CoreMath::mGetRandomF(0.0f, 1.0f) );
+
+                // Calculate the radii.
+                const F32 radiusX = emitterSize.x * 0.5f * distributionScale;
+                const F32 radiusY = emitterSize.y * 0.5f * distributionScale;
+#else
+                // Calculate the radii.
+                const F32 radiusX = emitterSize.x * 0.5f;
+                const F32 radiusY = emitterSize.y * 0.5f;
+#endif
+                // Calculate emitter position using a uniform distribution.
+                Vector2 emissionPosition( radiusX * mCos(angle), radiusY * mSin(angle) );
+
+                // Transform particle position in emitter-space.
+                pParticleNode->mPosition = b2Mul( b2Rot(emitterAngle), emissionPosition ) + emitterOffset;
+
+                // Are we attaching the position to the emitter?
+                if ( !attachPositionToEmitter )
+                {
+                    // No, so transform the particle into world-space here.
+                    b2Transform xform( particlePlayerPosition, b2Rot( getAngle()) );
+                    pParticleNode->mPosition = b2Mul( xform, pParticleNode->mPosition );
+                }
+
+            } break;
+
+            // Emit from an ellipse with a radii defined by the emitters size.
+            case ParticleAssetEmitter::ELLIPSE_EMITTER:
+            {
+                // Calculate the random angle.
+                const F32 angle = CoreMath::mGetRandomF( 0.0f, b2_pi2 );
+
+                // Calculate emitter position using a uniform distribution.
+                Vector2 emissionPosition( emitterSize.x * 0.5f * mCos(angle), emitterSize.y * 0.5f * mSin(angle) );
+
+                // Transform particle position in emitter-space.
+                pParticleNode->mPosition = b2Mul( b2Rot(emitterAngle), emissionPosition ) + emitterOffset;
+
+                // Are we attaching the position to the emitter?
+                if ( !attachPositionToEmitter )
+                {
+                    // No, so transform the particle into world-space here.
+                    b2Transform xform( particlePlayerPosition, b2Rot( getAngle()) );
+                    pParticleNode->mPosition = b2Mul( xform, pParticleNode->mPosition );
+                }
+
+            } break;
+
+            // Emit inside a torus with an outer-diameter defined by the emitters major size axis and an inner-diameter defined by the emitters minor size axis..
+            case ParticleAssetEmitter::TORUS_EMITTER:
+            {
+                // Calculate the random angle.
+                const F32 angle = CoreMath::mGetRandomF( 0.0f, b2_pi2 );
+
+                // Calculate the inner and outer radii.
+                const F32 outerRadii = emitterSize.getMajorAxis() * 0.5f;
+                const F32 innerRadii = emitterSize.getMinorAxis() * 0.5f;
+#if 1
+                // Calculate the radius as a uniform distribution.
+                const F32 radius = innerRadii + ( mSqrt( CoreMath::mGetRandomF(0.0f, 1.0f) ) * (outerRadii-innerRadii) );
+#else
+                // Calculate the radius as a non-uniform distribution.
+                const F32 radius = CoreMath::mGetRandomF( innerRadii, outerRadii );
+#endif
+                // Calculate emitter position using a uniform distribution.
+                Vector2 emissionPosition( radius * mCos(angle), radius * mSin(angle) );
+
+                // Are we attaching the position to the emitter?
+                if ( attachPositionToEmitter )
+                {
+                    // Yes, so transform the particle into emitter-space only.
+                    pParticleNode->mPosition = emissionPosition + emitterOffset;
                 }
                 else
                 {
-                    emissionPosition.Set( midX, CoreMath::mGetRandomF( minY, maxY ) );
+                    // No, so transform the particle into world-space here.
+                    pParticleNode->mPosition = emissionPosition + emitterOffset + particlePlayerPosition;
                 }
-
-                // Rotate into Emitter-Space.
-                //
-                // NOTE:-   If we're attached to the emitter, then we keep the particle coordinates
-                //          in local-space and use the hardware to render them in emitter-space.
-                b2Transform xform;
-                xform.Set( attachPositionToEmitter ? b2Vec2_zero : particlePlayerPosition, (attachPositionToEmitter && attachRotationToEmitter) ? 0.0f : getAngle() );
-                pParticleNode->mPosition = b2Mul( xform, emissionPosition );
-
-            } break;
-
-            // Use X/Y Sizes.
-            case ParticleAssetEmitter::AREA_EMITTER:
-            {
-                // Fetch the local sized OOBB.
-                const b2Vec2* pLocalSizedOOBB = getLocalSizedOOBB();
-
-                // Choose a random position in the area.
-                F32 minX = pLocalSizedOOBB[0].x;
-                F32 maxX = pLocalSizedOOBB[1].x;
-                F32 minY = pLocalSizedOOBB[0].y;
-                F32 maxY = pLocalSizedOOBB[3].y;
-
-                // Normalize the X-Axis.
-                if ( minX > maxX )
-                    mSwap( minX, maxX );
-
-                // Normalize the Y-Axis.
-                if ( minY > maxY )
-                    mSwap( minY, maxY );
-
-                // Calculate chosen area.
-                Vector2 emissionPosition( mIsEqual(minX, maxX) ? minX : CoreMath::mGetRandomF( minX, maxX ), mIsEqual(minY, maxY) ? minY : CoreMath::mGetRandomF( minY, maxY ) );
-
-                // Rotate into Emitter-Space.
-                //
-                // NOTE:-   If we're attached to the emitter, then we keep the particle coordinates
-                //          in local-space and use the hardware to render them in emitter-space.
-                b2Transform xform;
-                xform.Set( attachPositionToEmitter ? b2Vec2_zero : particlePlayerPosition, (attachPositionToEmitter && attachRotationToEmitter) ? 0.0f : getAngle() );
-                pParticleNode->mPosition = b2Mul( xform, emissionPosition );
 
             } break;
                 

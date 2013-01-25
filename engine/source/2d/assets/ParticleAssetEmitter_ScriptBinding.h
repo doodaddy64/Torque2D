@@ -36,11 +36,13 @@ ConsoleMethod(ParticleAssetEmitter, getEmitterName, const char*, 2, 2,  "() Gets
 //-----------------------------------------------------------------------------
 
 ConsoleMethod(ParticleAssetEmitter, setEmitterType, void, 3, 3,     "(emitterType) Sets the type of the emitter.\n"
-                                                                    "@param emitterType The type to set the emitter.  Either 'POINT', 'LINEX', 'LINEY' or 'AREA'.\n"
-                                                                    "An emitter-type of 'POINT' causes the particles to be created at the position of the particle asset.\n"
-                                                                    "An emitter-type of 'LINEX' causes the particles to be created along a local-space horizontal line.\n"
-                                                                    "An emitter-type of 'LINEY' causes the particles to be created along a local-space vertical line.\n"
-                                                                    "An emitter-type of 'AREA' causes the particles to be created within the area defined by the particle asset.\n"
+                                                                    "@param emitterType The type to set the emitter.  Either 'POINT', 'LINE', 'BOX' or 'DISK', 'ELLIPSE' or 'TORUS'.\n"
+                                                                    "An emitter-type of 'POINT' creates the particles at the position of the particle asset.\n"
+                                                                    "An emitter-type of 'LINE' creates the particles along a line defined by the particle width.\n"
+                                                                    "An emitter-type of 'BOX' creates the particles within the dimensions defined by the particle size.\n"
+                                                                    "An emitter-type of 'DISK' creates the particles within a disk with radii defined by the particle size.\n"
+                                                                    "An emitter-type of 'ELLIPSE' creates the particles on an ellipse with the radii defined by the particle size.\n"
+                                                                    "An emitter-type of 'TORUS' creates the particles within a torus with a maximum and minimum radii defined by the particle width and height respectively.\n"
                                                                     "@return No return value." )
 {
     object->setEmitterType( ParticleAssetEmitter::getEmitterTypeEnum(argv[2]) );

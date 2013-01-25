@@ -13,19 +13,24 @@ function runCompositeSpriteTest()
 	
     %composite.setDefaultSpriteStride( 25, 25 );
     %composite.setDefaultSpriteSize( 20 );    
-    %composite.BatchLayout = "rect";
+    %composite.BatchLayout = "iso";
 	%composite.BatchIsolated = "true";    
-	%composite.BatchSortMode = "batch";
-    %composite.setAngularVelocity( -10 );
+	%composite.BatchSortMode = "-Y";
+    //%composite.setAngularVelocity( -10 );
+    %composite.DefaultSpriteSize = 8;
+    %composite.DefaultSpriteStride = "4 2";
 	
-    for ( %y = -5; %y <= 5; %y++ )
+    for ( %y = -50; %y <= 50; %y++ )
 	{
-	    for ( %x = -5; %x <= 5; %x++ )
+	    for ( %x = -50; %x <= 50; %x++ )
         {
+            if ( getRandom(0,100) < 30 )
+                continue;
+                
             %composite.addSprite( %x SPC %y );
-            %composite.setSpriteImage( "MelvToy:MiniTileMapImage", getRandom(0,15) );
+            %composite.setSpriteImage( "MelvToy:isoTiles2", getRandom(0,4) );
             //%composite.setSpriteName( "My Name is" SPC %x SPC %y );
-            %composite.setSpriteAngle( getRandom(0,360) );
+            //%composite.setSpriteAngle( getRandom(0,360) );
             //%composite.setSpriteRenderGroup( "melv" );
             //%composite.setSpriteBlendColor( getStockColorName(getRandom(0,%stockColorCount-1)) );
         }
