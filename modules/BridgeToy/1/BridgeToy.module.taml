@@ -2,7 +2,7 @@
 	ModuleId="BridgeToy"
 	VersionId="1"
 	Description="Box2D Bridge Test."
-    Dependencies="{PropsAssets}=1"
+    Dependencies="PropsAssets=1"
 	Type="toy"
 	ToyCategoryIndex="2"
 	ScriptFile="main.cs"

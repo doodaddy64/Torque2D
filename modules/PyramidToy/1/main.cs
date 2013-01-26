@@ -30,7 +30,7 @@ function createPyramidGround()
 {
     %ground = new Scroller();
 	%ground.setBodyType( "static" );
-	%ground.Image = "PyramidToy:ground";
+	%ground.Image = "PropsAssets:woodGround";
 	%ground.setSize($GroundWidth, 2);
 	%ground.setRepeatX( $GroundWidth / 12 );   
 	%ground.setPosition(0, -10);
@@ -64,7 +64,7 @@ function createToyPyramid( %posX, %posY, %brickBaseCount)
 
 function createCrate( %posX, %posY)
 {
-   %imageMap = "PyramidToy:crate";
+   %imageMap = "PropsAssets:crate";
    %obj = new Sprite();
    %obj.setUseInputEvents(true);
    %obj.setImage( %imageMap );

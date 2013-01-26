@@ -172,7 +172,7 @@ function createFloor()
    $GlobalFloor = new Scroller();
    %obj = $GlobalFloor;
    %obj.setBodyType( "static" );
-   %obj.setImage( "TruckToy:woodGround" );
+   %obj.setImage( "PropsAssets:woodGround" );
    %obj.setSize( $worldWidth, 3 );
    %obj.setPosition( 0, $floorLevel - (%obj.getSizeY()/2) );
    %obj.setRepeatX( $worldWidth / 12 );   
@@ -267,7 +267,7 @@ function createBridge( %posX, %posY, %linkCount )
    
    %rootObj = new Sprite();
    %rootObj.setBodyType( "static" );
-   %rootObj.setImage( "TruckToy:cable" );
+   %rootObj.setImage( "PropsAssets:cable" );
    %rootObj.setPosition( %posX, %posY );
    %rootObj.setSize( %linkWidth, %linkHeight );
    %rootObj.setSceneLayer( $backgroundDomain-3 );
@@ -281,7 +281,7 @@ function createBridge( %posX, %posY, %linkCount )
    {
       %obj = new Sprite();
          
-      %obj.setImage( "TruckToy:cable" );
+      %obj.setImage( "PropsAssets:cable" );
       %obj.setPosition( %posX + (%n*%linkWidth), %posY );
       %obj.setSize( %linkWidth, %linkHeight );
       %obj.setSceneLayer( $backgroundDomain-3 );
@@ -327,7 +327,7 @@ function createChain( %posX, %posY, %linkCount )
    
    %rootObj = new Sprite();
    %rootObj.setBodyType( "static" );
-   %rootObj.setImage( "TruckToy:chain" );
+   %rootObj.setImage( "PropsAssets:chain" );
    %rootObj.setPosition( %posX, %posY );
    %rootObj.setSize( %linkWidth, %linkHeight );
    %rootObj.setSceneLayer( $backgroundDomain-3 );
@@ -340,7 +340,7 @@ function createChain( %posX, %posY, %linkCount )
    for ( %n = 1; %n <= %linkCount; %n++ )
    {
       %obj = new Sprite();
-      %obj.setImage( "TruckToy:chain" );
+      %obj.setImage( "PropsAssets:chain" );
       %obj.setPosition( %posX, %posY - (%n*%linkHeight) );
       %obj.setSize( %linkWidth, %linkHeight );
       %obj.setSceneLayer( $backgroundDomain-3 );
@@ -456,7 +456,7 @@ function createBrick( %brickNumber, %posX, %posY, %static )
       return;
    }
    
-   %image = "TruckToy:brick_0" @ %brickNumber;
+   %image = "PropsAssets:brick_0" @ %brickNumber;
    
    %obj = new Sprite();   
    if ( %static ) %obj.setBodyType( "static" );
@@ -480,7 +480,7 @@ function createBrickPile( %posX, %posY )
 {
    %obj = new Sprite();   
    %obj.setBodyType( "static" );
-   %obj.setImage( "TruckToy:brickPile" );
+   %obj.setImage( "PropsAssets:brickPile" );
    %obj.setPosition( %posX, %posY );
    %obj.setSize( 4, 1 );
    %obj.setSceneLayer( $backgroundDomain-3 );
@@ -501,7 +501,7 @@ function createPlank( %plankNumber, %posX, %posY, %angle, %static )
       return;
    }
    
-   %image = "TruckToy:plank_0" @ %plankNumber;
+   %image = "PropsAssets:plank_0" @ %plankNumber;
    
    %obj = new Sprite();   
    if ( %static ) %obj.setBodyType( "static" );

@@ -2,7 +2,7 @@
 	ModuleId="TruckToy"
 	VersionId="1"
 	Description="A monster truck toy."
-    Dependencies="{PropsAssets}=1"
+    Dependencies="PropsAssets=1"
 	Type="toy"
 	ToyCategoryIndex="5"
 	ScriptFile="main.cs"
