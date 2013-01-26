@@ -127,7 +127,7 @@ bool AssetManager::compileReferencedAssets( ModuleDefinition* pModuleDefinition 
         dSprintf( filePathBuffer, sizeof(filePathBuffer), "%s/%s", pModuleDefinition->getModulePath(), pReferencedAssets->getPath() );
 
         // Scan referenced assets at location.
-        if ( !scanReferencedAssets( filePathBuffer, pReferencedAssets->getExtension() ) )
+        if ( !scanReferencedAssets( filePathBuffer, pReferencedAssets->getExtension(), pReferencedAssets->getRecurse() ) )
         {
             // Warn.
             Con::warnf( "AssetManager::compileReferencedAssets() - Could not scan for referenced assets at location '%s' with extension '%s'.", filePathBuffer, pReferencedAssets->getExtension() );
@@ -2658,7 +2658,7 @@ bool AssetManager::scanDeclaredAssets( const char* pPath, const char* pExtension
 
 //-----------------------------------------------------------------------------
 
-bool AssetManager::scanReferencedAssets( const char* pPath, const char* pExtension )
+bool AssetManager::scanReferencedAssets( const char* pPath, const char* pExtension, const bool recurse )
 {
     // Debug Profiling.
     PROFILE_SCOPE(AssetManager_ScanReferencedAssets);
@@ -2673,7 +2673,7 @@ bool AssetManager::scanReferencedAssets( const char* pPath, const char* pExtensi
 
     // Find files.
     Vector<Platform::FileInfo> files;
-    if ( !Platform::dumpPath( pathBuffer, files, 0 ) )
+    if ( !Platform::dumpPath( pathBuffer, files, recurse ? -1 : 0 ) )
     {
         // Failed so warn.
         Con::warnf( "Asset Manager: Failed to scan referenced assets in directory '%s'.", pathBuffer );

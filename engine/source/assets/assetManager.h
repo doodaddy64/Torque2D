@@ -322,7 +322,7 @@ public:
 
 private:
     bool scanDeclaredAssets( const char* pPath, const char* pExtension, const bool recurse, ModuleDefinition* pModuleDefinition );
-    bool scanReferencedAssets( const char* pPath, const char* pExtension );
+    bool scanReferencedAssets( const char* pPath, const char* pExtension, const bool recurse );
     AssetDefinition* findAsset( const char* pAssetId );
     void addReferencedAsset( StringTableEntry assetId, StringTableEntry referenceFilePath );
     void renameAssetReferences( StringTableEntry assetIdFrom, StringTableEntry assetIdTo );
