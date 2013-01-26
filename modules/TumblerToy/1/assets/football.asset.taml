@@ -1,0 +1,3 @@
+<ImageAsset
+    AssetName="FootballImage"
+    ImageFile="@assetFile=#football.png" />
