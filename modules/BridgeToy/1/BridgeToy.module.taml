@@ -8,6 +8,9 @@
 	ScriptFile="main.cs"
 	ScopeSet="BridgeToySet"
 	CreateFunction="createBridgeToy"
-	DestroyFunction="destroyBridgeToy"
-	/>
-
+	DestroyFunction="destroyBridgeToy">
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>
+</ModuleDefinition>

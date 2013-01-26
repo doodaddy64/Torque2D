@@ -8,7 +8,9 @@
 	ScriptFile="main.cs"
 	ScopeSet="SphereStackToySet"
 	CreateFunction="createSphereStackToy"
-	DestroyFunction="destroySphereStackToy"
-	DeclaredAssetManifest="^SphereStackToy/DeclaredAssets.Manifest.taml"
-	/>
-
+	DestroyFunction="destroySphereStackToy">
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>
+</ModuleDefinition>

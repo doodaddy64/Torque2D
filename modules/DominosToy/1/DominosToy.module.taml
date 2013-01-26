@@ -8,7 +8,10 @@
 	ScriptFile="main.cs"
 	ScopeSet="DominosToySet"
 	CreateFunction="createDominosToy"
-	DestroyFunction="destroyDominosToy"
-	DeclaredAssetManifest="^DominosToy/DeclaredAssets.Manifest.taml"
-	/>
+	DestroyFunction="destroyDominosToy"/>
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>		
+</ModuleDefinition>
 

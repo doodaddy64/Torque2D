@@ -8,6 +8,9 @@
 	ScriptFile="main.cs"
 	ScopeSet="ConveyorToySet"
 	CreateFunction="createConveyorToy"
-	DestroyFunction="destroyConveyorToy"
-	/>
-
+	DestroyFunction="destroyConveyorToy">
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>
+</ModuleDefinition>
