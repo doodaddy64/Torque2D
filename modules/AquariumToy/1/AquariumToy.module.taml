@@ -8,9 +8,9 @@
 	ScopeSet="AquariumToySet"
 	CreateFunction="createAquariumToy"
 	DestroyFunction="destroyAquariumToy">
-	<DeclaredAssets
-		Path="assets"
-		Extension="asset.taml"
-		Recurse="true"/>
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>
 </ModuleDefinition>
 

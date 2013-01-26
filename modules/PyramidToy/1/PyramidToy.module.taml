@@ -7,7 +7,10 @@
 	ScriptFile="main.cs"
 	ScopeSet="PyramidToySet"
 	CreateFunction="createPyramidToy"
-	DestroyFunction="destroyPyramidToy"
-	DeclaredAssetManifest="^PyramidToy/DeclaredAssets.Manifest.taml"
-	/>
+	DestroyFunction="destroyPyramidToy"/>
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>
+</ModuleDefinition>
 

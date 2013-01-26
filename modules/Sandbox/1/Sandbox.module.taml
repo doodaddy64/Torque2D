@@ -5,7 +5,10 @@
 	ScriptFile="main.cs"
 	ScopeSet="SandboxSet"
 	CreateFunction="createSandbox"
-	DestroyFunction="destroySandbox"
-	DeclaredAssetManifest="^Sandbox/DeclaredAssets.Manifest.taml"
-	/>
+	DestroyFunction="destroySandbox"/>
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>		
+</ModuleDefinition>
 

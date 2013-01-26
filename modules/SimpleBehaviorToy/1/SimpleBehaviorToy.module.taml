@@ -7,7 +7,12 @@
 	ScriptFile="main.cs"
 	ScopeSet="SimpleBehaviorToySet"
 	CreateFunction="createSimpleBehaviorToy"
-	DestroyFunction="destroySimpleBehaviorToy"
-	DeclaredAssetManifest="^SimpleBehaviorToy/DeclaredAssets.Manifest.taml"
-	/>
+	DestroyFunction="destroySimpleBehaviorToy"/>
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>		
+</ModuleDefinition>
+
+
 
