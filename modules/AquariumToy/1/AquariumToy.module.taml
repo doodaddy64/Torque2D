@@ -7,7 +7,10 @@
 	ScriptFile="main.cs"
 	ScopeSet="AquariumToySet"
 	CreateFunction="createAquariumToy"
-	DestroyFunction="destroyAquariumToy"
-	DeclaredAssetManifest="^AquariumToy/DeclaredAssets.Manifest.taml"
-	/>
+	DestroyFunction="destroyAquariumToy">
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>
+</ModuleDefinition>
 

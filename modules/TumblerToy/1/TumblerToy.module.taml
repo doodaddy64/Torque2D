@@ -7,7 +7,11 @@
 	ScriptFile="main.cs"
 	ScopeSet="TumblerToySet"
 	CreateFunction="createTumblerToy"
-	DestroyFunction="destroyTumblerToy"
-	DeclaredAssetManifest="^TumblerToy/DeclaredAssets.Manifest.taml"
-	/>
+	DestroyFunction="destroyTumblerToy">
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>		
+</ModuleDefinition>
+
 

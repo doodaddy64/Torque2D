@@ -699,9 +699,6 @@
     <ClCompile Include="..\..\source\persistence\taml\tamlXmlParser.cc">
       <Filter>persistence\taml</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\assets\assetManifest.cc">
-      <Filter>assets</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\assets\assetQuery.cc">
       <Filter>assets</Filter>
     </ClCompile>
@@ -1268,6 +1265,12 @@
     </ClCompile>
     <ClCompile Include="..\..\source\2d\sceneobject\ImageFont.cc">
       <Filter>2d\sceneobject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\assets\declaredAssets.cc">
+      <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\assets\referencedAssets.cc">
+      <Filter>assets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1848,9 +1851,6 @@
       <Filter>persistence\taml</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\assets\tamlAssetUpdateVisitor.h">
-      <Filter>assets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\assets\assetManifest.h">
       <Filter>assets</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\assets\tamlAssetDeclaredVisitor.h">
@@ -2585,6 +2585,12 @@
     </ClInclude>
     <ClInclude Include="..\..\source\2d\sceneobject\ImageFont_ScriptBinding.h">
       <Filter>2d\sceneobject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\assets\declaredAssets.h">
+      <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\assets\referencedAssets.h">
+      <Filter>assets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,0 @@
-<AssetManifest>
-	<AssetManifest.Search>
-		<Location
-			Path="^PropsAssets/assets"
-			Extension="asset.taml"/>			
-	</AssetManifest.Search>
-</AssetManifest>

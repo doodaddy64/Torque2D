@@ -5,12 +5,16 @@
 
 #include "assetManager.h"
 
-#ifndef _ASSET_MANIFEST_H
-#include "AssetManifest.h"
-#endif
-
 #ifndef _ASSET_PTR_H_
 #include "assetPtr.h"
+#endif
+
+#ifndef _REFERENCED_ASSETS_H_
+#include "assets/referencedAssets.h"
+#endif
+
+#ifndef _DECLARED_ASSETS_H_
+#include "assets/declaredAssets.h"
 #endif
 
 #ifndef _TAML_ASSET_REFERENCED_VISITOR_H_
@@ -105,41 +109,30 @@ bool AssetManager::compileReferencedAssets( ModuleDefinition* pModuleDefinition 
     // Sanity!
     AssertFatal( pModuleDefinition != NULL, "Cannot add declared assets using a NULL module definition" );
 
-    // Expand asset manifest location.
-    char assetManifestFilePathBuffer[1024];
-    Con::expandPath( assetManifestFilePathBuffer, sizeof(assetManifestFilePathBuffer), pModuleDefinition->getReferencedAssetManifest() );
-
     // Clear referenced assets.
     mReferencedAssets.clear();
 
-    // Read manifest.
-    Taml taml;
-    AssetManifest* pAssetManifest = taml.read<AssetManifest>( assetManifestFilePathBuffer );
-
-    // Did we load the manifest?
-    if ( pAssetManifest == NULL )
+    // Iterate the module definition children.
+    for( SimSet::iterator itr = pModuleDefinition->begin(); itr != pModuleDefinition->end(); ++itr )
     {
-        // No, so warn.
-        Con::warnf( "AssetManager::compileReferencedAssets() - Could not load referenced asset manifest '%s'.", assetManifestFilePathBuffer );
-        return false;
-    }
+        // Fetch the referenced assets.
+        ReferencedAssets* pReferencedAssets = dynamic_cast<ReferencedAssets*>( *itr );
 
-    // Get manifest.
-    const AssetManifest::typeAssetLocationVector& manifest = pAssetManifest->getManifest();
+        // Skip if it's not a referenced assets location.
+        if ( pReferencedAssets == NULL )
+            continue;
 
-    // Iterate locations.
-    for( AssetManifest::typeAssetLocationVector::const_iterator locationItr = manifest.begin(); locationItr != manifest.end(); ++locationItr )
-    {
+        // Expand asset manifest location.
+        char filePathBuffer[1024];
+        dSprintf( filePathBuffer, sizeof(filePathBuffer), "%s/%s", pModuleDefinition->getModulePath(), pReferencedAssets->getPath() );
+
         // Scan referenced assets at location.
-        if ( !scanReferencedAssets( locationItr->mPath, locationItr->mExtension ) )
+        if ( !scanReferencedAssets( filePathBuffer, pReferencedAssets->getExtension(), pReferencedAssets->getRecurse() ) )
         {
             // Warn.
-            Con::warnf( "AssetManager::compileReferencedAssets() - Could not scan referenced assets at location '%s' with extension '%s'.", locationItr->mPath, locationItr->mExtension );
+            Con::warnf( "AssetManager::compileReferencedAssets() - Could not scan for referenced assets at location '%s' with extension '%s'.", filePathBuffer, pReferencedAssets->getExtension() );
         }
-    }
-
-    // Delete asset manifest.
-    pAssetManifest->deleteObject();
+    }  
 
     return true;
 }
@@ -162,41 +155,27 @@ bool AssetManager::addDeclaredAssets( ModuleDefinition* pModuleDefinition )
         return false;
     }
 
-    // Expand asset manifest location.
-    char assetManifestFilePathBuffer[1024];
-    Con::expandPath( assetManifestFilePathBuffer, sizeof(assetManifestFilePathBuffer), pModuleDefinition->getDeclaredAssetManifest() );
-
-    // Read manifest.
-    Taml taml;
-    AssetManifest* pAssetManifest = taml.read<AssetManifest>( assetManifestFilePathBuffer );
-
-    // Did we load the manifest?
-    if ( pAssetManifest == NULL )
+    // Iterate the module definition children.
+    for( SimSet::iterator itr = pModuleDefinition->begin(); itr != pModuleDefinition->end(); ++itr )
     {
-        // No, so warn.
-        Con::warnf( "AssetManager::addDeclaredAssets() - Could not load declared asset manifest '%s'.", assetManifestFilePathBuffer );
-        return false;
-    }
+        // Fetch the declared assets.
+        DeclaredAssets* pDeclaredAssets = dynamic_cast<DeclaredAssets*>( *itr );
 
-    // Get manifest.
-    const AssetManifest::typeAssetLocationVector& manifest = pAssetManifest->getManifest();
+        // Skip if it's not a declared assets location.
+        if ( pDeclaredAssets == NULL )
+            continue;
 
-    // Iterate locations.
-    for( AssetManifest::typeAssetLocationVector::const_iterator locationItr = manifest.begin(); locationItr != manifest.end(); ++locationItr )
-    {
-        // Fetch asset location.
-        const AssetManifest::AssetLocation& assetLocation = *locationItr;
-        
+        // Expand asset manifest location.
+        char filePathBuffer[1024];
+        dSprintf( filePathBuffer, sizeof(filePathBuffer), "%s/%s", pModuleDefinition->getModulePath(), pDeclaredAssets->getPath() );
+
         // Scan declared assets at location.
-        if ( !scanDeclaredAssets( assetLocation.mPath, assetLocation.mExtension, assetLocation.mRecurse, pModuleDefinition ) )
+        if ( !scanDeclaredAssets( filePathBuffer, pDeclaredAssets->getExtension(), pDeclaredAssets->getRecurse(), pModuleDefinition ) )
         {
             // Warn.
-            Con::warnf( "AssetManager::addDeclaredAssets() - Could not scan declared assets at location '%s' with extension '%s'", locationItr->mPath, locationItr->mExtension );
+            Con::warnf( "AssetManager::addDeclaredAssets() - Could not scan for declared assets at location '%s' with extension '%s'.", filePathBuffer, pDeclaredAssets->getExtension() );
         }
-    }
-
-    // Delete asset manifest.
-    pAssetManifest->deleteObject();    
+    }  
 
     return true;
 }
@@ -2679,7 +2658,7 @@ bool AssetManager::scanDeclaredAssets( const char* pPath, const char* pExtension
 
 //-----------------------------------------------------------------------------
 
-bool AssetManager::scanReferencedAssets( const char* pPath, const char* pExtension )
+bool AssetManager::scanReferencedAssets( const char* pPath, const char* pExtension, const bool recurse )
 {
     // Debug Profiling.
     PROFILE_SCOPE(AssetManager_ScanReferencedAssets);
@@ -2694,7 +2673,7 @@ bool AssetManager::scanReferencedAssets( const char* pPath, const char* pExtensi
 
     // Find files.
     Vector<Platform::FileInfo> files;
-    if ( !Platform::dumpPath( pathBuffer, files, 0 ) )
+    if ( !Platform::dumpPath( pathBuffer, files, recurse ? -1 : 0 ) )
     {
         // Failed so warn.
         Con::warnf( "Asset Manager: Failed to scan referenced assets in directory '%s'.", pathBuffer );
@@ -3136,12 +3115,8 @@ void AssetManager::onModulePreLoad( ModuleDefinition* pModuleDefinition )
     // Debug Profiling.
     PROFILE_SCOPE(AssetManager_OnModulePreLoad);
 
-    // Is a declared asset manifest specified?
-    if ( pModuleDefinition->getDeclaredAssetManifest() != StringTable->EmptyString )
-    {
-        // Yes, so add declared assets.
-        addDeclaredAssets( pModuleDefinition );
-    }
+    // Add declared assets.
+    addDeclaredAssets( pModuleDefinition );
 
     // Is an asset tags manifest specified?
     if ( pModuleDefinition->getAssetTagsManifest() != StringTable->EmptyString )
@@ -3181,10 +3156,6 @@ void AssetManager::onModulePostUnload( ModuleDefinition* pModuleDefinition )
     // Debug Profiling.
     PROFILE_SCOPE(AssetManager_OnModulePostUnload);
 
-    // Is a declared asset manifest specified?
-    if ( pModuleDefinition->getDeclaredAssetManifest() != StringTable->EmptyString )
-    {
-        // Yes, so remove declared assets.
-        removeDeclaredAssets( pModuleDefinition );
-    }
+    // Remove declared assets.
+    removeDeclaredAssets( pModuleDefinition );
 }

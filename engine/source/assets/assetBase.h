@@ -6,7 +6,7 @@
 #ifndef _ASSET_BASE_H_
 #define _ASSET_BASE_H_
 
-#ifndef _ASSET_DEFINITION_H
+#ifndef _ASSET_DEFINITION_H_
 #include "assetDefinition.h"
 #endif
 
@@ -14,7 +14,7 @@
 #include "string/stringUnit.h"
 #endif
 
-#ifndef _ASSET_FIELD_TYPES_H
+#ifndef _ASSET_FIELD_TYPES_H_
 #include "assets/assetFieldTypes.h"
 #endif
 

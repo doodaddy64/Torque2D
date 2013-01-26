@@ -3,7 +3,7 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _ASSET_QUERY_H
+#ifndef _ASSET_QUERY_H_
 #include "assetQuery.h"
 #endif
 

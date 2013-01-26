@@ -13,7 +13,7 @@
 #include "2d/core/Utility.h"
 #include "2d/gui/SceneWindow.h"
 
-#ifndef _ASSET_MANAGER_H
+#ifndef _ASSET_MANAGER_H_
 #include "assets/assetManager.h"
 #endif
 

@@ -10,7 +10,7 @@
 #include "component/behaviors/behaviorComponent.h"
 #include "component/behaviors/behaviorTemplate.h"
 
-#ifndef _ASSET_FIELD_TYPES_H
+#ifndef _ASSET_FIELD_TYPES_H_
 #include "assets/assetFieldTypes.h"
 #endif
 

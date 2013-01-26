@@ -6,7 +6,7 @@
 #ifndef _ASSET_PTR_H_
 #define _ASSET_PTR_H_
 
-#ifndef _ASSET_MANAGER_H
+#ifndef _ASSET_MANAGER_H_
 #include "assetManager.h"
 #endif
 

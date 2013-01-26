@@ -3,8 +3,8 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _ASSET_DEFINITION_H
-#define _ASSET_DEFINITION_H
+#ifndef _ASSET_DEFINITION_H_
+#define _ASSET_DEFINITION_H_
 
 #ifndef _STRINGTABLE_H_
 #include "string/stringTable.h"
@@ -73,5 +73,5 @@ public:
     StringTableEntry            mAssetCategory;
 };
 
-#endif // _ASSET_DEFINITION_H
+#endif // _ASSET_DEFINITION_H_
 

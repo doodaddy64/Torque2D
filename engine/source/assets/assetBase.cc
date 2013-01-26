@@ -7,7 +7,7 @@
 #include "assetBase.h"
 #endif
 
-#ifndef _ASSET_MANAGER_H
+#ifndef _ASSET_MANAGER_H_
 #include "assetManager.h"
 #endif
 

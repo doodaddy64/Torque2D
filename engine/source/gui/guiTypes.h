@@ -6,7 +6,7 @@
 #ifndef _GUITYPES_H_
 #define _GUITYPES_H_
 
-#ifndef _ASSET_FIELD_TYPES_H
+#ifndef _ASSET_FIELD_TYPES_H_
 #include "assets/assetFieldTypes.h"
 #endif
 

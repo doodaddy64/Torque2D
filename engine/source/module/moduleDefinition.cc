@@ -42,8 +42,6 @@ ModuleDefinition::ModuleDefinition() :
     mScriptFile( StringTable->EmptyString ),
     mCreateFunction( StringTable->EmptyString ),
     mDestroyFunction( StringTable->EmptyString ),
-    mDeclaredAssetManifest( StringTable->EmptyString ),
-    mReferencedAssetManifest( StringTable->EmptyString ),
     mAssetTagsManifest( StringTable->EmptyString ),
     mModulePath( StringTable->EmptyString ),
     mModuleFile( StringTable->EmptyString ),
@@ -84,8 +82,6 @@ void ModuleDefinition::initPersistFields()
     addProtectedField( "ScriptFile", TypeString, Offset(mScriptFile, ModuleDefinition), &setScriptFile, &defaultProtectedGetFn, &writeScriptFile, "The name of the script file to execute when loading the module.  Optional." );
     addProtectedField( "CreateFunction", TypeString, Offset(mCreateFunction, ModuleDefinition), &setCreateFunction, &defaultProtectedGetFn, &writeCreateFunction, "The name of the function used to create the module.  Optional: If not specified then no create function is called." );
     addProtectedField( "DestroyFunction", TypeString, Offset(mDestroyFunction, ModuleDefinition), &setDestroyFunction, &defaultProtectedGetFn, &writeDestroyFunction, "The name of the function used to destroy the module.  Optional: If not specified then no destroy function is called." );
-    addProtectedField( "DeclaredAssetManifest", TypeString, Offset(mDeclaredAssetManifest, ModuleDefinition), &setDeclaredAssetManifest, &defaultProtectedGetFn, &writeDeclaredAssetManifest, "The name of declared asset manifest file if this module contains assets.  Optional: If not specified then no assets will be found." );
-    addProtectedField( "ReferencedAssetManifest", TypeString, Offset(mReferencedAssetManifest, ModuleDefinition), &setReferencedAssetManifest, &defaultProtectedGetFn, &writeReferencedAssetManifest, "The name of declared asset manifest file if this module contains assets.  Optional: If not specified then no assets will be found." );
     addProtectedField( "AssetTagsManifest", TypeString, Offset(mAssetTagsManifest, ModuleDefinition), &setAssetTagsManifest, &defaultProtectedGetFn, &writeAssetTagsManifest, "The name of tags asset manifest file if this module contains asset tags.  Optional: If not specified then no asset tags will be found for this module.  Currently, only a single asset tag manifest should exist." );
     addProtectedField( "ScopeSet", TypeS32, Offset( mScopeSet, ModuleDefinition ), &defaultProtectedNotSetFn, &getScopeSet, &defaultProtectedNotWriteFn, "The scope set used to control the lifetime scope of objects that the module uses.  Objects added to this set are destroyed automatically when the module is unloaded." );
 

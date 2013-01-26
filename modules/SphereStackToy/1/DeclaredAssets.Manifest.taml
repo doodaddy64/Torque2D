@@ -1,7 +1,0 @@
-<AssetManifest>
-	<AssetManifest.Search>
-		<Location
-			Path="^SphereStackToy/assets"
-			Extension="asset.taml"/>			
-	</AssetManifest.Search>
-</AssetManifest>
