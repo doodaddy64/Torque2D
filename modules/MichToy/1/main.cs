@@ -12,27 +12,38 @@ function createMichToy( %scopeSet )
     %sprite.Size = 60;
     %sprite.AngularVelocity = 90;
 
-    $imageFont = new ImageFont();
-    SandboxScene.add( $imageFont );
-    $imageFont.image = "Sandbox:font";
-    $imageFont.fontSize = 3;
-    $imageFont.text = "This is a test!";
-    
-    // Schedule to create a ball.
-    $updateFPSSchedule = schedule( 100, 0, updateMichToyFPS );   
+    $framePeriod = new ImageFont();
+    $framePeriod.Position = "-50 35";
+    $framePeriod.Image = "Sandbox:font";
+    $framePeriod.TextAlignment = "Left";
+    $framePeriod.Text = "FramePeriod";
+    $framePeriod.FontSize = 3;
+    SandboxScene.add( $framePeriod );
+
+    $frameCount = new ImageFont();
+    $frameCount.Position = "-50 30";
+    $frameCount.Image = "Sandbox:font";
+    $frameCount.TextAlignment = "Left";
+    $frameCount.Text = "FrameCount";
+    $frameCount.FontSize = 3;
+    SandboxScene.add( $frameCount );
+
+    // Schedule to update the metrics.
+    $updateMichToyMetricsSchedule = schedule( 100, 0, updateMichToyMetrics );   
 }
 
 //-----------------------------------------------------------------------------
 
-function updateMichToyFPS()
+function updateMichToyMetrics()
 {
     // Reset the event schedule.
-    $createTumblerBallSchedule = "";
+    $updateMichToyMetricsSchedule = "";
     
-    $imageFont.text = $fps::framePeriod;
+    $framePeriod.Text = "FPS = " @ $fps::framePeriod;
+    $frameCount.Text = "FrameCount = " @ $fps::frameCount;
     
-    // Schedule to create a ball.
-    $createTumblerBallSchedule = schedule( 100, 0, updateMichToyFPS );    
+    // Schedule to update the metrics.
+    $updateMichToyMetricsSchedule = schedule( 100, 0, updateMichToyMetrics );     
 }
 
 //-----------------------------------------------------------------------------
@@ -40,10 +51,10 @@ function updateMichToyFPS()
 function destroyMichToy( %scopeSet )
 {   
     // Cancel any pending events.
-    if ( isEventPending($createTumblerBallSchedule) )
+    if ( isEventPending($updateMichToyMetricsSchedule) )
     {
-        cancel($createTumblerBallSchedule);
-        $createTumblerBallSchedule = "";
+        cancel($updateMichToyMetricsSchedule);
+        $updateMichToyMetricsSchedule = "";
     }    
     
     $imageFont = "";    
