@@ -8,7 +8,7 @@
 	ScriptFile="main.cs"
 	ScopeSet="TruckToySet"
 	CreateFunction="createTruckToy"
-	DestroyFunction="destroyTruckToy"/>
+	DestroyFunction="destroyTruckToy">
 		<DeclaredAssets
 			Path="assets"
 			Extension="asset.taml"

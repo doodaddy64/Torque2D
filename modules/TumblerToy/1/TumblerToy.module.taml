@@ -7,7 +7,7 @@
 	ScriptFile="main.cs"
 	ScopeSet="TumblerToySet"
 	CreateFunction="createTumblerToy"
-	DestroyFunction="destroyTumblerToy"/>
+	DestroyFunction="destroyTumblerToy">
 		<DeclaredAssets
 			Path="assets"
 			Extension="asset.taml"

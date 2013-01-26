@@ -7,6 +7,10 @@
 	ScriptFile="main.cs"
 	ScopeSet="ApplyForceToySet"
 	CreateFunction="createApplyForceToy"
-	DestroyFunction="destroyApplyForceToy"
-	/>
+	DestroyFunction="destroyApplyForceToy">
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>
+</ModuleDefinition>
 

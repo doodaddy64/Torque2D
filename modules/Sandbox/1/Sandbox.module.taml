@@ -5,7 +5,7 @@
 	ScriptFile="main.cs"
 	ScopeSet="SandboxSet"
 	CreateFunction="createSandbox"
-	DestroyFunction="destroySandbox"/>
+	DestroyFunction="destroySandbox">
 		<DeclaredAssets
 			Path="assets"
 			Extension="asset.taml"

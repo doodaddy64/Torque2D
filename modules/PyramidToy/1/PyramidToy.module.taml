@@ -8,7 +8,7 @@
 	ScriptFile="main.cs"
 	ScopeSet="PyramidToySet"
 	CreateFunction="createPyramidToy"
-	DestroyFunction="destroyPyramidToy"/>
+	DestroyFunction="destroyPyramidToy">
 		<DeclaredAssets
 			Path="assets"
 			Extension="asset.taml"
