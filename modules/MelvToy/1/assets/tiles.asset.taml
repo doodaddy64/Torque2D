@@ -1,6 +1,6 @@
 <ImageAsset
-    AssetName="MiniTileMapImage"
-    ImageFile="@assetFile=#MiniTileMap.png"
+    AssetName="Tiles"
+    ImageFile="@assetFile=#tiles.png"
     CellCountX="4"
     CellCountY="4"
     CellWidth="128"

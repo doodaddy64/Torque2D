@@ -1,5 +1,5 @@
 <AnimationAsset
-    AssetName="MiniTileMapAnim"
-    Image="@asset={MelvTesting}:MiniTileMapImage"
+    AssetName="TileAnimation"
+    Image="@asset=MelvToy:Tiles"
     AnimationFrames="0 1 2 3 4 5 6 7 12 13 14 15"
     AnimationTime="1" />
