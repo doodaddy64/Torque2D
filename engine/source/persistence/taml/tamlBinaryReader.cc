@@ -330,7 +330,14 @@ void TamlBinaryReader::parseChildren( Stream& stream, TamlCallbacks* pCallbacks,
         // Add child.
         pChildren->addTamlChild( pChildSimObject );
 
-        // Perform callback.
-        mpTaml->tamlAddParent( pCallbacks, pSimObject );
+        // Find Taml callbacks for child.
+        TamlCallbacks* pChildCallbacks = dynamic_cast<TamlCallbacks*>( pChildSimObject );
+
+        // Do we have callbacks on the child?
+        if ( pChildCallbacks != NULL )
+        {
+            // Yes, so perform callback.
+            mpTaml->tamlAddParent( pChildCallbacks, pSimObject );
+        }
     }
 }
