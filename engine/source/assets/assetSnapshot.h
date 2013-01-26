@@ -3,8 +3,8 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _ASSET_SNAPSHOT_H
-#define _ASSET_SNAPSHOT_H
+#ifndef _ASSET_SNAPSHOT_H_
+#define _ASSET_SNAPSHOT_H_
 
 #ifndef _SIMBASE_H_
 #include "sim/simBase.h"
@@ -28,5 +28,5 @@ public:
     DECLARE_CONOBJECT( AssetSnapshot );
 };
 
-#endif // _ASSET_SNAPSHOT_H
+#endif // _ASSET_SNAPSHOT_H_
 

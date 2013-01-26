@@ -3,11 +3,11 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _ASSET_TAGS_MANIFEST_H
+#ifndef _ASSET_TAGS_MANIFEST_H_
 #include "assetTagsManifest.h"
 #endif
 
-#ifndef _ASSET_MANAGER_H
+#ifndef _ASSET_MANAGER_H_
 #include "assetManager.h"
 #endif
 

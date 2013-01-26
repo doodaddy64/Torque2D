@@ -364,6 +364,8 @@ void Scene::initPersistFields()
     addProtectedField("Gravity", TypeT2DVector, Offset(mWorldGravity, Scene), &setGravity, &getGravity, &writeGravity, "" );
     addField("VelocityIterations", TypeS32, Offset(mVelocityIterations, Scene), &writeVelocityIterations, "" );
     addField("PositionIterations", TypeS32, Offset(mPositionIterations, Scene), &writePositionIterations, "" );
+
+    // Background color.
     addField("UseBackgroundColor", TypeBool, Offset(mUseBackgroundColor, Scene), &writeUseBackgroundColor, "" );
     addField("BackgroundColor", TypeColorF, Offset(mBackgroundColor, Scene), &writeBackgroundColor, "" );
 

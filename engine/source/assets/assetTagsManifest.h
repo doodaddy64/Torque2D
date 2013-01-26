@@ -3,8 +3,8 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _ASSET_TAGS_MANIFEST_H
-#define _ASSET_TAGS_MANIFEST_H
+#ifndef _ASSET_TAGS_MANIFEST_H_
+#define _ASSET_TAGS_MANIFEST_H_
 
 #ifndef _SIMBASE_H_
 #include "sim/simBase.h"
@@ -127,5 +127,5 @@ public:
     DECLARE_CONOBJECT( AssetTagsManifest );
 };
 
-#endif // _ASSET_TAGS_MANIFEST_H
+#endif // _ASSET_TAGS_MANIFEST_H_
 

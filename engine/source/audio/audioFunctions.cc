@@ -3,7 +3,7 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _ASSET_MANAGER_H
+#ifndef _ASSET_MANAGER_H_
 #include "assets/assetManager.h"
 #endif
 

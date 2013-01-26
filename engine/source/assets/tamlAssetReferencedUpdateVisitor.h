@@ -18,7 +18,7 @@
 #include "string/stringTable.h"
 #endif
 
-#ifndef _ASSET_FIELD_TYPES_H
+#ifndef _ASSET_FIELD_TYPES_H_
 #include "assets/assetFieldTypes.h"
 #endif
 

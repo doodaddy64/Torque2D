@@ -3,8 +3,8 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _ASSET_QUERY_H
-#define _ASSET_QUERY_H
+#ifndef _ASSET_QUERY_H_
+#define _ASSET_QUERY_H_
 
 #ifndef _SIMBASE_H_
 #include "sim/simBase.h"
@@ -63,5 +63,5 @@ public:
     DECLARE_CONOBJECT( AssetQuery );
 };
 
-#endif // _ASSET_QUERY_H
+#endif // _ASSET_QUERY_H_
 

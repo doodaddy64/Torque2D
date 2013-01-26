@@ -8,6 +8,6 @@
 	ScopeSet="MichToySet"
 	CreateFunction="createMichToy"
 	DestroyFunction="destroyMichToy"
-	DeclaredAssetManifest="^MichToy/DeclaredAssets.Manifest.taml"
+	DeclaredAssetManifest="DeclaredAssets.Manifest.taml"
 	/>
 

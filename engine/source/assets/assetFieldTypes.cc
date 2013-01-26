@@ -3,7 +3,7 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-#ifndef _ASSET_FIELD_TYPES_H
+#ifndef _ASSET_FIELD_TYPES_H_
 #include "assetFieldTypes.h"
 #endif
 

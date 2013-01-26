@@ -6,8 +6,12 @@
 #ifndef _MODULE_DEFINITION_H
 #define _MODULE_DEFINITION_H
 
-#ifndef _ASSET_DEFINITION_H
+#ifndef _ASSET_DEFINITION_H_
 #include "assets/assetDefinition.h"
+#endif
+
+#ifndef _SIMSET_H_
+#include "sim/simSet.h""
 #endif
 
 #ifndef _SIMBASE_H_
@@ -28,12 +32,12 @@ class ModuleManager;
 
 //-----------------------------------------------------------------------------
 
-class ModuleDefinition : public SimObject
+class ModuleDefinition : public SimSet
 {
     friend class ModuleManager;
 
 private:
-    typedef SimObject Parent;
+    typedef SimSet Parent;
 
 public:
     /// Module dependency.
@@ -77,8 +81,6 @@ private:
     StringTableEntry                mDestroyFunction;
 
     /// Modules assets.
-    StringTableEntry                mDeclaredAssetManifest;
-    StringTableEntry                mReferencedAssetManifest;
     StringTableEntry                mAssetTagsManifest;
     typeModuleAssetsVector          mModuleAssets;
 
@@ -142,10 +144,6 @@ public:
     inline SimObjectId      getScopeSet( void ) const                           { return mScopeSet; }
 
     /// Module assets.
-    inline void             setDeclaredAssetManifest( const char* pAssetManifest ) { if ( checkUnlocked() ) { mDeclaredAssetManifest = StringTable->insert(pAssetManifest); } }
-    inline StringTableEntry getDeclaredAssetManifest( void ) const              { return mDeclaredAssetManifest; }
-    inline void             setReferencedAssetManifest( const char* pAssetManifest ) { if ( checkUnlocked() ) { mReferencedAssetManifest = StringTable->insert(pAssetManifest); } }
-    inline StringTableEntry getReferencedAssetManifest( void ) const            { return mReferencedAssetManifest; }
     inline void             setAssetTagsManifest( const char* pTagsAssetManifest ) { if ( checkUnlocked() ) { mAssetTagsManifest = StringTable->insert(pTagsAssetManifest); } }
     inline StringTableEntry getAssetTagsManifest( void ) const                  { return mAssetTagsManifest; }
     inline typeModuleAssetsVector& getModuleAssets( void )                      { return mModuleAssets; }
@@ -209,10 +207,6 @@ protected:
     static bool             writeDestroyFunction( void* obj, StringTableEntry pFieldName ) { return static_cast<ModuleDefinition*>(obj)->getDestroyFunction() != StringTable->EmptyString; }
 
     /// Asset manifest.
-    static bool             setDeclaredAssetManifest(void* obj, const char* data)       { static_cast<ModuleDefinition*>(obj)->setDeclaredAssetManifest( data ); return false; }
-    static bool             writeDeclaredAssetManifest( void* obj, StringTableEntry pFieldName ) { return static_cast<ModuleDefinition*>(obj)->getDeclaredAssetManifest() != StringTable->EmptyString; }
-    static bool             setReferencedAssetManifest(void* obj, const char* data)     { static_cast<ModuleDefinition*>(obj)->setReferencedAssetManifest( data ); return false; }
-    static bool             writeReferencedAssetManifest( void* obj, StringTableEntry pFieldName ) { return static_cast<ModuleDefinition*>(obj)->getReferencedAssetManifest() != StringTable->EmptyString; }
     static bool             setAssetTagsManifest(void* obj, const char* data)     { static_cast<ModuleDefinition*>(obj)->setAssetTagsManifest( data ); return false; }
     static bool             writeAssetTagsManifest( void* obj, StringTableEntry pFieldName ) { return static_cast<ModuleDefinition*>(obj)->getAssetTagsManifest() != StringTable->EmptyString; }
     static const char*      getScopeSet(void* obj, const char* data)                    { return Con::getIntArg( static_cast<ModuleDefinition*>(obj)->getScopeSet() ); }
