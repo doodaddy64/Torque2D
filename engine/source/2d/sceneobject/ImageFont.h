@@ -43,12 +43,6 @@ public:
     };
 
 private:
-    AssetPtr<ImageAsset> mImageAsset;
-    StringBuffer        mText;
-    U32                 mCharacterPadding;
-    Vector2           mCharacterSize;
-    TextAlignment       mTextAlignment;
-
     struct TextCell
     {
         char CharValue;
@@ -61,8 +55,12 @@ private:
         }
     };
 
-    const char*         mConsoleBuffer;
-    Vector<TextCell>    mTextCells;
+private:
+    AssetPtr<ImageAsset>    mImageAsset;
+    StringBuffer            mText;
+    U32                     mFontPadding;
+    Vector2                 mFontSize;
+    TextAlignment           mTextAlignment;
 
 private:
     void calculateSpatials( void );
@@ -77,19 +75,21 @@ public:
     void onRemove();
     void copyTo(SimObject* object);
 
+    virtual bool canPrepareRender( void ) const                             { return true; }
+    virtual bool canRender( void ) const                                    { return mImageAsset.notNull() && mText.length() > 0; }
+    virtual void  scenePrepareRender( const SceneRenderState* pSceneRenderState, SceneRenderQueue* pSceneRenderQueue );
     virtual void sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer );
-    virtual bool canRender( void ) const { return mImageAsset.notNull() && mText.length() > 0; }
 
     bool setImage( const char* pImageAssetId );
-    const char* getImage( void ) const                                  { return mImageAsset.getAssetId(); };
+    const char* getImage( void ) const                                      { return mImageAsset.getAssetId(); };
     void setText( const StringBuffer& text );
-    inline StringBuffer& getText( void )                                { return mText; }
+    inline StringBuffer& getText( void )                                    { return mText; }
     void setTextAlignment( const TextAlignment alignment );
-    inline TextAlignment getTextAlignment( void ) const                 { return mTextAlignment; }
-    void setCharacterSize( const Vector2& size );
-    inline Vector2 getCharacterSize( void ) const                       { return mCharacterSize; }
-    void setCharacterPadding( const U32 padding );
-    inline U32 getCharacterPadding( void ) const                        { return mCharacterPadding; }
+    inline TextAlignment getTextAlignment( void ) const                     { return mTextAlignment; }
+    void setFontSize( const Vector2& size );
+    inline Vector2 getFontSize( void ) const                                { return mFontSize; }
+    void setFontPadding( const U32 padding );
+    inline U32 getFontPadding( void ) const                                 { return mFontPadding; }
 
     static TextAlignment getTextAlignmentEnum(const char* label);
     static const char* getTextAlignmentDescription(const TextAlignment alignment);
@@ -98,18 +98,18 @@ public:
     DECLARE_CONOBJECT(ImageFont);
 
 protected:
-    static bool setImage(void* obj, const char* data)                   { static_cast<ImageFont*>(obj)->setImage( data ); return false; }
-    static const char* getImage(void* obj, const char* data)            { return static_cast<ImageFont*>(obj)->getImage(); }
-    static bool writeImage( void* obj, StringTableEntry pFieldName )    { return static_cast<ImageFont*>(obj)->mImageAsset.notNull(); }
-    static bool setText( void* obj, const char* data )                  { static_cast<ImageFont*>( obj )->setText( data ); return false; }
-    static const char* getText( void* obj, const char* data )           { return static_cast<ImageFont*>( obj )->getText().getPtr8(); }
-    static bool writeText( void* obj, StringTableEntry pFieldName )     { return static_cast<ImageFont*>(obj)->mText.length() != 0; }
+    static bool setImage(void* obj, const char* data)                       { static_cast<ImageFont*>(obj)->setImage( data ); return false; }
+    static const char* getImage(void* obj, const char* data)                { return static_cast<ImageFont*>(obj)->getImage(); }
+    static bool writeImage( void* obj, StringTableEntry pFieldName )        { return static_cast<ImageFont*>(obj)->mImageAsset.notNull(); }
+    static bool setText( void* obj, const char* data )                      { static_cast<ImageFont*>( obj )->setText( data ); return false; }
+    static const char* getText( void* obj, const char* data )               { return static_cast<ImageFont*>( obj )->getText().getPtr8(); }
+    static bool writeText( void* obj, StringTableEntry pFieldName )         { return static_cast<ImageFont*>(obj)->mText.length() != 0; }
     static bool setTextAlignment( void* obj, const char* data );
-    static bool writeTextAlignment( void* obj, StringTableEntry pFieldName ) {return static_cast<ImageFont*>(obj)->getTextAlignment() != ImageFont::ALIGN_CENTER; }
-    static bool setCharacterSize( void* obj, const char* data )         { static_cast<ImageFont*>( obj )->setCharacterSize( Utility::mGetStringElementVector(data) ); return false; }
-    static bool writeCharacterSize( void* obj, StringTableEntry pFieldName ) { return static_cast<ImageFont*>(obj)->getCharacterSize().isEqual(Vector2::getOne()); }
-    static bool setCharacterPadding( void* obj, const char* data )      { static_cast<ImageFont*>( obj )->setCharacterPadding( dAtoi(data) ); return false; }
-    static bool writeCharacterPadding( void* obj, StringTableEntry pFieldName ) { return static_cast<ImageFont*>(obj)->getCharacterPadding() != 0; }
+    static bool writeTextAlignment( void* obj, StringTableEntry pFieldName ){return static_cast<ImageFont*>(obj)->getTextAlignment() != ImageFont::ALIGN_CENTER; }
+    static bool setFontSize( void* obj, const char* data )                  { static_cast<ImageFont*>( obj )->setFontSize( Utility::mGetStringElementVector(data) ); return false; }
+    static bool writeFontSize( void* obj, StringTableEntry pFieldName )     { return static_cast<ImageFont*>(obj)->getFontSize().isEqual(Vector2::getOne()); }
+    static bool setFontPadding( void* obj, const char* data )               { static_cast<ImageFont*>( obj )->setFontPadding( dAtoi(data) ); return false; }
+    static bool writeFontPadding( void* obj, StringTableEntry pFieldName )  { return static_cast<ImageFont*>(obj)->getFontPadding() != 0; }
 };
 
 #endif // _BITMAP_FONT_OBJECT_H_

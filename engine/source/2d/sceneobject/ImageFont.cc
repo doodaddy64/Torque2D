@@ -71,15 +71,14 @@ IMPLEMENT_CONOBJECT(ImageFont);
 
 ImageFont::ImageFont() :
     mTextAlignment( ImageFont::ALIGN_CENTER ),
-    mCharacterSize( 1.0f, 1.0f ),
-    mCharacterPadding( 0 ),
-    mConsoleBuffer(StringTable->EmptyString)
+    mFontSize( 1.0f, 1.0f ),
+    mFontPadding( 0 )
 {
    // Use a static body by default.
    mBodyDefinition.type = b2_staticBody;
 
-   // All the font characters are batch isolated.
-   setBatchIsolated( true );
+    // Set as auto-sizing.
+    mAutoSizing = true;
 }
 
 //-----------------------------------------------------------------------------
@@ -96,10 +95,10 @@ void ImageFont::initPersistFields()
     Parent::initPersistFields();
 
     addProtectedField("image", TypeImageAssetPtr, Offset(mImageAsset, ImageFont), &setImage, &getImage, &writeImage, "");
-    addProtectedField("text", TypeString, Offset( mConsoleBuffer, ImageFont ), setText, getText, &writeText, "The text to be displayed." );  
+    addProtectedField("text", TypeString, 0, setText, getText, &writeText, "The text to be displayed." );  
     addProtectedField("textAlignment", TypeEnum, Offset(mTextAlignment, ImageFont), &setTextAlignment, &defaultProtectedGetFn, &writeTextAlignment, 1, &gTextAlignmentTable, "");
-    addProtectedField("characterSize", TypeT2DVector, Offset(mCharacterSize, ImageFont), &setCharacterSize, &defaultProtectedGetFn,&writeCharacterSize, "" );
-    addProtectedField("characterPadding", TypeF32, Offset(mCharacterPadding, ImageFont), &setCharacterPadding, &defaultProtectedGetFn, &writeCharacterPadding, "" );
+    addProtectedField("fontSize", TypeT2DVector, Offset(mFontSize, ImageFont), &setFontSize, &defaultProtectedGetFn,&writeFontSize, "" );
+    addProtectedField("fontPadding", TypeF32, Offset(mFontPadding, ImageFont), &setFontPadding, &defaultProtectedGetFn, &writeFontPadding, "" );
 }
 
 //-----------------------------------------------------------------------------
@@ -139,8 +138,16 @@ void ImageFont::copyTo(SimObject* object)
     pFontObject->setImage( getImage() );
     pFontObject->setText( getText() );
     pFontObject->setTextAlignment( getTextAlignment() );
-    pFontObject->setCharacterSize( getCharacterSize() );
-    pFontObject->setCharacterPadding( getCharacterPadding() );
+    pFontObject->setFontSize( getFontSize() );
+    pFontObject->setFontPadding( getFontPadding() );
+}
+
+//------------------------------------------------------------------------------
+
+void ImageFont::scenePrepareRender( const SceneRenderState* pSceneRenderState, SceneRenderQueue* pSceneRenderQueue )
+{
+    // Create a default render request.
+    Scene::createDefaultRenderRequest( pSceneRenderQueue, this );
 }
 
 //------------------------------------------------------------------------------
@@ -200,11 +207,11 @@ void ImageFont::sceneRender( const SceneRenderState* pSceneRenderState, const Sc
 
     // Calculate character width stride.
     Vector2 characterWidthStride = (renderOOBB1 - renderOOBB0);
-    characterWidthStride.Normalize( mCharacterSize.x + mCharacterPadding );
+    characterWidthStride.Normalize( mFontSize.x + mFontPadding );
 
     // Calculate character height stride.
     Vector2 characterHeightStride = (renderOOBB3 - renderOOBB0);
-    characterHeightStride.Normalize( mCharacterSize.y );
+    characterHeightStride.Normalize( mFontSize.y );
 
     // Complete character OOBB.
     characterOOBB1 = characterOOBB0 + characterWidthStride;
@@ -295,18 +302,18 @@ void ImageFont::setTextAlignment( const TextAlignment alignment )
 
 //-----------------------------------------------------------------------------
 
-void ImageFont::setCharacterSize( const Vector2& size )
+void ImageFont::setFontSize( const Vector2& size )
 {
-    mCharacterSize = size;
-    mCharacterSize.clampZero();
+    mFontSize = size;
+    mFontSize.clampZero();
     calculateSpatials();
 }
 
 //-----------------------------------------------------------------------------
 
-void ImageFont::setCharacterPadding( const U32 padding )
+void ImageFont::setFontPadding( const U32 padding )
 {
-    mCharacterPadding = padding;
+    mFontPadding = padding;
     calculateSpatials();
 }
 
@@ -320,18 +327,18 @@ void ImageFont::calculateSpatials( void )
     // Set size as a single character if no text.
     if ( renderCharacters == 0 )
     {
-        setSize( mCharacterSize );
+        setSize( mFontSize );
         return;
     }
 
-    // Calculate total character padding.
-    const U32 totalCharacterPadding = (renderCharacters * mCharacterPadding) - mCharacterPadding;
+    // Calculate total font padding.
+    const U32 totalFontPadding = (renderCharacters * mFontPadding) - mFontPadding;
 
     // Calculate total character size.
-    const Vector2 totalCharacterSize( renderCharacters * mCharacterSize.x, mCharacterSize.y );
+    const Vector2 totalFontSize( renderCharacters * mFontSize.x, mFontSize.y );
 
     // Calculate total padded text size.
-    const Vector2 totalPaddedTextSize( totalCharacterSize.x + totalCharacterPadding, totalCharacterSize.y );
+    const Vector2 totalPaddedTextSize( totalFontSize.x + totalFontPadding, totalFontSize.y );
 
     // Calculate size (AABB) including alignment relative to position.
     // NOTE:    For left/right alignment we have to double the size width as clipping is based upon size and

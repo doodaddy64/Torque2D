@@ -12,10 +12,12 @@ function createMichToy( %scopeSet )
     %sprite.Size = 60;
     %sprite.AngularVelocity = 90;
 
-    //%imageFont = new ImageFont();
-    //SandboxScene.add( %imageFont );
-    //%imageFont.image = "Sandbox:font";
-    //%imageFont.text = "0123456";
+    %imageFont = new ImageFont();
+    SandboxScene.add( %imageFont );
+    %imageFont.image = "Sandbox:font";
+    %imageFont.fontSize = 3;
+    %imageFont.text = "This is a test!";
+    
 }
 
 //-----------------------------------------------------------------------------
