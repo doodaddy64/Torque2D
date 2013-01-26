@@ -5,7 +5,7 @@
 
 function createPyramidToy( %scopeSet )
 {
-	$PyramidBrickCount = 21;
+	$PyramidBrickCount = 15;
 	$GroundWidth = 150;
 	
 	SandboxWindow.setCurrentCameraZoom( 2 );
