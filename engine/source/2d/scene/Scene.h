@@ -644,6 +644,7 @@ public:
     inline bool             getUpdateCallback( void ) const             { return mUpdateCallback; }
     inline void             setRenderCallback( const bool callback )    { mRenderCallback = callback; }
     inline bool             getRenderCallback( void ) const             { return mRenderCallback; }
+    static SceneRenderRequest* createDefaultRenderRequest( SceneRenderQueue* pSceneRenderQueue, SceneObject* pSceneObject  );
 
     /// Taml children.
     virtual U32 getTamlChildCount( void ) const                         { return (U32)mSceneObjects.size(); }

@@ -960,14 +960,8 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                         // Yes. so is it batch isolated.
                         if ( pSceneObject->getBatchIsolated() )
                         {
-                            // Yes, so create an isolated render request on the primary queue.
-                            SceneRenderRequest* pIsolatedSceneRenderRequest = pSceneRenderQueue->createRenderRequest()->set(
-                                pSceneObject,
-                                pSceneObject->getRenderPosition(),
-                                pSceneObject->getSceneLayerDepth(),
-                                pSceneObject->getSortPoint(),
-                                pSceneObject->getSerialId(),
-                                pSceneObject->getRenderGroup() );
+                            // Yes, so create a default render request  on the primary queue.
+                            SceneRenderRequest* pIsolatedSceneRenderRequest = Scene::createDefaultRenderRequest( pSceneRenderQueue, pSceneObject );
 
                             // Create a new isolated render queue.
                             pIsolatedSceneRenderRequest->mpIsolatedRenderQueue = SceneRenderQueueFactory.createObject();
@@ -989,21 +983,8 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                     }
                     else
                     {
-                        // No, so perform the render preparation for it.
-                        SceneRenderRequest* pSceneRenderRequest = pSceneRenderQueue->createRenderRequest()->set(
-                            pSceneObject,
-                            pSceneObject->getRenderPosition(),
-                            pSceneObject->getSceneLayerDepth(),
-                            pSceneObject->getSortPoint(),
-                            pSceneObject->getSerialId(),
-                            pSceneObject->getRenderGroup() );
-
-                        // Prepare the blending for it.
-                        pSceneRenderRequest->mBlendMode = pSceneObject->getBlendMode();
-                        pSceneRenderRequest->mBlendColor = pSceneObject->getBlendColor();
-                        pSceneRenderRequest->mSrcBlendFactor = pSceneObject->getSrcBlendFactor();
-                        pSceneRenderRequest->mDstBlendFactor = pSceneObject->getDstBlendFactor();
-                        pSceneRenderRequest->mAlphaTest = pSceneObject->getAlphaTest();
+                        // No, so create a default render request for it.
+                        SceneRenderRequest* pSceneRenderRequest = Scene::createDefaultRenderRequest( pSceneRenderQueue, pSceneObject );
                     }
                 }
 
@@ -4460,6 +4441,29 @@ void Scene::onTamlCustomRead( const TamlCollection& customCollection )
 U32 Scene::getGlobalSceneCount( void )
 {
     return sSceneCount;
+}
+
+//-----------------------------------------------------------------------------
+
+SceneRenderRequest* Scene::createDefaultRenderRequest( SceneRenderQueue* pSceneRenderQueue, SceneObject* pSceneObject )
+{
+    // Create a render request and populate it with the default details.
+    SceneRenderRequest* pSceneRenderRequest = pSceneRenderQueue->createRenderRequest()->set(
+        pSceneObject,
+        pSceneObject->getRenderPosition(),
+        pSceneObject->getSceneLayerDepth(),
+        pSceneObject->getSortPoint(),
+        pSceneObject->getSerialId(),
+        pSceneObject->getRenderGroup() );
+
+    // Prepare the blending for it.
+    pSceneRenderRequest->mBlendMode = pSceneObject->getBlendMode();
+    pSceneRenderRequest->mBlendColor = pSceneObject->getBlendColor();
+    pSceneRenderRequest->mSrcBlendFactor = pSceneObject->getSrcBlendFactor();
+    pSceneRenderRequest->mDstBlendFactor = pSceneObject->getDstBlendFactor();
+    pSceneRenderRequest->mAlphaTest = pSceneObject->getAlphaTest();
+
+    return pSceneRenderRequest;
 }
 
 //-----------------------------------------------------------------------------
