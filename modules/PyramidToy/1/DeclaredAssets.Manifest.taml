@@ -1,7 +1,0 @@
-<AssetManifest>
-	<AssetManifest.Search>
-		<Location
-			Path="^PyramidToy/assets"
-			Extension="asset.taml"/>			
-	</AssetManifest.Search>
-</AssetManifest>
