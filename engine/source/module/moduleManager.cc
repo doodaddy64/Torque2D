@@ -210,7 +210,7 @@ bool ModuleManager::scanModules( const char* pPath, const bool rootOnly )
             const U32 filenameLength = dStrlen( pFilename );
 
             // Skip if extension is longer than filename.
-            if ( extensionLength >= filenameLength )
+            if ( extensionLength > filenameLength )
                 continue;
 
             // Skip if extension not found.
