@@ -2,7 +2,6 @@
 	ModuleId="PropsAssets"
 	VersionId="1"
 	Description="General prop assets"
-	Type="toy"
 	ToyCategoryIndex="0">
 		<DeclaredAssets
 			Path="assets"
