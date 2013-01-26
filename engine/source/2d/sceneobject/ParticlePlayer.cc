@@ -123,6 +123,9 @@ void ParticlePlayer::copyTo(SimObject* object)
    pParticlePlayer->setParticle( getParticle() );
    pParticlePlayer->setCameraIdleDistance( getCameraIdleDistance() );
    pParticlePlayer->setParticleInterpolation( getParticleInterpolation() );
+   pParticlePlayer->setEmissionRateScale( getEmissionRateScale() );
+   pParticlePlayer->setSizeScale( getSizeScale() );
+   pParticlePlayer->setForceScale( getForceScale() );
 }
 
 //------------------------------------------------------------------------------
@@ -162,6 +165,10 @@ void ParticlePlayer::OnRegisterScene( Scene* pScene )
 
     // Add always in scope.
     pScene->getWorldQuery()->addAlwaysInScope( this );
+
+    // Play the the particles if appropriate.
+    if ( mParticleAsset.notNull() && mParticleAsset->getEmitterCount() > 0 )
+        play( true );
 }
 
 //-----------------------------------------------------------------------------
