@@ -2934,23 +2934,23 @@ S32 SceneObject::copyCollisionShapes( SceneObject* pSceneObject, const bool clea
     const U32 collisionShapeCount = getCollisionShapeCount();
 
     // If a shape index is specified, is it valid?
-    if ( shapeIndex < 0 && shapeIndex >= (S32)collisionShapeCount )
+    if ( shapeIndex != INVALID_COLLISION_SHAPE_INDEX && shapeIndex >= (S32)collisionShapeCount )
     {
         // No, so warn.
         Con::warnf( "SceneObject::copyCollisionShapes() - Invalid shape index '%d'.", shapeIndex );
         return INVALID_COLLISION_SHAPE_INDEX;
     }
 
-    // Finish if there are not collision shapes.
+    // Finish if there are no collision shapes.
     if ( collisionShapeCount == 0 )
         return INVALID_COLLISION_SHAPE_INDEX;
 
     // Calculate shape range.
-    const U32 startShapeIndex = shapeIndex >= 0 ? 0 : shapeIndex;
-    const U32 endShapeIndex = shapeIndex >= 0 ? collisionShapeCount : shapeIndex;
+    const U32 startShapeIndex = shapeIndex >= 0 ? shapeIndex : 0;
+    const U32 endShapeIndex = shapeIndex >= 0 ? shapeIndex : collisionShapeCount -1;
 
     // Iterate collision shapes.
-    for ( U32 index = startShapeIndex; index < endShapeIndex; ++index )
+    for ( U32 index = startShapeIndex; index <= endShapeIndex; ++index )
     {
         b2FixtureDef fixtureDef;
 
@@ -2987,7 +2987,7 @@ S32 SceneObject::copyCollisionShapes( SceneObject* pSceneObject, const bool clea
                 newShapeIndex = copyCircleCollisionShapeTo( pSceneObject, fixtureDef );
 
                 // Return the new shape if we're copying a specific index.
-                if ( shapeIndex < 0 )
+                if ( shapeIndex >= 0 )
                     return newShapeIndex;
 
                 continue;
@@ -2996,7 +2996,7 @@ S32 SceneObject::copyCollisionShapes( SceneObject* pSceneObject, const bool clea
                 newShapeIndex = copyPolygonCollisionShapeTo( pSceneObject, fixtureDef );
 
                 // Return the new shape if we're copying a specific index.
-                if ( shapeIndex < 0 )
+                if ( shapeIndex >= 0 )
                     return newShapeIndex;
 
                 continue;
@@ -3005,7 +3005,7 @@ S32 SceneObject::copyCollisionShapes( SceneObject* pSceneObject, const bool clea
                 newShapeIndex = copyChainCollisionShapeTo( pSceneObject, fixtureDef );
 
                 // Return the new shape if we're copying a specific index.
-                if ( shapeIndex < 0 )
+                if ( shapeIndex >= 0 )
                     return newShapeIndex;
 
                 continue;
@@ -3014,7 +3014,7 @@ S32 SceneObject::copyCollisionShapes( SceneObject* pSceneObject, const bool clea
                 newShapeIndex = copyEdgeCollisionShapeTo( pSceneObject, fixtureDef );
 
                 // Return the new shape if we're copying a specific index.
-                if ( shapeIndex < 0 )
+                if ( shapeIndex >= 0 )
                     return newShapeIndex;
 
                 continue;
@@ -3023,6 +3023,10 @@ S32 SceneObject::copyCollisionShapes( SceneObject* pSceneObject, const bool clea
                 AssertFatal( false, "SceneObject::copyCollisionShapes() - Unsupported collision shape type encountered." );
         }
     }
+
+    // Return the first index if we're copying all the shapes.
+    if ( shapeIndex < 0 )
+        return 0;
 
     return INVALID_COLLISION_SHAPE_INDEX;
 }
