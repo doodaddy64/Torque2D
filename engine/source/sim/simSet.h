@@ -105,6 +105,17 @@ public:
    inline iterator find( iterator first, iterator last, SimObject *obj ) { return ::find(first, last, obj); }
    inline iterator find( SimObject *obj ) { return ::find(begin(), end(), obj); }
 
+   template <typename T> inline bool containsType( void )
+   {
+       for( iterator itr = begin(); itr != end(); ++itr )
+       {
+           if ( dynamic_cast<T*>(*itr) != NULL )
+               return true;
+       }
+
+       return false;
+   }
+
    virtual bool reOrder( SimObject *obj, SimObject *target=0 );
    SimObject* at(S32 index) const { return objectList.at(index); }
 
