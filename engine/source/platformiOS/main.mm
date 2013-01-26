@@ -98,7 +98,6 @@ void _iOSGameWillTerminate()
 // Store current orientation for easy access
 void _iOSGameChangeOrientation(S32 newOrientation)
 {
-    return;
 	_iOSGameSetCurrentOrientation(newOrientation);
     
     bool enableAutoOrientation = Con::getBoolVariable("$pref::iOS::EnableOrientationRotation");
