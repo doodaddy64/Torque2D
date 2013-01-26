@@ -28,6 +28,14 @@ function createMichToy( %scopeSet )
     $frameCount.FontSize = 3;
     SandboxScene.add( $frameCount );
 
+    $simTime = new ImageFont();
+    $simTime.Position = "-50 25";
+    $simTime.Image = "Sandbox:font";
+    $simTime.TextAlignment = "Left";
+    $simTime.Text = "SimTime";
+    $simTime.FontSize = 3;
+    SandboxScene.add( $simTime);
+    
     // Schedule to update the metrics.
     $updateMichToyMetricsSchedule = schedule( 100, 0, updateMichToyMetrics );   
 }
@@ -41,6 +49,7 @@ function updateMichToyMetrics()
     
     $framePeriod.Text = "FPS = " @ $fps::framePeriod;
     $frameCount.Text = "FrameCount = " @ $fps::frameCount;
+    $simTime.Text = "SimTime = " @ $Sim::Time;
     
     // Schedule to update the metrics.
     $updateMichToyMetricsSchedule = schedule( 100, 0, updateMichToyMetrics );     
