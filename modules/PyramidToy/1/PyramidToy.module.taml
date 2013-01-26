@@ -2,6 +2,7 @@
 	ModuleId="PyramidToy"
 	VersionId="1"
 	Description="Box2D Pyramid Test."
+    Dependencies="PropsAssets=1"
 	Type="toy"
 	ToyCategoryIndex="2"
 	ScriptFile="main.cs"

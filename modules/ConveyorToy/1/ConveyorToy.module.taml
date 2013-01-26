@@ -1,0 +1,13 @@
+<ModuleDefinition
+	ModuleId="ConveyorToy"
+	VersionId="1"
+	Description="Box2D Conveyor Belt Test."
+    Dependencies="PropsAssets=1"
+	Type="toy"
+	ToyCategoryIndex="2"
+	ScriptFile="main.cs"
+	ScopeSet="ConveyorToySet"
+	CreateFunction="createConveyorToy"
+	DestroyFunction="destroyConveyorToy"
+	/>
+
