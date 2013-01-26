@@ -984,7 +984,7 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                     else
                     {
                         // No, so create a default render request for it.
-                        SceneRenderRequest* pSceneRenderRequest = Scene::createDefaultRenderRequest( pSceneRenderQueue, pSceneObject );
+                        Scene::createDefaultRenderRequest( pSceneRenderQueue, pSceneObject );
                     }
                 }
 
