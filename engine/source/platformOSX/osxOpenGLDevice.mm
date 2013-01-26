@@ -338,14 +338,14 @@ const char* osxOpenGLDevice::getDriverInfo()
 #pragma message ("osxOpenGLDevice::getGammaCorrection not yet implemented")
 bool osxOpenGLDevice::getGammaCorrection(F32 &g)
 {
-    
+    return false;
 }
 
 //-----------------------------------------------------------------------------
 #pragma message ("osxOpenGLDevice::setGammaCorrection not yet implemented")
 bool osxOpenGLDevice::setGammaCorrection(F32 g)
 {
-    
+    return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -353,7 +353,14 @@ bool osxOpenGLDevice::setGammaCorrection(F32 g)
 bool osxOpenGLDevice::setVerticalSync( bool sync )
 {
     if ([[platState torqueView] contextInitialized])
+    {
         [[platState torqueView] setVerticalSync:sync];
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 //------------------------------------------------------------------------------
