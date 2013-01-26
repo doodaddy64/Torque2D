@@ -46,6 +46,12 @@ struct Vector2 : b2Vec2
     {
         const U32 elementCount = Utility::mGetStringElementCount(pString);
 
+        if ( elementCount == 0 )
+        {
+            SetZero();
+            return;
+        }
+
         if ( elementCount == 1 )
         {
             x = y = dAtof(Utility::mGetStringElement(pString,0));
