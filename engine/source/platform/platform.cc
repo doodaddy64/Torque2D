@@ -13,21 +13,13 @@
 #include <stdio.h>
 
 // The tools prefer to allow the CPU time to process
-#ifdef TORQUE_OS_IOS
-#ifndef TORQUE_TOOLS
-S32 sgBackgroundProcessSleepTime = 16;
-#else
-S32 sgBackgroundProcessSleepTime = 200;
-#endif
-S32 sgTimeManagerProcessInterval = 16;
-#else
 #ifndef TORQUE_TOOLS
 S32 sgBackgroundProcessSleepTime = 25;
 #else
 S32 sgBackgroundProcessSleepTime = 200;
 #endif
 S32 sgTimeManagerProcessInterval = 0;
-#endif //TORQUE__IPHONE
+
 
 void Platform::initConsole()
 {
