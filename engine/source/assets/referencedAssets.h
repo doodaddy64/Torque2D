@@ -27,7 +27,7 @@ public:
     ReferencedAssets() :
         mPath( StringTable->EmptyString ),
         mExtension( StringTable->EmptyString ),
-        mRecurse( true )
+        mRecurse( false )
         {}
     virtual ~ReferencedAssets() {}
 
