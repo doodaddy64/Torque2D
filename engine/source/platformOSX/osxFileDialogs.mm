@@ -9,7 +9,6 @@
 #include "io/resource/resourceManager.h"
 
 //-----------------------------------------------------------------------------
-#pragma message ("FileDialog::Execute not yet implemented")
 bool FileDialog::Execute()
 {
     NSArray* nsFileArray;

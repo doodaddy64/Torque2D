@@ -18,6 +18,7 @@ osxInputManager::osxInputManager()
 bool osxInputManager::enable()
 {
     mEnabled = true;
+    return mEnabled;
 }
 
 //--------------------------------------------------------------------------
@@ -27,7 +28,6 @@ void osxInputManager::disable()
 }
 
 //--------------------------------------------------------------------------
-#pragma message ("osxInputManager::process not yet implemented")
 void osxInputManager::process()
 {
     // Nothing to process here, yet

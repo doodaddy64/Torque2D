@@ -233,7 +233,6 @@ void Input::deactivateKeyboard()
 
 //------------------------------------------------------------------------------
 // Enable joystick input
-#pragma message ("Input::enableJoystick not yet implemented")
 bool Input::enableJoystick()
 {
     return false;
@@ -241,7 +240,6 @@ bool Input::enableJoystick()
 
 //------------------------------------------------------------------------------
 // Disable joystick input
-#pragma message ("Input::disableJoystick not yet implemented")
 void Input::disableJoystick()
 {
 }

@@ -9,7 +9,6 @@
 @implementation NSSavePanel (TorqueFileDialogs)
 
 //-----------------------------------------------------------------------------
-#pragma message ("NSSavePanel::setFilters not yet implemented")
 - (void)setFilters:(StringTableEntry)filters
 {
     FileDialogFileTypeList fileTypes (filters);
@@ -98,7 +97,6 @@
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("NSSavePanel::setDefaultAttributes not yet implemented")
 - (void)setAttributesFromData:(FileDialogData *)data
 {
     [self setCanCreateDirectories:YES];
@@ -107,7 +105,6 @@
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("NSSavePanel::showSavePanel not yet implemented")
 - (FileDialogFileExtList *)getFileExtensionsFromString:(char const *)filter
 {
     FileDialogFileExtList *list = new FileDialogFileExtList(filter);
@@ -166,7 +163,6 @@
 @implementation NSOpenPanel (TorqueFileDialogs)
 
 //-----------------------------------------------------------------------------
-#pragma message ("NSOpenPanel::setDefaultAttributes not yet implemented")
 - (void)setAttributesFromData:(FileDialogData *)data
 {
     bool chooseDir = (data->mStyle & FileDialogData::FDS_BROWSEFOLDER);
@@ -186,7 +182,6 @@
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("NSOpenPanel::showOpenPanel not yet implemented")
 + (NSArray *)showOpenPanel:(FileDialogData *)withData
 {
     U32 runResult;
