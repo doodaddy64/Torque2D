@@ -338,7 +338,6 @@ void Platform::forceShutdown(S32 returnValue)
 }
 
 //-----------------------------------------------------------------------------
-#pragma message ("Platform::debugBreak not yet implemented")
 void Platform::debugBreak()
 {
     raise(SIGTRAP);
