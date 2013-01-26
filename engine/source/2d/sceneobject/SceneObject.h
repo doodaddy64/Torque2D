@@ -203,7 +203,6 @@ protected:
 
     /// Miscellaneous.
     bool                    mBatchIsolated;
-    bool                    mEnableChild;
     U32                     mSerialiseKey;
     bool                    mEditorTickAllowed;
     bool                    mPickingAllowed;
@@ -554,9 +553,7 @@ public:
     void                    notifyComponentsUpdate( void );
 
     /// Miscellaneous.
-    void                    setChild( bool status )                     { mEnableChild = status; }
     inline const char*      scriptThis(void) const                      { return Con::getIntArg(getId()); }
-    inline bool             getIsChild(void) const                      { return mEnableChild; }
     inline bool             getIsPickingAllowed(void) const             { return mPickingAllowed; }
     inline bool             getIsAlwaysInScope(void) const              { return mAlwaysInScope; }
     inline void             setPeriodicTimerID( S32 timerID )           { mPeriodicTimerID = timerID; }

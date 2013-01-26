@@ -3798,15 +3798,6 @@ ConsoleMethod(SceneObject, setTimerOff, void, 2, 2, "() - Stops the periodic tim
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneObject, getIsChild, bool, 2, 2, "() Gets the objects Child status.\n"
-                                                      "@return (bool isChild) Whether or not the object is a child.")
-{
-    // Get Child Status.
-    return object->getIsChild();
-}  
-
-//-----------------------------------------------------------------------------
-
 ConsoleMethod(SceneObject, behavior, S32, 3, 3, "(string behaviorName) - Gets the behavior instance ID off of the object based on the behavior name passed.\n"
                                                    "@param behaviorName The name of the behavior you want to get the instance ID of.\n"
                                                    "@return (integer behaviorID) The id of the behavior instance.")

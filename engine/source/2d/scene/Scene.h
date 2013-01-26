@@ -344,10 +344,11 @@ public:
 
     inline typeSceneObjectVectorConstRef getSceneObjects( void ) const  { return mSceneObjects; }
     inline U32              getSceneObjectCount( void ) const           { return mSceneObjects.size(); }
-    SceneObject*            getSceneObject( const U32 objectIndex );
-    U32                     getSceneObjects( typeSceneObjectVector& objects );
-    U32                     getSceneObjects( typeSceneObjectVector& objects, const U32 sceneLayer );
-    inline U32              getChildCount( void );
+    SceneObject*            getSceneObject( const U32 objectIndex ) const;
+    U32                     getSceneObjects( typeSceneObjectVector& objects ) const;
+    U32                     getSceneObjects( typeSceneObjectVector& objects, const U32 sceneLayer ) const;
+
+    void                    mergeScene( const Scene* pScene );
 
     /// Scene time.
     inline F32              getSceneTime( void ) const                  { return mSceneTime; };

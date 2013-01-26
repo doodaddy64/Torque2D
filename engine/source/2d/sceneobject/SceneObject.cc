@@ -187,7 +187,6 @@ SceneObject::SceneObject() :
 
     /// Miscellaneous.
     mBatchIsolated(false),
-    mEnableChild(false),
     mSerialiseKey(0),
     mEditorTickAllowed(true),
     mPickingAllowed(true),
@@ -3176,10 +3175,6 @@ S32 SceneObject::copyEdgeCollisionShapeTo( SceneObject* pSceneObject, const b2Fi
 
 void SceneObject::safeDelete( void )
 {
-    // We cannot delete child objects here.
-    if ( getIsChild() )
-        return;
-
     // Are we in a scene?
     if ( getScene() )
     {

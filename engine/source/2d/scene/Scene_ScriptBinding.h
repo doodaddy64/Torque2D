@@ -352,6 +352,24 @@ ConsoleMethod(Scene, getSceneObjectList, const char*, 2, 2, "() Gets the Scene O
 
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(Scene, mergeScene, void, 3, 3,    "(scene) Merges the specified scene into this scene by cloning the scenes contents.")
+{
+    // Find the specified scene.
+    Scene* pScene = Sim::findObject<Scene>( argv[2] );
+
+    // Did we find the scene?
+    if ( pScene == NULL )
+    {
+        // No, so warn.
+        Con::warnf( "Scene::mergeScene() - Could not find the specified scene '%s'.", argv[2] );
+        return;
+    }
+
+    object->mergeScene( pScene );
+}
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(Scene, getSceneTime, F32, 2, 2,   "() Gets the Scene Time.\n"
                                                         "@return Returns the time as a floating point number\n")
 {

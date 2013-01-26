@@ -1277,7 +1277,7 @@ void Scene::removeFromScene( SceneObject* pSceneObject )
 
 //-----------------------------------------------------------------------------
 
-SceneObject* Scene::getSceneObject( const U32 objectIndex )
+SceneObject* Scene::getSceneObject( const U32 objectIndex ) const
 {
     // Sanity!
     AssertFatal( objectIndex < getSceneObjectCount(), "Scene::getSceneObject() - Invalid object index." );
@@ -1287,7 +1287,7 @@ SceneObject* Scene::getSceneObject( const U32 objectIndex )
 
 //-----------------------------------------------------------------------------
 
-U32 Scene::getSceneObjects( typeSceneObjectVector& objects )
+U32 Scene::getSceneObjects( typeSceneObjectVector& objects ) const
 {
     // No objects if scene is empty!
     if ( getSceneObjectCount() == 0 )
@@ -1301,7 +1301,7 @@ U32 Scene::getSceneObjects( typeSceneObjectVector& objects )
 
 //-----------------------------------------------------------------------------
 
-U32 Scene::getSceneObjects( typeSceneObjectVector& objects, const U32 sceneLayer )
+U32 Scene::getSceneObjects( typeSceneObjectVector& objects, const U32 sceneLayer ) const
 {
     // No objects if scene is empty!
     if ( getSceneObjectCount() == 0 )
@@ -1332,27 +1332,24 @@ U32 Scene::getSceneObjects( typeSceneObjectVector& objects, const U32 sceneLayer
 
 //-----------------------------------------------------------------------------
 
-U32 Scene::getChildCount( void )
+void Scene::mergeScene( const Scene* pScene )
 {
-    // No children if scene is empty!
-    if ( getSceneObjectCount() == 0 )
-        return 0;
+    // Fetch the scene object count.
+    const U32 count = pScene->getSceneObjectCount();
 
-    // Reset Child Count.
-    U32 childCount = 0;
+    // Finish if there are not objects to copy.
+    if ( count == 0 )
+        return;
 
-    // Iterate scene objects.
-    for( S32 n = 0; n < mSceneObjects.size(); ++n )
+
+    for( U32 index = 0; index < count; ++index )
     {
-        // Fetch scene object.
-        SceneObject* pSceneObject = mSceneObjects[n];
+        // Fetch a clone of the scene object.
+        SceneObject* pSceneObject = (SceneObject*)pScene->getSceneObject( index )->clone( true );
 
-        if ( pSceneObject->getIsChild() )
-            childCount++;
+        // Add the clone.
+        addToScene( pSceneObject );
     }
-
-    // Return Child Count.
-    return childCount;
 }
 
 //-----------------------------------------------------------------------------
