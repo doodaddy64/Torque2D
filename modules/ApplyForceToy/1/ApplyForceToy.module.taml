@@ -1,0 +1,12 @@
+<ModuleDefinition
+	ModuleId="ApplyForceToy"
+	VersionId="1"
+	Description="Box2D Apply Force Test."
+	Type="toy"
+	ToyCategoryIndex="2"
+	ScriptFile="main.cs"
+	ScopeSet="ApplyForceToySet"
+	CreateFunction="createApplyForceToy"
+	DestroyFunction="destroyApplyForceToy"
+	/>
+

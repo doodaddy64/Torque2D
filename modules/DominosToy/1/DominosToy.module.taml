@@ -1,0 +1,13 @@
+<ModuleDefinition
+	ModuleId="DominosToy"
+	VersionId="1"
+	Description="Box2D Dominos Test."
+	Type="toy"
+	ToyCategoryIndex="2"
+	ScriptFile="main.cs"
+	ScopeSet="DominosToySet"
+	CreateFunction="createDominosToy"
+	DestroyFunction="destroyDominosToy"
+	DeclaredAssetManifest="^DominosToy/DeclaredAssets.Manifest.taml"
+	/>
+

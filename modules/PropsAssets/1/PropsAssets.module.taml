@@ -1,0 +1,9 @@
+<ModuleDefinition
+	ModuleId="PropsAssets"
+	VersionId="1"
+	Description="General prop assets"
+	Type="toy"
+	ToyCategoryIndex="0"
+	DeclaredAssetManifest="^PropsAssets/DeclaredAssets.Manifest.taml"
+	/>
+

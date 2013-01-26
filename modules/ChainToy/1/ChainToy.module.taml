@@ -1,0 +1,12 @@
+<ModuleDefinition
+	ModuleId="ChainToy"
+	VersionId="1"
+	Description="Box2D Chain Test."
+	Type="toy"
+	ToyCategoryIndex="2"
+	ScriptFile="main.cs"
+	ScopeSet="ChainToySet"
+	CreateFunction="createChainToy"
+	DestroyFunction="destroyChainToy"
+	/>
+

@@ -1,0 +1,13 @@
+<ModuleDefinition
+	ModuleId="SphereStackToy"
+	VersionId="1"
+	Description="Box2D Sphere Stack Test."
+	Type="toy"
+	ToyCategoryIndex="2"
+	ScriptFile="main.cs"
+	ScopeSet="SphereStackToySet"
+	CreateFunction="createSphereStackToy"
+	DestroyFunction="destroySphereStackToy"
+	DeclaredAssetManifest="^SphereStackToy/DeclaredAssets.Manifest.taml"
+	/>
+
