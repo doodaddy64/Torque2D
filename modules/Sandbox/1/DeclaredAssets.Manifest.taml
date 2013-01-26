@@ -1,6 +1,9 @@
 <AssetManifest>
 	<AssetManifest.Search>
 		<Location
+			Path="^Sandbox/assets"
+			Extension="asset.taml"/>
+		<Location
 			Path="^Sandbox/gui/assets"
 			Extension="asset.taml"/>			
 	</AssetManifest.Search>
