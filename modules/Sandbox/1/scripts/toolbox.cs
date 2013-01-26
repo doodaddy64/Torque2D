@@ -27,8 +27,8 @@ function initializeToolbox()
     
     // Populate the toy categories.
     ToyCategorySelectList.add( "All", $toyAllCategoryIndex );
-    ToyCategorySelectList.add( "Features (Physics)", $toyAllCategoryIndex+1 );
-    ToyCategorySelectList.add( "Features (Rendering)", $toyAllCategoryIndex+2 );
+    ToyCategorySelectList.add( "Physics", $toyAllCategoryIndex+1 );
+    ToyCategorySelectList.add( "Features", $toyAllCategoryIndex+2 );
     ToyCategorySelectList.add( "Stress Testing", $toyAllCategoryIndex+3 );
     ToyCategorySelectList.add( "Fun", $toyAllCategoryIndex+4 );
     ToyCategorySelectList.add( "Development", $toyAllCategoryIndex+5 );
