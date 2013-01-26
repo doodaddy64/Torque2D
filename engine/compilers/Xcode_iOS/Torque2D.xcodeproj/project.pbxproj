@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2AC4404E16B0144500FC4091 /* ImageFont.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4404C16B0144500FC4091 /* ImageFont.cc */; };
+		2AF1C54B16B439D900C1CF3A /* declaredAssets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1C54716B439D900C1CF3A /* declaredAssets.cc */; };
+		2AF1C54C16B439D900C1CF3A /* referencedAssets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1C54916B439D900C1CF3A /* referencedAssets.cc */; };
 		8610F32F16AEEC670015BCEB /* main.cs in Resources */ = {isa = PBXBuildFile; fileRef = 8610F32D16AEEC670015BCEB /* main.cs */; };
 		8610F33016AEEC670015BCEB /* modules in Resources */ = {isa = PBXBuildFile; fileRef = 8610F32E16AEEC670015BCEB /* modules */; };
 		86555D2F16B2C29200881446 /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86555D2B16B2C29200881446 /* iPadStoryboard.storyboard */; };
@@ -90,7 +92,6 @@
 		867BB00716AEC9050033868F /* assetBase.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD7116AEC9050033868F /* assetBase.cc */; };
 		867BB00816AEC9050033868F /* assetFieldTypes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD7516AEC9050033868F /* assetFieldTypes.cc */; };
 		867BB00916AEC9050033868F /* assetManager.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD7716AEC9050033868F /* assetManager.cc */; };
-		867BB00A16AEC9050033868F /* assetManifest.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD7A16AEC9050033868F /* assetManifest.cc */; };
 		867BB00B16AEC9050033868F /* assetQuery.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD7D16AEC9050033868F /* assetQuery.cc */; };
 		867BB00C16AEC9050033868F /* assetSnapshot.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD8016AEC9050033868F /* assetSnapshot.cc */; };
 		867BB00D16AEC9050033868F /* assetTagsManifest.cc in Sources */ = {isa = PBXBuildFile; fileRef = 867BAD8216AEC9050033868F /* assetTagsManifest.cc */; };
@@ -469,6 +470,10 @@
 		2AC4404B16B0144500FC4091 /* ImageFont_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFont_ScriptBinding.h; sourceTree = "<group>"; };
 		2AC4404C16B0144500FC4091 /* ImageFont.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFont.cc; sourceTree = "<group>"; };
 		2AC4404D16B0144500FC4091 /* ImageFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFont.h; sourceTree = "<group>"; };
+		2AF1C54716B439D900C1CF3A /* declaredAssets.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = declaredAssets.cc; sourceTree = "<group>"; };
+		2AF1C54816B439D900C1CF3A /* declaredAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = declaredAssets.h; sourceTree = "<group>"; };
+		2AF1C54916B439D900C1CF3A /* referencedAssets.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = referencedAssets.cc; sourceTree = "<group>"; };
+		2AF1C54A16B439D900C1CF3A /* referencedAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = referencedAssets.h; sourceTree = "<group>"; };
 		8610F32D16AEEC670015BCEB /* main.cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.cs; path = ../../../main.cs; sourceTree = "<group>"; };
 		8610F32E16AEEC670015BCEB /* modules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = modules; path = ../../../modules; sourceTree = "<group>"; };
 		86555D2C16B2C29200881446 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/iPadStoryboard.storyboard; sourceTree = "<group>"; };
@@ -646,8 +651,6 @@
 		867BAD7716AEC9050033868F /* assetManager.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = assetManager.cc; sourceTree = "<group>"; };
 		867BAD7816AEC9050033868F /* assetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assetManager.h; sourceTree = "<group>"; };
 		867BAD7916AEC9050033868F /* assetManager_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assetManager_ScriptBinding.h; sourceTree = "<group>"; };
-		867BAD7A16AEC9050033868F /* assetManifest.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = assetManifest.cc; sourceTree = "<group>"; };
-		867BAD7B16AEC9050033868F /* assetManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assetManifest.h; sourceTree = "<group>"; };
 		867BAD7C16AEC9050033868F /* assetPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assetPtr.h; sourceTree = "<group>"; };
 		867BAD7D16AEC9050033868F /* assetQuery.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = assetQuery.cc; sourceTree = "<group>"; };
 		867BAD7E16AEC9050033868F /* assetQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assetQuery.h; sourceTree = "<group>"; };
@@ -1641,6 +1644,10 @@
 		867BAD7016AEC9050033868F /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				2AF1C54716B439D900C1CF3A /* declaredAssets.cc */,
+				2AF1C54816B439D900C1CF3A /* declaredAssets.h */,
+				2AF1C54916B439D900C1CF3A /* referencedAssets.cc */,
+				2AF1C54A16B439D900C1CF3A /* referencedAssets.h */,
 				867BAD7116AEC9050033868F /* assetBase.cc */,
 				867BAD7216AEC9050033868F /* assetBase.h */,
 				867BAD7316AEC9050033868F /* assetBase_ScriptBinding.h */,
@@ -1650,8 +1657,6 @@
 				867BAD7716AEC9050033868F /* assetManager.cc */,
 				867BAD7816AEC9050033868F /* assetManager.h */,
 				867BAD7916AEC9050033868F /* assetManager_ScriptBinding.h */,
-				867BAD7A16AEC9050033868F /* assetManifest.cc */,
-				867BAD7B16AEC9050033868F /* assetManifest.h */,
 				867BAD7C16AEC9050033868F /* assetPtr.h */,
 				867BAD7D16AEC9050033868F /* assetQuery.cc */,
 				867BAD7E16AEC9050033868F /* assetQuery.h */,
@@ -2950,7 +2955,6 @@
 				867BB00716AEC9050033868F /* assetBase.cc in Sources */,
 				867BB00816AEC9050033868F /* assetFieldTypes.cc in Sources */,
 				867BB00916AEC9050033868F /* assetManager.cc in Sources */,
-				867BB00A16AEC9050033868F /* assetManifest.cc in Sources */,
 				867BB00B16AEC9050033868F /* assetQuery.cc in Sources */,
 				867BB00C16AEC9050033868F /* assetSnapshot.cc in Sources */,
 				867BB00D16AEC9050033868F /* assetTagsManifest.cc in Sources */,
@@ -3306,6 +3310,8 @@
 				86555D3716B2C2B400881446 /* T2DAppDelegate.mm in Sources */,
 				86555D3816B2C2B400881446 /* T2DView.mm in Sources */,
 				86555D3916B2C2B400881446 /* T2DViewController.mm in Sources */,
+				2AF1C54B16B439D900C1CF3A /* declaredAssets.cc in Sources */,
+				2AF1C54C16B439D900C1CF3A /* referencedAssets.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

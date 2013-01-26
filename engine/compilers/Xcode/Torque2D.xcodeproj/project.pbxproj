@@ -19,6 +19,8 @@
 		2ADCAC1716A41E5500E07619 /* ParticleAssetField.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCAC1316A41E5500E07619 /* ParticleAssetField.cc */; };
 		2AE5B54216A6D860006908D5 /* ParticleAssetFieldCollection.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AE5B54016A6D860006908D5 /* ParticleAssetFieldCollection.cc */; };
 		2AE851D21681E56E00193F17 /* color.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AE851D11681E56E00193F17 /* color.cc */; };
+		2AF1C54016B439BB00C1CF3A /* declaredAssets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1C53C16B439BB00C1CF3A /* declaredAssets.cc */; };
+		2AF1C54116B439BB00C1CF3A /* referencedAssets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1C53E16B439BB00C1CF3A /* referencedAssets.cc */; };
 		2AF3633916A9BBE0004ED7AA /* ParticleSystem.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AF3633716A9BBE0004ED7AA /* ParticleSystem.cc */; };
 		86063A251654180000362D83 /* platformOSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 86063A241654180000362D83 /* platformOSX.mm */; };
 		8609FE2F16556DD2004662ED /* osxSemaphore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8609FE2E16556DD2004662ED /* osxSemaphore.mm */; };
@@ -194,7 +196,6 @@
 		86D76F9B165686D80046D71F /* hashFunction.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EE416518D4600D96ADF /* hashFunction.cc */; };
 		86D76F9C165686D80046D71F /* assetFieldTypes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EEC16518D4600D96ADF /* assetFieldTypes.cc */; };
 		86D76F9D165686D80046D71F /* assetManager.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EEE16518D4600D96ADF /* assetManager.cc */; };
-		86D76F9E165686D80046D71F /* assetManifest.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EF116518D4600D96ADF /* assetManifest.cc */; };
 		86D76F9F165686D80046D71F /* assetQuery.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EF416518D4600D96ADF /* assetQuery.cc */; };
 		86D76FA0165686D80046D71F /* assetSnapshot.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EF716518D4600D96ADF /* assetSnapshot.cc */; };
 		86D76FA1165686D80046D71F /* assetTagsManifest.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7EF916518D4600D96ADF /* assetTagsManifest.cc */; };
@@ -468,6 +469,10 @@
 		2AE5B54016A6D860006908D5 /* ParticleAssetFieldCollection.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleAssetFieldCollection.cc; sourceTree = "<group>"; };
 		2AE5B54116A6D860006908D5 /* ParticleAssetFieldCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleAssetFieldCollection.h; sourceTree = "<group>"; };
 		2AE851D11681E56E00193F17 /* color.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color.cc; sourceTree = "<group>"; };
+		2AF1C53C16B439BB00C1CF3A /* declaredAssets.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = declaredAssets.cc; sourceTree = "<group>"; };
+		2AF1C53D16B439BB00C1CF3A /* declaredAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = declaredAssets.h; sourceTree = "<group>"; };
+		2AF1C53E16B439BB00C1CF3A /* referencedAssets.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = referencedAssets.cc; sourceTree = "<group>"; };
+		2AF1C53F16B439BB00C1CF3A /* referencedAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = referencedAssets.h; sourceTree = "<group>"; };
 		2AF3633716A9BBE0004ED7AA /* ParticleSystem.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleSystem.cc; sourceTree = "<group>"; };
 		2AF3633816A9BBE0004ED7AA /* ParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleSystem.h; sourceTree = "<group>"; };
 		2AF80CFF16A80CB400CE13F1 /* ParticleAssetEmitter_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleAssetEmitter_ScriptBinding.h; sourceTree = "<group>"; };
@@ -768,8 +773,6 @@
 		86BC7EEE16518D4600D96ADF /* assetManager.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = assetManager.cc; sourceTree = "<group>"; };
 		86BC7EEF16518D4600D96ADF /* assetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assetManager.h; sourceTree = "<group>"; };
 		86BC7EF016518D4600D96ADF /* assetManager_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assetManager_ScriptBinding.h; sourceTree = "<group>"; };
-		86BC7EF116518D4600D96ADF /* assetManifest.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = assetManifest.cc; sourceTree = "<group>"; };
-		86BC7EF216518D4600D96ADF /* assetManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assetManifest.h; sourceTree = "<group>"; };
 		86BC7EF316518D4600D96ADF /* assetPtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assetPtr.h; sourceTree = "<group>"; };
 		86BC7EF416518D4600D96ADF /* assetQuery.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = assetQuery.cc; sourceTree = "<group>"; };
 		86BC7EF516518D4600D96ADF /* assetQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assetQuery.h; sourceTree = "<group>"; };
@@ -1901,6 +1904,10 @@
 		86BC7EE716518D4600D96ADF /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				2AF1C53C16B439BB00C1CF3A /* declaredAssets.cc */,
+				2AF1C53D16B439BB00C1CF3A /* declaredAssets.h */,
+				2AF1C53E16B439BB00C1CF3A /* referencedAssets.cc */,
+				2AF1C53F16B439BB00C1CF3A /* referencedAssets.h */,
 				86BC7EE816518D4600D96ADF /* assetBase.cc */,
 				86BC7EE916518D4600D96ADF /* assetBase.h */,
 				86BC7EEA16518D4600D96ADF /* assetBase_ScriptBinding.h */,
@@ -1910,8 +1917,6 @@
 				86BC7EEE16518D4600D96ADF /* assetManager.cc */,
 				86BC7EEF16518D4600D96ADF /* assetManager.h */,
 				86BC7EF016518D4600D96ADF /* assetManager_ScriptBinding.h */,
-				86BC7EF116518D4600D96ADF /* assetManifest.cc */,
-				86BC7EF216518D4600D96ADF /* assetManifest.h */,
 				86BC7EF316518D4600D96ADF /* assetPtr.h */,
 				86BC7EF416518D4600D96ADF /* assetQuery.cc */,
 				86BC7EF516518D4600D96ADF /* assetQuery.h */,
@@ -3007,7 +3012,6 @@
 				86D76F9B165686D80046D71F /* hashFunction.cc in Sources */,
 				86D76F9C165686D80046D71F /* assetFieldTypes.cc in Sources */,
 				86D76F9D165686D80046D71F /* assetManager.cc in Sources */,
-				86D76F9E165686D80046D71F /* assetManifest.cc in Sources */,
 				86D76F9F165686D80046D71F /* assetQuery.cc in Sources */,
 				86D76FA0165686D80046D71F /* assetSnapshot.cc in Sources */,
 				86D76FA1165686D80046D71F /* assetTagsManifest.cc in Sources */,
@@ -3198,6 +3202,8 @@
 				2AE5B54216A6D860006908D5 /* ParticleAssetFieldCollection.cc in Sources */,
 				2AF3633916A9BBE0004ED7AA /* ParticleSystem.cc in Sources */,
 				2AC4404516B0142B00FC4091 /* ImageFont.cc in Sources */,
+				2AF1C54016B439BB00C1CF3A /* declaredAssets.cc in Sources */,
+				2AF1C54116B439BB00C1CF3A /* referencedAssets.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
