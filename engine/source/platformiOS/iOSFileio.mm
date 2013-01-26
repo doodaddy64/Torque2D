@@ -440,22 +440,22 @@ bool Platform::createPath(const char *file)
    
    // get the parent path.
    // we're not using basename because it's not thread safe.
-   U32 len = dStrlen(file);
+   const U32 len = dStrlen(file) + 1;
    char parent[len];
    bool isDirPath = false;
    
-   dStrncpy(parent,file,len);
-   parent[len] = '\0';
-   if(parent[len - 1] == '/')
+   dSprintf(parent, len, "%s", file);
+
+   if(parent[len - 2] == '/')
    {
-      parent[len - 1] = '\0';    // cut off the trailing slash, if there is one
+      parent[len - 2] = '\0';    // cut off the trailing slash, if there is one
       isDirPath = true;          // we got a trailing slash, so file is a directory.
    }
    
    // recusively create the parent path.
    // only recurse if newpath has a slash that isn't a leading slash.
    char *slash = dStrrchr(parent,'/');
-   if( slash  && slash != parent)
+   if( slash && slash != parent)
    {
       // snip the path just after the last slash.
       slash[1] = '\0';
@@ -514,7 +514,7 @@ static bool isMainDotCsPresent(char *dir)
 { 
    char maincsbuf[MAX_MAC_PATH_LONG];
    const char *maincsname = "/main.cs";
-   U32 len = dStrlen(dir) + dStrlen(maincsname);
+   const U32 len = dStrlen(dir) + dStrlen(maincsname)+1;
    AssertISV(len < MAX_MAC_PATH_LONG, "Sorry, path is too long, I can't run from this folder.");
    
    dSprintf(maincsbuf,MAX_MAC_PATH_LONG,"%s%s", dir, maincsname);
@@ -722,12 +722,11 @@ bool recurseDumpDirectories(const char *basePath, const char *path, Vector<Strin
 {
    DIR *dir;
    dirent *entry;
-   U32 len = dStrlen(basePath) + dStrlen(path) + 2;
+   const U32 len = dStrlen(basePath) + dStrlen(path) + 2;
    char pathbuf[len];
    
    // construct the file path
    dSprintf(pathbuf, len, "%s/%s", basePath, path);
-   pathbuf[len - 1] = '\0';
    
    // be sure it opens.
    dir = opendir(pathbuf);
@@ -762,23 +761,27 @@ bool recurseDumpDirectories(const char *basePath, const char *path, Vector<Strin
       //      CFRelease(cfdname);
       
       // construct the new path string, we'll need this below.
-      U32 newpathlen = dStrlen(path) + dStrlen(entry->d_name) + 2;
+      const U32 newpathlen = dStrlen(path) + dStrlen(entry->d_name) + 2;
       char newpath[newpathlen];
-      if(dStrlen(path) > 0) // prevent extra slashes in the path
-         dSprintf(newpath, newpathlen,"%s/%s",path,entry->d_name);
+      if(dStrlen(path) > 0)
+      {
+          dSprintf(newpath, newpathlen, "%s/%s", path, entry->d_name);
+      }
       else
-         dStrncpy(newpath,entry->d_name, newpathlen);
-      newpath[newpathlen] = '\0';
+      {
+         dSprintf(newpath, newpathlen, "%s", entry->d_name);
+      }
       
       // we have a directory, add it to the list.
       if( noBasePath )
+      {
          directoryVector.push_back(StringTable->insert(newpath));
-      else {
-         U32 fullpathlen = dStrlen(basePath) + dStrlen(newpath) + 2;
+      }
+      else
+      {
+         const U32 fullpathlen = dStrlen(basePath) + dStrlen(newpath) + 2;
          char fullpath[fullpathlen];
-         dSprintf(fullpath,fullpathlen,"%s/%s",basePath,newpath);
-         fullpath[fullpathlen] = '\0';
-         
+         dSprintf(fullpath, fullpathlen, "%s/%s",basePath,newpath);
          directoryVector.push_back(StringTable->insert(fullpath));
       }
       
@@ -797,12 +800,10 @@ bool Platform::dumpDirectories(const char *path, Vector<StringTableEntry> &direc
 
    ResourceManager->initExcludedDirectories();
 
-   int len = dStrlen(path);
+   const S32 len = dStrlen(path)+1;
    char newpath[len];
-   
-   dStrncpy(newpath,path,len);
-   newpath[len] = '\0';
-   if(newpath[len - 1] == '/') 
+   dSprintf(newpath, len, "%s", path);
+   if(newpath[len - 1] == '/')
       newpath[len - 1] = '\0'; // cut off the trailing slash, if there is one
    
     // Insert base path to follow what Windows does.
@@ -834,10 +835,9 @@ static bool recurseDumpPath(const char* curPath, Vector<Platform::FileInfo>& fil
            break;
        
       // construct the full file path. we need this to get the file size and to recurse
-      U32 len = dStrlen(curPath) + entry->d_namlen + 2;
+      const U32 len = dStrlen(curPath) + entry->d_namlen + 2;
       char pathbuf[len];
       dSprintf( pathbuf, len, "%s/%s", curPath, entry->d_name);
-      pathbuf[len - 1] = '\0';
       
       // ok, deal with directories and files seperately.
       if( entry->d_type == DT_DIR )
@@ -858,7 +858,7 @@ static bool recurseDumpPath(const char* curPath, Vector<Platform::FileInfo>& fil
          // unlike recurseDumpDirectories(), we need to return more complex info here.
 		  //<Mat> commented this out in case we ever want a dir file printout again
 		  //printf( "File Name: %s ", entry->d_name );
-         U32 fileSize = Platform::getFileSize(pathbuf);
+         const U32 fileSize = Platform::getFileSize(pathbuf);
          fileVector.increment();
          Platform::FileInfo& rInfo = fileVector.last();
          rInfo.pFullPath = StringTable->insert(curPath);
@@ -876,13 +876,13 @@ static bool recurseDumpPath(const char* curPath, Vector<Platform::FileInfo>& fil
 bool Platform::dumpPath(const char *path, Vector<Platform::FileInfo>& fileVector, S32 depth)
 {
    PROFILE_START(dumpPath);
-   int len = dStrlen(path);
-   char newpath[len+1];
+    const S32 len = dStrlen(path) + 1;
+   char newpath[len];
    
-   dStrncpy(newpath,path,len);
-   newpath[len] = '\0'; // null terminate
-   if(newpath[len - 1] == '/') 
-      newpath[len - 1] = '\0'; // cut off the trailing slash, if there is one
+    dSprintf(newpath, len, "%s", path);
+    
+   if(newpath[len - 2] == '/')
+      newpath[len - 2] = '\0'; // cut off the trailing slash, if there is one
    
    bool ret = recurseDumpPath( newpath, fileVector, depth);
    PROFILE_END();
