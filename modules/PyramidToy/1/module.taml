@@ -6,7 +6,6 @@
 	Type="toy"
 	ToyCategoryIndex="2"
 	ScriptFile="main.cs"
-	ScopeSet="PyramidToySet"
 	CreateFunction="createPyramidToy"
 	DestroyFunction="destroyPyramidToy">
 		<DeclaredAssets

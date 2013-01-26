@@ -5,7 +5,6 @@
 	Type="toy"
 	ToyCategoryIndex="5"
 	ScriptFile="main.cs"
-	ScopeSet="AquariumToySet"
 	CreateFunction="createAquariumToy"
 	DestroyFunction="destroyAquariumToy">
 		<DeclaredAssets

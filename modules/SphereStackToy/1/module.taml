@@ -6,7 +6,6 @@
 	Type="toy"
 	ToyCategoryIndex="2"
 	ScriptFile="main.cs"
-	ScopeSet="SphereStackToySet"
 	CreateFunction="createSphereStackToy"
 	DestroyFunction="destroySphereStackToy">
 		<DeclaredAssets

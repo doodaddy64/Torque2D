@@ -5,7 +5,6 @@
 	Type="toy"
 	ToyCategoryIndex="2"
 	ScriptFile="main.cs"
-	ScopeSet="ApplyForceToySet"
 	CreateFunction="createApplyForceToy"
 	DestroyFunction="destroyApplyForceToy">
 		<DeclaredAssets

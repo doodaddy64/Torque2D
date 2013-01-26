@@ -3,7 +3,6 @@
 	VersionId="1"
 	Description="A sandbox for testing and prototyping."
 	ScriptFile="main.cs"
-	ScopeSet="SandboxSet"
 	CreateFunction="createSandbox"
 	DestroyFunction="destroySandbox">
 		<DeclaredAssets
