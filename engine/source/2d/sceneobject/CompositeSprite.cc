@@ -71,7 +71,7 @@ IMPLEMENT_CONOBJECT(CompositeSprite);
 //------------------------------------------------------------------------------
 
 CompositeSprite::CompositeSprite() :
-    mBatchLayoutType( RECTILINEAR_LAYOUT )
+    mBatchLayoutType( NO_LAYOUT )
 {
     // Set as auto-sizing.
     mAutoSizing = true;

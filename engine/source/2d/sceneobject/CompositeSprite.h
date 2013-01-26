@@ -80,7 +80,7 @@ protected:
     static bool         writeBatchSortMode( void* obj, StringTableEntry pFieldName )        { return static_cast<CompositeSprite*>(obj)->getBatchSortMode() != SceneRenderQueue::RENDER_SORT_OFF; }
 
     static bool         setBatchLayout(void* obj, const char* data)                         { static_cast<CompositeSprite*>(obj)->setBatchLayout( getBatchLayoutTypeEnum(data) ); return false; }
-    static bool         writeBatchLayout( void* obj, StringTableEntry pFieldName )          { return static_cast<CompositeSprite*>(obj)->getBatchLayout() != CompositeSprite::RECTILINEAR_LAYOUT; }
+    static bool         writeBatchLayout( void* obj, StringTableEntry pFieldName )          { return static_cast<CompositeSprite*>(obj)->getBatchLayout() != CompositeSprite::NO_LAYOUT; }
     static bool         setBatchCulling(void* obj, const char* data)                        { STATIC_VOID_CAST_TO(CompositeSprite, SpriteBatch, obj)->setBatchCulling(dAtob(data)); return false; }
     static bool         writeBatchCulling( void* obj, StringTableEntry pFieldName )         { return !static_cast<CompositeSprite*>(obj)->getBatchCulling(); }
 };
