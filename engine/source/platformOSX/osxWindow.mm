@@ -20,11 +20,7 @@ static void osxGetInitialResolution(U32 &width, U32 &height, U32 &bpp, bool &ful
     Video::getDesktopResolution();
     
     // load pref variables, properly choose windowed / fullscreen
-#ifndef TORQUE_TOOLS
     fullScreen = Con::getBoolVariable("$pref::Video::fullScreen");
-#else
-    fullScreen = Con::getBoolVariable("$pref::T2D::fullScreen");
-#endif
     
     if (fullScreen)
         resString = Con::getVariable("$pref::Video::resolution");
@@ -108,14 +104,14 @@ void Platform::initWindow(const Point2I &initialSize, const char *name)
     osxOpenGLDevice* device = new osxOpenGLDevice();
     Video::installDevice(device);
     
-    // Show the window and all its contents
-    [[platState window] makeKeyAndOrderFront:NSApp];
-    [[platState window] center];
-    
     bool deviceWasSet = Video::setDevice(device->mDeviceName, width, height, bpp, fullScreen);
     
     if (!deviceWasSet)
         AssertFatal(false, "Platform::initWindow could not find a compatible display device!");
+
+    // Show the window and all its contents
+    [[platState window] makeKeyAndOrderFront:NSApp];
+    [[platState window] center];
 }
 
 //-----------------------------------------------------------------------------
