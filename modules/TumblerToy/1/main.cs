@@ -50,7 +50,6 @@ function createTumblerBall()
     {      
         // Create the ball.
         %ball = new Sprite();
-        %ball.BatchLayout = "rect";
         %ball.Position = getRandom(-10,10) SPC "0";
         %ball.Size = "2";
         %ball.Image = "TumblerToy:FootballImage";        
