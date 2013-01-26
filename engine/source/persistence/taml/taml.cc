@@ -96,6 +96,7 @@ const char* Taml::getFormatModeDescription(const Taml::TamlFormatMode formatMode
 Taml::Taml() :
     mFormatMode(XmlFormat),
     mBinaryCompression(true),
+    mWriteDefaults(false),
     mAutoFormat(true),
     mAutoFormatXmlExtension("taml"),    // These are set to string literals because Taml is used in a static scope and the string-table cannot be used like that.
     mAutoFormatBinaryExtension("baml")
@@ -111,6 +112,7 @@ void Taml::initPersistFields()
 
     addField("Format", TypeEnum, Offset(mFormatMode, Taml), 1, &tamlFormatModeTable, "The read/write format that should be used.");
     addField("BinaryCompression", TypeBool, Offset(mBinaryCompression, Taml), "Whether ZIP compression is used on binary formatting or not.\n");
+    addField("WriteDefaults", TypeBool, Offset(mWriteDefaults, Taml), "Whether to write static fields that are at their default or not.\n");
     addField("AutoFormat", TypeBool, Offset(mAutoFormat, Taml), "Whether the format type is automatically determined by the filename extension or not.\n");
     addField("AutoFormatXmlExtension", TypeString, Offset(mAutoFormatXmlExtension, Taml), "When using auto-format, this is the extension (end of filename) used to detect the XML format.\n");
     addField("AutoFormatBinaryExtension", TypeString, Offset(mAutoFormatBinaryExtension, Taml), "When using auto-format, this is the extension (end of filename) used to detect the BINARY format.\n");
@@ -477,7 +479,7 @@ void Taml::compileStaticFields( TamlWriteNode* pTamlWriteNode )
         // For now, we only deal with non-array fields.
         if ( elementCount == 1 &&
             pField->writeDataFn != NULL &&
-            pField->writeDataFn( pSimObject, fieldName ) == false )
+            ( !getWriteDefaults() && pField->writeDataFn( pSimObject, fieldName ) == false) )
             continue;
 
         // Iterate elements.

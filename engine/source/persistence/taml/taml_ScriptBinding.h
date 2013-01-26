@@ -50,6 +50,23 @@ ConsoleMethod(Taml, getAutoFormat, bool, 2, 2,  "() Gets whether the format type
 
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(Taml, setWriteDefaults, void, 3, 3,   "(writeDefaults) Sets whether to write static fields that are at their default or not.\n"
+                                                    "@param writeDefaults Whether to write static fields that are at their default or not.\n"
+                                                    "@return No return value." )
+{
+    object->setWriteDefaults( dAtob(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(Taml, getWriteDefaults, bool, 2, 2,   "() Gets whether to write static fields that are at their default or not.\n"
+                                                    "@return Whether to write static fields that are at their default or not." )
+{
+    return object->getWriteDefaults();
+}
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(Taml, setAutoFormatXmlExtension, void, 3, 3,  "(extension) Sets the extension (end of filename) used to detect the XML format.\n"
                                                             "@param extension The extension (end of filename) used to detect the XML format.\n"
                                                             "@return No return value." )

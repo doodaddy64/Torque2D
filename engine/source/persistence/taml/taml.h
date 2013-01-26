@@ -76,6 +76,7 @@ private:
     U32                 mMasterNodeId;
     TamlFormatMode      mFormatMode;
     bool                mBinaryCompression;
+    bool                mWriteDefaults;
     bool                mAutoFormat;
     StringTableEntry    mAutoFormatXmlExtension;
     StringTableEntry    mAutoFormatBinaryExtension;
@@ -129,6 +130,10 @@ public:
     /// Auto-Format mode.
     inline void setAutoFormat( const bool autoFormat ) { mAutoFormat = autoFormat; }
     inline bool getAutoFormat( void ) const { return mAutoFormat; }
+
+    /// Write defaults.
+    inline void setWriteDefaults( const bool writeDefaults ) { mWriteDefaults = writeDefaults; }
+    inline bool getWriteDefaults( void ) const { return mWriteDefaults; }
 
     // Auto-format extensions.
     inline void setAutoFormatXmlExtension( const char* pExtension ) { mAutoFormatXmlExtension = StringTable->insert( pExtension ); }
