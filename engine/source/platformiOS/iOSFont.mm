@@ -109,7 +109,14 @@ PlatformFont::CharInfo& iOSFont::getCharInfo(const UTF8 *str) const
 
 PlatformFont::CharInfo& iOSFont::getCharInfo(const UTF16 ch) const
 {
-	Con::warnf("iOSFont::getCharInfo() is being used to get char info, values will almost certainly be wrong(generate better UFTs)");	
+    // Issue a warning only once.
+    static bool warningIssued = false;
+    if ( !warningIssued )
+    {
+        Con::warnf( "iOSFont::getCharInfo() Cannot retrieve character info directly on iOS.  Font-cached 'UTFs' are required for this>." );
+        warningIssued = true;
+    }
+    
 	// Declare and clear out the CharInfo that will be returned.
 	static PlatformFont::CharInfo c;
 	dMemset(&c, 0, sizeof(c));
