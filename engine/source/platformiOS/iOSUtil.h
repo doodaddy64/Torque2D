@@ -21,7 +21,7 @@
 	iOSOrientationPortraitUpsideDown		//The home button is on the top
 };*/
 
-int _iOSGameGetCurrentOrientation();	
+int _iOSGameGetOrientation();	
 void _iOSGameSetCurrentOrientation(int iOrientation);	
 
 

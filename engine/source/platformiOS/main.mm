@@ -97,13 +97,13 @@ void _iOSGameWillTerminate()
 
 // Store current orientation for easy access
 void _iOSGameChangeOrientation(S32 newOrientation)
-{
+{    
 	_iOSGameSetCurrentOrientation(newOrientation);
     
     bool enableAutoOrientation = Con::getBoolVariable("$pref::iOS::EnableOrientationRotation");
     int screenOrientation = Con::getIntVariable("$pref::iOS::ScreenOrientation");
     bool allowOtherOrientation = Con::getBoolVariable("$pref::iOS::EnableOtherOrientationRotation");
-    
+
     // The rotation matching the project orientation must be allowed for any to occur
     if (enableAutoOrientation)
     {
@@ -115,7 +115,7 @@ void _iOSGameChangeOrientation(S32 newOrientation)
         {
             if (newOrientation == UIDeviceOrientationLandscapeLeft)
             {
-                platState.Window.transform = CGAffineTransformMakeRotation(mDegToRad(0.0f));
+                platState.Window.transform = CGAffineTransformMakeRotation(M_PI*1.5);
                 Con::executef(1, "oniOSOrientationToLandscapeLeft");
                 //  Show animations
                 [UIView commitAnimations];
@@ -125,7 +125,7 @@ void _iOSGameChangeOrientation(S32 newOrientation)
             
             if (newOrientation == UIDeviceOrientationLandscapeRight)
             {
-                platState.Window.transform = CGAffineTransformMakeRotation(mDegToRad(180.0f));
+                platState.Window.transform = CGAffineTransformMakeRotation(M_PI_2);
                 Con::executef(1, "oniOSOrientationToLandscapeRight");
                 //  Show animations
                 [UIView commitAnimations];
@@ -139,7 +139,7 @@ void _iOSGameChangeOrientation(S32 newOrientation)
         {
             if (newOrientation == UIDeviceOrientationPortrait)
             {
-                platState.Window.transform = CGAffineTransformMakeRotation(mDegToRad(270.0f));
+                platState.Window.transform = CGAffineTransformMakeRotation(M_PI*1.5);
                 Con::executef(1, "oniOSOrientationToPortrait");
                 //  Show animations
                 [UIView commitAnimations];
@@ -149,7 +149,7 @@ void _iOSGameChangeOrientation(S32 newOrientation)
             
             if (newOrientation == UIDeviceOrientationPortraitUpsideDown)
             {
-                platState.Window.transform = CGAffineTransformMakeRotation(mDegToRad(90.0f));
+                platState.Window.transform = CGAffineTransformMakeRotation(M_PI_2);
                 Con::executef(1, "oniOSOrientationToPortraitUpsideDown");
                 //  Show animations
                 [UIView commitAnimations];
