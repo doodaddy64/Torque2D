@@ -1,16 +1,11 @@
 <ModuleDefinition
-	ModuleId="PyramidToy"
-	VersionId="1"
-	Description="Box2D Pyramid Test."
-    Dependencies="PropsAssets=1"
-	Type="toy"
-	ToyCategoryIndex="2"
-	ScriptFile="main.cs"
-	CreateFunction="createPyramidToy"
-	DestroyFunction="destroyPyramidToy">
-		<DeclaredAssets
-			Path="assets"
-			Extension="asset.taml"
-			Recurse="true"/>
-</ModuleDefinition>
-
+    ModuleId="PyramidToy"
+    VersionId="1"
+    Description="Box2D Pyramid Test."
+    Dependencies="ToyAssets=1"
+    Type="toy"
+    ToyCategoryIndex="2"
+    ScriptFile="main.cs"
+    CreateFunction="createPyramidToy"
+    DestroyFunction="destroyPyramidToy"/>
+	

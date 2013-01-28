@@ -1,15 +1,10 @@
 <ModuleDefinition
-	ModuleId="RopeToy"
-	VersionId="1"
-	Description="Box2D Rope Test."
-    Dependencies="PropsAssets=1"
-	Type="toy"
-	ToyCategoryIndex="2"
-	ScriptFile="main.cs"
-	CreateFunction="createRopeToy"
-	DestroyFunction="destroyRopeToy">
-		<DeclaredAssets
-			Path="assets"
-			Extension="asset.taml"
-			Recurse="true"/>
-</ModuleDefinition>
+    ModuleId="RopeToy"
+    VersionId="1"
+    Description="Box2D Rope Test."
+    Dependencies="ToyAssets=1"
+    Type="toy"
+    ToyCategoryIndex="2"
+    ScriptFile="main.cs"
+    CreateFunction="createRopeToy"
+    DestroyFunction="destroyRopeToy"/>

@@ -1,15 +1,10 @@
 <ModuleDefinition
-	ModuleId="ConveyorToy"
-	VersionId="1"
-	Description="Box2D Conveyor Belt Test."
-    Dependencies="PropsAssets=1"
-	Type="toy"
-	ToyCategoryIndex="2"
-	ScriptFile="main.cs"
-	CreateFunction="createConveyorToy"
-	DestroyFunction="destroyConveyorToy">
-		<DeclaredAssets
-			Path="assets"
-			Extension="asset.taml"
-			Recurse="true"/>
-</ModuleDefinition>
+    ModuleId="ConveyorToy"
+    VersionId="1"
+    Description="Box2D Conveyor Belt Test."
+    Dependencies="ToyAssets=1"
+    Type="toy"
+    ToyCategoryIndex="2"
+    ScriptFile="main.cs"
+    CreateFunction="createConveyorToy"
+    DestroyFunction="destroyConveyorToy"/>

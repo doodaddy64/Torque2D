@@ -5,15 +5,15 @@
 
 function createPyramidToy( %scopeSet )
 {
-	$PyramidBrickCount = 15;
-	$GroundWidth = 150;
-	
-	SandboxWindow.setCurrentCameraZoom( 2 );
-	SandboxScene.setGravity( 0, -15 );
-	
-	createPyramidGround();
-	createToyPyramid(-15, -8, $PyramidBrickCount);
-	
+    $PyramidBrickCount = 15;
+    $GroundWidth = 150;
+    
+    SandboxWindow.setCurrentCameraZoom( 2 );
+    SandboxScene.setGravity( 0, -15 );
+    
+    createPyramidGround();
+    createToyPyramid(-15, -8, $PyramidBrickCount);
+    
     // Set the sandbox drag mode.
     setSandboxDragMode( "pull" ); 
 }
@@ -29,12 +29,12 @@ function destroyPyramidToy( %scopeSet )
 function createPyramidGround()
 {
     %ground = new Scroller();
-	%ground.setBodyType( "static" );
-	%ground.Image = "PropsAssets:woodGround";
-	%ground.setSize($GroundWidth, 2);
-	%ground.setRepeatX( $GroundWidth / 12 );   
-	%ground.setPosition(0, -10);
-	%ground.createEdgeCollisionShape( $GroundWidth/-2, 1, $GroundWidth/2, 1 );
+    %ground.setBodyType( "static" );
+    %ground.Image = "ToyAssets:woodGround";
+    %ground.setSize($GroundWidth, 2);
+    %ground.setRepeatX( $GroundWidth / 12 );   
+    %ground.setPosition(0, -10);
+    %ground.createEdgeCollisionShape( $GroundWidth/-2, 1, $GroundWidth/2, 1 );
     SandboxScene.add( %ground );
 }
 
@@ -64,7 +64,7 @@ function createToyPyramid( %posX, %posY, %brickBaseCount)
 
 function createCrate( %posX, %posY)
 {
-   %imageMap = "PropsAssets:crate";
+   %imageMap = "ToyAssets:crate";
    %obj = new Sprite();
    %obj.setUseInputEvents(true);
    %obj.setImage( %imageMap );

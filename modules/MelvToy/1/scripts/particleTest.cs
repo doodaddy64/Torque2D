@@ -27,7 +27,7 @@ function runParticleTest()
     %emitter.EmitterAngle = 0;
     %emitter.EmitterOffset = "0 0";
     %emitter.IntenseParticles =false;
-    %emitter.Image = "MelvToy:football";
+    %emitter.Image = "ToyAssets:football";
     %emitter.Frame = 0;
     %emitter.FixedAspect = true;
     %emitter.RandomImageFrame = false;
@@ -179,11 +179,4 @@ function runParticleTest()
     //%newScene = TamlRead( "scene.taml" );
 	
 	//quit();
-}
-
-function changeParticleAsset()
-{
-   %asset = AssetDatabase.acquireAsset( "MelvToy:TestParticle" );
-   %emitter = %asset.findEmitter( "Sputter" );
-   %emitter.Frame = 1;
 }

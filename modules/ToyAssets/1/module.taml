@@ -1,7 +1,7 @@
 <ModuleDefinition
-	ModuleId="PropsAssets"
+	ModuleId="ToyAssets"
 	VersionId="1"
-	Description="General prop assets"
+	Description="Miscellaneous assets used by all the toys."
 	ToyCategoryIndex="0">
 		<DeclaredAssets
 			Path="assets"

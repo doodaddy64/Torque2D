@@ -1,16 +1,16 @@
 <ModuleDefinition
-	ModuleId="TruckToy"
-	VersionId="1"
-	Description="A monster truck toy."
-    Dependencies="PropsAssets=1"
-	Type="toy"
-	ToyCategoryIndex="5"
-	ScriptFile="main.cs"
-	CreateFunction="createTruckToy"
-	DestroyFunction="destroyTruckToy">
-		<DeclaredAssets
-			Path="assets"
-			Extension="asset.taml"
-			Recurse="true"/>		
+    ModuleId="TruckToy"
+    VersionId="1"
+    Description="A monster truck toy."
+    Dependencies="ToyAssets=1"
+    Type="toy"
+    ToyCategoryIndex="5"
+    ScriptFile="main.cs"
+    CreateFunction="createTruckToy"
+    DestroyFunction="destroyTruckToy">
+        <DeclaredAssets
+            Path="assets"
+            Extension="asset.taml"
+            Recurse="true"/>		
 </ModuleDefinition>
 

@@ -4,7 +4,7 @@
         EmitterName="smoke"
         FixedForceAngle="90"
         OldestInFront="1"
-        Image="@asset=TruckToy:Particles4"
+        Image="@asset=ToyAssets:Particles4"
         Frame="0">
         <ParticleAssetEmitter.Fields>
             <Quantity

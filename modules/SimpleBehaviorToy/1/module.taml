@@ -2,16 +2,10 @@
 	ModuleId="SimpleBehaviorToy"
 	VersionId="1"
 	Description="Simple Behavior Example"
+	Dependencies="ToyAssets=1"
 	Type="toy"
 	ToyCategoryIndex="6"
 	ScriptFile="main.cs"
 	CreateFunction="createSimpleBehaviorToy"
-	DestroyFunction="destroySimpleBehaviorToy">
-		<DeclaredAssets
-			Path="assets"
-			Extension="asset.taml"
-			Recurse="true"/>		
-</ModuleDefinition>
-
-
-
+	DestroyFunction="destroySimpleBehaviorToy"/>
+	
