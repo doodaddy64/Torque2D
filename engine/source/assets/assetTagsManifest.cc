@@ -116,11 +116,11 @@ void AssetTagsManifest::onTamlCustomWrite( TamlCustomProperties& customPropertie
     // Iterate tags.
     for( typeTagNameHash::iterator tagItr = mTagNameDatabase.begin(); tagItr != mTagNameDatabase.end(); ++tagItr )
     {
-        // Add type alias.
-        TamlPropertyTypeAlias* pTypeAlias = pTagProperty->addTypeAlias( ASSETTAGS_TAGS_TYPE_NAME );
+        // Add alias.
+        TamlPropertyAlias* pAlias = pTagProperty->addAlias( ASSETTAGS_TAGS_TYPE_NAME );
 
         // Add fields.
-        pTypeAlias->addPropertyField( ASSETTAGS_TAGS_NAME_FIELD, tagItr->key );
+        pAlias->addField( ASSETTAGS_TAGS_NAME_FIELD, tagItr->key );
     }
 
     // Add property.
@@ -129,12 +129,12 @@ void AssetTagsManifest::onTamlCustomWrite( TamlCustomProperties& customPropertie
     // Iterate asset locations.
     for( typeAssetToTagHash::iterator assetTagItr = mAssetToTagDatabase.begin(); assetTagItr != mAssetToTagDatabase.end(); ++assetTagItr )
     {
-        // Add type alias.
-        TamlPropertyTypeAlias* pTypeAlias = pAssetTagProperty->addTypeAlias( ASSETTAGS_ASSETS_TYPE_NAME );
+        // Add alias.
+        TamlPropertyAlias* pAlias = pAssetTagProperty->addAlias( ASSETTAGS_ASSETS_TYPE_NAME );
 
         // Add fields.
-        pTypeAlias->addPropertyField( ASSETTAGS_ASSETS_ASSETID_FIELD, assetTagItr->key );
-        pTypeAlias->addPropertyField( ASSETTAGS_ASSETS_TAG_FIELD, assetTagItr->value->mTagName );
+        pAlias->addField( ASSETTAGS_ASSETS_ASSETID_FIELD, assetTagItr->key );
+        pAlias->addField( ASSETTAGS_ASSETS_TAG_FIELD, assetTagItr->value->mTagName );
     }
 }
 
@@ -152,21 +152,21 @@ void AssetTagsManifest::onTamlCustomRead( const TamlCustomProperties& customProp
     if ( pTagProperty == NULL )
         return;
 
-    // Fetch type alias name.
-    StringTableEntry tagTypeAliasName = StringTable->insert( ASSETTAGS_TAGS_TYPE_NAME );
+    // Fetch alias name.
+    StringTableEntry tagAliasName = StringTable->insert( ASSETTAGS_TAGS_TYPE_NAME );
 
-    // Iterate property type alias.
-    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pTagProperty->begin(); propertyTypeAliasItr != pTagProperty->end(); ++propertyTypeAliasItr )
+    // Iterate property alias.
+    for( TamlCustomProperty::const_iterator propertyAliasItr = pTagProperty->begin(); propertyAliasItr != pTagProperty->end(); ++propertyAliasItr )
     {
-        // Fetch property type alias.
-        const TamlPropertyTypeAlias* pTypeAlias = *propertyTypeAliasItr;
+        // Fetch property alias.
+        const TamlPropertyAlias* pAlias = *propertyAliasItr;
 
         // Skip if an unknown alias name.
-        if ( pTypeAlias->mAliasName != tagTypeAliasName )
+        if ( pAlias->mAliasName != tagAliasName )
             continue;
 
         // Fetch "Name" field.
-        const TamlPropertyField* pTagNameField = pTypeAlias->findField( ASSETTAGS_TAGS_NAME_FIELD );
+        const TamlPropertyField* pTagNameField = pAlias->findField( ASSETTAGS_TAGS_NAME_FIELD );
 
         // Do we find the field?
         if ( pTagNameField == NULL )
@@ -187,21 +187,21 @@ void AssetTagsManifest::onTamlCustomRead( const TamlCustomProperties& customProp
     if ( pAssetTagProperty == NULL )
         return;
 
-    // Fetch type alias name.
-    StringTableEntry assetTagTypeAliasName = StringTable->insert( ASSETTAGS_ASSETS_TYPE_NAME );
+    // Fetch alias name.
+    StringTableEntry assetTagAliasName = StringTable->insert( ASSETTAGS_ASSETS_TYPE_NAME );
 
-    // Iterate property type alias.
-    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pAssetTagProperty->begin(); propertyTypeAliasItr != pAssetTagProperty->end(); ++propertyTypeAliasItr )
+    // Iterate property alias.
+    for( TamlCustomProperty::const_iterator propertyAliasItr = pAssetTagProperty->begin(); propertyAliasItr != pAssetTagProperty->end(); ++propertyAliasItr )
     {
-        // Fetch property type alias.
-        const TamlPropertyTypeAlias* pTypeAlias = *propertyTypeAliasItr;
+        // Fetch property alias.
+        const TamlPropertyAlias* pAlias = *propertyAliasItr;
 
         // Skip if an unknown alias name.
-        if ( pTypeAlias->mAliasName != assetTagTypeAliasName )
+        if ( pAlias->mAliasName != assetTagAliasName )
             continue;
 
         // Fetch "AssetId" field.
-        const TamlPropertyField* pAssetIdField = pTypeAlias->findField( ASSETTAGS_ASSETS_ASSETID_FIELD );
+        const TamlPropertyField* pAssetIdField = pAlias->findField( ASSETTAGS_ASSETS_ASSETID_FIELD );
 
         // Do we find the field?
         if ( pAssetIdField == NULL )
@@ -212,7 +212,7 @@ void AssetTagsManifest::onTamlCustomRead( const TamlCustomProperties& customProp
         }
 
         // Fetch "Tag" field.
-        const TamlPropertyField* pTagField = pTypeAlias->findField( ASSETTAGS_ASSETS_TAG_FIELD );
+        const TamlPropertyField* pTagField = pAlias->findField( ASSETTAGS_ASSETS_TAG_FIELD );
 
         // Do we find the field?
         if ( pTagField == NULL )

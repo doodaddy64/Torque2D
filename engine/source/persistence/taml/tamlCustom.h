@@ -184,17 +184,17 @@ static FactoryCache<TamlPropertyField> TamlPropertyFieldFactory;
 
 typedef Vector<TamlPropertyField*> TamlPropertyFieldVector;
 
-class TamlPropertyTypeAlias :
+class TamlPropertyAlias :
     public TamlPropertyFieldVector,
     public IFactoryObjectReset
 {
 public:
-    TamlPropertyTypeAlias()
+    TamlPropertyAlias()
     {
         resetState();
     }
 
-    virtual ~TamlPropertyTypeAlias()
+    virtual ~TamlPropertyAlias()
     {
         // Everything should already be cleared in a state reset.
         // Touching any memory here is dangerous as this type is typically
@@ -222,7 +222,7 @@ public:
         mAliasName = StringTable->insert( pAliasName );
     }
 
-    TamlPropertyField* addPropertyField( const char* pFieldName, const ColorI& fieldValue )
+    TamlPropertyField* addField( const char* pFieldName, const ColorI& fieldValue )
     {
         // Fetch the field value.
         const char* pFieldValue = Con::getData( TypeColorI, &const_cast<ColorI&>(fieldValue), 0 );
@@ -235,10 +235,10 @@ public:
             pFieldValue = StringTable->EmptyString;
         }
 
-        return addPropertyField( pFieldName, pFieldValue );
+        return addField( pFieldName, pFieldValue );
     }
 
-    TamlPropertyField* addPropertyField( const char* pFieldName, const ColorF& fieldValue )
+    TamlPropertyField* addField( const char* pFieldName, const ColorF& fieldValue )
     {
         // Fetch the field value.
         const char* pFieldValue = Con::getData( TypeColorF, &const_cast<ColorF&>(fieldValue), 0 );
@@ -251,59 +251,59 @@ public:
             pFieldValue = StringTable->EmptyString;
         }
 
-        return addPropertyField( pFieldName, pFieldValue );
+        return addField( pFieldName, pFieldValue );
     }
 
-    TamlPropertyField* addPropertyField( const char* pFieldName, const Point2I& fieldValue )
+    TamlPropertyField* addField( const char* pFieldName, const Point2I& fieldValue )
     {
         char fieldValueBuffer[32];
         dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%d %d", fieldValue.x, fieldValue.y );
-        return addPropertyField( pFieldName, fieldValueBuffer );
+        return addField( pFieldName, fieldValueBuffer );
     }
 
-    TamlPropertyField* addPropertyField( const char* pFieldName, const Point2F& fieldValue )
+    TamlPropertyField* addField( const char* pFieldName, const Point2F& fieldValue )
     {
         char fieldValueBuffer[32];
         dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%.5g %0.5g", fieldValue.x, fieldValue.y );
-        return addPropertyField( pFieldName, fieldValueBuffer );
+        return addField( pFieldName, fieldValueBuffer );
     }
 
-    TamlPropertyField* addPropertyField( const char* pFieldName, const b2Vec2& fieldValue )
+    TamlPropertyField* addField( const char* pFieldName, const b2Vec2& fieldValue )
     {
         char fieldValueBuffer[32];
         dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%.5g %.5g", fieldValue.x, fieldValue.y );
-        return addPropertyField( pFieldName, fieldValueBuffer );
+        return addField( pFieldName, fieldValueBuffer );
     }
 
-    TamlPropertyField* addPropertyField( const char* pFieldName, const U32 fieldValue )
+    TamlPropertyField* addField( const char* pFieldName, const U32 fieldValue )
     {
         char fieldValueBuffer[16];
         dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%d", fieldValue );
-        return addPropertyField( pFieldName, fieldValueBuffer );
+        return addField( pFieldName, fieldValueBuffer );
     }
 
-    TamlPropertyField* addPropertyField( const char* pFieldName, const bool fieldValue )
+    TamlPropertyField* addField( const char* pFieldName, const bool fieldValue )
     {
         char fieldValueBuffer[16];
         dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%d", fieldValue );
-        return addPropertyField( pFieldName, fieldValueBuffer );
+        return addField( pFieldName, fieldValueBuffer );
     }
 
-    TamlPropertyField* addPropertyField( const char* pFieldName, const S32 fieldValue )
+    TamlPropertyField* addField( const char* pFieldName, const S32 fieldValue )
     {
         char fieldValueBuffer[16];
         dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%d", fieldValue );
-        return addPropertyField( pFieldName, fieldValueBuffer );
+        return addField( pFieldName, fieldValueBuffer );
     }
 
-    TamlPropertyField* addPropertyField( const char* pFieldName, const float fieldValue )
+    TamlPropertyField* addField( const char* pFieldName, const float fieldValue )
     {
         char fieldValueBuffer[16];
         dSprintf( fieldValueBuffer, sizeof(fieldValueBuffer), "%.5g", fieldValue );
-        return addPropertyField( pFieldName, fieldValueBuffer );
+        return addField( pFieldName, fieldValueBuffer );
     }
 
-    TamlPropertyField* addPropertyField( const char* pFieldName, const char* pFieldValue )
+    TamlPropertyField* addField( const char* pFieldName, const char* pFieldValue )
     {
         // Create a property field.
         TamlPropertyField* pPropertyField = TamlPropertyFieldFactory.createObject();
@@ -320,7 +320,7 @@ public:
                 continue;
 
             // Warn!
-            Con::warnf("Conflicting Taml property field name of '%s' in property type alias of '%s'.", pFieldName, mAliasName );
+            Con::warnf("Conflicting Taml property field name of '%s' in property alias of '%s'.", pFieldName, mAliasName );
 
             // Cache property field.
             TamlPropertyFieldFactory.cacheObject( pPropertyField );
@@ -347,7 +347,7 @@ public:
         return pPropertyField;
     }
 
-    TamlPropertyField* addPropertyField( const char* pFieldName, SimObject* pFieldObject )
+    TamlPropertyField* addField( const char* pFieldName, SimObject* pFieldObject )
     {
         // Create a property field.
         TamlPropertyField* pPropertyField = TamlPropertyFieldFactory.createObject();
@@ -364,7 +364,7 @@ public:
                 continue;
 
             // Warn!
-            Con::warnf("Conflicting Taml property field name of '%s' in property type alias of '%s'.", pFieldName, mAliasName );
+            Con::warnf("Conflicting Taml property field name of '%s' in property alias of '%s'.", pFieldName, mAliasName );
 
             // Cache property field.
             TamlPropertyFieldFactory.cacheObject( pPropertyField );
@@ -399,14 +399,14 @@ public:
     bool                mIgnoreEmpty;
 };
 
-static FactoryCache<TamlPropertyTypeAlias> TamlPropertyTypeAliasFactory;
+static FactoryCache<TamlPropertyAlias> TamlPropertyAliasFactory;
 
 //-----------------------------------------------------------------------------
 
-typedef Vector<TamlPropertyTypeAlias*> TamlPropertyTypeAliasVector;
+typedef Vector<TamlPropertyAlias*> TamlPropertyAliasVector;
 
 class TamlCustomProperty :
-    public TamlPropertyTypeAliasVector,
+    public TamlPropertyAliasVector,
     public IFactoryObjectReset
 {
 public:
@@ -426,7 +426,7 @@ public:
     {
         while( size() > 0 )
         {
-            TamlPropertyTypeAliasFactory.cacheObject( back() );
+            TamlPropertyAliasFactory.cacheObject( back() );
             pop_back();
         }
         mIgnoreEmpty = true;
@@ -440,30 +440,30 @@ public:
         mPropertyName = StringTable->insert( pPropertyName );
     }
 
-    TamlPropertyTypeAlias* addTypeAlias( const char* pAliasName, const bool ignoreEmpty = false )
+    TamlPropertyAlias* addAlias( const char* pAliasName, const bool ignoreEmpty = false )
     {
-        // Create a type alias.
-        TamlPropertyTypeAlias* pTypeAlias = TamlPropertyTypeAliasFactory.createObject();
+        // Create a alias.
+        TamlPropertyAlias* pAlias = TamlPropertyAliasFactory.createObject();
 
         // Set alias name.
-        pTypeAlias->set( pAliasName );
+        pAlias->set( pAliasName );
 
         // Set ignore-empty flag.
-        pTypeAlias->mIgnoreEmpty = ignoreEmpty;
+        pAlias->mIgnoreEmpty = ignoreEmpty;
 
-        // Store type alias.
-        push_back( pTypeAlias );
+        // Store alias.
+        push_back( pAlias );
 
-        return pTypeAlias;
+        return pAlias;
     }
 
-    void removeTypeAlias( const U32 index )
+    void removeAlias( const U32 index )
     {
         // Sanity!
-        AssertFatal( index < (U32)size(), "TamlCustomProperty::removeTypeAlias() - Index is out of bounds." );
+        AssertFatal( index < (U32)size(), "TamlCustomProperty::removeAlias() - Index is out of bounds." );
 
-        // Cache the type alias.
-        TamlPropertyTypeAliasFactory.cacheObject( at(index) );
+        // Cache the alias.
+        TamlPropertyAliasFactory.cacheObject( at(index) );
 
         // Remove it.
         erase( index );

@@ -184,22 +184,22 @@ void TamlBinaryReader::parseCustomElements( Stream& stream, TamlCallbacks* pCall
         // Add custom property.
         TamlCustomProperty* pCustomProperty = customProperties.addProperty( propertyName );
 
-        // Read property type alias count.
-        U32 propertyTypeAliasCount;
-        stream.read( &propertyTypeAliasCount );
+        // Read property alias count.
+        U32 propertyAliasCount;
+        stream.read( &propertyAliasCount );
 
-        // Skip if no property type alias.
-        if ( propertyTypeAliasCount == 0 )
+        // Skip if no property alias.
+        if ( propertyAliasCount == 0 )
             continue;
 
-        // Iterate property type alias.
-        for( U32 propertyTypeAliasIndex = 0; propertyTypeAliasIndex < propertyTypeAliasCount; ++propertyTypeAliasIndex )
+        // Iterate property alias.
+        for( U32 propertyAliasIndex = 0; propertyAliasIndex < propertyAliasCount; ++propertyAliasIndex )
         {
-            // Read property type alias name.
-            StringTableEntry propertyTypeAliasName = stream.readSTString();
+            // Read property alias name.
+            StringTableEntry propertyAliasName = stream.readSTString();
 
-            // Add property type alias.
-            TamlPropertyTypeAlias* pPropertyTypeAlias = pCustomProperty->addTypeAlias( propertyTypeAliasName );
+            // Add property alias.
+            TamlPropertyAlias* pPropertyAlias = pCustomProperty->addAlias( propertyAliasName );
 
             // Read property field count.
             U32 propertyFieldCount;
@@ -226,7 +226,7 @@ void TamlBinaryReader::parseCustomElements( Stream& stream, TamlCallbacks* pCall
                     SimObject* pFieldObject = parseElement( stream, versionId );
 
                     // Add property field.
-                    pPropertyTypeAlias->addPropertyField( fieldName, pFieldObject );
+                    pPropertyAlias->addField( fieldName, pFieldObject );
                 }
                 else
                 {
@@ -238,7 +238,7 @@ void TamlBinaryReader::parseCustomElements( Stream& stream, TamlCallbacks* pCall
                     stream.readLongString( MAX_TAML_PROPERTY_FIELDVALUE_LENGTH, valueBuffer );
 
                     // Add property field.
-                    pPropertyTypeAlias->addPropertyField( propertyFieldName, valueBuffer );
+                    pPropertyAlias->addField( propertyFieldName, valueBuffer );
                 }
             }
         }

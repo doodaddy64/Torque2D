@@ -49,11 +49,11 @@ void AssetQuery::onTamlCustomWrite( TamlCustomProperties& customProperties )
     // Iterate asset.
     for( Vector<StringTableEntry>::iterator assetItr = begin(); assetItr != end(); ++assetItr )
     {
-        // Add type alias.
-        TamlPropertyTypeAlias* pTypeAlias = pProperty->addTypeAlias( ASSETQUERY_TYPE_NAME );
+        // Add alias.
+        TamlPropertyAlias* pAlias = pProperty->addAlias( ASSETQUERY_TYPE_NAME );
 
         // Add fields.
-        pTypeAlias->addPropertyField( ASSETQUERY_ASSETID_FIELD_NAME, *assetItr );
+        pAlias->addField( ASSETQUERY_ASSETID_FIELD_NAME, *assetItr );
     }
 }
 
@@ -71,21 +71,21 @@ void AssetQuery::onTamlCustomRead( const TamlCustomProperties& customProperties 
     if ( pProperty == NULL )
         return;
 
-    // Fetch type alias name.
+    // Fetch alias name.
     StringTableEntry typeAliasName = StringTable->insert( ASSETQUERY_TYPE_NAME );
 
-    // Iterate property type alias.
-    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pProperty->begin(); propertyTypeAliasItr != pProperty->end(); ++propertyTypeAliasItr )
+    // Iterate property alias.
+    for( TamlCustomProperty::const_iterator propertyAliasItr = pProperty->begin(); propertyAliasItr != pProperty->end(); ++propertyAliasItr )
     {
-        // Fetch property type alias.
-        const TamlPropertyTypeAlias* pTypeAlias = *propertyTypeAliasItr;
+        // Fetch property alias.
+        const TamlPropertyAlias* pAlias = *propertyAliasItr;
 
         // Skip if an unknown alias name.
-        if ( pTypeAlias->mAliasName != typeAliasName )
+        if ( pAlias->mAliasName != typeAliasName )
             continue;
 
         // Fetch field.
-        const TamlPropertyField* pField = pTypeAlias->findField( ASSETQUERY_ASSETID_FIELD_NAME );
+        const TamlPropertyField* pField = pAlias->findField( ASSETQUERY_ASSETID_FIELD_NAME );
 
         // Do we find the field?
         if ( pField == NULL )

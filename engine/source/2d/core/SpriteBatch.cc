@@ -1135,11 +1135,11 @@ void SpriteBatch::onTamlCustomWrite( TamlCustomProperty* pSpritesProperty )
     // Write all sprites.
     for( typeSpriteBatchHash::iterator spriteItr = mSprites.begin(); spriteItr != mSprites.end(); ++spriteItr )
     {
-        // Add type alias.
-        TamlPropertyTypeAlias* pSpriteTypeAlias = pSpritesProperty->addTypeAlias( spriteItemTypeName );
+        // Add alias.
+        TamlPropertyAlias* pSpriteAlias = pSpritesProperty->addAlias( spriteItemTypeName );
         
         // Write type with sprite item.
-        spriteItr->value->onTamlCustomWrite( pSpriteTypeAlias );
+        spriteItr->value->onTamlCustomWrite( pSpriteAlias );
     }
 }
 
@@ -1154,13 +1154,13 @@ void SpriteBatch::onTamlCustomRead( const TamlCustomProperty* pSpritesProperty )
     StringTableEntry spriteItemTypeName = StringTable->insert( "Sprite" );
 
     // Iterate sprite item types.
-    for( TamlCustomProperty::const_iterator spriteTypeAliasItr = pSpritesProperty->begin(); spriteTypeAliasItr != pSpritesProperty->end(); ++spriteTypeAliasItr )
+    for( TamlCustomProperty::const_iterator spriteAliasItr = pSpritesProperty->begin(); spriteAliasItr != pSpritesProperty->end(); ++spriteAliasItr )
     {
-        // Fetch sprite type alias.
-        TamlPropertyTypeAlias* pSpriteTypeAlias = *spriteTypeAliasItr;
+        // Fetch sprite alias.
+        TamlPropertyAlias* pSpriteAlias = *spriteAliasItr;
 
         // Fetch alias name.
-        StringTableEntry aliasName = pSpriteTypeAlias->mAliasName;
+        StringTableEntry aliasName = pSpriteAlias->mAliasName;
 
         // Is this a known alias?
         if ( aliasName != spriteItemTypeName )
@@ -1174,7 +1174,7 @@ void SpriteBatch::onTamlCustomRead( const TamlCustomProperty* pSpritesProperty )
         SpriteBatchItem* pSpriteBatchItem = createSprite();
 
         // Read type with sprite item.
-        pSpriteBatchItem->onTamlCustomRead( pSpriteTypeAlias );
+        pSpriteBatchItem->onTamlCustomRead( pSpriteAlias );
 
         // Fetch logical position.
         const SpriteBatchItem::LogicalPosition& logicalPosition = pSpriteBatchItem->getLogicalPosition();

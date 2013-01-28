@@ -210,11 +210,11 @@ void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCustomPro
     // Sanity!
     AssertFatal( pPeriod != NULL, "Parsing extended element but no period character found." );
 
-    // Fetch any property type alias.
-    TiXmlNode* pPropertyTypeAliasXmlNode = pXmlElement->FirstChild();
+    // Fetch any property alias.
+    TiXmlNode* pPropertyAliasXmlNode = pXmlElement->FirstChild();
 
-    // Do we have any property type alias?
-    if ( pPropertyTypeAliasXmlNode != NULL )
+    // Do we have any property alias?
+    if ( pPropertyAliasXmlNode != NULL )
     {
         // Yes, so add custom property.
         TamlCustomProperty* pCustomProperty = customProperties.addProperty( pPeriod+1 );
@@ -222,30 +222,30 @@ void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCustomPro
         do
         {
             // Fetch element.
-            TiXmlElement* pPropertyTypeAliasXmlElement = dynamic_cast<TiXmlElement*>( pPropertyTypeAliasXmlNode );
+            TiXmlElement* pPropertyAliasXmlElement = dynamic_cast<TiXmlElement*>( pPropertyAliasXmlNode );
 
             // Move to next sibling.
-            pPropertyTypeAliasXmlNode = pPropertyTypeAliasXmlNode->NextSibling();
+            pPropertyAliasXmlNode = pPropertyAliasXmlNode->NextSibling();
 
             // Skip if this is not an element?
-            if ( pPropertyTypeAliasXmlElement == NULL )
+            if ( pPropertyAliasXmlElement == NULL )
                 continue;
 
-            // Add property type alias.
-            TamlPropertyTypeAlias* pPropertyTypeAlias = pCustomProperty->addTypeAlias( pPropertyTypeAliasXmlElement->Value() );
+            // Add property alias.
+            TamlPropertyAlias* pPropertyAlias = pCustomProperty->addAlias( pPropertyAliasXmlElement->Value() );
 
             // Iterate property field attributes.
-            for ( TiXmlAttribute* pAttribute = pPropertyTypeAliasXmlElement->FirstAttribute(); pAttribute; pAttribute = pAttribute->Next() )
+            for ( TiXmlAttribute* pAttribute = pPropertyAliasXmlElement->FirstAttribute(); pAttribute; pAttribute = pAttribute->Next() )
             {
                 // Insert attribute name.
                 StringTableEntry attributeName = StringTable->insert( pAttribute->Name() );
 
                 // Add property field.
-                pPropertyTypeAlias->addPropertyField( attributeName, pAttribute->Value() );
+                pPropertyAlias->addField( attributeName, pAttribute->Value() );
             }
 
             // Fetch any children.
-            TiXmlNode* pChildXmlNode = pPropertyTypeAliasXmlElement->FirstChild();
+            TiXmlNode* pChildXmlNode = pPropertyAliasXmlElement->FirstChild();
 
             // Do we have any element children?
             if ( pChildXmlNode != NULL )
@@ -277,12 +277,12 @@ void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCustomPro
                     SimObject* pFieldObject = parseElement( pChildXmlElement );
 
                     // Add property field.
-                    pPropertyTypeAlias->addPropertyField( pRefField, pFieldObject );
+                    pPropertyAlias->addField( pRefField, pFieldObject );
                 }
                 while( pChildXmlNode != NULL );
             }
         }
-        while ( pPropertyTypeAliasXmlNode != NULL );
+        while ( pPropertyAliasXmlNode != NULL );
     }
 }
 

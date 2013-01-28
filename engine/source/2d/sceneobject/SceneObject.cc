@@ -3371,30 +3371,30 @@ void SceneObject::onTamlCustomWrite( TamlCustomProperties& customProperties )
         // Fetch collision shape definition.
         b2FixtureDef fixtureDef = getCollisionShapeDefinition( shapeIndex );
 
-        // Add collision shape type alias.
-        // NOTE:    The name of the type-alias will get updated shortly.
-        TamlPropertyTypeAlias* pCollisionShapeTypeAlias = pCollisionShapeProperty->addTypeAlias( StringTable->EmptyString );
+        // Add collision shape alias.
+        // NOTE:    The name of the alias will get updated shortly.
+        TamlPropertyAlias* pCollisionShapeAlias = pCollisionShapeProperty->addAlias( StringTable->EmptyString );
 
         // Add common collision shape fields.
         if ( mNotEqual( getDefaultDensity(), fixtureDef.density ) )
-            pCollisionShapeTypeAlias->addPropertyField( shapeDensityName, fixtureDef.density );
+            pCollisionShapeAlias->addField( shapeDensityName, fixtureDef.density );
 
         if ( mNotEqual( getDefaultFriction(), fixtureDef.friction ) )
-            pCollisionShapeTypeAlias->addPropertyField( shapeFrictionName, fixtureDef.friction );
+            pCollisionShapeAlias->addField( shapeFrictionName, fixtureDef.friction );
 
         if ( mNotEqual( getDefaultRestitution(), fixtureDef.restitution ) )
-            pCollisionShapeTypeAlias->addPropertyField( shapeRestitutionName, fixtureDef.restitution );
+            pCollisionShapeAlias->addField( shapeRestitutionName, fixtureDef.restitution );
 
         if ( fixtureDef.isSensor == true )
-            pCollisionShapeTypeAlias->addPropertyField( shapeSensorName, fixtureDef.isSensor );
+            pCollisionShapeAlias->addField( shapeSensorName, fixtureDef.isSensor );
 
         // Populate collision shape appropriately.
         switch( fixtureDef.shape->GetType() )
         {
         case b2Shape::e_circle:
             {
-                // Set type alias name.
-                pCollisionShapeTypeAlias->mAliasName = StringTable->insert( circleTypeName );
+                // Set alias name.
+                pCollisionShapeAlias->mAliasName = StringTable->insert( circleTypeName );
 
                 // Fetch shape.
                 const b2CircleShape* pShape = dynamic_cast<const b2CircleShape*>( fixtureDef.shape );
@@ -3403,18 +3403,18 @@ void SceneObject::onTamlCustomWrite( TamlCustomProperties& customProperties )
                 AssertFatal( pShape != NULL, "SceneObject::onTamlCustomWrite() - Invalid circle shape type returned." );
 
                 // Add radius property.
-                pCollisionShapeTypeAlias->addPropertyField( circleRadiusName, pShape->m_radius );
+                pCollisionShapeAlias->addField( circleRadiusName, pShape->m_radius );
 
                 // Add offset property (if not zero).
                 if ( !Vector2(pShape->m_p).isZero() )
-                    pCollisionShapeTypeAlias->addPropertyField( circleOffsetName, pShape->m_p );
+                    pCollisionShapeAlias->addField( circleOffsetName, pShape->m_p );
             }
             break;
 
         case b2Shape::e_polygon:
             {
-                // Set type alias name.
-                pCollisionShapeTypeAlias->mAliasName = StringTable->insert( polygonTypeName );
+                // Set alias name.
+                pCollisionShapeAlias->mAliasName = StringTable->insert( polygonTypeName );
 
                 // Fetch shape.
                 const b2PolygonShape* pShape = dynamic_cast<const b2PolygonShape*>( fixtureDef.shape );
@@ -3433,15 +3433,15 @@ void SceneObject::onTamlCustomWrite( TamlCustomProperties& customProperties )
                     dSprintf( pointIndexBuffer, sizeof(pointIndexBuffer), "%s%d", polygonPointName, pointIndex );
                     
                     // Add point property.
-                    pCollisionShapeTypeAlias->addPropertyField( pointIndexBuffer, pShape->GetVertex( pointIndex ) );
+                    pCollisionShapeAlias->addField( pointIndexBuffer, pShape->GetVertex( pointIndex ) );
                 }
             }
             break;
 
         case b2Shape::e_chain:
             {
-                // Set type alias name.
-                pCollisionShapeTypeAlias->mAliasName = StringTable->insert( chainTypeName );
+                // Set alias name.
+                pCollisionShapeAlias->mAliasName = StringTable->insert( chainTypeName );
 
                 // Fetch shape.
                 const b2ChainShape* pShape = dynamic_cast<const b2ChainShape*>( fixtureDef.shape );
@@ -3460,23 +3460,23 @@ void SceneObject::onTamlCustomWrite( TamlCustomProperties& customProperties )
                     dSprintf( pointIndexBuffer, sizeof(pointIndexBuffer), "%s%d", chainPointName, pointIndex );
                     
                     // Add point property.
-                    pCollisionShapeTypeAlias->addPropertyField( pointIndexBuffer, pShape->m_vertices[pointIndex] );
+                    pCollisionShapeAlias->addField( pointIndexBuffer, pShape->m_vertices[pointIndex] );
                 }
 
                 // Add adjacent start point (if specified).
                 if ( pShape->m_hasPrevVertex )
-                    pCollisionShapeTypeAlias->addPropertyField( chainAdjacentStartName, pShape->m_prevVertex );
+                    pCollisionShapeAlias->addField( chainAdjacentStartName, pShape->m_prevVertex );
 
                 // Add adjacent end point (if specified).
                 if ( pShape->m_hasNextVertex )
-                    pCollisionShapeTypeAlias->addPropertyField( chainAdjacentEndName, pShape->m_nextVertex );
+                    pCollisionShapeAlias->addField( chainAdjacentEndName, pShape->m_nextVertex );
             }
             break;
 
         case b2Shape::e_edge:
             {
-                // Set type alias name.
-                pCollisionShapeTypeAlias->mAliasName = StringTable->insert( edgeTypeName );
+                // Set alias name.
+                pCollisionShapeAlias->mAliasName = StringTable->insert( edgeTypeName );
 
                 // Fetch shape.
                 const b2EdgeShape* pShape = dynamic_cast<const b2EdgeShape*>( fixtureDef.shape );
@@ -3485,16 +3485,16 @@ void SceneObject::onTamlCustomWrite( TamlCustomProperties& customProperties )
                 AssertFatal( pShape != NULL, "SceneObject::onTamlCustomWrite() - Invalid edge shape type returned." );
 
                 // Add start/end points.
-                pCollisionShapeTypeAlias->addPropertyField( edgeStartName, pShape->m_vertex1 );
-                pCollisionShapeTypeAlias->addPropertyField( edgeEndName, pShape->m_vertex2 );
+                pCollisionShapeAlias->addField( edgeStartName, pShape->m_vertex1 );
+                pCollisionShapeAlias->addField( edgeEndName, pShape->m_vertex2 );
 
                 // Add adjacent start point (if specified).
                 if ( pShape->m_hasVertex0 )
-                    pCollisionShapeTypeAlias->addPropertyField( edgeAdjacentStartName, pShape->m_vertex0 );
+                    pCollisionShapeAlias->addField( edgeAdjacentStartName, pShape->m_vertex0 );
 
                 // Add adjacent end point (if specified).
                 if ( pShape->m_hasVertex3 )
-                    pCollisionShapeTypeAlias->addPropertyField( edgeAdjacentEndName, pShape->m_vertex3 );
+                    pCollisionShapeAlias->addField( edgeAdjacentEndName, pShape->m_vertex3 );
             }
             break;
 
@@ -3523,13 +3523,13 @@ void SceneObject::onTamlCustomRead( const TamlCustomProperties& customProperties
         return;
 
     // Iterate collision shapes.
-    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pCollisionShapeProperty->begin(); propertyTypeAliasItr != pCollisionShapeProperty->end(); ++propertyTypeAliasItr )
+    for( TamlCustomProperty::const_iterator propertyAliasItr = pCollisionShapeProperty->begin(); propertyAliasItr != pCollisionShapeProperty->end(); ++propertyAliasItr )
     {
-        // Fetch property type alias.
-        TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
+        // Fetch property alias.
+        TamlPropertyAlias* pPropertyAlias = *propertyAliasItr;
 
         // Fetch alias name.
-        StringTableEntry aliasName = pPropertyTypeAlias->mAliasName;
+        StringTableEntry aliasName = pPropertyAlias->mAliasName;
 
         // Ready common fields.
         F32 shapeDensity     = getDefaultDensity();
@@ -3547,7 +3547,7 @@ void SceneObject::onTamlCustomRead( const TamlCustomProperties& customProperties
             b2Vec2 offset( 0.0f, 0.0f );
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3604,7 +3604,7 @@ void SceneObject::onTamlCustomRead( const TamlCustomProperties& customProperties
             U32 pointCount = 0;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3669,7 +3669,7 @@ void SceneObject::onTamlCustomRead( const TamlCustomProperties& customProperties
             b2Vec2 adjacentEndPoint;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3737,7 +3737,7 @@ void SceneObject::onTamlCustomRead( const TamlCustomProperties& customProperties
             b2Vec2 adjacentEndPoint;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;

@@ -129,34 +129,34 @@ void TamlBinaryWriter::writeCustomElements( Stream& stream, const TamlWriteNode*
         // Write custom element name.
         stream.writeString( pCustomProperty->mPropertyName );
 
-        // Fetch property type alias count.
-        U32 propertyTypeAliasCount = (U32)pCustomProperty->size();
+        // Fetch property alias count.
+        U32 propertyAliasCount = (U32)pCustomProperty->size();
 
         // Write property count.
-        stream.write( propertyTypeAliasCount );
+        stream.write( propertyAliasCount );
 
-        // Skip if no property type alias.
-        if (propertyTypeAliasCount == 0 )
+        // Skip if no property alias.
+        if (propertyAliasCount == 0 )
             continue;
 
-        // Iterate property type alias.
-        for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pCustomProperty->begin(); propertyTypeAliasItr != pCustomProperty->end(); ++propertyTypeAliasItr )
+        // Iterate property alias.
+        for( TamlCustomProperty::const_iterator propertyAliasItr = pCustomProperty->begin(); propertyAliasItr != pCustomProperty->end(); ++propertyAliasItr )
         {
-            // Fetch property type alias.
-            TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
+            // Fetch property alias.
+            TamlPropertyAlias* pPropertyAlias = *propertyAliasItr;
 
-            // Write property type alias name.
-            stream.writeString( pPropertyTypeAlias->mAliasName );
+            // Write property alias name.
+            stream.writeString( pPropertyAlias->mAliasName );
 
             // Write property field count.
-            stream.write( (U32)pPropertyTypeAlias->size() );
+            stream.write( (U32)pPropertyAlias->size() );
 
             // Skip if no property fields.
-            if ( pPropertyTypeAlias->size() == 0 )
+            if ( pPropertyAlias->size() == 0 )
                 continue;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;

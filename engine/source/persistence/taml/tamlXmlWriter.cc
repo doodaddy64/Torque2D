@@ -142,21 +142,21 @@ void TamlXmlWriter::compileCustomElements( TiXmlElement* pXmlElement, const Taml
         // Create element.
         TiXmlElement* pExtendedPropertyElement = new TiXmlElement( extendedElementName );
 
-        // Iterate property type alias.
-        for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pCustomProperty->begin(); propertyTypeAliasItr != pCustomProperty->end(); ++propertyTypeAliasItr )
+        // Iterate property alias.
+        for( TamlCustomProperty::const_iterator propertyAliasItr = pCustomProperty->begin(); propertyAliasItr != pCustomProperty->end(); ++propertyAliasItr )
         {
-            // Fetch property type alias.
-            TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
+            // Fetch property alias.
+            TamlPropertyAlias* pPropertyAlias = *propertyAliasItr;
 
-            // Skip if the type alias is set to ignore no properties and there are none.
-            if ( pPropertyTypeAlias->mIgnoreEmpty && pPropertyTypeAlias->size() == 0 )
+            // Skip if the alias is set to ignore no properties and there are none.
+            if ( pPropertyAlias->mIgnoreEmpty && pPropertyAlias->size() == 0 )
                 continue;
 
             // Create element.
-            TiXmlElement* pPropertyElement = new TiXmlElement( pPropertyTypeAlias->mAliasName );
+            TiXmlElement* pPropertyElement = new TiXmlElement( pPropertyAlias->mAliasName );
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -178,7 +178,7 @@ void TamlXmlWriter::compileCustomElements( TiXmlElement* pXmlElement, const Taml
             pExtendedPropertyElement->LinkEndChild( pPropertyElement );
         }
 
-        // Is the custom property set to ignore no type alias' and there are none.
+        // Is the custom property set to ignore no alias' and there are none.
         if ( pCustomProperty->mIgnoreEmpty && pExtendedPropertyElement->NoChildren() )
         {
             // Yes, so delete the extended element.

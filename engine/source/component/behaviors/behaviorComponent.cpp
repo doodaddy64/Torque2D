@@ -1078,11 +1078,11 @@ void BehaviorComponent::onTamlCustomWrite( TamlCustomProperties& customPropertie
         // Fetch template.
         BehaviorTemplate* pBehaviorTemplate = pBehaviorInstance->getTemplate();
 
-        // Add behavior type alias.
-        TamlPropertyTypeAlias* pBehaviorTypeAlias = pBehaviorProperty->addTypeAlias( pBehaviorInstance->getTemplateName() );
+        // Add behavior alias.
+        TamlPropertyAlias* pBehaviorAlias = pBehaviorProperty->addAlias( pBehaviorInstance->getTemplateName() );
 
         // Add behavior Id field.
-        pBehaviorTypeAlias->addPropertyField( BEHAVIOR_ID_FIELD_NAME, pBehaviorInstance->getBehaviorId() );
+        pBehaviorAlias->addField( BEHAVIOR_ID_FIELD_NAME, pBehaviorInstance->getBehaviorId() );
 
         // Fetch field count,
         const U32 behaviorFieldCount = pBehaviorTemplate->getBehaviorFieldCount();
@@ -1107,7 +1107,7 @@ void BehaviorComponent::onTamlCustomWrite( TamlCustomProperties& customPropertie
             const char* pFieldValue = pBehaviorInstance->getPrefixedDynamicDataField( pBehaviorField->mName, NULL, fieldType );
 
             // Add behavior field.
-            pBehaviorTypeAlias->addPropertyField( pBehaviorField->mName, pFieldValue );
+            pBehaviorAlias->addField( pBehaviorField->mName, pFieldValue );
         }
     }
 
@@ -1139,12 +1139,12 @@ void BehaviorComponent::onTamlCustomWrite( TamlCustomProperties& customPropertie
                 // Fetch connection.
                 BehaviorPortConnection* pConnection = connectionItr;
 
-                // Add connection type alias.
-                TamlPropertyTypeAlias* pConnectionTypeAlias = pConnectionProperty->addTypeAlias( BEHAVIOR_CONNECTION_TYPE_NAME );
+                // Add connection alias.
+                TamlPropertyAlias* pConnectionAlias = pConnectionProperty->addAlias( BEHAVIOR_CONNECTION_TYPE_NAME );
 
                 // Add behavior field.
-                pConnectionTypeAlias->addPropertyField( pConnection->mOutputName, pConnection->mOutputInstance->getBehaviorId() );
-                pConnectionTypeAlias->addPropertyField( pConnection->mInputName, pConnection->mInputInstance->getBehaviorId() );
+                pConnectionAlias->addField( pConnection->mOutputName, pConnection->mOutputInstance->getBehaviorId() );
+                pConnectionAlias->addField( pConnection->mInputName, pConnection->mInputInstance->getBehaviorId() );
             }
         }
     }
@@ -1172,23 +1172,23 @@ void BehaviorComponent::onTamlCustomRead( const TamlCustomProperties& customProp
         // Fetch behavior template asset field type.
         StringTableEntry behaviorTemplateAssetFieldType = StringTable->insert( BEHAVIORTEMPLATE_ASSET_FIELDTYPE );
 
-        // Iterate property type alias.
-        for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pCustomProperty->begin(); propertyTypeAliasItr != pCustomProperty->end(); ++propertyTypeAliasItr )
+        // Iterate property alias.
+        for( TamlCustomProperty::const_iterator propertyAliasItr = pCustomProperty->begin(); propertyAliasItr != pCustomProperty->end(); ++propertyAliasItr )
         {
-            // Fetch property type alias.
-            TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
+            // Fetch property alias.
+            TamlPropertyAlias* pPropertyAlias = *propertyAliasItr;
 
             // Fetch template.
-            BehaviorTemplate* pTemplate = dynamic_cast<BehaviorTemplate *>( Sim::findObject( pPropertyTypeAlias->mAliasName ) );
+            BehaviorTemplate* pTemplate = dynamic_cast<BehaviorTemplate *>( Sim::findObject( pPropertyAlias->mAliasName ) );
 
             // Find template?
             if( pTemplate == NULL )
             {
                 // No, so warn appropriately.
-                Con::warnf( "BehaviorComponent::onTamlCustomRead() - Missing Behavior '%s'", pPropertyTypeAlias->mAliasName );
+                Con::warnf( "BehaviorComponent::onTamlCustomRead() - Missing Behavior '%s'", pPropertyAlias->mAliasName );
 
                 if( isMethod( "onBehaviorMissing" ) )
-                    Con::executef( this, 2, "onBehaviorMissing", pPropertyTypeAlias->mAliasName );
+                    Con::executef( this, 2, "onBehaviorMissing", pPropertyAlias->mAliasName );
 
                 // Skip it.
                 continue;
@@ -1201,10 +1201,10 @@ void BehaviorComponent::onTamlCustomRead( const TamlCustomProperties& customProp
             if ( pBehaviorInstance == NULL )
             {
                 // No, so warn appropriately.
-                Con::warnf( "BehaviorComponent::onTamlCustomRead() - Found behavior could not create an instance '%s'", pPropertyTypeAlias->mAliasName );
+                Con::warnf( "BehaviorComponent::onTamlCustomRead() - Found behavior could not create an instance '%s'", pPropertyAlias->mAliasName );
 
                 if( isMethod( "onBehaviorMissing" ) )
-                    Con::executef( this, 2, "onBehaviorMissing", pPropertyTypeAlias->mAliasName );
+                    Con::executef( this, 2, "onBehaviorMissing", pPropertyAlias->mAliasName );
 
                 // Skip it.
                 continue;
@@ -1213,7 +1213,7 @@ void BehaviorComponent::onTamlCustomRead( const TamlCustomProperties& customProp
             S32 behaviorId = 0;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -1236,7 +1236,7 @@ void BehaviorComponent::onTamlCustomRead( const TamlCustomProperties& customProp
                         // No, so warn.
                         Con::warnf( "BehaviorComponent::onTamlCustomRead() - Encountered an invalid behavior Id of '%d' on behavior '%s'.",
                             behaviorId,
-                            pPropertyTypeAlias->mAliasName );
+                            pPropertyAlias->mAliasName );
                     }
 
                     // Update maximum behavior Id found.
@@ -1282,21 +1282,21 @@ void BehaviorComponent::onTamlCustomRead( const TamlCustomProperties& customProp
     // Do we have the property?
     if ( pConnectionProperty != NULL )
     {
-        // Yes, so insert connection type alias.
-        StringTableEntry connectionTypeAlias = StringTable->insert( BEHAVIOR_CONNECTION_TYPE_NAME );
+        // Yes, so insert connection alias.
+        StringTableEntry connectionAlias = StringTable->insert( BEHAVIOR_CONNECTION_TYPE_NAME );
 
-        // Iterate property type alias.
-        for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pConnectionProperty->begin(); propertyTypeAliasItr != pConnectionProperty->end(); ++propertyTypeAliasItr )
+        // Iterate property alias.
+        for( TamlCustomProperty::const_iterator propertyAliasItr = pConnectionProperty->begin(); propertyAliasItr != pConnectionProperty->end(); ++propertyAliasItr )
         {
-            // Fetch property type alias.
-            TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
+            // Fetch property alias.
+            TamlPropertyAlias* pPropertyAlias = *propertyAliasItr;
 
-            // Skip if the type alias isn't a connection.
-            if ( pPropertyTypeAlias->mAliasName != connectionTypeAlias )
+            // Skip if the alias isn't a connection.
+            if ( pPropertyAlias->mAliasName != connectionAlias )
                 continue;
 
             // Are there two properties?
-            if ( pPropertyTypeAlias->size() != 2 )
+            if ( pPropertyAlias->size() != 2 )
             {
                 // No, so warn.
                 Con::warnf( "BehaviorComponent::onTamlCustomRead() - Encountered a behavior connection with more than two connection fields." );
@@ -1304,8 +1304,8 @@ void BehaviorComponent::onTamlCustomRead( const TamlCustomProperties& customProp
             }
 
             // Fetch property field #1.
-            TamlPropertyField* pPropertyField1 = *pPropertyTypeAlias->begin();
-            TamlPropertyField* pPropertyField2 = *(pPropertyTypeAlias->begin()+1);
+            TamlPropertyField* pPropertyField1 = *pPropertyAlias->begin();
+            TamlPropertyField* pPropertyField2 = *(pPropertyAlias->begin()+1);
            
             // Fetch behavior instances #1.
             BehaviorInstance* pBehaviorInstance1 = getBehaviorByInstanceId( dAtoi( pPropertyField1->getFieldValue() ) );

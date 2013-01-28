@@ -873,13 +873,13 @@ void ImageAsset::onTamlCustomWrite( TamlCustomProperties& customProperties )
         // Fetch pixel area.
         const FrameArea::PixelArea& pixelArea = *frameItr;
 
-        // Add cell type alias.
-        TamlPropertyTypeAlias* pCellTypeAlias = pCellProperty->addTypeAlias( cellAliasName );
+        // Add cell alias.
+        TamlPropertyAlias* pCellAlias = pCellProperty->addAlias( cellAliasName );
 
         // Add cell properties.
-        pCellTypeAlias->addPropertyField( cellOffsetName, pixelArea.mPixelOffset );
-        pCellTypeAlias->addPropertyField( cellWidthName, pixelArea.mPixelWidth );
-        pCellTypeAlias->addPropertyField( cellHeightName, pixelArea.mPixelHeight );
+        pCellAlias->addField( cellOffsetName, pixelArea.mPixelOffset );
+        pCellAlias->addField( cellWidthName, pixelArea.mPixelWidth );
+        pCellAlias->addField( cellHeightName, pixelArea.mPixelHeight );
     }
 }
 
@@ -904,13 +904,13 @@ void ImageAsset::onTamlCustomRead( const TamlCustomProperties& customProperties 
     mExplicitMode = true;
 
     // Iterate cells.
-    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pCellProperty->begin(); propertyTypeAliasItr != pCellProperty->end(); ++propertyTypeAliasItr )
+    for( TamlCustomProperty::const_iterator propertyAliasItr = pCellProperty->begin(); propertyAliasItr != pCellProperty->end(); ++propertyAliasItr )
     {
-        // Fetch property type alias.
-        TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
+        // Fetch property alias.
+        TamlPropertyAlias* pPropertyAlias = *propertyAliasItr;
 
         // Fetch alias name.
-        StringTableEntry aliasName = pPropertyTypeAlias->mAliasName;
+        StringTableEntry aliasName = pPropertyAlias->mAliasName;
 
         // Is this a valid alias?
         if ( aliasName != cellAliasName )
@@ -925,7 +925,7 @@ void ImageAsset::onTamlCustomRead( const TamlCustomProperties& customProperties 
         S32 cellHeight = 0;
 
         // Iterate property fields.
-        for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+        for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
         {
             // Fetch property field.
             TamlPropertyField* pPropertyField = *propertyFieldItr;

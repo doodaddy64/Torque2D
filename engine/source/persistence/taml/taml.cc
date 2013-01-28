@@ -667,13 +667,13 @@ void Taml::compileCustomProperties( TamlWriteNode* pTamlWriteNode )
     {
         TamlCustomProperty* pCustomProperty = *propertyItr;
 
-        // Iterate type alias.
-        for( TamlPropertyTypeAliasVector::iterator typeAliasItr = pCustomProperty->begin(); typeAliasItr != pCustomProperty->end(); ++typeAliasItr )
+        // Iterate alias.
+        for( TamlPropertyAliasVector::iterator typeAliasItr = pCustomProperty->begin(); typeAliasItr != pCustomProperty->end(); ++typeAliasItr )
         {
-            TamlPropertyTypeAlias* pTypeAlias = *typeAliasItr;
+            TamlPropertyAlias* pAlias = *typeAliasItr;
 
             // Iterate the fields.
-            for( TamlPropertyFieldVector::iterator fieldItr = pTypeAlias->begin(); fieldItr != pTypeAlias->end(); ++fieldItr )
+            for( TamlPropertyFieldVector::iterator fieldItr = pAlias->begin(); fieldItr != pAlias->end(); ++fieldItr )
             {
                 TamlPropertyField* pPropertyField = *fieldItr;
 
@@ -704,18 +704,18 @@ void Taml::compileCustomProperties( TamlWriteNode* pTamlWriteNode )
         if ( !pCustomProperty->mIgnoreEmpty )
             continue;
 
-        // Iterate the type alias.
+        // Iterate the alias.
         for ( S32 typeAliasIndex = 0; typeAliasIndex < pCustomProperty->size(); ++typeAliasIndex )
         {
-            // Fetch the type alias.
-            TamlPropertyTypeAlias* pTypeAlias = pCustomProperty->at( typeAliasIndex );
+            // Fetch the alias.
+            TamlPropertyAlias* pAlias = pCustomProperty->at( typeAliasIndex );
 
-            // Skip If we're not ignoring the type alias or the custom property is not empty.
-            if ( !pTypeAlias->mIgnoreEmpty && pTypeAlias->size() != 0 )
+            // Skip If we're not ignoring the alias or the custom property is not empty.
+            if ( !pAlias->mIgnoreEmpty && pAlias->size() != 0 )
                 continue;
 
-            // Remove the type alias.
-            pCustomProperty->removeTypeAlias( typeAliasIndex-- );
+            // Remove the alias.
+            pCustomProperty->removeAlias( typeAliasIndex-- );
         }
 
         // Skip if the custom property is not empty.

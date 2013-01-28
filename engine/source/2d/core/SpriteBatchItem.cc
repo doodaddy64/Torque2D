@@ -315,11 +315,11 @@ void SpriteBatchItem::updateWorldTransform( const U32 batchTransformId )
 
 //------------------------------------------------------------------------------
 
-void SpriteBatchItem::onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias )
+void SpriteBatchItem::onTamlCustomWrite( TamlPropertyAlias* pSpriteAlias )
 {
     // Write name.
     if ( getName() != StringTable->EmptyString )
-        pSpriteTypeAlias->addPropertyField( spriteNameName, getName() );
+        pSpriteAlias->addField( spriteNameName, getName() );
 
     // Write asset.
     if ( isStaticMode() )
@@ -331,10 +331,10 @@ void SpriteBatchItem::onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias
         if ( assetId != StringTable->EmptyString )
         {
             // Yes, so write image asset Id.
-            pSpriteTypeAlias->addPropertyField( spriteImageName, assetId );
+            pSpriteAlias->addField( spriteImageName, assetId );
 
             // Write image frame.
-            pSpriteTypeAlias->addPropertyField( spriteImageFrameName, getImageFrame() );
+            pSpriteAlias->addField( spriteImageFrameName, getImageFrame() );
         }
     }
     else
@@ -346,83 +346,83 @@ void SpriteBatchItem::onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias
         if ( assetId != StringTable->EmptyString )
         {
             // Yes, so write animation asset Id.
-            pSpriteTypeAlias->addPropertyField( spriteAnimationName, assetId );
+            pSpriteAlias->addField( spriteAnimationName, assetId );
 
         }
     }
 
     // Write visible.
     if ( !mVisible )
-        pSpriteTypeAlias->addPropertyField( spriteVisibleName, mVisible );
+        pSpriteAlias->addField( spriteVisibleName, mVisible );
 
     // Write local position.
-    pSpriteTypeAlias->addPropertyField( spriteLocalPositionName, mLocalPosition );
+    pSpriteAlias->addField( spriteLocalPositionName, mLocalPosition );
 
     // Write local angle.
     if ( mNotZero(mLocalAngle) )
-        pSpriteTypeAlias->addPropertyField( spriteLocalAngleName, mRadToDeg(mLocalAngle) );
+        pSpriteAlias->addField( spriteLocalAngleName, mRadToDeg(mLocalAngle) );
 
     // Write size.
-    pSpriteTypeAlias->addPropertyField( spriteSizeName, mSize );
+    pSpriteAlias->addField( spriteSizeName, mSize );
 
     // Write depth.
     if ( mNotZero(mDepth) )
-        pSpriteTypeAlias->addPropertyField( spriteDepthName, mDepth );
+        pSpriteAlias->addField( spriteDepthName, mDepth );
 
     // Write flipX
     if ( mFlipX )
-        pSpriteTypeAlias->addPropertyField( spriteFlipXName, mFlipX );
+        pSpriteAlias->addField( spriteFlipXName, mFlipX );
 
     // Write flipY
     if ( mFlipY )
-        pSpriteTypeAlias->addPropertyField( spriteFlipYName, mFlipY );
+        pSpriteAlias->addField( spriteFlipYName, mFlipY );
 
     // Write sort point.
     if ( mSortPoint.notZero() )
-        pSpriteTypeAlias->addPropertyField( spriteSortPointName, mSortPoint );
+        pSpriteAlias->addField( spriteSortPointName, mSortPoint );
 
     // Write render group.
     if ( mRenderGroup != StringTable->EmptyString )
-        pSpriteTypeAlias->addPropertyField( spriteRenderGroupName, mRenderGroup );
+        pSpriteAlias->addField( spriteRenderGroupName, mRenderGroup );
 
     // Write blend mode.
     if ( !mBlendMode )
-        pSpriteTypeAlias->addPropertyField( spriteBlendModeName, mBlendMode );
+        pSpriteAlias->addField( spriteBlendModeName, mBlendMode );
 
     // Write source blend factor.
     if ( mBlendMode && mSrcBlendFactor != GL_SRC_ALPHA )
-        pSpriteTypeAlias->addPropertyField( spriteBlendModeName, SceneObject::getSrcBlendFactorDescription(mSrcBlendFactor) );
+        pSpriteAlias->addField( spriteBlendModeName, SceneObject::getSrcBlendFactorDescription(mSrcBlendFactor) );
         
     // Write destination blend factor.
     if ( mBlendMode && mDstBlendFactor != GL_ONE_MINUS_SRC_ALPHA )
-        pSpriteTypeAlias->addPropertyField( spriteDstBlendFactorName, SceneObject::getDstBlendFactorDescription(mDstBlendFactor) );
+        pSpriteAlias->addField( spriteDstBlendFactorName, SceneObject::getDstBlendFactorDescription(mDstBlendFactor) );
 
     // Write blend color.
     if ( mBlendMode && mBlendColor != ColorF(1.0f, 1.0f, 1.0f, 1.0f) )
-        pSpriteTypeAlias->addPropertyField( spriteBlendColorName, mBlendColor );
+        pSpriteAlias->addField( spriteBlendColorName, mBlendColor );
 
     // Write alpha test.
     if ( mBlendMode && mAlphaTest >= 0.0f )
-        pSpriteTypeAlias->addPropertyField( spriteAlphaTestName, mAlphaTest );
+        pSpriteAlias->addField( spriteAlphaTestName, mAlphaTest );
 
     // Write logical position.
     if ( getLogicalPosition().isValid() )
-        pSpriteTypeAlias->addPropertyField( spriteLogicalPositionName, getLogicalPosition().getString() );
+        pSpriteAlias->addField( spriteLogicalPositionName, getLogicalPosition().getString() );
 
     // Write data object.
     if ( getDataObject() != NULL )
-        pSpriteTypeAlias->addPropertyField( spriteDataObjectName, getDataObject() );
+        pSpriteAlias->addField( spriteDataObjectName, getDataObject() );
 }
 
 //------------------------------------------------------------------------------
 
-void SpriteBatchItem::onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteTypeAlias )
+void SpriteBatchItem::onTamlCustomRead( const TamlPropertyAlias* pSpriteAlias )
 {
     // Sanity!
     AssertFatal( mSpriteBatch != NULL, "SpriteBatchItem::onTamlCustomRead() - Cannot read sprite batch item with sprite batch." );
 
     // Iterate property fields.
-    for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pSpriteTypeAlias->begin(); propertyFieldItr != pSpriteTypeAlias->end(); ++propertyFieldItr )
+    for ( TamlPropertyAlias::const_iterator propertyFieldItr = pSpriteAlias->begin(); propertyFieldItr != pSpriteAlias->end(); ++propertyFieldItr )
     {
         // Fetch sprite field.
         TamlPropertyField* pSpriteField = *propertyFieldItr;

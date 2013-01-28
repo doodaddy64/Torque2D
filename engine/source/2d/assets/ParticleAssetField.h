@@ -93,7 +93,7 @@ public:
     static F32 calculateFieldBVLE( const ParticleAssetField& base, const ParticleAssetField& variation, const ParticleAssetField& overlife, const ParticleAssetField& effect, const F32 effectTime, const F32 particleAge, const bool modulate = false, const F32 modulo = 0.0f );
 
     void onTamlCustomWrite( TamlCustomProperty* pCustomProperty  );
-    void onTamlCustomRead( const TamlPropertyTypeAlias* pPropertyTypeAlias );
+    void onTamlCustomRead( const TamlPropertyAlias* pPropertyAlias );
 };
 
 //-----------------------------------------------------------------------------

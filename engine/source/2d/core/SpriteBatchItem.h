@@ -268,8 +268,8 @@ protected:
     void updateLocalTransform( void );
     void updateWorldTransform( const U32 batchTransformId );
 
-    void onTamlCustomWrite( TamlPropertyTypeAlias* pSpriteTypeAlias );
-    void onTamlCustomRead( const TamlPropertyTypeAlias* pSpriteTypeAlias );
+    void onTamlCustomWrite( TamlPropertyAlias* pSpriteAlias );
+    void onTamlCustomRead( const TamlPropertyAlias* pSpriteAlias );
 };
 
 //------------------------------------------------------------------------------  

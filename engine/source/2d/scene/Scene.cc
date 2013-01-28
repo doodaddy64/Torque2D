@@ -3348,13 +3348,13 @@ void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
         return;
 
     // Iterate joints.
-    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pJointProperty->begin(); propertyTypeAliasItr != pJointProperty->end(); ++propertyTypeAliasItr )
+    for( TamlCustomProperty::const_iterator propertyAliasItr = pJointProperty->begin(); propertyAliasItr != pJointProperty->end(); ++propertyAliasItr )
     {
-        // Fetch property type alias.
-        TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
+        // Fetch property alias.
+        TamlPropertyAlias* pPropertyAlias = *propertyAliasItr;
 
         // Fetch alias name.
-        StringTableEntry aliasName = pPropertyTypeAlias->mAliasName;
+        StringTableEntry aliasName = pPropertyAlias->mAliasName;
 
         // Is this a distance joint?
         if ( aliasName == jointDistanceTypeName )
@@ -3370,7 +3370,7 @@ void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
             F32 dampingRatio = 0.0f;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3428,7 +3428,7 @@ void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
             F32 maxLength = -1.0f;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3484,7 +3484,7 @@ void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
             F32 maxMotorTorque = 0.0f;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3560,7 +3560,7 @@ void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
             F32 dampingRatio = 0.0f;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3620,7 +3620,7 @@ void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
             b2Vec2 worldAxis( 0.0f, 1.0f );
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3696,7 +3696,7 @@ void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
             F32 maxTorque = 0.0f;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3758,7 +3758,7 @@ void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
             b2Vec2 worldAxis( 0.0f, 1.0f );
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3839,7 +3839,7 @@ void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
             b2Vec2 worldGroundAnchorB = b2Vec2_zero;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3905,7 +3905,7 @@ void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
             F32 dampingRatio = 0.7f;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -3957,7 +3957,7 @@ void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
             F32 correctionFactor = 0.3f;
 
             // Iterate property fields.
-            for ( TamlPropertyTypeAlias::const_iterator propertyFieldItr = pPropertyTypeAlias->begin(); propertyFieldItr != pPropertyTypeAlias->end(); ++propertyFieldItr )
+            for ( TamlPropertyAlias::const_iterator propertyFieldItr = pPropertyAlias->begin(); propertyFieldItr != pPropertyAlias->end(); ++propertyFieldItr )
             {
                 // Fetch property field.
                 TamlPropertyField* pPropertyField = *propertyFieldItr;
@@ -4042,9 +4042,9 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
         // Fetch base joint.
         b2Joint* pBaseJoint = jointItr->value;
 
-        // Add joint type alias.
-        // NOTE:    The name of the type-alias will get updated shortly.
-        TamlPropertyTypeAlias* pJointTypeAlias = pJointProperty->addTypeAlias( StringTable->EmptyString );
+        // Add joint alias.
+        // NOTE:    The name of the alias will get updated shortly.
+        TamlPropertyAlias* pJointAlias = pJointProperty->addAlias( StringTable->EmptyString );
 
         // Fetch common details.
         b2Body* pBodyA = pBaseJoint->GetBodyA();
@@ -4067,8 +4067,8 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
         {
             case e_distanceJoint:
                 {
-                    // Set type alias name.
-                    pJointTypeAlias->mAliasName = StringTable->insert( jointDistanceTypeName );
+                    // Set alias name.
+                    pJointAlias->mAliasName = StringTable->insert( jointDistanceTypeName );
 
                     // Fetch joint.
                     const b2DistanceJoint* pJoint = dynamic_cast<const b2DistanceJoint*>( pBaseJoint );
@@ -4077,34 +4077,34 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
                     AssertFatal( pJoint != NULL, "Scene::onTamlCustomWrite() - Invalid distance joint type returned." );
 
                     // Add length.
-                    pJointTypeAlias->addPropertyField( jointDistanceLengthName, pJoint->GetLength() );
+                    pJointAlias->addField( jointDistanceLengthName, pJoint->GetLength() );
 
                     // Add frequency.
                     if ( mNotZero( pJoint->GetFrequency() ) )
-                        pJointTypeAlias->addPropertyField( jointDistanceFrequencyName, pJoint->GetFrequency() );
+                        pJointAlias->addField( jointDistanceFrequencyName, pJoint->GetFrequency() );
 
                     // Add damping ratio.
                     if ( mNotZero( pJoint->GetDampingRatio() ) )
-                        pJointTypeAlias->addPropertyField( jointDistanceDampingRatioName, pJoint->GetDampingRatio() );
+                        pJointAlias->addField( jointDistanceDampingRatioName, pJoint->GetDampingRatio() );
 
                     // Add local anchors.
                     if ( mNotZero( pJoint->GetLocalAnchorA().LengthSquared() ) )
-                        pJointTypeAlias->addPropertyField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
+                        pJointAlias->addField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
                     if ( mNotZero( pJoint->GetLocalAnchorB().LengthSquared() ) )
-                        pJointTypeAlias->addPropertyField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
+                        pJointAlias->addField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
 
                     // Add bodies.
                     if ( pSceneObjectA != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectAName, pSceneObjectA );
+                        pJointAlias->addField( jointObjectAName, pSceneObjectA );
                     if ( pSceneObjectB != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectBName, pSceneObjectB );
+                        pJointAlias->addField( jointObjectBName, pSceneObjectB );
                 }
                 break;
 
             case e_ropeJoint:
                 {
-                    // Set type alias name.
-                    pJointTypeAlias->mAliasName = StringTable->insert( jointRopeTypeName );
+                    // Set alias name.
+                    pJointAlias->mAliasName = StringTable->insert( jointRopeTypeName );
 
                     // Fetch joint.
                     const b2RopeJoint* pJoint = dynamic_cast<const b2RopeJoint*>( pBaseJoint );
@@ -4114,26 +4114,26 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
 
                     // Add max length.
                     if ( mNotZero( pJoint->GetMaxLength() ) )
-                        pJointTypeAlias->addPropertyField( jointRopeMaxLengthName, pJoint->GetMaxLength() );
+                        pJointAlias->addField( jointRopeMaxLengthName, pJoint->GetMaxLength() );
 
                     // Add local anchors.
                     if ( mNotZero( pJoint->GetLocalAnchorA().LengthSquared() ) )
-                        pJointTypeAlias->addPropertyField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
+                        pJointAlias->addField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
                     if ( mNotZero( pJoint->GetLocalAnchorB().LengthSquared() ) )
-                        pJointTypeAlias->addPropertyField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
+                        pJointAlias->addField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
 
                     // Add bodies.
                     if ( pSceneObjectA != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectAName, pSceneObjectA );
+                        pJointAlias->addField( jointObjectAName, pSceneObjectA );
                     if ( pSceneObjectB != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectBName, pSceneObjectB );
+                        pJointAlias->addField( jointObjectBName, pSceneObjectB );
                 }
                 break;
 
             case e_revoluteJoint:
                 {
-                    // Set type alias name.
-                    pJointTypeAlias->mAliasName = StringTable->insert( jointRevoluteTypeName );
+                    // Set alias name.
+                    pJointAlias->mAliasName = StringTable->insert( jointRevoluteTypeName );
 
                     // Fetch joint.
                     const b2RevoluteJoint* pJoint = dynamic_cast<const b2RevoluteJoint*>( pBaseJoint );
@@ -4145,36 +4145,36 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
                     if ( pJoint->IsLimitEnabled() )
                     {
                         // Add limits.
-                        pJointTypeAlias->addPropertyField( jointRevoluteLimitLowerAngleName, mRadToDeg(pJoint->GetLowerLimit()) );
-                        pJointTypeAlias->addPropertyField( jointRevoluteLimitUpperAngleName, mRadToDeg(pJoint->GetUpperLimit()) );
+                        pJointAlias->addField( jointRevoluteLimitLowerAngleName, mRadToDeg(pJoint->GetLowerLimit()) );
+                        pJointAlias->addField( jointRevoluteLimitUpperAngleName, mRadToDeg(pJoint->GetUpperLimit()) );
                     }
 
                     // Add motor.
                     if ( pJoint->IsMotorEnabled() )
                     {
                         // Add motor.
-                        pJointTypeAlias->addPropertyField( jointRevoluteMotorSpeedName, mRadToDeg(pJoint->GetMotorSpeed()) );
-                        pJointTypeAlias->addPropertyField( jointRevoluteMotorMaxTorqueName, pJoint->GetMaxMotorTorque() );
+                        pJointAlias->addField( jointRevoluteMotorSpeedName, mRadToDeg(pJoint->GetMotorSpeed()) );
+                        pJointAlias->addField( jointRevoluteMotorMaxTorqueName, pJoint->GetMaxMotorTorque() );
                     }
 
                     // Add local anchors.
                     if ( mNotZero( pJoint->GetLocalAnchorA().LengthSquared() ) )
-                        pJointTypeAlias->addPropertyField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
+                        pJointAlias->addField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
                     if ( mNotZero( pJoint->GetLocalAnchorB().LengthSquared() ) )
-                        pJointTypeAlias->addPropertyField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
+                        pJointAlias->addField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
 
                     // Add bodies.
                     if ( pSceneObjectA != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectAName, pSceneObjectA );
+                        pJointAlias->addField( jointObjectAName, pSceneObjectA );
                     if ( pSceneObjectB != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectBName, pSceneObjectB );
+                        pJointAlias->addField( jointObjectBName, pSceneObjectB );
                 }
                 break;
 
             case e_weldJoint:
                 {
-                    // Set type alias name.
-                    pJointTypeAlias->mAliasName = StringTable->insert( jointWeldTypeName );
+                    // Set alias name.
+                    pJointAlias->mAliasName = StringTable->insert( jointWeldTypeName );
 
                     // Fetch joint.
                     const b2WeldJoint* pJoint = dynamic_cast<const b2WeldJoint*>( pBaseJoint );
@@ -4184,30 +4184,30 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
 
                     // Add frequency.
                     if ( mNotZero( pJoint->GetFrequency() ) )
-                        pJointTypeAlias->addPropertyField( jointWeldFrequencyName, pJoint->GetFrequency() );
+                        pJointAlias->addField( jointWeldFrequencyName, pJoint->GetFrequency() );
 
                     // Add damping ratio.
                     if ( mNotZero( pJoint->GetDampingRatio() ) )
-                        pJointTypeAlias->addPropertyField( jointWeldDampingRatioName, pJoint->GetDampingRatio() );
+                        pJointAlias->addField( jointWeldDampingRatioName, pJoint->GetDampingRatio() );
 
                     // Add local anchors.
                     if ( mNotZero( pJoint->GetLocalAnchorA().LengthSquared() ) )
-                        pJointTypeAlias->addPropertyField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
+                        pJointAlias->addField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
                     if ( mNotZero( pJoint->GetLocalAnchorB().LengthSquared() ) )
-                        pJointTypeAlias->addPropertyField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
+                        pJointAlias->addField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
 
                     // Add bodies.
                     if ( pSceneObjectA != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectAName, pSceneObjectA );
+                        pJointAlias->addField( jointObjectAName, pSceneObjectA );
                     if ( pSceneObjectB != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectBName, pSceneObjectB );
+                        pJointAlias->addField( jointObjectBName, pSceneObjectB );
                 }
                 break;
 
             case e_wheelJoint:
                 {
-                    // Set type alias name.
-                    pJointTypeAlias->mAliasName = StringTable->insert( jointWheelTypeName );
+                    // Set alias name.
+                    pJointAlias->mAliasName = StringTable->insert( jointWheelTypeName );
 
                     // Fetch joint.
                     b2WheelJoint* pJoint = dynamic_cast<b2WheelJoint*>( pBaseJoint );
@@ -4219,70 +4219,70 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
                     if ( pJoint->IsMotorEnabled() )
                     {
                         // Add motor.
-                        pJointTypeAlias->addPropertyField( jointWheelMotorSpeedName, mRadToDeg(pJoint->GetMotorSpeed()) );
-                        pJointTypeAlias->addPropertyField( jointWheelMotorMaxTorqueName, pJoint->GetMaxMotorTorque() );
+                        pJointAlias->addField( jointWheelMotorSpeedName, mRadToDeg(pJoint->GetMotorSpeed()) );
+                        pJointAlias->addField( jointWheelMotorMaxTorqueName, pJoint->GetMaxMotorTorque() );
                     }
 
                     // Add frequency.
                     if ( mNotZero( pJoint->GetSpringFrequencyHz() ) )
-                        pJointTypeAlias->addPropertyField( jointWheelFrequencyName, pJoint->GetSpringFrequencyHz() );
+                        pJointAlias->addField( jointWheelFrequencyName, pJoint->GetSpringFrequencyHz() );
 
                     // Add damping ratio.
                     if ( mNotZero( pJoint->GetSpringDampingRatio() ) )
-                        pJointTypeAlias->addPropertyField( jointWheelDampingRatioName, pJoint->GetSpringDampingRatio() );
+                        pJointAlias->addField( jointWheelDampingRatioName, pJoint->GetSpringDampingRatio() );
 
                     // Add world axis.
-                    pJointTypeAlias->addPropertyField( jointWheelWorldAxisName, pJoint->GetBodyA()->GetWorldVector( pJoint->GetLocalAxisA() ) );
+                    pJointAlias->addField( jointWheelWorldAxisName, pJoint->GetBodyA()->GetWorldVector( pJoint->GetLocalAxisA() ) );
 
                     // Add local anchors.
-                    pJointTypeAlias->addPropertyField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
-                    pJointTypeAlias->addPropertyField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
+                    pJointAlias->addField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
+                    pJointAlias->addField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
 
                     // Add bodies.
                     if ( pSceneObjectA != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectAName, pSceneObjectA );
+                        pJointAlias->addField( jointObjectAName, pSceneObjectA );
                     if ( pSceneObjectB != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectBName, pSceneObjectB );
+                        pJointAlias->addField( jointObjectBName, pSceneObjectB );
                 }
                 break;
 
             case e_frictionJoint:
                 {
-                    // Set type alias name.
-                    pJointTypeAlias->mAliasName = StringTable->insert( jointFrictionTypeName );
+                    // Set alias name.
+                    pJointAlias->mAliasName = StringTable->insert( jointFrictionTypeName );
 
                     // Fetch joint.
                     const b2FrictionJoint* pJoint = dynamic_cast<const b2FrictionJoint*>( pBaseJoint );
 
                     // Add max force.
                     if ( mNotZero( pJoint->GetMaxForce() ) )
-                        pJointTypeAlias->addPropertyField( jointFrictionMaxForceName, pJoint->GetMaxForce() );
+                        pJointAlias->addField( jointFrictionMaxForceName, pJoint->GetMaxForce() );
 
                     // Add max torque.
                     if ( mNotZero( pJoint->GetMaxTorque() ) )
-                        pJointTypeAlias->addPropertyField( jointFrictionMaxTorqueName, pJoint->GetMaxTorque() );
+                        pJointAlias->addField( jointFrictionMaxTorqueName, pJoint->GetMaxTorque() );
 
                     // Sanity!
                     AssertFatal( pJoint != NULL, "Scene::onTamlCustomWrite() - Invalid friction joint type returned." );
 
                     // Add local anchors.
                     if ( mNotZero( pJoint->GetLocalAnchorA().LengthSquared() ) )
-                        pJointTypeAlias->addPropertyField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
+                        pJointAlias->addField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
                     if ( mNotZero( pJoint->GetLocalAnchorB().LengthSquared() ) )
-                        pJointTypeAlias->addPropertyField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
+                        pJointAlias->addField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
 
                     // Add bodies.
                     if ( pSceneObjectA != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectAName, pSceneObjectA );
+                        pJointAlias->addField( jointObjectAName, pSceneObjectA );
                     if ( pSceneObjectB != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectBName, pSceneObjectB );
+                        pJointAlias->addField( jointObjectBName, pSceneObjectB );
                 }
                 break;
 
             case e_prismaticJoint:
                 {
-                    // Set type alias name.
-                    pJointTypeAlias->mAliasName = StringTable->insert( jointPrismaticTypeName );
+                    // Set alias name.
+                    pJointAlias->mAliasName = StringTable->insert( jointPrismaticTypeName );
 
                     // Fetch joint.
                     b2PrismaticJoint* pJoint = dynamic_cast<b2PrismaticJoint*>( pBaseJoint );
@@ -4294,37 +4294,37 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
                     if ( pJoint->IsLimitEnabled() )
                     {
                         // Add limits.
-                        pJointTypeAlias->addPropertyField( jointPrismaticLimitLowerTransName, pJoint->GetLowerLimit() );
-                        pJointTypeAlias->addPropertyField( jointPrismaticLimitUpperTransName, pJoint->GetUpperLimit() );
+                        pJointAlias->addField( jointPrismaticLimitLowerTransName, pJoint->GetLowerLimit() );
+                        pJointAlias->addField( jointPrismaticLimitUpperTransName, pJoint->GetUpperLimit() );
                     }
 
                     // Add motor.
                     if ( pJoint->IsMotorEnabled() )
                     {
                         // Add motor.
-                        pJointTypeAlias->addPropertyField( jointPrismaticMotorSpeedName, mRadToDeg(pJoint->GetMotorSpeed()) );
-                        pJointTypeAlias->addPropertyField( jointPrismaticMotorMaxForceName, pJoint->GetMaxMotorForce() );
+                        pJointAlias->addField( jointPrismaticMotorSpeedName, mRadToDeg(pJoint->GetMotorSpeed()) );
+                        pJointAlias->addField( jointPrismaticMotorMaxForceName, pJoint->GetMaxMotorForce() );
                     }
 
                     // Add world axis.
-                    pJointTypeAlias->addPropertyField( jointPrismaticWorldAxisName, pJoint->GetBodyA()->GetWorldVector( pJoint->GetLocalAxisA() ) );
+                    pJointAlias->addField( jointPrismaticWorldAxisName, pJoint->GetBodyA()->GetWorldVector( pJoint->GetLocalAxisA() ) );
 
                     // Add local anchors.
-                    pJointTypeAlias->addPropertyField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
-                    pJointTypeAlias->addPropertyField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
+                    pJointAlias->addField( jointLocalAnchorAName, pJoint->GetLocalAnchorA() );
+                    pJointAlias->addField( jointLocalAnchorBName, pJoint->GetLocalAnchorB() );
 
                     // Add bodies.
                     if ( pSceneObjectA != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectAName, pSceneObjectA );
+                        pJointAlias->addField( jointObjectAName, pSceneObjectA );
                     if ( pSceneObjectB != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectBName, pSceneObjectB );
+                        pJointAlias->addField( jointObjectBName, pSceneObjectB );
                 }
                 break;
 
             case e_pulleyJoint:
                 {
-                    // Set type alias name.
-                    pJointTypeAlias->mAliasName = StringTable->insert( jointPulleyTypeName );
+                    // Set alias name.
+                    pJointAlias->mAliasName = StringTable->insert( jointPulleyTypeName );
 
                     // Fetch joint.
                     b2PulleyJoint* pJoint = dynamic_cast<b2PulleyJoint*>( pBaseJoint );
@@ -4333,32 +4333,32 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
                     AssertFatal( pJoint != NULL, "Scene::onTamlCustomWrite() - Invalid pulley joint type returned." );
 
                     // Add lengths.
-                    pJointTypeAlias->addPropertyField( jointPulleyLengthAName, pJoint->GetLengthA() );
-                    pJointTypeAlias->addPropertyField( jointPulleyLengthBName, pJoint->GetLengthB() );
+                    pJointAlias->addField( jointPulleyLengthAName, pJoint->GetLengthA() );
+                    pJointAlias->addField( jointPulleyLengthBName, pJoint->GetLengthB() );
 
                     // Add ratio,
-                    pJointTypeAlias->addPropertyField( jointPulleyRatioName, pJoint->GetRatio() );
+                    pJointAlias->addField( jointPulleyRatioName, pJoint->GetRatio() );
 
                     // Add ground anchors.
-                    pJointTypeAlias->addPropertyField( jointPulleyGroundAnchorAName, pJoint->GetGroundAnchorA() );
-                    pJointTypeAlias->addPropertyField( jointPulleyGroundAnchorBName, pJoint->GetGroundAnchorB() );
+                    pJointAlias->addField( jointPulleyGroundAnchorAName, pJoint->GetGroundAnchorA() );
+                    pJointAlias->addField( jointPulleyGroundAnchorBName, pJoint->GetGroundAnchorB() );
 
                     // Add local anchors.
-                    pJointTypeAlias->addPropertyField( jointLocalAnchorAName, pJoint->GetBodyA()->GetLocalPoint( pJoint->GetAnchorA() ) );
-                    pJointTypeAlias->addPropertyField( jointLocalAnchorBName, pJoint->GetBodyB()->GetLocalPoint( pJoint->GetAnchorB() ) );
+                    pJointAlias->addField( jointLocalAnchorAName, pJoint->GetBodyA()->GetLocalPoint( pJoint->GetAnchorA() ) );
+                    pJointAlias->addField( jointLocalAnchorBName, pJoint->GetBodyB()->GetLocalPoint( pJoint->GetAnchorB() ) );
 
                     // Add bodies.
                     if ( pSceneObjectA != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectAName, pSceneObjectA );
+                        pJointAlias->addField( jointObjectAName, pSceneObjectA );
                     if ( pSceneObjectB != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectBName, pSceneObjectB );
+                        pJointAlias->addField( jointObjectBName, pSceneObjectB );
                 }
                 break;
 
             case e_mouseJoint:
                 {
-                    // Set type alias name.
-                    pJointTypeAlias->mAliasName = StringTable->insert( jointTargetTypeName );
+                    // Set alias name.
+                    pJointAlias->mAliasName = StringTable->insert( jointTargetTypeName );
 
                     // Fetch joint.
                     const b2MouseJoint* pJoint = dynamic_cast<const b2MouseJoint*>( pBaseJoint );
@@ -4367,29 +4367,29 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
                     AssertFatal( pJoint != NULL, "Scene::onTamlCustomWrite() - Invalid target joint type returned." );
 
                     // Add target.
-                    pJointTypeAlias->addPropertyField( jointTargetWorldTargetName, pJoint->GetTarget() );
+                    pJointAlias->addField( jointTargetWorldTargetName, pJoint->GetTarget() );
 
                     // Add max force.
-                    pJointTypeAlias->addPropertyField( jointTargetMaxForceName, pJoint->GetMaxForce() );
+                    pJointAlias->addField( jointTargetMaxForceName, pJoint->GetMaxForce() );
 
                     // Add frequency
-                    pJointTypeAlias->addPropertyField( jointTargetFrequencyName, pJoint->GetFrequency() );
+                    pJointAlias->addField( jointTargetFrequencyName, pJoint->GetFrequency() );
 
                     // Add damping ratio.
-                    pJointTypeAlias->addPropertyField( jointTargetDampingRatioName, pJoint->GetDampingRatio() );
+                    pJointAlias->addField( jointTargetDampingRatioName, pJoint->GetDampingRatio() );
 
                     // Add body.
                     // NOTE: This joint uses BODYB as the object, BODYA is the ground-body however for easy of use
                     // we'll refer to this as OBJECTA in the persisted format.
                     if ( pSceneObjectB != NULL )
-                        pJointTypeAlias->addPropertyField( jointObjectAName, pSceneObjectB );
+                        pJointAlias->addField( jointObjectAName, pSceneObjectB );
                 }
                 break;
 
             case e_motorJoint:
                 {
-                    // Set type alias name.
-                    pJointTypeAlias->mAliasName = StringTable->insert( jointMotorTypeName );
+                    // Set alias name.
+                    pJointAlias->mAliasName = StringTable->insert( jointMotorTypeName );
 
                     // Fetch joint.
                     const b2MotorJoint* pJoint = dynamic_cast<const b2MotorJoint*>( pBaseJoint );
@@ -4399,20 +4399,20 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
 
                     // Add linear offset.
                     if ( mNotZero( pJoint->GetLinearOffset().LengthSquared() ) )
-                        pJointTypeAlias->addPropertyField( jointMotorLinearOffsetName, pJoint->GetLinearOffset() );
+                        pJointAlias->addField( jointMotorLinearOffsetName, pJoint->GetLinearOffset() );
 
                     // Add angular offset.
                     if ( mNotZero( pJoint->GetAngularOffset() ) )
-                        pJointTypeAlias->addPropertyField( jointMotorAngularOffsetName, mRadToDeg( pJoint->GetAngularOffset() ) );
+                        pJointAlias->addField( jointMotorAngularOffsetName, mRadToDeg( pJoint->GetAngularOffset() ) );
 
                     // Add max force.
-                    pJointTypeAlias->addPropertyField( jointMotorMaxForceName, pJoint->GetMaxForce() );
+                    pJointAlias->addField( jointMotorMaxForceName, pJoint->GetMaxForce() );
 
                     // Add max torque.
-                    pJointTypeAlias->addPropertyField( jointMotorMaxTorqueName, pJoint->GetMaxTorque() );
+                    pJointAlias->addField( jointMotorMaxTorqueName, pJoint->GetMaxTorque() );
 
                     // Add correction factor.
-                    pJointTypeAlias->addPropertyField( jointMotorCorrectionFactorName, pJoint->GetCorrectionFactor() );
+                    pJointAlias->addField( jointMotorCorrectionFactorName, pJoint->GetCorrectionFactor() );
                 }
                 break;
 
@@ -4423,7 +4423,7 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
 
         // Add collide connected flag.
         if ( pBaseJoint->GetCollideConnected() )
-            pJointTypeAlias->addPropertyField( jointCollideConnectedName, pBaseJoint->GetCollideConnected() );
+            pJointAlias->addField( jointCollideConnectedName, pBaseJoint->GetCollideConnected() );
     }
 }
 

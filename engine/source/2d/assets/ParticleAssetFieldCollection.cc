@@ -439,13 +439,13 @@ void ParticleAssetFieldCollection::onTamlCustomRead( const TamlCustomProperties&
         return;
 
     // Iterate the custom properties.
-    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pParticleAssetCustomProperty->begin(); propertyTypeAliasItr != pParticleAssetCustomProperty->end(); ++propertyTypeAliasItr )
+    for( TamlCustomProperty::const_iterator propertyAliasItr = pParticleAssetCustomProperty->begin(); propertyAliasItr != pParticleAssetCustomProperty->end(); ++propertyAliasItr )
     {
-        // Fetch property type alias.
-        TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
+        // Fetch property alias.
+        TamlPropertyAlias* pPropertyAlias = *propertyAliasItr;
 
         // Fetch alias name.
-        StringTableEntry aliasName = pPropertyTypeAlias->mAliasName;
+        StringTableEntry aliasName = pPropertyAlias->mAliasName;
 
         // Find the field.
         ParticleAssetField* pParticleAssetField = findField( aliasName );
@@ -459,7 +459,7 @@ void ParticleAssetFieldCollection::onTamlCustomRead( const TamlCustomProperties&
         }
 
         // Read the alias.
-        pParticleAssetField->onTamlCustomRead( pPropertyTypeAlias );
+        pParticleAssetField->onTamlCustomRead( pPropertyAlias );
     }
 }
 
