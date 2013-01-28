@@ -73,8 +73,6 @@ protected:
     virtual void readBehaviors( void );
 
     /// Taml callbacks.
-    virtual void onTamlPreWrite( void );
-    virtual void onTamlPostWrite( void );
     virtual void onTamlCustomWrite( TamlCustomProperties& customProperties );
     virtual void onTamlCustomRead( const TamlCustomProperties& customProperties );
 
