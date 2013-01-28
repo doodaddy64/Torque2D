@@ -8,35 +8,14 @@
     MinExtent="450 450"
     Visible="1">
 	
-    <!-- User Controls -->
+    <!-- Toy Custom Controls -->
 	<GuiControl
-		Name="ToyCustomArea"
+		Name="ToyCustomControls"
 		Profile="GuiDefaultProfile"
 		HorizSizing="right"
 		VertSizing="relative"
 		Position="260 0"
-		Extent="580 416">
-		
-		<GuiTextCtrl
-			canSaveDynamicFields="0"
-			isContainer="0"
-			Profile="GuiTextProfile"
-			HorizSizing="right"
-			VertSizing="bottom"
-			Position="0 32"
-			Extent="120 15"
-			MinExtent="8 2"
-			canSave="1"
-			Visible="1"
-			Active="0"
-			hovertime="1000"
-			toolTipProfile="GuiToolTipProfile"
-			toolTip="Test control."
-			text="Test."
-			maxLength="255"
-			truncate="0" />		
-		
-	</GuiControl>		
+		Extent="580 416"/>		
     
 	<!-- Toy Selection Panel -->
 	<GuiControl

@@ -3,6 +3,6 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-function createRangeControl( %name, %position, %min, %max, %variable )
+function createRangeControl( %name, %label, %position, %min, %max, %variable )
 {
 }
