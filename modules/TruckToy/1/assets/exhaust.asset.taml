@@ -1,11 +1,5 @@
 <ParticleAsset
     AssetName="Exhaust">
-    <ParticleAsset.Fields>
-        <EmissionArc
-            Keys="0 15" />
-        <EmissionAngle
-            Keys="0 180" />
-    </ParticleAsset.Fields>
     <ParticleAssetEmitter
         EmitterName="smoke"
         FixedForceAngle="90"
@@ -15,6 +9,10 @@
         <ParticleAssetEmitter.Fields>
             <Quantity
                 Keys="0 10" />
+			<EmissionArc
+				Keys="0 15" />
+			<EmissionAngle
+				Keys="0 180" />				
             <LifetimeVariation
                 Keys="0 1" />
             <Speed
