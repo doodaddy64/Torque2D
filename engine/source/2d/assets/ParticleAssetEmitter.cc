@@ -129,7 +129,7 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mRandomAngleOffset( 0.0f ),
                             mRandomArc( 360.0f ),
                             mFixedAngleOffset( 0.0f ),
-                            mLinkEmissionRotation( false ),
+                            mLinkEmissionRotation( true ),
                             mIntenseParticles( false ),
                             mSingleParticle( false ),
                             mAttachPositionToEmitter( false ),

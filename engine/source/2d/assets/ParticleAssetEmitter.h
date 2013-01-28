@@ -274,7 +274,7 @@ protected:
     static bool     setPivotPoint(void* obj, const char* data)                          { static_cast<ParticleAssetEmitter*>(obj)->setPivotPoint(Vector2(data)); return false; }
     static bool     writePivotPoint( void* obj, StringTableEntry pFieldName )           { return static_cast<ParticleAssetEmitter*>(obj)->getPivotPoint().notZero(); }
     static bool     setLinkEmissionRotation(void* obj, const char* data)                { static_cast<ParticleAssetEmitter*>(obj)->setLinkEmissionRotation(dAtob(data)); return false; }
-    static bool     writeLinkEmissionRotation( void* obj, StringTableEntry pFieldName ) { return static_cast<ParticleAssetEmitter*>(obj)->getLinkEmissionRotation() == true; }
+    static bool     writeLinkEmissionRotation( void* obj, StringTableEntry pFieldName ) { return static_cast<ParticleAssetEmitter*>(obj)->getLinkEmissionRotation() == false; }
     static bool     setIntenseParticles(void* obj, const char* data)                    { static_cast<ParticleAssetEmitter*>(obj)->setIntenseParticles(dAtob(data)); return false; }
     static bool     writeIntenseParticles( void* obj, StringTableEntry pFieldName )     { return static_cast<ParticleAssetEmitter*>(obj)->getIntenseParticles() == true; }
     static bool     setSingleParticle(void* obj, const char* data)                      { static_cast<ParticleAssetEmitter*>(obj)->setSingleParticle(dAtob(data)); return false; }
