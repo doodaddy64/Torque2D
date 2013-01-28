@@ -27,7 +27,7 @@
 
 
 //Luma:	Orientation support
-int giOSGameCurrentOrientation = UIDeviceOrientationLandscapeLeft;
+int giOSGameCurrentOrientation = UIDeviceOrientationLandscapeRight;
 TCPObject* gpTCPObject = NULL;
 char gszTCPAddress[256];
 
