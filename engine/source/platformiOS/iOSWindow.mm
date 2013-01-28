@@ -26,10 +26,6 @@ bool getStatusBarHidden();
 bool setStatusBarHidden(bool);
 void setStatusBarType(S32);
 
-#define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
-#define IS_IPHONE ( [ [ [ UIDevice currentDevice ] model ] isEqualToString: @"iPhone" ] )
-#define IS_IPHONE_5 ( IS_IPHONE && IS_WIDESCREEN )
-
 //------------------------------------------------------------------------------
 #pragma mark ---- PlatState ----
 iOSPlatState platState;
@@ -122,7 +118,9 @@ void Platform::init()
     }
     else
     {
-        if (IS_IPHONE_5)
+        F32 screenHeight = [[UIScreen mainScreen] bounds].size.height;
+        bool iPhone5 = (fabs((double)screenHeight - (double)568 ) < DBL_EPSILON);
+        if (iPhone5)
         {
             Con::setIntVariable("$pref::iOS::DeviceType", 2);
             Con::setBoolVariable("$pref::iOS::RetinaEnabled", false);
