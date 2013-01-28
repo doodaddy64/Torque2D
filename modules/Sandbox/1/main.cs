@@ -13,7 +13,8 @@ function createSandbox( %scopeSet )
     exec( "./scripts/canvas.cs" );
     exec( "./scripts/openal.cs" );
     exec( "./scripts/console.cs" );
-    exec( "./scripts/toolbox.cs" );
+    exec( "./scripts/toolbox.cs" );    
+    exec( "./scripts/customToolboxGui.cs" );
     exec( "./scripts/manipulation.cs" );
 
     // Initialize the canvas.

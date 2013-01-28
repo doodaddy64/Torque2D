@@ -129,7 +129,6 @@ ParticleAssetEmitter::ParticleAssetEmitter() :
                             mRandomAngleOffset( 0.0f ),
                             mRandomArc( 360.0f ),
                             mFixedAngleOffset( 0.0f ),
-                            mEmitterEmission( false ),
                             mLinkEmissionRotation( false ),
                             mIntenseParticles( false ),
                             mSingleParticle( false ),
@@ -220,7 +219,6 @@ void ParticleAssetEmitter::initPersistFields()
     addProtectedField("RandomArc", TypeF32, Offset(mRandomArc, ParticleAssetEmitter), &setRandomArc, &defaultProtectedGetFn, &writeRandomArc, "");
     addProtectedField("FixedAngleOffset", TypeF32, Offset(mFixedAngleOffset, ParticleAssetEmitter), &setFixedAngleOffset, &defaultProtectedGetFn, &writeFixedAngleOffset, "");
     addProtectedField("PivotPoint", TypeVector2, Offset(mPivotPoint, ParticleAssetEmitter), &setPivotPoint, &defaultProtectedGetFn, &writePivotPoint, "");
-    addProtectedField("EmitterEmission", TypeBool, Offset(mEmitterEmission, ParticleAssetEmitter), &setEmitterEmission, &defaultProtectedGetFn, &writeEmitterEmission, "");
     addProtectedField("LinkEmissionRotation", TypeBool, Offset(mLinkEmissionRotation, ParticleAssetEmitter), &setLinkEmissionRotation, &defaultProtectedGetFn, &writeLinkEmissionRotation, "");
     addProtectedField("IntenseParticles", TypeBool, Offset(mIntenseParticles, ParticleAssetEmitter), &setIntenseParticles, &defaultProtectedGetFn, &writeIntenseParticles, "");
     addProtectedField("SingleParticle", TypeBool, Offset(mSingleParticle, ParticleAssetEmitter), &setSingleParticle, &defaultProtectedGetFn, &writeSingleParticle, "");
@@ -267,7 +265,6 @@ void ParticleAssetEmitter::copyTo(SimObject* object)
    pParticleAssetEmitter->setRandomArc( getRandomArc() );
    pParticleAssetEmitter->setFixedAngleOffset( getFixedAngleOffset() );
    pParticleAssetEmitter->setPivotPoint( getPivotPoint() );
-   pParticleAssetEmitter->setEmitterEmission( getEmitterEmission() );
    pParticleAssetEmitter->setLinkEmissionRotation( getLinkEmissionRotation() );
    pParticleAssetEmitter->setIntenseParticles( getIntenseParticles() );
    pParticleAssetEmitter->setSingleParticle( getSingleParticle() );

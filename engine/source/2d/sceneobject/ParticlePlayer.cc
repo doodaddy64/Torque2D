@@ -1078,43 +1078,21 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
                                                                                 particlePlayerAge ) * getForceScale();
 
 
-        // Are we using the emitter emission?
-        if ( pParticleAssetEmitter->getEmitterEmission() )
-        {
-            // Yes, so calculate the emission force.
-            emissionForce = ParticleAssetField::calculateFieldBV(   pParticleAssetEmitter->getEmissionForceForceBaseField(),
-                                                                    pParticleAssetEmitter->getEmissionForceVariationField(),
-                                                                    particlePlayerAge) * getForceScale();
+        //  Calculate the emission force.
+        emissionForce = ParticleAssetField::calculateFieldBV(   pParticleAssetEmitter->getEmissionForceForceBaseField(),
+                                                                pParticleAssetEmitter->getEmissionForceVariationField(),
+                                                                particlePlayerAge) * getForceScale();
 
-            // Calculate Emission Angle.
-            emissionAngle = ParticleAssetField::calculateFieldBV(   pParticleAssetEmitter->getEmissionAngleBaseField(),
-                                                                    pParticleAssetEmitter->getEmissionAngleVariationField(),
-                                                                    particlePlayerAge );
+        // Calculate Emission Angle.
+        emissionAngle = ParticleAssetField::calculateFieldBV(   pParticleAssetEmitter->getEmissionAngleBaseField(),
+                                                                pParticleAssetEmitter->getEmissionAngleVariationField(),
+                                                                particlePlayerAge );
 
-            // Calculate Emission Arc.
-            // NOTE:-   We're actually interested in half the emission arc!
-            emissionArc = ParticleAssetField::calculateFieldBV( pParticleAssetEmitter->getEmissionArcBaseField(),
-                                                                pParticleAssetEmitter->getEmissionArcVariationField(),
-                                                                particlePlayerAge ) * 0.5f;
-        }
-        else
-        {
-            // No, so calculate the emission force.
-            emissionForce = ParticleAssetField::calculateFieldBV(   pParticleAsset->getEmissionForceBaseField(),
-                                                                    pParticleAsset->getEmissionForceVariationField(),
-                                                                    particlePlayerAge) * getForceScale();
-
-            // Calculate Emission Angle.
-            emissionAngle = ParticleAssetField::calculateFieldBV(   pParticleAsset->getEmissionAngleBaseField(),
-                                                                    pParticleAsset->getEmissionAngleVariationField(),
-                                                                    particlePlayerAge);
-
-            // Calculate Emission Arc.
-            // NOTE:-   We're actually interested in half the emission arc!
-            emissionArc = ParticleAssetField::calculateFieldBV(     pParticleAsset->getEmissionArcBaseField(),
-                                                                    pParticleAsset->getEmissionAngleVariationField(),
-                                                                    particlePlayerAge ) * 0.5f;
-        }
+        // Calculate Emission Arc.
+        // NOTE:-   We're actually interested in half the emission arc!
+        emissionArc = ParticleAssetField::calculateFieldBV( pParticleAssetEmitter->getEmissionArcBaseField(),
+                                                            pParticleAssetEmitter->getEmissionArcVariationField(),
+                                                            particlePlayerAge ) * 0.5f;
 
         // Is the emission rotation linked?
         if ( pParticleAssetEmitter->getLinkEmissionRotation() )

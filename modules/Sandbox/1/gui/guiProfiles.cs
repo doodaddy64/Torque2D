@@ -3,6 +3,11 @@
 // Copyright GarageGames, LLC 2012
 //-----------------------------------------------------------------------------
 
+$platformFontType = ($platform $= "windows") ? "lucida console" : "monaco";
+$platformFontSize = 12;
+
+//-----------------------------------------------------------------------------
+
 new GuiCursor(DefaultCursor)
 {
     hotSpot = "4 4";
@@ -34,8 +39,8 @@ if(!isObject(GuiDefaultProfile)) new GuiControlProfile (GuiDefaultProfile)
     borderColorNA = "64 64 64";
 
     // font
-    fontType = ($platform $= "macos") ? "monaco" : "lucida console";
-    fontSize = 12;
+    fontType = $platformFontType;
+    fontSize = $platformFontSize;
 
     fontColor = "0 0 0";
     fontColorHL = "32 100 100";
@@ -68,8 +73,8 @@ if (!isObject(GuiToolTipProfile)) new GuiControlProfile (GuiToolTipProfile : Gui
 {
     fillColor = "246 220 165 255";
     
-    fontType = ($platform $= "macos") ? "monaco" : "lucida console";
-    fontSize = 12;
+    fontType = $platformFontType;
+    fontSize = $platformFontSize;
 };
 
 // ----------------------------------------------------------------------------
@@ -102,8 +107,8 @@ if (!isObject(GuiPopUpMenuDefault)) new GuiControlProfile (GuiPopUpMenuDefault)
     borderColorNA = "0 226 226 52";
 
     // font
-    fontType = ($platform $= "macos") ? "monaco" : "lucida console";
-    fontSize = 12;
+    fontType = $platformFontType;
+    fontSize = $platformFontSize;
 
     fontColor = "27 59 95 255";
     fontColorHL = "232 240 248 255";
@@ -151,8 +156,8 @@ if (!isObject(GuiTextProfile)) new GuiControlProfile (GuiTextProfile)
     border=false;
 
     // font
-    fontType = "Open Sans";
-    fontSize = 19;
+    fontType = $platformFontType;
+    fontSize = $platformFontSize;
 
     fontColor = "white";
 
@@ -173,8 +178,8 @@ if (!isObject(GuiCheckBoxProfile)) new GuiControlProfile (GuiCheckBoxProfile)
     fillColor = "232 232 232 255";
     border = false;
     borderColor = "0 0 0 255";
-    fontType = "Arial";
-    fontSize = 16;
+    fontType = $platformFontType;
+    fontSize = $platformFontSize;
     fixedExtent = true;
     justify = "left";
     bitmap = "^Sandbox/gui/images/checkBox";
@@ -185,8 +190,8 @@ if (!isObject(GuiCheckBoxProfile)) new GuiControlProfile (GuiCheckBoxProfile)
 
 if(!isObject(GuiConsoleProfile)) new GuiControlProfile (GuiConsoleProfile)
 {
-    fontType = ($platform $= "macos") ? "monaco" : "lucida console";
-    fontSize = 12;
+    fontType = $platformFontType;
+    fontSize = $platformFontSize;
     fontColor = "255 255 255";
     fontColorHL = "155 155 155";
     fontColorNA = "255 0 0";
@@ -222,8 +227,8 @@ if(!isObject(GuiTextEditProfile)) new GuiControlProfile (GuiTextEditProfile)
 
 if(!isObject(GuiConsoleTextEditProfile)) new GuiControlProfile (GuiConsoleTextEditProfile : GuiTextEditProfile)
 {
-    fontType = ($platform $= "macos") ? "monaco" : "lucida console";
-    fontSize = 12;
+    fontType = $platformFontType;
+    fontSize = $platformFontSize;
 };
 
 //-----------------------------------------------------------------------------
@@ -269,7 +274,7 @@ if(!isObject(SandboxWindowProfile)) new GuiControlProfile (SandboxWindowProfile 
     fillColor = "0 0 0 92";
 
     // font
-    fontType = ($platform $= "macos") ? "monaco" : "lucida console";
-    fontSize = 12;
+    fontType = $platformFontType;
+    fontSize = $platformFontSize;
     fontColor = "255 255 255 255";
 }; 

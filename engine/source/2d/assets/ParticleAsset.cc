@@ -117,21 +117,15 @@ ParticleAsset::ParticleAsset() :
     VECTOR_SET_ASSOCIATION( mEmitters );  
 
     // Initialize particle fields.
-    mParticleFields.addField( mParticleLife.getBase(), "LifeScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mParticleFields.addField( mQuantity.getBase(), "QuantityScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mParticleFields.addField( mSizeX.getBase(), "SizeXScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mParticleFields.addField( mSizeY.getBase(), "SizeYScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mParticleFields.addField( mSpeed.getBase(), "SpeedScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mParticleFields.addField( mSpin.getBase(), "SpinScale", 1000.0f, -100.0f, 100.0f, 1.0f );
-    mParticleFields.addField( mFixedForce.getBase(), "FixedForceScale", 1000.0f, -100.0f, 100.0f, 1.0f  );
-    mParticleFields.addField( mRandomMotion.getBase(), "RandomMotionScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mParticleFields.addField( mAlphaChannel.getBase(), "VisibilityScale", 1000.0f, 0.0f, 100.0f, 1.0f );
-    mParticleFields.addField( mEmissionForce.getBase(), "EmissionForce", 1000.0f, -100.0f, 100.0f, 5.0f );
-    mParticleFields.addField( mEmissionForce.getVariation(), "EmissionForceVariation", 1000.0f, 0.0f, 200.0f, 0.0f );
-    mParticleFields.addField( mEmissionAngle.getBase(), "EmissionAngle", 1000.0f, -180.0f, 180.0f, 0.0f );
-    mParticleFields.addField( mEmissionAngle.getVariation(), "EmissionAngleVariation", 1000.0f, 0.0f, 360.0f, 0.0f );
-    mParticleFields.addField( mEmissionArc.getBase(), "EmissionArc", 1000.0f, 0.0f, 360.0f, 360.0f );
-    mParticleFields.addField( mEmissionArc.getVariation(), "EmissionArcVariation", 1000.0f, 0.0f, 720.0f, 0.0f );
+    mParticleFields.addField( mParticleLifeScale.getBase(), "LifeScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mQuantityScale.getBase(), "QuantityScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mSizeXScale.getBase(), "SizeXScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mSizeYScale.getBase(), "SizeYScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mSpeedScale.getBase(), "SpeedScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mSpinScale.getBase(), "SpinScale", 1000.0f, -100.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mFixedForceScale.getBase(), "FixedForceScale", 1000.0f, -100.0f, 100.0f, 1.0f  );
+    mParticleFields.addField( mRandomMotionScale.getBase(), "RandomMotionScale", 1000.0f, 0.0f, 100.0f, 1.0f );
+    mParticleFields.addField( mAlphaChannelScale.getBase(), "AlphaChannelScale", 1000.0f, 0.0f, 100.0f, 1.0f );
 }
 
 //------------------------------------------------------------------------------

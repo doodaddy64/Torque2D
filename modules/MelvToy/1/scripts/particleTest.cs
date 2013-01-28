@@ -23,29 +23,29 @@ function runParticleTest()
     %emitter = %effectAsset.createEmitter();
     %emitter.EmitterName = "emitter1";
     %emitter.EmitterType = "box";
-    %emitter.EmitterSize = "90 65";
+    %emitter.EmitterSize = "1 1";
     %emitter.EmitterAngle = 0;
     %emitter.EmitterOffset = "0 0";
     %emitter.IntenseParticles =false;
-    %emitter.Image = "MelvToy:isoTiles1";
-    %emitter.Frame = 13;
+    %emitter.Image = "MelvToy:football";
+    %emitter.Frame = 0;
     %emitter.FixedAspect = true;
-    %emitter.RandomImageFrame = true;
+    %emitter.RandomImageFrame = false;
     %emitter.OldestInFront = false;
     %emitter.AttachPositionToEmitter = false;
     %emitter.AttachRotationToEmitter = false;
 
     %emitter.selectField( "Quantity" );    
-        %emitter.setSingleDataKey( 1000 );
+        %emitter.setSingleDataKey( 1 );
 
     %emitter.selectField( "Lifetime" ); 
-        %emitter.setSingleDataKey( 2 );
+        %emitter.setSingleDataKey( 10 );
 
     //%emitter.selectField( "LifetimeVariation" ); 
         //%emitter.setSingleDataKey( 1 );
 
     %emitter.selectField( "Speed" );    
-        %emitter.setSingleDataKey( 2 );
+        %emitter.setSingleDataKey( 1 );
 
     //%emitter.selectField( "SpeedVariation" );    
         //%emitter.setSingleDataKey( 1 );
