@@ -49,11 +49,7 @@ GuiControl::GuiControl()
    mAcceleratorKey      = StringTable->EmptyString;
    mLangTableName       = StringTable->EmptyString;
 
-#ifdef TORQUE_PLAYER
-   mScriptFile          = CodeBlock::getCurrentCodeBlockName();
-#else
    mScriptFile          = CodeBlock::getCurrentCodeBlockFullPath();
-#endif
 
    mLangTable           = NULL;
    mFirstResponder      = NULL;

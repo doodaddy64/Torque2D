@@ -1215,12 +1215,8 @@ ResourceObject * ResManager::findMatch (const char *expression, const char **fn,
       start = start->nextResource;
    while (start)
    {
-#ifdef TORQUE_PLAYER
-      StringTableEntry fname = Platform::stripBasePath(buildPath(start->path, start->name));
-#else
        const char *fname = buildPath (start->path, start->name);
-       //Con::printf("Expr='%s' with '%s'", expression, fname);
-#endif
+
       if (FindMatch::isMatch (expression, fname, false))
       {
          *fn = fname;
@@ -1240,11 +1236,8 @@ ResourceObject * ResManager::findMatchMultiExprs (const char *multiExpression, c
       start = start->nextResource;
    while (start)
    {
-#ifdef TORQUE_PLAYER
-      StringTableEntry fname = Platform::stripBasePath(buildPath(start->path, start->name));
-#else
       const char *fname = buildPath (start->path, start->name);
-#endif
+
       if (FindMatch::isMatchMultipleExprs(multiExpression, fname, false))
       {
          *fn = fname;

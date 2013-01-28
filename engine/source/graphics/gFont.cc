@@ -395,40 +395,8 @@ void GFont::getFontCacheFilename(const char *faceName, U32 size, U32 buffLen, ch
 
 Resource<GFont> GFont::create(const char *faceName, U32 size, const char *cacheDirectory, U32 charset /* = TGE_ANSI_CHARSET */)
 {
-   // rdbnote: in the future we shouldn't assume that the cache directory is expanded
-#ifdef TORQUE_PLAYER
-   char temp[256];
-   dSprintf(temp, sizeof(temp), "%s/%s %d (%s).uft", cacheDirectory, faceName, size, getFontCharSetName(charset));
-
-#ifdef TORQUE_OS_IOS
-    //Only use pre-generated fonts, never try to make one
-    const char* buf = &temp[0];
-    if (ResourceManager->find(temp))
-    {
-        char fullPath[1024]; // force to full path
-        Platform::makeFullPathName(temp, fullPath, sizeof(fullPath));
-        buf = StringTable->insert(fullPath);
-    } else {
-        Con::errorf( "Could not load font: %s", temp );
-    }
-#else
-   // first see if the font exists in the game directory
-   const char* buf = NULL;
-   if (ResourceManager->find(temp))
-   {
-      char fullPath[1024]; // force to full path
-      Platform::makeFullPathName(temp, fullPath, sizeof(fullPath));
-      buf = StringTable->insert(fullPath);
-   }
-   else {// use the pref directory instead
-      buf = Platform::getPrefsPath(temp);
-   }
-#endif //TORQUE_OS_IOS
-    
-#else
    char buf[256];
    dSprintf(buf, sizeof(buf), "%s/%s %d (%s).uft", cacheDirectory, faceName, size, getFontCharSetName(charset));
-#endif
 
    Resource<GFont> ret = ResourceManager->load(buf);
    if(bool(ret))

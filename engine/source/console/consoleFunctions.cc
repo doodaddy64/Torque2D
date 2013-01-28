@@ -1343,9 +1343,9 @@ ConsoleFunction(exec, bool, 2, 4, "( fileName [ , nocalls [ , journalScript ] ] 
 #endif
       {
          // compile this baddie.
-		 #if defined(TORQUE_DEBUG)
+         #if defined(TORQUE_DEBUG)
          Con::printf("Compiling %s...", scriptFileName);
-		 #endif
+         #endif
          CodeBlock *code = new CodeBlock();
          code->compile(nameBuffer, scriptFileName, script);
          delete code;
@@ -1529,20 +1529,8 @@ ConsoleFunction(export, void, 2, 5, "( wildCard [ , fileName [ , isProjectPref [
 
    if (argc >= 3)
    {
-#ifndef TORQUE_PLAYER
       Con::expandPath(pathBuffer, sizeof(pathBuffer), argv[2]);
       filename = pathBuffer;
-#else
-      bool isProjectPref = (argc >= 4) ? dAtob(argv[3]) : false;
-
-      if(isProjectPref)
-      {
-          Con::expandPath(pathBuffer, sizeof(pathBuffer), argv[2]);
-          filename = pathBuffer;
-      }
-      else
-        filename = Platform::getPrefsPath(argv[2]);
-#endif
       if (filename == NULL || *filename == 0)
          return;
    }
@@ -1605,7 +1593,7 @@ ConsoleFunction(getAppleDeviceIPAddress, const char*, 1, 1, "Gets the Apple hard
             if(temp_addr->ifa_addr->sa_family == AF_INET)
             {
                 // Check if interface is en0 which is the wifi connection on the iPhone
-	            // Note: Could be different on MacOSX and simulator and may need modifying
+                // Note: Could be different on MacOSX and simulator and may need modifying
                 if(dStrcmp(temp_addr->ifa_name, "en0") == 0)
                 {
                     dStrcpy(address, inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr));

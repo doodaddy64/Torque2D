@@ -477,13 +477,7 @@ ConsoleMethod(SimObject, save, bool, 3, 4, "obj.save(fileName, [selectedOnly])")
 
    const char* filename = NULL;
 
-#ifdef TORQUE_PLAYER
-   char temp[1024];
-   Con::expandPath(temp, sizeof(temp), argv[2]);
-   filename = Platform::getPrefsPath(temp);
-#else
    filename = argv[2];
-#endif
 
    if(filename == NULL || *filename == 0)
       return false;

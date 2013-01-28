@@ -70,12 +70,7 @@
 #define TORQUE_MULTITHREAD
 #endif
 
-// Define me if this build is a tools build
-#ifndef TORQUE_PLAYER
-#  define TORQUE_TOOLS
-#else
-#  undef TORQUE_TOOLS
-#endif
+#define TORQUE_TOOLS
 
 /// Define me if you want to enable the profiler.
 ///    See also the TORQUE_SHIPPING block below

@@ -109,25 +109,7 @@ S32 SimXMLDocument::loadFile(const char* rFileName)
 {
    reset();
 
-#ifndef TORQUE_PLAYER
    return m_qDocument->LoadFile(rFileName);
-#else
-   // look for the file first in the prefs folder, then in the game folder
-   char temp[1024];
-   Con::expandPath(temp, sizeof(temp), rFileName);
-   const char* prefsPath = Platform::getPrefsPath(temp);
-
-   // malformed path
-   if(prefsPath == NULL || *prefsPath == 0)
-      return m_qDocument->LoadFile(rFileName);
-
-   // didn't find it.. use path given to us..
-   if(!ResourceManager->find(prefsPath))
-      return m_qDocument->LoadFile(rFileName);
-
-   // otherwise use the pref path
-   return m_qDocument->LoadFile(prefsPath);
-#endif
 }
 ConsoleMethod(SimXMLDocument, loadFile, S32, 3, 3, "(string fileName) Load file from given filename.\n"
               "@param fileName The name of the desired file\n"
@@ -141,16 +123,8 @@ ConsoleMethod(SimXMLDocument, loadFile, S32, 3, 3, "(string fileName) Load file 
 // -----------------------------------------------------------------------------
 S32 SimXMLDocument::saveFile(const char* rFileName)
 {
-#ifdef TORQUE_PLAYER
-   const char* buffer = NULL;
-
-   char temp[1024];
-   Con::expandPath(temp, sizeof(temp), rFileName);
-   buffer = Platform::getPrefsPath(temp);
-#else
    char buffer[1024];
    Con::expandPath(buffer, sizeof(buffer), rFileName);
-#endif
 
    if(buffer == NULL || *buffer == 0)
       return false;

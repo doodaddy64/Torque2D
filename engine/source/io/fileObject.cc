@@ -34,16 +34,8 @@ void FileObject::close()
 
 bool FileObject::openForWrite(const char *fileName, const bool append)
 {
-#ifdef TORQUE_PLAYER
-   const char* buffer = NULL;
-
-   char temp[1024];
-   Con::expandPath(temp, sizeof(temp), fileName);
-   buffer = Platform::getPrefsPath(temp);
-#else
    char buffer[1024];
    Con::expandPath(buffer, sizeof(buffer), fileName);
-#endif
 
    close();
 
@@ -75,24 +67,7 @@ bool FileObject::readMemory(const char *fileName)
     
    Con::expandPath( buffer, sizeof( buffer ), fileName );
 
-#ifdef TORQUE_PLAYER
-   // look for the file first in the prefs folder, then in the game folder
-   const char* prefsPath = Platform::getPrefsPath(buffer);
-
-   // malformed path
-   if(prefsPath == NULL || *prefsPath == 0)
-      fileToOpen = StringTable->insert(buffer);
-   else
-   {
-      // didn't find it.. use path given to us..
-      if(!ResourceManager->find(prefsPath))
-         fileToOpen = StringTable->insert(buffer);
-      else // otherwise use the pref path
-         fileToOpen = StringTable->insert(prefsPath);
-   }
-#else
    fileToOpen = StringTable->insert(buffer);
-#endif
 
    close();
    Stream *s = ResourceManager->openStream(fileToOpen);

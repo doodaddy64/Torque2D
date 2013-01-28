@@ -57,15 +57,7 @@ ConsoleFunction(findFirstFile, const char *, 2, 2, "( strPattern )\n"
       firstMatch = ResourceManager->findMatch(scriptFilenameBuffer, &fn, NULL);
 
    if(firstMatch)
-   {
-#ifdef TORQUE_PLAYER
-      // stripBasePath should NOT be using a StringTableEntry
-      StringTableEntry ret = Platform::stripBasePath(fn);
-      return ret;
-#else
       return fn;
-#endif
-   }
    else
       return "";
 }
@@ -82,15 +74,7 @@ ConsoleFunction(findNextFile, const char *, 2, 2, "( strPattern )\n"
       firstMatch = NULL;
 
    if(firstMatch)
-   {
-#ifdef TORQUE_PLAYER
-      // stripBasePath should NOT be using a StringTableEntry
-      StringTableEntry ret = Platform::stripBasePath(fn);
-      return ret;
-#else
       return fn;
-#endif
-   }
    else
       return "";
 }
@@ -130,15 +114,7 @@ ConsoleFunction(findFirstFileMultiExpr, const char *, 2, 2, "(strPattern)\n"
       firstMatch = ResourceManager->findMatchMultiExprs(scriptFilenameBuffer, &fn, NULL);
 
    if(firstMatch)
-   {
-#ifdef TORQUE_PLAYER
-      // stripBasePath should NOT be using a StringTableEntry
-      StringTableEntry ret = Platform::stripBasePath(fn);
-      return ret;
-#else
       return fn;
-#endif
-   }
    else
       return "";
 }
@@ -153,15 +129,7 @@ ConsoleFunction(findNextFileMultiExpr, const char *, 2, 2, "(string pattern) Ret
       firstMatch = NULL;
 
    if(firstMatch)
-   {
-#ifdef TORQUE_PLAYER
-      // stripBasePath should NOT be using a StringTableEntry
-      StringTableEntry ret = Platform::stripBasePath(fn);
-      return ret;
-#else
       return fn;
-#endif
-   }
    else
       return "";
 }
@@ -217,20 +185,7 @@ ConsoleFunction(isFile, bool, 2, 2, "(fileName)\n"
                 "@return Returns true if the given filename is an existing file or false otherwise")
 {
    Con::expandPath(scriptFilenameBuffer, sizeof(scriptFilenameBuffer), argv[1]);
-   bool doesExist = bool(ResourceManager->find(scriptFilenameBuffer));
-   if (doesExist)
-      return true;
-
-#ifdef TORQUE_PLAYER
-   StringTableEntry prefPath = Platform::getPrefsPath(Platform::stripBasePath(scriptFilenameBuffer));
-   if(prefPath == NULL || *prefPath == 0)
-      return false;
-
-   // test again
-   return bool(ResourceManager->find(prefPath));
-#else
-   return false;
-#endif
+   return bool(ResourceManager->find(scriptFilenameBuffer));
 }
 
 ConsoleFunction(isWriteableFileName, bool, 2, 2, "(fileName)\n"
@@ -239,14 +194,8 @@ ConsoleFunction(isWriteableFileName, bool, 2, 2, "(fileName)\n"
 {
    TORQUE_UNUSED( argc );
 
-#ifdef TORQUE_PLAYER
-   const char* filename = NULL;
-   Con::expandPath(scriptFilenameBuffer, sizeof(scriptFilenameBuffer), argv[1]);
-   filename = Platform::getPrefsPath(scriptFilenameBuffer);
-#else
    char filename[1024];
    Con::expandPath(filename, sizeof(filename), argv[1]);
-#endif
 
    if (filename == NULL || *filename == 0)
       return false;
