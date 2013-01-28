@@ -1649,6 +1649,17 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
 
     if ( fullMetrics )
     {
+        // Rendering.
+        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Render", NULL );
+        dSprintf( mDebugText, sizeof( mDebugText ), "- FPS=%4.1f<%4.1f/%4.1f>, Frames=%u, Picked=%d<%d>, RenderRequests=%d<%d>, RenderFallbacks=%d<%d>",
+            debugStats.fps, debugStats.minFPS, debugStats.maxFPS,
+            debugStats.frameCount,
+            debugStats.renderPicked, debugStats.maxRenderPicked,
+            debugStats.renderRequests, debugStats.maxRenderRequests,
+            debugStats.renderFallbacks, debugStats.maxRenderFallbacks );
+        dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
+        linePositionY += linePositionOffsetY;
+
         // Scene.
         dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Scene", NULL );
         dSprintf( mDebugText, sizeof( mDebugText ), "- Count=%d, Index=%d, Time=%0.1fs, Objects=%d<%d>(Global=%d), Enabled=%d<%d>, Visible=%d<%d>, Awake=%d<%d>",
@@ -1685,17 +1696,6 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
             windowExtent.x, windowExtent.y,
             windowScale.x, windowScale.y,
             1.0f / windowScale.x, 1.0f / windowScale.y);
-        dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
-        linePositionY += linePositionOffsetY;
-
-        // Rendering.
-        dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Render", NULL );
-        dSprintf( mDebugText, sizeof( mDebugText ), "- FPS=%4.1f<%4.1f/%4.1f>, Frames=%u, Picked=%d<%d>, RenderRequests=%d<%d>, RenderFallbacks=%d<%d>",
-            debugStats.fps, debugStats.minFPS, debugStats.maxFPS,
-            debugStats.frameCount,
-            debugStats.renderPicked, debugStats.maxRenderPicked,
-            debugStats.renderRequests, debugStats.maxRenderRequests,
-            debugStats.renderFallbacks, debugStats.maxRenderFallbacks );
         dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
         linePositionY += linePositionOffsetY;
 
