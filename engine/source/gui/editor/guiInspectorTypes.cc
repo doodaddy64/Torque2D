@@ -161,13 +161,7 @@ GuiControl* GuiInspectorTypeGuiProfile::constructEditControl()
       GuiControlProfile * profile = dynamic_cast<GuiControlProfile *>(*i);
       if(profile)
       {
-         // rdbnote: added the below for the tool because we only want to show gui profiles
-         // from the game if we are in release mode...
-#ifdef TORQUE_TOOLS
          entries.push_back(profile->getName());
-#else
-         entries.push_back(profile->getName());
-#endif
       }
    }
 

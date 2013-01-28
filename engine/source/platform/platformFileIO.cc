@@ -448,7 +448,6 @@ StringTableEntry Platform::getPrefsPath(const char *file /* = NULL */)
 
 //-----------------------------------------------------------------------------
 
-#ifdef TORQUE_TOOLS
 ConsoleFunction(getUserDataDirectory, const char*, 1, 1, "()\n"
                 "@return Returns a string to the directory storing the user's data")
 {
@@ -460,4 +459,4 @@ ConsoleFunction(getUserHomeDirectory, const char*, 1, 1, "() \n"
 {
    return Platform::getUserHomeDirectory();
 }
-#endif
+

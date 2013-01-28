@@ -402,13 +402,9 @@ GuiCanvas::GuiCanvas()
    mAwake = true;
    mPixelsPerMickey = 1.0f;
 
-#ifndef TORQUE_TOOLS
-   cursorON    = true;
-   mShowCursor = true;   
-#else
    cursorON    = true;
    mShowCursor = false;
-#endif
+
    lastCursorON = false;
    rLastFrameTime = 0.0f;
 

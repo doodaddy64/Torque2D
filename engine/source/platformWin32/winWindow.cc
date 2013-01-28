@@ -96,11 +96,7 @@ Win32PlatState::Win32PlatState()
    currentTime = 0;
    processId   = 0;
    appMenu     = NULL;
-#ifdef TORQUE_TOOLS
    nMessagesPerFrame = 10; 
-#else
-   nMessagesPerFrame = 100;
-#endif
 }
 
 static bool windowLocked = false;
@@ -181,9 +177,7 @@ void Platform::restartInstance()
 //--------------------------------------
 void Platform::AlertOK(const char *windowTitle, const char *message)
 {
-#ifndef TORQUE_TOOLS
    ShowCursor(true);
-#endif // TORQUE_TOOLS
 
 #ifdef UNICODE
    UTF16 m[1024], t[512];
@@ -198,9 +192,7 @@ void Platform::AlertOK(const char *windowTitle, const char *message)
 //--------------------------------------
 bool Platform::AlertOKCancel(const char *windowTitle, const char *message)
 {
-#ifndef TORQUE_TOOLS
    ShowCursor(true);
-#endif // TORQUE_TOOLS
 
 #ifdef UNICODE
    UTF16 m[1024], t[512];
@@ -215,9 +207,7 @@ bool Platform::AlertOKCancel(const char *windowTitle, const char *message)
 //--------------------------------------
 bool Platform::AlertRetry(const char *windowTitle, const char *message)
 {
-#ifndef TORQUE_TOOLS
    ShowCursor(true);
-#endif // TORQUE_TOOLS
 
 #ifdef UNICODE
    UTF16 m[1024], t[512];
@@ -233,9 +223,7 @@ bool Platform::AlertRetry(const char *windowTitle, const char *message)
 //Luma: YesNo alert message
 bool Platform::AlertYesNo(const char *windowTitle, const char *message)
 {
-#ifndef TORQUE_TOOLS
    ShowCursor(true);
-#endif // TORQUE_TOOLS
 
 #ifdef UNICODE
    UTF16 m[1024], t[512];
@@ -276,11 +264,6 @@ static void setMouseClipping()
    ClipCursor(NULL);
    if(windowActive)
    {
-#ifndef TORQUE_TOOLS
-      if(! winState.renderThreadBlocked)
-         ShowCursor(false);
-#endif // TORQUE_TOOLS
-
       RECT r;
       GetWindowRect(winState.appWindow, &r);
 
@@ -304,11 +287,6 @@ static void setMouseClipping()
             SetCursorPos(lastCursorPos.x + r.left, lastCursorPos.y + r.top);
       }
    }
-#ifndef TORQUE_TOOLS
-   else
-      ShowCursor(true);
-#endif // TORQUE_TOOLS
-
 }
 
 //--------------------------------------
@@ -654,7 +632,6 @@ static LRESULT PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 {
    switch ( message )
    {
-#ifdef TORQUE_TOOLS
    // Window DragDrop-enabled [12/14/2006 justind]
    case WM_CREATE:
       DragAcceptFiles(hWnd, TRUE);
@@ -720,7 +697,6 @@ static LRESULT PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
          // Notify Drop-Begin
          Con::executef( 2, "onDropEnd", Con::getIntArg( nFileCount ) );
       break;
-#endif // TORQUE_TOOLS
 
    // Window Min Extents - [9/20/2006 justind]
    case WM_GETMINMAXINFO:
@@ -740,10 +716,7 @@ static LRESULT PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
       if ((bool) wParam)
       {         
          Video::reactivate();
-#ifndef TORQUE_TOOLS
-         if(! winState.renderThreadBlocked)
-            ShowCursor(false);
-#endif // TORQUE_TOOLS
+
          if ( Video::isFullScreen() )
             hideTheTaskbar();
 
@@ -779,7 +752,6 @@ static LRESULT PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
             return 0;
          }
          break;
-#ifdef TORQUE_TOOLS
       // Catch Close button press event [1/5/2007 justind]
       case SC_CLOSE:
          if (Con::isFunction("onClosePressed"))
@@ -788,7 +760,6 @@ static LRESULT PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
             return 0;
          }
          break;
-#endif // TORQUE_TOOLS
       }
       break;
    case WM_ACTIVATE:
@@ -806,10 +777,6 @@ static LRESULT PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 
          Game->refreshWindow();
          Input::activate();
-#ifndef TORQUE_TOOLS
-         if(! winState.renderThreadBlocked)
-            ShowCursor(false);
-#endif // TORQUE_TOOLS
       }
       else
       {
@@ -827,9 +794,6 @@ static LRESULT PASCAL WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
             }
          }
          Input::deactivate();
-#ifndef TORQUE_TOOLS
-         while(ShowCursor(TRUE) < 0);
-#endif // TORQUE_TOOLS
       }
       break;
    case WM_MOVE:      
@@ -993,19 +957,12 @@ case WM_IME_CHAR:
    // the cursor is *actually* going to be shown.
 case WM_NCMOUSEMOVE:
    {
-#ifndef TORQUE_TOOLS
-      while(ShowCursor(TRUE) < 0);
-#endif // TORQUE_TOOLS
       break;
    }
 
 case WM_MOUSEMOVE:
    // keep trying until we actually show it
-#ifndef TORQUE_TOOLS
-   while(ShowCursor(FALSE) >= 0);
-#else
    Input::refreshCursor();
-#endif // TORQUE_TOOLS
 
    if ( !windowLocked )
    {
@@ -1090,10 +1047,8 @@ static bool ProcessMessages()
       PROFILE_END();
 
       nMessagesDispatched++;
-#ifdef TORQUE_TOOLS
       if( nMessagesDispatched >= winState.nMessagesPerFrame )
          break;
-#endif
    }
 
    return true;
@@ -1215,14 +1170,10 @@ HWND CreateOpenGLWindow( U32 width, U32 height, bool fullScreen, bool allowSizin
    if ( fullScreen )
       windowStyle |= ( WS_POPUP | WS_MAXIMIZE );
    else
-#ifdef TORQUE_TOOLS
       if (!allowSizing)
          windowStyle |= (WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX);
       else
          windowStyle |= ( WS_OVERLAPPEDWINDOW );
-#else
-      windowStyle |= ( WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX );
-#endif
 
    return CreateWindowEx(
       exWindowStyle,
@@ -1475,12 +1426,7 @@ static void InitOpenGL()
 
    DisplayDevice::init();
 
-#ifndef TORQUE_TOOLS
    bool fullScreen = Con::getBoolVariable( "$pref::Video::fullScreen" );
-#else
-   bool fullScreen = Con::getBoolVariable( "$pref::T2D::fullScreen" );
-#endif
-
 
    const char* resString = Con::getVariable( ( fullScreen  ? "$pref::Video::resolution" : "$pref::Video::windowedRes" ) );
 

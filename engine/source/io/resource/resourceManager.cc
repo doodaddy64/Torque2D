@@ -78,7 +78,6 @@ void ResManager::fileIsMissing(const char *fileName)
    if(mLoggingMissingFiles)
    {
       char *name = dStrdup(fileName);
-//      Con::printf("> Missing file: %s", fileName);
       mMissingFileList.push_back(name);
    }
 }
@@ -229,15 +228,7 @@ bool ResManager::isValidWriteFileName (const char *fn)
    if(isUsingVFS())
       return false;
 
-#ifdef TORQUE_TOOLS
    return true;
-#endif
-
-// #ifndef TORQUE_TOOLS
-//    // all files must be based off the VFS
-//    if (fn[0] == '/' || dStrchr (fn, ':'))
-//       return false;
-// #endif
 
    if (!writeablePath[0])
       return true;
@@ -587,17 +578,6 @@ void ResManager::setModPaths (U32 numPaths, const char **paths)
    // Determine if the mod paths are valid
    for (U32 i = 0; i < numPaths; i++)
    {
-#ifndef TORQUE_TOOLS
-      if (!Platform::isSubDirectory (Platform::getCurrentDirectory(), paths[i]) || Platform::isExcludedDirectory(paths[i]))
-      {
-         if (!setModZip(paths[i]))
-         {
-            Con::errorf ("setModPaths: invalid mod path directory name: '%s'", paths[i]);
-            continue;
-         }
-      }
-#endif
-
       pathLen += (dStrlen (paths[i]) + 1);
 
       // Load zip first so that local files override
@@ -648,7 +628,6 @@ const char * ResManager::getModPaths ()
 
 //------------------------------------------------------------------------------
 
-#ifndef TORQUE_TOOLS
 // Mod paths aren't used in tools applications.  
 // See : addResPath/removeResPath console functions
 ConsoleFunction( setModPaths, void, 2, 2, "( path ) Use the setModPaths function to set the current mod path to the value specified in path.\n"
@@ -680,7 +659,6 @@ ConsoleFunction( getModPaths, const char*, 1, 1, "() Use the getModPaths functio
    return( ResourceManager->getModPaths() );
 }
 
-#endif
 //------------------------------------------------------------------------------
 
 S32 ResManager::getSize (const char *fileName)
@@ -1046,15 +1024,6 @@ ResourceObject *ResManager::find (const char *fileName)
    ResourceObject *ret = dictionary.find (path, file);
    if(!ret)
    {
-// Potentially dangerous behavior to have in shipping version but *very* useful
-// in a production environment
-
-// 1.4.1 - Commented out the preprocessor directives for TORQUE_TOOLS
-// and TORQUE_SHIPPING. This was causing a file I/O issue since new files
-// saved outside the app folder. Need to look into something more elegant
-
-//#ifdef TORQUE_TOOLS
-//#ifndef TORQUE_SHIPPING
       // If we couldn't find the file in the resource list (generated
       // by setting the modPaths) then try to load it directly
       if (Platform::isFile(fileName))
@@ -1071,8 +1040,6 @@ ResourceObject *ResManager::find (const char *fileName)
 
          return ret;
       }
-//#endif
-//#endif
 
       fileIsMissing(fileName);
    }

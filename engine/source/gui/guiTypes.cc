@@ -151,9 +151,7 @@ GuiControlProfile::GuiControlProfile(void) :
     mNumbersOnly   = false;
     mProfileForChildren = NULL;
 
-#ifdef TORQUE_TOOLS // this is a hack so we can determine which profiles come from the game versus the editor
    mScriptFile = CodeBlock::getCurrentCodeBlockFullPath();
-#endif
 
    GuiControlProfile *def = dynamic_cast<GuiControlProfile*>(Sim::findObject("GuiDefaultProfile"));
    if (def)

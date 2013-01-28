@@ -87,9 +87,7 @@ class GuiControlProfile : public SimObject
 private:
    typedef SimObject Parent;
 
-#ifdef TORQUE_TOOLS
    StringTableEntry mScriptFile;
-#endif
 
 public:
    S32  mRefCount;                                 ///< Used to determine if any controls are using this profile
@@ -181,10 +179,8 @@ public:
    void incRefCount();
    void decRefCount();
 
-#ifdef TORQUE_TOOLS
    StringTableEntry getScriptFile() { return mScriptFile; }
    void setScriptFile(const char* file) { mScriptFile = StringTable->insert(file); }
-#endif
 };
 DefineConsoleType( TypeGuiProfile)
 

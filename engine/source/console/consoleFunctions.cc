@@ -823,11 +823,7 @@ ConsoleFunction( gotoWebPage, void, 2, 2, "( address ) - Open a URL in the user'
    char urlBuf[2048];
    if(Platform::isFile(argv[1]) || Platform::isDirectory(argv[1]))
    {
-#ifdef TORQUE_TOOLS
       dSprintf(urlBuf, sizeof(urlBuf), "file://%s",argv[1]);
-#else
-      dSprintf(urlBuf, sizeof(urlBuf), "file://%s/%s",Platform::getCurrentDirectory(),argv[1]);
-#endif
    }
    else
       dSprintf(urlBuf, sizeof(urlBuf), "http://%s",argv[1]);
@@ -852,52 +848,8 @@ ConsoleFunction(call, const char *, 2, 0, "( funcName [ , args ... ] ) Use the c
 
 static StringTableEntry getDSOPath(const char *scriptPath)
 {
-//#ifndef TORQUE_TOOLS
-
-   // [tom, 11/17/2006] Force old behavior for the player. May not want to do this.
    const char *slash = dStrrchr(scriptPath, '/');
    return StringTable->insertn(scriptPath, slash - scriptPath, true);
-
-/*#else
-
-   char relPath[1024], dsoPath[1024];
-   bool isPrefs = false;
-
-   // [tom, 11/17/2006] Prefs are handled slightly differently to avoid dso name clashes
-   StringTableEntry prefsPath = Platform::getPrefsPath();
-   if(dStrnicmp(scriptPath, prefsPath, dStrlen(prefsPath)) == 0)
-   {
-      relPath[0] = 0;
-      isPrefs = true;
-   }
-   else
-   {
-      StringTableEntry strippedPath = Platform::stripBasePath(scriptPath);
-      dStrcpy(relPath, strippedPath);
-
-      char *slash = dStrrchr(relPath, '/');
-      if(slash)
-         *slash = 0;
-   }
-
-   const char *overridePath;
-   if(! isPrefs)
-      overridePath = Con::getVariable("$Scripts::OverrideDSOPath");
-   else
-      overridePath = prefsPath;
-
-   if(overridePath && *overridePath)
-      Platform::makeFullPathName(relPath, dsoPath, sizeof(dsoPath), overridePath);
-   else
-   {
-      char t[1024];
-      dSprintf(t, sizeof(t), "compiledScripts/%s", relPath);
-      Platform::makeFullPathName(t, dsoPath, sizeof(dsoPath), Platform::getPrefsPath());
-   }
-
-   return StringTable->insert(dsoPath);
-
-#endif*/
 }
 
 ConsoleFunction(getDSOPath, const char *, 2, 2, "(scriptFileName) Returns the DSO path of the given filename\n"
@@ -1473,18 +1425,6 @@ ConsoleFunction(isMethod, bool, 3, 3, "(string namespace, string method) Checks 
    return true;
 }
 
-//------------------------------------------------------------------------------
-// [neo, 5/7/2007 - #2993]
-// Needed a replacement for $runWithEditors
-ConsoleFunction(isToolBuild, bool, 1, 1, "() Returns true if running application is an editor/tools build or false if a game build" )
-{
-#ifdef TORQUE_TOOLS
-   return true;
-#else
-   return false;
-#endif
-}
-
 ConsoleFunction(getModNameFromPath, const char *, 2, 2, "(string path) Attempts to extract a mod directory from path. Returns empty string on failure.")
 {
    StringTableEntry modPath = Con::getModNameFromPath(argv[1]);
@@ -1493,7 +1433,6 @@ ConsoleFunction(getModNameFromPath, const char *, 2, 2, "(string path) Attempts 
 
 //----------------------------------------------------------------
 
-#ifdef TORQUE_TOOLS
 ConsoleFunction(getPrefsPath, const char *, 1, 2, "([fileName])")
 {
    const char *filename = Platform::getPrefsPath(argc > 1 ? argv[1] : NULL);
@@ -1516,7 +1455,6 @@ ConsoleFunction(execPrefs, bool, 2, 4, "execPrefs(fileName [, nocalls [,journalS
    argv[1] = filename;
    return dAtob(Con::execute(argc, argv));
 }
-#endif
 
 ConsoleFunction(export, void, 2, 5, "( wildCard [ , fileName [ , isProjectPref [ , append  ] ] ]) Use the export function to save all global variables matching the specified name pattern in wildCard to a file, either appending to that file or over-writing it.\n"
                                                                 "@param wildCard A string identifying what variable(s) to export. All characters used to create a global are allowed and the special symbol \"*\", meaning 0 or more instances of any character.\n"

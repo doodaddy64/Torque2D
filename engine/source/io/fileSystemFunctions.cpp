@@ -483,11 +483,6 @@ ConsoleFunction(getCurrentDate, const char *, 2, 2, "(bool reverse) Gets the cur
     return returnBuffer;
 }
 
-//////////////////////////////////////////////////////////////////////////
-// Tools Only Funcitons
-//////////////////////////////////////////////////////////////////////////
-
-#ifdef TORQUE_TOOLS
 ConsoleFunction(openFolder, void, 2 ,2,"openFolder(%path);")
 {
    Platform::openFolder( argv[1] );
@@ -576,8 +571,5 @@ ConsoleFunction( createPath, bool, 2,2, "createPath(\"file name or path name\");
 
    return Platform::createPath( pathName );
 }
-
-#endif // TORQUE_TOOLS
-//////////////////////////////////////////////////////////////////////////
 
 ConsoleFunctionGroupEnd( FileSystem );

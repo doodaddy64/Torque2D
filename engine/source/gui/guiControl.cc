@@ -1776,14 +1776,12 @@ ConsoleMethod(GuiControl, getScriptFile, const char*, 2, 2, "GuiControl.getScrip
    return object->getScriptFile();
 }
 
-#ifdef TORQUE_TOOLS
 ConsoleMethod(GuiControl, setScriptFile, void, 3, 3, "(string filepath) GuiControl.setScriptFile() - sets the script file the control was created in"
               "@param The path to the scriptfile to set"
               "@return No Return Value")
 {
    object->setScriptFile(argv[2]);
 }
-#endif
 
 StringTableEntry GuiControl::getScriptFile()
 {

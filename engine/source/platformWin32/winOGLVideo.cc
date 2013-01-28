@@ -533,11 +533,7 @@ bool OpenGLDevice::activate( U32 width, U32 height, U32 bpp, bool fullScreen )
                 if (mResolutionList[i].bpp == 32)
                     mResolutionList.erase(i);
 
-#ifndef TORQUE_TOOLS
         bool bPrefFullScreen = Con::getBoolVariable("$pref::Video::fullScreen", true);
-#else
-        bool bPrefFullScreen = Con::getBoolVariable("$pref::T2D::fullScreen", true);
-#endif
       
       if( bPrefFullScreen || fullScreen )
          dSscanf(Con::getVariable("$pref::Video::resolution"), "%d %d %d", &width, &height, &bpp);
@@ -749,11 +745,7 @@ bool OpenGLDevice::setScreenMode( U32 width, U32 height, U32 bpp, bool fullScree
       if ( newFullScreen )
          windowStyle |= ( WS_MAXIMIZE | WS_VISIBLE);
       else
-#ifdef TORQUE_TOOLS
          windowStyle |= ( WS_OVERLAPPEDWINDOW );
-#else
-         windowStyle |= ( WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX );
-#endif
 
       if ( winState.appWindow && !SetWindowLong( winState.appWindow, GWL_STYLE, windowStyle ) )
          Con::errorf( "SetWindowLong failed to change the window style!" );
@@ -783,11 +775,7 @@ bool OpenGLDevice::setScreenMode( U32 width, U32 height, U32 bpp, bool fullScree
       if ( test != DISP_CHANGE_SUCCESSFUL )
       {
          smIsFullScreen = false;
-#ifndef TORQUE_TOOLS
          Con::setBoolVariable( "$pref::Video::fullScreen", false );
-#else
-         Con::setBoolVariable( "$pref::T2D::fullScreen", false );
-#endif
          
          ChangeDisplaySettings( NULL, 0 );
          Con::errorf( ConsoleLogEntry::General, "OpenGLDevice::setScreenMode - ChangeDisplaySettings failed." );
@@ -818,12 +806,8 @@ bool OpenGLDevice::setScreenMode( U32 width, U32 height, U32 bpp, bool fullScree
       smIsFullScreen = false;
    }
 
-#ifndef TORQUE_TOOLS
    Con::setBoolVariable( "$pref::Video::fullScreen", smIsFullScreen );
-#else
-   Con::setBoolVariable( "$pref::T2D::fullScreen", smIsFullScreen );
-#endif
-   
+  
 
    bool newWindow = false;
    if ( !winState.appWindow )

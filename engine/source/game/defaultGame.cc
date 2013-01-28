@@ -170,9 +170,8 @@ void shutdownLibraries()
     Platform::shutdown();
 
     NetStringTable::destroy();
-#ifndef TORQUE_TOOLS
     Con::shutdown();
-#endif
+
     ResManager::destroy();
     TextureManager::destroy();
 

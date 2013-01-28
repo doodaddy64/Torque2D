@@ -6,22 +6,6 @@
 #ifndef _TORQUECONFIG_H_
 #define _TORQUECONFIG_H_
 
-//Hi, and welcome to the Torque Config file.
-//
-//This file is a central reference for the various configuration flags that
-//you'll be using when controlling what sort of a Torque build you have. In
-//general, the information here is global for your entire codebase, applying
-//not only to your game proper, but also to all of your tools.
-//
-//This file also contains information which is used for various other needs,
-//for instance, defines indicating what engine we're building, or what version
-//we're at.
-
-/// What engine are we running? The presence and value of this define are
-/// used to determine what engine (TGE, T2D, etc.) and version thereof we're
-/// running - useful if you're a content pack or other 3rd party code
-/// snippet!
-///
 /// Version number is major * 1000 + minor * 100 + revision * 10.
 #define TORQUE_GAME_ENGINE          1000
 
@@ -69,8 +53,6 @@
 #ifdef TORQUE_OS_OSX
 #define TORQUE_MULTITHREAD
 #endif
-
-#define TORQUE_TOOLS
 
 /// Define me if you want to enable the profiler.
 ///    See also the TORQUE_SHIPPING block below
