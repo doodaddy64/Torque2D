@@ -11,6 +11,7 @@
 		2A033011165D1D4100E9CD70 /* platformFileIoTests.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2A033010165D1D4100E9CD70 /* platformFileIoTests.cc */; };
 		2A25739016A48DAC00363C6F /* ParticlePlayer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2A25738E16A48DAC00363C6F /* ParticlePlayer.cc */; };
 		2A6F78CE16A4528C005C76D9 /* ParticleAssetEmitter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F78CC16A4528C005C76D9 /* ParticleAssetEmitter.cc */; };
+		2AB97A1D16B66BC70080F940 /* tamlCustom.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AB97A1B16B66BC70080F940 /* tamlCustom.cc */; };
 		2ABF5C8F16569A0C00BBBF1D /* osxMutex.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF5C8E16569A0C00BBBF1D /* osxMutex.mm */; };
 		2AC4404516B0142B00FC4091 /* ImageFont.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4404316B0142B00FC4091 /* ImageFont.cc */; };
 		2AC5C7E81667C85700A0D046 /* platformStringTests.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5C7E71667C85700A0D046 /* platformStringTests.cc */; };
@@ -396,7 +397,6 @@
 		86D770801656873C0046D71F /* taml.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC80F316518D4600D96ADF /* taml.cc */; };
 		86D770811656873C0046D71F /* tamlBinaryReader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC80F616518D4600D96ADF /* tamlBinaryReader.cc */; };
 		86D770821656873C0046D71F /* tamlBinaryWriter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC80F816518D4600D96ADF /* tamlBinaryWriter.cc */; };
-		86D770831656873C0046D71F /* tamlCollection.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC80FB16518D4600D96ADF /* tamlCollection.cc */; };
 		86D770841656873C0046D71F /* tamlWriteNode.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC80FD16518D4600D96ADF /* tamlWriteNode.cc */; };
 		86D770851656873C0046D71F /* tamlXmlParser.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC80FF16518D4600D96ADF /* tamlXmlParser.cc */; };
 		86D770861656873C0046D71F /* tamlXmlReader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC810116518D4600D96ADF /* tamlXmlReader.cc */; };
@@ -453,6 +453,8 @@
 		2A25738F16A48DAC00363C6F /* ParticlePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticlePlayer.h; sourceTree = "<group>"; };
 		2A6F78CC16A4528C005C76D9 /* ParticleAssetEmitter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleAssetEmitter.cc; sourceTree = "<group>"; };
 		2A6F78CD16A4528C005C76D9 /* ParticleAssetEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleAssetEmitter.h; sourceTree = "<group>"; };
+		2AB97A1B16B66BC70080F940 /* tamlCustom.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tamlCustom.cc; sourceTree = "<group>"; };
+		2AB97A1C16B66BC70080F940 /* tamlCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tamlCustom.h; sourceTree = "<group>"; };
 		2ABF5C8E16569A0C00BBBF1D /* osxMutex.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = osxMutex.mm; sourceTree = "<group>"; };
 		2AC4404216B0142B00FC4091 /* ImageFont_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFont_ScriptBinding.h; sourceTree = "<group>"; };
 		2AC4404316B0142B00FC4091 /* ImageFont.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFont.cc; sourceTree = "<group>"; };
@@ -1156,8 +1158,6 @@
 		86BC80F816518D4600D96ADF /* tamlBinaryWriter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tamlBinaryWriter.cc; sourceTree = "<group>"; };
 		86BC80F916518D4600D96ADF /* tamlBinaryWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tamlBinaryWriter.h; sourceTree = "<group>"; };
 		86BC80FA16518D4600D96ADF /* tamlCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tamlCallbacks.h; sourceTree = "<group>"; };
-		86BC80FB16518D4600D96ADF /* tamlCollection.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tamlCollection.cc; sourceTree = "<group>"; };
-		86BC80FC16518D4600D96ADF /* tamlCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tamlCollection.h; sourceTree = "<group>"; };
 		86BC80FD16518D4600D96ADF /* tamlWriteNode.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tamlWriteNode.cc; sourceTree = "<group>"; };
 		86BC80FE16518D4600D96ADF /* tamlWriteNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tamlWriteNode.h; sourceTree = "<group>"; };
 		86BC80FF16518D4600D96ADF /* tamlXmlParser.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tamlXmlParser.cc; sourceTree = "<group>"; };
@@ -2544,6 +2544,8 @@
 		86BC80F216518D4600D96ADF /* taml */ = {
 			isa = PBXGroup;
 			children = (
+				2AB97A1B16B66BC70080F940 /* tamlCustom.cc */,
+				2AB97A1C16B66BC70080F940 /* tamlCustom.h */,
 				2ADCAC0E16A41E4400E07619 /* tamlChildren.h */,
 				86BC80F316518D4600D96ADF /* taml.cc */,
 				86BC80F416518D4600D96ADF /* taml.h */,
@@ -2553,8 +2555,6 @@
 				86BC80F816518D4600D96ADF /* tamlBinaryWriter.cc */,
 				86BC80F916518D4600D96ADF /* tamlBinaryWriter.h */,
 				86BC80FA16518D4600D96ADF /* tamlCallbacks.h */,
-				86BC80FB16518D4600D96ADF /* tamlCollection.cc */,
-				86BC80FC16518D4600D96ADF /* tamlCollection.h */,
 				86BC80FD16518D4600D96ADF /* tamlWriteNode.cc */,
 				86BC80FE16518D4600D96ADF /* tamlWriteNode.h */,
 				86BC80FF16518D4600D96ADF /* tamlXmlParser.cc */,
@@ -2826,7 +2826,6 @@
 				86D770801656873C0046D71F /* taml.cc in Sources */,
 				86D770811656873C0046D71F /* tamlBinaryReader.cc in Sources */,
 				86D770821656873C0046D71F /* tamlBinaryWriter.cc in Sources */,
-				86D770831656873C0046D71F /* tamlCollection.cc in Sources */,
 				86D770841656873C0046D71F /* tamlWriteNode.cc in Sources */,
 				86D770851656873C0046D71F /* tamlXmlParser.cc in Sources */,
 				86D770861656873C0046D71F /* tamlXmlReader.cc in Sources */,
@@ -3204,6 +3203,7 @@
 				2AC4404516B0142B00FC4091 /* ImageFont.cc in Sources */,
 				2AF1C54016B439BB00C1CF3A /* declaredAssets.cc in Sources */,
 				2AF1C54116B439BB00C1CF3A /* referencedAssets.cc in Sources */,
+				2AB97A1D16B66BC70080F940 /* tamlCustom.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
