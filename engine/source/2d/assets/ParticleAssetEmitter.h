@@ -79,7 +79,6 @@ private:
     F32                                     mFixedAngleOffset;
     Vector2                                 mPivotPoint;
 
-    bool                                    mEmitterEmission;
     bool                                    mLinkEmissionRotation;
     bool                                    mIntenseParticles;
     bool                                    mSingleParticle;
@@ -156,8 +155,6 @@ public:
     void setPivotPoint( const Vector2& pivotPoint );
     inline const Vector2& getPivotPoint( void ) const { return mPivotPoint; }
 
-    inline void setEmitterEmission( const bool emitterEmission ) { mEmitterEmission = emitterEmission; refreshAsset(); }
-    inline bool getEmitterEmission( void ) const { return mEmitterEmission; }
     inline void setLinkEmissionRotation( const bool linkEmissionRotation ) { mLinkEmissionRotation = linkEmissionRotation; refreshAsset(); }
     inline bool getLinkEmissionRotation( void ) const { return mLinkEmissionRotation; }
     inline void setIntenseParticles( const bool intenseParticles ) { mIntenseParticles = intenseParticles; refreshAsset(); }
@@ -276,8 +273,6 @@ protected:
     static bool     writeFixedAngleOffset( void* obj, StringTableEntry pFieldName )     { return mNotZero(static_cast<ParticleAssetEmitter*>(obj)->getFixedAngleOffset() ); }
     static bool     setPivotPoint(void* obj, const char* data)                          { static_cast<ParticleAssetEmitter*>(obj)->setPivotPoint(Vector2(data)); return false; }
     static bool     writePivotPoint( void* obj, StringTableEntry pFieldName )           { return static_cast<ParticleAssetEmitter*>(obj)->getPivotPoint().notZero(); }
-    static bool     setEmitterEmission(void* obj, const char* data)                     { static_cast<ParticleAssetEmitter*>(obj)->setEmitterEmission(dAtob(data)); return false; }
-    static bool     writeEmitterEmission( void* obj, StringTableEntry pFieldName )      { return static_cast<ParticleAssetEmitter*>(obj)->getEmitterEmission() == true; }
     static bool     setLinkEmissionRotation(void* obj, const char* data)                { static_cast<ParticleAssetEmitter*>(obj)->setLinkEmissionRotation(dAtob(data)); return false; }
     static bool     writeLinkEmissionRotation( void* obj, StringTableEntry pFieldName ) { return static_cast<ParticleAssetEmitter*>(obj)->getLinkEmissionRotation() == true; }
     static bool     setIntenseParticles(void* obj, const char* data)                    { static_cast<ParticleAssetEmitter*>(obj)->setIntenseParticles(dAtob(data)); return false; }

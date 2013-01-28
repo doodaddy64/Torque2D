@@ -50,18 +50,15 @@ private:
 
     /// Particle fields.
     ParticleAssetFieldCollection            mParticleFields;
-    ParticleAssetFieldBase                  mParticleLife;
-    ParticleAssetFieldBase                  mQuantity;
-    ParticleAssetFieldBase                  mSizeX;
-    ParticleAssetFieldBase                  mSizeY;
-    ParticleAssetFieldBase                  mSpeed;
-    ParticleAssetFieldBase                  mSpin;
-    ParticleAssetFieldBase                  mFixedForce;
-    ParticleAssetFieldBase                  mRandomMotion;
-    ParticleAssetFieldBaseVariation         mEmissionForce;
-    ParticleAssetFieldBaseVariation         mEmissionAngle;
-    ParticleAssetFieldBaseVariation         mEmissionArc;
-    ParticleAssetFieldBase                  mAlphaChannel;
+    ParticleAssetFieldBase                  mParticleLifeScale;
+    ParticleAssetFieldBase                  mQuantityScale;
+    ParticleAssetFieldBase                  mSizeXScale;
+    ParticleAssetFieldBase                  mSizeYScale;
+    ParticleAssetFieldBase                  mSpeedScale;
+    ParticleAssetFieldBase                  mSpinScale;
+    ParticleAssetFieldBase                  mFixedForceScale;
+    ParticleAssetFieldBase                  mRandomMotionScale;
+    ParticleAssetFieldBase                  mAlphaChannelScale;
 
 public:
     ParticleAsset();
@@ -81,22 +78,15 @@ public:
 
     inline ParticleAssetFieldCollection& getParticleFields( void ) { return mParticleFields; }
 
-    inline ParticleAssetField& getParticleLifeScaleField( void ) { return mParticleLife.getBase(); }
-    inline ParticleAssetField& getQuantityScaleField( void ) { return mQuantity.getBase(); }
-    inline ParticleAssetField& getSizeXScaleField( void ) { return mSizeX.getBase(); }
-    inline ParticleAssetField& getSizeYScaleField( void ) { return mSizeY.getBase(); }
-    inline ParticleAssetField& getSpeedScaleField( void ) { return mSpeed.getBase(); }
-    inline ParticleAssetField& getSpinScaleField( void ) { return mSpin.getBase(); }
-    inline ParticleAssetField& getFixedForceScaleField( void ) { return mFixedForce.getBase(); }
-    inline ParticleAssetField& getRandomMotionScaleField( void ) { return mRandomMotion.getBase(); }
-    inline ParticleAssetField& getAlphaChannelScaleField( void ) { return mAlphaChannel.getBase(); }
-
-    inline ParticleAssetField& getEmissionForceBaseField( void ) { return mEmissionForce.getBase(); }
-    inline ParticleAssetField& getEmissionForceVariationField( void ) { return mEmissionForce.getVariation(); }
-    inline ParticleAssetField& getEmissionAngleBaseField( void ) { return mEmissionAngle.getBase(); }
-    inline ParticleAssetField& getEmissionAngleVariationField( void ) { return mEmissionAngle.getVariation(); }
-    inline ParticleAssetField& getEmissionArcBaseField( void ) { return mEmissionArc.getBase(); }
-    inline ParticleAssetField& getEmissionArcVariationField( void ) { return mEmissionArc.getVariation(); }
+    inline ParticleAssetField& getParticleLifeScaleField( void ) { return mParticleLifeScale.getBase(); }
+    inline ParticleAssetField& getQuantityScaleField( void ) { return mQuantityScale.getBase(); }
+    inline ParticleAssetField& getSizeXScaleField( void ) { return mSizeXScale.getBase(); }
+    inline ParticleAssetField& getSizeYScaleField( void ) { return mSizeYScale.getBase(); }
+    inline ParticleAssetField& getSpeedScaleField( void ) { return mSpeedScale.getBase(); }
+    inline ParticleAssetField& getSpinScaleField( void ) { return mSpinScale.getBase(); }
+    inline ParticleAssetField& getFixedForceScaleField( void ) { return mFixedForceScale.getBase(); }
+    inline ParticleAssetField& getRandomMotionScaleField( void ) { return mRandomMotionScale.getBase(); }
+    inline ParticleAssetField& getAlphaChannelScaleField( void ) { return mAlphaChannelScale.getBase(); }
 
     ParticleAssetEmitter* createEmitter( void );
     bool addEmitter( ParticleAssetEmitter* pParticleAssetEmitter );

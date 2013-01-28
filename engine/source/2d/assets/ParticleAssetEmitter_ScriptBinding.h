@@ -220,20 +220,6 @@ ConsoleMethod(ParticleAssetEmitter, getPivotPoint, const char*, 2, 2, "Get Pivot
 
 //------------------------------------------------------------------------------
 
-ConsoleMethod(ParticleAssetEmitter, setEmitterEmission, void, 3, 3, "(emitterEmission) Set whether to use the emitters' emission or not.")
-{
-    object->setEmitterEmission( dAtob(argv[2]) );
-}
-
-//------------------------------------------------------------------------------
-
-ConsoleMethod(ParticleAssetEmitter, getEmitterEmission, bool, 2, 2, "Get whether to use the emitters' emission or not.")
-{
-    return object->getEmitterEmission();
-}
-
-//------------------------------------------------------------------------------
-
 ConsoleMethod(ParticleAssetEmitter, setLinkEmissionRotation, void, 3, 3, "(linkEmissionRotation) - Set Link-Emission-Rotation Flag.")
 {
     object->setLinkEmissionRotation( dAtob(argv[2]) );

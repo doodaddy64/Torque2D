@@ -10,8 +10,10 @@ function createMelvToy( %scopeSet )
     exec( "./scripts/particleTest.cs" );
     
     // Run test.
-    runCompositeSpriteTest();
-    //runParticleTest();
+    //runCompositeSpriteTest();
+    runParticleTest();
+    
+    //createRangeControl( "IsoWidth", "Width", "0 0", 0, 1000, "" );
 }
 
 //-----------------------------------------------------------------------------
