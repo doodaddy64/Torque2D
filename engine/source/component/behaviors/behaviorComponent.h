@@ -70,8 +70,6 @@ public:
 protected:
     virtual const char* _callMethod( U32 argc, const char *argv[], bool callThis = true );
 
-    virtual void readBehaviors( void );
-
     /// Taml callbacks.
     virtual void onTamlCustomWrite( TamlCustomProperties& customProperties );
     virtual void onTamlCustomRead( const TamlCustomProperties& customProperties );
