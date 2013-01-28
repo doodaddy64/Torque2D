@@ -15,8 +15,11 @@
 
 GameInterface *Game = NULL;
 void *gGameEventQueueMutex = NULL;
-static U32 sReentrantCount = 0;
 FileStream gJournalStream;
+
+#ifdef TORQUE_DEBUG
+static U32 sReentrantCount = 0;
+#endif
 
 //-----------------------------------------------------------------------------
 
