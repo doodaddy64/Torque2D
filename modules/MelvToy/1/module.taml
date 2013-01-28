@@ -2,15 +2,10 @@
 	ModuleId="MelvToy"
 	VersionId="1"
 	Description="Melv's testing toy."
+	Dependencies="ToyAssets=1"
 	Type="toy"
 	ToyCategoryIndex="6"
 	ScriptFile="main.cs"
 	CreateFunction="createMelvToy"
-	DestroyFunction="destroyMelvToy">
-		<DeclaredAssets
-			Path="assets"
-			Extension="asset.taml"
-			Recurse="true"/>
-</ModuleDefinition>
-
-
+	DestroyFunction="destroyMelvToy"/>
+	

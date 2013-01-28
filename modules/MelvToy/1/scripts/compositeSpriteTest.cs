@@ -30,12 +30,11 @@ function createRectSprite()
         {
                 
             %composite.addSprite( getRandom(-50,50) SPC getRandom(-37,37) );
-            %composite.setSpriteImage( "MelvToy:MiniTileMapImage", getRandom(0,15) );
+            %composite.setSpriteImage( "ToyAssets:Tiles", getRandom(0,15) );
             //%composite.setSpriteName( "My Name is" SPC %x SPC %y );
             %composite.setSpriteAngle( getRandom(0,360) );
             %composite.setSpriteSize( getRandom(5,10), getRandom(5,10) );
             //%composite.setSpriteRenderGroup( "melv" );
-            //%composite.setSpriteBlendColor( getStockColorName(getRandom(0,%stockColorCount-1)) );
         }
 	}
 	

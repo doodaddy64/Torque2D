@@ -1,15 +1,11 @@
 <ModuleDefinition
-	ModuleId="BridgeToy"
-	VersionId="1"
-	Description="Box2D Bridge Test."
-    Dependencies="PropsAssets=1"
-	Type="toy"
-	ToyCategoryIndex="2"
-	ScriptFile="main.cs"
-	CreateFunction="createBridgeToy"
-	DestroyFunction="destroyBridgeToy">
-		<DeclaredAssets
-			Path="assets"
-			Extension="asset.taml"
-			Recurse="true"/>
-</ModuleDefinition>
+    ModuleId="BridgeToy"
+    VersionId="1"
+    Description="Box2D Bridge Test."
+    Dependencies="ToyAssets=1"
+    Type="toy"
+    ToyCategoryIndex="2"
+    ScriptFile="main.cs"
+    CreateFunction="createBridgeToy"
+    DestroyFunction="destroyBridgeToy"/>
+	

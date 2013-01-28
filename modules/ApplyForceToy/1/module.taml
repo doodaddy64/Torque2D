@@ -2,14 +2,10 @@
 	ModuleId="ApplyForceToy"
 	VersionId="1"
 	Description="Box2D Apply Force Test."
-	Type="toy"
+	Dependencies="ToyAssets=1"
+	Type="toy"	
 	ToyCategoryIndex="2"
 	ScriptFile="main.cs"
 	CreateFunction="createApplyForceToy"
-	DestroyFunction="destroyApplyForceToy">
-		<DeclaredAssets
-			Path="assets"
-			Extension="asset.taml"
-			Recurse="true"/>
-</ModuleDefinition>
+	DestroyFunction="destroyApplyForceToy"/>
 

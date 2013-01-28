@@ -52,7 +52,7 @@ function createTumblerBall()
         %ball = new Sprite();
         %ball.Position = getRandom(-10,10) SPC "0";
         %ball.Size = "2";
-        %ball.Image = "TumblerToy:FootballImage";        
+        %ball.Image = "ToyAssets:Football";        
         %ball.setDefaultRestitution( 0.6 );
         %collisionId = %ball.createCircleCollisionShape( 1 );
         SandboxScene.add( %ball );

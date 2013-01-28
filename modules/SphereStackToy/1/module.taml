@@ -1,15 +1,10 @@
 <ModuleDefinition
-	ModuleId="SphereStackToy"
-	VersionId="1"
-	Description="Box2D Sphere Stack Test."
-    Dependencies="PropsAssets=1"
-	Type="toy"
-	ToyCategoryIndex="2"
-	ScriptFile="main.cs"
-	CreateFunction="createSphereStackToy"
-	DestroyFunction="destroySphereStackToy">
-		<DeclaredAssets
-			Path="assets"
-			Extension="asset.taml"
-			Recurse="true"/>
-</ModuleDefinition>
+    ModuleId="SphereStackToy"
+    VersionId="1"
+    Description="Box2D Sphere Stack Test."
+    Dependencies="ToyAssets=1"
+    Type="toy"
+    ToyCategoryIndex="2"
+    ScriptFile="main.cs"
+    CreateFunction="createSphereStackToy"
+    DestroyFunction="destroySphereStackToy"/>
