@@ -408,7 +408,7 @@ void ParticlePlayer::interpolateObject( const F32 timeDelta )
             pParticleNode->mRenderTickPosition = (timeDelta * pParticleNode->mPreTickPosition) + ((1.0f-timeDelta) * pParticleNode->mPostTickPosition);
 
             // Set the transform.
-            pParticleNode->mRotationTransform.p = pParticleNode->mRenderTickPosition;
+            pParticleNode->mTransform.p = pParticleNode->mRenderTickPosition;
 
             // Fetch the render size.
             const Vector2& renderSize = pParticleNode->mRenderSize;
@@ -421,7 +421,7 @@ void ParticlePlayer::interpolateObject( const F32 timeDelta )
             scaledAABB[3] = localAABB3 * renderSize;
 
             // Calculate the world OOBB..
-            CoreMath::mCalculateOOBB( scaledAABB, pParticleNode->mRotationTransform, pParticleNode->mRenderOOBB );
+            CoreMath::mCalculateOOBB( scaledAABB, pParticleNode->mTransform, pParticleNode->mRenderOOBB );
 
             // Move to the next particle.
             pParticleNode = pParticleNode->mNextNode;
@@ -1220,10 +1220,6 @@ void ParticlePlayer::configureParticle( EmitterNode* pEmitterNode, ParticleSyste
     }
 
 
-    // Reset the last render size.
-    pParticleNode->mLastRenderSize.Set(-1.0f, -1.0f);
-
-
     // **********************************************************************************************************************
     // Reset Tick Position.
     // **********************************************************************************************************************
@@ -1380,9 +1376,6 @@ void ParticlePlayer::integrateParticle( EmitterNode* pEmitterNode, ParticleSyste
         // Set new Orientation Angle.
         pParticleNode->mOrientationAngle = -movementAngle - pParticleAssetEmitter->getAlignedAngleOffset();
 
-
-        // Calculate Rotation Matrix.
-        pParticleNode->mRotationTransform.Set( pParticleNode->mPosition, mDegToRad(pParticleNode->mOrientationAngle) );
     }
     else
     {
@@ -1398,17 +1391,10 @@ void ParticlePlayer::integrateParticle( EmitterNode* pEmitterNode, ParticleSyste
             // Clamp the orientation angle.
             pParticleNode->mOrientationAngle = mFmod( pParticleNode->mOrientationAngle, 360.0f );
         }
-
-        // If the size has changed or we have some spin then we need to recalculate the OOBB.
-        if ( mNotZero(pParticleNode->mRenderSpin) || pParticleNode->mRenderSize != pParticleNode->mLastRenderSize )
-        {
-            // Calculate the rotation transform.
-            pParticleNode->mRotationTransform.Set( pParticleNode->mPosition, mDegToRad(pParticleNode->mOrientationAngle) );
-        }
-
-        // We've dealt with a potential Size change so store current size for next time.
-        pParticleNode->mLastRenderSize = pParticleNode->mRenderSize;
     }
+
+    // Calculate the transform.
+    pParticleNode->mTransform.Set( pParticleNode->mPosition, mDegToRad(pParticleNode->mOrientationAngle) );
 
     // Fetch the local AABB..
     const Vector2& localAABB0 = pParticleAssetEmitter->getLocalPivotAABB0();
@@ -1427,7 +1413,7 @@ void ParticlePlayer::integrateParticle( EmitterNode* pEmitterNode, ParticleSyste
     scaledAABB[3] = localAABB3 * renderSize;
 
     // Calculate the world OOBB..
-    CoreMath::mCalculateOOBB( scaledAABB, pParticleNode->mRotationTransform, pParticleNode->mRenderOOBB );
+    CoreMath::mCalculateOOBB( scaledAABB, pParticleNode->mTransform, pParticleNode->mRenderOOBB );
 
 
     // **********************************************************************************************************************

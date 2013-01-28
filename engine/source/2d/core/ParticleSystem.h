@@ -33,11 +33,10 @@ public:
         F32                     mOrientationAngle;
         Vector2                 mRenderOOBB[4];
         U32                     mImageFrame;
-        b2Transform             mRotationTransform;
+        b2Transform             mTransform;
         AnimationController     mAnimationController;
 
         /// Render Properties.
-        Vector2                 mLastRenderSize;
         Vector2                 mRenderSize;
         F32                     mRenderSpeed;
         F32                     mRenderSpin;

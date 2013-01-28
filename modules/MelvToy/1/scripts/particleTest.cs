@@ -45,18 +45,19 @@ function runParticleTest()
         //%emitter.setSingleDataKey( 1 );
 
     %emitter.selectField( "Speed" );    
-        %emitter.setSingleDataKey( 1 );
+        %emitter.setSingleDataKey( 5 );
 
     //%emitter.selectField( "SpeedVariation" );    
-        //%emitter.setSingleDataKey( 1 );
+        //%emitter.setSingleDataKey( 3 );
        
     %emitter.selectField( "SizeXLife" );
-        %emitter.setSingleDataKey( 1 );
-        //%emitter.addDataKey( 0, 0.1 );
-        //%emitter.addDataKey( 0.1, 1 );
-        //%emitter.addDataKey( 0.5, 2 );
-        //%emitter.addDataKey( 0.9, 1 );
-        //%emitter.addDataKey( 1, 0 );
+        %emitter.setSingleDataKey( 3 );
+        
+    %emitter.selectField( "EmissionAngle" );
+        %emitter.setSingleDataKey( 0 );        
+
+    %emitter.selectField( "EmissionArc" );
+        %emitter.setSingleDataKey( 30 );        
 
     //%emitter.selectField( "SizeXVariation" );
         //%emitter.setSingleDataKey( 4 );
@@ -156,8 +157,8 @@ function runParticleTest()
     %particlePlayer.setSize( 10, 10 );
     %particlePlayer.ParticleInterpolation = false;
     //%particlePlayer.CameraIdleDistance = 50;
-    //%particlePlayer.Particle = "MelvToy:" @ %particleAssetName;
-    %particlePlayer.Particle = "MelvToy:MagicParticle";
+    %particlePlayer.Particle = "MelvToy:" @ %particleAssetName;
+    //%particlePlayer.Particle = "MelvToy:MagicParticle";
     %particlePlayer.play();
     //%particlePlayer.visible = false;
     //%particlePlayer.setLinearVelocity( 10, 0 );
@@ -172,7 +173,7 @@ function runParticleTest()
     
     //schedule( 5000, 0, changeParticleAsset );
     
-    SandboxScene.setBatchingEnabled( true );
+    //SandboxScene.setBatchingEnabled( true );
     
     //TamlWrite( SandboxScene, "scene.taml" );
     //%newScene = TamlRead( "scene.taml" );
