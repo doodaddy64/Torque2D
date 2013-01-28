@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2AB97A2116B66BE50080F940 /* tamlCustom.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AB97A1F16B66BE50080F940 /* tamlCustom.cc */; };
 		2AC4404E16B0144500FC4091 /* ImageFont.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AC4404C16B0144500FC4091 /* ImageFont.cc */; };
+		2AED7D9316B70102003482CF /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AED7D9216B70102003482CF /* CoreText.framework */; };
 		2AF1C54B16B439D900C1CF3A /* declaredAssets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1C54716B439D900C1CF3A /* declaredAssets.cc */; };
 		2AF1C54C16B439D900C1CF3A /* referencedAssets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1C54916B439D900C1CF3A /* referencedAssets.cc */; };
 		8610F32F16AEEC670015BCEB /* main.cs in Resources */ = {isa = PBXBuildFile; fileRef = 8610F32D16AEEC670015BCEB /* main.cs */; };
@@ -472,6 +473,7 @@
 		2AC4404B16B0144500FC4091 /* ImageFont_ScriptBinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFont_ScriptBinding.h; sourceTree = "<group>"; };
 		2AC4404C16B0144500FC4091 /* ImageFont.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFont.cc; sourceTree = "<group>"; };
 		2AC4404D16B0144500FC4091 /* ImageFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFont.h; sourceTree = "<group>"; };
+		2AED7D9216B70102003482CF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2AF1C54716B439D900C1CF3A /* declaredAssets.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = declaredAssets.cc; sourceTree = "<group>"; };
 		2AF1C54816B439D900C1CF3A /* declaredAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = declaredAssets.h; sourceTree = "<group>"; };
 		2AF1C54916B439D900C1CF3A /* referencedAssets.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = referencedAssets.cc; sourceTree = "<group>"; };
@@ -1379,6 +1381,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AED7D9316B70102003482CF /* CoreText.framework in Frameworks */,
 				86555D3F16B2C75900881446 /* GLKit.framework in Frameworks */,
 				86A9A3F416AEC836003F01E6 /* AudioToolbox.framework in Frameworks */,
 				86A9A3F516AEC836003F01E6 /* AVFoundation.framework in Frameworks */,
@@ -2743,6 +2746,7 @@
 		86A9A3B316AEC786003F01E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2AED7D9216B70102003482CF /* CoreText.framework */,
 				86555D3E16B2C75900881446 /* GLKit.framework */,
 				86A9A3DA16AEC817003F01E6 /* AudioToolbox.framework */,
 				86A9A3DB16AEC817003F01E6 /* AVFoundation.framework */,
@@ -3405,6 +3409,8 @@
 		86A9A3D816AEC786003F01E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Torque2D/Torque2D-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -3425,6 +3431,8 @@
 		86A9A3D916AEC786003F01E6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Torque2D/Torque2D-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

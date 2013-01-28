@@ -3,19 +3,10 @@
 // Copyright GarageGames, LLC 2011
 //-----------------------------------------------------------------------------
 
-
-#include "platformiOS/iOSFont.h"
-#include "platformiOS/platformiOS.h"
-#include "graphics/gBitmap.h"
-#include "Math/mRect.h"
-#include "math/mMathFn.h"
-#include "console/console.h"
-#include "string/Unicode.h"
-#include "memory/frameAllocator.h"
-
-
-
-
+#import "platform/platform.h"
+#import "platformiOS/platformiOS.h"
+#import "platformiOS/iOSFont.h"
+#import "string/Unicode.h"
 
 //------------------------------------------------------------------------------
 // New Unicode capable font class.
@@ -31,104 +22,192 @@ PlatformFont *createPlatformFont(const char *name, U32 size, U32 charset /* = TG
 }
 
 //------------------------------------------------------------------------------
+
+void PlatformFont::enumeratePlatformFonts( Vector<StringTableEntry>& fonts )
+{
+}
+
+//------------------------------------------------------------------------------
+
 iOSFont::iOSFont()
 {
-   //mStyle   = NULL;
-   //mLayout  = NULL;
-   mColorSpace = NULL;
+    // Reset the rendering color-space.
+    mColorSpace = NULL;
 }
+
+//------------------------------------------------------------------------------
 
 iOSFont::~iOSFont()
 {
-   // apple docs say we should dispose the layout first.
-   //ATSUDisposeTextLayout(mLayout);
-   //ATSUDisposeStyle(mStyle);
-   CGColorSpaceRelease(mColorSpace);
+    // Destroy the rendering color-space.
+    CGColorSpaceRelease( mColorSpace );
 }
 
-
 //------------------------------------------------------------------------------
-bool iOSFont::create( const char *name, U32 size, U32 charset)
+
+bool iOSFont::create( const char* name, U32 size, U32 charset )
 {
-	//make a new UIFont
-	UIFont *font = NULL;
-	CGFloat num = (CGFloat) size;
-
-	NSString *string = [[NSString alloc] initWithUTF8String:name];
-	
-	font = [UIFont fontWithName: string size: num];
-	
-	mColorSpace = CGColorSpaceCreateDeviceGray();
-
-	mUIFont = font;
-	
-	CGFloat width = size * strlen( name );
-	CGFloat height = size;
-	mBaseline = width;
-	mHeight = height;
-	
-	// adjust the size. win dpi = 96, mac dpi = 72. 72/96 = .75
-	// Interestingly enough, 0.75 is not what makes things the right size.
-	//U32 scaledSize = size - 2 - (int)((float)size * 0.1);
+    // Sanity!
+    AssertFatal( name != NULL, "Cannot create a NULL font name." );
+    
+    // Generate compatible font name.
+    CFStringRef fontName = CFStringCreateWithCString( kCFAllocatorDefault, name, kCFStringEncodingUTF8 );
+    
+    // Sanity!
+    if ( !fontName )
+    {
+        Con::errorf("Could not handle font name of '%s'.", name );
+        return false;
+    }
     
     // Use Windows as a baseline (96 DPI) and adjust accordingly.
     F32 scaledSize = size * (72.0f/96.0f);
-    mSize = (U32)mRound(scaledSize); 
-	
-	
-	// and finally cache the font's name. We use this to cheat some antialiasing options below.
-	mName = StringTable->insert(name);
-	
-	//end of font creation
-	[string release];	
-	return true;
+    scaledSize = mRound(scaledSize);
+    
+    // Create the font reference.
+    mFontRef = CTFontCreateWithName( fontName, scaledSize, NULL );
+    
+    // Sanity!
+    if ( !mFontRef )
+    {
+        Con::errorf( "Could not generate a font reference to font name '%s' of size '%d'", name, size );
+        return false;
+    }
+    
+    // Fetch font metrics.
+    CGFloat ascent = CTFontGetAscent( mFontRef );
+    CGFloat descent = CTFontGetDescent( mFontRef );
+    
+    // Set baseline.
+    mBaseline = (U32)mRound(ascent);
+    
+    // Set height.
+    mHeight = (U32)mRound( ascent + descent );
+    
+    // Create a gray-scale color-space.
+    mColorSpace = CGColorSpaceCreateDeviceGray();
+    
+    // Return status.
+    return true;
 }
 
 //------------------------------------------------------------------------------
-bool iOSFont::isValidChar(const UTF8 *str) const
+
+bool iOSFont::isValidChar( const UTF8* str ) const
 {
-   // since only low order characters are invalid, and since those characters
-   // are single codeunits in UTF8, we can safely cast here.
-   return isValidChar((UTF16)*str);  
+    // since only low order characters are invalid, and since those characters
+    // are single codeunits in UTF8, we can safely cast here.
+    return isValidChar((UTF16)*str);
 }
 
-bool iOSFont::isValidChar( const UTF16 ch) const
-{
-   // We cut out the ASCII control chars here. Only printable characters are valid.
-   // 0x20 == 32 == space
-   if( ch < 0x20 )
-      return false;
+//------------------------------------------------------------------------------
 
-   return true;
+bool iOSFont::isValidChar( const UTF16 character) const
+{
+    // We cut out the ASCII control chars here. Only printable characters are valid.
+    // 0x20 == 32 == space
+    if( character < 0x20 )
+        return false;
+    
+    return true;
 }
+
+//------------------------------------------------------------------------------
 
 PlatformFont::CharInfo& iOSFont::getCharInfo(const UTF8 *str) const
 {
-   return getCharInfo(oneUTF32toUTF16(oneUTF8toUTF32(str,NULL)));
+    return getCharInfo( oneUTF32toUTF16(oneUTF8toUTF32(str,NULL)) );
 }
 
-PlatformFont::CharInfo& iOSFont::getCharInfo(const UTF16 ch) const
+//------------------------------------------------------------------------------
+
+PlatformFont::CharInfo& iOSFont::getCharInfo(const UTF16 character) const
 {
-    // Issue a warning only once.
-    static bool warningIssued = false;
-    if ( !warningIssued )
+    // Declare and clear out the CharInfo that will be returned.
+    static PlatformFont::CharInfo characterInfo;
+    dMemset(&characterInfo, 0, sizeof(characterInfo));
+    
+    // prep values for GFont::addBitmap()
+    characterInfo.bitmapIndex = 0;
+    characterInfo.xOffset = 0;
+    characterInfo.yOffset = 0;
+    
+    CGGlyph characterGlyph;
+    CGRect characterBounds;
+    CGSize characterAdvances;
+    UniChar unicodeCharacter = character;
+    
+    // Fetch font glyphs.
+    if ( !CTFontGetGlyphsForCharacters( mFontRef, &unicodeCharacter, &characterGlyph, (CFIndex)1) )
     {
-        Con::warnf( "iOSFont::getCharInfo() Cannot retrieve character info directly on iOS.  Font-cached 'UTFs' are required for this>." );
-        warningIssued = true;
+        // Sanity!
+        AssertFatal( false, "Cannot create font glyph." );
     }
     
-	// Declare and clear out the CharInfo that will be returned.
-	static PlatformFont::CharInfo c;
-	dMemset(&c, 0, sizeof(c));
-	
-	// prep values for GFont::addBitmap()
-	c.bitmapIndex = 0;
-	c.xOffset = 0;
-	c.yOffset = 0;
-
-	return c;
+    // Fetch glyph bounding box.
+    CTFontGetBoundingRectsForGlyphs( mFontRef, kCTFontHorizontalOrientation, &characterGlyph, &characterBounds, (CFIndex)1 );
+    
+    // Fetch glyph advances.
+    CTFontGetAdvancesForGlyphs( mFontRef, kCTFontHorizontalOrientation, &characterGlyph, &characterAdvances, (CFIndex)1 );
+    
+    // Set character metrics,
+    characterInfo.xOrigin = (S32)mRound( characterBounds.origin.x );
+    characterInfo.yOrigin = (S32)mRound( characterBounds.origin.y );
+    characterInfo.width = (U32)mCeil( characterBounds.size.width ) + 2;
+    characterInfo.height = (U32)mCeil( characterBounds.size.height ) + 2;
+    characterInfo.xIncrement = (S32)mRound( characterAdvances.width );
+    
+    // Finish if character is undrawable.
+    if ( characterInfo.width == 0 && characterInfo.height == 0 )
+        return characterInfo;
+    
+    // Clamp character minimum width.
+    if ( characterInfo.width == 0 )
+        characterInfo.width = 2;
+    
+    if ( characterInfo.height == 0 )
+        characterInfo.height = 1;
+    
+    
+    // Allocate a bitmap surface.
+    const U32 bitmapSize = characterInfo.width * characterInfo.height;
+    characterInfo.bitmapData = new U8[bitmapSize];
+    dMemset(characterInfo.bitmapData, 0x00, bitmapSize);
+    
+    // Create a bitmap context.
+    CGContextRef bitmapContext = CGBitmapContextCreate( characterInfo.bitmapData, characterInfo.width, characterInfo.height, 8, characterInfo.width, mColorSpace, kCGImageAlphaNone );
+    
+    // Sanity!
+    AssertFatal( bitmapContext != NULL, "Cannot create font context." );
+    
+    // Render font anti-aliased if font is arbitrarily small.
+    CGContextSetShouldAntialias( bitmapContext, true);
+    CGContextSetShouldSmoothFonts( bitmapContext, true);
+    CGContextSetRenderingIntent( bitmapContext, kCGRenderingIntentAbsoluteColorimetric);
+    CGContextSetInterpolationQuality( bitmapContext, kCGInterpolationNone);
+    CGContextSetGrayFillColor( bitmapContext, 1.0, 1.0);
+    CGContextSetTextDrawingMode( bitmapContext,  kCGTextFill);
+    
+    // Draw glyph.
+    CGPoint renderOrigin;
+    renderOrigin.x = -characterInfo.xOrigin;
+    renderOrigin.y = -characterInfo.yOrigin;
+    CTFontDrawGlyphs( mFontRef, &characterGlyph, &renderOrigin, 1, bitmapContext );
+    
+#if 0
+    Con::printf("Width:%f, Height:%f, OriginX:%f, OriginY:%f",
+                characterBounds.size.width,
+                characterBounds.size.height,
+                characterBounds.origin.x,
+                characterBounds.origin.y );
+#endif
+    
+    // Adjust the y origin for the glyph size.
+    characterInfo.yOrigin += characterInfo.height;// + mHeight;
+    
+    // Release the bitmap context.
+    CGContextRelease( bitmapContext );
+    
+    // Return character information.
+    return characterInfo;
 }
-
-void PlatformFont::enumeratePlatformFonts( Vector<StringTableEntry>& fonts )
-{}
-
