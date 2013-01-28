@@ -14,8 +14,8 @@
 #include "collection/hashTable.h"
 #endif
 
-#ifndef _TAML_COLLECTION_H_
-#include "persistence/taml/tamlCollection.h"
+#ifndef _TAML_CUSTOM_H_
+#include "persistence/taml/tamlCustom.h"
 #endif
 
 ///-----------------------------------------------------------------------------
@@ -64,8 +64,8 @@ public:
     bool setValueScale( const F32 valueScale );
     F32 getValueScale( void ) const;    
 
-    void onTamlCustomWrite( TamlCollection& customCollection );
-    void onTamlCustomRead( const TamlCollection& customCollection );
+    void onTamlCustomWrite( TamlCustomProperties& customProperties );
+    void onTamlCustomRead( const TamlCustomProperties& customProperties );
 };
 
 #endif // ParticleAssetFieldCollection

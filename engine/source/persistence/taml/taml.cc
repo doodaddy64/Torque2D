@@ -424,8 +424,8 @@ TamlWriteNode* Taml::compileObject( SimObject* pSimObject )
     // Compile children.
     compileChildren( pNewNode );
 
-    // Compile Collections.
-    compileCollection( pNewNode );
+    // Compile custom properties.
+    compileCustomProperties( pNewNode );
 
     // Are there any Taml callbacks?
     if ( pNewNode->mpTamlCallbacks != NULL )
@@ -639,36 +639,36 @@ void Taml::compileChildren( TamlWriteNode* pTamlWriteNode )
 
 //-----------------------------------------------------------------------------
 
-void Taml::compileCollection( TamlWriteNode* pTamlWriteNode )
+void Taml::compileCustomProperties( TamlWriteNode* pTamlWriteNode )
 {
     // Debug Profiling.
-    PROFILE_SCOPE(Taml_CompileCollection);
+    PROFILE_SCOPE(Taml_CompileCustomProperties);
 
     // Sanity!
-    AssertFatal( pTamlWriteNode != NULL, "Cannot compile collections on a NULL node." );
-    AssertFatal( pTamlWriteNode->mpSimObject != NULL, "Cannot compile collections on a node with no object." );
+    AssertFatal( pTamlWriteNode != NULL, "Cannot compile custom properties on a NULL node." );
+    AssertFatal( pTamlWriteNode->mpSimObject != NULL, "Cannot compile custom properties on a node with no object." );
 
-    // Fetch the collection on the write node.
-    TamlCollection& customCollection = pTamlWriteNode->mCustomCollection;
+    // Fetch the custom properties on the write node.
+    TamlCustomProperties& customProperties = pTamlWriteNode->mCustomProperties;
 
     // Are there any Taml callbacks?
     if ( pTamlWriteNode->mpTamlCallbacks != NULL )
     {
         // Yes, so call it.
-        tamlCustomWrite( pTamlWriteNode->mpTamlCallbacks, customCollection );
+        tamlCustomWrite( pTamlWriteNode->mpTamlCallbacks, customProperties );
     }
 
-    // Finish if no custom collection to process.
-    if ( customCollection.size() == 0 )
+    // Finish if no custom properties to process.
+    if ( customProperties.size() == 0 )
         return;
 
-    // Iterate collections.
-    for( TamlCollectionPropertyVector::iterator propertyItr = customCollection.begin(); propertyItr != customCollection.end(); ++propertyItr )
+    // Iterate custom properties.
+    for( TamlCustomPropertyVector::iterator propertyItr = customProperties.begin(); propertyItr != customProperties.end(); ++propertyItr )
     {
-        TamlCollectionProperty* pCollectionProperty = *propertyItr;
+        TamlCustomProperty* pCustomProperty = *propertyItr;
 
         // Iterate type alias.
-        for( TamlPropertyTypeAliasVector::iterator typeAliasItr = pCollectionProperty->begin(); typeAliasItr != pCollectionProperty->end(); ++typeAliasItr )
+        for( TamlPropertyTypeAliasVector::iterator typeAliasItr = pCustomProperty->begin(); typeAliasItr != pCustomProperty->end(); ++typeAliasItr )
         {
             TamlPropertyTypeAlias* pTypeAlias = *typeAliasItr;
 
@@ -694,36 +694,36 @@ void Taml::compileCollection( TamlWriteNode* pTamlWriteNode )
     }
 
 #if 0
-    // Iterate the collection removing ignored items.
-    for( S32 collectionPropertyIndex = 0; collectionPropertyIndex < customCollection.size(); ++collectionPropertyIndex )
+    // Iterate the custom properties removing ignored items.
+    for( S32 customPropertyIndex = 0; customPropertyIndex < customProperties.size(); ++customPropertyIndex )
     {
-        // Fetch the collection property.
-        TamlCollectionProperty* pCollectionProperty = customCollection.at( collectionPropertyIndex );
+        // Fetch the custom property.
+        TamlCustomProperty* pCustomProperty = customProperties.at( customPropertyIndex );
 
-        // Skip if we are not ignoring the collection if empty.
-        if ( !pCollectionProperty->mIgnoreEmpty )
+        // Skip if we are not ignoring the custom property if empty.
+        if ( !pCustomProperty->mIgnoreEmpty )
             continue;
 
         // Iterate the type alias.
-        for ( S32 typeAliasIndex = 0; typeAliasIndex < pCollectionProperty->size(); ++typeAliasIndex )
+        for ( S32 typeAliasIndex = 0; typeAliasIndex < pCustomProperty->size(); ++typeAliasIndex )
         {
             // Fetch the type alias.
-            TamlPropertyTypeAlias* pTypeAlias = pCollectionProperty->at( typeAliasIndex );
+            TamlPropertyTypeAlias* pTypeAlias = pCustomProperty->at( typeAliasIndex );
 
-            // Skip If we're not ignoring the type alias or the collection is not empty.
+            // Skip If we're not ignoring the type alias or the custom property is not empty.
             if ( !pTypeAlias->mIgnoreEmpty && pTypeAlias->size() != 0 )
                 continue;
 
             // Remove the type alias.
-            pCollectionProperty->removeTypeAlias( typeAliasIndex-- );
+            pCustomProperty->removeTypeAlias( typeAliasIndex-- );
         }
 
-        // Skip if the collection is not empty.
-        if ( pCollectionProperty->size() != 0 )
+        // Skip if the custom property is not empty.
+        if ( pCustomProperty->size() != 0 )
             continue;
 
-        // Remove the collection property.
-        customCollection.removeCollectionProperty( collectionPropertyIndex-- );
+        // Remove the custom property.
+        customProperties.removeProperty( customPropertyIndex-- );
     }
 #endif
 }

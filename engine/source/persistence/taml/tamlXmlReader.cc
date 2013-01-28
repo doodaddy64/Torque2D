@@ -118,7 +118,7 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
     // Fetch any children.
     TiXmlNode* pChildXmlNode = pXmlElement->FirstChild();
 
-    TamlCollection customCollection;
+    TamlCustomProperties customProperties;
 
     // Do we have any element children?
     if ( pChildXmlNode != NULL )
@@ -177,20 +177,20 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
             else
             {
                 // No, so parse custom element.
-                parseCustomElement( pChildXmlElement, customCollection );
+                parseCustomElement( pChildXmlElement, customProperties );
             }
         }
         while( pChildXmlNode != NULL );
 
         // Call custom read.
-        mpTaml->tamlCustomRead( pCallbacks, customCollection );
+        mpTaml->tamlCustomRead( pCallbacks, customProperties );
     }
 
     // Are there any Taml callbacks?
     if ( pCallbacks != NULL )
     {
         // Yes, so call it.
-        mpTaml->tamlPostRead( pCallbacks, customCollection );
+        mpTaml->tamlPostRead( pCallbacks, customProperties );
     }
 
     // Return object.
@@ -199,7 +199,7 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
 
 //-----------------------------------------------------------------------------
 
-void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCollection& collection )
+void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCustomProperties& customProperties )
 {
     // Debug Profiling.
     PROFILE_SCOPE(TamlXmlReader_ParseCustomElement);
@@ -216,8 +216,8 @@ void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCollectio
     // Do we have any property type alias?
     if ( pPropertyTypeAliasXmlNode != NULL )
     {
-        // Yes, so add collection property.
-        TamlCollectionProperty* pCollectionProperty = collection.addCollectionProperty( pPeriod+1 );
+        // Yes, so add custom property.
+        TamlCustomProperty* pCustomProperty = customProperties.addProperty( pPeriod+1 );
 
         do
         {
@@ -232,7 +232,7 @@ void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCollectio
                 continue;
 
             // Add property type alias.
-            TamlPropertyTypeAlias* pPropertyTypeAlias = pCollectionProperty->addTypeAlias( pPropertyTypeAliasXmlElement->Value() );
+            TamlPropertyTypeAlias* pPropertyTypeAlias = pCustomProperty->addTypeAlias( pPropertyTypeAliasXmlElement->Value() );
 
             // Iterate property field attributes.
             for ( TiXmlAttribute* pAttribute = pPropertyTypeAliasXmlElement->FirstAttribute(); pAttribute; pAttribute = pAttribute->Next() )
@@ -269,7 +269,7 @@ void TamlXmlReader::parseCustomElement( TiXmlElement* pXmlElement, TamlCollectio
                     if ( pRefField == NULL )
                     {
                         // No, so warn.
-                        Con::warnf( "Taml: Encountered a child element in a custom collection but it did not have a field reference using '%s'.", mTamlRefField );
+                        Con::warnf( "Taml: Encountered a child element in a custom element but it did not have a field reference using '%s'.", mTamlRefField );
                         continue;
                     }
 

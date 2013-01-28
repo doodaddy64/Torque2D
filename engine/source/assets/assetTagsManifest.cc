@@ -101,17 +101,17 @@ void AssetTagsManifest::renameAssetId( const char* pAssetIdFrom, const char* pAs
 
 //-----------------------------------------------------------------------------
 
-void AssetTagsManifest::onTamlCustomWrite( TamlCollection& customCollection )
+void AssetTagsManifest::onTamlCustomWrite( TamlCustomProperties& customProperties )
 {
     // Call parent.
-    Parent::onTamlCustomWrite( customCollection );
+    Parent::onTamlCustomWrite( customProperties );
 
     // Finish if no tags.
     if ( mTagNameDatabase.size() == 0 )
         return;
 
     // Add property.
-    TamlCollectionProperty* pTagProperty = customCollection.addCollectionProperty( ASSETTAGS_TAGS_COLLECTION_NAME );
+    TamlCustomProperty* pTagProperty = customProperties.addProperty( ASSETTAGS_TAGS_CUSTOMPROPERTY_NAME );
 
     // Iterate tags.
     for( typeTagNameHash::iterator tagItr = mTagNameDatabase.begin(); tagItr != mTagNameDatabase.end(); ++tagItr )
@@ -124,7 +124,7 @@ void AssetTagsManifest::onTamlCustomWrite( TamlCollection& customCollection )
     }
 
     // Add property.
-    TamlCollectionProperty* pAssetTagProperty = customCollection.addCollectionProperty( ASSETTAGS_ASSETS_COLLECTION_NAME );
+    TamlCustomProperty* pAssetTagProperty = customProperties.addProperty( ASSETTAGS_ASSETS_CUSTOMPROPERTY_NAME );
 
     // Iterate asset locations.
     for( typeAssetToTagHash::iterator assetTagItr = mAssetToTagDatabase.begin(); assetTagItr != mAssetToTagDatabase.end(); ++assetTagItr )
@@ -140,13 +140,13 @@ void AssetTagsManifest::onTamlCustomWrite( TamlCollection& customCollection )
 
 //-----------------------------------------------------------------------------
 
-void AssetTagsManifest::onTamlCustomRead( const TamlCollection& customCollection )
+void AssetTagsManifest::onTamlCustomRead( const TamlCustomProperties& customProperties )
 {
     // Call parent.
-    Parent::onTamlCustomRead( customCollection );
+    Parent::onTamlCustomRead( customProperties );
 
-    // Find collection property name.
-    const TamlCollectionProperty* pTagProperty = customCollection.findProperty( ASSETTAGS_TAGS_COLLECTION_NAME );
+    // Find custom property name.
+    const TamlCustomProperty* pTagProperty = customProperties.findProperty( ASSETTAGS_TAGS_CUSTOMPROPERTY_NAME );
 
     // Finish if we don't have a property name.
     if ( pTagProperty == NULL )
@@ -156,7 +156,7 @@ void AssetTagsManifest::onTamlCustomRead( const TamlCollection& customCollection
     StringTableEntry tagTypeAliasName = StringTable->insert( ASSETTAGS_TAGS_TYPE_NAME );
 
     // Iterate property type alias.
-    for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pTagProperty->begin(); propertyTypeAliasItr != pTagProperty->end(); ++propertyTypeAliasItr )
+    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pTagProperty->begin(); propertyTypeAliasItr != pTagProperty->end(); ++propertyTypeAliasItr )
     {
         // Fetch property type alias.
         const TamlPropertyTypeAlias* pTypeAlias = *propertyTypeAliasItr;
@@ -180,8 +180,8 @@ void AssetTagsManifest::onTamlCustomRead( const TamlCollection& customCollection
         createTag( pTagNameField->getFieldValue() );
     }
 
-    // Find collection property name.
-    const TamlCollectionProperty* pAssetTagProperty = customCollection.findProperty( ASSETTAGS_ASSETS_COLLECTION_NAME );
+    // Find custom property name.
+    const TamlCustomProperty* pAssetTagProperty = customProperties.findProperty( ASSETTAGS_ASSETS_CUSTOMPROPERTY_NAME );
 
     // Finish if we don't have a property name.
     if ( pAssetTagProperty == NULL )
@@ -191,7 +191,7 @@ void AssetTagsManifest::onTamlCustomRead( const TamlCollection& customCollection
     StringTableEntry assetTagTypeAliasName = StringTable->insert( ASSETTAGS_ASSETS_TYPE_NAME );
 
     // Iterate property type alias.
-    for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pAssetTagProperty->begin(); propertyTypeAliasItr != pAssetTagProperty->end(); ++propertyTypeAliasItr )
+    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pAssetTagProperty->begin(); propertyTypeAliasItr != pAssetTagProperty->end(); ++propertyTypeAliasItr )
     {
         // Fetch property type alias.
         const TamlPropertyTypeAlias* pTypeAlias = *propertyTypeAliasItr;

@@ -246,8 +246,8 @@ private:
     virtual void onAssetRefreshed( AssetPtrBase* pAssetPtrBase );
 
 protected:
-    void onTamlCustomWrite( TamlCollection& customCollection );
-    void onTamlCustomRead( const TamlCollection& customCollection );
+    void onTamlCustomWrite( TamlCustomProperties& customProperties );
+    void onTamlCustomRead( const TamlCustomProperties& customProperties );
 
     static bool     setEmitterName(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setEmitterName( data ); return false; }
     static bool     setEmitterType(void* obj, const char* data)                         { static_cast<ParticleAssetEmitter*>(obj)->setEmitterType( getEmitterTypeEnum(data) ); return false; }

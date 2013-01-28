@@ -44,6 +44,6 @@ void TamlWriteNode::resetNode( void )
     // Reset callbacks.
     mpTamlCallbacks = NULL;
 
-    // Reset custom collection.
-    mCustomCollection.resetState();
+    // Reset custom properties.
+    mCustomProperties.resetState();
 }

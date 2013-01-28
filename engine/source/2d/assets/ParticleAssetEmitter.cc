@@ -475,23 +475,23 @@ void ParticleAssetEmitter::onAssetRefreshed( AssetPtrBase* pAssetPtrBase )
 
 //------------------------------------------------------------------------------
 
-void ParticleAssetEmitter::onTamlCustomWrite( TamlCollection& customCollection )
+void ParticleAssetEmitter::onTamlCustomWrite( TamlCustomProperties& customProperties )
 {
     // Debug Profiling.
     PROFILE_SCOPE(ParticleAssetEmitter_OnTamlCustomWrite);
 
     // Write the fields.
-    mParticleFields.onTamlCustomWrite( customCollection );
+    mParticleFields.onTamlCustomWrite( customProperties );
 }
 
 //-----------------------------------------------------------------------------
 
-void ParticleAssetEmitter::onTamlCustomRead( const TamlCollection& customCollection )
+void ParticleAssetEmitter::onTamlCustomRead( const TamlCustomProperties& customProperties )
 {
     // Debug Profiling.
     PROFILE_SCOPE(ParticleAssetEmitter_OnTamlCustomRead);
 
     // Read the fields.
-    mParticleFields.onTamlCustomRead( customCollection );
+    mParticleFields.onTamlCustomRead( customProperties );
 }
 

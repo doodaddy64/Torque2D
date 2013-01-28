@@ -6,8 +6,8 @@
 #ifndef _TAML_WRITE_NODE_H_
 #define _TAML_WRITE_NODE_H_
 
-#ifndef _TAML_COLLECTION_H_
-#include "persistence/taml/tamlCollection.h"
+#ifndef _TAML_CUSTOM_H_
+#include "persistence/taml/tamlCustom.h"
 #endif
 
 #ifndef _SIMBASE_H_
@@ -96,7 +96,7 @@ public:
     const char*                 mpObjectName;
     Vector<TamlWriteNode::FieldValuePair*> mFields;
     Vector<TamlWriteNode*>*     mChildren;
-    TamlCollection              mCustomCollection;
+    TamlCustomProperties        mCustomProperties;
 };
 
 #endif // _TAML_WRITE_NODE_H_

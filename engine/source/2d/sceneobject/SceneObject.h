@@ -229,8 +229,8 @@ protected:
     void                    initializeContactGathering( void );
 
     /// Taml callbacks.
-    virtual void            onTamlCustomWrite( TamlCollection& customCollection );
-    virtual void            onTamlCustomRead( const TamlCollection& customCollection );
+    virtual void            onTamlCustomWrite( TamlCustomProperties& customProperties );
+    virtual void            onTamlCustomRead( const TamlCustomProperties& customProperties );
 
 public:
     SceneObject();

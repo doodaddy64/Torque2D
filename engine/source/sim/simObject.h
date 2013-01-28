@@ -298,10 +298,10 @@ protected:
     virtual void onTamlPreWrite( void ) {}
     virtual void onTamlPostWrite( void ) {}
     virtual void onTamlPreRead( void ) {}
-    virtual void onTamlPostRead( const TamlCollection& customCollection ) {}
+    virtual void onTamlPostRead( const TamlCustomProperties& customProperties ) {}
     virtual void onTamlAddParent( SimObject* pParentObject ) {}
-    virtual void onTamlCustomWrite( TamlCollection& customCollection ) {}
-    virtual void onTamlCustomRead( const TamlCollection& customCollection ) {}
+    virtual void onTamlCustomWrite( TamlCustomProperties& customProperties ) {}
+    virtual void onTamlCustomRead( const TamlCustomProperties& customProperties ) {}
     
 protected:
     bool	mCanSaveFieldDictionary; ///< true if dynamic fields (added at runtime) should be saved, defaults to true

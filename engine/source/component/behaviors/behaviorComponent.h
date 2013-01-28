@@ -17,8 +17,8 @@
 //-----------------------------------------------------------------------------
 
 #define BEHAVIOR_ID_FIELD_NAME                  "Id"
-#define BEHAVIOR_COLLECTION_NAME                "Behaviors"
-#define BEHAVIOR_CONNECTION_COLLECTION_NAME     "BehaviorConnections"
+#define BEHAVIOR_CUSTOMPROPERTY_NAME                "Behaviors"
+#define BEHAVIOR_CONNECTION_CUSTOMPROPERTY_NAME     "BehaviorConnections"
 #define BEHAVIOR_CONNECTION_TYPE_NAME           "Connection"
 
 //-----------------------------------------------------------------------------
@@ -75,8 +75,8 @@ protected:
     /// Taml callbacks.
     virtual void onTamlPreWrite( void );
     virtual void onTamlPostWrite( void );
-    virtual void onTamlCustomWrite( TamlCollection& customCollection );
-    virtual void onTamlCustomRead( const TamlCollection& customCollection );
+    virtual void onTamlCustomWrite( TamlCustomProperties& customProperties );
+    virtual void onTamlCustomRead( const TamlCustomProperties& customProperties );
 
 private:
     void destroyBehaviorOutputConnections( BehaviorInstance* pOutputBehavior );

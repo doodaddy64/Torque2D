@@ -10,8 +10,8 @@
 #include "persistence/taml/tamlCallbacks.h"
 #endif
 
-#ifndef _TAML_COLLECTION_H_
-#include "persistence/taml/tamlCollection.h"
+#ifndef _TAML_CUSTOM_H_
+#include "persistence/taml/tamlCustom.h"
 #endif
 
 #ifndef _TAML_CHILDREN_H_
@@ -88,7 +88,7 @@ private:
     void compileStaticFields( TamlWriteNode* pTamlWriteNode );
     void compileDynamicFields( TamlWriteNode* pTamlWriteNode );
     void compileChildren( TamlWriteNode* pTamlWriteNode );
-    void compileCollection( TamlWriteNode* pTamlWriteNode );
+    void compileCustomProperties( TamlWriteNode* pTamlWriteNode );
 
     bool write( FileStream& stream, SimObject* pSimObject, const TamlFormatMode formatMode );
     SimObject* read( FileStream& stream, const TamlFormatMode formatMode );
@@ -110,10 +110,10 @@ private:
     inline void tamlPreWrite( TamlCallbacks* pCallbacks )                                           { pCallbacks->onTamlPreWrite(); }
     inline void tamlPostWrite( TamlCallbacks* pCallbacks )                                          { pCallbacks->onTamlPostWrite(); }
     inline void tamlPreRead( TamlCallbacks* pCallbacks )                                            { pCallbacks->onTamlPreRead(); }
-    inline void tamlPostRead( TamlCallbacks* pCallbacks, const TamlCollection& customCollection )   { pCallbacks->onTamlPostRead( customCollection ); }
+    inline void tamlPostRead( TamlCallbacks* pCallbacks, const TamlCustomProperties& customProperties )   { pCallbacks->onTamlPostRead( customProperties ); }
     inline void tamlAddParent( TamlCallbacks* pCallbacks, SimObject* pParentObject )                { pCallbacks->onTamlAddParent( pParentObject ); }
-    inline void tamlCustomWrite( TamlCallbacks* pCallbacks, TamlCollection& customCollection )      { pCallbacks->onTamlCustomWrite( customCollection ); }
-    inline void tamlCustomRead( TamlCallbacks* pCallbacks, const TamlCollection& customCollection ) { pCallbacks->onTamlCustomRead( customCollection ); }
+    inline void tamlCustomWrite( TamlCallbacks* pCallbacks, TamlCustomProperties& customProperties )      { pCallbacks->onTamlCustomWrite( customProperties ); }
+    inline void tamlCustomRead( TamlCallbacks* pCallbacks, const TamlCustomProperties& customProperties ) { pCallbacks->onTamlCustomRead( customProperties ); }
 
 public:
     Taml();

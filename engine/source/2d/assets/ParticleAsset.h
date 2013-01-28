@@ -153,8 +153,8 @@ public:
 protected:
     virtual void initializeAsset( void );
 
-    void onTamlCustomWrite( TamlCollection& customCollection );
-    void onTamlCustomRead( const TamlCollection& customCollection );
+    void onTamlCustomWrite( TamlCustomProperties& customProperties );
+    void onTamlCustomRead( const TamlCustomProperties& customProperties );
 
 protected:
     static bool setLifetime(void* obj, const char* data)                    { static_cast<ParticleAsset*>(obj)->setLifetime(dAtof(data)); return false; }

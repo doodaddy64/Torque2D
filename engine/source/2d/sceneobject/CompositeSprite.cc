@@ -359,10 +359,10 @@ SpriteBatchItem* CompositeSprite::createCustomLayout( const SpriteBatchItem::Log
 
 //-----------------------------------------------------------------------------
 
-void CompositeSprite::onTamlCustomWrite( TamlCollection& customCollection )
+void CompositeSprite::onTamlCustomWrite( TamlCustomProperties& customProperties )
 {
     // Call parent.
-    Parent::onTamlCustomWrite( customCollection );
+    Parent::onTamlCustomWrite( customProperties );
 
     // Fetch sprite count.
     const U32 spriteCount = getSpriteCount();
@@ -372,7 +372,7 @@ void CompositeSprite::onTamlCustomWrite( TamlCollection& customCollection )
         return;
 
     // Add sprites property.
-    TamlCollectionProperty* pSpritesProperty = customCollection.addCollectionProperty( StringTable->insert("Sprites") );
+    TamlCustomProperty* pSpritesProperty = customProperties.addProperty( StringTable->insert("Sprites") );
 
     // Write property with sprite batch.
     SpriteBatch::onTamlCustomWrite( pSpritesProperty );
@@ -380,13 +380,13 @@ void CompositeSprite::onTamlCustomWrite( TamlCollection& customCollection )
 
 //-----------------------------------------------------------------------------
 
-void CompositeSprite::onTamlCustomRead( const TamlCollection& customCollection )
+void CompositeSprite::onTamlCustomRead( const TamlCustomProperties& customProperties )
 {
     // Call parent.
-    Parent::onTamlCustomRead( customCollection );
+    Parent::onTamlCustomRead( customProperties );
 
-    // Find sprites collection.
-    const TamlCollectionProperty* pSpritesProperty = customCollection.findProperty( StringTable->insert("Sprites") );
+    // Find sprites custom property.
+    const TamlCustomProperty* pSpritesProperty = customProperties.findProperty( StringTable->insert("Sprites") );
 
     // Finish if we don't have the property.
     if ( pSpritesProperty == NULL )

@@ -11,8 +11,8 @@
 #include "console/consoleTypes.h"
 #endif
 
-#ifndef _TAML_COLLECTION_H_
-#include "persistence/taml/tamlCollection.h"
+#ifndef _TAML_CUSTOM_H_
+#include "persistence/taml/tamlCustom.h"
 #endif
 
 // Script bindings.
@@ -34,13 +34,13 @@ void AssetQuery::initPersistFields()
 
 //-----------------------------------------------------------------------------
 
-void AssetQuery::onTamlCustomWrite( TamlCollection& customCollection )
+void AssetQuery::onTamlCustomWrite( TamlCustomProperties& customProperties )
 {
     // Call parent.
-    Parent::onTamlCustomWrite( customCollection );
+    Parent::onTamlCustomWrite( customProperties );
 
     // Add property.
-    TamlCollectionProperty* pProperty = customCollection.addCollectionProperty( ASSETQUERY_COLLECTION_NAME );
+    TamlCustomProperty* pProperty = customProperties.addProperty( ASSETQUERY_CUSTO_PROPERTY_NAME );
 
     // Finish if no assets.
     if ( size() == 0 )
@@ -59,13 +59,13 @@ void AssetQuery::onTamlCustomWrite( TamlCollection& customCollection )
 
 //-----------------------------------------------------------------------------
 
-void AssetQuery::onTamlCustomRead( const TamlCollection& customCollection )
+void AssetQuery::onTamlCustomRead( const TamlCustomProperties& customProperties )
 {
     // Call parent.
-    Parent::onTamlCustomRead( customCollection );
+    Parent::onTamlCustomRead( customProperties );
 
-    // Find collection property name.
-    const TamlCollectionProperty* pProperty = customCollection.findProperty( ASSETQUERY_COLLECTION_NAME );
+    // Find custom property name.
+    const TamlCustomProperty* pProperty = customProperties.findProperty( ASSETQUERY_CUSTO_PROPERTY_NAME );
 
     // Finish if we don't have a property name.
     if ( pProperty == NULL )
@@ -75,7 +75,7 @@ void AssetQuery::onTamlCustomRead( const TamlCollection& customCollection )
     StringTableEntry typeAliasName = StringTable->insert( ASSETQUERY_TYPE_NAME );
 
     // Iterate property type alias.
-    for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pProperty->begin(); propertyTypeAliasItr != pProperty->end(); ++propertyTypeAliasItr )
+    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pProperty->begin(); propertyTypeAliasItr != pProperty->end(); ++propertyTypeAliasItr )
     {
         // Fetch property type alias.
         const TamlPropertyTypeAlias* pTypeAlias = *propertyTypeAliasItr;

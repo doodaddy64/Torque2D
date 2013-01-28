@@ -92,7 +92,7 @@ IMPLEMENT_CONOBJECT(ImageAsset);
 
 static bool explicitCellPropertiesInitialized = false;
 
-static StringTableEntry cellCollectionName;
+static StringTableEntry cellCustomPropertyName;
 static StringTableEntry cellAliasName;
 static StringTableEntry cellOffsetName;
 static StringTableEntry cellWidthName;
@@ -167,7 +167,7 @@ ImageAsset::ImageAsset() :  mImageFile(StringTable->EmptyString),
     // Initialize explicit cell field names.
     if ( !explicitCellPropertiesInitialized )
     {
-        cellCollectionName      = StringTable->insert( "Cells" );
+        cellCustomPropertyName      = StringTable->insert( "Cells" );
         cellAliasName           = StringTable->insert( "Cell" );
 
         cellOffsetName          = StringTable->insert( "Offset" );
@@ -852,20 +852,20 @@ void ImageAsset::onTamlPostWrite( void )
 
 //------------------------------------------------------------------------------
 
-void ImageAsset::onTamlCustomWrite( TamlCollection& customCollection )
+void ImageAsset::onTamlCustomWrite( TamlCustomProperties& customProperties )
 {
     // Debug Profiling.
     PROFILE_SCOPE(ImageAsset_OnTamlCustomWrite);
 
     // Call parent.
-    Parent::onTamlCustomWrite( customCollection );
+    Parent::onTamlCustomWrite( customProperties );
 
     // Finish if not in explicit mode.
     if ( !mExplicitMode )
         return;
 
-    // Add cell collection property.
-    TamlCollectionProperty* pCellProperty = customCollection.addCollectionProperty( cellCollectionName );
+    // Add cell custom property.
+    TamlCustomProperty* pCellProperty = customProperties.addProperty( cellCustomPropertyName );
 
     // Iterate explicit frames.
     for( typeExplicitFrameAreaVector::iterator frameItr = mExplicitFrames.begin(); frameItr != mExplicitFrames.end(); ++frameItr )
@@ -885,16 +885,16 @@ void ImageAsset::onTamlCustomWrite( TamlCollection& customCollection )
 
 //-----------------------------------------------------------------------------
 
-void ImageAsset::onTamlCustomRead( const TamlCollection& customCollection )
+void ImageAsset::onTamlCustomRead( const TamlCustomProperties& customProperties )
 {
     // Debug Profiling.
     PROFILE_SCOPE(ImageAsset_OnTamlCustomRead);
 
     // Call parent.
-    Parent::onTamlCustomRead( customCollection );
+    Parent::onTamlCustomRead( customProperties );
 
-    // Find cell collection property
-    const TamlCollectionProperty* pCellProperty = customCollection.findProperty( cellCollectionName );
+    // Find cell custom property
+    const TamlCustomProperty* pCellProperty = customProperties.findProperty( cellCustomPropertyName );
 
     // Finish if we don't have explicit cells.
     if ( pCellProperty == NULL )
@@ -904,7 +904,7 @@ void ImageAsset::onTamlCustomRead( const TamlCollection& customCollection )
     mExplicitMode = true;
 
     // Iterate cells.
-    for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pCellProperty->begin(); propertyTypeAliasItr != pCellProperty->end(); ++propertyTypeAliasItr )
+    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pCellProperty->begin(); propertyTypeAliasItr != pCellProperty->end(); ++propertyTypeAliasItr )
     {
         // Fetch property type alias.
         TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
@@ -916,7 +916,7 @@ void ImageAsset::onTamlCustomRead( const TamlCollection& customCollection )
         if ( aliasName != cellAliasName )
         {
             // No, so warn.
-            Con::warnf( "ImageAsset::onTamlCustomRead() - Encountered an unknown collection alias name of '%s'.  Only '%s' is valid.", aliasName, cellAliasName );
+            Con::warnf( "ImageAsset::onTamlCustomRead() - Encountered an unknown custom alias name of '%s'.  Only '%s' is valid.", aliasName, cellAliasName );
             continue;
         }
 
@@ -949,7 +949,7 @@ void ImageAsset::onTamlCustomRead( const TamlCollection& customCollection )
             else
             {
                 // Unknown name so warn.
-                Con::warnf( "ImageAsset::onTamlCustomRead() - Encountered an unknown collection field name of '%s'.", fieldName );
+                Con::warnf( "ImageAsset::onTamlCustomRead() - Encountered an unknown custom field name of '%s'.", fieldName );
                 continue;
             }
         }

@@ -143,8 +143,8 @@ SimObject* TamlBinaryReader::parseElement( Stream& stream, const U32 versionId )
     }
 
     // Parse custom elements.
-    TamlCollection customCollection;
-    parseCustomElements( stream, pCallbacks, customCollection, versionId );
+    TamlCustomProperties customProperties;
+    parseCustomElements( stream, pCallbacks, customProperties, versionId );
 
     // Parse children.
     parseChildren( stream, pCallbacks, pSimObject, versionId );
@@ -153,7 +153,7 @@ SimObject* TamlBinaryReader::parseElement( Stream& stream, const U32 versionId )
     if ( pCallbacks != NULL )
     {
         // Yes, so call it.
-        mpTaml->tamlPostRead( pCallbacks, customCollection );
+        mpTaml->tamlPostRead( pCallbacks, customProperties );
     }
 
     // Return object.
@@ -162,7 +162,7 @@ SimObject* TamlBinaryReader::parseElement( Stream& stream, const U32 versionId )
 
 //-----------------------------------------------------------------------------
 
-void TamlBinaryReader::parseCustomElements( Stream& stream, TamlCallbacks* pCallbacks, TamlCollection& customCollection, const U32 versionId )
+void TamlBinaryReader::parseCustomElements( Stream& stream, TamlCallbacks* pCallbacks, TamlCustomProperties& customProperties, const U32 versionId )
 {
     // Debug Profiling.
     PROFILE_SCOPE(TamlBinaryReader_ParseCustomElement);
@@ -181,8 +181,8 @@ void TamlBinaryReader::parseCustomElements( Stream& stream, TamlCallbacks* pCall
         // Read custom element name.
         StringTableEntry propertyName = stream.readSTString();
 
-        // Add collection property.
-        TamlCollectionProperty* pCollectionProperty = customCollection.addCollectionProperty( propertyName );
+        // Add custom property.
+        TamlCustomProperty* pCustomProperty = customProperties.addProperty( propertyName );
 
         // Read property type alias count.
         U32 propertyTypeAliasCount;
@@ -199,7 +199,7 @@ void TamlBinaryReader::parseCustomElements( Stream& stream, TamlCallbacks* pCall
             StringTableEntry propertyTypeAliasName = stream.readSTString();
 
             // Add property type alias.
-            TamlPropertyTypeAlias* pPropertyTypeAlias = pCollectionProperty->addTypeAlias( propertyTypeAliasName );
+            TamlPropertyTypeAlias* pPropertyTypeAlias = pCustomProperty->addTypeAlias( propertyTypeAliasName );
 
             // Read property field count.
             U32 propertyFieldCount;
@@ -253,7 +253,7 @@ void TamlBinaryReader::parseCustomElements( Stream& stream, TamlCallbacks* pCall
     }
 
     // Custom read callback.
-    mpTaml->tamlCustomRead( pCallbacks, customCollection );
+    mpTaml->tamlCustomRead( pCallbacks, customProperties );
 }
 
 //-----------------------------------------------------------------------------

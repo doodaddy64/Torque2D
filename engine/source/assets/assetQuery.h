@@ -20,7 +20,7 @@
 
 //-----------------------------------------------------------------------------
 
-#define ASSETQUERY_COLLECTION_NAME      "Results"
+#define ASSETQUERY_CUSTO_PROPERTY_NAME      "Results"
 #define ASSETQUERY_TYPE_NAME            "Asset"
 #define ASSETQUERY_ASSETID_FIELD_NAME   "AssetId"
 
@@ -32,8 +32,8 @@ private:
     typedef SimObject Parent;
 
 protected:
-    virtual void onTamlCustomWrite( TamlCollection& customCollection );
-    virtual void onTamlCustomRead( const TamlCollection& customCollection );
+    virtual void onTamlCustomWrite( TamlCustomProperties& customProperties );
+    virtual void onTamlCustomRead( const TamlCustomProperties& customProperties );
 
     static const char* getCount(void* obj, const char* data) { return Con::getIntArg(static_cast<AssetQuery*>(obj)->size()); }
     static bool writeCount( void* obj, StringTableEntry pFieldName ) { return false; }

@@ -52,7 +52,7 @@ private:
     void resetParse( void );
 
     SimObject* parseElement( TiXmlElement* pXmlElement );
-    void parseCustomElement( TiXmlElement* pXmlElement, TamlCollection& collection );
+    void parseCustomElement( TiXmlElement* pXmlElement, TamlCustomProperties& customProperties );
     void parseAttributes( TiXmlElement* pXmlElement, SimObject* pSimObject );
 
     U32 getTamlRefId( TiXmlElement* pXmlElement );

@@ -74,7 +74,7 @@ static U32 sSceneObjectMasterSerialId = 0;
 // Collision shape property names.
 static bool collisionShapePropertiesInitialized = false;
 
-static StringTableEntry shapeCollectionName;
+static StringTableEntry shapeCustomPropertyName;
 
 static StringTableEntry shapeDensityName;
 static StringTableEntry shapeFrictionName;
@@ -200,7 +200,7 @@ SceneObject::SceneObject() :
     // Initialize collision shape field names.
     if ( !collisionShapePropertiesInitialized )
     {
-        shapeCollectionName     = StringTable->insert( "CollisionShapes" );
+        shapeCustomPropertyName     = StringTable->insert( "CollisionShapes" );
 
         shapeDensityName        = StringTable->insert( "Density" );
         shapeFrictionName       = StringTable->insert( "Friction" );
@@ -3347,13 +3347,13 @@ U32 SceneObject::getGlobalSceneObjectCount( void )
 
 //-----------------------------------------------------------------------------
 
-void SceneObject::onTamlCustomWrite( TamlCollection& customCollection )
+void SceneObject::onTamlCustomWrite( TamlCustomProperties& customProperties )
 {
     // Debug Profiling.
     PROFILE_SCOPE(SceneObject_OnTamlCustomWrite);
 
     // Call parent.
-    Parent::onTamlCustomWrite( customCollection );
+    Parent::onTamlCustomWrite( customProperties );
 
     // Fetch collision shape count.
     const U32 collisionShapeCount = getCollisionShapeCount();
@@ -3363,7 +3363,7 @@ void SceneObject::onTamlCustomWrite( TamlCollection& customCollection )
         return;
 
     // Add collision shape property.
-    TamlCollectionProperty* pCollisionShapeProperty = customCollection.addCollectionProperty( shapeCollectionName );
+    TamlCustomProperty* pCollisionShapeProperty = customProperties.addProperty( shapeCustomPropertyName );
 
     // Iterate collision shapes.
     for ( U32 shapeIndex = 0; shapeIndex < collisionShapeCount; ++shapeIndex )
@@ -3507,23 +3507,23 @@ void SceneObject::onTamlCustomWrite( TamlCollection& customCollection )
 
 //-----------------------------------------------------------------------------
 
-void SceneObject::onTamlCustomRead( const TamlCollection& customCollection )
+void SceneObject::onTamlCustomRead( const TamlCustomProperties& customProperties )
 {
     // Debug Profiling.
     PROFILE_SCOPE(SceneObject_OnTamlCustomRead);
 
     // Call parent.
-    Parent::onTamlCustomRead( customCollection );
+    Parent::onTamlCustomRead( customProperties );
 
-    // Find collision shape collection.
-    const TamlCollectionProperty* pCollisionShapeProperty = customCollection.findProperty( shapeCollectionName );
+    // Find collision shape custom property.
+    const TamlCustomProperty* pCollisionShapeProperty = customProperties.findProperty( shapeCustomPropertyName );
 
     // Finish if we don't have collision shapes.
     if ( pCollisionShapeProperty == NULL )
         return;
 
     // Iterate collision shapes.
-    for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pCollisionShapeProperty->begin(); propertyTypeAliasItr != pCollisionShapeProperty->end(); ++propertyTypeAliasItr )
+    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pCollisionShapeProperty->begin(); propertyTypeAliasItr != pCollisionShapeProperty->end(); ++propertyTypeAliasItr )
     {
         // Fetch property type alias.
         TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;

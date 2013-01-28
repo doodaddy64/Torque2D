@@ -60,7 +60,7 @@ static U32 sSceneMasterIndex = 0;
 // Joint property names..
 static bool jointPropertiesInitialized = false;
 
-static StringTableEntry jointCollectionName;
+static StringTableEntry jointCustomPropertyName;
 static StringTableEntry jointCollideConnectedName;
 static StringTableEntry jointObjectAName;
 static StringTableEntry jointObjectBName;
@@ -159,7 +159,7 @@ Scene::Scene() :
     // Initialize joint property names.
     if ( !jointPropertiesInitialized )
     {
-        jointCollectionName               = StringTable->insert( "Joints" );
+        jointCustomPropertyName               = StringTable->insert( "Joints" );
         jointCollideConnectedName         = StringTable->insert( "CollideConnected" );
         jointObjectAName                  = StringTable->insert( "ObjectA" );
         jointObjectBName                  = StringTable->insert( "ObjectB" );
@@ -3332,23 +3332,23 @@ void Scene::onTamlPreRead( void )
 
 //-----------------------------------------------------------------------------
 
-void Scene::onTamlPostRead( const TamlCollection& customCollection )
+void Scene::onTamlPostRead( const TamlCustomProperties& customProperties )
 {
     // Call parent.
-    Parent::onTamlPostRead( customCollection );
+    Parent::onTamlPostRead( customProperties );
 
     // Reset the loading scene.
     Scene::LoadingScene = NULL;
 
-    // Find joint collection.
-    const TamlCollectionProperty* pJointProperty = customCollection.findProperty( jointCollectionName );
+    // Find joint custom property.
+    const TamlCustomProperty* pJointProperty = customProperties.findProperty( jointCustomPropertyName );
 
     // Finish if no joints.
     if ( pJointProperty == NULL )
         return;
 
     // Iterate joints.
-    for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pJointProperty->begin(); propertyTypeAliasItr != pJointProperty->end(); ++propertyTypeAliasItr )
+    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pJointProperty->begin(); propertyTypeAliasItr != pJointProperty->end(); ++propertyTypeAliasItr )
     {
         // Fetch property type alias.
         TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
@@ -4021,10 +4021,10 @@ void Scene::onTamlPostRead( const TamlCollection& customCollection )
 
 //-----------------------------------------------------------------------------
 
-void Scene::onTamlCustomWrite( TamlCollection& customCollection )
+void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
 {
     // Call parent.
-    Parent::onTamlCustomWrite( customCollection );
+    Parent::onTamlCustomWrite( customProperties );
 
     // Fetch joint count.
     const U32 jointCount = getJointCount();
@@ -4034,7 +4034,7 @@ void Scene::onTamlCustomWrite( TamlCollection& customCollection )
         return;
 
     // Add joint property.
-    TamlCollectionProperty* pJointProperty = customCollection.addCollectionProperty( jointCollectionName );
+    TamlCustomProperty* pJointProperty = customProperties.addProperty( jointCustomPropertyName );
 
     // Iterate joints.
     for( typeJointHash::iterator jointItr = mJoints.begin(); jointItr != mJoints.end(); ++jointItr )
@@ -4429,10 +4429,10 @@ void Scene::onTamlCustomWrite( TamlCollection& customCollection )
 
 //-----------------------------------------------------------------------------
 
-void Scene::onTamlCustomRead( const TamlCollection& customCollection )
+void Scene::onTamlCustomRead( const TamlCustomProperties& customProperties )
 {
     // Call parent.
-    Parent::onTamlCustomRead( customCollection );
+    Parent::onTamlCustomRead( customProperties );
 }
 
 //-----------------------------------------------------------------------------

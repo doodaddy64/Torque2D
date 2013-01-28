@@ -114,23 +114,23 @@ void TamlBinaryWriter::writeCustomElements( Stream& stream, const TamlWriteNode*
     // Debug Profiling.
     PROFILE_SCOPE(TamlBinaryWriter_WriteCustomElements);
 
-    // Fetch custom collection.
-    const TamlCollection& customCollection = pTamlWriteNode->mCustomCollection;
+    // Fetch custom properties.
+    const TamlCustomProperties& customProperties = pTamlWriteNode->mCustomProperties;
 
     // Write custom element count.
-    stream.write( (U32)customCollection.size() );
+    stream.write( (U32)customProperties.size() );
 
-    // Iterate collection properties.
-    for( TamlCollection::const_iterator collectionPropertyItr = customCollection.begin(); collectionPropertyItr != customCollection.end(); ++collectionPropertyItr )
+    // Iterate custom properties.
+    for( TamlCustomProperties::const_iterator customPropertyItr = customProperties.begin(); customPropertyItr != customProperties.end(); ++customPropertyItr )
     {
-        // Fetch collection property.
-        TamlCollectionProperty* pCollectionProperty = *collectionPropertyItr;
+        // Fetch custom property.
+        TamlCustomProperty* pCustomProperty = *customPropertyItr;
 
         // Write custom element name.
-        stream.writeString( pCollectionProperty->mPropertyName );
+        stream.writeString( pCustomProperty->mPropertyName );
 
         // Fetch property type alias count.
-        U32 propertyTypeAliasCount = (U32)pCollectionProperty->size();
+        U32 propertyTypeAliasCount = (U32)pCustomProperty->size();
 
         // Write property count.
         stream.write( propertyTypeAliasCount );
@@ -140,7 +140,7 @@ void TamlBinaryWriter::writeCustomElements( Stream& stream, const TamlWriteNode*
             continue;
 
         // Iterate property type alias.
-        for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pCollectionProperty->begin(); propertyTypeAliasItr != pCollectionProperty->end(); ++propertyTypeAliasItr )
+        for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pCustomProperty->begin(); propertyTypeAliasItr != pCustomProperty->end(); ++propertyTypeAliasItr )
         {
             // Fetch property type alias.
             TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;

@@ -14,8 +14,8 @@
 #include "assets/assetFieldTypes.h"
 #endif
 
-#ifndef _TAML_COLLECTION_H_
-#include "persistence/taml/tamlCollection.h"
+#ifndef _TAML_CUSTOM_H_
+#include "persistence/taml/tamlCustom.h"
 #endif
 
 // Script bindings.
@@ -1051,10 +1051,10 @@ void BehaviorComponent::onTamlPostWrite( void )
 
 //-----------------------------------------------------------------------------
 
-void BehaviorComponent::onTamlCustomWrite( TamlCollection& customCollection )
+void BehaviorComponent::onTamlCustomWrite( TamlCustomProperties& customProperties )
 {
     // Call parent.
-    Parent::onTamlCustomWrite( customCollection );
+    Parent::onTamlCustomWrite( customProperties );
 
     // Fetch behavior count.
     const U32 behaviorCount = (U32)mBehaviors.size();
@@ -1067,7 +1067,7 @@ void BehaviorComponent::onTamlCustomWrite( TamlCollection& customCollection )
     StringTableEntry behaviorTemplateAssetFieldType = StringTable->insert( BEHAVIORTEMPLATE_ASSET_FIELDTYPE );
 
     // Add behavior property.
-    TamlCollectionProperty* pBehaviorProperty = customCollection.addCollectionProperty( BEHAVIOR_COLLECTION_NAME );
+    TamlCustomProperty* pBehaviorProperty = customProperties.addProperty( BEHAVIOR_CUSTOMPROPERTY_NAME );
 
     // Iterate behaviors.
     for( SimSet::iterator behaviorItr = mBehaviors.begin(); behaviorItr != mBehaviors.end(); ++behaviorItr )
@@ -1119,7 +1119,7 @@ void BehaviorComponent::onTamlCustomWrite( TamlCollection& customCollection )
         return;
 
     // Add behavior connection property.
-    TamlCollectionProperty* pConnectionProperty = customCollection.addCollectionProperty( BEHAVIOR_CONNECTION_COLLECTION_NAME );
+    TamlCustomProperty* pConnectionProperty = customProperties.addProperty( BEHAVIOR_CONNECTION_CUSTOMPROPERTY_NAME );
     
     // Iterate instance connections.
     for( typeInstanceConnectionHash::iterator instanceItr = mBehaviorConnections.begin(); instanceItr != mBehaviorConnections.end(); ++instanceItr )
@@ -1152,16 +1152,16 @@ void BehaviorComponent::onTamlCustomWrite( TamlCollection& customCollection )
 
 //-----------------------------------------------------------------------------
 
-void BehaviorComponent::onTamlCustomRead( const TamlCollection& customCollection )
+void BehaviorComponent::onTamlCustomRead( const TamlCustomProperties& customProperties )
 {
     // Call parent.
-    Parent::onTamlCustomRead( customCollection );
+    Parent::onTamlCustomRead( customProperties );
 
-    // Find behavior collection name.
-    const TamlCollectionProperty* pCollectionProperty = customCollection.findProperty( BEHAVIOR_COLLECTION_NAME );
+    // Find behavior custom property name.
+    const TamlCustomProperty* pCustomProperty = customProperties.findProperty( BEHAVIOR_CUSTOMPROPERTY_NAME );
 
     // Do we have the property?
-    if ( pCollectionProperty != NULL )
+    if ( pCustomProperty != NULL )
     {
         // Yes, so reset maximum behavior Id.
         S32 maximumBehaviorId = 0;
@@ -1173,7 +1173,7 @@ void BehaviorComponent::onTamlCustomRead( const TamlCollection& customCollection
         StringTableEntry behaviorTemplateAssetFieldType = StringTable->insert( BEHAVIORTEMPLATE_ASSET_FIELDTYPE );
 
         // Iterate property type alias.
-        for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pCollectionProperty->begin(); propertyTypeAliasItr != pCollectionProperty->end(); ++propertyTypeAliasItr )
+        for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pCustomProperty->begin(); propertyTypeAliasItr != pCustomProperty->end(); ++propertyTypeAliasItr )
         {
             // Fetch property type alias.
             TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
@@ -1276,8 +1276,8 @@ void BehaviorComponent::onTamlCustomRead( const TamlCollection& customCollection
         mMasterBehaviorId = (U32)maximumBehaviorId+1;
     }
 
-    // Find behavior connections collection name.
-    const TamlCollectionProperty* pConnectionProperty = customCollection.findProperty( BEHAVIOR_CONNECTION_COLLECTION_NAME );
+    // Find behavior connections custom property name.
+    const TamlCustomProperty* pConnectionProperty = customProperties.findProperty( BEHAVIOR_CONNECTION_CUSTOMPROPERTY_NAME );
 
     // Do we have the property?
     if ( pConnectionProperty != NULL )
@@ -1286,7 +1286,7 @@ void BehaviorComponent::onTamlCustomRead( const TamlCollection& customCollection
         StringTableEntry connectionTypeAlias = StringTable->insert( BEHAVIOR_CONNECTION_TYPE_NAME );
 
         // Iterate property type alias.
-        for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pConnectionProperty->begin(); propertyTypeAliasItr != pConnectionProperty->end(); ++propertyTypeAliasItr )
+        for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pConnectionProperty->begin(); propertyTypeAliasItr != pConnectionProperty->end(); ++propertyTypeAliasItr )
         {
             // Fetch property type alias.
             TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;

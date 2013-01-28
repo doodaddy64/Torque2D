@@ -492,13 +492,13 @@ F32 ParticleAssetField::calculateFieldBVLE( const ParticleAssetField& base, cons
 
 //------------------------------------------------------------------------------
 
-void ParticleAssetField::onTamlCustomWrite( TamlCollectionProperty* pCollectionProperty )
+void ParticleAssetField::onTamlCustomWrite( TamlCustomProperty* pCustomProperty )
 {
     // Debug Profiling.
     PROFILE_SCOPE(ParticleAssetField_OnTamlCustomWrite);
 
     // Add a type alias (ignore it if there ends up being no properties).
-    TamlPropertyTypeAlias* pPropertyTypeAlias = pCollectionProperty->addTypeAlias( getFieldName(), true );
+    TamlPropertyTypeAlias* pPropertyTypeAlias = pCustomProperty->addTypeAlias( getFieldName(), true );
 
     // Sanity!
     AssertFatal( pPropertyTypeAlias != NULL, "ParticleAssetField::onTamlCustomWrite() - Could not create field type alias." );

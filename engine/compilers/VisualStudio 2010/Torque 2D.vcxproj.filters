@@ -1110,9 +1110,6 @@
     <ClCompile Include="..\..\source\graphics\DynamicTexture.cc">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\persistence\taml\tamlCollection.cc">
-      <Filter>persistence\taml</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\persistence\taml\tamlWriteNode.cc">
       <Filter>persistence\taml</Filter>
     </ClCompile>
@@ -1271,6 +1268,9 @@
     </ClCompile>
     <ClCompile Include="..\..\source\assets\referencedAssets.cc">
       <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\persistence\taml\tamlCustom.cc">
+      <Filter>persistence\taml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1828,9 +1828,6 @@
     </ClInclude>
     <ClInclude Include="..\..\source\module\moduleMergeDefinition.h">
       <Filter>module</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\persistence\taml\tamlCollection.h">
-      <Filter>persistence\taml</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\assets\assetDefinition.h">
       <Filter>assets</Filter>
@@ -2591,6 +2588,9 @@
     </ClInclude>
     <ClInclude Include="..\..\source\assets\referencedAssets.h">
       <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\persistence\taml\tamlCustom.h">
+      <Filter>persistence\taml</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

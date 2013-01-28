@@ -226,8 +226,8 @@ protected:
     /// Taml callbacks.
     virtual void onTamlPreWrite( void );
     virtual void onTamlPostWrite( void );
-    virtual void onTamlCustomWrite( TamlCollection& customCollection );
-    virtual void onTamlCustomRead( const TamlCollection& customCollection );
+    virtual void onTamlCustomWrite( TamlCustomProperties& customProperties );
+    virtual void onTamlCustomRead( const TamlCustomProperties& customProperties );
 
 
 protected:

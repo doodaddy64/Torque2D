@@ -1124,7 +1124,7 @@ void SpriteBatch::destroySpriteBatchTree( void )
 
 //------------------------------------------------------------------------------
 
-void SpriteBatch::onTamlCustomWrite( TamlCollectionProperty* pSpritesProperty )
+void SpriteBatch::onTamlCustomWrite( TamlCustomProperty* pSpritesProperty )
 {
     // Debug Profiling.
     PROFILE_SCOPE(SpriteBatch_TamlCustomWrite);
@@ -1145,7 +1145,7 @@ void SpriteBatch::onTamlCustomWrite( TamlCollectionProperty* pSpritesProperty )
 
 //------------------------------------------------------------------------------
 
-void SpriteBatch::onTamlCustomRead( const TamlCollectionProperty* pSpritesProperty )
+void SpriteBatch::onTamlCustomRead( const TamlCustomProperty* pSpritesProperty )
 {
     // Debug Profiling.
     PROFILE_SCOPE(SpriteBatch_TamlCustomRead);
@@ -1154,7 +1154,7 @@ void SpriteBatch::onTamlCustomRead( const TamlCollectionProperty* pSpritesProper
     StringTableEntry spriteItemTypeName = StringTable->insert( "Sprite" );
 
     // Iterate sprite item types.
-    for( TamlCollectionProperty::const_iterator spriteTypeAliasItr = pSpritesProperty->begin(); spriteTypeAliasItr != pSpritesProperty->end(); ++spriteTypeAliasItr )
+    for( TamlCustomProperty::const_iterator spriteTypeAliasItr = pSpritesProperty->begin(); spriteTypeAliasItr != pSpritesProperty->end(); ++spriteTypeAliasItr )
     {
         // Fetch sprite type alias.
         TamlPropertyTypeAlias* pSpriteTypeAlias = *spriteTypeAliasItr;

@@ -14,7 +14,7 @@ static StringTableEntry particleAssetFieldCollectionName;
 ParticleAssetFieldCollection::ParticleAssetFieldCollection() :
                                     mpSelectedField( NULL )
 {
-    // Set collection name.
+    // Set custom property name.
     particleAssetFieldCollectionName = StringTable->insert("Fields");
 }
 
@@ -405,7 +405,7 @@ F32 ParticleAssetFieldCollection::getValueScale( void ) const
 
 //------------------------------------------------------------------------------
 
-void ParticleAssetFieldCollection::onTamlCustomWrite( TamlCollection& customCollection )
+void ParticleAssetFieldCollection::onTamlCustomWrite( TamlCustomProperties& customProperties )
 {
     // Debug Profiling.
     PROFILE_SCOPE(ParticleAssetFieldCollection_OnTamlCustomWrite);
@@ -414,32 +414,32 @@ void ParticleAssetFieldCollection::onTamlCustomWrite( TamlCollection& customColl
     if ( mFields.size() == 0 )
         return;
 
-    // Add particle asset collection property.
-    TamlCollectionProperty* pParticleAssetCollectionProperty = customCollection.addCollectionProperty( particleAssetFieldCollectionName );
+    // Add particle asset custom property.
+    TamlCustomProperty* pParticleAssetCustomProperty = customProperties.addProperty( particleAssetFieldCollectionName );
 
     // Iterate the fields.
     for( typeFieldHash::iterator fieldItr = mFields.begin(); fieldItr != mFields.end(); ++fieldItr )
     {
-        fieldItr->value->onTamlCustomWrite( pParticleAssetCollectionProperty );
+        fieldItr->value->onTamlCustomWrite( pParticleAssetCustomProperty );
     }
 }
 
 //-----------------------------------------------------------------------------
 
-void ParticleAssetFieldCollection::onTamlCustomRead( const TamlCollection& customCollection )
+void ParticleAssetFieldCollection::onTamlCustomRead( const TamlCustomProperties& customProperties )
 {
     // Debug Profiling.
     PROFILE_SCOPE(ParticleAssetFieldCollection_OnTamlCustomRead);
 
-    // Find the particle asset collection property.
-    const TamlCollectionProperty* pParticleAssetCollectionProperty = customCollection.findProperty( particleAssetFieldCollectionName );
+    // Find the particle asset custom property.
+    const TamlCustomProperty* pParticleAssetCustomProperty = customProperties.findProperty( particleAssetFieldCollectionName );
 
-    // Finish if we don't have a collection property.
-    if ( pParticleAssetCollectionProperty == NULL )
+    // Finish if we don't have a custom property.
+    if ( pParticleAssetCustomProperty == NULL )
         return;
 
-    // Iterate the collection.
-    for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pParticleAssetCollectionProperty->begin(); propertyTypeAliasItr != pParticleAssetCollectionProperty->end(); ++propertyTypeAliasItr )
+    // Iterate the custom properties.
+    for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pParticleAssetCustomProperty->begin(); propertyTypeAliasItr != pParticleAssetCustomProperty->end(); ++propertyTypeAliasItr )
     {
         // Fetch property type alias.
         TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;

@@ -121,29 +121,29 @@ void TamlXmlWriter::compileCustomElements( TiXmlElement* pXmlElement, const Taml
     // Debug Profiling.
     PROFILE_SCOPE(TamlXmlWriter_CompileCustomElements);
 
-    // Fetch custom collection.
-    const TamlCollection& customCollection = pTamlWriteNode->mCustomCollection;
+    // Fetch custom properties.
+    const TamlCustomProperties& customProperties = pTamlWriteNode->mCustomProperties;
 
     // Finish if no custom properties exist.
-    if ( customCollection.size() == 0 )
+    if ( customProperties.size() == 0 )
         return;
 
-    // Iterate collection properties.
-    for( TamlCollection::const_iterator collectionPropertyItr = customCollection.begin(); collectionPropertyItr != customCollection.end(); ++collectionPropertyItr )
+    // Iterate custom properties.
+    for( TamlCustomProperties::const_iterator customPropertyItr = customProperties.begin(); customPropertyItr != customProperties.end(); ++customPropertyItr )
     {
-        // Fetch collection property.
-        TamlCollectionProperty* pCollectionProperty = *collectionPropertyItr;
+        // Fetch custom property.
+        TamlCustomProperty* pCustomProperty = *customPropertyItr;
 
         // Format extended element name.
         char extendedElementNameBuffer[256];
-        dSprintf( extendedElementNameBuffer, sizeof(extendedElementNameBuffer), "%s.%s", pXmlElement->Value(), pCollectionProperty->mPropertyName );
+        dSprintf( extendedElementNameBuffer, sizeof(extendedElementNameBuffer), "%s.%s", pXmlElement->Value(), pCustomProperty->mPropertyName );
         StringTableEntry extendedElementName = StringTable->insert( extendedElementNameBuffer );
 
         // Create element.
         TiXmlElement* pExtendedPropertyElement = new TiXmlElement( extendedElementName );
 
         // Iterate property type alias.
-        for( TamlCollectionProperty::const_iterator propertyTypeAliasItr = pCollectionProperty->begin(); propertyTypeAliasItr != pCollectionProperty->end(); ++propertyTypeAliasItr )
+        for( TamlCustomProperty::const_iterator propertyTypeAliasItr = pCustomProperty->begin(); propertyTypeAliasItr != pCustomProperty->end(); ++propertyTypeAliasItr )
         {
             // Fetch property type alias.
             TamlPropertyTypeAlias* pPropertyTypeAlias = *propertyTypeAliasItr;
@@ -178,8 +178,8 @@ void TamlXmlWriter::compileCustomElements( TiXmlElement* pXmlElement, const Taml
             pExtendedPropertyElement->LinkEndChild( pPropertyElement );
         }
 
-        // Is the collection set to ignore no type alias' and there are none.
-        if ( pCollectionProperty->mIgnoreEmpty && pExtendedPropertyElement->NoChildren() )
+        // Is the custom property set to ignore no type alias' and there are none.
+        if ( pCustomProperty->mIgnoreEmpty && pExtendedPropertyElement->NoChildren() )
         {
             // Yes, so delete the extended element.
             delete pExtendedPropertyElement;
