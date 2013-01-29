@@ -286,7 +286,6 @@ void StringBuffer::insert(const U32 charOffset, const UTF16* in, const U32 len)
 
    // Figure the address to start copying at. We know this is ok as otherwise
    // we'd be in the append case.
-   // UNUSED: JOSEPH THOMAS -> const UTF16 *copyStart = &mBuffer[charOffset];
 
    // Figure the number of UTF16's to copy, taking into account the possibility
    // that we may be inserting a long string into a short string.

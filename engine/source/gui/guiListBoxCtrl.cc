@@ -43,15 +43,15 @@ bool GuiListBoxCtrl::onWake()
 // Item Accessors
 //////////////////////////////////////////////////////////////////////////
 ConsoleMethod( GuiListBoxCtrl, setMultipleSelection, void, 3, 3, "(bool setMS) Set the MultipleSelection field.\n"
-			  "@return No return value.\n"
-			  "@note %listBox.setMultipleSelection([true/false])")
+              "@return No return value.\n"
+              "@note %listBox.setMultipleSelection([true/false])")
 {
    object->setMultipleSelection( dAtob( argv[2] ) );
 }
 
 
 ConsoleMethod( GuiListBoxCtrl, clearItems, void, 2, 2, "() Clears all the items in the listbox\n" 
-			  "@return No return value.")
+              "@return No return value.")
 {
    object->clearItems();
 }
@@ -69,7 +69,7 @@ void GuiListBoxCtrl::clearItems()
 
 
 ConsoleMethod( GuiListBoxCtrl, clearSelection, void, 2, 2, "() Sets all currently selected items to unselected\n"
-			  "@return No return value.")
+              "@return No return value.")
 {
    object->clearSelection();
 }
@@ -87,9 +87,9 @@ void GuiListBoxCtrl::clearSelection()
 
 
 ConsoleMethod( GuiListBoxCtrl, setSelected, void, 3, 4, "(S32 index, bool setting) Sets the item at the index specified to selected or not"
-			  "@param index The index of the item you wish to modify.\n"
-			  "@param setting A boolean value. True sets it as selected; false, not selected.\n"
-			  "@return No return value.")
+              "@param index The index of the item you wish to modify.\n"
+              "@param setting A boolean value. True sets it as selected; false, not selected.\n"
+              "@return No return value.")
 {
    bool value = true;
    if( argc == 4 )
@@ -218,7 +218,6 @@ S32 GuiListBoxCtrl::getSelectedItem()
    if( mSelectedItems.empty() || mItems.empty() )
       return -1;
 
-   // UNUSED: JOSEPH THOMAS -> S32 i = 0;
    for( S32 i = 0 ; i < mItems.size(); i++ )
       if( mItems[i]->isSelected )
          return i;
@@ -268,10 +267,10 @@ void GuiListBoxCtrl::getSelectedItems( Vector<S32> &Items )
 }
 
 ConsoleMethod(GuiListBoxCtrl, findItemText, S32, 3, 4, " (string itemText, bool caseSensitive) Find the item with the given text.\n"
-			  "@param itemText The text to search for.\n"
-			  "@param caseSensitive Sets whether or not to ignore text in the search.\n"
-			  "@return Returns index of item with matching text or -1 if none"
-			  "@note %listBox.findItemText( myItemText, [?caseSensitive - false] )")
+              "@param itemText The text to search for.\n"
+              "@param caseSensitive Sets whether or not to ignore text in the search.\n"
+              "@return Returns index of item with matching text or -1 if none"
+              "@note %listBox.findItemText( myItemText, [?caseSensitive - false] )")
 {
    bool bCaseSensitive = false;
 
@@ -309,7 +308,7 @@ S32 GuiListBoxCtrl::findItemText( StringTableEntry text, bool caseSensitive )
 }
 
 ConsoleMethod(GuiListBoxCtrl, setCurSel, void, 3, 3, "(index) Sets the currently selected item at the specified index\n"
-			  "@return No return value.")
+              "@return No return value.")
 {
    object->setCurSel( dAtoi( argv[2] ) );
 }
@@ -336,9 +335,9 @@ void GuiListBoxCtrl::setCurSel( S32 index )
 
 ConsoleMethod( GuiListBoxCtrl, setCurSelRange, void, 3, 4, "(start,[stop]) Sets the current selection range from"
               "index start to stop.\n"
-			  "@param start The start of the selection range.\n"
-			  "@param stop The stopping point of the selection range. If no stop is specified it sets from start index to the end of the list\n"
-			  "@return No return value.")
+              "@param start The start of the selection range.\n"
+              "@param stop The stopping point of the selection range. If no stop is specified it sets from start index to the end of the list\n"
+              "@return No return value.")
 {
    if( argc == 4 )
       object->setCurSelRange( dAtoi(argv[2]) , dAtoi( argv[3] ) );
@@ -367,9 +366,9 @@ void GuiListBoxCtrl::setCurSelRange( S32 start, S32 stop )
 
 
 ConsoleMethod( GuiListBoxCtrl, addItem, void, 3, 4, "(text, [color]) Adds an item to the end of the list with an optional color\n" 
-			  "@param text The object text.\n"
-			  "@param color Optional color setting.\n"
-			  "@return No return value.")
+              "@param text The object text.\n"
+              "@param color Optional color setting.\n"
+              "@return No return value.")
 {
    if(argc == 3)
    {
@@ -378,20 +377,20 @@ ConsoleMethod( GuiListBoxCtrl, addItem, void, 3, 4, "(text, [color]) Adds an ite
    {
       U32 elementCount = GuiListBoxCtrl::getStringElementCount(argv[3]);
 
-	  if(elementCount == 3)
-	  {
+      if(elementCount == 3)
+      {
          F32 red, green, blue;
 
-		 red = dAtof(GuiListBoxCtrl::getStringElement( argv[3], 0 ));
-		 green = dAtof(GuiListBoxCtrl::getStringElement( argv[3], 1 ));
-		 blue = dAtof(GuiListBoxCtrl::getStringElement( argv[3], 2 ));
+         red = dAtof(GuiListBoxCtrl::getStringElement( argv[3], 0 ));
+         green = dAtof(GuiListBoxCtrl::getStringElement( argv[3], 1 ));
+         blue = dAtof(GuiListBoxCtrl::getStringElement( argv[3], 2 ));
 
-		 object->addItemWithColor( argv[2], ColorF(red, green, blue) );
-	  } 
+         object->addItemWithColor( argv[2], ColorF(red, green, blue) );
+      } 
      else
-	  {
+      {
          Con::warnf("GuiListBoxCtrl::addItem() - Invalid number of parameters for the color!");
-	  }
+      }
 
    } else
    {
@@ -411,9 +410,9 @@ S32 GuiListBoxCtrl::addItemWithColor( StringTableEntry text, ColorF color, void 
 }
 
 ConsoleMethod(GuiListBoxCtrl, setItemColor, void, 4, 4, "(index, color) Sets the color of the item at given index.\n"
-			  "@param index The index of the item you wish to modify.\n"
-			  "@param color The color you wish to set the object to.\n"
-			  "@return No return value.")
+              "@param index The index of the item you wish to modify.\n"
+              "@param color The color you wish to set the object to.\n"
+              "@return No return value.")
 {
    U32 elementCount = GuiListBoxCtrl::getStringElementCount(argv[3]);
 
@@ -443,8 +442,8 @@ void GuiListBoxCtrl::setItemColor( S32 index, ColorF color )
 }
 
 ConsoleMethod(GuiListBoxCtrl, clearItemColor, void, 3, 3, "(index) Clears the color of the item at index.\n"
-			  "@param index The index of the item to modify.\n"
-			  "@return No return value.")
+              "@param index The index of the item to modify.\n"
+              "@return No return value.")
 {
    object->clearItemColor(dAtoi(argv[2]));
 }
@@ -462,9 +461,9 @@ void GuiListBoxCtrl::clearItemColor( S32 index )
 }
 
 ConsoleMethod( GuiListBoxCtrl, insertItem, void, 4, 4, "( text, index ) Inserts an item into the list at the specified index.\n"
-			  "@param text The desired object text.\n"
-			  "@param index The index to set the object at.\n"
-			  "@return Returns the index assigned or -1 on error")
+              "@param text The desired object text.\n"
+              "@param index The index to set the object at.\n"
+              "@return Returns the index assigned or -1 on error")
 {
    object->insertItem( dAtoi( argv[3] ), argv[2] );
 }
@@ -553,8 +552,8 @@ S32 GuiListBoxCtrl::insertItemWithColor( S32 index, StringTableEntry text, Color
 }
 
 ConsoleMethod ( GuiListBoxCtrl, deleteItem, void, 3, 3, "(index) Deletes the item at the given index.\n"
-			   "@param index The index of the item to delete.\n"
-			   "@return No return value.")
+               "@param index The index of the item to delete.\n"
+               "@return No return value.")
 {
    object->deleteItem( dAtoi( argv[2] ) );
 }
@@ -616,9 +615,9 @@ StringTableEntry GuiListBoxCtrl::getItemText( S32 index )
 
 
 ConsoleMethod( GuiListBoxCtrl, setItemText, void, 4, 4, "(index, newtext) Sets the item's text at the specified index\n"
-			  "@param index The index of the item to modify.\n"
-			  "@param newtext The new text to set to the object.\n"
-			  "@return No return value.")
+              "@param index The index of the item to modify.\n"
+              "@param newtext The new text to set to the object.\n"
+              "@return No return value.")
 {
    object->setItemText( dAtoi( argv[2] ), argv[3] );
 }

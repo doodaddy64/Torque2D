@@ -15,7 +15,7 @@ IMPLEMENT_CONOBJECT(GuiCheckBoxCtrl);
 GuiCheckBoxCtrl::GuiCheckBoxCtrl()
 {
    mBounds.extent.set(140, 30);
-	mStateOn = false;
+    mStateOn = false;
    mIndent = 0;
    mButtonType = ButtonTypeCheck;
    mUseInactiveState = false;
@@ -52,7 +52,6 @@ void GuiCheckBoxCtrl::onMouseDown(const GuiEvent& event)
 
    if (mProfile->mSoundButtonDown)
    {
-      // UNUSED: JOSEPH THOMAS -> F32 pan = (F32(event.mousePoint.x)/F32(Canvas->mBounds.extent.x)*2.0f-1.0f)*0.8f;
       AUDIOHANDLE handle = alxCreateSource(mProfile->mSoundButtonDown);
       alxPlay(handle);
    }
@@ -104,7 +103,7 @@ void GuiCheckBoxCtrl::onAction()
       // Execute the console command (if any)
       if( mConsoleCommand[0] )
          Con::evaluate( mConsoleCommand, false );
-	}
+    }
    setUpdate();
 
    // Provide and onClick script callback.
@@ -117,11 +116,11 @@ void GuiCheckBoxCtrl::onRender(Point2I offset, const RectI &updateRect)
 {
    ColorI backColor = mActive ? mProfile->mFillColor : mProfile->mFillColorNA;
    ColorI fontColor = mMouseOver ? mProfile->mFontColorHL : mProfile->mFontColor;
-	ColorI insideBorderColor = isFirstResponder() ? mProfile->mBorderColorHL : mProfile->mBorderColor;
+    ColorI insideBorderColor = isFirstResponder() ? mProfile->mBorderColorHL : mProfile->mBorderColor;
 
    // just draw the check box and the text:
    S32 xOffset = 0;
-	dglClearBitmapModulation();
+    dglClearBitmapModulation();
    if(mProfile->mBitmapArrayRects.size() >= 4)
    {
        // if size >= 4 then the inactive state images should be present
@@ -135,22 +134,22 @@ void GuiCheckBoxCtrl::onRender(Point2I offset, const RectI &updateRect)
       dglDrawBitmapSR(mProfile->mTextureHandle, offset + Point2I(mIndent, y), mProfile->mBitmapArrayRects[index]);
    }
    
-	if(mButtonText[0] != '\0')
-	{
-	   dglSetBitmapModulation( fontColor );
+    if(mButtonText[0] != '\0')
+    {
+       dglSetBitmapModulation( fontColor );
       renderJustifiedText(Point2I(offset.x + xOffset, offset.y),
                           Point2I(mBounds.extent.x - mBounds.extent.y, mBounds.extent.y),
                           mButtonText);
-  	}
+    }
    //render the children
    renderChildControls(offset, updateRect);
 }
 
 ConsoleMethod(GuiCheckBoxCtrl, setStateOn, void, 3, 3, "(state) Sets the control as active and updates siblings of the same group."
-			  "@param state This argument may be a boolean value or an integer."
-			  "state < 0: Parent::setStateOn(false), obj::setActive(false)\n"
-			  "state == 0 (or false): Parent::setStateOn(false), obj::setActive(true)\n"
-			  "state > 0 (or true): Parent::setStateOn(true), obj::setActive(true)")
+              "@param state This argument may be a boolean value or an integer."
+              "state < 0: Parent::setStateOn(false), obj::setActive(false)\n"
+              "state == 0 (or false): Parent::setStateOn(false), obj::setActive(true)\n"
+              "state > 0 (or true): Parent::setStateOn(true), obj::setActive(true)")
 {
    if (dStricmp(argv[2], "true") == 0)
       object->setStateOn(1);

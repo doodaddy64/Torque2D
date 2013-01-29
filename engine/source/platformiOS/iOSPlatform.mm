@@ -21,7 +21,7 @@ const char* Platform::getUserDataDirectory()
    // this may change with later usage
    // perhaps the user data directory should be pref-controlled?
    //NSString *nsDataDir = [@"~/Library/Application Support/" stringByStandardizingPath];
-	//-Mat using Documents directory in same folder as .app 
+    //-Mat using Documents directory in same folder as .app 
    NSString *nsDataDir = [@"~/Documents/" stringByStandardizingPath];
    return StringTable->insert([nsDataDir UTF8String]);
 }
@@ -83,8 +83,8 @@ static _NSAlertResultMap sgAlertResultMap[] =
 //-----------------------------------------------------------------------------
 S32 Platform::messageBox(const UTF8 *title, const UTF8 *message, MBButtons buttons, MBIcons icon)
 {
-	Platform::AlertOK( title, message );//<Mat> maybe add in a a way to do other buttons
-	return 1;
+    Platform::AlertOK( title, message );//<Mat> maybe add in a a way to do other buttons
+    return 1;
 }
 
 #pragma mark ---- File IO ----
@@ -103,9 +103,9 @@ bool Platform::pathCopy(const char* source, const char* dest, bool nooverwrite)
       Con::errorf("Platform::pathCopy: no file exists at %s",source);
       return false;
    }
-	
-	//Catcher for the errors.
-	NSError** returnValue = nil;
+    
+    //Catcher for the errors.
+    NSError** returnValue = nil;
    
    if( [manager fileExistsAtPath:ndest] )
    {
@@ -114,7 +114,7 @@ bool Platform::pathCopy(const char* source, const char* dest, bool nooverwrite)
          Con::errorf("Platform::pathCopy file already exists at %s",dest);
          return false;
       }
-	   
+       
       Con::warnf("Deleting files at path: %s", dest);
       bool deleted = [manager removeItemAtPath:ndest error:returnValue];
       if(!deleted)
@@ -158,8 +158,8 @@ bool Platform::fileRename(const char *source, const char *dest)
    {
       Con::warnf("Platform::fileRename: Deleting files at path: %s", dest);
    }
-	
-	NSError** returnValue = NULL;
+    
+    NSError** returnValue = NULL;
    
    bool ret = [manager moveItemAtPath:nsource toPath:ndest error:returnValue];
   
@@ -258,15 +258,13 @@ void ExecuteThread::run(void* arg)
 
 ConsoleFunction(shellExecute, bool, 2, 4, "(executable, [args], [directory])")
 {
-   // INVESTIGATE: JOSEPH THOMAS
-   // UNUSED: JOSEPH THOMAS -> ExecuteThread *et = new ExecuteThread(argv[1], argc > 2 ? argv[2] : NULL, argc > 3 ? argv[3] : NULL);
    return true; // Bug: BPNC error: need feedback on whether the command was sucessful
 }
 
 
 void Input::setCursorShape(U32 cursorID)
 {
-	//no cursors on iOS except Torque cursors
+    //no cursors on iOS except Torque cursors
 }
 
 void Input::setCursorState(bool on)

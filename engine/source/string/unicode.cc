@@ -179,7 +179,6 @@ const U32 convertUTF32toUTF16(const UTF32 *unistring, UTF16 *outbuffer, U32 len)
 {
    AssertFatal(len >= 1, "Buffer for unicode conversion must be large enough to hold at least the null terminator.");
    PROFILE_START(convertUTF32toUTF16);
-   // UNUSED: JOSEPH THOMAS -> U32 walked, 
    U32 nCodepoints;
    
    nCodepoints=0;
@@ -547,7 +546,6 @@ const U32 dStrlen(const UTF32 *unistring)
 //-----------------------------------------------------------------------------
 const U32 dStrncmp(const UTF16* unistring1, const UTF16* unistring2, U32 len)
 {
-   // UNUSED: JOSEPH THOMAS -> S32 i;
    UTF16 c1, c2;
    for(U32 i = 0; i<len; i++)
    {
@@ -563,7 +561,6 @@ const U32 dStrncmp(const UTF16* unistring1, const UTF16* unistring2, U32 len)
 //-----------------------------------------------------------------------------
 const U32 dStrncmp(const UTF32* unistring1, const UTF32* unistring2, U32 len)
 {
-   // UNUSED: JOSEPH THOMAS -> S32 i;
    UTF32 c1, c2;
    for(U32 i = 0; i<len; i++)
    {

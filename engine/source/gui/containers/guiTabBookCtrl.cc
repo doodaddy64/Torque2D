@@ -525,12 +525,9 @@ void GuiTabBookCtrl::calculatePageTabs()
 
    S32 currRow    = 0;
    S32 currColumn = 0;
-   // UNUSED: JOSEPH THOMAS -> S32 maxRow     = 0;
-   // UNUSED: JOSEPH THOMAS -> S32 maxColumn  = 0;
    S32 currX      = 0;
    S32 currY      = 0;
    S32 maxWidth   = 0;
-   // UNUSED: JOSEPH THOMAS -> S32 maxHeight  = 0;
 
    for( S32 i = 0; i < mPages.size(); i++ )
    {

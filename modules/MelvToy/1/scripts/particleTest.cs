@@ -36,10 +36,10 @@ function runParticleTest()
     %emitter.AttachRotationToEmitter = false;
 
     %emitter.selectField( "Quantity" );    
-        %emitter.setSingleDataKey( 1 );
+        %emitter.setSingleDataKey( 50 );
 
     %emitter.selectField( "Lifetime" ); 
-        %emitter.setSingleDataKey( 10 );
+        %emitter.setSingleDataKey( 3 );
 
     //%emitter.selectField( "LifetimeVariation" ); 
         //%emitter.setSingleDataKey( 1 );
@@ -153,13 +153,13 @@ function runParticleTest()
     //TamlRead( %assetFilePath );   
     
     %particlePlayer = new ParticlePlayer();
-    SandboxScene.add( %particlePlayer );
-    %particlePlayer.setSize( 10, 10 );
-    %particlePlayer.ParticleInterpolation = false;
+    %particlePlayer.Position = "-40 0";
+    %particlePlayer.Size = 10;
+    %particlePlayer.ParticleInterpolation = true;
     //%particlePlayer.CameraIdleDistance = 50;
     %particlePlayer.Particle = "MelvToy:" @ %particleAssetName;
-    //%particlePlayer.Particle = "MelvToy:MagicParticle";
-    %particlePlayer.play();
+    SandboxScene.add( %particlePlayer );
+    //%particlePlayer.play();
     //%particlePlayer.visible = false;
     //%particlePlayer.setLinearVelocity( 10, 0 );
     //%particlePlayer.setAngularVelocity( -180 );

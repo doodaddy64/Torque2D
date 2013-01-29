@@ -158,7 +158,6 @@ struct PacketStatus
 };
 
 static Vector<PacketStatus> gPacketStatusList(__FILE__, __LINE__);
-// UNUSED: JOSEPH THOMAS -> static U8 sendPacketData[MaxPacketDataSize];
 
 //-----------------------------------------------------------------------------
 
@@ -526,7 +525,6 @@ ConsoleFunction( queryMasterServer, void, 11, 11, "( flags , gametype , missiont
    U32 maxPing = dAtoi(argv[8]);
    U16 minCPU = dAtoi(argv[9]);
    U8 filterFlags = dAtoi(argv[10]);
-   // UNUSED: JOSEPH THOMAS -> U8 buddyCount = 0;
    U32 buddyList = 0;
 
    queryMasterServer(flags,gameType,missionType,minPlayers,maxPlayers,
@@ -806,7 +804,6 @@ bool pickMasterServer()
    gMasterServerPing.session = gPingSession;
 
    char addrString[256];
-   // UNUSED: JOSEPH THOMAS -> const char* regionString = NULL;
    U32 serverCount = gMasterServerList.size();
    if ( !serverCount )
    {
@@ -1219,7 +1216,6 @@ static void processPingsAndQueries( U32 session, bool schedule )
       return;
 
    U32 i = 0;
-   // UNUSED: JOSEPH THOMAS -> U32 activePings = 0;
    U32 time = Platform::getVirtualMilliseconds();
    char addressString[256];
    U8 flags = ServerFilter::OnlineQuery;

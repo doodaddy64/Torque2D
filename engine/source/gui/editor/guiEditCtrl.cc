@@ -1005,8 +1005,6 @@ void GuiEditCtrl::onMouseDragged(const GuiEvent &event)
       if( event.modifier & SI_SHIFT )
       {
          Point2I dragTotalDelta = event.mousePoint - mDragBeginPoint;
-         // UNUSED: JOSEPH THOMAS -> bool snapToOriginX = false;
-         // UNUSED: JOSEPH THOMAS -> bool snapToOriginY = false;
          if( dragTotalDelta.y < 10 && dragTotalDelta.y > -10 )
          {
             for(S32 i = 0; i < mSelectedControls.size(); i++)

@@ -868,7 +868,6 @@ S32 GuiMLTextCtrl::getTextPosition(const Point2I& localCoords)
    AssertFatal(mAwake, "Can't get the text position of a sleeping control.");
    if(mDirty)
       reflow();
-   // UNUSED: JOSEPH THOMAS -> U32 last = 0;
 
    for(Line *walk = mLineList; walk; walk = walk->next)
    {
@@ -884,7 +883,6 @@ S32 GuiMLTextCtrl::getTextPosition(const Point2I& localCoords)
             if(localCoords.x >= (S32)(awalk->xStart + awalk->width))
                continue;
             // it's in the text block...
-            // UNUSED: JOSEPH THOMAS -> U32 x = awalk->xStart;
             
             //
             // [neo, 5/7/2007]: cannot use const as getBreakPos() is not declared as const

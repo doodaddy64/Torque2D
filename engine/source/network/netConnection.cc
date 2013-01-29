@@ -599,7 +599,6 @@ void NetConnection::checkPacketSend(bool force)
       stream->writeInt(mMaxRate.packetSize, 10);
       mMaxRate.changed = false;
    }
-   // UNUSED: JOSEPH THOMAS -> U32 start = stream->getCurPos();
    DEBUG_LOG(("PKLOG %d START", getId()) );
    writePacket(stream, note);
    DEBUG_LOG(("PKLOG %d END - %d", getId(), stream->getCurPos() - start) );

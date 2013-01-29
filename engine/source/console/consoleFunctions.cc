@@ -84,7 +84,6 @@ ConsoleFunction(strpos, S32, 3, 4, "( sourceString , searchString [ , offset ] )
                                                                 "@return Returns a numeric character index representing the postion in sourceString at which searchString was found, or -1 to indicate that no instance of searchString was found.\n"
                                                                 "@sa strstr")
 {
-   // UNUSED: JOSEPH THOMAS -> S32 ret = -1;
    S32 start = 0;
    if(argc == 4)
       start = dAtoi(argv[3]);

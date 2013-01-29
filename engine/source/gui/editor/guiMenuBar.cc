@@ -58,7 +58,7 @@ IMPLEMENT_CONOBJECT(GuiMenuBar);
 //------------------------------------------------------------------------------
 
 ConsoleMethod(GuiMenuBar, clearMenus, void, 2, 2, "() Clears all menus and sub-menus from the menu bar.\n"
-																"@return No return value")
+                                                                "@return No return value")
 {
    object->clearMenus();
 }
@@ -71,9 +71,9 @@ ConsoleMethod(GuiMenuBar, setMenuMargins, void, 5, 5, "(S32 horizontalMargin, S3
 }
 
 ConsoleMethod(GuiMenuBar, addMenu, void, 4, 4, "( menuName , menuID ) Adds a new menu to the menu bar.\n"
-																"@param menuName The text (name) of the new menu entry.\n"
-																"@param menuID The ID of the new menu entry.\n"
-																"@return No return value")
+                                                                "@param menuName The text (name) of the new menu entry.\n"
+                                                                "@param menuID The ID of the new menu entry.\n"
+                                                                "@return No return value")
 {
    if(dIsdigit(argv[2][0]))
    {
@@ -84,13 +84,13 @@ ConsoleMethod(GuiMenuBar, addMenu, void, 4, 4, "( menuName , menuID ) Adds a new
 }
 
 ConsoleMethod(GuiMenuBar, addMenuItem, void, 5, 7, "( menuID | menuName , menuItemName , menuItemID , [ accelerator ] , [ checkGroup ] ) Adds a sub-menu entry to the specified menu.\n"
-																"@param menuID The ID of the menu.\n"
-																"@param menuName The text (name) of the menu.\n"
-																"@param menuItemID The ID of the menu item.\n"
-																"@param menuItemName The text (name) of the menu item.\n"
-																"@param accelerator A boolean value. If set to true, the sub-menu entry is checked, otherwise it is unchecked.\n"
-																"@param checkGroup The check group this item should belong to, if any.\n"
-																"@return No return value")
+                                                                "@param menuID The ID of the menu.\n"
+                                                                "@param menuName The text (name) of the menu.\n"
+                                                                "@param menuItemID The ID of the menu item.\n"
+                                                                "@param menuItemName The text (name) of the menu item.\n"
+                                                                "@param accelerator A boolean value. If set to true, the sub-menu entry is checked, otherwise it is unchecked.\n"
+                                                                "@param checkGroup The check group this item should belong to, if any.\n"
+                                                                "@return No return value")
 {
    if(dIsdigit(argv[3][0]))
    {
@@ -107,12 +107,12 @@ ConsoleMethod(GuiMenuBar, addMenuItem, void, 5, 7, "( menuID | menuName , menuIt
 }
 
 ConsoleMethod(GuiMenuBar, setMenuItemEnable, void, 5, 5, "( menuID | menuName , menuItemID | menuItemName , enabled ) Sets the menu item to enabled or disabled.\n"
-																"@param menuID The ID of the menu.\n"
-																"@param menuName The text (name) of the menu.\n"
-																"@param menuItemID The ID of the menu item.\n"
-																"@param menuItemName The text (name) of the menu item.\n"
-																"@param enabled A boolean value. If set to true, the sub-menu entry is enabled, otherwise it is disabled.\n"
-																"@return No return value")
+                                                                "@param menuID The ID of the menu.\n"
+                                                                "@param menuName The text (name) of the menu.\n"
+                                                                "@param menuItemID The ID of the menu item.\n"
+                                                                "@param menuItemName The text (name) of the menu item.\n"
+                                                                "@param enabled A boolean value. If set to true, the sub-menu entry is enabled, otherwise it is disabled.\n"
+                                                                "@return No return value")
 {
    GuiMenuBar::Menu *menu = object->findMenu(argv[2]);
    if(!menu)
@@ -130,18 +130,18 @@ ConsoleMethod(GuiMenuBar, setMenuItemEnable, void, 5, 5, "( menuID | menuName , 
 }
 
 ConsoleMethod(GuiMenuBar, setCheckmarkBitmapIndex, void, 3, 3, "(S32 bitmapindex) - sets the menu bitmap index for the check mark image.\n"
-			  "@return No Return Value.")
+              "@return No Return Value.")
 {
    object->mCheckmarkBitmapIndex = dAtoi(argv[2]);
 }
 
 ConsoleMethod(GuiMenuBar, setMenuItemChecked, void, 5, 5, "( menuID | menuName , menuItemID | menuItemName , checked ) Sets the menu item bitmap to a check mark, which must be the first element in the bitmap array. Any other menu items in the menu with the same check group become unchecked if they are checked.\n"
-																"@param menuID The ID of the menu.\n"
-																"@param menuName The text (name) of the menu.\n"
-																"@param menuItemID The ID of the menu item.\n"
-																"@param menuItemName The text (name) of the menu item.\n"
-																"@param checked A boolean value. If set to true, the sub-menu entry is checked, otherwise it is unchecked.\n"
-																"@return No return value")
+                                                                "@param menuID The ID of the menu.\n"
+                                                                "@param menuName The text (name) of the menu.\n"
+                                                                "@param menuItemID The ID of the menu item.\n"
+                                                                "@param menuItemName The text (name) of the menu item.\n"
+                                                                "@param checked A boolean value. If set to true, the sub-menu entry is checked, otherwise it is unchecked.\n"
+                                                                "@return No return value")
 {
    GuiMenuBar::Menu *menu = object->findMenu(argv[2]);
    if(!menu)
@@ -167,10 +167,10 @@ ConsoleMethod(GuiMenuBar, setMenuItemChecked, void, 5, 5, "( menuID | menuName ,
 }
 
 ConsoleMethod(GuiMenuBar, setMenuText, void, 4, 4, "( menuID | menuName , newMenuText ) Sets the text of the specified menu to the new string.\n"
-																"@param menuID The ID of the menu.\n"
-																"@param menuName The text (name) of the menu.\n"
-																"@param newMenuText The new text to give the menu entry.\n"
-																"@return No return value")
+                                                                "@param menuID The ID of the menu.\n"
+                                                                "@param menuName The text (name) of the menu.\n"
+                                                                "@param newMenuText The new text to give the menu entry.\n"
+                                                                "@return No return value")
 {
    if(dIsdigit(argv[3][0]))
    {
@@ -188,7 +188,7 @@ ConsoleMethod(GuiMenuBar, setMenuText, void, 4, 4, "( menuID | menuName , newMen
    object->menuBarDirty = true;
 }
 ConsoleMethod(GuiMenuBar, setMenuBitmapIndex, void, 6, 6, "(string menu, S32 bitmapindex, bool bitmaponly, bool drawborder) Sets the bitmap index for the menu and toggles rendering only the bitmap.\n"
-			  "@return No return value.")
+              "@return No return value.")
 {
    GuiMenuBar::Menu *menu = object->findMenu(argv[2]);
    if(!menu)
@@ -205,10 +205,10 @@ ConsoleMethod(GuiMenuBar, setMenuBitmapIndex, void, 6, 6, "(string menu, S32 bit
 }
 
 ConsoleMethod(GuiMenuBar, setMenuVisible, void, 4, 4, "( menuID | menuName , visible ) Use the setMenuVisible method to enable or disable the visibility of a specific menu entry.\n"
-																"@param menuID The ID of the menu.\n"
-																"@param menuName The text (name) of the menu.\n"
-																"@param visible A boolean value. If set to true, this menu entry will be shown, otherwise it will be hidden.\n"
-																"@return No return value")
+                                                                "@param menuID The ID of the menu.\n"
+                                                                "@param menuName The text (name) of the menu.\n"
+                                                                "@param visible A boolean value. If set to true, this menu entry will be shown, otherwise it will be hidden.\n"
+                                                                "@return No return value")
 {
    GuiMenuBar::Menu *menu = object->findMenu(argv[2]);
    if(!menu)
@@ -222,12 +222,12 @@ ConsoleMethod(GuiMenuBar, setMenuVisible, void, 4, 4, "( menuID | menuName , vis
 }
 
 ConsoleMethod(GuiMenuBar, setMenuItemText, void, 5, 5, "( menuID | menuName , menuItemID | menuItemName , newMenuItemText ) Sets the text of the specified menu item to the new string.\n"
-																"@param menuID The ID of the menu.\n"
-																"@param menuName The text (name) of the menu.\n"
-																"@param menuItemID The ID of the menu item.\n"
-																"@param menuItemName The text (name) of the menu item.\n"
-																"@param newMenuItemText The new text for the specified sub-menu entry.\n"
-																"@return No return value")
+                                                                "@param menuID The ID of the menu.\n"
+                                                                "@param menuName The text (name) of the menu.\n"
+                                                                "@param menuItemID The ID of the menu item.\n"
+                                                                "@param menuItemName The text (name) of the menu item.\n"
+                                                                "@param newMenuItemText The new text for the specified sub-menu entry.\n"
+                                                                "@return No return value")
 {
    if(dIsdigit(argv[4][0]))
    {
@@ -251,12 +251,12 @@ ConsoleMethod(GuiMenuBar, setMenuItemText, void, 5, 5, "( menuID | menuName , me
 }
 
 ConsoleMethod(GuiMenuBar, setMenuItemVisible, void, 5, 5, "( menuID | menuName, menuItemID | menuItemName, visible ) Use the setMenuItemVisible method to enable or disable the visibility of a specific sub-menu entry.\n"
-																"@param menuID The ID of the menu.\n"
-																"@param menuName The text (name) of the menu.\n"
-																"@param menuItemID The ID of the menu item.\n"
-																"@param menuItemName The text (name) of the menu item.\n"
-																"@param visible A boolean value. If set to true, this sub-menu entry will be shown, otherwise it will be hidden.\n"
-																"@return No return value")
+                                                                "@param menuID The ID of the menu.\n"
+                                                                "@param menuName The text (name) of the menu.\n"
+                                                                "@param menuItemID The ID of the menu item.\n"
+                                                                "@param menuItemName The text (name) of the menu item.\n"
+                                                                "@param visible A boolean value. If set to true, this sub-menu entry will be shown, otherwise it will be hidden.\n"
+                                                                "@return No return value")
 {
    GuiMenuBar::Menu *menu = object->findMenu(argv[2]);
    if(!menu)
@@ -274,12 +274,12 @@ ConsoleMethod(GuiMenuBar, setMenuItemVisible, void, 5, 5, "( menuID | menuName, 
 }
 
 ConsoleMethod(GuiMenuBar, setMenuItemBitmap, void, 5, 5, "( menuID | menuName , menuItemID | menuItemName , bitmapIndex ) Sets the specified menu item bitmap index in the bitmap array. Setting the item's index to -1 will remove any bitmap.\n"
-																"@param menuID The ID of the menu.\n"
-																"@param menuName The text (name) of the menu.\n"
-																"@param menuItemID The ID of the menu item.\n"
-																"@param menuItemName The text (name) of the menu item.\n"
-																"@param bitMapIndex An integer value specifying the row of bitmap entries to use for sub-menu entry.\n"
-																"@return No return value")
+                                                                "@param menuID The ID of the menu.\n"
+                                                                "@param menuName The text (name) of the menu.\n"
+                                                                "@param menuItemID The ID of the menu item.\n"
+                                                                "@param menuItemName The text (name) of the menu item.\n"
+                                                                "@param bitMapIndex An integer value specifying the row of bitmap entries to use for sub-menu entry.\n"
+                                                                "@return No return value")
 {
    GuiMenuBar::Menu *menu = object->findMenu(argv[2]);
    if(!menu)
@@ -297,11 +297,11 @@ ConsoleMethod(GuiMenuBar, setMenuItemBitmap, void, 5, 5, "( menuID | menuName , 
 }
 
 ConsoleMethod(GuiMenuBar, removeMenuItem, void, 4, 4, "( menuID | menuName , menuItemID | menuItemName ) Removes the specified menu item from the menu.\n"
-																"@param menuID The ID of the menu.\n"
-																"@param menuName The text (name) of the menu.\n"
-																"@param menuItemID The ID of the menu item.\n"
-																"@param menuItemName The text (name) of the menu item.\n"
-																"@return No return value")
+                                                                "@param menuID The ID of the menu.\n"
+                                                                "@param menuName The text (name) of the menu.\n"
+                                                                "@param menuItemID The ID of the menu item.\n"
+                                                                "@param menuItemName The text (name) of the menu item.\n"
+                                                                "@return No return value")
 {
    GuiMenuBar::Menu *menu = object->findMenu(argv[2]);
    if(!menu)
@@ -319,9 +319,9 @@ ConsoleMethod(GuiMenuBar, removeMenuItem, void, 4, 4, "( menuID | menuName , men
 }
 
 ConsoleMethod(GuiMenuBar, clearMenuItems, void, 3, 3, "( menuID | menuName ) Removes all the sub-menu items from the specified menu.\n"
-																"@param menuID The ID of the menu.\n"
-																"@param menuName The text (name) of the menu.\n"
-																"@return No return value")
+                                                                "@param menuID The ID of the menu.\n"
+                                                                "@param menuName The text (name) of the menu.\n"
+                                                                "@return No return value")
 {
    GuiMenuBar::Menu *menu = object->findMenu(argv[2]);
    if(!menu)
@@ -333,12 +333,12 @@ ConsoleMethod(GuiMenuBar, clearMenuItems, void, 3, 3, "( menuID | menuName ) Rem
 }
 
 ConsoleMethod(GuiMenuBar, removeMenu, void, 3, 3, "( menuID | menuName ) Removes the specified menu from the menu bar.\n"
-																"@param menuID The ID of the menu.\n"
-																"@param menuName The text (name) of the menu.\n"
-																"@param menuItemID The ID of the menu item.\n"
-																"@param menuItemName The text (name) of the menu item.\n"
-																"@param checked A boolean value. If set to true, the sub-menu entry is checked, otherwise it is unchecked.\n"
-																"@return No return value")
+                                                                "@param menuID The ID of the menu.\n"
+                                                                "@param menuName The text (name) of the menu.\n"
+                                                                "@param menuItemID The ID of the menu item.\n"
+                                                                "@param menuItemName The text (name) of the menu item.\n"
+                                                                "@param checked A boolean value. If set to true, the sub-menu entry is checked, otherwise it is unchecked.\n"
+                                                                "@return No return value")
 {
    GuiMenuBar::Menu *menu = object->findMenu(argv[2]);
    if(!menu)
@@ -355,10 +355,10 @@ ConsoleMethod(GuiMenuBar, removeMenu, void, 3, 3, "( menuID | menuName ) Removes
 //------------------------------------------------------------------------------
 
 ConsoleMethod(GuiMenuBar, setMenuItemSubmenuState, void, 5, 5, "(string menu, string menuItem, bool isSubmenu) Sets the given menu item to be a submenu\n"
-			  "@param menu The menu where the sub menu is located.\n"
-			  "@param menuItem The menu item to set as a sub menu.\n"
-			  "@param inSubmenu A boolean value signifying whether or not it is a submenu.\n"
-			  "@return No return value.")
+              "@param menu The menu where the sub menu is located.\n"
+              "@param menuItem The menu item to set as a sub menu.\n"
+              "@param inSubmenu A boolean value signifying whether or not it is a submenu.\n"
+              "@return No return value.")
 {
 
    GuiMenuBar::Menu *menu = object->findMenu(argv[2]);
@@ -404,7 +404,7 @@ ConsoleMethod(GuiMenuBar, addSubmenuItem, void, 6, 8, "(string menu, string menu
 }
 
 ConsoleMethod(GuiMenuBar, clearSubmenuItems, void, 4, 4, "(string menu, string menuItem) Removes all the menu items from the specified submenu.\n"
-			  "@return No return value.")
+              "@return No return value.")
 {
    GuiMenuBar::Menu *menu = object->findMenu(argv[2]);
    if(!menu)
@@ -482,28 +482,28 @@ void GuiMenuBar::addMenu(const char *menuText, U32 menuId)
    // add it to the menu list
    menuBarDirty = true;
    Menu **walk;
-	for(walk = &menuList; *walk; walk = &(*walk)->nextMenu)
+    for(walk = &menuList; *walk; walk = &(*walk)->nextMenu)
       ;
    *walk = newMenu;
 }
 
 GuiMenuBar::Menu *GuiMenuBar::findMenu(const char *menu)
 {
-	if(dIsdigit(menu[0]))
-	{
-		U32 id = dAtoi(menu);
-		for(Menu *walk = menuList; walk; walk = walk->nextMenu)
-			if(id == walk->id)
-				return walk;
-		return NULL;
-	}
-	else
-	{
-		for(Menu *walk = menuList; walk; walk = walk->nextMenu)
-			if(!dStricmp(menu, walk->text))
-				return walk;
-		return NULL;
-	}
+    if(dIsdigit(menu[0]))
+    {
+        U32 id = dAtoi(menu);
+        for(Menu *walk = menuList; walk; walk = walk->nextMenu)
+            if(id == walk->id)
+                return walk;
+        return NULL;
+    }
+    else
+    {
+        for(Menu *walk = menuList; walk; walk = walk->nextMenu)
+            if(!dStricmp(menu, walk->text))
+                return walk;
+        return NULL;
+    }
 }
 
 GuiMenuBar::MenuItem *GuiMenuBar::findMenuItem(Menu *menu, const char *menuItem)
@@ -620,20 +620,20 @@ GuiMenuBar::MenuItem *GuiMenuBar::findSubmenuItem(Menu *menu, const char *menuIt
       U32 id = dAtoi(menuItem);
       for(MenuItem *walk = menu->firstMenuItem; walk; walk = walk->nextMenuItem)
          if(id == walk->id)
-		 {
-		    if(walk->isSubmenu)
-			{
+         {
+            if(walk->isSubmenu)
+            {
                U32 subid = dAtoi(submenuItem);
-	           for(MenuItem *subwalk = walk->firstSubmenuItem; subwalk; subwalk = subwalk->nextMenuItem)
-			   {
-				  if(subid == walk->id)
-				  {
+               for(MenuItem *subwalk = walk->firstSubmenuItem; subwalk; subwalk = subwalk->nextMenuItem)
+               {
+                  if(subid == walk->id)
+                  {
                      return subwalk;
-				  }
-			   }
-			}
-			return NULL;
-		 }
+                  }
+               }
+            }
+            return NULL;
+         }
       return NULL;
    }
    else
@@ -641,17 +641,17 @@ GuiMenuBar::MenuItem *GuiMenuBar::findSubmenuItem(Menu *menu, const char *menuIt
       // DAW: Search by name
       for(MenuItem *walk = menu->firstMenuItem; walk; walk = walk->nextMenuItem)
          if(!dStricmp(menuItem, walk->text))
-		 {
-		    if(walk->isSubmenu)
-			{
-			   for(MenuItem *subwalk = walk->firstSubmenuItem; subwalk; subwalk = subwalk->nextMenuItem)
-			   {
-			      if(!dStricmp(submenuItem, subwalk->text))
+         {
+            if(walk->isSubmenu)
+            {
+               for(MenuItem *subwalk = walk->firstSubmenuItem; subwalk; subwalk = subwalk->nextMenuItem)
+               {
+                  if(!dStricmp(submenuItem, subwalk->text))
                       return subwalk;
-			   }
-			}
-			return NULL;
-		 }
+               }
+            }
+            return NULL;
+         }
       return NULL;
    }
 }
@@ -663,7 +663,7 @@ void GuiMenuBar::addSubmenuItem(Menu *menu, MenuItem *submenu, const char *text,
    if(submenu && !submenu->isSubmenu)
    {
       Con::errorf("GuiMenuBar::addSubmenuItem: Attempting to add menuitem '%s' to an invalid submenu",text);
-	  return;
+      return;
    }
 
    // allocate the new menu item
@@ -703,7 +703,7 @@ void GuiMenuBar::removeSubmenuItem(MenuItem *menuItem, MenuItem *submenuItem)
    if(menuItem && !menuItem->isSubmenu)
    {
       Con::errorf("GuiMenuBar::removeSubmenuItem: Attempting to remove submenuitem '%s' from an invalid submenu",submenuItem->text);
-	  return;
+      return;
    }
 
    for(MenuItem **subwalk = &menuItem->firstSubmenuItem; *subwalk; subwalk = &(*subwalk)->nextMenuItem)
@@ -726,7 +726,7 @@ void GuiMenuBar::clearSubmenuItems(MenuItem *menuitem)
    if(menuitem && !menuitem->isSubmenu)
    {
       Con::errorf("GuiMenuBar::clearSubmenuItems: Attempting to clear an invalid submenu");
-	  return;
+      return;
    }
 
    while(menuitem->firstSubmenuItem)
@@ -739,7 +739,7 @@ void GuiMenuBar::clearSubmenuItems(MenuItem *menuitem)
 
 GuiMenuBar::GuiMenuBar()
 {
-	menuList = NULL;
+    menuList = NULL;
    menuBarDirty = true;
    mouseDownMenu = NULL;
    mouseOverMenu = NULL;
@@ -814,33 +814,33 @@ void GuiMenuBar::onPreRender()
          if(!walk->visible)
             continue;
 
-		 // Bounds depends on if there is a bitmap to be drawn or not
-		 if(walk->bitmapIndex == -1)
-		 {
+         // Bounds depends on if there is a bitmap to be drawn or not
+         if(walk->bitmapIndex == -1)
+         {
             // Text only
             walk->bounds.set(curX, 0, mProfile->mFont->getStrWidth(walk->text) + (mHorizontalMargin * 2), mBounds.extent.y - (mVerticalMargin * 2));
 
          } else
-		 {
+         {
             // Will the bitmap and text be draw?
             if(!walk->drawBitmapOnly)
-			{
+            {
                // Draw the bitmap and the text
                RectI *bitmapBounds = mProfile->mBitmapArrayRects.address();
-			   walk->bounds.set(curX, 0, bitmapBounds[walk->bitmapIndex].extent.x + mProfile->mFont->getStrWidth(walk->text) + (mHorizontalMargin * 2), mBounds.extent.y + (mVerticalMargin * 2));
+               walk->bounds.set(curX, 0, bitmapBounds[walk->bitmapIndex].extent.x + mProfile->mFont->getStrWidth(walk->text) + (mHorizontalMargin * 2), mBounds.extent.y + (mVerticalMargin * 2));
 
-			} else
-			{
+            } else
+            {
                // Only the bitmap will be drawn
                RectI *bitmapBounds = mProfile->mBitmapArrayRects.address();
                walk->bounds.set(curX, 0, bitmapBounds[walk->bitmapIndex].extent.x + mBitmapMargin + (mHorizontalMargin * 2), mBounds.extent.y + (mVerticalMargin * 2));
-			}
-		 }
+            }
+         }
 
          curX += walk->bounds.extent.x;
       }
-		mouseOverMenu = NULL;
-		mouseDownMenu = NULL;
+        mouseOverMenu = NULL;
+        mouseDownMenu = NULL;
    }
 }
 
@@ -861,29 +861,29 @@ void GuiMenuBar::checkMenuMouseMove(const GuiEvent &event)
 void GuiMenuBar::onMouseMove(const GuiEvent &event)
 {
    Menu *hit = findHitMenu(event.mousePoint);
-	if(hit != mouseOverMenu)
-	{
-		// DAW: If we need to, reset the mouse over menu counter and indicate
-		// that we should track it.
-		if(hit)
+    if(hit != mouseOverMenu)
+    {
+        // DAW: If we need to, reset the mouse over menu counter and indicate
+        // that we should track it.
+        if(hit)
            mMouseOverCounter = 0;
-		if(!mCountMouseOver)
-		{
+        if(!mCountMouseOver)
+        {
            // DAW: We've never started the counter, so start it.
            if(hit)
               mCountMouseOver = true;
-		}
+        }
 
-		mouseOverMenu = hit;
-		setUpdate();
-	}
+        mouseOverMenu = hit;
+        setUpdate();
+    }
 }
 
 void GuiMenuBar::onMouseLeave(const GuiEvent &event)
 {
    if(mouseOverMenu)
-		setUpdate();
-	mouseOverMenu = NULL;
+        setUpdate();
+    mouseOverMenu = NULL;
 
    // DAW: As we've left the control, don't track how long the mouse has been
    // within it.
@@ -898,38 +898,38 @@ void GuiMenuBar::onMouseLeave(const GuiEvent &event)
 void GuiMenuBar::onMouseDragged(const GuiEvent &event)
 {
    Menu *hit = findHitMenu(event.mousePoint);
-	
-	if(hit != mouseOverMenu)
-	{
-		// DAW: If we need to, reset the mouse over menu counter and indicate
-		// that we should track it.
-		if(hit)
+    
+    if(hit != mouseOverMenu)
+    {
+        // DAW: If we need to, reset the mouse over menu counter and indicate
+        // that we should track it.
+        if(hit)
            mMouseOverCounter = 0;
-		if(!mCountMouseOver)
-		{
+        if(!mCountMouseOver)
+        {
            // DAW: We've never started the counter, so start it.
            if(hit)
               mCountMouseOver = true;
-		}
+        }
 
-		mouseOverMenu = hit;
+        mouseOverMenu = hit;
       mouseDownMenu = hit;
-		setUpdate();
+        setUpdate();
       onAction();
-	}
+    }
 }
 
 void GuiMenuBar::onMouseDown(const GuiEvent &event)
 {
    mouseDownMenu = mouseOverMenu = findHitMenu(event.mousePoint);
-	setUpdate();
+    setUpdate();
    onAction();
 }
 
 void GuiMenuBar::onMouseUp(const GuiEvent &event)
 {
    mouseDownMenu = NULL;
-	setUpdate();
+    setUpdate();
 }
 
 void GuiMenuBar::onRender(Point2I offset, const RectI &updateRect)
@@ -958,20 +958,20 @@ void GuiMenuBar::onRender(Point2I offset, const RectI &updateRect)
       start.x = walk->bounds.point.x + mHorizontalMargin;
       start.y = walk->bounds.point.y + ( walk->bounds.extent.y - mProfile->mFont->getHeight() ) / 2;
 
-	  // Draw the border
-	  if(walk->drawBorder)
-	  {
+      // Draw the border
+      if(walk->drawBorder)
+      {
         RectI highlightBounds = bounds;
         highlightBounds.inset(1,1);
          if(walk == mouseDownMenu)
             renderFilledBorder(highlightBounds, mProfile->mBorderColorHL, mProfile->mFillColorHL );
          else if(walk == mouseOverMenu && mouseDownMenu == NULL)
             renderFilledBorder(highlightBounds, mProfile->mBorderColor, mProfile->mFillColor );
-	  }
+      }
 
-	  // Do we draw a bitmap?
-	  if(walk->bitmapIndex != -1)
-	  {
+      // Do we draw a bitmap?
+      if(walk->bitmapIndex != -1)
+      {
          S32 index = walk->bitmapIndex * 3;
          if(walk == mouseDownMenu)
             ++index;
@@ -980,24 +980,24 @@ void GuiMenuBar::onRender(Point2I offset, const RectI &updateRect)
 
          RectI rect = mProfile->mBitmapArrayRects[index];
 
-		 Point2I bitmapstart(start);
-		 bitmapstart.y = walk->bounds.point.y + ( walk->bounds.extent.y - rect.extent.y ) / 2;
+         Point2I bitmapstart(start);
+         bitmapstart.y = walk->bounds.point.y + ( walk->bounds.extent.y - rect.extent.y ) / 2;
 
          dglClearBitmapModulation();
          dglDrawBitmapSR(mProfile->mTextureHandle, offset + bitmapstart, rect);
 
-		 // Should we also draw the text?
-		 if(!walk->drawBitmapOnly)
-		 {
+         // Should we also draw the text?
+         if(!walk->drawBitmapOnly)
+         {
             start.x += mBitmapMargin;
             dglSetBitmapModulation( fontColor );
             dglDrawText( mProfile->mFont, start + offset, walk->text, mProfile->mFontColors );
-		 }
-	  } else
-	  {
+         }
+      } else
+      {
          dglSetBitmapModulation( fontColor );
          dglDrawText( mProfile->mFont, start + offset, walk->text, mProfile->mFontColors );
-	  }
+      }
    }
 
    renderChildControls( offset, updateRect );
@@ -1020,7 +1020,7 @@ void GuiMenuBar::buildAcceleratorMap()
             continue;
          }
          EventDescriptor accelEvent;
-			ActionMap::createEventDescriptor(item->accelerator, &accelEvent);
+            ActionMap::createEventDescriptor(item->accelerator, &accelEvent);
    
          //now we have a modifier, and a key, add them to the canvas
          GuiCanvas *root = getRoot();
@@ -1131,20 +1131,15 @@ void GuiMenuTextListCtrl::onRenderCell(Point2I offset, Point2I cell, bool select
 #ifdef TORQUE_OS_IOS
 // PUAP -Mat untested	
 //How are these used/made? cannot create in TGB GUI editor
-	   if(selected || mouseOver)
-	   {
-		   glColor4f(mProfile->mFontColorHL.red,mProfile->mFontColorHL.green,mProfile->mFontColorHL.blue, 255 );//full alpha
-	   }
+       if(selected || mouseOver)
+       {
+           glColor4f(mProfile->mFontColorHL.red,mProfile->mFontColorHL.green,mProfile->mFontColorHL.blue, 255 );//full alpha
+       }
             else
-	   {
-		   glColor4f(mProfile->mFontColor.red,mProfile->mFontColor.green,mProfile->mFontColor.blue, 255);
-	   }
-	   // UNUSED: JOSEPH THOMAS -> GLfloat vertices[] = {
-		// UNUSED: JOSEPH THOMAS ->    (GLfloat)left, (GLfloat)top,
-		// UNUSED: JOSEPH THOMAS ->    (GLfloat)right, (GLfloat)middle,
-		// UNUSED: JOSEPH THOMAS ->    (GLfloat)left, (GLfloat)bottom,
-	  // UNUSED: JOSEPH THOMAS -> };
-	   glDrawArrays(GL_TRIANGLES, 0, 3 );
+       {
+           glColor4f(mProfile->mFontColor.red,mProfile->mFontColor.green,mProfile->mFontColor.blue, 255);
+       }
+       glDrawArrays(GL_TRIANGLES, 0, 3 );
 #else
       // This is a submenu, so draw an arrow
       F32 left = (F32)(offset.x + mCellSize.x - 12);
@@ -1154,12 +1149,12 @@ void GuiMenuTextListCtrl::onRenderCell(Point2I offset, Point2I cell, bool select
       F32 middle = (F32)(top + 4);
 
       glBegin(GL_TRIANGLES);
-	     if(selected || mouseOver)
-		 {
+         if(selected || mouseOver)
+         {
             glColor3ub(mProfile->mFontColorHL.red,mProfile->mFontColorHL.green,mProfile->mFontColorHL.blue);
 
-		 } else
-		 {
+         } else
+         {
             glColor3ub(mProfile->mFontColor.red,mProfile->mFontColor.green,mProfile->mFontColor.blue);
          }
          glVertex2fv( Point3F(left, top, 0.0f) );
@@ -1215,15 +1210,15 @@ void GuiMenuTextListCtrl::onMouseUp(const GuiEvent &event)
 
 void GuiMenuTextListCtrl::onCellHighlighted(Point2I cell)
 {
-	// If this text list control is part of a submenu, then don't worry about
-	// passing this along
-	if(!isSubMenu)
-	{
-		RectI globalbounds(mBounds);
-		Point2I globalpoint = localToGlobalCoord(globalbounds.point);
-		globalbounds.point = globalpoint;
-		mMenuBarCtrl->highlightedMenuItem(cell.y, globalbounds, mCellSize);
-	}
+    // If this text list control is part of a submenu, then don't worry about
+    // passing this along
+    if(!isSubMenu)
+    {
+        RectI globalbounds(mBounds);
+        Point2I globalpoint = localToGlobalCoord(globalbounds.point);
+        globalbounds.point = globalpoint;
+        mMenuBarCtrl->highlightedMenuItem(cell.y, globalbounds, mCellSize);
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -1246,9 +1241,9 @@ bool GuiSubmenuBackgroundCtrl::pointInControl(const Point2I& parentCoordPoint)
    S32 yt = parentCoordPoint.y - mBounds.point.y;
 
    if(findHitControl(Point2I(xt,yt)) == this)
-	   return false;
+       return false;
    else
-	   return true;
+       return true;
 //   return xt >= 0 && yt >= 0 && xt < mBounds.extent.x && yt < mBounds.extent.y;
 }
 
@@ -1274,7 +1269,7 @@ void GuiMenuBar::onSleep()
 void GuiMenuBar::closeMenu()
 {
    // DAW: First close any open submenu
-	closeSubmenu();
+    closeSubmenu();
 
    // Get the selection from the text list:
    S32 selectionIndex = mTextList->getSelectedCell().y;
@@ -1322,25 +1317,25 @@ void GuiMenuBar::highlightedMenuItem(S32 selectionIndex, RectI bounds, Point2I c
       }
 
       if(list)
-	  {
+      {
          // If the highlighted item has changed...
          if(mouseOverSubmenu != list)
-		 {
+         {
             closeSubmenu();
             mouseOverSubmenu = NULL;
 
             // Check if this is a submenu.  If so, open the submenu.
             if(list->isSubmenu)
-		    {
-			   // If there are submenu items, then open the submenu
-			   if(list->firstSubmenuItem)
-			   {
-				   mouseOverSubmenu = list;
-				   onSubmenuAction(selstore, bounds, cellSize);
-			   }
-			}
-		 }
-	  }
+            {
+               // If there are submenu items, then open the submenu
+               if(list->firstSubmenuItem)
+               {
+                   mouseOverSubmenu = list;
+                   onSubmenuAction(selstore, bounds, cellSize);
+               }
+            }
+         }
+      }
    }
 }
 
@@ -1413,11 +1408,11 @@ void GuiMenuBar::onAction()
 
       char buf[512];
 
-	  // DAW: If this menu item is a submenu, then set the isSubmenu to 2 to indicate
-	  // an arrow should be drawn.  Otherwise set the isSubmenu normally.
-	  char isSubmenu = 1;
-	  if(walk->isSubmenu)
-		  isSubmenu = 2;
+      // DAW: If this menu item is a submenu, then set the isSubmenu to 2 to indicate
+      // an arrow should be drawn.  Otherwise set the isSubmenu normally.
+      char isSubmenu = 1;
+      if(walk->isSubmenu)
+          isSubmenu = 2;
 
       char bitmapIndex = 1;
       if(walk->bitmapIndex >= 0 && (walk->bitmapIndex * 3 <= mProfile->mBitmapArrayRects.size()))
@@ -1531,8 +1526,8 @@ void GuiMenuBar::onSubmenuAction(S32 selectionIndex, RectI bounds, Point2I cellS
 
       char buf[512];
 
-	  // DAW: Can't have submenus within submenus.
-	  char isSubmenu = 1;
+      // DAW: Can't have submenus within submenus.
+      char isSubmenu = 1;
 
       char bitmapIndex = 1;
       if(walk->bitmapIndex >= 0 && (walk->bitmapIndex * 3 <= mProfile->mBitmapArrayRects.size()))
@@ -1586,7 +1581,7 @@ void GuiMenuBar::onSubmenuAction(S32 selectionIndex, RectI bounds, Point2I cellS
 void GuiMenuBar::closeSubmenu()
 {
    if(!mSubmenuBackground || !mSubmenuTextList)
-	   return;
+       return;
 
    // Get the selection from the text list:
    S32 selectionIndex = mSubmenuTextList->getSelectedCell().y;
@@ -1604,8 +1599,8 @@ void GuiMenuBar::closeSubmenu()
    if ( selectionIndex != -1 )
    {
       MenuItem *list = NULL;
-	  if(mouseOverSubmenu)
-	  {
+      if(mouseOverSubmenu)
+      {
          list = mouseOverSubmenu->firstSubmenuItem;
 
          while(selectionIndex && list)
@@ -1613,7 +1608,7 @@ void GuiMenuBar::closeSubmenu()
             list = list->nextMenuItem;
             selectionIndex--;
          }
-	  }
+      }
       if(list)
          menuItemSelected(list->submenuParentMenu, list);
    }
@@ -1652,13 +1647,13 @@ void GuiMenuBar::processTick()
    {
       // DAW: If we're at a particular number of ticks, notify the script function
       if(mMouseOverCounter < mMouseHoverAmount)
-	  {
+      {
          ++mMouseOverCounter;
 
-	  } else if(mMouseOverCounter == mMouseHoverAmount)
-	  {
+      } else if(mMouseOverCounter == mMouseHoverAmount)
+      {
          ++mMouseOverCounter;
          Con::executef( this, 3, "onMouseInMenu", "1"); // Last parameter indicates if we've entered or left the menu
-	  }
+      }
    }
 }

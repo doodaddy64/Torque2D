@@ -397,7 +397,6 @@ void NetConnection::ghostWritePacket(BitStream *bstream, PacketNotify *notify)
       else
       {
          bstream->writeFlag(false);
-         // UNUSED: JOSEPH THOMAS -> U32 startPos = bstream->getCurPos();
          if(walk->flags & GhostInfo::NotYetGhosted)
          {
             S32 classId = walk->obj->getClassId(getNetClassGroup());

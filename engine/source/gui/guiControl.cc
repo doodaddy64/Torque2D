@@ -607,7 +607,6 @@ void GuiControl::renderChildControls(Point2I offset, const RectI &updateRect)
 
    S32 size = objectList.size();
    S32 size_cpy = size;
-   // UNUSED: JOSEPH THOMAS -> GuiControl *ctrl = NULL;
     //-Mat look through our vector all normal-like, trying to use an iterator sometimes gives us
    //bad cast on good objects
    for( S32 count = 0; count < objectList.size(); count++ )
@@ -885,7 +884,6 @@ ConsoleMethod( GuiControl, setCanSave, void, 3,3,"(bool canSave) Sets whether th
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void GuiControl::write(Stream &stream, U32 tabStop, U32 flags)
 {
-   // UNUSED: JOSEPH THOMAS -> GuiControl* pParent	=	getParent();
    //note: this will return false if either we, or any of our parents, are non-save controls
    bool bCanSave	=	getCanSaveParent();
    if(bCanSave)

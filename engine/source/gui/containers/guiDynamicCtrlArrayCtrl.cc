@@ -53,7 +53,6 @@ void GuiDynamicCtrlArrayControl::updateChildControls()
    mResizing = true;
 
    // Store the sum of the heights of our controls.
-   // UNUSED: JOSEPH THOMAS -> S32 totalHeight=0;
 
    Point2I curPos = getPosition();
 
@@ -82,8 +81,8 @@ void GuiDynamicCtrlArrayControl::updateChildControls()
          Point2I newPos(mColSpacing + (curCol * (mColSize + mColSpacing)), mRowSpacing + (curRow * (mRowSize + mRowSpacing)));
          gc->resize(newPos, Point2I(mColSize, mRowSize));
 
-		 childcount++;
-	  }
+         childcount++;
+      }
    }
 
    rows++;

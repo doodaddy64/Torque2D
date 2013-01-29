@@ -345,9 +345,6 @@ void GameConnection::writePacket(BitStream *bstream, PacketNotify *note)
    stringBuf[0] = 0;
    bstream->setStringBuffer(stringBuf);
                                                    
-   // UNUSED: JOSEPH THOMAS -> GamePacketNotify *gnote = (GamePacketNotify *) note;
-   // UNUSED: JOSEPH THOMAS -> U32 startPos = bstream->getCurPos();
-
    Parent::writePacket(bstream, note);
    bstream->clearCompressionPoint();
    bstream->setStringBuffer(NULL);
@@ -388,7 +385,6 @@ void GameConnection::packetReceived(PacketNotify *note)
 {
    //record the time so we can tell if we're lagging...
    mLastPacketTime = Sim::getCurrentTime();
-   // UNUSED: JOSEPH THOMAS -> GamePacketNotify *gnote = (GamePacketNotify *) note;
 
    Parent::packetReceived(note);
 }
@@ -396,7 +392,6 @@ void GameConnection::packetReceived(PacketNotify *note)
 void GameConnection::packetDropped(PacketNotify *note)
 {
    Parent::packetDropped(note);
-   // UNUSED: JOSEPH THOMAS -> GamePacketNotify *gnote = (GamePacketNotify *) note;
 }
 
 //----------------------------------------------------------------------------

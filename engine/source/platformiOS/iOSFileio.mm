@@ -289,7 +289,6 @@ File::Status File::getStatus() const
 //-----------------------------------------------------------------------------
 File::Status File::setStatus()
 {
-   // UNUSED: JOSEPH THOMAS -> const char* err = strerror(errno);
    switch (errno)
    {
       case EACCES:   // permission denied
@@ -429,7 +428,7 @@ bool Platform::getFileTimes(const char *path, FileTime *createTime, FileTime *mo
 //-----------------------------------------------------------------------------
 bool Platform::createPath(const char *file)
 {
-	//<Mat> needless console noise
+    //<Mat> needless console noise
    //Con::warnf("creating path %s",file);
    // if the path exists, we're done.
    struct stat statData;
@@ -658,7 +657,6 @@ bool Platform::isDirectory(const char *path)
 
 S32 Platform::getFileSize(const char* pFilePath)
 {
-   // UNUSED: JOSEPH THOMAS -> S32 size;
    if (!pFilePath || !*pFilePath) 
       return 0;
    
@@ -856,8 +854,8 @@ static bool recurseDumpPath(const char* curPath, Vector<Platform::FileInfo>& fil
       {
          //add the file entry to the list
          // unlike recurseDumpDirectories(), we need to return more complex info here.
-		  //<Mat> commented this out in case we ever want a dir file printout again
-		  //printf( "File Name: %s ", entry->d_name );
+          //<Mat> commented this out in case we ever want a dir file printout again
+          //printf( "File Name: %s ", entry->d_name );
          const U32 fileSize = Platform::getFileSize(pathbuf);
          fileVector.increment();
          Platform::FileInfo& rInfo = fileVector.last();
@@ -895,34 +893,34 @@ bool Platform::dumpPath(const char *path, Vector<Platform::FileInfo>& fileVector
 
 void iOSSaveStringToDevice( const char* saveNameField, const char* dataString)
 {
-	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-	NSString *convertedString = [[NSString alloc] initWithUTF8String:dataString];	
-	NSString *convertedSaveFieldName = [[NSString alloc] initWithUTF8String:saveNameField];
-	
-	[prefs setObject:convertedString forKey:convertedSaveFieldName];
-	[prefs synchronize];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *convertedString = [[NSString alloc] initWithUTF8String:dataString];	
+    NSString *convertedSaveFieldName = [[NSString alloc] initWithUTF8String:saveNameField];
+    
+    [prefs setObject:convertedString forKey:convertedSaveFieldName];
+    [prefs synchronize];
 }
 
 static const char* iOSLoadStringFromDevice(const char* saveNameField)
 {
-	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-	NSString *convertedSaveFieldName = [[NSString alloc] initWithUTF8String:saveNameField];
-	NSString *myString = [prefs stringForKey:convertedSaveFieldName];
-	return [myString UTF8String];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *convertedSaveFieldName = [[NSString alloc] initWithUTF8String:saveNameField];
+    NSString *myString = [prefs stringForKey:convertedSaveFieldName];
+    return [myString UTF8String];
 }
 
 ConsoleFunction(iOSSaveStringToDevice, void, 3, 3, "(keyName, keyString) Save's a string value to a key defined in the iOS user defaults. This can be seen as similar to the windows registry.\n"
-												   "@keyString: The string to store in this key.\n"
-												   "@keyName: The name for the key to store the string under.")
+                                                   "@keyString: The string to store in this key.\n"
+                                                   "@keyName: The name for the key to store the string under.")
 {
-	iOSSaveStringToDevice( argv[1] , argv[2] );
+    iOSSaveStringToDevice( argv[1] , argv[2] );
 }
 
 ConsoleFunction(iOSLoadStringFromDevice, const char*, 2, 2, "(keyName) Loads a string from a key defined in the iOS user defaults (saved with iOSSaveStringToDevice)\n"
-														   "@keyName: The name for the string that it was stored under.")
+                                                           "@keyName: The name for the string that it was stored under.")
 {
-	const char* result = iOSLoadStringFromDevice( argv[1] );
-	return result;
+    const char* result = iOSLoadStringFromDevice( argv[1] );
+    return result;
 }
 
 
@@ -940,7 +938,6 @@ ConsoleFunction(testHasSubdir,void,2,2,"tests platform::hasSubDirectory") {
 ConsoleFunction(testDumpDirectories,void,4,4,"testDumpDirectories('path', int depth, bool noBasePath)") {
    Vector<StringTableEntry> paths;
    S32 depth = dAtoi(argv[2]);
-   // UNUSED: JOSEPH THOMAS -> bool noBasePath = dAtob(argv[3]);
    
    Platform::addExcludedDirectory(".svn");
    

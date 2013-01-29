@@ -669,7 +669,6 @@ void SimXMLDocument::setObjectAttributes(const char* objectID)
    char textbuf[1024];
    TiXmlElement field( "Field" );
    TiXmlElement group( "FieldGroup" );
-   // UNUSED: JOSEPH THOMAS -> TiXmlNode* curGroup = NULL;
    pElement->SetAttribute( "Name", pObject->getName() );
 
 
@@ -920,7 +919,6 @@ const char* SimXMLDocument::readComment( S32 index )
    m_CurrentAttribute = 0;
 
    // Push the first element found under the current element of the given name
-   // UNUSED: JOSEPH THOMAS -> TiXmlElement* pElement;
    if(!m_paNode.empty())
    {
       const int iLastElement = m_paNode.size() - 1;
@@ -981,7 +979,6 @@ void SimXMLDocument::addText(const char* text)
    if(m_paNode.empty())
       return;
 
-   // UNUSED: JOSEPH THOMAS -> TiXmlElement* pStackTop = 0;
    const int iFinalElement = m_paNode.size() - 1;
    TiXmlElement* pNode = m_paNode[iFinalElement];
    if(!pNode)
@@ -1032,7 +1029,6 @@ void SimXMLDocument::removeText()
    if(m_paNode.empty())
       return;
 
-   // UNUSED: JOSEPH THOMAS -> TiXmlElement* pStackTop = 0;
    const int iFinalElement = m_paNode.size() - 1;
    TiXmlElement* pNode = m_paNode[iFinalElement];
    if(!pNode)
@@ -1056,7 +1052,6 @@ void SimXMLDocument::addData(const char* text)
    if(m_paNode.empty())
       return;
 
-   // UNUSED: JOSEPH THOMAS -> TiXmlElement* pStackTop = 0;
    const int iFinalElement = m_paNode.size() - 1;
    TiXmlElement* pNode = m_paNode[iFinalElement];
    if(!pNode)

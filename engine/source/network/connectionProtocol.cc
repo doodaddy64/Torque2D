@@ -48,9 +48,6 @@ void ConnectionProtocol::buildSendPacketHeader(BitStream *stream, S32 packetType
    S32 ackByteCount = ((mLastSeqRecvd - mLastRecvAckAck + 7) >> 3);
    AssertFatal(ackByteCount <= 4, "Too few ack bytes!");
 
-   // UNUSED: JOSEPH THOMAS -> S32 headerSize = 3 + ackByteCount;
-   // UNUSED: JOSEPH THOMAS -> S32 datalen = 0;
-
    if(packetType == DataPacket)
       mLastSendSeq++;
 
@@ -63,7 +60,7 @@ void ConnectionProtocol::buildSendPacketHeader(BitStream *stream, S32 packetType
    stream->writeInt(mAckMask, ackByteCount * 8);
 
    // if we're resending this header, we can't advance the
-   // sequence recieved (in case this packet drops and the prev one
+   // sequence received (in case this packet drops and the prev one
    // goes through)
 
    if(gLogToConsole)

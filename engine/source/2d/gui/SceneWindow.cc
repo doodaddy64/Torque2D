@@ -1475,11 +1475,6 @@ void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
     // Calculate current camera View ( if needed ).
     calculateCameraView( &mCameraCurrent );
 
-    // Setup new logical coordinate system.
-    glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
-    glLoadIdentity();
-
     // Fetch current camera.
     const Point2F& sceneWindowScale = mCameraCurrent.mSceneWindowScale;
     Point2F sceneMin = mCameraCurrent.mSceneMin;
@@ -1523,8 +1518,14 @@ void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
         sceneMax += mCameraShakeOffset;
     }
 
+    // Setup new logical coordinate system.
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+
     // Set orthographic projection.
-    glOrtho( sceneMin.x, sceneMax.x, sceneMin.y, sceneMax.y, 0.0f, MAX_LAYERS_SUPPORTED );
+    //glOrtho( sceneMin.x, sceneMax.x, sceneMin.y, sceneMax.y, 0.0f, MAX_LAYERS_SUPPORTED );
+    glFrustum( sceneMin.x, sceneMax.x, sceneMin.y, sceneMax.y, 0.0f, MAX_LAYERS_SUPPORTED );
 
     // Set ModelView.
     glMatrixMode(GL_MODELVIEW);

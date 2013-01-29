@@ -21,7 +21,7 @@ GuiButtonBaseCtrl::GuiButtonBaseCtrl()
    mButtonText = StringTable->insert("Button");
    mButtonTextID = StringTable->EmptyString;
    mStateOn = false;
-	mRadioGroup = -1;
+    mRadioGroup = -1;
    mButtonType = ButtonTypePush;
    mUseMouseEvents = false;
 }
@@ -33,9 +33,9 @@ bool GuiButtonBaseCtrl::onWake()
 
    // is we have a script variable, make sure we're in sync
    if ( mConsoleVariable[0] )
-   	mStateOn = Con::getBoolVariable( mConsoleVariable );
+    mStateOn = Con::getBoolVariable( mConsoleVariable );
    if(mButtonTextID && *mButtonTextID != 0)
-	   setTextID(mButtonTextID);
+       setTextID(mButtonTextID);
 
    return true;
 }
@@ -52,10 +52,10 @@ ConsoleMethod( GuiButtonBaseCtrl, setText, void, 3, 3, "(string text) - Sets the
 
 ConsoleMethod( GuiButtonBaseCtrl, setTextID, void, 3, 3, "(string id) - Sets the text of the button to the localized string." )
 {
-	object->setTextID(argv[2]);
+    object->setTextID(argv[2]);
 }
 ConsoleMethod( GuiButtonBaseCtrl, getText, const char *, 2, 2, "() - returns the text of the button.\n" 
-			  "@return The text member of the button as a char string")
+              "@return The text member of the button as a char string")
 {
    return object->getText( );
 }
@@ -117,19 +117,19 @@ void GuiButtonBaseCtrl::setStateOn( bool bStateOn )
 
 void GuiButtonBaseCtrl::setTextID(const char *id)
 {
-	S32 n = Con::getIntVariable(id, -1);
-	if(n != -1)
-	{
-		mButtonTextID = StringTable->insert(id);
-		setTextID(n);
-	}
+    S32 n = Con::getIntVariable(id, -1);
+    if(n != -1)
+    {
+        mButtonTextID = StringTable->insert(id);
+        setTextID(n);
+    }
 }
 void GuiButtonBaseCtrl::setTextID(S32 id)
 {
-	const UTF8 *str = getGUIString(id);
-	if(str)
-		setText((const char*)str);
-	//mButtonTextID = id;
+    const UTF8 *str = getGUIString(id);
+    if(str)
+        setText((const char*)str);
+    //mButtonTextID = id;
 }
 const char *GuiButtonBaseCtrl::getText()
 {
@@ -177,7 +177,6 @@ void GuiButtonBaseCtrl::onMouseDown(const GuiEvent &event)
 
    if (mProfile->mSoundButtonDown)
    {
-      // UNUSED: JOSEPH THOMAS -> F32 pan = (F32(event.mousePoint.x)/F32(Canvas->mBounds.extent.x)*2.0f-1.0f)*0.8f;
       AUDIOHANDLE handle = alxCreateSource(mProfile->mSoundButtonDown);
       alxPlay(handle);
    }
@@ -206,7 +205,6 @@ void GuiButtonBaseCtrl::onMouseEnter(const GuiEvent &event)
    {
       if ( mActive && mProfile->mSoundButtonOver )
       {
-         // UNUSED: JOSEPH THOMAS -> F32 pan = (F32(event.mousePoint.x)/F32(Canvas->mBounds.extent.x)*2.0f-1.0f)*0.8f;
          AUDIOHANDLE handle = alxCreateSource(mProfile->mSoundButtonOver);
          alxPlay(handle);
       }
@@ -246,11 +244,11 @@ void GuiButtonBaseCtrl::onMouseUp(const GuiEvent &event)
    // Execute callback
    if (mUseMouseEvents)
    {
-	   char buf[3][32];
-	   dSprintf(buf[0], 32, "%d", event.modifier);
-	   dSprintf(buf[1], 32, "%d %d", event.mousePoint.x, event.mousePoint.y);
-	   dSprintf(buf[2], 32, "%d", event.mouseClickCount);
-	   Con::executef(this, 4, "onMouseUp", buf[0], buf[1], buf[2]);
+       char buf[3][32];
+       dSprintf(buf[0], 32, "%d", event.modifier);
+       dSprintf(buf[1], 32, "%d %d", event.mousePoint.x, event.mousePoint.y);
+       dSprintf(buf[2], 32, "%d", event.mouseClickCount);
+       Con::executef(this, 4, "onMouseUp", buf[0], buf[1], buf[2]);
    }
 
    mDepressed = false;
@@ -274,12 +272,11 @@ bool GuiButtonBaseCtrl::onKeyDown(const GuiEvent &event)
    if ((event.keyCode == KEY_RETURN || event.keyCode == KEY_SPACE)
        && event.modifier == 0)
    {
-	   if ( mProfile->mSoundButtonDown )
-	   {
-	      // UNUSED: JOSEPH THOMAS -> F32 pan = ( F32( event.mousePoint.x ) / F32( Canvas->mBounds.extent.x ) * 2.0f - 1.0f ) * 0.8f;
-	      AUDIOHANDLE handle = alxCreateSource( mProfile->mSoundButtonDown );
-	      alxPlay( handle );
-	   }
+       if ( mProfile->mSoundButtonDown )
+       {
+          AUDIOHANDLE handle = alxCreateSource( mProfile->mSoundButtonDown );
+          alxPlay( handle );
+       }
       return true;
    }
    //otherwise, pass the event to it's parent
@@ -309,11 +306,11 @@ bool GuiButtonBaseCtrl::onKeyUp(const GuiEvent &event)
 //---------------------------------------------------------------------------
 void GuiButtonBaseCtrl::setScriptValue(const char *value)
 {
-	mStateOn = dAtob(value);
+    mStateOn = dAtob(value);
 
-	// Update the console variable:
-	if ( mConsoleVariable[0] )
-		Con::setBoolVariable( mConsoleVariable, mStateOn );
+    // Update the console variable:
+    if ( mConsoleVariable[0] )
+        Con::setBoolVariable( mConsoleVariable, mStateOn );
 
    setUpdate();
 }
@@ -321,7 +318,7 @@ void GuiButtonBaseCtrl::setScriptValue(const char *value)
 //---------------------------------------------------------------------------
 const char *GuiButtonBaseCtrl::getScriptValue()
 {
-	return mStateOn ? "1" : "0";
+    return mStateOn ? "1" : "0";
 }
 
 //---------------------------------------------------------------------------
@@ -341,8 +338,8 @@ void GuiButtonBaseCtrl::onAction()
         //if( mConsoleCommand[0] )
         //   Con::evaluate( mConsoleCommand, false );
 
-	}
-	else if(mButtonType == ButtonTypeRadio)
+    }
+    else if(mButtonType == ButtonTypeRadio)
     {
         mStateOn = true;
         messageSiblings(mRadioGroup);
@@ -360,11 +357,11 @@ void GuiButtonBaseCtrl::onAction()
 //---------------------------------------------------------------------------
 void GuiButtonBaseCtrl::onMessage( GuiControl *sender, S32 msg )
 {
-	Parent::onMessage(sender, msg);
-	if( mRadioGroup == msg && mButtonType == ButtonTypeRadio )
-	{
-		setUpdate();
-		mStateOn = ( sender == this );
-	}
+    Parent::onMessage(sender, msg);
+    if( mRadioGroup == msg && mButtonType == ButtonTypeRadio )
+    {
+        setUpdate();
+        mStateOn = ( sender == this );
+    }
 }
 

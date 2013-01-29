@@ -254,9 +254,6 @@ void renderFilledBorder( RectI &bounds, GuiControlProfile *profile )
 
 void renderFilledBorder( RectI &bounds, ColorI &borderColor, ColorI &fillColor )
 {
-   // UNUSED: JOSEPH THOMAS -> S32 l = bounds.point.x, r = bounds.point.x + bounds.extent.x - 1;
-   // UNUSED: JOSEPH THOMAS -> S32 t = bounds.point.y, b = bounds.point.y + bounds.extent.y - 1;
-
    RectI fillBounds = bounds;
    fillBounds.inset( 1, 1 );
    dglDrawRect( bounds, borderColor ); 

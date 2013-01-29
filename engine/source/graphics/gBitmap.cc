@@ -319,44 +319,12 @@ void bitmapExtrudeRGB_c(const void *srcMip, void *mip, U32 srcHeight, U32 srcWid
 //--------------------------------------------------------------------------
 void bitmapExtrudePaletted_c(const void *srcMip, void *mip, U32 srcHeight, U32 srcWidth)
 {
-   // UNUSED: JOSEPH THOMAS -> const U8 *src = (const U8 *) srcMip;
-   // UNUSED: JOSEPH THOMAS -> U8 *dst = (U8 *) mip;
-   // UNUSED: JOSEPH THOMAS -> U32 stride = srcHeight != 1 ? (srcWidth) * 3 : 0;
-
    U32 width  = srcWidth  >> 1;
    U32 height = srcHeight >> 1;
    if (width  == 0) width  = 1;
    if (height == 0) height = 1;
 
    dMemset(mip, 0, width * height);
-
-//    if (srcWidth != 1) {
-//       for(U32 y = 0; y < height; y++)
-//       {
-//          for(U32 x = 0; x < width; x++)
-//          {
-//             *dst++ = (U32(*src) + U32(src[3]) + U32(src[stride]) + U32(src[stride+3])) >> 2;
-//             src++;
-//             *dst++ = (U32(*src) + U32(src[3]) + U32(src[stride]) + U32(src[stride+3])) >> 2;
-//             src++;
-//             *dst++ = (U32(*src) + U32(src[3]) + U32(src[stride]) + U32(src[stride+3])) >> 2;
-//             src += 4;
-//          }
-//          src += stride;   // skip
-//       }
-//    } else {
-//       for(U32 y = 0; y < height; y++)
-//       {
-//          *dst++ = (U32(*src) + U32(src[stride])) >> 1;
-//          src++;
-//          *dst++ = (U32(*src) + U32(src[stride])) >> 1;
-//          src++;
-//          *dst++ = (U32(*src) + U32(src[stride])) >> 1;
-//          src += 4;
-
-//          src += stride;   // skip
-//       }
-//    }
 }
 
 //--------------------------------------------------------------------------

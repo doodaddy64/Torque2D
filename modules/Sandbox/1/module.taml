@@ -8,6 +8,6 @@
 		<DeclaredAssets
 			Path="assets"
 			Extension="asset.taml"
-			Recurse="true"/>		
-</ModuleDefinition>
+			Recurse="true"/>
 
+</ModuleDefinition>

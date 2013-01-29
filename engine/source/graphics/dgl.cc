@@ -1096,7 +1096,6 @@ void dglSetClipRect(const RectI &clipRect)
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
 
-   // UNUSED: JOSEPH THOMAS -> U32 screenWidth  = Platform::getWindowSize().x;
    U32 screenHeight = Platform::getWindowSize().y;
 
 #ifdef TORQUE_OS_IOS
@@ -1486,13 +1485,11 @@ ConsoleFunction(png2jpg, S32, 2, 3, "( pngFilename [ , quality ] ) Use the png2j
    extern U32 gJpegQuality;
    const char * rgbname = NULL;
    const char * alphaname = NULL;
-   // UNUSED: JOSEPH THOMAS -> const char * basname = NULL;
    const char * bmpname = argv[1];
    if(argc == 3)
       gJpegQuality = dAtoi(argv[2]);
    else
       gJpegQuality = 90;
-   // UNUSED: JOSEPH THOMAS -> bool basOpt = false;
 
    Con::printf("Converting file: %s", argv[1]);
 

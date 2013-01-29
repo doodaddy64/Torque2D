@@ -84,7 +84,6 @@ public:
             }
             else 
             {
-                // UNUSED: JOSEPH THOMAS -> int foo2 = 0;
                 break;
             }
         }

@@ -27,8 +27,6 @@ bool sgForcePalletedPNGsTo16Bit= false;
 #include "zlib.h"
 
 // Our chunk signatures...
-// UNUSED: JOSEPH THOMAS -> static png_byte DGL_CHUNK_dcCf[5] = { 100, 99, 67, 102, '\0' };
-// UNUSED: JOSEPH THOMAS -> static png_byte DGL_CHUNK_dcCs[5] = { 100, 99, 67, 115, '\0' };
 
 static const U32 csgMaxRowPointers = (1 << GBitmap::c_maxMipLevels) - 1; ///< 2^11 = 2048, 12 mip levels (see c_maxMipLievels)
 static png_bytep sRowPointers[csgMaxRowPointers];

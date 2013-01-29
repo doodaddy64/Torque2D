@@ -94,7 +94,6 @@ void NetInterface::processPacketReceiveEvent(PacketReceiveEvent *prEvent)
       else
       {
          // check if there's a connection already:
-         // UNUSED: JOSEPH THOMAS -> NetConnection *conn;
          switch(packetType)
          {
             case ConnectChallengeRequest:

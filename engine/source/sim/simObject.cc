@@ -267,10 +267,6 @@ bool SimObject::writeField(StringTableEntry fieldname, const char* value)
 void SimObject::writeFields(Stream &stream, U32 tabStop)
 {
    const AbstractClassRep::FieldList &list = getFieldList();
-   // UNUSED: JOSEPH THOMAS -> const char *docRoot = Con::getVariable("$DocRoot");
-   // UNUSED: JOSEPH THOMAS -> const char *modRoot = Con::getVariable("$ModRoot");
-   // UNUSED: JOSEPH THOMAS -> S32 docRootLen = dStrlen(docRoot);
-   // UNUSED: JOSEPH THOMAS -> S32 modRootLen = dStrlen(modRoot);
 
    for(U32 i = 0; i < (U32)list.size(); i++)
    {

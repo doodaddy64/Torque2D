@@ -358,7 +358,6 @@ void GuiMessageVectorCtrl::createLineWrapping(LineWrapping& rWrapping, const cha
       tempBreaks.last().end   = -1;
    }
 
-   // UNUSED: JOSEPH THOMAS -> bool used = false;
    U32 splitWidth = mBounds.extent.x;
    U32 currLine = 0;
    while (currLine < (U32)tempBreaks.size()) {
@@ -747,7 +746,6 @@ void GuiMessageVectorCtrl::findSpecialFromCoord(const Point2I& point, S32* speci
       return;
    }
 
-   // UNUSED: JOSEPH THOMAS -> U32 currElem = 0;
    while (line) {
       U32 newX = currX + mProfile->mFont->getStrNWidth((const UTF8 *)mMessageVector->getLine(elemIndex).message,
                                                        line->end - line->start + 1);

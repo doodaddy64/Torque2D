@@ -170,7 +170,6 @@ void NetConnection::eventWritePacket(BitStream *bstream, PacketNotify *notify)
       // dequeue the first event
       NetEventNote *ev = mUnorderedSendEventQueueHead;
       mUnorderedSendEventQueueHead = ev->mNextEvent;
-      // UNUSED: JOSEPH THOMAS -> U32 start = bstream->getCurPos();
 
       bstream->writeFlag(true);
       S32 classId = ev->mEvent->getClassId(getNetClassGroup());
@@ -222,7 +221,6 @@ void NetConnection::eventWritePacket(BitStream *bstream, PacketNotify *notify)
 
       prevSeq = ev->mSeqCount;
 
-      // UNUSED: JOSEPH THOMAS -> U32 start = bstream->getCurPos();
       S32 classId = ev->mEvent->getClassId(getNetClassGroup());
       bstream->writeClassId(classId, NetClassTypeEvent, getNetClassGroup());
       ev->mEvent->pack(this, bstream);

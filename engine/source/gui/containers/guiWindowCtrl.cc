@@ -112,7 +112,6 @@ bool GuiWindowCtrl::onWake()
       return false;
 
    mBitmapBounds = mProfile->mBitmapArrayRects.address();
-   // UNUSED: JOSEPH THOMAS -> S32 buttonWidth = mBitmapBounds[BmpStates * BmpClose].extent.x;
    S32 buttonHeight = mBitmapBounds[BmpStates * BmpClose].extent.y;
 
    mTitleHeight = buttonHeight + 4;
@@ -615,7 +614,6 @@ void GuiWindowCtrl::onRender(Point2I offset, const RectI &updateRect)
    // different color usage here. NOTE: it currently CAN overdraw the controls
    // if mis-positioned or 'scrunched' in a small width.
    dglSetBitmapModulation(mProfile->mFontColor);
-   // UNUSED: JOSEPH THOMAS -> S32 fontHeight = mFont->getHeight();
    S32 textWidth = mProfile->mFont->getStrWidth((const UTF8 *)mText);
    Point2I start(0,0);
    // align the horizontal

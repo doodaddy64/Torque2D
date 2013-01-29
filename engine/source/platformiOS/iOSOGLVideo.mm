@@ -234,7 +234,6 @@ struct iOSGamma
     F32 scale;
 };
 
-// UNUSED: JOSEPH THOMAS -> static iOSGamma _iOSGamma;
 //------------------------------------------------------------------------------
 bool OpenGLDevice::getGammaCorrection(F32 &g)
 {

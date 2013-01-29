@@ -166,7 +166,6 @@ namespace StringUnit
 
       char *ret = &_returnBuffer[0];
       ret[0] = '\0';
-      // UNUSED: JOSEPH THOMAS -> U32 padCount = 0;
 
       while(index--)
       {

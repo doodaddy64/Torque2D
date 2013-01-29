@@ -143,7 +143,6 @@ bool NetAsync::checkLookup(NetSocket socket, char* out_h_addr,
                            int* out_h_length, int out_h_addr_size)
 {
    lockNetAsyncMutex();
-   // UNUSED: JOSEPH THOMAS -> unsigned int i = 0;
    bool found = false;
    // search for the socket
    Vector<NameLookupRequest*>::iterator iter;

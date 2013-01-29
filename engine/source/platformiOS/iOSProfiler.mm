@@ -105,26 +105,13 @@ void iOSProfilerPrintResult( int item ) {
 		if(endItem < 0){
 			return; //didn't find the end of this one
 }
-		// UNUSED: JOSEPH THOMAS -> U32 startTimeMach = g_iOSProfilerData[item].timeMach;
 		U32 startTimeMS = g_iOSProfilerData[item].timeMS;
-		// UNUSED: JOSEPH THOMAS -> U32 endTimeMach = g_iOSProfilerData[endItem].timeMach;
 		U32 endTimeMS = g_iOSProfilerData[endItem].timeMS;
 
-//		dSprintf(buffer, 1024, "\t\t%i (%ims)\t\t\t\t%i (%ims)\t\t\t\t\t%i (%i)\t\t\t%i(%ims)\t\t\t\t\t%s\n",
-//				 data->timePerFrameMach, data->timePerFrameMS, data->averageMach, data->averageMS, data->callsPerFrame, data->averageCallsPerFrame,
-//				 timePerCallMach, timePerCallMS,
-//				 data->name//data
-//				 );
 		dSprintf(pfbuffer, 1024, "%s, %d, %d, %d\n",
 				 g_iOSProfilerData[item].name, startTimeMS, endTimeMS, endTimeMS - startTimeMS);
 		printf( pfbuffer, "%s" );
 
-//		dSprintf(buffer, 1024, "\t\t%i (%ims)\t\t\t\t%i (%ims)\t\t\t\t\t%i (%i)\t\t\t%i(%ims)\t\t\t\t\t%s\n",
-//				 data->timePerFrameMach, data->timePerFrameMS, data->averageMach, data->averageMS, data->callsPerFrame, data->averageCallsPerFrame,
-//				 timePerCallMach, timePerCallMS,
-//				 data->name//data
-//				 );
-//		printf( buffer );
 	}
 }
 

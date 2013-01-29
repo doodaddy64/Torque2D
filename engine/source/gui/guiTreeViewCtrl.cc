@@ -2277,7 +2277,6 @@ void GuiTreeViewCtrl::onMouseUp(const GuiEvent &event)
          {
             newItem = newItem2;
             Item * item = mSelectedItems[i];
-            // UNUSED: JOSEPH THOMAS -> char bufs[2][32];
 
             if (mDebug) Con::printf("----------------------------");
          
@@ -2676,7 +2675,6 @@ void GuiTreeViewCtrl::onMiddleMouseDown(const GuiEvent & event)
       S32 midpCell = (mCurrentDragCell) * mItemHeight + (mItemHeight/2);
       S32 currentY = pt.y;
       S32 yDiff = currentY-midpCell;
-      // UNUSED: JOSEPH THOMAS -> S32 variance = (mItemHeight/5);
       Con::printf("cell info: (%d,%d) mCurrentDragCell=%d est=(%d,%d,%d) ydiff=%d",pt.x,pt.y,mCurrentDragCell,mCurrentDragCell*mItemHeight, midpCell, (mCurrentDragCell+1)*mItemHeight,yDiff);
    }
 }

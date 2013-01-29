@@ -206,11 +206,11 @@ void GuiTextEditCtrl::setText( const UTF8 *txt )
    else
       mTextBuffer.set( "" );
 
-	//respect the max size
-	int diff = mTextBuffer.length() - mMaxStrLen; 
-	if( diff > 0 ) {
-		mTextBuffer.cut( mMaxStrLen, diff );
-	}
+    //respect the max size
+    int diff = mTextBuffer.length() - mMaxStrLen; 
+    if( diff > 0 ) {
+        mTextBuffer.cut( mMaxStrLen, diff );
+    }
    mCursorPos = mTextBuffer.length();
 }
 
@@ -229,11 +229,11 @@ void GuiTextEditCtrl::setText( const UTF16* txt)
       mTextBuffer.set("");
    }
    
-	//respect the max size
-	int diff = mTextBuffer.length() - mMaxStrLen; 
-	if( diff > 0 ) {
-		mTextBuffer.cut( mMaxStrLen, diff );
-	}
+    //respect the max size
+    int diff = mTextBuffer.length() - mMaxStrLen; 
+    if( diff > 0 ) {
+        mTextBuffer.cut( mMaxStrLen, diff );
+    }
    mCursorPos = mTextBuffer.length();   
 }
 
@@ -269,7 +269,6 @@ void GuiTextEditCtrl::reallySetCursorPos( const S32 newPos )
 S32 GuiTextEditCtrl::setCursorPos( const Point2I &offset )
 {
    Point2I ctrlOffset = localToGlobalCoord( Point2I( 0, 0 ) );
-   // UNUSED: JOSEPH THOMAS -> S32 charCount = mTextBuffer.length();
    S32 charLength = 0;
    S32 curX;
 
@@ -548,7 +547,7 @@ bool GuiTextEditCtrl::onKeyDown(const GuiEvent &event)
                   Con::executef( this, 2, "onTabComplete", "1" );
                   return( true );
                }
-			   break; //*** DAW: We don't want to fall through if we don't handle the TAB here.
+               break; //*** DAW: We don't want to fall through if we don't handle the TAB here.
 
             case KEY_HOME:
                mBlockStart = 0;
@@ -1378,7 +1377,7 @@ void GuiTextEditCtrl::setScriptValue(const char *value)
 }
 
 ConsoleMethod( GuiTextEditCtrl, getText, const char*, 2, 2, "() Get the contents of the textedit control\n"
-			  "@return Returns the current textedit buffer.")
+              "@return Returns the current textedit buffer.")
 {
    if( !object->hasText() )
       return StringTable->EmptyString;
@@ -1391,17 +1390,17 @@ ConsoleMethod( GuiTextEditCtrl, getText, const char*, 2, 2, "() Get the contents
 
 
 ConsoleMethod( GuiTextEditCtrl, getCursorPos, S32, 2, 2, "() Use the getCursorPos method to get the current position of the text cursor in the control.\n"
-																"@return Returns the current position of the text cursor in the control, where 0 is at the beginning of the line, 1 is after the first letter, and so on.\n"
-																"@sa setCursorPos")
+                                                                "@return Returns the current position of the text cursor in the control, where 0 is at the beginning of the line, 1 is after the first letter, and so on.\n"
+                                                                "@sa setCursorPos")
 {
    return( object->getCursorPos() );
 }
 
 ConsoleMethod( GuiTextEditCtrl, setCursorPos, void, 3, 3, "( newPos ) Use the setCursorPos method to set the current position of text cursor to newPos.\n"
-																"If the requested position is beyond the end of text, the cursor will be placed after the last letter. If the value is less than zero, the cursor will be placed at the front of the entry.\n"
-																"@param newPos The new position to place the cursor at, where 0 is at the beginning of the line, 1 is after the first letter, and so on.\n"
-																"@return No return value.\n"
-																"@sa getCursorPos")
+                                                                "If the requested position is beyond the end of text, the cursor will be placed after the last letter. If the value is less than zero, the cursor will be placed at the front of the entry.\n"
+                                                                "@param newPos The new position to place the cursor at, where 0 is at the beginning of the line, 1 is after the first letter, and so on.\n"
+                                                                "@return No return value.\n"
+                                                                "@sa getCursorPos")
 {
    object->reallySetCursorPos( dAtoi( argv[2] ) );
 }

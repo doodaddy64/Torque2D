@@ -253,8 +253,6 @@ ConsoleFunction(exportCachedFont, void, 6, 6, "(fontName, size, fileName, paddin
                 "@return No return value.")
 {
    // Read in some params.
-   // UNUSED: JOSEPH THOMAS -> const char *fontName = argv[1];
-   // UNUSED: JOSEPH THOMAS -> S32 fontSize   = dAtoi(argv[2]);
    const char *fileName = argv[3];
    S32 padding    = dAtoi(argv[4]);
    S32 kerning    = dAtoi(argv[5]);
@@ -282,8 +280,6 @@ ConsoleFunction(importCachedFont, void, 6, 6, "(fontName, size, fileName, paddin
                 "@return No return value.")
 {
    // Read in some params.
-   // UNUSED: JOSEPH THOMAS -> const char *fontName = argv[1];
-   // UNUSED: JOSEPH THOMAS -> S32 fontSize   = dAtoi(argv[2]);
    const char *fileName = argv[3];
    S32 padding    = dAtoi(argv[4]);
    S32 kerning    = dAtoi(argv[5]);

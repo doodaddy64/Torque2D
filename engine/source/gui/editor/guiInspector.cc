@@ -171,7 +171,7 @@ void GuiInspector::inspectObject( SimObject *object )
 }
 
 ConsoleMethod( GuiInspector, inspect, void, 3, 3, "(obj) Goes through the object's fields and autogenerates editor boxes\n"
-			  "@return No return value.")
+              "@return No return value.")
 {
    SimObject * target = Sim::findObject(argv[2]);
    if(!target)
@@ -188,7 +188,7 @@ ConsoleMethod( GuiInspector, inspect, void, 3, 3, "(obj) Goes through the object
 
 
 ConsoleMethod( GuiInspector, getInspectObject, const char*, 2, 2, "() - Returns currently inspected object\n"
-			  "@return The Object's ID as a string.")
+              "@return The Object's ID as a string.")
 {
    SimObject *pSimObject = object->getInspectObject();
    if( pSimObject != NULL )
@@ -208,7 +208,7 @@ void GuiInspector::setName( const char* newName )
 }
 
 ConsoleMethod( GuiInspector, setName, void, 3, 3, "(NewObjectName) Set object name.\n"
-			  "@return No return value.")
+              "@return No return value.")
 {
    object->setName(argv[2]);
 }
@@ -358,7 +358,7 @@ void GuiInspectorField::registerEditControl( GuiControl *ctrl )
 {
    if(!mTarget)
       return;
-		
+        
    char szName[512];
    dSprintf( szName, 512, "IE_%s_%d_%s_Field", ctrl->getClassName(), mTarget->getId(),mCaption);
 
@@ -444,7 +444,7 @@ void GuiInspectorField::updateValue( const char* newValue )
 }
 
 ConsoleMethod( GuiInspectorField, apply, void, 3,3, "(newValue) Applies the given value to the field\n"
-			  "@return No return value." )
+              "@return No return value." )
 {
    object->setData( argv[2] );
 }
@@ -671,9 +671,9 @@ bool GuiInspectorGroup::inspectGroup()
       {
          if( bNoGroup == true && bGrabItems == true )
             continue; 
-		   // This is weird, but it should work for now. - JDD
-		   // We are going to check to see if this item is an array
-		   // if so, we're going to construct a field for each array element
+           // This is weird, but it should work for now. - JDD
+           // We are going to check to see if this item is an array
+           // if so, we're going to construct a field for each array element
          if( itr->elementCount > 1 )
          {
             for(S32 nI = 0; nI < itr->elementCount; nI++)
@@ -774,8 +774,6 @@ bool GuiInspectorDynamicGroup::createContent()
    if(!Parent::createContent())
       return false;
 
-   // UNUSED: JOSEPH THOMAS -> SimObject* profilePtr;
-
    // add a button that lets us add new dynamic fields.
    GuiIconButtonCtrl* addFieldBtn = new GuiIconButtonCtrl();
    {
@@ -860,7 +858,7 @@ bool GuiInspectorDynamicGroup::inspectGroup()
    return true;
 }
 ConsoleMethod(GuiInspectorDynamicGroup, inspectGroup, bool, 2, 2, "() Refreshes the dynamic fields in the inspector.\n"
-			  "@return Returns true on success.")
+              "@return Returns true on success.")
 {
    return object->inspectGroup();
 }

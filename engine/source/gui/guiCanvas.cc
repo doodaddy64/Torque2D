@@ -1299,7 +1299,6 @@ void GuiCanvas::pushDialogControl(GuiControl *gui, S32 layer)
    gui->mLayer = layer;
 
    // GuiControl::addObject wakes the object
-   // UNUSED: JOSEPH THOMAS -> bool wakedGui = !gui->isAwake();
    addObject(gui);
 
    //reorder it to the correct layer
@@ -1318,7 +1317,6 @@ void GuiCanvas::pushDialogControl(GuiControl *gui, S32 layer)
    gui->onDialogPush();
 
    //find the top most dialog
-   // UNUSED: JOSEPH THOMAS -> GuiControl *topCtrl = static_cast<GuiControl*>(last());
 
    //find the first responder
    GuiControl* responder = gui->findFirstTabable();
@@ -1385,13 +1383,11 @@ void GuiCanvas::popDialogControl(GuiControl *gui)
    ctrl->onDialogPop();
 
    // sleep the object
-   // UNUSED: JOSEPH THOMAS -> bool didSleep = ctrl->isAwake();
 
    //now pop the last child (will sleep if awake)
    removeObject(ctrl);
 
    // Save the old responder:
-   // UNUSED: JOSEPH THOMAS -> GuiControl *oldResponder = mFirstResponder;
 
    Sim::getGuiGroup()->addObject(ctrl);
 

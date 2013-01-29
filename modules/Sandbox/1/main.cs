@@ -25,7 +25,7 @@ function createSandbox( %scopeSet )
     Canvas.UseBackgroundColor = false;
     
     // Initialize audio.
-    initializeOpenAL();    
+    initializeOpenAL();
     
     // Load Sandbox scripts.
     exec( "./scripts/scene.cs" );

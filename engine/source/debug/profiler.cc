@@ -190,7 +190,6 @@ void Profiler::reset()
    mEnabled = false; // in case we're in a profiler call.
    while(mProfileList)
    {
-      // UNUSED: JOSEPH THOMAS -> ProfilerData *next = mProfileList->mNextProfilerData;
       free(mProfileList);
       mProfileList = NULL;
    }
@@ -514,7 +513,6 @@ void Profiler::dump()
       Con::printf("Ordered by stack trace total time -");
       Con::printf("%% Time  %% NSTime  Invoke #  Name");
 
-      // UNUSED: JOSEPH THOMAS -> U32 depth = 0;
       mCurrentProfilerData->mTotalTime = endHighResolutionTimer(mCurrentProfilerData->mStartTime);
 
       char depthBuffer[MaxStackDepth * 2 + 1];
@@ -555,7 +553,6 @@ void Profiler::dump()
          dStrcpy(buffer, "%%NSTime  %% Time  Invoke #  Name\n");
          fws.write(dStrlen(buffer), buffer);
 
-      // UNUSED: JOSEPH THOMAS -> U32 depth = 0;
       mCurrentProfilerData->mTotalTime = endHighResolutionTimer(mCurrentProfilerData->mStartTime);
 
       char depthBuffer[MaxStackDepth * 2 + 1];

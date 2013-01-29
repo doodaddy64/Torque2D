@@ -245,7 +245,6 @@ bool ResManager::isValidWriteFileName (const char *fn)
 
    // now loop through the writeable path.
    const char * start = writeablePath;
-   // UNUSED: JOSEPH THOMAS -> S32 pathLen = path - fn;
    for (;;)
    {
       const char * end = dStrchr (writeablePath, ';');

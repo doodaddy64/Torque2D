@@ -38,8 +38,6 @@ extern ALvoid  alcMacOSXMixerOutputRateProc(const ALdouble value);
 #define ALX_DEF_CHANNELS         2
 
 #define FORCED_OUTER_FALLOFF  10000.f           // forced falloff distance
-// UNUSED: JOSEPH THOMAS -> static bool mDisableOuterFalloffs = false;      // forced max falloff?
-// UNUSED: JOSEPH THOMAS -> static F32 mInnerFalloffScale = 1.f;            // amount to scale inner falloffs
 
 #ifdef TORQUE_OS_OSX
 static ALCdevice *mDevice   = NULL;             // active OpenAL device
@@ -564,8 +562,6 @@ static void alxSourcePlay(AudioStreamSource *streamSource)
 {
    ALuint source = streamSource->mSource;
    Audio::Description& desc = streamSource->mDescription;
-
-   // UNUSED: JOSEPH THOMAS -> bool ret = streamSource->initStream();
 
    alSourcef(source, AL_GAIN, Audio::linearToDB(desc.mVolume * mAudioChannelVolumes[desc.mVolumeChannel] * mMasterVolume));
 //   alSourcei(source, AL_LOOPING, AL_FALSE);

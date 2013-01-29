@@ -30,7 +30,6 @@ void GuiConsoleEditCtrl::initPersistFields()
 
 bool GuiConsoleEditCtrl::onKeyDown(const GuiEvent &event)
 {
-   // UNUSED: JOSEPH THOMAS -> S32 stringLen = dStrlen(mText);
    setUpdate();
 
    if (event.keyCode == KEY_TAB) 

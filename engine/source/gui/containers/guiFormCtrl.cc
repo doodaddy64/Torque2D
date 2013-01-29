@@ -287,7 +287,6 @@ void GuiFormCtrl::onMouseDragged(const GuiEvent &event)
 
    Point2I newPosition = mBounds.point;
    Point2I newExtent = mBounds.extent;
-   // UNUSED: JOSEPH THOMAS -> bool update = false;
    if (mMouseMovingWin && parent)
    {
       newPosition.x = getMax(0, getMin(parent->mBounds.extent.x - mBounds.extent.x, mOrigBounds.point.x + deltaMousePosition.x));
@@ -297,27 +296,6 @@ void GuiFormCtrl::onMouseDragged(const GuiEvent &event)
       resize(newPosition, newExtent);
 
    }
-   //else
-   //{
-   //   if (mMouseResizeWidth && parent)
-   //   {
-   //      newExtent.x = getMax(0, getMax(mMinSize.x, getMin(parent->mBounds.extent.x, mOrigBounds.extent.x + deltaMousePosition.x)));
-   //      update = true;
-   //   }
-
-   //   if (mMouseResizeHeight && parent)
-   //   {
-   //      newExtent.y = getMax(0, getMax(mMinSize.y, getMin(parent->mBounds.extent.y, mOrigBounds.extent.y + deltaMousePosition.y)));
-   //      update = true;
-   //   }
-   //}
-
-   //if (update)
-   //{
-   //   Point2I pos = parent->localToGlobalCoord(mBounds.point);
-   //   root->addUpdateRegion(pos, mBounds.extent);
-   //   resize(newPosition, newExtent);
-   //}
 }
 
 

@@ -268,10 +268,6 @@ static void m_matF_set_euler_C(const F32 *e, F32 *result)
          //  r4 = sin(y) * sin(z)
          F32 cz,sz;
          mSinCos( e[2], sz, cz );
-         // UNUSED: JOSEPH THOMAS -> F32 r1 = cz;
-         // UNUSED: JOSEPH THOMAS -> F32 r2 = sz;
-         // UNUSED: JOSEPH THOMAS -> F32 r3 = 0.0f;
-         // UNUSED: JOSEPH THOMAS -> F32 r4 = 0.0f;
 
          result[0] = cz;
          result[1] = sz;

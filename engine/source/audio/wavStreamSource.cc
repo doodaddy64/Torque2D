@@ -134,12 +134,8 @@ void WavStreamSource::clear()
 
 bool WavStreamSource::initStream() {
    WAVChunkHdr chunkHdr;
-   // UNUSED: JOSEPH THOMAS -> WAVFmtExHdr fmtExHdr;
    WAVFileHdr  fileHdr;
-   // UNUSED: JOSEPH THOMAS -> WAVSmplHdr  smplHdr;
    WAVFmtHdr   fmtHdr;
-
-   // UNUSED: JOSEPH THOMAS -> WAVE_Struct wave;
 
    ALint			error;
 
