@@ -2602,6 +2602,7 @@ U32 Scene::createTargetJoint(
         const SceneObject* pSceneObject,
         const b2Vec2& worldTarget,
         const F32 maxForce,
+        const bool useCenterOfMass,
         const F32 frequency,
         const F32 dampingRatio,
         const bool collideConnected )
@@ -2618,7 +2619,7 @@ U32 Scene::createTargetJoint(
     jointDef.collideConnected = collideConnected;
     jointDef.bodyA            = getGroundBody();
     jointDef.bodyB            = pBody;
-    jointDef.target           = pBody->GetPosition();
+    jointDef.target           = useCenterOfMass ? pBody->GetWorldCenter() : worldTarget;
     jointDef.maxForce         = maxForce;
     jointDef.frequencyHz      = frequency;
     jointDef.dampingRatio     = dampingRatio;
@@ -2629,10 +2630,14 @@ U32 Scene::createTargetJoint(
     // Cast joint.
     b2MouseJoint* pRealJoint = static_cast<b2MouseJoint*>( findJoint( jointId ) );
 
-    // Access joint.
-    // NOTE:-   This is done because initially the target (mouse) joint assumes the target 
-    //          coincides with the body anchor.
-    pRealJoint->SetTarget( worldTarget );
+    // Are we using the center of mass?
+    if ( !useCenterOfMass )
+    {
+        // No, so set the target as the world target.
+        // NOTE:-   This is done because initially the target (mouse) joint assumes the target 
+        //          coincides with the body anchor.
+        pRealJoint->SetTarget( worldTarget );
+    }
 
     return jointId;
 }

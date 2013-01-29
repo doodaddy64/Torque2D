@@ -1922,14 +1922,15 @@ ConsoleMethod(Scene, createPulleyJoint, S32, 9, 16,     "(sceneObjectA, sceneObj
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(Scene, createTargetJoint, S32, 5, 9,      "(sceneObject, worldTarget X/Y, maxForce, [frequency], [dampingRatio], [collideConnected]) Creates a target joint.\n"
-                                                                "@param sceneObject The scene object to connect to the joint.\n"
-                                                                "@param worldTarget The world point target to move the scene object to.\n"
-                                                                "@param force The maximum force the joint should use to position the scene object at the target.\n"
-                                                                "@param frequency The mass-spring-damper frequency in Hertz. A value of 0 disables softness (default=0.7).\n"
-                                                                "@param dampingRatio The damping ratio. 0 = no damping (default), 1 = critical damping.\n"
-                                                                "@param collideConnected Whether the scene objects can collide with each other while connected with this joint.\n"
-                                                                "@return The joint Id (-1 if error).")
+ConsoleMethod(Scene, createTargetJoint, S32, 5, 10,     "(sceneObject, worldTarget X/Y, maxForce, [useCenterOfMass?], [frequency], [dampingRatio], [collideConnected]) Creates a target joint.\n"
+                                                        "@param sceneObject The scene object to connect to the joint.\n"
+                                                        "@param worldTarget The world point target to move the scene object to.\n"
+                                                        "@param maxForce The maximum force the joint should use to position the scene object at the target.\n"
+                                                        "@param useCenterOfMass Whether to use the center of mass as the point which the joint is attached or not.  Defaults to false.\n"
+                                                        "@param frequency The mass-spring-damper frequency in Hertz. A value of 0 disables softness (default=0.7).\n"
+                                                        "@param dampingRatio The damping ratio. 0 = no damping (default), 1 = critical damping.\n"
+                                                        "@param collideConnected Whether the scene objects can collide with each other while connected with this joint.\n"
+                                                        "@return The joint Id (-1 if error).")
 {
     // Fetch scene object.
     const SimObjectId sceneObject = dAtoi(argv[2]);
@@ -1971,6 +1972,14 @@ ConsoleMethod(Scene, createTargetJoint, S32, 5, 9,      "(sceneObject, worldTarg
     if ( argc <= nextArg )
     {
         return object->createTargetJoint( pSceneObject, worldTarget, maxForce );
+    }
+
+    // Fetch the center-of-mass flag.
+    const bool centerOfMass = dAtob(argv[nextArg++]);
+
+    if ( argc <= nextArg )
+    {
+        return object->createTargetJoint( pSceneObject, worldTarget, maxForce, centerOfMass );
     }
 
     // Fetch frequency (Hertz).

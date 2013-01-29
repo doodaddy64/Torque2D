@@ -562,6 +562,7 @@ public:
                                 const SceneObject* pSceneObject,
                                 const b2Vec2& worldTarget,
                                 const F32 maxForce,
+                                const bool useCenterOfMass = false,
                                 const F32 frequency = 5.0f,
                                 const F32 dampingRatio = 0.7f,
                                 const bool collideConnected = false );
