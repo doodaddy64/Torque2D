@@ -49,8 +49,6 @@ GuiControl::GuiControl()
    mAcceleratorKey      = StringTable->EmptyString;
    mLangTableName       = StringTable->EmptyString;
 
-   mScriptFile          = CodeBlock::getCurrentCodeBlockFullPath();
-
    mLangTable           = NULL;
    mFirstResponder      = NULL;
    mCanSaveFieldDictionary = false;
@@ -1766,24 +1764,6 @@ void GuiControl::getCursor(GuiCursor *&cursor, bool &showCursor, const GuiEvent 
       // We haven't changed it
       GuiControl::smCursorChanged = -1;
    }
-}
-
-ConsoleMethod(GuiControl, getScriptFile, const char*, 2, 2, "GuiControl.getScriptFile() - gets the script file the control was created in\n"
-              "@return String containing script file path")
-{
-   return object->getScriptFile();
-}
-
-ConsoleMethod(GuiControl, setScriptFile, void, 3, 3, "(string filepath) GuiControl.setScriptFile() - sets the script file the control was created in"
-              "@param The path to the scriptfile to set"
-              "@return No Return Value")
-{
-   object->setScriptFile(argv[2]);
-}
-
-StringTableEntry GuiControl::getScriptFile()
-{
-   return mScriptFile;
 }
 
 const char* GuiControl::execConsoleCallback()

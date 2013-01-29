@@ -93,14 +93,18 @@ const char* Taml::getFormatModeDescription(const Taml::TamlFormatMode formatMode
 
 //-----------------------------------------------------------------------------
 
+// The string-table-entries are set to string literals below because Taml is used in a static scope and the string-table cannot currently be used like that.
 Taml::Taml() :
     mFormatMode(XmlFormat),
     mBinaryCompression(true),
     mWriteDefaults(false),
+    mProgenitorUpdate(true),    
     mAutoFormat(true),
-    mAutoFormatXmlExtension("taml"),    // These are set to string literals because Taml is used in a static scope and the string-table cannot be used like that.
+    mAutoFormatXmlExtension("taml"),    
     mAutoFormatBinaryExtension("baml")
 {
+    // Reset the file-path buffer.
+    mFilePathBuffer[0] = 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -113,6 +117,7 @@ void Taml::initPersistFields()
     addField("Format", TypeEnum, Offset(mFormatMode, Taml), 1, &tamlFormatModeTable, "The read/write format that should be used.");
     addField("BinaryCompression", TypeBool, Offset(mBinaryCompression, Taml), "Whether ZIP compression is used on binary formatting or not.\n");
     addField("WriteDefaults", TypeBool, Offset(mWriteDefaults, Taml), "Whether to write static fields that are at their default or not.\n");
+    addField("ProgenitorUpdate", TypeBool, Offset(mProgenitorUpdate, Taml), "Whether to update each type instances file-progenitor or not.\n");
     addField("AutoFormat", TypeBool, Offset(mAutoFormat, Taml), "Whether the format type is automatically determined by the filename extension or not.\n");
     addField("AutoFormatXmlExtension", TypeString, Offset(mAutoFormatXmlExtension, Taml), "When using auto-format, this is the extension (end of filename) used to detect the XML format.\n");
     addField("AutoFormatBinaryExtension", TypeString, Offset(mAutoFormatBinaryExtension, Taml), "When using auto-format, this is the extension (end of filename) used to detect the BINARY format.\n");
@@ -129,21 +134,21 @@ bool Taml::write( SimObject* pSimObject, const char* pFilename )
     AssertFatal( pSimObject != NULL, "Cannot write a NULL object." );
     AssertFatal( pFilename != NULL, "Cannot write to a NULL filename." );
 
-    char filenameBuffer[1024];
-    Con::expandPath( filenameBuffer, sizeof(filenameBuffer), pFilename );
+    // Expand the file-name into the file-path buffer.
+    Con::expandPath( mFilePathBuffer, sizeof(mFilePathBuffer), pFilename );
 
     FileStream stream;
 
     // File opened?
-    if ( !stream.open( filenameBuffer, FileStream::Write ) )
+    if ( !stream.open( mFilePathBuffer, FileStream::Write ) )
     {
         // No, so warn.
-        Con::warnf("Taml::writeFile() - Could not open filename '%s' for write.", filenameBuffer );
+        Con::warnf("Taml::writeFile() - Could not open filename '%s' for write.", mFilePathBuffer );
         return false;
     }
 
     // Get the file auto-format mode.
-    const TamlFormatMode formatMode = getFileAutoFormatMode( filenameBuffer );
+    const TamlFormatMode formatMode = getFileAutoFormatMode( mFilePathBuffer );
 
     // Reset the compilation.
     resetCompilation();
@@ -170,21 +175,21 @@ SimObject* Taml::read( const char* pFilename )
     // Sanity!
     AssertFatal( pFilename != NULL, "Cannot read from a NULL filename." );
 
-    char filenameBuffer[1024];
-    Con::expandPath( filenameBuffer, sizeof(filenameBuffer), pFilename );
+    // Expand the file-name into the file-path buffer.
+    Con::expandPath( mFilePathBuffer, sizeof(mFilePathBuffer), pFilename );
 
     FileStream stream;
 
     // File opened?
-    if ( !stream.open( filenameBuffer, FileStream::Read ) )
+    if ( !stream.open( mFilePathBuffer, FileStream::Read ) )
     {
         // No, so warn.
-        Con::warnf("Taml::read() - Could not open filename '%s' for read.", filenameBuffer );
+        Con::warnf("Taml::read() - Could not open filename '%s' for read.", mFilePathBuffer );
         return NULL;
     }
 
     // Get the file auto-format mode.
-    const TamlFormatMode formatMode = getFileAutoFormatMode( filenameBuffer );
+    const TamlFormatMode formatMode = getFileAutoFormatMode( mFilePathBuffer );
 
     // Reset the compilation.
     resetCompilation();
@@ -202,7 +207,7 @@ SimObject* Taml::read( const char* pFilename )
     if ( pSimObject == NULL )
     {
         // No, so warn.
-        Con::warnf( "Taml::read() - Failed to load an object from the file '%s'.", filenameBuffer );
+        Con::warnf( "Taml::read() - Failed to load an object from the file '%s'.", mFilePathBuffer );
     }
 
     return pSimObject;
@@ -730,7 +735,7 @@ void Taml::compileCustomProperties( TamlWriteNode* pTamlWriteNode )
 
 //-----------------------------------------------------------------------------
 
-SimObject* Taml::createType( StringTableEntry typeName )
+SimObject* Taml::createType( StringTableEntry typeName, const Taml* pTaml, const char* pProgenitorSuffix )
 {
     // Debug Profiling.
     PROFILE_SCOPE(Taml_CreateType);
@@ -790,6 +795,26 @@ SimObject* Taml::createType( StringTableEntry typeName )
         // Destroy object and fail.
         delete pConsoleObject;
         return NULL;
+    }
+
+    // Are we updating the file-progenitor?
+    if ( pTaml->getProgenitorUpdate() )
+    {
+        // Yes, so do we have a progenitor suffix?
+        if ( pProgenitorSuffix == NULL )
+        {
+            // No, so just set it to the progenitor file.
+            pSimObject->setProgenitorFile( pTaml->getFilePathBuffer() );
+        }
+        else
+        {
+            // Yes, so format the progenitor buffer.
+            char progenitorBuffer[2048];
+            dSprintf( progenitorBuffer, sizeof(progenitorBuffer), "%s,%s", pTaml->getFilePathBuffer(), pProgenitorSuffix );
+
+            // Set the progenitor file.
+            pSimObject->setProgenitorFile( progenitorBuffer );
+        }
     }
 
     return pSimObject;

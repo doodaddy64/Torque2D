@@ -85,8 +85,18 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
     // Fetch object name.
     const char* pObjectName = getTamlObjectName( pXmlElement );
 
+#ifdef TORQUE_DEBUG
+    // Format the type location.
+    char typeLocationBuffer[64];
+    dSprintf( typeLocationBuffer, sizeof(typeLocationBuffer), "Taml [format='xml' row=%d column=%d]", pXmlElement->Row(), pXmlElement->Column() );    
+
     // Create type.
-    pSimObject = Taml::createType( typeName );
+    pSimObject = Taml::createType( typeName, mpTaml, typeLocationBuffer );
+#else
+    // Create type.
+    pSimObject = Taml::createType( typeName, mpTaml );
+#endif
+
 
     // Finish if we couldn't create the type.
     if ( pSimObject == NULL )

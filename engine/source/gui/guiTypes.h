@@ -87,8 +87,6 @@ class GuiControlProfile : public SimObject
 private:
    typedef SimObject Parent;
 
-   StringTableEntry mScriptFile;
-
 public:
    S32  mRefCount;                                 ///< Used to determine if any controls are using this profile
    bool mTabable;                                  ///< True if this object is accessable from using the tab key
@@ -178,9 +176,6 @@ public:
 
    void incRefCount();
    void decRefCount();
-
-   StringTableEntry getScriptFile() { return mScriptFile; }
-   void setScriptFile(const char* file) { mScriptFile = StringTable->insert(file); }
 };
 DefineConsoleType( TypeGuiProfile)
 

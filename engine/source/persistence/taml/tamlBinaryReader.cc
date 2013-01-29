@@ -82,6 +82,12 @@ SimObject* TamlBinaryReader::parseElement( Stream& stream, const U32 versionId )
 
     SimObject* pSimObject = NULL;
 
+#ifdef TORQUE_DEBUG
+    // Format the type location.
+    char typeLocationBuffer[64];
+    dSprintf( typeLocationBuffer, sizeof(typeLocationBuffer), "Taml [format='binary' offset=%u]", stream.getPosition() );
+#endif
+
     // Fetch element name.    
     StringTableEntry typeName = stream.readSTString();
 
@@ -112,8 +118,13 @@ SimObject* TamlBinaryReader::parseElement( Stream& stream, const U32 versionId )
         return referenceItr->value;
     }
 
+#ifdef TORQUE_DEBUG
     // Create type.
-    pSimObject = Taml::createType( typeName );
+    pSimObject = Taml::createType( typeName, mpTaml, typeLocationBuffer );
+#else
+    // Create type.
+    pSimObject = Taml::createType( typeName, mpTaml );
+#endif
 
     // Finish if we couldn't create the type.
     if ( pSimObject == NULL )

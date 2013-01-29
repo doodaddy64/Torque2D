@@ -5,6 +5,8 @@
 
 #include "sim/simObject.h"
 #include "console/consoleInternal.h"
+#include "console/codeBlock.h"
+#include "console/consoleInternal.h"
 #include "memory/frameAllocator.h"
 #include "io/fileStream.h"
 #include "io/fileObject.h"
@@ -45,6 +47,8 @@ SimObject::SimObject( const U8 namespaceLinkMask ) : mNSLinkMask( namespaceLinkM
 
    mClassName = NULL;
    mSuperClassName = NULL;
+
+   mProgenitorFile = CodeBlock::getCurrentCodeBlockFullPath();
 }
 
 //---------------------------------------------------------------------------
@@ -1656,3 +1660,21 @@ ConsoleMethod(SimObject, setSuperClassNamespace, void, 2, 3, "")
 {
    object->setSuperClassNamespace(argv[2]);
 }
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SimObject, setProgenitorFile, void, 3, 3, "(file) Sets the progenitor file responsible for this instances creation.\n"
+                                                        "@param file The progenitor file responsible for this instances creation.\n"
+                                                        "@return No return value." )
+{
+    object->setProgenitorFile( argv[2] );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SimObject, getProgenitorFile, const char*, 2, 2,  "() Gets the progenitor file responsible for this instances creation.\n"
+                                                                "@return The progenitor file responsible for this instances creation." )
+{
+    return object->getProgenitorFile();
+}
+

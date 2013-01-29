@@ -76,10 +76,12 @@ private:
     U32                 mMasterNodeId;
     TamlFormatMode      mFormatMode;
     bool                mBinaryCompression;
-    bool                mWriteDefaults;
     bool                mAutoFormat;
     StringTableEntry    mAutoFormatXmlExtension;
     StringTableEntry    mAutoFormatBinaryExtension;
+    bool                mWriteDefaults;
+    char                mFilePathBuffer[1024];
+    bool                mProgenitorUpdate;
 
 private:
     void resetCompilation( void );
@@ -104,7 +106,7 @@ private:
         return NULL;
     }
 
-    static SimObject* createType( StringTableEntry typeName );
+    static SimObject* createType( StringTableEntry typeName, const Taml* pTaml, const char* pProgenitorSuffix = NULL );
 
     /// Taml callbacks.
     inline void tamlPreWrite( TamlCallbacks* pCallbacks )                                           { pCallbacks->onTamlPreWrite(); }
@@ -135,6 +137,9 @@ public:
     inline void setWriteDefaults( const bool writeDefaults ) { mWriteDefaults = writeDefaults; }
     inline bool getWriteDefaults( void ) const { return mWriteDefaults; }
 
+    inline void setProgenitorUpdate( const bool progenitorUpdate ) { mProgenitorUpdate = progenitorUpdate; }
+    inline bool getProgenitorUpdate( void ) const { return mProgenitorUpdate; }
+
     // Auto-format extensions.
     inline void setAutoFormatXmlExtension( const char* pExtension ) { mAutoFormatXmlExtension = StringTable->insert( pExtension ); }
     inline StringTableEntry getAutoFormatXmlExtension( void ) const { return mAutoFormatXmlExtension; }
@@ -146,6 +151,8 @@ public:
     inline bool getBinaryCompression( void ) const { return mBinaryCompression; }
 
     TamlFormatMode getFileAutoFormatMode( const char* pFilename );
+
+    const char* getFilePathBuffer( void ) const { return mFilePathBuffer; }
 
     /// Write.
     bool write( SimObject* pSimObject, const char* pFilename );

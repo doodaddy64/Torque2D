@@ -265,6 +265,8 @@ private:
     SimGroup*   mGroup;  ///< SimGroup we're contained in, if any.
     BitSet32    mFlags;
 
+    StringTableEntry    mProgenitorFile;
+
     /// @name Notification
     /// @{
     Notify*     mNotifyList;
@@ -597,6 +599,9 @@ public:
     void setLocked( bool b );
     bool isHidden();
     void setHidden(bool b);
+
+    inline void setProgenitorFile( const char* pFile ) { mProgenitorFile = StringTable->insert( pFile ); }
+    inline StringTableEntry getProgenitorFile( void ) const { return mProgenitorFile; }
 
     /// @}
 

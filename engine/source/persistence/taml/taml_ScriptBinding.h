@@ -67,6 +67,24 @@ ConsoleMethod(Taml, getWriteDefaults, bool, 2, 2,   "() Gets whether to write st
 
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(Taml, setProgenitorUpdate, void, 3, 3,    "(progenitorUpdate) Sets whether to update each type instances file-progenitor or not.\n"
+                                                        "If not updating then the progenitor stay as the script that executed the call to Taml.\n"
+                                                        "@param progenitorUpdate Whether to update each type instances file-progenitor or not.\n"
+                                                        "@return No return value." )
+{
+    object->setProgenitorUpdate( dAtob(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(Taml, getProgenitorUpdate, bool, 2, 2,    "() Gets whether to update each type instances file-progenitor or not.\n"
+                                                        "@return Whether to update each type instances file-progenitor or not." )
+{
+    return object->getProgenitorUpdate();
+}
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(Taml, setAutoFormatXmlExtension, void, 3, 3,  "(extension) Sets the extension (end of filename) used to detect the XML format.\n"
                                                             "@param extension The extension (end of filename) used to detect the XML format.\n"
                                                             "@return No return value." )

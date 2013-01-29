@@ -77,7 +77,6 @@ class GuiControl : public SimGroup
 {
 private:
    typedef SimGroup Parent;
-   StringTableEntry mScriptFile;
 
 public:
 
@@ -224,10 +223,6 @@ public:
     void setCanSave(bool bCanSave);
     /// Returns boolean as to whether any parent of this control has the 'no serialization' flag set.
     bool getCanSaveParent();
-
-    /// Returns the name of the script file the gui was created in, so that we can save it again to the same file.
-    StringTableEntry getScriptFile();
-    void setScriptFile(const char* file) { mScriptFile = StringTable->insert(file); };
 
     /// @}
 public:

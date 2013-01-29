@@ -151,8 +151,6 @@ GuiControlProfile::GuiControlProfile(void) :
     mNumbersOnly   = false;
     mProfileForChildren = NULL;
 
-   mScriptFile = CodeBlock::getCurrentCodeBlockFullPath();
-
    GuiControlProfile *def = dynamic_cast<GuiControlProfile*>(Sim::findObject("GuiDefaultProfile"));
    if (def)
    {
