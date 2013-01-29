@@ -1,0 +1,10 @@
+<ModuleDefinition
+	ModuleId="MoveToToy"
+	VersionId="1"
+	Description="Show the T2D 'MoveTo' feature."
+	Dependencies="ToyAssets=1"
+	Type="toy"
+	ToyCategoryIndex="3"
+	ScriptFile="main.cs"
+	CreateFunction="createMoveToToy"
+	DestroyFunction="destroyMoveToToy"/>

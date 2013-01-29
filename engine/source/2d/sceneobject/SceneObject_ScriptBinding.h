@@ -1610,13 +1610,14 @@ ConsoleMethod(SceneObject, getAngularDamping, F32, 2, 2, "() - Gets the angular 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneObject, moveTo, bool, 3, 6,           "(worldPoint X/Y, [time = 1000], [autoStop = true]) - Moves the object to the specified world point.\n"
-                                                            "The point is moved by calculating the initial linear velocity required and applies it.\n"
-                                                            "The object may never reach the point if it has linear damping applied or collides with another object.\n"
-                                                            "@param worldPoint/Y - The world point to move the object to.\n"
-                                                            "@param time - The time (milliseconds) taken to move the object to the specified point."
-                                                            "@param autoStop? - Whether to automatically set the linear velocity to zero when time has elapsed or not\n"
-                                                            "@return Whether the move could be started or not.")
+ConsoleMethod(SceneObject, moveTo, bool, 3, 7,  "(worldPoint X/Y, [time = 1000], [autoStop = true], [warpToTarget = true]) - Moves the object to the specified world point.\n"
+                                                "The point is moved by calculating the initial linear velocity required and applies it.\n"
+                                                "The object may never reach the point if it has linear damping applied or collides with another object.\n"
+                                                "@param worldPoint/Y - The world point to move the object to.\n"
+                                                "@param time - The time (milliseconds) taken to move the object to the specified point."
+                                                "@param autoStop? - Whether to automatically set the linear velocity to zero when time has elapsed or not\n"
+                                                "@param warpToTarget? - Whether to move instantly to the target point after the specified time or not in-case the target was not quite reached.\n"
+                                                "@return Whether the move could be started or not.")
 {
     // World point.
     const U32 worldPointElementCount = Utility::mGetStringElementCount(argv[2]);
@@ -1656,18 +1657,27 @@ ConsoleMethod(SceneObject, moveTo, bool, 3, 6,           "(worldPoint X/Y, [time
     // Auto stop?
     const bool autoStop = dAtob(argv[nextArg++]);
 
-    return object->moveTo( worldPoint, time, autoStop );
+    if ( argc <= nextArg )
+    {
+        return object->moveTo( worldPoint, time, autoStop );
+    }
+
+    // Warp to target?
+    const bool warpToTarget = dAtob(argv[nextArg++]);
+
+    return object->moveTo( worldPoint, time, autoStop, warpToTarget );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneObject, rotateTo, bool, 3, 5,         "(angle, [time = 1000], [autoStop = true]) - Rotates the object to the specified angle.\n"
-                                                            "The angle is rotated to by calculating the initial angular velocity required and applies it.\n"
-                                                            "The object may never reach the point if it has angular damping applied or collides with another object.\n"
-                                                            "@param angle- The angle to rotate the object to.\n"
-                                                            "@param time - The time (milliseconds) taken to rotate the object to the specified angle."
-                                                            "@param autoStop? - Whether to automatically set the angular velocity to zero when time has elapsed or not\n"
-                                                            "@return Whether the rotation could be started or not.")
+ConsoleMethod(SceneObject, rotateTo, bool, 3, 6,    "(angle, [time = 1000], [autoStop = true], [warpToTarget = true]) - Rotates the object to the specified angle.\n"
+                                                    "The angle is rotated to by calculating the initial angular velocity required and applies it.\n"
+                                                    "The object may never reach the point if it has angular damping applied or collides with another object.\n"
+                                                    "@param angle- The angle to rotate the object to.\n"
+                                                    "@param time - The time (milliseconds) taken to rotate the object to the specified angle."
+                                                    "@param autoStop? - Whether to automatically set the angular velocity to zero when time has elapsed or not\n"
+                                                    "@param warpToTarget? - Whether to rotate instantly to the target angle after the specified time or not in-case the target was not quite reached.\n"
+                                                    "@return Whether the rotation could be started or not.")
 {
     // Fetch angle.
     const F32 angle = mDegToRad(dAtof(argv[2]));
@@ -1688,7 +1698,16 @@ ConsoleMethod(SceneObject, rotateTo, bool, 3, 5,         "(angle, [time = 1000],
     // Auto stop?
     const bool autoStop = dAtob(argv[4]);
 
-    return object->rotateTo( angle, time, autoStop );
+    if ( argc == 5 )
+    {
+        return object->rotateTo( angle, time, autoStop );
+    }
+
+    // Warp to target.
+    const bool warpToTarget = dAtob(argv[5]);
+
+    return object->rotateTo( angle, time, autoStop, warpToTarget );
+
 }
 
 //-----------------------------------------------------------------------------
