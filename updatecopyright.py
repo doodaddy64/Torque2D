@@ -1,16 +1,18 @@
-# Update all T2D copyright headers
+# Update all T3D copyright headers
 
 import os
 import glob
 
 readOnly = False
 
-dirs = ['engine/source', 'modules' ]
+# dirs = ['engine/source']
+# dirs = ['modules']
+dirs = ['engine/source']
 
 donottouch = ['cmdgram.cpp', 'cmdgram.h', 'CMDscan.cpp']
 
 # C++ style comments: //
-chandled = ['.h', '.cpp', '.cs', '.mm', '.gui', '.cc', '.m']
+chandled = ['.h', '.cpp', '.cc', '.mm', '.cs']
 # asm style comments: ;
 ahandled = ['.asm']
 unhandled = []
@@ -18,14 +20,13 @@ unhandled = []
 filecount = 0
 dircount = 0
 
-companies = ['GarageGames', 'Garage Games', 'GarageGames.Com', 'GarageGames.com']
+companies = ['GarageGames', 'InstantAction']
 
 # Our console file to hold all issue files
 cf = None
 
 # A file to hold all of the 'valid' headers, for checking
 hf = None
-
 
 header = [	'//-----------------------------------------------------------------------------', \
 			'// Copyright (c) 2013 GarageGames, LLC', \
@@ -204,9 +205,12 @@ def updateProperFormatCFile(path, lines):
 
     count = 0;
     for line in lines:
-        if count < 4:
-            f.write(header[count] + '\n')
-        else:
+        if count == 0:
+            # Write out all of the header lines at once
+            for hl in header:
+                f.write(hl + '\n')
+        elif count >= 4:
+            # Start writing out the file's code past the 4 lines of previous header
             f.write(line)
         count += 1
     
@@ -296,9 +300,12 @@ def updateProperFormatAFile(path, lines):
 
     count = 0;
     for line in lines:
-        if count < 4:
-            f.write(aheader[count] + '\n')
-        else:
+        if count == 0:
+            # Write out all of the header lines at once
+            for ahl in aheader:
+                f.write(ahl + '\n')
+        elif count >= 4:
+            # Start writing out the file's code past the 4 lines of previous header
             f.write(line)
         count += 1
     
