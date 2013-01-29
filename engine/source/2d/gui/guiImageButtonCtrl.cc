@@ -258,8 +258,8 @@ void GuiImageButtonCtrl::renderButton( ImageAsset* pImageAsset, const U32 frame,
     }
     else
     {
-        // No, so fetch the default "NoImageRenderProxy".
-        RenderProxy* pNoImageRenderProxy = Sim::findObject<RenderProxy>( Con::getVariable( NO_IMAGE_RENDER_PROXY_NAME ) );
+        // No, so fetch the 'cannot render' proxy.
+        RenderProxy* pNoImageRenderProxy = Sim::findObject<RenderProxy>( CANNOT_RENDER_PROXY_NAME );
 
         // Finish if no render proxy available or it can't render.
         if ( pNoImageRenderProxy == NULL || !pNoImageRenderProxy->canRender() )
