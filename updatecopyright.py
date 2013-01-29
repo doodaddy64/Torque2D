@@ -9,7 +9,7 @@ readOnly = False
 # dirs = ['modules']
 dirs = ['engine/source']
 
-donottouch = ['cmdgram.cpp', 'cmdgram.h', 'CMDscan.cpp']
+donottouch = ['cmdgram.cpp', 'cmdgram.h', 'CMDscan.cpp', 'VFSRes.h']
 
 # C++ style comments: //
 chandled = ['.h', '.cpp', '.cc', '.mm', '.cs']
