@@ -52,7 +52,7 @@ function resetSandboxDragModes()
 function setSandboxDragMode( %mode )
 {
     // Is the drag mode available?
-    if ( !$sandboxDragModeAvailable[%mode] )
+    if ( %mode !$= "off" && !$sandboxDragModeAvailable[%mode] )
     {
         // No, so warn.
         error( "Cannot set sandbox drag mode to " @ %mode @ " as it is currently disabled." );
@@ -77,28 +77,36 @@ function setNextDragMode( %make )
     // Finish if being released.
     if ( !%make )
         return;
-    
-    // Finish if the drag mode is off.
-    if ( $sandboxDragMode $= "off" )
-        return;
 
+    // "off" to "camera" transition.
+    if ( $sandboxDragMode $= "off" )
+    {
+        if ( $sandboxDragModeAvailable["camera"] )
+        {
+            setSandboxDragMode("camera");
+            return;
+        }
+        
+        $sandboxDragMode = "camera";
+    }      
+    
     // "camera" to "pull" transition.
     if ( $sandboxDragMode $= "camera" )
     {
         if ( $sandboxDragModeAvailable["pull"] )
+        {
             setSandboxDragMode("pull");
+            return;
+        }
             
-        return;
+        $sandboxDragMode = "pull";
     }
 
-    // "pull" to "camera" transition.
+    // "pull" to "off" transition.
     if ( $sandboxDragMode $= "pull" )
     {
-        if ( $sandboxDragModeAvailable["camera"] )
-            setSandboxDragMode("camera");
-            
-        return;
-    }    
+        setSandboxDragMode("off");
+    }          
 }
 
 //-----------------------------------------------------------------------------
