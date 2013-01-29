@@ -12,6 +12,7 @@
 		2AED7D9316B70102003482CF /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AED7D9216B70102003482CF /* CoreText.framework */; };
 		2AF1C54B16B439D900C1CF3A /* declaredAssets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1C54716B439D900C1CF3A /* declaredAssets.cc */; };
 		2AF1C54C16B439D900C1CF3A /* referencedAssets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1C54916B439D900C1CF3A /* referencedAssets.cc */; };
+		33230F1656FA2C7C493DA2D2 /* guiSliderCtrl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 332307DBC5B7EEEB22E5A736 /* guiSliderCtrl.cc */; };
 		8610F32F16AEEC670015BCEB /* main.cs in Resources */ = {isa = PBXBuildFile; fileRef = 8610F32D16AEEC670015BCEB /* main.cs */; };
 		8610F33016AEEC670015BCEB /* modules in Resources */ = {isa = PBXBuildFile; fileRef = 8610F32E16AEEC670015BCEB /* modules */; };
 		86555D2F16B2C29200881446 /* iPadStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86555D2B16B2C29200881446 /* iPadStoryboard.storyboard */; };
@@ -477,6 +478,8 @@
 		2AF1C54816B439D900C1CF3A /* declaredAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = declaredAssets.h; sourceTree = "<group>"; };
 		2AF1C54916B439D900C1CF3A /* referencedAssets.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = referencedAssets.cc; sourceTree = "<group>"; };
 		2AF1C54A16B439D900C1CF3A /* referencedAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = referencedAssets.h; sourceTree = "<group>"; };
+		332307DBC5B7EEEB22E5A736 /* guiSliderCtrl.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guiSliderCtrl.cc; sourceTree = "<group>"; };
+		33230911303CCA4C673E1A22 /* guiSliderCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = guiSliderCtrl.h; sourceTree = "<group>"; };
 		8610F32D16AEEC670015BCEB /* main.cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.cs; path = ../../../main.cs; sourceTree = "<group>"; };
 		8610F32E16AEEC670015BCEB /* modules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = modules; path = ../../../modules; sourceTree = "<group>"; };
 		86555D2C16B2C29200881446 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/iPadStoryboard.storyboard; sourceTree = "<group>"; };
@@ -1966,6 +1969,8 @@
 				867BAEB616AEC9050033868F /* language */,
 				867BAEB916AEC9050033868F /* messageVector.cc */,
 				867BAEBA16AEC9050033868F /* messageVector.h */,
+				332307DBC5B7EEEB22E5A736 /* guiSliderCtrl.cc */,
+				33230911303CCA4C673E1A22 /* guiSliderCtrl.h */,
 			);
 			name = gui;
 			path = ../../../source/gui;
@@ -3310,6 +3315,7 @@
 				2AF1C54B16B439D900C1CF3A /* declaredAssets.cc in Sources */,
 				2AF1C54C16B439D900C1CF3A /* referencedAssets.cc in Sources */,
 				2AB97A2116B66BE50080F940 /* tamlCustom.cc in Sources */,
+				33230F1656FA2C7C493DA2D2 /* guiSliderCtrl.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
