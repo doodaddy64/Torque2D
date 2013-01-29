@@ -540,7 +540,7 @@ public:
                                 const F32 lengthA = -1.0f, const F32 lengthB = -1.0f,
                                 const bool collideConnected = false );
 
-    /// Mouse joint.
+    /// Target (a.k.a Mouse) joint.
     U32                     createTargetJoint(
                                 const SceneObject* pSceneObject,
                                 const b2Vec2& worldTarget,
