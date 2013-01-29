@@ -5,9 +5,9 @@ import glob
 
 readOnly = False
 
-# dirs = ['engine/source']
-# dirs = ['modules']
-dirs = ['engine/source']
+#dirs = ['engine/source']
+#dirs = ['modules']
+#dirs = ['tools']
 
 donottouch = ['cmdgram.cpp', 'cmdgram.h', 'CMDscan.cpp', 'VFSRes.h']
 
