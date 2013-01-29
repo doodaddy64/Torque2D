@@ -81,7 +81,7 @@ bool _iOSTorqueFatalError = false;
 
 - (void)didRotate:(NSNotification *)notification
 {
-	//Default to landscape left
+    //Default to landscape left
 	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
 	if(currentOrientation != orientation)
 	{

@@ -32,7 +32,6 @@
 		867BACDA16AEC8BB0033868F /* iOSFont.mm in Sources */ = {isa = PBXBuildFile; fileRef = 867BACA216AEC8BB0033868F /* iOSFont.mm */; };
 		867BACDB16AEC8BB0033868F /* iOSGL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 867BACA316AEC8BB0033868F /* iOSGL.mm */; };
 		867BACDD16AEC8BB0033868F /* iOSInput.mm in Sources */ = {isa = PBXBuildFile; fileRef = 867BACA616AEC8BB0033868F /* iOSInput.mm */; };
-		867BACDE16AEC8BB0033868F /* iOSLocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 867BACA816AEC8BB0033868F /* iOSLocation.mm */; };
 		867BACDF16AEC8BB0033868F /* iOSMath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 867BACA916AEC8BB0033868F /* iOSMath.mm */; };
 		867BACE016AEC8BB0033868F /* iOSMemory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 867BACAA16AEC8BB0033868F /* iOSMemory.mm */; };
 		867BACE116AEC8BB0033868F /* iOSMotionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 867BACAC16AEC8BB0033868F /* iOSMotionManager.mm */; };
@@ -507,8 +506,6 @@
 		867BACA216AEC8BB0033868F /* iOSFont.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iOSFont.mm; sourceTree = "<group>"; };
 		867BACA316AEC8BB0033868F /* iOSGL.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iOSGL.mm; sourceTree = "<group>"; };
 		867BACA616AEC8BB0033868F /* iOSInput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iOSInput.mm; sourceTree = "<group>"; };
-		867BACA716AEC8BB0033868F /* iOSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSLocation.h; sourceTree = "<group>"; };
-		867BACA816AEC8BB0033868F /* iOSLocation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iOSLocation.mm; sourceTree = "<group>"; };
 		867BACA916AEC8BB0033868F /* iOSMath.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iOSMath.mm; sourceTree = "<group>"; };
 		867BACAA16AEC8BB0033868F /* iOSMemory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iOSMemory.mm; sourceTree = "<group>"; };
 		867BACAB16AEC8BB0033868F /* iOSMotionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSMotionManager.h; sourceTree = "<group>"; };
@@ -1433,8 +1430,6 @@
 				867BACA216AEC8BB0033868F /* iOSFont.mm */,
 				867BACA316AEC8BB0033868F /* iOSGL.mm */,
 				867BACA616AEC8BB0033868F /* iOSInput.mm */,
-				867BACA716AEC8BB0033868F /* iOSLocation.h */,
-				867BACA816AEC8BB0033868F /* iOSLocation.mm */,
 				867BACA916AEC8BB0033868F /* iOSMath.mm */,
 				867BACAA16AEC8BB0033868F /* iOSMemory.mm */,
 				867BACAB16AEC8BB0033868F /* iOSMotionManager.h */,
@@ -2897,7 +2892,6 @@
 				867BACDA16AEC8BB0033868F /* iOSFont.mm in Sources */,
 				867BACDB16AEC8BB0033868F /* iOSGL.mm in Sources */,
 				867BACDD16AEC8BB0033868F /* iOSInput.mm in Sources */,
-				867BACDE16AEC8BB0033868F /* iOSLocation.mm in Sources */,
 				867BACDF16AEC8BB0033868F /* iOSMath.mm in Sources */,
 				867BACE016AEC8BB0033868F /* iOSMemory.mm in Sources */,
 				867BACE116AEC8BB0033868F /* iOSMotionManager.mm in Sources */,
@@ -3422,7 +3416,7 @@
 					"$(SYSTEM_LIBRARY_DIR)/Frameworks/OpenGL.framework/Headers",
 				);
 				INFOPLIST_FILE = "Torque2D/Torque2D-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3444,7 +3438,7 @@
 					"$(SYSTEM_LIBRARY_DIR)/Frameworks/OpenGL.framework/Headers",
 				);
 				INFOPLIST_FILE = "Torque2D/Torque2D-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

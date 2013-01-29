@@ -24,6 +24,11 @@
 
 #define USE_DEPTH_BUFFER 0
 
+// iPad 3 480
+// iPad 2 250
+// iPhone 4
+#define PORTRAIT_OFFSET 270
+
 extern bool createMouseMoveEvent(S32 i, S32 x, S32 y, S32 lastX, S32 lastY);
 extern bool createMouseDownEvent(S32 touchNumber, S32 x, S32 y, U32 numTouches);
 extern bool createMouseUpEvent(S32 touchNumber, S32 x, S32 y, S32 lastX, S32 lastY, U32 numTouches); //EFM
@@ -87,6 +92,10 @@ void ConvertToRetina(CGPoint *p)
             ConvertToRetina(&point);
         }
         
+        S32 orientation = _iOSGameGetOrientation();
+        if (UIDeviceOrientationIsPortrait(orientation))
+            point.y -= PORTRAIT_OFFSET;
+        
         int numTouches = [touch tapCount];
         createMouseDownEvent(touchCount, point.x, point.y, numTouches);
         touchCount++;
@@ -113,6 +122,13 @@ extern Vector<Event *> TouchMoveEvents;
             ConvertToRetina(&prevPoint);
         }
         
+        S32 orientation = _iOSGameGetOrientation();
+        if (UIDeviceOrientationIsPortrait(orientation))
+        {
+            point.y -= PORTRAIT_OFFSET;
+            prevPoint.y -= PORTRAIT_OFFSET;
+        }
+        
         createMouseMoveEvent(touchCount, point.x, point.y, prevPoint.x, prevPoint.y);
         touchCount++;
     }
@@ -133,6 +149,13 @@ extern Vector<Event *> TouchMoveEvents;
         {
             ConvertToRetina(&point);
             ConvertToRetina(&prevPoint);
+        }
+        
+        S32 orientation = _iOSGameGetOrientation();
+        if (UIDeviceOrientationIsPortrait(orientation))
+        {
+            point.y -= PORTRAIT_OFFSET;
+            prevPoint.y -= PORTRAIT_OFFSET;
         }
         
         int tc = [touch tapCount];
