@@ -23,7 +23,7 @@
 
 int _iOSGameGetOrientation();	
 void _iOSGameSetCurrentOrientation(int iOrientation);	
-
+S32 _iOSGetPortraitTouchoffset();
 
 //Luma: Ability to get the Local IP (Internal IP) for an iOS as opposed to it's External one
 void _iOSGetLocalIP(unsigned char *pcIPString);
