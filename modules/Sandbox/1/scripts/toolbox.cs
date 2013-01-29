@@ -41,6 +41,7 @@ function initializeToolbox()
         if ( %colorName $= $pref::Sandbox::defaultBackgroundColor )
             BackgroundColorSelectList.setSelected( %i );
     }
+    BackgroundColorSelectList.sort();
     
     // Populate the toy categories.
     ToyCategorySelectList.add( "All", $toyAllCategoryIndex );
@@ -170,6 +171,7 @@ function ToyCategorySelectList::onSelect(%this)
         if ( !$defaultToySelected && %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId )
             ToySelectList.setSelected( %moduleDefinition.getId() );
     }
+    ToySelectList.sort();
     
     // Flag as the default toy selected.
     $defaultToySelected = true;
