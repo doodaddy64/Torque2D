@@ -32,9 +32,10 @@
 class SceneObjectRotateToEvent : public SimEvent
 {
 public:
-    SceneObjectRotateToEvent( const F32 targetAngle, const bool autoStop ) :
-      mAutoStop( autoStop ),
-      mTargetAngle( targetAngle ) {}
+    SceneObjectRotateToEvent( const F32 targetAngle, const bool autoStop, const bool warpToTarget ) :
+        mAutoStop( autoStop ),
+        mWarpToTarget( warpToTarget ),
+        mTargetAngle( targetAngle ) {}
     virtual ~SceneObjectRotateToEvent() {};
 
     virtual void process(SimObject *object)
@@ -51,6 +52,13 @@ public:
             pSceneObject->setAngularVelocity( 0.0f );
         }
 
+        // Are we warping to target?
+        if ( mWarpToTarget )
+        {
+            // Yes, so set angle to the target.
+            pSceneObject->setAngle( mTargetAngle );
+        }
+
         // Reset event Id.
         pSceneObject->mRotateToEventId = 0;
 
@@ -61,6 +69,7 @@ public:
 private:
     F32         mTargetAngle;
     bool        mAutoStop;
+    bool        mWarpToTarget;
 };
 
 #endif // _SCENE_OBJECT_ROTATE_TO_EVENT_H_

@@ -1647,7 +1647,7 @@ void SceneObject::onEndCollision( const TickContact& tickContact )
 
 //-----------------------------------------------------------------------------
 
-bool SceneObject::moveTo( const Vector2& targetWorldPoint, const U32 time, const bool autoStop )
+bool SceneObject::moveTo( const Vector2& targetWorldPoint, const U32 time, const bool autoStop, const bool warpToTarget )
 {
     // Check in a scene.
     if ( !getScene() )
@@ -1674,13 +1674,13 @@ bool SceneObject::moveTo( const Vector2& targetWorldPoint, const U32 time, const
     const Vector2 relativePosition = targetWorldPoint - getPosition();
 
     // Calculate linear velocity to use over time.
-    const Vector2 linearVelocity = relativePosition / (time/1000.0f);
+    const Vector2 linearVelocity = relativePosition / (time * 0.001f);
 
     // Set the linear velocity.
     setLinearVelocity( linearVelocity );
 
     // Create and post event.
-    SceneObjectMoveToEvent* pEvent = new SceneObjectMoveToEvent( targetWorldPoint, autoStop );
+    SceneObjectMoveToEvent* pEvent = new SceneObjectMoveToEvent( targetWorldPoint, autoStop, warpToTarget );
     mMoveToEventId = Sim::postEvent(this, pEvent, Sim::getCurrentTime() + time );
 
     return true;
@@ -1688,7 +1688,7 @@ bool SceneObject::moveTo( const Vector2& targetWorldPoint, const U32 time, const
 
 //-----------------------------------------------------------------------------
 
-bool SceneObject::rotateTo( const F32 targetAngle, const U32 time, const bool autoStop )
+bool SceneObject::rotateTo( const F32 targetAngle, const U32 time, const bool autoStop, const bool warpToTarget )
 {
     // Check in a scene.
     if ( !getScene() )
@@ -1718,13 +1718,13 @@ bool SceneObject::rotateTo( const F32 targetAngle, const U32 time, const bool au
     const F32 deltaAngle = mAtan( mSin( relativeAngle ), mCos( relativeAngle ) );
 
     // Calculate angular velocity over time.
-    const F32 angularVelocity = deltaAngle / (time/1000.0f);
+    const F32 angularVelocity = deltaAngle / (time * 0.001f);
 
     // Set angular velocity.
     setAngularVelocity( angularVelocity );
 
     // Create and post event.
-    SceneObjectRotateToEvent* pEvent = new SceneObjectRotateToEvent( targetAngle, autoStop );
+    SceneObjectRotateToEvent* pEvent = new SceneObjectRotateToEvent( targetAngle, autoStop, warpToTarget );
     mRotateToEventId = Sim::postEvent(this, pEvent, Sim::getCurrentTime() + time );
 
     return true;

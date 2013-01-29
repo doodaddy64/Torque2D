@@ -32,8 +32,9 @@
 class SceneObjectMoveToEvent : public SimEvent
 {
 public:
-    SceneObjectMoveToEvent( const Vector2& targetWorldPoint, const bool autoStop ) :
+    SceneObjectMoveToEvent( const Vector2& targetWorldPoint, const bool autoStop, const bool warpToTarget  ) :
         mAutoStop( autoStop ),
+        mWarpToTarget( warpToTarget ),
         mTargetWorldPoint( targetWorldPoint ) {}
     virtual ~SceneObjectMoveToEvent() {}
 
@@ -51,6 +52,13 @@ public:
             pSceneObject->setLinearVelocity( Vector2::getZero() );
         }
 
+        // Are we warping to target?
+        if ( mWarpToTarget )
+        {
+            // Yes, so set position to the target.
+            pSceneObject->setPosition( mTargetWorldPoint );
+        }
+
         // Reset event Id.
         pSceneObject->mMoveToEventId = 0;
 
@@ -59,8 +67,9 @@ public:
     }
 
 private:
-    Vector2   mTargetWorldPoint;
+    Vector2     mTargetWorldPoint;
     bool        mAutoStop;
+    bool        mWarpToTarget;
 };
 
 #endif // _SCENE_OBJECT_MOVE_TO_EVENT_H_
