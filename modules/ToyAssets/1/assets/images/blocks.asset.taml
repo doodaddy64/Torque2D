@@ -1,0 +1,7 @@
+<ImageAsset
+    AssetName="Blocks"
+    ImageFile="@assetFile=#Blocks.png"
+    CellCountX="8"
+    CellCountY="7"
+    CellWidth="64"
+    CellHeight="64" />
