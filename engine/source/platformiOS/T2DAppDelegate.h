@@ -1,10 +1,7 @@
-//
-//  AppDelegate.h
-//  iTorque2D
-//
-//  Created by QA Mac1 on 2/2/12.
-//  Copyright (c) 2012 GarageGames. All rights reserved.
-//
+//-----------------------------------------------------------------------------
+// Torque
+// Copyright GarageGames, LLC 2011
+//-----------------------------------------------------------------------------
 
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>

@@ -1,10 +1,7 @@
-//
-//  T2DViewController.h
-//  iTorque2D
-//
-//  Created by Paul on 1/17/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
+//-----------------------------------------------------------------------------
+// Torque
+// Copyright GarageGames, LLC 2011
+//-----------------------------------------------------------------------------
 
 #import <GLKit/GLKit.h>
 

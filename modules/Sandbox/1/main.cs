@@ -52,7 +52,14 @@ function createSandbox( %scopeSet )
     scanForToys();
 
     // Initialize the toolbox.    
-    initializeToolbox();  
+    initializeToolbox();
+    
+    // Initialize the "cannot render" proxy.
+    new RenderProxy(CannotRenderProxy)
+    {
+        Image = "ToyAssets:CannotRender";
+    };
+    %scopeSet.add( CannotRenderProxy );
 }
 
 //-----------------------------------------------------------------------------
