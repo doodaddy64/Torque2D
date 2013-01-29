@@ -58,7 +58,8 @@ function createSandbox( %scopeSet )
     new RenderProxy(CannotRenderProxy)
     {
         Image = "ToyAssets:CannotRender";
-    };    
+    };
+    %scopeSet.add( CannotRenderProxy );
 }
 
 //-----------------------------------------------------------------------------
