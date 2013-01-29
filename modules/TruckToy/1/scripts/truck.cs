@@ -456,7 +456,7 @@ function createBrick( %brickNumber, %posX, %posY, %static )
       return;
    }
    
-   %image = "TruckToy:brick_0" @ %brickNumber;
+   %image = "ToyAssets:brick_0" @ %brickNumber;
    
    %obj = new Sprite();   
    if ( %static ) %obj.setBodyType( "static" );
