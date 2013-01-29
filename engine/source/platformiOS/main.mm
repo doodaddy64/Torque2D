@@ -1,10 +1,7 @@
-//
-//  main.m
-//  CleanView
-//
-//  Created by QA Mac1 on 1/25/12.
-//  Copyright (c) 2012 GarageGames. All rights reserved.
-//
+//-----------------------------------------------------------------------------
+// Torque
+// Copyright GarageGames, LLC 2011
+//-----------------------------------------------------------------------------
 
 #import <UIKit/UIKit.h>
 

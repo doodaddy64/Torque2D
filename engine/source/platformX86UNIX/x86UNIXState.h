@@ -1,8 +1,6 @@
 //-----------------------------------------------------------------------------
 // Torque
 // Copyright GarageGames, LLC 2011
-//
-// Initial revision: 12/13/01 Paul G. Allen, Random Logic Consulting
 //-----------------------------------------------------------------------------
 
 #include "math/mPoint.h"

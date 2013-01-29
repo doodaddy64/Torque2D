@@ -1,12 +1,11 @@
 //-----------------------------------------------------------------------------
 // Torque
 // Copyright GarageGames, LLC 2011
-//
+//-----------------------------------------------------------------------------
+
 // Portions taken from OpenGL Full Screen.c sample from Apple Computer, Inc.
 // (that's where many of the lead helper functions originated from, but code
 //  has been significantly changed & revised.)
-//-----------------------------------------------------------------------------
-
 
 #include "platformiOS/platformiOS.h"
 #include "platformiOS/platformGL.h"

@@ -1,7 +1,7 @@
-//
-//  T2DView.mm
-//  iTorque2D
-//
+//-----------------------------------------------------------------------------
+// Torque
+// Copyright GarageGames, LLC 2011
+//-----------------------------------------------------------------------------/
 
 #import "platformiOS/T2DView.h"
 //#import <QuartzCore/QuartzCore.h>
