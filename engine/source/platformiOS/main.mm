@@ -97,6 +97,8 @@ void _iOSGameChangeOrientation(S32 newOrientation)
 {    
 	_iOSGameSetCurrentOrientation(newOrientation);
     
+    return;
+    
     bool enableAutoOrientation = Con::getBoolVariable("$pref::iOS::EnableOrientationRotation");
     int screenOrientation = Con::getIntVariable("$pref::iOS::ScreenOrientation");
     bool allowOtherOrientation = Con::getBoolVariable("$pref::iOS::EnableOtherOrientationRotation");
