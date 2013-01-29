@@ -262,8 +262,6 @@ PlatformFont::CharInfo &WinFont::getCharInfo(const UTF16 ch) const
           }
           c.bitmapIndex = 0;
       }
-      //-Mat error on bad fonts
-      Con::errorf( "Couldn't create character data for %s", mFontName );
     }
 
     return c;
