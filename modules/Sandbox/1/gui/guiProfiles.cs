@@ -192,7 +192,9 @@ if (!isObject(GuiTextProfile)) new GuiControlProfile (GuiTextProfile)
 if (!isObject(GuiCheckBoxProfile)) new GuiControlProfile (GuiCheckBoxProfile)
 {
     opaque = false;
+    fontColor = "white";
     fillColor = "232 232 232 255";
+    fontColorHL = "white";
     border = false;
     borderColor = "0 0 0 255";
     fontType = $platformFontType;
@@ -220,6 +222,8 @@ if(!isObject(GuiConsoleProfile)) new GuiControlProfile (GuiConsoleProfile)
 
 //-----------------------------------------------------------------------------
 
+
+
 if(!isObject(GuiTextEditProfile)) new GuiControlProfile (GuiTextEditProfile)
 {
    opaque = true;
@@ -237,7 +241,15 @@ if(!isObject(GuiTextEditProfile)) new GuiControlProfile (GuiTextEditProfile)
    autoSizeHeight = true;
    tab = true;
    canKeyFocus = true;
+   returnTab = true;
    
+};
+
+//-----------------------------------------------------------------------------
+
+if(!isObject(GuiNumberEditProfile)) new GuiControlProfile (GuiNumberEditProfile: GuiTextEditProfile)
+{
+   numbersOnly = true;
 };
 
 //-----------------------------------------------------------------------------

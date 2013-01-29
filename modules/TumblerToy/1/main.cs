@@ -20,20 +20,46 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-$maxBalls = 100;
-$currentBalls = 0;
-$createTumblerBallSchedule = "";
-
-//-----------------------------------------------------------------------------
-
 function createTumblerToy( %scopeSet )
 {
-    // Turn off the Sandbox collision-shape overlay as it can affect performance.
+    if ( !isObject(TumblerToy) )
+    {
+        new ScriptObject(TumblerToy)
+        {
+            createTumblerBallSchedule = "";
+            maxBalls = 100;
+            currentBalls = 0;
+            repeat = true;
+        };
+        
+        %scopeSet.add(TumblerToy);
+    }
+    
+    %checkbox = createCheckBoxControl("Create lots of balls?", "10 10", "20 20", TumblerToy, true, "repeat", TumblerToy.repeat);
+    %scopeSet.add(%checkbox);
+    
+    %textEdit = createNumberEditControl("Number of balls", "10 40", "20 25", TumblerToy, true, "maxBalls", TumblerToy.maxBalls);
+    %scopeSet.add(%textEdit);
+    
+    ToyCustomControls.add(%checkbox);
+    ToyCustomControls.add(%textEdit);
+    
+    TumblerToy.reset();
+}
+
+function TumblerToy::reset(%this)
+{
+    SandboxScene.clear();
+    
+    // Prefer the collision option off as it severely affects the performance.
     setCollisionOption( false );
     
     // Set the scene gravity.
     SandboxScene.setGravity( 0, -39.8 );
     
+    // Set the drag mode as "pull".
+    setSandboxDragMode( "pull" );
+
     // Create the tumbler.
     %tumbler = new Sprite();
     SandboxScene.add( %tumbler );
@@ -44,26 +70,32 @@ function createTumblerToy( %scopeSet )
     %tumberJoint = SandboxScene.createRevoluteJoint( %tumbler, 0, "0 0" );
     SandboxScene.setRevoluteJointMotor( %tumberJoint, true, 15, 1000000 );
     
-    // Schedule to create a ball.
-    $createTumblerBallSchedule = schedule( 100, 0, createTumblerBall );
+    %this.currentBalls = 0;
     
-    // Set the drag mode as "pull".
-    setSandboxDragMode( "pull" );
-   
+    // Schedule to create a ball.
+    %this.createTumblerBallSchedule = %this.schedule( 100, "createTumblerBall" );
 }
 
-//-----------------------------------------------------------------------------
+function TumblerToy::setRepeat(%this, %value)
+{
+    %this.repeat = %value;
+}
 
-function createTumblerBall()
+function TumblerToy::setMaxBalls(%this, %value)
+{
+    %this.maxBalls = %value;
+}
+
+function TumblerToy::createTumblerBall(%this)
 {
     // Reset the event schedule.
-    $createTumblerBallSchedule = "";
+    %this.createTumblerBallSchedule = "";
 
     // Fetch the stock color count.
     %stockColorCount = getStockColorCount();
     
     // Create some balls.
-    for( %n = 0; %n < 5; %n++ )
+    for ( %n = 0; %n < 5; %n++ )
     {      
         // Create the ball.
         %ball = new Sprite();
@@ -75,15 +107,16 @@ function createTumblerBall()
         SandboxScene.add( %ball );
 
         // Increase ball count.
-        $currentBalls++;
+        %this.currentBalls++;
         
         // Finish if exceeded the required number of balls.
-        if ( $currentBalls >= $maxBalls )
+        if ( %this.currentBalls >= %this.maxBalls)
             return;
     }
 
     // Schedule to create a ball.
-    $createTumblerBallSchedule = schedule( 100, 0, createTumblerBall );
+    if (%this.repeat)
+        %this.createTumblerBallSchedule = %this.schedule( 100, "createTumblerBall" );
     
     SandboxScene.setBatchingEnabled( true );
 }
@@ -93,9 +126,9 @@ function createTumblerBall()
 function destroyTumblerToy( %scopeSet )
 {
     // Cancel any pending events.
-    if ( isEventPending($createTumblerBallSchedule) )
+    if ( isEventPending(TumblerToy.createTumblerBallSchedule) )
     {
-        cancel($createTumblerBallSchedule);
-        $createTumblerBallSchedule = "";
+        cancel(TumblerToy.createTumblerBallSchedule);
+        TumblerToy.createTumblerBallSchedule = "";
     }
 }

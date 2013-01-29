@@ -20,6 +20,80 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
+function createCheckBoxControl( %label, %position, %extent, %toyController, %shouldReset, %property, %startingValue)
+{
+    %checkbox = new GuiCheckBoxCtrl()
+    {
+        Position = %position;
+        Extent = %extent;
+        Text = %label;
+        Profile = "GuiCheckBoxProfile";
+        toy = %toyController;
+        shouldResetToy = %shouldReset;
+        property = %property;
+        class = "CheckboxController";        
+        tooltipprofile = "GuiToolTipProfile";
+    };
+    
+    %checkBox.setValue(%startingValue);
+    %checkbox.command = %checkbox @ ".updateToy();";
+    
+    return %checkbox;
+}
+
+function CheckboxController::updateToy(%this)
+{
+    if (%this.toy $= "")
+        return;
+        
+    if (%this.property !$= "")
+    {
+        %setter = "%this.toy.set" @ %this.property @ "(" @ %this.getValue() @ ");";
+
+        eval(%setter );
+    }
+    
+    if (%this.shouldResetToy && %this.toy.isMethod("reset"))
+        %this.toy.reset();
+}
+
+function createNumberEditControl( %label, %position, %extent, %toyController, %shouldReset, %property, %startingValue)
+{
+    %textEdit = new GuiTextEditCtrl()
+    {
+        Position = %position;
+        Text = %startingValue;
+        Extent = %extent;
+        toy = %toyController;
+        shouldResetToy = %shouldReset;
+        property = %property;
+        class = "TextEditController";
+        isContainer = "0";
+        Profile = "GuiNumberEditProfile";
+        tooltipprofile = "GuiToolTipProfile";
+        hovertime = "1000";
+        text = %startingValue;
+    };
+    
+    %textEdit.validate = %textEdit @ ".updateToy();";
+}
+
+function TextEditController::updateToy(%this)
+{
+    if (%this.toy $= "")
+        return;
+        
+    if (%this.property !$= "")
+    {
+        %setter = "%this.toy.set" @ %this.property @ "(" @ %this.getValue() @ ");";
+        echo("@@@ Setter is " @ %setter);
+        eval(%setter );
+    }
+    
+    if (%this.shouldResetToy && %this.toy.isMethod("reset"))
+        %this.toy.reset();
+}
+
 function createRangeControl( %name, %label, %position, %min, %max, %variable )
 {
 }
