@@ -11,7 +11,7 @@ $createTumblerBallSchedule = "";
 
 function createTumblerToy( %scopeSet )
 {
-    // Prefer the collision option off as it severely affects the performance.
+    // Turn off the Sandbox collision-shape overlay as it can affect performance.
     setCollisionOption( false );
     
     // Set the scene gravity.
