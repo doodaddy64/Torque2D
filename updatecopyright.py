@@ -1,4 +1,4 @@
-# Update all T3D copyright headers
+# Update all T2D copyright headers
 
 import os
 import glob
