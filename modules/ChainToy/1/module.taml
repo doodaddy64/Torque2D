@@ -1,6 +1,7 @@
 <ModuleDefinition
     ModuleId="ChainToy"
     VersionId="1"
+	Enabled="0"
     Description="Box2D Chain Test."
     Dependencies="ToyAssets=1"
     Type="toy"

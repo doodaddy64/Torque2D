@@ -1,6 +1,7 @@
 <ModuleDefinition
     ModuleId="RopeToy"
     VersionId="1"
+	Enabled="0"
     Description="Box2D Rope Test."
     Dependencies="ToyAssets=1"
     Type="toy"
