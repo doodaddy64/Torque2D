@@ -1,0 +1,10 @@
+<ModuleDefinition
+	ModuleId="RotateToToy"
+	VersionId="1"
+	Description="Show the T2D 'RotateTo' feature."
+	Dependencies="ToyAssets=1"
+	Type="toy"
+	ToyCategoryIndex="3"
+	ScriptFile="main.cs"
+	CreateFunction="createRotateToToy"
+	DestroyFunction="destroyRotateToToy"/>

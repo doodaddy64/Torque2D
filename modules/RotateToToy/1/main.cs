@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createMoveToToy( %scopeSet )
+function createRotateToToy( %scopeSet )
 {
     // Set the sandbox drag mode availability.
     setSandboxDragModeAvailable( "pan", false );
@@ -30,39 +30,43 @@ function createMoveToToy( %scopeSet )
     setSandboxDragMode( "off" );
 
     // Create the test sprite.
-    createMoveToSprite();
+    createRotateToSprite();
     
     // Activate the package.
-    activatePackage( MoveToToyPackage );    
+    activatePackage( RotateToToyPackage );    
 }
 
 //-----------------------------------------------------------------------------
 
-function createMoveToSprite()
+function createRotateToSprite()
 {
-    $moveToSprite = new Sprite();
-    $moveToSprite.Image = "ToyAssets:Crosshair2";
-    $moveToSprite.Size = 20;
-    SandboxScene.add( $moveToSprite );
+    $RotateToSprite = new Sprite();
+    $RotateToSprite.Image = "ToyAssets:Ship";
+    $RotateToSprite.Size = 60;
+    SandboxScene.add( $RotateToSprite );
 }
 
 //-----------------------------------------------------------------------------
 
-function destroyMoveToToy( %scopeSet )
+function destroyRotateToToy( %scopeSet )
 {
     // Deactivate the package.
-    deactivatePackage( MoveToToyPackage );
+    deactivatePackage( RotateToToyPackage );
 }
 
 //-----------------------------------------------------------------------------
 
-package MoveToToyPackage
+package RotateToToyPackage
 {
 
 function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 {
+    // Calculate the angle to the mouse.
+    %origin = $RotateToSprite.getPosition();
+    %angle = -mRadToDeg( mAtan( getWord(%worldPos,0)-getWord(%origin,0), getWord(%worldPos,1)-getWord(%origin,1) ) );
+    
     // Move to the touched position.
-    $moveToSprite.moveTo( %worldPos );
+    $RotateToSprite.RotateTo( %angle );
 }
     
 };
