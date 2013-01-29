@@ -1524,8 +1524,7 @@ void SceneWindow::onRender( Point2I offset, const RectI& updateRect )
     glLoadIdentity();
 
     // Set orthographic projection.
-    //glOrtho( sceneMin.x, sceneMax.x, sceneMin.y, sceneMax.y, 0.0f, MAX_LAYERS_SUPPORTED );
-    glFrustum( sceneMin.x, sceneMax.x, sceneMin.y, sceneMax.y, 0.0f, MAX_LAYERS_SUPPORTED );
+    glOrtho( sceneMin.x, sceneMax.x, sceneMin.y, sceneMax.y, 0.0f, MAX_LAYERS_SUPPORTED );
 
     // Set ModelView.
     glMatrixMode(GL_MODELVIEW);
