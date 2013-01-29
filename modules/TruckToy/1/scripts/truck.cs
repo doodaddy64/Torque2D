@@ -456,7 +456,7 @@ function createBrick( %brickNumber, %posX, %posY, %static )
       return;
    }
    
-   %image = "ToyAssets:brick_0" @ %brickNumber;
+   %image = "TruckToy:brick_0" @ %brickNumber;
    
    %obj = new Sprite();   
    if ( %static ) %obj.setBodyType( "static" );
@@ -480,7 +480,7 @@ function createBrickPile( %posX, %posY )
 {
    %obj = new Sprite();   
    %obj.setBodyType( "static" );
-   %obj.setImage( "ToyAssets:brickPile" );
+   %obj.setImage( "TruckToy:brickPile" );
    %obj.setPosition( %posX, %posY );
    %obj.setSize( 4, 1 );
    %obj.setSceneLayer( $backgroundDomain-3 );
@@ -501,7 +501,7 @@ function createPlank( %plankNumber, %posX, %posY, %angle, %static )
       return;
    }
    
-   %image = "ToyAssets:plank_0" @ %plankNumber;
+   %image = "TruckToy:plank_0" @ %plankNumber;
    
    %obj = new Sprite();   
    if ( %static ) %obj.setBodyType( "static" );
@@ -622,7 +622,7 @@ function createTruck( %posX, %posY )
    // Rear tire.   
    %tireRear = new Sprite();
    %tireRear.setPosition( %posX-1.4, %posY-1.0 );
-   %tireRear.setImage( "TruckToy:tires" );
+   %tireRear.setImage( "ToyAssets:tires" );
    %tireRear.setSize( 1.7, 1.7 );
    %tireRear.setSceneLayer( $truckDomain-1 );
    %tireRear.setSceneGroup( $obstacleDomain );
@@ -635,7 +635,7 @@ function createTruck( %posX, %posY )
    // Front tire.
    %tireFront = new Sprite();
    %tireFront.setPosition( %posX+1.7, %posY-1.0 );
-   %tireFront.setImage( "TruckToy:tires" );
+   %tireFront.setImage( "ToyAssets:tires" );
    %tireFront.setSize( 1.7, 1.7 );
    %tireFront.setSceneLayer( $truckDomain-1 );
    %tireFront.setSceneGroup( $obstacleDomain );
