@@ -40,10 +40,17 @@ function createRotateToToy( %scopeSet )
 
 function createRotateToSprite()
 {
-    $RotateToSprite = new Sprite();
-    $RotateToSprite.Image = "ToyAssets:Ship";
-    $RotateToSprite.Size = 60;
-    SandboxScene.add( $RotateToSprite );
+    // Create the sprite.
+    %object = new Sprite(RotateToSprite);
+    
+    // Set the static image.
+    %object.Image = "ToyAssets:Ship";
+    
+    // Set a useful size.
+    %object.Size = 60;
+    
+    // Add to the scene.
+    SandboxScene.add( %object );
 }
 
 //-----------------------------------------------------------------------------
@@ -62,11 +69,11 @@ package RotateToToyPackage
 function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 {
     // Calculate the angle to the mouse.
-    %origin = $RotateToSprite.getPosition();
+    %origin = RotateToSprite.getPosition();
     %angle = -mRadToDeg( mAtan( getWord(%worldPos,0)-getWord(%origin,0), getWord(%worldPos,1)-getWord(%origin,1) ) );
     
-    // Move to the touched position.
-    $RotateToSprite.RotateTo( %angle );
+    //Rotate to the touched angle.
+    RotateToSprite.RotateTo( %angle );
 }
     
 };
