@@ -98,8 +98,8 @@ function CheckboxController::updateToy(%this)
 
 function createNumberEditControl( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
 {
-    %containerWidth = getWord(%extent, 0) + 35;
-    %containerHeight = getWord(%extent, 1) + 35;
+    %containerWidth = getWord(%extent, 0) + 100;
+    %containerHeight = getWord(%extent, 1);
     %containerExtent = %containerWidth SPC %containerHeight;
 
     %container = new GuiControl()
@@ -134,7 +134,7 @@ function createNumberEditControl( %label, %position, %extent, %toyController, %s
         isContainer = "0";
         Profile = "GuiTextProfile";
         Position = "30 0";
-        Extent = %extent;
+        Extent = "80 20";
         MinExtent = "8 2";
         canSave = "0";
         Visible = "1";
