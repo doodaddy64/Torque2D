@@ -22,25 +22,58 @@
 
 function createCheckBoxControl( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
 {
+    %containerWidth = getWord(%extent, 0) + 35;
+    %containerHeight = getWord(%extent, 1) + 35;
+    %containerExtent = %containerWidth SPC %containerHeight;
+
+    %container = new GuiControl()
+    {
+        isContainer = 1;
+        position = %position;
+        extent = %containerExtent;
+        Profile = GuiTransparentProfile;
+    };
+
     %checkbox = new GuiCheckBoxCtrl()
     {
-        Position = %position;
-        Extent = %extent;
-        Text = %label;
+        Position = "1 1";
+        Extent = "20 20";
         Profile = "GuiCheckBoxProfile";
         toy = %toyController;
         shouldResetToy = %shouldReset;
         callback = %callback;
-        class = "CheckboxController";        
+        class = "CheckboxController";
         tooltipprofile = "GuiToolTipProfile";
     };
-    %checkBox.setText(%label);
+
     %checkBox.setValue(%startingValue);
     %checkbox.command = %checkbox @ ".updateToy();";
 
-    ToyCustomControls.add(%checkbox);
+    %container.add(%checkBox);
 
-    return %checkbox;
+    %labelControl = new GuiTextCtrl()
+    {
+        canSaveDynamicFields = "0";
+        isContainer = "0";
+        Profile = "GuiTextProfile";
+        Position = "30 1";
+        Extent = %extent;
+        MinExtent = "8 2";
+        canSave = "0";
+        Visible = "1";
+        Active = "0";
+        tooltipprofile = "GuiToolTipProfile";
+        tooltipWidth = "0";
+        text = %label;
+        maxLength = "255";
+        truncate = "0";
+    };
+
+    %container.add(%labelControl);
+
+    ToyCustomControls.add(%container);
+
+    return %container;
 }
 
 //-----------------------------------------------------------------------------
@@ -65,9 +98,21 @@ function CheckboxController::updateToy(%this)
 
 function createNumberEditControl( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
 {
+    %containerWidth = getWord(%extent, 0) + 35;
+    %containerHeight = getWord(%extent, 1) + 35;
+    %containerExtent = %containerWidth SPC %containerHeight;
+
+    %container = new GuiControl()
+    {
+        isContainer = 1;
+        position = %position;
+        extent = %containerExtent;
+        Profile = GuiTransparentProfile;
+    };
+
     %textEdit = new GuiTextEditCtrl()
     {
-        Position = %position;
+        Position = "1 1";
         Text = %startingValue;
         Extent = %extent;
         toy = %toyController;
@@ -81,11 +126,31 @@ function createNumberEditControl( %label, %position, %extent, %toyController, %s
         text = %startingValue;
     };
 
-    %textEdit.validate = %textEdit @ ".updateToy();";
+    %container.add(%textEdit);
 
-    ToyCustomControls.add(%textEdit);
+    %labelControl = new GuiTextCtrl()
+    {
+        canSaveDynamicFields = "0";
+        isContainer = "0";
+        Profile = "GuiTextProfile";
+        Position = "30 0";
+        Extent = %extent;
+        MinExtent = "8 2";
+        canSave = "0";
+        Visible = "1";
+        Active = "0";
+        tooltipprofile = "GuiToolTipProfile";
+        tooltipWidth = "0";
+        text = %label;
+        maxLength = "255";
+        truncate = "0";
+    };
 
-    return %textEdit;
+    %container.add(%labelControl);
+
+    ToyCustomControls.add(%container);
+
+    return %container;
 }
 
 //-----------------------------------------------------------------------------

@@ -83,6 +83,13 @@ if(!isObject(GuiDefaultProfile)) new GuiControlProfile (GuiDefaultProfile)
     soundButtonOver = "";
 };
 
+// ----------------------------------------------------------------------------
+
+if (!isObject(GuiTransparentProfile)) new GuiControlProfile (GuiTransparentProfile : GuiDefaultProfile)
+{
+    opaque = false;
+    border = false;
+};
 
 // ----------------------------------------------------------------------------
 
