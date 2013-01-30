@@ -229,27 +229,26 @@ if(!isObject(GuiConsoleProfile)) new GuiControlProfile (GuiConsoleProfile)
 
 //-----------------------------------------------------------------------------
 
-
-
-if(!isObject(GuiTextEditProfile)) new GuiControlProfile (GuiTextEditProfile)
+if (!isObject(GuiTextEditProfile)) new GuiControlProfile (GuiTextEditProfile)
 {
-   opaque = true;
-   fillColor = "255 255 255";
-   fillColorHL = "128 128 128";
-   border = -2;
-   bitmap = "^Sandbox/gui/images/textEdit.png";
-   borderColor = "40 40 40 10";
-   fontColor = "0 0 0";
-   fontColorHL = "0 0 0";
-   fontColorNA = "0 0 0";
-   fontColorSEL = "0 0 0";
-   textOffset = "4 2";
-   autoSizeWidth = false;
-   autoSizeHeight = true;
-   tab = true;
-   canKeyFocus = true;
-   returnTab = true;
-   
+    fontSize = $platformFontSize;
+    opaque = false;
+    fillColor = "232 240 248 255";
+    fillColorHL = "251 170 0 255";
+    fillColorNA = "127 127 127 52";
+    border = -2;
+    bitmap = "^Sandbox/gui/images/textEdit.png";
+    borderColor = "40 40 40 10";
+    fontColor = "27 59 95 255";
+    fontColorHL = "232 240 248 255";
+    fontColorNA = "0 0 0 52";
+    fontColorSEL = "0 0 0 255";
+    textOffset = "5 2";
+    autoSizeWidth = false;
+    autoSizeHeight = false;
+    tab = false;
+    canKeyFocus = true;
+    returnTab = true;
 };
 
 //-----------------------------------------------------------------------------
