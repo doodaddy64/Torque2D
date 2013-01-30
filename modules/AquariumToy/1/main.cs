@@ -29,20 +29,20 @@ function createAquariumToy( %scopeSet )
     %scopeSet.currentFish = 0;
     %scopeSet.selectedAnimation = "AquariumToy:angelfish1Anim";
 
-    addIntegerOption("Number of fish", "10 40", "35 25", true, "setMaxFish", %scopeSet.maxFish);
+    addRangeOption( "Test Range", "10 40", "100 25", "0 20", "20", true, setMaxFish, %scopeSet.maxFish);
+
     addButtonOption("Reset?", "10 75", "50 25", false, "reset");
     addSelectionOption(getFishAnimationList(), "Fish Animation", "10 110", "165 25", false, "setSelectedAnimation");
     addButtonOption("Spawn fish", "10 145", "70 25", false, "spawnOneFish");
-
-    //addRangeOption( "Test Range", "10 40", "100 25", "0 10", "10", false, setFishRange, 1);
 
     // Reset the toy initially.
     %scopeSet.reset();
 }
 
-function AquariumToy::setFishRange(%this, %value)
+function AquariumToy::setMaxFish(%this, %value)
 {
     echo("@@@ Range: " @ %value);
+    %this.maxFish = %value;
 }
 //-----------------------------------------------------------------------------
 
@@ -104,13 +104,6 @@ function AquariumToy::reset(%this)
 
     // Schedule to create a ball.
     %this.createFishScheduleId = %this.schedule( 100, "spawnFish" );
-}
-
-//-----------------------------------------------------------------------------
-
-function AquariumToy::setMaxFish(%this, %value)
-{
-    %this.maxFish = %value;
 }
 
 //-----------------------------------------------------------------------------

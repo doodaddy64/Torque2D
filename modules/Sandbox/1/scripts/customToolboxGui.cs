@@ -378,11 +378,30 @@ function addRangeOption( %label, %position, %extent, %range, %ticks, %shouldRese
         Value = %startingValue;
     };
 
-    //%slider.command = %button @ ".updateToy();";
+    %slider.command = %slider @ ".updateToy();";
 
     %container.add(%slider);
 
     ToyCustomControls.add(%container);
 
     return %container;
+}
+
+//-----------------------------------------------------------------------------
+
+function SliderController::updateToy(%this)
+{
+    echo("@@@ Updating slider controller");
+    if (%this.toy $= "")
+        return;
+
+    if (%this.callback !$= "")
+    {
+        %setter = "%this.toy." @ %this.callback @ "(" @ %this.getValue() @ ");";
+        echo("@@@ Setter: " @ %setter);
+        eval(%setter);
+    }
+
+    if (%this.shouldResetToy && %this.toy.isMethod("reset"))
+        %this.toy.reset();
 }
