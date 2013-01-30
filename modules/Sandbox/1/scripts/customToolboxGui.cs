@@ -39,7 +39,7 @@ function addFlagOption( %label, %position, %extent, %shouldReset, %callback, %st
         Position = "1 1";
         Extent = "20 20";
         Profile = "GuiCheckBoxProfile";
-        toy = ToyCustomControls.Controller;
+        toy = $activeToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "CheckboxController";
@@ -115,7 +115,7 @@ function addIntegerOption( %label, %position, %extent, %shouldReset, %callback, 
         Position = "1 1";
         Text = %startingValue;
         Extent = %extent;
-        toy = ToyCustomControls.Controller;
+        toy = $activeToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "TextEditController";
@@ -195,7 +195,7 @@ function addButtonOption( %label, %position, %extent, %shouldReset, %callback)
         Position = "1 1";
         Extent = %extent;
         Visible = "1";
-        toy = ToyCustomControls.Controller;
+        toy = $activeToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "ButtonController";
@@ -233,10 +233,4 @@ function ButtonController::updateToy(%this)
 
     if (%this.shouldResetToy && %this.toy.isMethod("reset"))
         %this.toy.reset();
-}
-
-//-----------------------------------------------------------------------------
-
-function createRangeControl( %name, %label, %position, %min, %max, %variable )
-{
 }
