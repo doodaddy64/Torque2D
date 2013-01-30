@@ -352,8 +352,16 @@ function SelectionController::onSelect(%this)
 
 function addRangeOption( %label, %position, %extent, %range, %ticks, %shouldReset, %callback, %startingValue)
 {
-    %containerWidth = getWord(%extent, 0) + 100;
-    %containerHeight = getWord(%extent, 1);
+    %width = getWord(%extent, 0);
+    %height = getWord(%extent, 1);
+    %characterCount = strlen(%label);
+
+    %labelWidth = %width + (%characterCount * 5);
+    %labelExtent = %labelWidth SPC "15";
+    %positionOffset = (%width + 15) SPC "1";
+
+    %containerWidth = %labelWidth + 25;
+    %containerHeight = getWord(%extent, 1) + 35;
     %containerExtent = %containerWidth SPC %containerHeight;
 
     %container = new GuiControl()
@@ -364,13 +372,33 @@ function addRangeOption( %label, %position, %extent, %range, %ticks, %shouldRese
         Profile = GuiTransparentProfile;
     };
 
+    %labelControl = new GuiTextCtrl()
+    {
+        canSaveDynamicFields = "0";
+        isContainer = "0";
+        Profile = "GuiTextProfile";
+        Position = "1 1";
+        Extent = %labelExtent;
+        MinExtent = "8 2";
+        canSave = "0";
+        Visible = "1";
+        Active = "0";
+        tooltipprofile = "GuiToolTipProfile";
+        tooltipWidth = "0";
+        text = %label;
+        maxLength = "255";
+        truncate = "0";
+    };
+
+    %container.add(%labelControl);
+
     %slider = new GuiSliderCtrl()
     {
         class = "SliderController";
         toy = $activeToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
-        Position = "1 1";
+        Position = "1 16";
         Profile = "GuiSliderProfile";
         Extent = %extent;
         Range = %range;

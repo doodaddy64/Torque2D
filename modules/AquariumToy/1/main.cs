@@ -29,11 +29,11 @@ function createAquariumToy( %scopeSet )
     %scopeSet.currentFish = 0;
     %scopeSet.selectedAnimation = "AquariumToy:angelfish1Anim";
 
-    addRangeOption( "Test Range", "10 40", "100 25", "0 20", "20", true, setMaxFish, %scopeSet.maxFish);
+    addRangeOption( "Max Fish", "13 40", "100 25", "0 20", "20", true, setMaxFish, %scopeSet.maxFish);
 
-    addButtonOption("Reset?", "10 75", "50 25", false, "reset");
-    addSelectionOption(getFishAnimationList(), "Fish Animation", "10 110", "165 25", false, "setSelectedAnimation");
-    addButtonOption("Spawn fish", "10 145", "70 25", false, "spawnOneFish");
+    addButtonOption("Reset?", "10 95", "50 25", false, "reset");
+    addSelectionOption(getFishAnimationList(), "Fish Animation", "10 130", "165 25", false, "setSelectedAnimation");
+    addButtonOption("Spawn fish", "10 165", "70 25", false, "spawnOneFish");
 
     // Reset the toy initially.
     %scopeSet.reset();
