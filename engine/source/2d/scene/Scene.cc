@@ -176,10 +176,10 @@ Scene::Scene() :
     // Initialize joint property names.
     if ( !jointPropertiesInitialized )
     {
-        jointCustomPropertyName               = StringTable->insert( "Joints" );
+        jointCustomPropertyName           = StringTable->insert( "Joints" );
         jointCollideConnectedName         = StringTable->insert( "CollideConnected" );
-        jointObjectAName                  = StringTable->insert( "ObjectA" );
-        jointObjectBName                  = StringTable->insert( "ObjectB" );
+        jointObjectAName                  = StringTable->insert( "AnchorA" );
+        jointObjectBName                  = StringTable->insert( "AnchorB" );
         jointLocalAnchorAName             = StringTable->insert( "LocalAnchorA" );
         jointLocalAnchorBName             = StringTable->insert( "LocalAnchorB" );
 
@@ -4435,6 +4435,12 @@ void Scene::onTamlCustomWrite( TamlCustomProperties& customProperties )
 
                     // Add correction factor.
                     pJointAlias->addField( jointMotorCorrectionFactorName, pJoint->GetCorrectionFactor() );
+
+                    // Add bodies.
+                    if ( pSceneObjectA != NULL )
+                        pJointAlias->addField( jointObjectAName, pSceneObjectA );
+                    if ( pSceneObjectB != NULL )
+                        pJointAlias->addField( jointObjectBName, pSceneObjectB );
                 }
                 break;
 

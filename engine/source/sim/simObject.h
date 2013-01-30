@@ -160,7 +160,7 @@ class SimGroup;
 /// If you call deleteObject(), all of the above tasks are performed, in addition
 /// to some sanity checking to make sure the object was previously added properly,
 /// and isn't in the process of being deleted. After the object is unregistered, it
-/// deallocates itself.
+/// de-allocates itself.
 ///
 /// @section simobject_editor Torque Editors
 ///
@@ -183,7 +183,7 @@ class SimGroup;
 /// (Note: you can check the variable gEditingMission to see if the mission editor
 /// is running; if so, you may want to render special indicators. For instance, the
 /// fxFoliageReplicator renders inner and outer radii when the mission editor is
-/// runnning.)
+/// running.)
 ///
 /// @section simobject_console The Console
 ///
@@ -293,6 +293,7 @@ private:
 
 protected:
     SimObjectId mId;         ///< Id number for this object.
+    StringTableEntry mIdString;
     Namespace*  mNameSpace;
     U32         mTypeMask;
 
@@ -600,10 +601,10 @@ public:
 
     /// @name Accessors
     /// @{
-    SimObjectId getId() const { return mId; }
-    const char* getIdString();
-    U32         getType() const  { return mTypeMask; }
-    const char* getName() const { return objectName; };
+    inline SimObjectId getId( void ) const { return mId; }
+    inline StringTableEntry getIdString( void ) const { return mIdString; }
+    U32 getType() const  { return mTypeMask; }
+    const StringTableEntry getName( void ) const { return objectName; };
 
     void setId(SimObjectId id);
     void assignName(const char* name);
@@ -644,7 +645,7 @@ public:
 
     /// Determine whether or not a field should be written.
     ///
-    /// @param   fiedname The name of the field being written.
+    /// @param   fieldname The name of the field being written.
     /// @param   value The value of the field.
     virtual bool writeField(StringTableEntry fieldname, const char* value);
 

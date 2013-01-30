@@ -42,7 +42,7 @@ extern void (* glNormDrawArrays) (GLenum mode, GLint first, GLsizei count);
 #define glDrawElements glDrawElementsProcPtr
 #define glDrawArrays glDrawArraysProcPtr
 #else 
-#warning glDrawElements and glDrawArrays not redefined
+//#warning glDrawElements and glDrawArrays not redefined
 #endif // NO_REDEFINE_GL_FUNCS
 #endif // __GL_OUTLINE_FUNCS__
 #endif // TORQUE_DEBUG

@@ -22,7 +22,10 @@
 
 #include "vector.h"
 
-#ifdef TORQUE_DEBUG_GUARD
+//-----------------------------------------------------------------------------
+
+#ifdef TORQUE_DEBUG
+
 bool VectorResize(U32 *aSize, U32 *aCount, void **arrayPtr, U32 newCount, U32 elemSize,
                   const char* fileName,
                   const U32   lineNum)
@@ -62,7 +65,7 @@ bool VectorResize(U32 *aSize, U32 *aCount, void **arrayPtr, U32 newCount, U32 el
 
 #else
 
-bool VectorResize(U32 *aSize, U32 *aCount, void **arrayPtr, U32 newCount, U32 elemSize)
+bool VectorResize(U32 *aSize, U32 *aCount, void **arrayPtr, U32 newCount, U32 elemSize )
 {
    if (newCount > 0)
    {

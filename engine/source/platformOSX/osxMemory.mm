@@ -24,24 +24,10 @@
 
 //------------------------------------------------------------------------------
 
-#ifndef TORQUE_DISABLE_MEMORY_MANAGER
-#ifdef new
-#undef new
-#endif
-void* FN_CDECL operator new(dsize_t dt, void* ptr)
-{
-    return (ptr);
-}
-#endif
-
-
-//------------------------------------------------------------------------------
-
 void* dRealMalloc(dsize_t in_size)
 {
     return malloc(in_size);
 }
-
 
 //------------------------------------------------------------------------------
 
@@ -56,7 +42,6 @@ void* dMemcpy(void *dst, const void *src, dsize_t size)
 {
     return memcpy(dst,src,size);
 }
-
 
 //------------------------------------------------------------------------------
 

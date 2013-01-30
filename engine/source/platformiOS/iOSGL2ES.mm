@@ -38,7 +38,13 @@
 
 #define	INV_255		0.0039215686f
 #define	INV_32767	3.0518509476e-5f
-    
+
+/* EAGL and GL functions calling wrappers that log on error */
+#define CALL_EAGL_FUNCTION(__FUNC__, ...) ({ EAGLError __error = __FUNC__( __VA_ARGS__ ); if(__error != kEAGLErrorSuccess) Con::printf("%s() called from %s returned error %i\n", #__FUNC__, __FUNCTION__, __error); (__error ? 0 : 1); })
+#define CHECK_GL_ERROR() ({ int __error = glGetError(); if(__error) Con::printf("OpenGL error 0x%04X in %s\n", __error, __FUNCTION__); (__error ? 0 : 1); })
+// define this to print out glErrors, un-define to get rid of it
+#define TEST_FOR_OPENGL_ERRORS CHECK_GL_ERROR();
+
     
 /////////////////////////////////////////////////////////////////////////////
 //

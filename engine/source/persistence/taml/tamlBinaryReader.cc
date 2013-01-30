@@ -160,8 +160,28 @@ SimObject* TamlBinaryReader::parseElement( Stream& stream, const U32 versionId )
     // Parse attributes.
     parseAttributes( stream, pSimObject, versionId );
 
-    // Register the object (name) appropriately.
-    objectName == StringTable->EmptyString ? pSimObject->registerObject() : pSimObject->registerObject( objectName );
+    // Does the object require a name?
+    if ( objectName == StringTable->EmptyString )
+    {
+        // No, so just register anonymously.
+        pSimObject->registerObject();
+    }
+    else
+    {
+        // Yes, so register a named object.
+        pSimObject->registerObject( objectName );
+
+        // Was the name assigned?
+        if ( pSimObject->getName() != objectName )
+        {
+            // No, so warn that the name was rejected.
+#ifdef TORQUE_DEBUG
+            Con::warnf( "Taml::parseElement() - Registered an instance of type '%s' but a request to name it '%s' was rejected.  This is typically because an object of that name already exists.  '%s'", typeName, objectName, typeLocationBuffer );
+#else
+            Con::warnf( "Taml::parseElement() - Registered an instance of type '%s' but a request to name it '%s' was rejected.  This is typically because an object of that name already exists.", typeName, objectName );
+#endif
+        }
+    }
 
     // Do we have a reference Id?
     if ( tamlRefId != 0 )
@@ -172,10 +192,12 @@ SimObject* TamlBinaryReader::parseElement( Stream& stream, const U32 versionId )
 
     // Parse custom elements.
     TamlCustomProperties customProperties;
-    parseCustomElements( stream, pCallbacks, customProperties, versionId );
 
     // Parse children.
     parseChildren( stream, pCallbacks, pSimObject, versionId );
+
+    // Parse custom elements.
+    parseCustomElements( stream, pCallbacks, customProperties, versionId );
 
     // Are there any Taml callbacks?
     if ( pCallbacks != NULL )

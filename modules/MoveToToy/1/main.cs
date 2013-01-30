@@ -40,10 +40,20 @@ function createMoveToToy( %scopeSet )
 
 function createMoveToSprite()
 {
-    $moveToSprite = new Sprite();
-    $moveToSprite.Image = "ToyAssets:Crosshair2";
-    $moveToSprite.Size = 20;
-    SandboxScene.add( $moveToSprite );
+    // Create the sprite.
+    %object = new Sprite(MoveToSprite);
+    
+    // Set the static image.
+    %object.Image = "ToyAssets:Crosshair2";
+    
+    // Set a useful size.
+    %object.Size = 20;
+    
+    // Set the sprite rotating to make it more interesting.
+    %object.AngularVelocity = 180;
+    
+    // Add to the scene.
+    SandboxScene.add( %object );
 }
 
 //-----------------------------------------------------------------------------
@@ -62,7 +72,7 @@ package MoveToToyPackage
 function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 {
     // Move to the touched position.
-    $moveToSprite.moveTo( %worldPos );
+    MoveToSprite.moveTo( %worldPos );
 }
     
 };

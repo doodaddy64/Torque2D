@@ -219,13 +219,13 @@ function ToySelectList::onSelect(%this)
 //-----------------------------------------------------------------------------
 
 function BackgroundColorSelectList::onSelect(%this)
-{
+{           
+    // Fetch the index.
+    $activeSceneColor = %this.getSelected();
+ 
     // Finish if the sandbox scene is not available.
     if ( !isObject(SandboxScene) )
         return;
-            
-    // Fetch the index.
-    $activeSceneColor = %this.getSelected();
             
     // Set the scene color.
     SandboxScene.BackgroundColor = getStockColorName($activeSceneColor);
