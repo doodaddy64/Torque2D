@@ -35,10 +35,10 @@ function createTumblerToy( %scopeSet )
         %scopeSet.add(TumblerToy);
     }
     
-    %checkbox = createCheckBoxControl("Create lots of balls?", "10 10", "20 20", TumblerToy, true, "repeat", TumblerToy.repeat);
+    %checkbox = createCheckBoxControl("Create lots of balls?", "10 10", "20 20", TumblerToy, true, "setRepeat", TumblerToy.repeat);
     %scopeSet.add(%checkbox);
     
-    %textEdit = createNumberEditControl("Number of balls", "10 40", "20 25", TumblerToy, true, "maxBalls", TumblerToy.maxBalls);
+    %textEdit = createNumberEditControl("Number of balls", "10 40", "20 25", TumblerToy, true, "setMaxBalls", TumblerToy.maxBalls);
     %scopeSet.add(%textEdit);
     
     ToyCustomControls.add(%checkbox);

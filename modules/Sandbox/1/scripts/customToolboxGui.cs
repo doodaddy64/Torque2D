@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createCheckBoxControl( %label, %position, %extent, %toyController, %shouldReset, %property, %startingValue)
+function createCheckBoxControl( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
 {
     %checkbox = new GuiCheckBoxCtrl()
     {
@@ -30,7 +30,7 @@ function createCheckBoxControl( %label, %position, %extent, %toyController, %sho
         Profile = "GuiCheckBoxProfile";
         toy = %toyController;
         shouldResetToy = %shouldReset;
-        property = %property;
+        callback = %callback;
         class = "CheckboxController";        
         tooltipprofile = "GuiToolTipProfile";
     };
@@ -46,18 +46,18 @@ function CheckboxController::updateToy(%this)
     if (%this.toy $= "")
         return;
         
-    if (%this.property !$= "")
+    if (%this.callback !$= "")
     {
-        %setter = "%this.toy.set" @ %this.property @ "(" @ %this.getValue() @ ");";
+        %setter = "%this.toy." @ %this.callback @ "(" @ %this.getValue() @ ");";
 
-        eval(%setter );
+        eval(%setter);
     }
     
     if (%this.shouldResetToy && %this.toy.isMethod("reset"))
         %this.toy.reset();
 }
 
-function createNumberEditControl( %label, %position, %extent, %toyController, %shouldReset, %property, %startingValue)
+function createNumberEditControl( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
 {
     %textEdit = new GuiTextEditCtrl()
     {
@@ -66,7 +66,7 @@ function createNumberEditControl( %label, %position, %extent, %toyController, %s
         Extent = %extent;
         toy = %toyController;
         shouldResetToy = %shouldReset;
-        property = %property;
+        callback = %callback;
         class = "TextEditController";
         isContainer = "0";
         Profile = "GuiNumberEditProfile";
@@ -74,8 +74,10 @@ function createNumberEditControl( %label, %position, %extent, %toyController, %s
         hovertime = "1000";
         text = %startingValue;
     };
-    
+
     %textEdit.validate = %textEdit @ ".updateToy();";
+
+    return %textEdit;
 }
 
 function TextEditController::updateToy(%this)
@@ -83,11 +85,10 @@ function TextEditController::updateToy(%this)
     if (%this.toy $= "")
         return;
         
-    if (%this.property !$= "")
+    if (%this.callback !$= "")
     {
-        %setter = "%this.toy.set" @ %this.property @ "(" @ %this.getValue() @ ");";
-        echo("@@@ Setter is " @ %setter);
-        eval(%setter );
+        %setter = "%this.toy." @ %this.callback @ "(" @ %this.getValue() @ ");";
+        eval(%setter);
     }
     
     if (%this.shouldResetToy && %this.toy.isMethod("reset"))
