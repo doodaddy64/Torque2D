@@ -185,11 +185,10 @@ ImageAsset::ImageAsset() :  mImageFile(StringTable->EmptyString),
     if ( !explicitCellPropertiesInitialized )
     {
         cellCustomPropertyName      = StringTable->insert( "Cells" );
-        cellAliasName           = StringTable->insert( "Cell" );
-
-        cellOffsetName          = StringTable->insert( "Offset" );
-        cellWidthName           = StringTable->insert( "Width" );
-        cellHeightName          = StringTable->insert( "Height" );
+        cellAliasName               = StringTable->insert( "Cell" );
+        cellOffsetName              = StringTable->insert( "Offset" );
+        cellWidthName               = StringTable->insert( "Width" );
+        cellHeightName              = StringTable->insert( "Height" );
 
         // Flag as initialized.
         explicitCellPropertiesInitialized = true;

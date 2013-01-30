@@ -20,20 +20,48 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createMelvToy( %scopeSet )
+function createSimpleImageFontToy( %scopeSet )
 {
-    // Load scripts.
-    exec( "./scripts/compositeSpriteTest.cs" );
-    exec( "./scripts/particleTest.cs" );
-    
-    // Run test.
-    //runCompositeSpriteTest();
-    runParticleTest();
-    
+    // Reset the toy.    
+    SimpleImageFontToy.reset();
 }
 
 //-----------------------------------------------------------------------------
 
-function destroyMelvToy( %scopeSet )
+function SimpleImageFontToy::reset( %this )
+{    
+    // Create the image font.
+    %object = new ImageFont();
+    
+    // Always try to configure a scene-object prior to adding it to a scene for best performance.
+    
+    // Set the image font to use the font image asset.
+    %object.Image = "ToyAssets:Font";
+    
+    // We don't really need to do this as the position is set to zero by default.
+    %object.Position = "0 0";
+    
+    // We don't need to size this object as it sizes automatically according to the alignment, font-size and text.
+   
+    // Set the font size in both axis.  This is in world-units and not typicaly font "points".
+    %object.FontSize = "10 20";
+    
+    // We don't really need to do this as the padding is set to zero by default.
+    // Padding is specified in world-units and relates to the space added between each character.
+    %object.FontPadding = 0;
+
+    // Set the text alignment.
+    %object.TextAlignment = "Center";
+
+    // Set the text to display.
+    %object.Text = "T2D Sandbox";
+    
+    // Add the sprite to the scene.
+    SandboxScene.add( %object );    
+}
+
+//-----------------------------------------------------------------------------
+
+function destroySimpleSpriteToy( %scopeSet )
 {
 }

@@ -69,26 +69,11 @@ function loadToy( %moduleDefinition )
         
     // Create a sandbox scene.
     createSandboxScene();
-
-    // Does the settings script object exist?
-    %settingsObject = %moduleDefinition.moduleId @ "Settings";
-    if ( !isObject(%settingsObject) )
-    {
-        // No, so create it.
-        %object = new ScriptObject()
-        {
-            // We can use the module-Id as the class.
-            // NOTE: This must be different than the objects' name.
-            class = %moduleDefinition.moduleId;
-        };
         
-        // Set the name.
-        %object.setName( %settingsObject );
+    // Set active toy.
+    // This must be done here in-case a toy depends on it during its initialization.
+    $activeToy = %moduleDefinition;
         
-        // Set the controller.
-        ToyCustomControls.Controller = %object;
-    }
-    
     // Load the toy.
     if ( !ModuleDatabase.loadExplicit( %moduleDefinition.ModuleId ) )
     {
@@ -97,13 +82,7 @@ function loadToy( %moduleDefinition )
     }
     
     // Add the scene so it's unloaded when the toy module is.
-    %moduleDefinition.ScopeSet.add( SandboxScene );
-    
-    // Add the settings object so it's unloaded when the toy module is.
-    %moduleDefinition.ScopeSet.add( %settingsObject );
-    
-    // Set active toy.
-    $activeToy = %moduleDefinition;
+    %moduleDefinition.ScopeSet.add( SandboxScene );        
 }
 
 //-----------------------------------------------------------------------------
@@ -116,7 +95,6 @@ function unloadToy()
         
     // Delete any custom controls added by the toy.
     ToyCustomControls.deleteObjects();
-    ToyCustomControls.Controller = "";
                    
     // Unload the toy.
     if ( !ModuleDatabase.unloadExplicit( $activeToy.moduleId ) )

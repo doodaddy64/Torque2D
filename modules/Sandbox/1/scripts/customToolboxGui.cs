@@ -22,7 +22,15 @@
 
 function addFlagOption( %label, %position, %extent, %shouldReset, %callback, %startingValue)
 {
-    %containerWidth = getWord(%extent, 0) + 35;
+    %width = getWord(%extent, 0);
+    %height = getWord(%extent, 1);
+    %characterCount = strlen(%label);
+
+    %labelWidth = %width + (%characterCount * 5);
+    %labelExtent = %labelWidth SPC %height;
+    %positionOffset = (%width + 15) SPC "1";
+
+    %containerWidth = %labelWidth + 25;
     %containerHeight = getWord(%extent, 1) + 35;
     %containerExtent = %containerWidth SPC %containerHeight;
 
@@ -39,7 +47,7 @@ function addFlagOption( %label, %position, %extent, %shouldReset, %callback, %st
         Position = "1 1";
         Extent = "20 20";
         Profile = "GuiCheckBoxProfile";
-        toy = ToyCustomControls.Controller;
+        toy = $activeToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "CheckboxController";
@@ -56,8 +64,8 @@ function addFlagOption( %label, %position, %extent, %shouldReset, %callback, %st
         canSaveDynamicFields = "0";
         isContainer = "0";
         Profile = "GuiTextProfile";
-        Position = "30 1";
-        Extent = %extent;
+        Position = %positionOffset;
+        Extent = %labelExtent;
         MinExtent = "8 2";
         canSave = "0";
         Visible = "1";
@@ -98,8 +106,16 @@ function CheckboxController::updateToy(%this)
 
 function addIntegerOption( %label, %position, %extent, %shouldReset, %callback, %startingValue)
 {
-    %containerWidth = getWord(%extent, 0) + 100;
-    %containerHeight = getWord(%extent, 1);
+    %width = getWord(%extent, 0);
+    %height = getWord(%extent, 1);
+    %characterCount = strlen(%label);
+
+    %labelWidth = %width + (%characterCount * 5);
+    %labelExtent = %labelWidth SPC %height;
+    %positionOffset = (%width + 10) SPC "1";
+
+    %containerWidth = %labelWidth + 25;
+    %containerHeight = getWord(%extent, 1) + 35;
     %containerExtent = %containerWidth SPC %containerHeight;
 
     %container = new GuiControl()
@@ -115,7 +131,7 @@ function addIntegerOption( %label, %position, %extent, %shouldReset, %callback, 
         Position = "1 1";
         Text = %startingValue;
         Extent = %extent;
-        toy = ToyCustomControls.Controller;
+        toy = $activeToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "TextEditController";
@@ -134,8 +150,8 @@ function addIntegerOption( %label, %position, %extent, %shouldReset, %callback, 
         canSaveDynamicFields = "0";
         isContainer = "0";
         Profile = "GuiTextProfile";
-        Position = "32 0";
-        Extent = "80 25";
+        Position = %positionOffset;
+        Extent = %labelExtent;
         MinExtent = "8 2";
         canSave = "0";
         Visible = "1";
@@ -195,7 +211,7 @@ function addButtonOption( %label, %position, %extent, %shouldReset, %callback)
         Position = "1 1";
         Extent = %extent;
         Visible = "1";
-        toy = ToyCustomControls.Controller;
+        toy = $activeToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "ButtonController";
@@ -239,8 +255,16 @@ function ButtonController::updateToy(%this)
 
 function addSelectionOption( %entries, %label, %position, %extent, %shouldReset, %callback)
 {
-    %containerWidth = getWord(%extent, 0) + 100;
-    %containerHeight = getWord(%extent, 1);
+    %width = getWord(%extent, 0);
+    %height = getWord(%extent, 1);
+    %characterCount = strlen(%label);
+
+    %labelWidth = %width + (%characterCount * 5);
+    %labelExtent = %labelWidth SPC %height;
+    %positionOffset = (%width + 15) SPC "1";
+
+    %containerWidth = %labelWidth + 25;
+    %containerHeight = getWord(%extent, 1) + 35;
     %containerExtent = %containerWidth SPC %containerHeight;
 
     %container = new GuiControl()
@@ -270,15 +294,13 @@ function addSelectionOption( %entries, %label, %position, %extent, %shouldReset,
 
     %container.add(%menu);
 
-    %horizontalOffset = getWord(%extent, 0) + 32;
-    %offset = %horizontalOffset SPC "1";
     %labelControl = new GuiTextCtrl()
     {
         canSaveDynamicFields = "0";
         isContainer = "0";
         Profile = "GuiTextProfile";
-        Position = %offset;
-        Extent = "80 25";
+        Position = %positionOffset;
+        Extent = %labelExtent;
         MinExtent = "8 2";
         canSave = "0";
         Visible = "1";
