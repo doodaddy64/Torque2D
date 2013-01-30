@@ -33,7 +33,7 @@ function createTumblerToy( %scopeSet )
     addFlagOption("Create lots of balls?", "10 10", "15 25", false, "setRepeat", %scopeSet.repeat);
     addIntegerOption("Number of balls", "10 40", "25 25", false, "setMaxBalls", %scopeSet.maxBalls);
     addButtonOption("Reset?", "10 70", "50 25", false, "reset");
-    addSelectionOption("Test TestTwo TestThree", "Select Something", "10 100", "80 25", false, %scopeSet.selection);
+    addSelectionOption("Test TestTwo TestThree", "Select Something", "10 100", "80 25", false, "setSelection", %scopeSet.selection);
 
     // Reset the toy initially.
     %scopeSet.reset();
@@ -93,7 +93,7 @@ function TumblerToy::setMaxBalls(%this, %value)
 
 function TumblerToy::setSelection(%this, %value)
 {
-    echo("@@@ Selection is " @ %value);
+    %this.selection = %value;
 }
 
 //-----------------------------------------------------------------------------

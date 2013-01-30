@@ -277,6 +277,10 @@ function addSelectionOption( %entries, %label, %position, %extent, %shouldReset,
 
     %menu = new GuiPopUpMenuCtrl()
     {
+        class = "SelectionController";
+        toy = $activeToy.ScopeSet;
+        shouldResetToy = %shouldReset;
+        callback = %callback;
         isContainer = "0";
         Profile = "GuiPopUpMenuProfile";
         Position = "1 1";
@@ -291,6 +295,13 @@ function addSelectionOption( %entries, %label, %position, %extent, %shouldReset,
         reverseTextList = "0";
         bitmapBounds = "16 16";
     };
+
+    for (%i = 0; %i < getWordCount(%entries); %i++)
+    {
+        %menu.add(getWord(%entries, %i), %i);
+    }
+
+    %menu.setSelected(0);
 
     %container.add(%menu);
 
@@ -321,14 +332,15 @@ function addSelectionOption( %entries, %label, %position, %extent, %shouldReset,
 
 //-----------------------------------------------------------------------------
 
-function SelectionController::updateToy(%this)
+function SelectionController::onSelect(%this)
 {
     if (%this.toy $= "")
         return;
 
     if (%this.callback !$= "")
     {
-        %setter = "%this.toy." @ %this.callback @ "();";
+        %value = %this.getTextById(%this.getSelected());
+        %setter = "%this.toy." @ %this.callback @ "(" @ %this.getValue() @ ");";
         eval(%setter);
     }
 
