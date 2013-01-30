@@ -30,7 +30,7 @@ function createTumblerToy( %scopeSet )
     
     // Add the custom controls.
     addFlagOption("Create lots of balls?", "10 10", "140 20", TumblerToy, true, "setRepeat", TumblerToy.repeat);
-    addIntegerOption("Number of balls", "10 40", "25 45", TumblerToy, true, "setMaxBalls", TumblerToy.maxBalls);
+    addIntegerOption("Number of balls", "10 40", "25 20", TumblerToy, true, "setMaxBalls", TumblerToy.maxBalls);
 
     // Reset the toy initially.
     TumblerToy.reset();

@@ -134,7 +134,7 @@ function addIntegerOption( %label, %position, %extent, %toyController, %shouldRe
         canSaveDynamicFields = "0";
         isContainer = "0";
         Profile = "GuiTextProfile";
-        Position = "30 0";
+        Position = "32 0";
         Extent = "80 20";
         MinExtent = "8 2";
         canSave = "0";
