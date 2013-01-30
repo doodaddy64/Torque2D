@@ -26,14 +26,9 @@ function createTumblerToy( %scopeSet )
     %scopeSet.createBallScheduleId = "";
     %scopeSet.maxBalls = 100;
     %scopeSet.currentBalls = 0;
-    %scopeSet.repeat = true;
-    %scopeSet.selection = "Test";
 
     // Add the custom controls.
-    addFlagOption("Create lots of balls?", "10 10", "15 25", false, "setRepeat", %scopeSet.repeat);
-    addIntegerOption("Number of balls", "10 40", "25 25", false, "setMaxBalls", %scopeSet.maxBalls);
-    addButtonOption("Reset?", "10 70", "50 25", false, "reset");
-    addSelectionOption("Test TestTwo TestThree", "Select Something", "10 100", "80 25", false, "setSelection", %scopeSet.selection);
+    addIntegerOption("Number of balls", "10 40", "35 25", true, "setMaxBalls", %scopeSet.maxBalls);
 
     // Reset the toy initially.
     %scopeSet.reset();
@@ -77,23 +72,9 @@ function TumblerToy::reset(%this)
 
 //-----------------------------------------------------------------------------
 
-function TumblerToy::setRepeat(%this, %value)
-{
-    %this.repeat = %value;
-}
-
-//-----------------------------------------------------------------------------
-
 function TumblerToy::setMaxBalls(%this, %value)
 {
     %this.maxBalls = %value;
-}
-
-//-----------------------------------------------------------------------------
-
-function TumblerToy::setSelection(%this, %value)
-{
-    %this.selection = %value;
 }
 
 //-----------------------------------------------------------------------------
@@ -127,8 +108,7 @@ function TumblerToy::createBall(%this)
     }
 
     // Schedule to create a ball.
-    if (%this.repeat)
-        %this.createBallScheduleId = %this.schedule( 100, "createBall" );
+    %this.createBallScheduleId = %this.schedule( 100, "createBall" );
 }
 
 //-----------------------------------------------------------------------------

@@ -177,7 +177,7 @@ function TextEditController::updateToy(%this)
     if (%this.toy $= "")
         return;
         
-    if (%this.callback !$= "")
+    if (%this.callback !$= "" && %this.getValue() !$= "")
     {
         %setter = "%this.toy." @ %this.callback @ "(" @ %this.getValue() @ ");";
         eval(%setter);

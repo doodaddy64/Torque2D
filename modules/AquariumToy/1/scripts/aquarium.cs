@@ -150,41 +150,6 @@ function createAquariumEffects()
 
 //-----------------------------------------------------------------------------
 
-function spawnFish()
-{
-    for ( %i = 0; %i < $FishCount; %i++ )
-    {
-        %position = getRandom(-55, 55) SPC getRandom(-20, 20);
-        %index = getRandom(0, 6);
-        
-        %fishInfo = getRandomFishInfo(%index);
-        
-        %fish = new Sprite()
-        {
-            Animation = getWord(%fishInfo, 0);
-            class = "FishClass";
-            position = %position;
-            size = getWords(%fishInfo, 1, 2);
-            SceneLayer = "2";
-            SceneGroup = "14";
-            minSpeed = "5";
-            maxSpeed = "15";
-            CollisionCallback = true;
-        };
-        
-        %fish.createPolygonBoxCollisionShape( 15, 15);
-        %fish.setCollisionGroups( 15 );
-        %fish.setDefaultDensity( 1 );
-        %fish.setDefaultFriction( 1.0 );
-        SandboxScene.add( %fish );
-    }
-}
-
-// This function will be called when a level loads
-// on any sprite with this class
-//
-// %this - Represents the object calling the function. 
-// %scenegraph - Represents the scene this object exists in
 function FishClass::onAdd(%this)
 {
     // Set a random speed for the fish
@@ -202,12 +167,8 @@ function FishClass::onAdd(%this)
     }
 }
 
-// This function will be called when the object
-// hits its world limits boundaries
-//
-// %this - The object calling the function
-// %mode - The mode setting for the world limit
-// %limit - Which world limit object reached, "right", "left", "top", "bottom"
+//-----------------------------------------------------------------------------
+
 function FishClass::recycle(%this, %side)
 {
     // Fish has turned around, so set a new random speed
@@ -229,11 +190,8 @@ function FishClass::recycle(%this, %side)
     }
 }
 
-// Set the fish's speed to a random value
-// Range of speed values is defined by 
-// minSpeed and maxSpeed Dynamic Fields
-//
-// %this - The object calling the function
+//-----------------------------------------------------------------------------
+
 function FishClass::setSpeed(%this)
 {
    // Speed is a dynamic variable created when this function is first called

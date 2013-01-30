@@ -23,21 +23,133 @@
 function createAquariumToy( %scopeSet )
 {
     exec("./scripts/aquarium.cs");
+
+    %scopeSet.createFishScheduleId = "";
+    %scopeSet.maxFish = 10;
+    %scopeSet.currentFish = 0;
+
+    addIntegerOption("Number of fish", "10 40", "35 25", true, "setMaxFish", %scopeSet.maxFish);
+    addButtonOption("Reset?", "10 75", "50 25", false, "reset");
+    addButtonOption("Spawn fish", "10 110", "70 25", false, "spawnOneFish");
+
+    // Reset the toy initially.
+    %scopeSet.reset();
+}
+
+function AquariumToy::spawnOneFish(%this)
+{
+    %position = getRandom(-55, 55) SPC getRandom(-20, 20);
+    %index = getRandom(0, 6);
+
+    %fishInfo = getRandomFishInfo(%index);
+
+    %fish = new Sprite()
+    {
+        Animation = getWord(%fishInfo, 0);
+        class = "FishClass";
+        position = %position;
+        size = getWords(%fishInfo, 1, 2);
+        SceneLayer = "2";
+        SceneGroup = "14";
+        minSpeed = "5";
+        maxSpeed = "15";
+        CollisionCallback = true;
+    };
+
+    %fish.createPolygonBoxCollisionShape( 15, 15);
+    %fish.setCollisionGroups( 15 );
+    %fish.setDefaultDensity( 1 );
+    %fish.setDefaultFriction( 1.0 );
+    SandboxScene.add( %fish );
+}
+//-----------------------------------------------------------------------------
+
+function AquariumToy::reset(%this)
+{
+    // Clear the scene.
+    SandboxScene.clear();
+
     SandboxScene.setGravity(0, 0);
-    
+
     // Set the sandbox drag mode availability.
     setSandboxDragModeAvailable( "pan", false );
     setSandboxDragModeAvailable( "zoom", false );
-    
-    $FishCount = 10;
-    
+
     buildAquarium();
     createAquariumEffects();
-    spawnFish();
+
+    // Reset the ball count.
+    %this.currentFish = 0;
+
+    // Cancel any pending events.
+    AquariumToy::cancelPendingEvents();
+
+    // Schedule to create a ball.
+    %this.createFishScheduleId = %this.schedule( 100, "spawnFish" );
+}
+
+//-----------------------------------------------------------------------------
+
+function AquariumToy::setMaxFish(%this, %value)
+{
+    %this.maxFish = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function AquariumToy::cancelPendingEvents(%this)
+{
+    // Finish if there are not pending events.
+    if ( !isEventPending(%this.createFishScheduleId) )
+        return;
+
+    // Cancel it.
+    cancel(%this.createFishScheduleId);
+    %this.createFishScheduleId = "";
+}
+
+//-----------------------------------------------------------------------------
+
+function AquariumToy::spawnFish(%this)
+{
+    // Reset the event schedule.
+    %this.createFishScheduleId = "";
+
+    %position = getRandom(-55, 55) SPC getRandom(-20, 20);
+    %index = getRandom(0, 6);
+
+    %fishInfo = getRandomFishInfo(%index);
+
+    %fish = new Sprite()
+    {
+        Animation = getWord(%fishInfo, 0);
+        class = "FishClass";
+        position = %position;
+        size = getWords(%fishInfo, 1, 2);
+        SceneLayer = "2";
+        SceneGroup = "14";
+        minSpeed = "5";
+        maxSpeed = "15";
+        CollisionCallback = true;
+    };
+
+    %fish.createPolygonBoxCollisionShape( 15, 15);
+    %fish.setCollisionGroups( 15 );
+    %fish.setDefaultDensity( 1 );
+    %fish.setDefaultFriction( 1.0 );
+    SandboxScene.add( %fish );
+
+    %this.currentFish++;
+
+    // Schedule to spawn a fish.
+    if ( %this.currentFish < %this.maxFish)
+        %this.createFishScheduleId = %this.schedule( 100, "spawnFish" );
 }
 
 //-----------------------------------------------------------------------------
 
 function destroyAquariumToy( %scopeSet )
 {
+    // Cancel any pending events.
+    AquariumToy::cancelPendingEvents();
 }
