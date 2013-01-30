@@ -1,6 +1,7 @@
 <ImageAsset
     AssetName="font"
     ImageFile="@assetFile=#font.png"
+	FilterMode="None"
     CellCountX="16"
     CellCountY="6"
     CellWidth="16"
