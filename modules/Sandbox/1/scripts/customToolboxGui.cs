@@ -135,7 +135,7 @@ function addIntegerOption( %label, %position, %extent, %toyController, %shouldRe
         isContainer = "0";
         Profile = "GuiTextProfile";
         Position = "32 0";
-        Extent = "80 20";
+        Extent = "80 25";
         MinExtent = "8 2";
         canSave = "0";
         Visible = "1";
@@ -167,6 +167,70 @@ function TextEditController::updateToy(%this)
         eval(%setter);
     }
     
+    if (%this.shouldResetToy && %this.toy.isMethod("reset"))
+        %this.toy.reset();
+}
+
+//-----------------------------------------------------------------------------
+
+function addButtonOption( %label, %position, %extent, %toyController, %shouldReset, %callback)
+{
+    %containerWidth = getWord(%extent, 0) + 100;
+    %containerHeight = getWord(%extent, 1);
+    %containerExtent = %containerWidth SPC %containerHeight;
+
+    %container = new GuiControl()
+    {
+        isContainer = 1;
+        position = %position;
+        extent = %containerExtent;
+        Profile = GuiTransparentProfile;
+    };
+
+    %button = new GuiButtonCtrl()
+    {
+        canSaveDynamicFields = "0";
+        isContainer = "0";
+        Profile = "BlueButtonProfile";
+        Position = "1 1";
+        Extent = %extent;
+        Visible = "1";
+        toy = %toyController;
+        shouldResetToy = %shouldReset;
+        callback = %callback;
+        class = "ButtonController";
+        isContainer = "0";
+        Active = "1";
+        hovertime = "1000";
+        toolTipProfile = "GuiToolTipProfile";
+        text = %label;
+        groupNum = "-1";
+        buttonType = "PushButton";
+        useMouseEvents = "0";
+     };
+
+    %button.command = %button @ ".updateToy();";
+
+    %container.add(%button);
+
+    ToyCustomControls.add(%container);
+
+    return %container;
+}
+
+//-----------------------------------------------------------------------------
+
+function ButtonController::updateToy(%this)
+{
+    if (%this.toy $= "")
+        return;
+
+    if (%this.callback !$= "")
+    {
+        %setter = "%this.toy." @ %this.callback @ "();";
+        eval(%setter);
+    }
+
     if (%this.shouldResetToy && %this.toy.isMethod("reset"))
         %this.toy.reset();
 }
