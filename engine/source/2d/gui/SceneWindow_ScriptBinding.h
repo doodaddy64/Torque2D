@@ -602,7 +602,7 @@ ConsoleMethod(SceneWindow, mount, void, 3, 8,   "(sceneObject, [offsetX / offset
             mountOffset = Utility::mGetStringElementVector(argv[nextArg++]);
         }
         // (object, offsetX, offsetY, ...)
-        else if ( elementCount == 1 && argc >= nextArg+1 )
+        else if ( elementCount == 1 && (U32)argc >= nextArg+1 )
         {
             mountOffset = Vector2(dAtof(argv[nextArg]), dAtof(argv[nextArg+1]));
             nextArg += 2;
