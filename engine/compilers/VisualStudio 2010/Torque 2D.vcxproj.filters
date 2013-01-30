@@ -951,9 +951,6 @@
     <ClCompile Include="..\..\source\algorithm\hashFunction.cc">
       <Filter>algorithm</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\source\graphics\bitRender.cc">
-      <Filter>graphics</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\game\gameInterface.cc">
       <Filter>game</Filter>
     </ClCompile>
@@ -2146,9 +2143,6 @@
     </ClInclude>
     <ClInclude Include="..\..\source\algorithm\hashFunction.h">
       <Filter>algorithm</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\graphics\bitRender.h">
-      <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\graphics\color.h">
       <Filter>graphics</Filter>

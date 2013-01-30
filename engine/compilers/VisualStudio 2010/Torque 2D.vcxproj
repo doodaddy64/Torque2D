@@ -345,7 +345,6 @@
     <ClCompile Include="..\..\source\graphics\bitmapBmp.cc" />
     <ClCompile Include="..\..\source\graphics\bitmapJpeg.cc" />
     <ClCompile Include="..\..\source\graphics\bitmapPng.cc" />
-    <ClCompile Include="..\..\source\graphics\bitRender.cc" />
     <ClCompile Include="..\..\source\graphics\color.cc" />
     <ClCompile Include="..\..\source\graphics\dgl.cc" />
     <ClCompile Include="..\..\source\graphics\dglMatrix.cc" />
@@ -778,7 +777,6 @@
     <ClInclude Include="..\..\source\game\defaultGame.h" />
     <ClInclude Include="..\..\source\game\gameInterface.h" />
     <ClInclude Include="..\..\source\game\gameInterface_ScriptBinding.h" />
-    <ClInclude Include="..\..\source\graphics\bitRender.h" />
     <ClInclude Include="..\..\source\graphics\color.h" />
     <ClInclude Include="..\..\source\graphics\dgl.h" />
     <ClInclude Include="..\..\source\graphics\DynamicTexture.h" />
