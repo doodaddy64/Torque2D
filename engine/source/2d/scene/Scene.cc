@@ -1089,7 +1089,7 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                         SceneRenderQueue::typeRenderRequestVector& isolatedRenderRequests = pIsolatedRenderQueue->getRenderRequests();
 
                         // Can the object render?
-                        if ( pSceneRenderObject->canRender() )
+                        if ( pSceneRenderObject->validRender() )
                         {
                             // Yes, so iterate isolated render requests.
                             for( SceneRenderQueue::typeRenderRequestVector::iterator isolatedRenderRequestItr = isolatedRenderRequests.begin(); isolatedRenderRequestItr != isolatedRenderRequests.end(); ++isolatedRenderRequestItr )
@@ -1115,7 +1115,7 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                     else
                     {
                         // No, so can the object render?
-                        if ( pSceneRenderObject->canRender() )
+                        if ( pSceneRenderObject->validRender() )
                         {
                             // Yes, so render object.
                             pSceneRenderObject->sceneRender( pSceneRenderState, pSceneRenderRequest, &mBatchRenderer );

@@ -270,7 +270,7 @@ public:
     inline void             setBatchIsolated( const bool batchIsolated ) { mBatchIsolated = batchIsolated; }
     virtual bool            getBatchIsolated( void ) { return mBatchIsolated; }
     virtual bool            isBatchRendered( void ) { return true; }
-    virtual bool            canRender( void ) const { return true; }
+    virtual bool            validRender( void ) const { return true; }
     
     /// Render Output.
     virtual bool            canPrepareRender( void ) const { return false; }

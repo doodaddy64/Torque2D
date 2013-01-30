@@ -380,7 +380,7 @@ void GuiSpriteCtrl::renderNoImage( Point2I &offset, const RectI& updateRect )
     RenderProxy* pNoImageRenderProxy = Sim::findObject<RenderProxy>( CANNOT_RENDER_PROXY_NAME );
 
     // Finish if no render proxy available or it can't render.
-    if ( pNoImageRenderProxy == NULL || !pNoImageRenderProxy->canRender() )
+    if ( pNoImageRenderProxy == NULL || !pNoImageRenderProxy->validRender() )
         return;
 
     // Render using render-proxy.

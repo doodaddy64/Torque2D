@@ -74,7 +74,7 @@ public:
     virtual void interpolateTick( F32 delta ) {};
     virtual void advanceTime( F32 timeDelta ) {};
 
-    virtual bool canRender( void ) const;
+    virtual bool validRender( void ) const;
 
     virtual void render(
         const bool flipX,
