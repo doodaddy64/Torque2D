@@ -82,11 +82,20 @@ void FrameAllocator::destroy()
    smHighWaterMark = 0;
 }
 
+/// This #define is used by the FrameAllocator to align starting addresses to
+/// be byte aligned to this value. This is important on the 360 and possibly
+/// on other platforms as well. Use this #define anywhere alignment is needed.
+///
+/// NOTE: Do not change this value per-platform unless you have a very good
+/// reason for doing so. It has the potential to cause inconsistencies in 
+/// memory which is allocated and expected to be contiguous.
+#define TORQUE_BYTE_ALIGNMENT 4
+
 
 void* FrameAllocator::alloc(const U32 allocSize)
 {
    U32 _allocSize = allocSize;
-#if defined(FRAMEALLOCATOR_DEBUG_GUARD)
+#ifdef TORQUE_DEBUG
    _allocSize+=4;
 #endif
    AssertFatal(smBuffer != NULL, "Error, no buffer!");
@@ -107,7 +116,7 @@ void* FrameAllocator::alloc(const U32 allocSize)
       sgMaxFrameAllocation = smWaterMark;
 #endif
 
-#if defined(FRAMEALLOCATOR_DEBUG_GUARD)
+#ifdef TORQUE_DEBUG
    U32 *flag = (U32*) &smBuffer[smWaterMark-4];
    *flag = 0xdeadbeef ^ smWaterMark;
 #endif
@@ -119,11 +128,11 @@ void FrameAllocator::setWaterMark(const U32 waterMark)
 {
    AssertFatal(waterMark < smHighWaterMark, "Error, invalid waterMark");
 
-#if defined(FRAMEALLOCATOR_DEBUG_GUARD)
+#ifdef TORQUE_DEBUG
    if(smWaterMark >= 4 )
    {
       U32 *flag = (U32*) &smBuffer[smWaterMark-4];
-      AssertFatal( *flag == 0xdeadbeef ^ smWaterMark, "FrameAllocator guard overwritten!");
+      AssertFatal( *flag == (0xdeadbeef ^ smWaterMark), "FrameAllocator guard overwritten!");
    }
 #endif
    smWaterMark = waterMark;

@@ -213,14 +213,14 @@ public:
 
    DECLARE_CONOBJECT(SimSet);
 
-#ifdef TORQUE_DEBUG_GUARD
+#ifdef TORQUE_DEBUG
    inline void _setVectorAssoc( const char *file, const U32 line )
    {
       objectList.setFileAssociation( file, line );
    }
 #endif
 };
-#ifdef TORQUE_DEBUG_GUARD
+#ifdef TORQUE_DEBUG
 #  define SIMSET_SET_ASSOCIATION( x ) x._setVectorAssoc( __FILE__, __LINE__ )
 #else
 #  define SIMSET_SET_ASSOCIATION( x )

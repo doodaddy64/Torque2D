@@ -29,11 +29,11 @@
 #endif
 
 //-----------------------------------------------------------------------------
-// Helper definitions for the vector class.
 
 /// Size of memory blocks to allocate at a time for vectors.
 const static S32 VectorBlockSize = 16;
-#ifdef TORQUE_DEBUG_GUARD
+
+#ifdef TORQUE_DEBUG
 extern bool VectorResize(U32 *aSize, U32 *aCount, void **arrayPtr, U32 newCount, U32 elemSize,
                          const char* fileName,
                          const U32   lineNum);
@@ -43,13 +43,13 @@ extern bool VectorResize(U32 *aSize, U32 *aCount, void **arrayPtr, U32 newCount,
 
 /// Use the following macro to bind a vector to a particular line
 ///  of the owning class for memory tracking purposes
-#ifdef TORQUE_DEBUG_GUARD
+#ifdef TORQUE_DEBUG
 #define VECTOR_SET_ASSOCIATION(x) x.setFileAssociation(__FILE__, __LINE__)
 #else
 #define VECTOR_SET_ASSOCIATION(x)
 #endif
 
-// =============================================================================
+//-----------------------------------------------------------------------------
 /// A dynamic array class.
 ///
 /// The vector grows as you insert or append
@@ -74,7 +74,7 @@ class Vector
    U32 mArraySize;
    T*  mArray;
 
-#ifdef TORQUE_DEBUG_GUARD
+#ifdef TORQUE_DEBUG
    const char* mFileAssociation;
    U32         mLineAssociation;
 #endif
@@ -87,7 +87,7 @@ class Vector
    Vector(const Vector&);
    ~Vector();
 
-#ifdef TORQUE_DEBUG_GUARD
+#ifdef TORQUE_DEBUG
    void setFileAssociation(const char* file, const U32 line);
 #endif
 
@@ -174,7 +174,7 @@ template<class T> inline Vector<T>::~Vector()
 
 template<class T> inline Vector<T>::Vector(const U32 initialSize)
 {
-#ifdef TORQUE_DEBUG_GUARD
+#ifdef TORQUE_DEBUG
    mFileAssociation = NULL;
    mLineAssociation = 0;
 #endif
@@ -192,7 +192,7 @@ template<class T> inline Vector<T>::Vector(const U32 initialSize,
                                            const char* fileName,
                                            const U32   lineNum)
 {
-#ifdef TORQUE_DEBUG_GUARD
+#ifdef TORQUE_DEBUG
    mFileAssociation = fileName;
    mLineAssociation = lineNum;
 #else
@@ -210,7 +210,7 @@ template<class T> inline Vector<T>::Vector(const U32 initialSize,
 template<class T> inline Vector<T>::Vector(const char* fileName,
                                            const U32   lineNum)
 {
-#ifdef TORQUE_DEBUG_GUARD
+#ifdef TORQUE_DEBUG
    mFileAssociation = fileName;
    mLineAssociation = lineNum;
 #else
@@ -225,7 +225,7 @@ template<class T> inline Vector<T>::Vector(const char* fileName,
 
 template<class T> inline Vector<T>::Vector(const Vector& p)
 {
-#ifdef TORQUE_DEBUG_GUARD
+#ifdef TORQUE_DEBUG
    mFileAssociation = p.mFileAssociation;
    mLineAssociation = p.mLineAssociation;
 #endif
@@ -237,7 +237,7 @@ template<class T> inline Vector<T>::Vector(const Vector& p)
 }
 
 
-#ifdef TORQUE_DEBUG_GUARD
+#ifdef TORQUE_DEBUG
 template<class T> inline void Vector<T>::setFileAssociation(const char* file,
                                                             const U32   line)
 {
@@ -504,7 +504,7 @@ template<class T> inline void Vector<T>::set(void * addr, U32 sz)
 
 template<class T> inline bool Vector<T>::resize(U32 ecount)
 {
-#ifdef TORQUE_DEBUG_GUARD
+#ifdef TORQUE_DEBUG
    return VectorResize(&mArraySize, &mElementCount, (void**) &mArray, ecount, sizeof(T),
                        mFileAssociation, mLineAssociation);
 #else

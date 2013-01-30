@@ -23,27 +23,11 @@
 #ifndef _PLATFORM_MEMORY_H_
 #define _PLATFORM_MEMORY_H_
 
-#ifndef _TORQUE_TYPES_H_
-#include "platform/types.h"
-#endif
-
 //------------------------------------------------------------------------------
 
 #define placenew(x) new(x)
 #define dMalloc(x) dMalloc_r(x, __FILE__, __LINE__)
 #define dRealloc(x, y) dRealloc_r(x, y, __FILE__, __LINE__)
-
-//------------------------------------------------------------------------------
-
-namespace Memory
-{
-   void flagCurrentAllocs();
-   void dumpUnflaggedAllocs(const char *file);
-   S32 countUnflaggedAllocs(const char *file, S32 *outUnflaggedRealloc = NULL);
-   dsize_t getMemoryUsed();
-   dsize_t getMemoryAllocated();
-   void validate();
-}
 
 //------------------------------------------------------------------------------
 
@@ -74,8 +58,6 @@ template <class T> inline void destructInPlace(T* p)
 
 //------------------------------------------------------------------------------
 
-extern void  setBreakAlloc(dsize_t);
-extern void  setMinimumAllocUnit(U32);
 extern void* dMalloc_r(dsize_t in_size, const char*, const dsize_t);
 extern void  dFree(void* in_pFree);
 extern void* dRealloc_r(void* in_pResize, dsize_t in_size, const char*, const dsize_t);
