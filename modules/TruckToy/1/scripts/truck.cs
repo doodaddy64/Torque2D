@@ -37,35 +37,24 @@ $foregroundDomain = 10;
 // -----------------------------------------------------------------------------
 
 function initializeTruckWorld()
-{
-   // ************************************************************************   
-   // Scene Configuration
-   // ************************************************************************   
-      
-   SandboxScene.setGravity( 0, -9.8 );
-  
+{   
+   // Set a typical Earth gravity.
+   SandboxScene.setGravity( 0, -9.8 );  
 
-   // ************************************************************************   
    // Camera Configuration
-   // ************************************************************************      
    SandboxWindow.setCurrentCameraArea( $cameraWidth/-2, $cameraHeight/2, $cameraWidth/2, $cameraHeight/-2 );
    SandboxWindow.setCurrentCameraPosition( $worldLeft + ($cameraWidth/2) - 10, 0 );
    SandboxWindow.setViewLimitOn( $worldLeft, $cameraHeight/-2, $worldRight, $cameraWidth/2 );
+
+    // Create the scene contents in a roughly left to right order.      
    
    // Background.
    createBackground();
    
    // Floor.
    createFloor();
-   
-   // Truck.
-   //createTruck( $worldLeft + ($cameraWidth/6), -2.6 );  
-   createTruck( $worldLeft + ($cameraWidth/6), 15 );  
-   
-   // ************************************************************************   
+     
    // Wrecked cars at start.
-   // ************************************************************************   
-
    createWreckedCar( 1, -90, $floorLevel + 0.75, 0, true );
    createWreckedCar( 2, -85, $floorLevel + 0.75, 0, true );
    createWreckedCar( 3, -82, $floorLevel + 0.75, 0, true );
@@ -75,24 +64,17 @@ function initializeTruckWorld()
    createBrick( 2, -79, $floorLevel + 0.25, true );     
 
 
-   // ************************************************************************   
    // Building with chains.   
-   // ************************************************************************   
-   
    createForegroundWall( 2, -99, -5 );   
    createForegroundWall( 1, -75.5, -6.5 );  
    createBrokenCementWall( -78, -1.5 );
    createWreckedBuilding( -71.5, -1 );
    createWoodPile( -65, -2.5 );
    createBrickPile( -67, $floorLevel + 0.45 );
-   //createBrick( 1, -67, $floorLevel + 0.25, true );     
-   //createBrick( 2, -68, $floorLevel + 0.25, true );     
    createForegroundBrickWall( 1, -61, -6 );
 
 
-   // ************************************************************************   
    // Start of bridge.   
-   // ************************************************************************   
    createPlank( 1, -53, $floorLevel + 0.5, 0, true );
    createPlank( 1, -50.1522, -2.3, 21.267, true );
    createWreckedCar( 2, -47, $floorLevel + 1.9, -100, true );
@@ -113,7 +95,7 @@ function initializeTruckWorld()
    createPlank( 1, -16.5, $floorLevel + 1.5, -90, true );
    createForegroundBrickWall( 2, -19, -6 );
    
-   
+   // More wrecked cars.
    createWreckedCar( 1, -12, $floorLevel + 0.75, 0, true );
    createWreckedCar( 2, -7, $floorLevel + 0.75, 0, true );
    createWreckedCar( 3, -4, $floorLevel + 0.75, 0, true );
@@ -138,17 +120,16 @@ function initializeTruckWorld()
    createBrickStack( 74, $floorLevel + 0.25, 10, false );
    createBrickStack( 76, $floorLevel + 0.25, 1, true );
    createBrickStack( 78, $floorLevel + 0.25, 10, false );
-   
+
+   // Truck.
+   createTruck( $worldLeft + ($cameraWidth/6), 15 );     
 }
 
 // -----------------------------------------------------------------------------
 
 function createBackground()
 {  
-   // ************************************************************************   
    // Atmosphere
-   // ************************************************************************   
-
    %obj = new Sprite();
    %obj.setBodyType( "static" );
    %obj.setImage( "TruckToy:background_day" );
@@ -160,10 +141,8 @@ function createBackground()
    %obj.setActive( false );
    SandboxScene.add( %obj );  
    
-   // ************************************************************************   
+
    // Industrial Background
-   // ************************************************************************
-   
    %obj = new Scroller();
    %obj.setBodyType( "static" );
    %obj.setImage( "TruckToy:industrial_02" );
@@ -182,10 +161,7 @@ function createBackground()
 
 function createFloor()
 {
-   // ************************************************************************   
-   // Ground
-   // ************************************************************************   
-   
+   // Ground  
    $GlobalFloor = new Scroller();
    %obj = $GlobalFloor;
    %obj.setBodyType( "static" );
@@ -368,12 +344,9 @@ function createChain( %posX, %posY, %linkCount )
       %obj.createPolygonBoxCollisionShape( %linkWidth, %linkHeight );
       %obj.setAngularDamping( 1.0 );
       %obj.setLinearDamping( 0.5 );
-      //%obj.setDebugOn( 5 );
       SandboxScene.add( %obj );   
       
       SandboxScene.createRevoluteJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
-      //%lastLinkObj.setAwake( false );
-      //%obj.setAwake( false );
       
       %lastLinkObj = %obj;
    }
@@ -382,7 +355,6 @@ function createChain( %posX, %posY, %linkCount )
    
    return %lastLinkObj;        
 }
-
 
 // -----------------------------------------------------------------------------
 
@@ -592,10 +564,7 @@ function createWreckedCar( %carNumber, %posX, %posY, %angle, %static )
 
 function createTruck( %posX, %posY )
 {
-   // ************************************************************************   
    // Truck Body.
-   // ************************************************************************      
-
    %exhaustParticles = new ParticlePlayer();
    %exhaustParticles.setPosition( %posX-3, %posY );
    %exhaustParticles.setSceneLayer( $truckDomain );
@@ -619,7 +588,6 @@ function createTruck( %posX, %posY )
    SandboxScene.add( $truckBody );
 
     // Attach the exhaust output to the truck body.   
-   //SandboxScene.createWeldJoint( $truckBody, %exhaustParticles, "-2.1 -0.5", "0 0" );
    %joint = SandboxScene.createRevoluteJoint( $truckBody, $truckExhaust, "-2.3 -0.6", "0 0" );
    SandboxScene.setRevoluteJointLimit( %joint, 0, 0 );
    
@@ -630,10 +598,7 @@ function createTruck( %posX, %posY )
    //SandboxScene.setDebugSceneObject( $truckBody );
 
 
-   // ************************************************************************   
    // Tires.
-   // ************************************************************************   
-
    // Suspension = -1.0 : -1.5   
 
    // Rear tire.   
@@ -662,23 +627,9 @@ function createTruck( %posX, %posY )
    %tireFront.createCircleCollisionShape( 0.8 ); 
    SandboxScene.add( %tireFront );   
    
-   // ************************************************************************   
    // Suspension joints.
-   // ************************************************************************   
-   //%rearWheelSpring = SandboxScene.createPrismaticJoint( $truckBody, %tireRear, "-1.1 -1.25", "0 0", "0 1" );
-   //%frontWheelSpring = SandboxScene.createPrismaticJoint( $truckBody, %tireFront, "1.4 -1.25", "0 0", "0 1" );   
-   //SandboxScene.setPrismaticJointLimit( %rearWheelSpring, true, -5, 0 );
-   //SandboxScene.setPrismaticJointLimit( %frontWheelSpring, true, -5, 0 );
-   
    $rearMotorJoint = SandboxScene.createWheelJoint( $truckBody, %tireRear, "-1.4 -1.25", "0 0", "0 1" );
    $frontMotorJoint = SandboxScene.createWheelJoint( $truckBody, %tireFront, "1.7 -1.25", "0 0", "0 1" );     
-   //SandboxScene.setWheelJointMotor( $rearMotorJoint, true, $wheelSpeed, 10000 );
-   //SandboxScene.setWheelJointMotor( $frontMotorJoint, true, $wheelSpeed, 10000 );
-   
-   //$rearMotorJoint = SandboxScene.createRevoluteJoint( $truckBody, %tireRear, "-1.1 -1.25", "0 0" );
-   //$frontMotorJoint = SandboxScene.createRevoluteJoint( $truckBody, %tireFront, "1.35, -1.25", "0 0" );
-   //SandboxScene.setRevoluteJointMotor( $rearMotorJoint, true, -36, 10000 );
-   //SandboxScene.setRevoluteJointMotor( $frontMotorJoint, true, -36, 10000 );
 }
 
 // -----------------------------------------------------------------------------
@@ -706,6 +657,8 @@ function truckReverse(%val)
         $truckMoving = false;
     }
 }
+
+// -----------------------------------------------------------------------------
 
 function truckForward(%val)
 {
