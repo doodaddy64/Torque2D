@@ -45,38 +45,41 @@ namespace Sim
 
 SimObject::SimObject( const U8 namespaceLinkMask ) : mNSLinkMask( namespaceLinkMask )
 {
-   objectName            = NULL;
-   mInternalName          = NULL;
-   nextNameObject        = (SimObject*)-1;
-   nextManagerNameObject = (SimObject*)-1;
-   nextIdObject          = NULL;
-   
-   mId           = 0;
-   mGroup        = 0;
-   mNameSpace    = NULL;
-   mNotifyList   = NULL;
-   mFlags.set( ModStaticFields | ModDynamicFields );
-   mTypeMask             = 0;
-   mScriptCallbackGuard = 0;
-
-   mFieldDictionary = NULL;
-   mCanSaveFieldDictionary	=	true;
-
-   mClassName = NULL;
-   mSuperClassName = NULL;
-
-   mProgenitorFile = CodeBlock::getCurrentCodeBlockFullPath();
+    mFlags.set( ModStaticFields | ModDynamicFields );
+    objectName               = NULL;
+    mInternalName            = NULL;
+    nextNameObject           = (SimObject*)-1;
+    nextManagerNameObject    = (SimObject*)-1;
+    nextIdObject             = NULL;  
+    mId                      = 0;
+    mIdString                = StringTable->EmptyString;
+    mGroup                   = 0;
+    mNameSpace               = NULL;
+    mNotifyList              = NULL;
+    mTypeMask                = 0;
+    mScriptCallbackGuard     = 0;
+    mFieldDictionary         = NULL;
+    mCanSaveFieldDictionary	=	true;
+    mClassName               = NULL;
+    mSuperClassName          = NULL;
+    mProgenitorFile          = CodeBlock::getCurrentCodeBlockFullPath();
 }
 
 //---------------------------------------------------------------------------
 
 bool SimObject::registerObject()
 {
-   AssertFatal( !mFlags.test( Added ), "reigsterObject - Object already registered!");
+    AssertFatal( !mFlags.test( Added ), "reigsterObject - Object already registered!");
     mFlags.clear(Deleted | Removed);
 
-   if(!mId)
-      mId = Sim::gNextObjectId++;
+    if( mId == 0 )
+    {
+        mId = Sim::gNextObjectId++;
+
+        char idBuffer[64];
+        dSprintf(idBuffer, sizeof(idBuffer), "%d", mId);
+        mIdString = StringTable->insert( idBuffer );
+    }
 
    AssertFatal(Sim::gIdDictionary && Sim::gNameDictionary, 
       "SimObject::registerObject - tried to register an object before Sim::init()!");
@@ -149,19 +152,24 @@ void SimObject::deleteObject()
 
 void SimObject::setId(SimObjectId newId)
 {
-   if(!mFlags.test(Added))
-   {
-      mId = newId;
-      return;
-   }
+    if(!mFlags.test(Added))
+    {
+        mId = newId;
+    }
+    else
+    {
+       // get this object out of the id dictionary if it's in it
+       Sim::gIdDictionary->remove(this);
 
-   // get this object out of the id dictionary if it's in it
-   Sim::gIdDictionary->remove(this);
+        // Free current Id.
+        // Assign new one.
+        mId = newId ? newId : Sim::gNextObjectId++;
+        Sim::gIdDictionary->insert(this);
+    }
 
-    // Free current Id.
-    // Assign new one.
-   mId = newId ? newId : Sim::gNextObjectId++;
-    Sim::gIdDictionary->insert(this);
+    char idBuffer[64];
+    dSprintf(idBuffer, sizeof(idBuffer), "%d", mId);
+    mIdString = StringTable->insert( idBuffer );
 }
 
 void SimObject::assignName(const char *name)
@@ -181,7 +189,7 @@ void SimObject::assignName(const char *name)
    if ( Sim::gNameDictionary->find(name) != NULL )
    {
        // Yes, so error,
-       Con::errorf( "SimObject::assignName() - Attempted to set object to name '%s' but it is already assigned to another object." );
+       Con::errorf( "SimObject::assignName() - Attempted to set object to name '%s' but it is already assigned to another object.", name );
        return;
    }
 
@@ -1170,13 +1178,6 @@ bool SimObject::isHidden()
 void SimObject::setHidden(bool b = true)
 {
    setDataField(StringTable->insert("hidden", false), NULL, b ? "true" : "false" );
-}
-
-const char* SimObject::getIdString()
-{
-   static char IDbuffer[64];
-   dSprintf(IDbuffer, sizeof(IDbuffer), "%d", mId);
-   return IDbuffer;
 }
 
 //---------------------------------------------------------------------------
