@@ -63,7 +63,7 @@ public:
     virtual void            integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats );
 
     /// Rendering.
-    virtual bool            validRender( void ) const { return false; }
+    virtual bool            shouldRender( void ) const { return false; }
 
     /// Contact processing.
     virtual void            onBeginCollision( const TickContact& tickContact );

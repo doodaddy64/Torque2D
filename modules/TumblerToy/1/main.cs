@@ -53,7 +53,7 @@ function TumblerToy::reset(%this)
     setSandboxDragMode( "pull" );
 
     // Create the tumbler.
-    %tumbler = new Sprite();
+    %tumbler = new SceneObject();
     SandboxScene.add( %tumbler );
     %tumbler.createPolygonBoxCollisionShape( 1, 50, 25, 0, 0 );
     %tumbler.createPolygonBoxCollisionShape( 1, 50, -25, 0, 0 );

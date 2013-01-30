@@ -51,6 +51,8 @@ public:
 
     virtual bool validRender( void ) const = 0;
 
+    virtual bool shouldRender( void ) const = 0;
+
     virtual void scenePrepareRender(const SceneRenderState* pSceneRenderState, SceneRenderQueue* pSceneRenderQueue ) = 0;
 
     virtual void sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer ) = 0;

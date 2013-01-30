@@ -92,7 +92,8 @@ public:
     virtual void onRemove();
     virtual void sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer );
     virtual bool validRender( void ) const { return (mPolygonLocalList.size() > 0 || mIsCircle); }
-    
+    virtual bool shouldRender( void ) const { return true; }
+
     /// Render batching.
     virtual bool isBatchRendered( void ) { return false; }
 
