@@ -23,7 +23,7 @@
 function createTumblerToy( %scopeSet )
 {
     // Initialize the toys settings.
-    TumblerToy.createTumblerBallScheduleId = "";
+    TumblerToy.createBallScheduleId = "";
     TumblerToy.maxBalls = 100;
     TumblerToy.currentBalls = 0;
     TumblerToy.repeat = true;    
@@ -61,11 +61,15 @@ function TumblerToy::reset(%this)
     %tumbler.createPolygonBoxCollisionShape( 50, 1, 0, -25, 0 );    
     %tumberJoint = SandboxScene.createRevoluteJoint( %tumbler, 0, "0 0" );
     SandboxScene.setRevoluteJointMotor( %tumberJoint, true, 15, 1000000 );
-    
+
+    // Reset the ball count.    
     %this.currentBalls = 0;
     
+    // Cancel any pending events.
+    TumblerToy::cancelPendingEvents();
+        
     // Schedule to create a ball.
-    %this.createTumblerBallScheduleId = %this.schedule( 100, "createTumblerBall" );
+    %this.createBallScheduleId = %this.schedule( 100, "createBall" );
 }
 
 //-----------------------------------------------------------------------------
@@ -84,7 +88,7 @@ function TumblerToy::setMaxBalls(%this, %value)
 
 //-----------------------------------------------------------------------------
 
-function TumblerToy::createTumblerBall(%this)
+function TumblerToy::createBall(%this)
 {
     // Reset the event schedule.
     %this.createTumblerBallSchedule = "";
@@ -114,7 +118,20 @@ function TumblerToy::createTumblerBall(%this)
 
     // Schedule to create a ball.
     if (%this.repeat)
-        %this.createTumblerBallScheduleId = %this.schedule( 100, "createTumblerBall" );
+        %this.createBallScheduleId = %this.schedule( 100, "createBall" );
+}
+
+//-----------------------------------------------------------------------------
+
+function TumblerToy::cancelPendingEvents(%this)
+{
+    // Finish if there are not pending events.
+    if ( !isEventPending(%this.createBallScheduleId) )
+        return;
+        
+    // Cancel it.
+    cancel(%this.createBallScheduleId);
+    %this.createBallScheduleId = "";
 }
 
 //-----------------------------------------------------------------------------
@@ -122,9 +139,5 @@ function TumblerToy::createTumblerBall(%this)
 function destroyTumblerToy( %scopeSet )
 {
     // Cancel any pending events.
-    if ( isEventPending(TumblerToy.createTumblerBallScheduleId) )
-    {
-        cancel(TumblerToy.createTumblerBallScheduleId);
-        TumblerToy.createTumblerBallScheduleId = "";
-    }
+    TumblerToy::cancelPendingEvents();
 }
