@@ -237,6 +237,85 @@ function ButtonController::updateToy(%this)
 
 //-----------------------------------------------------------------------------
 
-function createRangeControl( %name, %label, %position, %min, %max, %variable )
+function addSelectionOption( %entries, %label, %position, %extent, %shouldReset, %callback)
+{
+    %containerWidth = getWord(%extent, 0) + 100;
+    %containerHeight = getWord(%extent, 1);
+    %containerExtent = %containerWidth SPC %containerHeight;
+
+    %container = new GuiControl()
+    {
+        isContainer = 1;
+        position = %position;
+        extent = %containerExtent;
+        Profile = GuiTransparentProfile;
+    };
+
+    %menu = new GuiPopUpMenuCtrl()
+    {
+        isContainer = "0";
+        Profile = "GuiPopUpMenuProfile";
+        Position = "1 1";
+        Extent = %extent;
+        MinExtent = "8 2";
+        Visible = "1";
+        Active = "1";
+        toolTipProfile = "GuiToolTipProfile";
+        maxLength = "1024";
+        maxPopupHeight = "200";
+        sbUsesNAColor = "0";
+        reverseTextList = "0";
+        bitmapBounds = "16 16";
+    };
+
+    %container.add(%menu);
+
+    %horizontalOffset = getWord(%extent, 0) + 32;
+    %offset = %horizontalOffset SPC "1";
+    %labelControl = new GuiTextCtrl()
+    {
+        canSaveDynamicFields = "0";
+        isContainer = "0";
+        Profile = "GuiTextProfile";
+        Position = %offset;
+        Extent = "80 25";
+        MinExtent = "8 2";
+        canSave = "0";
+        Visible = "1";
+        Active = "0";
+        tooltipprofile = "GuiToolTipProfile";
+        tooltipWidth = "0";
+        text = %label;
+        maxLength = "255";
+        truncate = "0";
+    };
+
+    %container.add(%labelControl);
+
+    ToyCustomControls.add(%container);
+
+    return %container;
+}
+
+//-----------------------------------------------------------------------------
+
+function SelectionController::updateToy(%this)
+{
+    if (%this.toy $= "")
+        return;
+
+    if (%this.callback !$= "")
+    {
+        %setter = "%this.toy." @ %this.callback @ "();";
+        eval(%setter);
+    }
+
+    if (%this.shouldResetToy && %this.toy.isMethod("reset"))
+        %this.toy.reset();
+}
+
+//-----------------------------------------------------------------------------
+
+function addRangeOption( %label, %position, %extent, %range, %shouldReset, %callback, %startingValue)
 {
 }

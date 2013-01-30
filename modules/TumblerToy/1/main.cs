@@ -27,11 +27,13 @@ function createTumblerToy( %scopeSet )
     TumblerToySettings.maxBalls = 100;
     TumblerToySettings.currentBalls = 0;
     TumblerToySettings.repeat = true;    
-    
+    TumblerToySettings.selection = "Test";
+
     // Add the custom controls.
     addFlagOption("Create lots of balls?", "10 10", "140 20", false, "setRepeat", TumblerToySettings.repeat);
     addIntegerOption("Number of balls", "10 40", "25 25", false, "setMaxBalls", TumblerToySettings.maxBalls);
     addButtonOption("Reset?", "10 70", "50 25", false, "reset");
+    addSelectionOption("Test TestTwo TestThree", "Select Something", "140 25", "75 25", false, TumblerToySettings.selection);
 
     // Reset the toy initially.
     TumblerToySettings.reset();
@@ -85,6 +87,13 @@ function TumblerToy::setRepeat(%this, %value)
 function TumblerToy::setMaxBalls(%this, %value)
 {
     %this.maxBalls = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function TumblerToy::setSelection(%this, %value)
+{
+    echo("@@@ Selection is " @ %value);
 }
 
 //-----------------------------------------------------------------------------
