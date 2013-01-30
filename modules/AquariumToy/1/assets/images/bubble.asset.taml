@@ -1,4 +1,3 @@
 <ImageAsset
     AssetName="bubble"
-    AssetCategory="sprites"
     ImageFile="@assetFile=#bubble.png" />

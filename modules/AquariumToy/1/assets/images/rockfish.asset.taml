@@ -1,6 +1,5 @@
 <ImageAsset
     AssetName="rockfish"
-    AssetCategory="sprites"
     ImageFile="@assetFile=#rockfish.png"
 	CellCountX="2"
     CellCountY="2"

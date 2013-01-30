@@ -1,4 +1,3 @@
 <ImageAsset
     AssetName="brokenCementWall"
-    AssetCategory="sprites"
     ImageFile="@assetFile=#brokenCementWall.png" />

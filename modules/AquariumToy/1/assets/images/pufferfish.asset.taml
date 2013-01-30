@@ -1,8 +1,7 @@
 <ImageAsset
     AssetName="pufferfish"
-    AssetCategory="sprites"
     ImageFile="@assetFile=#pufferfish.png"
-	CellCountX="2"
+    CellCountX="2"
     CellCountY="2"
     CellWidth="256"
     CellHeight="256" />

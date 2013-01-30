@@ -1,4 +1,3 @@
 <ImageAsset
     AssetName="woodGround"
-    AssetCategory="sprites"
     ImageFile="@assetFile=#woodGround.png" />

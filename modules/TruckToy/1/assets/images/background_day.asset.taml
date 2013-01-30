@@ -1,4 +1,3 @@
 <ImageAsset
     AssetName="background_day"
-    AssetCategory="sprites"
     ImageFile="@assetFile=#background_day.png" />

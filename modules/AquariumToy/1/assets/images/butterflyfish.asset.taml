@@ -1,6 +1,5 @@
 <ImageAsset
     AssetName="butterflyfish"
-    AssetCategory="sprites"
     ImageFile="@assetFile=#butterflyfish.png"
 	CellCountX="2"
     CellCountY="2"
