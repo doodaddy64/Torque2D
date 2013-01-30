@@ -14,7 +14,7 @@
 		Profile="GuiDefaultProfile"
 		HorizSizing="right"
 		VertSizing="relative"
-		Position="260 0"
+		Position="260 16"
 		Extent="580 416"/>		
     
 	<!-- Toy Selection Panel -->
