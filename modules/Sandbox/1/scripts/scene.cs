@@ -99,7 +99,7 @@ function destroySandboxScene()
 //-----------------------------------------------------------------------------
 
 function setSceneToWindow()
-{   
+{
      // Set scene to window.
     SandboxWindow.setScene( SandboxScene );
 
@@ -122,6 +122,27 @@ function setSceneToWindow()
     
     // reset the sandbox drag modes.
     resetSandboxDragModes();       
+}
+
+//-----------------------------------------------------------------------------
+
+function setCustomScene( %scene )
+{
+    // Sanity!
+    if ( %scene = "" )
+    {
+        error( "Cannot set Sandbox to use an invalid Scene." );
+        return;
+    }
+   
+    // Destroy the existing scene.  
+    destroySandboxScene();
+
+    // The Sandbox needs the scene to be named this.
+    %scene.setName( "SandboxScene" );    
+    
+    // Set the scene to the window.
+    setSceneToWindow();
 }
 
 //-----------------------------------------------------------------------------
