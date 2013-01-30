@@ -350,6 +350,39 @@ function SelectionController::onSelect(%this)
 
 //-----------------------------------------------------------------------------
 
-function addRangeOption( %label, %position, %extent, %range, %shouldReset, %callback, %startingValue)
+function addRangeOption( %label, %position, %extent, %range, %ticks, %shouldReset, %callback, %startingValue)
 {
+    %containerWidth = getWord(%extent, 0) + 100;
+    %containerHeight = getWord(%extent, 1);
+    %containerExtent = %containerWidth SPC %containerHeight;
+
+    %container = new GuiControl()
+    {
+        isContainer = 1;
+        position = %position;
+        extent = %containerExtent;
+        Profile = GuiTransparentProfile;
+    };
+
+    %slider = new GuiSliderCtrl()
+    {
+        class = "SliderController";
+        toy = $activeToy.ScopeSet;
+        shouldResetToy = %shouldReset;
+        callback = %callback;
+        Position = "1 1";
+        Profile = "GuiSliderProfile";
+        Extent = %extent;
+        Range = %range;
+        Ticks = %ticks;
+        Value = %startingValue;
+    };
+
+    //%slider.command = %button @ ".updateToy();";
+
+    %container.add(%slider);
+
+    ToyCustomControls.add(%container);
+
+    return %container;
 }

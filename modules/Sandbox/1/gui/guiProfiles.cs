@@ -368,3 +368,22 @@ if (!isObject(GuiRadioProfile)) new GuiControlProfile (GuiRadioProfile : GuiDefa
     bitmap = "^Sandbox/gui/images/radioButton.png";
     hasBitmapArray = true;
 };
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(GuiSliderProfile)) new GuiControlProfile (GuiSliderProfile)
+{
+    bitmap = "^Sandbox/gui/images/slider.png";
+    fontType = $platformFontType;
+    fontSize = $platformFontSize;
+    fontColor = "white";
+};
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(GuiSliderNoTextProfile)) new GuiControlProfile (GuiSliderNoTextProfile)
+{
+    bitmap = "^Sandbox/gui/images/slider.png";
+    fontColor = "white";
+    fontSize = 1;
+};

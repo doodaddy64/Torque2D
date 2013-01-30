@@ -27,6 +27,8 @@ function getFishAnimationList()
    %list = %list SPC "AquariumToy:triggerfish1Anim";
 }
 
+//-----------------------------------------------------------------------------
+
 function getFishSize(%anim)
 {
     echo("@@@ Getting size for: " @ %anim);
@@ -57,6 +59,8 @@ function getFishSize(%anim)
 
     return %fishInfo;
 }
+
+//-----------------------------------------------------------------------------
 
 function buildAquarium()
 {
@@ -131,6 +135,8 @@ function buildAquarium()
     %rightTrigger.setCollisionShapeIsSensor(0, true);
     SandboxScene.add( %rightTrigger );
 }
+
+//-----------------------------------------------------------------------------
 
 function AquariumBoundary::handleCollision(%this, %object, %collisionDetails)
 {
