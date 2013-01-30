@@ -29,9 +29,10 @@ function createTumblerToy( %scopeSet )
     TumblerToySettings.repeat = true;    
     
     // Add the custom controls.
-    addFlagOption("Create lots of balls?", "10 10", "140 20", TumblerToySettings, false, "setRepeat", TumblerToySettings.repeat);
-    addIntegerOption("Number of balls", "10 40", "25 25", TumblerToySettings, false, "setMaxBalls", TumblerToySettings.maxBalls);
-    addButtonOption("Reset?", "10 70", "50 25", TumblerToySettings, false, "reset");
+    addFlagOption("Create lots of balls?", "10 10", "140 20", false, "setRepeat", TumblerToySettings.repeat);
+    addIntegerOption("Number of balls", "10 40", "25 25", false, "setMaxBalls", TumblerToySettings.maxBalls);
+    addButtonOption("Reset?", "10 70", "50 25", false, "reset");
+
     // Reset the toy initially.
     TumblerToySettings.reset();
 }
@@ -53,7 +54,7 @@ function TumblerToy::reset(%this)
     setSandboxDragMode( "pull" );
 
     // Create the tumbler.
-    %tumbler = new Sprite();
+    %tumbler = new SceneObject();
     SandboxScene.add( %tumbler );
     %tumbler.createPolygonBoxCollisionShape( 1, 50, 25, 0, 0 );
     %tumbler.createPolygonBoxCollisionShape( 1, 50, -25, 0, 0 );

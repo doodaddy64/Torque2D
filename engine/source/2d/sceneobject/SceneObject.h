@@ -271,6 +271,8 @@ public:
     virtual bool            getBatchIsolated( void ) { return mBatchIsolated; }
     virtual bool            isBatchRendered( void ) { return true; }
     virtual bool            validRender( void ) const { return true; }
+    virtual bool            shouldRender( void ) const { return false; }
+
     
     /// Render Output.
     virtual bool            canPrepareRender( void ) const { return false; }

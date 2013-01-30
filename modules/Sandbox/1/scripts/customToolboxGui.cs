@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function addFlagOption( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
+function addFlagOption( %label, %position, %extent, %shouldReset, %callback, %startingValue)
 {
     %containerWidth = getWord(%extent, 0) + 35;
     %containerHeight = getWord(%extent, 1) + 35;
@@ -39,7 +39,7 @@ function addFlagOption( %label, %position, %extent, %toyController, %shouldReset
         Position = "1 1";
         Extent = "20 20";
         Profile = "GuiCheckBoxProfile";
-        toy = %toyController;
+        toy = ToyCustomControls.Controller;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "CheckboxController";
@@ -96,7 +96,7 @@ function CheckboxController::updateToy(%this)
 
 //-----------------------------------------------------------------------------
 
-function addIntegerOption( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
+function addIntegerOption( %label, %position, %extent, %shouldReset, %callback, %startingValue)
 {
     %containerWidth = getWord(%extent, 0) + 100;
     %containerHeight = getWord(%extent, 1);
@@ -115,7 +115,7 @@ function addIntegerOption( %label, %position, %extent, %toyController, %shouldRe
         Position = "1 1";
         Text = %startingValue;
         Extent = %extent;
-        toy = %toyController;
+        toy = ToyCustomControls.Controller;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "TextEditController";

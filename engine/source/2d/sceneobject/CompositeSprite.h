@@ -64,9 +64,8 @@ public:
     virtual void interpolateObject( const F32 timeDelta );
 
     virtual bool canPrepareRender( void ) const { return true; }
-    
-    virtual void scenePrepareRender( const SceneRenderState* pSceneRenderState, SceneRenderQueue* pSceneRenderQueue );
-    
+    virtual bool shouldRender( void ) const { return true; }
+    virtual void scenePrepareRender( const SceneRenderState* pSceneRenderState, SceneRenderQueue* pSceneRenderQueue );    
     virtual void sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer );
 
     virtual void copyTo( SimObject* object );

@@ -973,6 +973,10 @@ void Scene::sceneRender( const SceneRenderState* pSceneRenderState )
                     // Fetch scene object.
                     SceneObject* pSceneObject = worldQueryItr->mpSceneObject;
 
+                    // Skip if the object should not render.
+                    if ( !pSceneObject->shouldRender() )
+                        continue;
+
                     // Can the scene object prepare a render?
                     if ( pSceneObject->canPrepareRender() )
                     {

@@ -93,7 +93,8 @@ public:
     void copyTo(SimObject* object);
 
     virtual bool canPrepareRender( void ) const                             { return true; }
-    virtual bool validRender( void ) const                                    { return mImageAsset.notNull() && mText.length() > 0; }
+    virtual bool validRender( void ) const                                  { return mImageAsset.notNull() && mText.length() > 0; }
+    virtual bool shouldRender( void ) const                                 { return true; }
     virtual void scenePrepareRender( const SceneRenderState* pSceneRenderState, SceneRenderQueue* pSceneRenderQueue );
     virtual void sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer );
 
