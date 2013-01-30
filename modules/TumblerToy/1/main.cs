@@ -30,10 +30,10 @@ function createTumblerToy( %scopeSet )
     %scopeSet.selection = "Test";
 
     // Add the custom controls.
-    addFlagOption("Create lots of balls?", "10 10", "140 20", false, "setRepeat", %scopeSet.repeat);
+    addFlagOption("Create lots of balls?", "10 10", "15 25", false, "setRepeat", %scopeSet.repeat);
     addIntegerOption("Number of balls", "10 40", "25 25", false, "setMaxBalls", %scopeSet.maxBalls);
     addButtonOption("Reset?", "10 70", "50 25", false, "reset");
-    addSelectionOption("Test TestTwo TestThree", "Select Something", "140 25", "75 25", false, %scopeSet.selection);
+    addSelectionOption("Test TestTwo TestThree", "Select Something", "10 100", "80 25", false, %scopeSet.selection);
 
     // Reset the toy initially.
     %scopeSet.reset();
