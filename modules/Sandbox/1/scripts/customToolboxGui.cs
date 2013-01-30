@@ -173,7 +173,7 @@ function TextEditController::updateToy(%this)
 
 //-----------------------------------------------------------------------------
 
-function addButtonOption( %label, %position, %extent, %toyController, %shouldReset, %callback)
+function addButtonOption( %label, %position, %extent, %shouldReset, %callback)
 {
     %containerWidth = getWord(%extent, 0) + 100;
     %containerHeight = getWord(%extent, 1);
@@ -195,7 +195,7 @@ function addButtonOption( %label, %position, %extent, %toyController, %shouldRes
         Position = "1 1";
         Extent = %extent;
         Visible = "1";
-        toy = %toyController;
+        toy = ToyCustomControls.Controller;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "ButtonController";
