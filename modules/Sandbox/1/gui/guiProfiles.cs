@@ -313,3 +313,58 @@ if(!isObject(SandboxWindowProfile)) new GuiControlProfile (SandboxWindowProfile 
     fontSize = $platformFontSize;
     fontColor = "255 255 255 255";
 }; 
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(GuiButtonProfile)) new GuiControlProfile (GuiButtonProfile)
+{
+    opaque = true;
+    border = -1;
+    fontColor = "white";
+    fontColorHL = "229 229 229 255";
+    fixedExtent = true;
+    justify = "center";
+    canKeyFocus = false;
+    fontType = $platformFontType;
+    bitmap = "^Sandbox/gui/images/smallButtonContainer";
+};
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(BlueButtonProfile)) new GuiControlProfile (BlueButtonProfile : GuiButtonProfile)
+{
+    fontSize = $platformFontSize;
+    fontColor = "255 255 255 255";
+    fontColorHL = "255 255 255 255";
+    bitmap = "^Sandbox/gui/images/blueButton.png";
+};
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(RedButtonProfile)) new GuiControlProfile (RedButtonProfile : GuiButtonProfile)
+{
+    fontSize = $platformFontSize;
+    fontColor = "255 255 255 255";
+    fontColorHL = "255 255 255 255";
+    bitmap = "^Sandbox/gui/images/redButton.png";
+};
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(GreenButtonProfile)) new GuiControlProfile (GreenButtonProfile : GuiButtonProfile)
+{
+    fontSize = $platformFontSize;
+    fontColor = "255 255 255 255";
+    fontColorHL = "255 255 255 255";
+    bitmap = "^Sandbox/gui/images/greenButton.png";
+};
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(GuiRadioProfile)) new GuiControlProfile (GuiRadioProfile : GuiDefaultProfile)
+{
+    fillColor = "232 232 232 255";
+    fixedExtent = true;
+    bitmap = "^Sandbox/gui/images/radioButton.png";
+    hasBitmapArray = true;
+};
