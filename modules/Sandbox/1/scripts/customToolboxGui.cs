@@ -126,6 +126,7 @@ function createNumberEditControl( %label, %position, %extent, %toyController, %s
         text = %startingValue;
     };
 
+    %textEdit.validate = %textEdit @ ".updateToy();";
     %container.add(%textEdit);
 
     %labelControl = new GuiTextCtrl()

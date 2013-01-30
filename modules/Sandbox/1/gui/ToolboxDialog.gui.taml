@@ -14,8 +14,8 @@
 		Profile="GuiDefaultProfile"
 		HorizSizing="right"
 		VertSizing="relative"
-		Position="260 16"
-		Extent="580 416"/>		
+		Position="320 16"
+		Extent="580 416"/>
     
 	<!-- Toy Selection Panel -->
 	<GuiControl
@@ -23,7 +23,7 @@
 		HorizSizing="right"
 		VertSizing="bottom"
 		Position="32 32"
-		Extent="320 360">	
+		Extent="300 360">
 		
 		<!-- Toy Category -->
 		<GuiTextCtrl
