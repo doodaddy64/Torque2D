@@ -23,17 +23,17 @@
 function createTumblerToy( %scopeSet )
 {
     // Initialize the toys settings.
-    TumblerToy.createBallScheduleId = "";
-    TumblerToy.maxBalls = 100;
-    TumblerToy.currentBalls = 0;
-    TumblerToy.repeat = true;    
+    TumblerToySettings.createBallScheduleId = "";
+    TumblerToySettings.maxBalls = 100;
+    TumblerToySettings.currentBalls = 0;
+    TumblerToySettings.repeat = true;    
     
     // Add the custom controls.
-    addFlagOption("Create lots of balls?", "10 10", "140 20", TumblerToy, true, "setRepeat", TumblerToy.repeat);
-    addIntegerOption("Number of balls", "10 40", "25 45", TumblerToy, true, "setMaxBalls", TumblerToy.maxBalls);
+    addFlagOption("Create lots of balls?", "10 10", "140 20", TumblerToySettings, true, "setRepeat", TumblerToySettings.repeat);
+    addIntegerOption("Number of balls", "10 40", "25 45", TumblerToySettings, true, "setMaxBalls", TumblerToySettings.maxBalls);
 
     // Reset the toy initially.
-    TumblerToy.reset();
+    TumblerToySettings.reset();
 }
 
 //-----------------------------------------------------------------------------
