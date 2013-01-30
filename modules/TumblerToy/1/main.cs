@@ -37,7 +37,7 @@ function createTumblerToy( %scopeSet )
     
     // Add the custom controls.
     createCheckBoxControl("Create lots of balls?", "10 10", "20 20", TumblerToy, true, "setRepeat", TumblerToy.repeat);   
-    createNumberEditControl("Number of balls", "10 40", "20 25", TumblerToy, true, "setMaxBalls", TumblerToy.maxBalls);
+    createNumberEditControl("Number of balls", "10 40", "25 45", TumblerToy, true, "setMaxBalls", TumblerToy.maxBalls);
 
     // Reset the toy initially.
     TumblerToy.reset();

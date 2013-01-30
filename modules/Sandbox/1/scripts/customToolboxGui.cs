@@ -40,7 +40,6 @@ function createCheckBoxControl( %label, %position, %extent, %toyController, %sho
 
     ToyCustomControls.add(%checkbox);
 
-
     return %checkbox;
 }
 
