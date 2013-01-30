@@ -34,10 +34,13 @@ function createCheckBoxControl( %label, %position, %extent, %toyController, %sho
         class = "CheckboxController";        
         tooltipprofile = "GuiToolTipProfile";
     };
-    
+    %checkBox.setText(%label);
     %checkBox.setValue(%startingValue);
     %checkbox.command = %checkbox @ ".updateToy();";
-    
+
+    ToyCustomControls.add(%checkbox);
+
+
     return %checkbox;
 }
 
@@ -76,6 +79,8 @@ function createNumberEditControl( %label, %position, %extent, %toyController, %s
     };
 
     %textEdit.validate = %textEdit @ ".updateToy();";
+
+    ToyCustomControls.add(%textEdit);
 
     return %textEdit;
 }

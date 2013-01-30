@@ -40,10 +40,7 @@ function createTumblerToy( %scopeSet )
     
     %textEdit = createNumberEditControl("Number of balls", "10 40", "20 25", TumblerToy, true, "setMaxBalls", TumblerToy.maxBalls);
     %scopeSet.add(%textEdit);
-    
-    ToyCustomControls.add(%checkbox);
-    ToyCustomControls.add(%textEdit);
-    
+
     TumblerToy.reset();
 }
 
