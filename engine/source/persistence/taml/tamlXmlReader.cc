@@ -99,9 +99,6 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
     // No, so fetch reference Id.
     const U32 tamlRefId = getTamlRefId( pXmlElement );
 
-    // Fetch object name.
-    const char* pObjectName = getTamlObjectName( pXmlElement );
-
 #ifdef TORQUE_DEBUG
     // Format the type location.
     char typeLocationBuffer[64];
@@ -132,8 +129,32 @@ SimObject* TamlXmlReader::parseElement( TiXmlElement* pXmlElement )
     // Parse attributes.
     parseAttributes( pXmlElement, pSimObject );
 
-    // Register the object (name) appropriately.
-    pObjectName == NULL ? pSimObject->registerObject() : pSimObject->registerObject( pObjectName );
+    // Fetch object name.
+    StringTableEntry objectName = StringTable->insert( getTamlObjectName( pXmlElement ) );
+
+    // Does the object require a name?
+    if ( objectName == StringTable->EmptyString )
+    {
+        // No, so just register anonymously.
+        pSimObject->registerObject();
+    }
+    else
+    {
+        // Yes, so register a named object.
+        pSimObject->registerObject( objectName );
+
+        // Was the name assigned?
+        if ( pSimObject->getName() != objectName )
+        {
+            // No, so warn that the name was rejected.
+#ifdef TORQUE_DEBUG
+            Con::warnf( "Taml::parseElement() - Registered an instance of type '%s' but a request to name it '%s' was rejected.  This is typically because an object of that name already exists.  '%s'", typeName, objectName, typeLocationBuffer );
+#else
+            Con::warnf( "Taml::parseElement() - Registered an instance of type '%s' but a request to name it '%s' was rejected.  This is typically because an object of that name already exists.", typeName, objectName );
+#endif
+        }
+    }
+
 
     // Do we have a reference Id?
     if ( tamlRefId != 0 )

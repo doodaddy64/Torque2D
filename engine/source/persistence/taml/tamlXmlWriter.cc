@@ -111,9 +111,6 @@ TiXmlNode* TamlXmlWriter::compileElement( const TamlWriteNode* pTamlWriteNode )
     // Compile attributes.
     compileAttributes( pElement, pTamlWriteNode );
 
-    // Compile custom elements.
-    compileCustomElements( pElement, pTamlWriteNode );
-
     // Fetch children.
     Vector<TamlWriteNode*>* pChildren = pTamlWriteNode->mChildren;
 
@@ -127,6 +124,9 @@ TiXmlNode* TamlXmlWriter::compileElement( const TamlWriteNode* pTamlWriteNode )
             pElement->LinkEndChild( compileElement( (*itr) ) );
         }
     }
+
+    // Compile custom elements.
+    compileCustomElements( pElement, pTamlWriteNode );
 
     return pElement;
 }
