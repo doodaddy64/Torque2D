@@ -30,7 +30,6 @@ function createMelvToy( %scopeSet )
     //runCompositeSpriteTest();
     runParticleTest();
     
-    //createRangeControl( "IsoWidth", "Width", "0 0", 0, 1000, "" );
 }
 
 //-----------------------------------------------------------------------------
