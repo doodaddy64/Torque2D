@@ -102,12 +102,9 @@ function initializeToolbox()
             %outputIndex++;
         }
     }
-    else
-    {
-        SandboxWindow.add(MainOverlay);
-        %overlayPosition = ( getWord(SandboxWindow.Extent, 0) - 142) SPC (getWord(SandboxWindow.Extent, 1) - 142);
-        MainOverlay.position = %overlayPosition;
-    }
+    SandboxWindow.add(MainOverlay);
+    %overlayPosition = ( getWord(SandboxWindow.Extent, 0) - 71) SPC (getWord(SandboxWindow.Extent, 1) - 71);
+    MainOverlay.position = %overlayPosition;
 }
 
 //-----------------------------------------------------------------------------
