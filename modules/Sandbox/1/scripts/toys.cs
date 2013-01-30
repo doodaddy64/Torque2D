@@ -71,14 +71,15 @@ function loadToy( %moduleDefinition )
     createSandboxScene();
 
     // Does the settings script object exist?
-    if ( !isObject(%moduleDefinition.moduleId) )
+    %settingsObject = %moduleDefinition.moduleId @ "Settings";
+    if ( !isObject(%settingsObject) )
     {
         // No, so create it.
-        %settingsObject = new ScriptObject()
+        %object = new ScriptObject()
         {
             class = %moduleDefinition.moduleId;
         };
-        %settingsObject.setName( %moduleDefinition.moduleId );
+        %object.setName( %settingsObject );
     }
     
     // Load the toy.
@@ -90,7 +91,7 @@ function loadToy( %moduleDefinition )
     
     // Add the scene so it's unloaded when the toy module is.
     %moduleDefinition.ScopeSet.add( SandboxScene );
-    %moduleDefinition.ScopeSet.add( %moduleDefinition.moduleId );
+    %moduleDefinition.ScopeSet.add( %settingsObject );
     
     // Set active toy.
     $activeToy = %moduleDefinition;
@@ -111,13 +112,6 @@ function unloadToy()
     if ( !ModuleDatabase.unloadExplicit( $activeToy.moduleId ) )
     {
         error( "Failed to unload the toy '" @ $activeToy.ModuleId @ "'." );
-    }
-    
-    // Does the settings script object exist?
-    if ( isObject(%moduleDefinition.moduleId) )
-    {
-        // Yes, so delete it.
-        %moduleDefinition.moduleId.delete();
     }
     
     // Reset active toy.
