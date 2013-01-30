@@ -92,6 +92,9 @@ function unloadToy()
     if ( !isObject($activeToy) )
         return;
         
+    // Delete any custom controls added by the toy.
+    ToyCustomControls.deleteObjects();
+        
     // Unload the toy.
     if ( !ModuleDatabase.unloadExplicit( $activeToy.moduleId ) )
     {
