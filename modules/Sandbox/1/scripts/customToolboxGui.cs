@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createCheckBoxControl( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
+function addFlagOption( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
 {
     %containerWidth = getWord(%extent, 0) + 35;
     %containerHeight = getWord(%extent, 1) + 35;
@@ -96,7 +96,7 @@ function CheckboxController::updateToy(%this)
 
 //-----------------------------------------------------------------------------
 
-function createNumberEditControl( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
+function addIntegerOption( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
 {
     %containerWidth = getWord(%extent, 0) + 100;
     %containerHeight = getWord(%extent, 1);
