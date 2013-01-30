@@ -108,7 +108,7 @@ void SpriteProxyBase::processTick( void )
 
 //------------------------------------------------------------------------------
 
-bool SpriteProxyBase::canRender( void ) const
+bool SpriteProxyBase::validRender( void ) const
 {
     // Are we in static mode?
     if ( isStaticMode() )
@@ -133,7 +133,7 @@ void SpriteProxyBase::render(
     BatchRender* pBatchRenderer ) const
 {
     // Finish if we can't render.
-    if ( !canRender() )
+    if ( !validRender() )
         return;
 
     // Static mode?

@@ -49,7 +49,7 @@ public:
 
     virtual bool getBatchIsolated( void ) = 0;
 
-    virtual bool canRender( void ) const = 0;
+    virtual bool validRender( void ) const = 0;
 
     virtual void scenePrepareRender(const SceneRenderState* pSceneRenderState, SceneRenderQueue* pSceneRenderQueue ) = 0;
 

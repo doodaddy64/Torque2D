@@ -249,7 +249,7 @@ void Scroller::updateTickScrollPosition( void )
 void Scroller::sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer )
 {
     // Finish if we can't render.
-    if ( !SpriteProxyBase::canRender() )
+    if ( !SpriteProxyBase::validRender() )
         return;
 
     ImageAsset::FrameArea::TexelArea frameTexelArea;

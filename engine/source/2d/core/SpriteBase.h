@@ -53,7 +53,7 @@ public:
 
     virtual void integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats );
 
-    virtual bool canRender( void ) const;
+    virtual bool validRender( void ) const;
 
     virtual void copyTo(SimObject* object);
 
