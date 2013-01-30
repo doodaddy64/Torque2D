@@ -22,18 +22,11 @@
 
 function createTumblerToy( %scopeSet )
 {
-    if ( !isObject(TumblerToy) )
-    {
-        new ScriptObject(TumblerToy)
-        {
-            createTumblerBallSchedule = "";
-            maxBalls = 100;
-            currentBalls = 0;
-            repeat = true;
-        };
-        
-        %scopeSet.add(TumblerToy);
-    }
+    // Initialize the toys settings.
+    TumblerToy.createTumblerBallScheduleId = "";
+    TumblerToy.maxBalls = 100;
+    TumblerToy.currentBalls = 0;
+    TumblerToy.repeat = true;    
     
     // Add the custom controls.
     createCheckBoxControl("Create lots of balls?", "10 10", "140 20", TumblerToy, true, "setRepeat", TumblerToy.repeat);
@@ -47,6 +40,7 @@ function createTumblerToy( %scopeSet )
 
 function TumblerToy::reset(%this)
 {
+    // Clear the scene.
     SandboxScene.clear();
     
     // Prefer the collision option off as it severely affects the performance.
@@ -71,7 +65,7 @@ function TumblerToy::reset(%this)
     %this.currentBalls = 0;
     
     // Schedule to create a ball.
-    %this.createTumblerBallSchedule = %this.schedule( 100, "createTumblerBall" );
+    %this.createTumblerBallScheduleId = %this.schedule( 100, "createTumblerBall" );
 }
 
 //-----------------------------------------------------------------------------
@@ -120,9 +114,7 @@ function TumblerToy::createTumblerBall(%this)
 
     // Schedule to create a ball.
     if (%this.repeat)
-        %this.createTumblerBallSchedule = %this.schedule( 100, "createTumblerBall" );
-    
-    SandboxScene.setBatchingEnabled( true );
+        %this.createTumblerBallScheduleId = %this.schedule( 100, "createTumblerBall" );
 }
 
 //-----------------------------------------------------------------------------
@@ -130,9 +122,9 @@ function TumblerToy::createTumblerBall(%this)
 function destroyTumblerToy( %scopeSet )
 {
     // Cancel any pending events.
-    if ( isEventPending(TumblerToy.createTumblerBallSchedule) )
+    if ( isEventPending(TumblerToy.createTumblerBallScheduleId) )
     {
-        cancel(TumblerToy.createTumblerBallSchedule);
-        TumblerToy.createTumblerBallSchedule = "";
+        cancel(TumblerToy.createTumblerBallScheduleId);
+        TumblerToy.createTumblerBallScheduleId = "";
     }
 }

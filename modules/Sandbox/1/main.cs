@@ -60,7 +60,6 @@ function createSandbox( %scopeSet )
     
     // Load and configure the toolbox.
     %scopeSet.add( TamlRead("./gui/ToolboxDialog.gui.taml") );
-    GlobalActionMap.bind( keyboard, "minus", toggleToolbox );
 
     // Load and configure the main overlay.
     %scopeSet.add( TamlRead("./gui/MainOverlay.gui.taml") );
