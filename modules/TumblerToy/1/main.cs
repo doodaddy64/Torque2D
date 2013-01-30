@@ -44,6 +44,8 @@ function createTumblerToy( %scopeSet )
     TumblerToy.reset();
 }
 
+//-----------------------------------------------------------------------------
+
 function TumblerToy::reset(%this)
 {
     SandboxScene.clear();
@@ -73,15 +75,21 @@ function TumblerToy::reset(%this)
     %this.createTumblerBallSchedule = %this.schedule( 100, "createTumblerBall" );
 }
 
+//-----------------------------------------------------------------------------
+
 function TumblerToy::setRepeat(%this, %value)
 {
     %this.repeat = %value;
 }
 
+//-----------------------------------------------------------------------------
+
 function TumblerToy::setMaxBalls(%this, %value)
 {
     %this.maxBalls = %value;
 }
+
+//-----------------------------------------------------------------------------
 
 function TumblerToy::createTumblerBall(%this)
 {

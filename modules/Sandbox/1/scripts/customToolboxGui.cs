@@ -44,6 +44,8 @@ function createCheckBoxControl( %label, %position, %extent, %toyController, %sho
     return %checkbox;
 }
 
+//-----------------------------------------------------------------------------
+
 function CheckboxController::updateToy(%this)
 {
     if (%this.toy $= "")
@@ -59,6 +61,8 @@ function CheckboxController::updateToy(%this)
     if (%this.shouldResetToy && %this.toy.isMethod("reset"))
         %this.toy.reset();
 }
+
+//-----------------------------------------------------------------------------
 
 function createNumberEditControl( %label, %position, %extent, %toyController, %shouldReset, %callback, %startingValue)
 {
@@ -85,6 +89,8 @@ function createNumberEditControl( %label, %position, %extent, %toyController, %s
     return %textEdit;
 }
 
+//-----------------------------------------------------------------------------
+
 function TextEditController::updateToy(%this)
 {
     if (%this.toy $= "")
@@ -99,6 +105,8 @@ function TextEditController::updateToy(%this)
     if (%this.shouldResetToy && %this.toy.isMethod("reset"))
         %this.toy.reset();
 }
+
+//-----------------------------------------------------------------------------
 
 function createRangeControl( %name, %label, %position, %min, %max, %variable )
 {
