@@ -53,14 +53,6 @@
 
 //-----------------------------------------------------------------------------
 
-/// OSX version has to be multi-threaded.
-/// Win32 & iOS have to be single-threaded.
-#ifdef TORQUE_OS_OSX
-#define TORQUE_MULTITHREAD
-#endif
-
-//-----------------------------------------------------------------------------
-
 /// The following pre-processor definitions should be added to your compiler command-line
 /// if you required their respective functionality:
 ///
@@ -91,29 +83,10 @@
 /// 'TORQUE_GATHER_METRICS'
 /// When defined, Torque will gather additional performance metrics.
 ///
-
-
-#if defined(TORQUE_OS_IOS)
-
-//PUAP -Mat unless you compile with a custom build step 'IPHONE_OPTIMIZE_OPTIONS' set to '-skip-PNGs', you're PNGs will be altered(optimized)
-//So either deal with that yourself or define this so that we load it using apple iPhone functions to get the PNG data to Torque and everything will be peachy
-//i.e. if you have 'IPHONE_OPTIMIZE_OPTIONS' set to '-skip-PNGs' in the user-defined build settings you don't need this, otherwise this will load PNGS properly for you
-//#define USE_APPLE_OPTIMIZED_PNGS
-
-#ifndef TORQUE_OS_IOS
-	#define TORQUE_OS_IOS
-#endif
-
-// help out the shallow matrix stacks...
-#define glPushMatrix iPhoneGLPushMatrix
-#define glPopMatrix iPhoneGLPopMatrix
-#define glMatrixMode iPhoneGLMatrixMode
-/* EAGL and GL functions calling wrappers that log on error */
-#define CALL_EAGL_FUNCTION(__FUNC__, ...) ({ EAGLError __error = __FUNC__( __VA_ARGS__ ); if(__error != kEAGLErrorSuccess) Con::printf("%s() called from %s returned error %i\n", #__FUNC__, __FUNCTION__, __error); (__error ? 0 : 1); })
-#define CHECK_GL_ERROR() ({ int __error = glGetError(); if(__error) Con::printf("OpenGL error 0x%04X in %s\n", __error, __FUNCTION__); (__error ? 0 : 1); })
-// define this to print out glErrors, un-define to get rid of it
-#define TEST_FOR_OPENGL_ERRORS CHECK_GL_ERROR();
-#endif
+/// 'TORQUE_MULTITHREAD'
+/// When defined, Torque will attempt to make select systems thread-safe.  This does not
+/// make the entire engine thread-safe nor is it a magic bullet that will make the engine
+/// perform operations in parallel and speed-up the engine.
 
 #endif
 

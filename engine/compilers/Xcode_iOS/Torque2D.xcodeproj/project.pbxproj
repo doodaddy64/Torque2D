@@ -21,7 +21,6 @@
 		86555D3816B2C2B400881446 /* T2DView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 86555D3416B2C2B400881446 /* T2DView.mm */; };
 		86555D3916B2C2B400881446 /* T2DViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 86555D3616B2C2B400881446 /* T2DViewController.mm */; };
 		86555D3F16B2C75900881446 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86555D3E16B2C75900881446 /* GLKit.framework */; };
-		86555D4116B2D11900881446 /* preferences.cs in Resources */ = {isa = PBXBuildFile; fileRef = 86555D4016B2D11900881446 /* preferences.cs */; };
 		867BACD216AEC8BB0033868F /* GameCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 867BAC9516AEC8BB0033868F /* GameCenter.mm */; };
 		867BACD316AEC8BB0033868F /* iOSAlerts.mm in Sources */ = {isa = PBXBuildFile; fileRef = 867BAC9816AEC8BB0033868F /* iOSAlerts.mm */; };
 		867BACD416AEC8BB0033868F /* iOSAudio.mm in Sources */ = {isa = PBXBuildFile; fileRef = 867BAC9916AEC8BB0033868F /* iOSAudio.mm */; };
@@ -491,7 +490,6 @@
 		86555D3516B2C2B400881446 /* T2DViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = T2DViewController.h; sourceTree = "<group>"; };
 		86555D3616B2C2B400881446 /* T2DViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = T2DViewController.mm; sourceTree = "<group>"; };
 		86555D3E16B2C75900881446 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		86555D4016B2D11900881446 /* preferences.cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = preferences.cs; path = ../../../preferences.cs; sourceTree = "<group>"; };
 		867BAC9416AEC8BB0033868F /* GameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenter.h; sourceTree = "<group>"; };
 		867BAC9516AEC8BB0033868F /* GameCenter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameCenter.mm; sourceTree = "<group>"; };
 		867BAC9616AEC8BB0033868F /* iOS_common_prefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOS_common_prefix.h; sourceTree = "<group>"; };
@@ -2716,7 +2714,6 @@
 			isa = PBXGroup;
 			children = (
 				8610F32D16AEEC670015BCEB /* main.cs */,
-				86555D4016B2D11900881446 /* preferences.cs */,
 				8610F32E16AEEC670015BCEB /* modules */,
 			);
 			name = Resources;
@@ -2875,7 +2872,6 @@
 				8610F33016AEEC670015BCEB /* modules in Resources */,
 				86555D2F16B2C29200881446 /* iPadStoryboard.storyboard in Resources */,
 				86555D3016B2C29200881446 /* iPhoneStoryboard.storyboard in Resources */,
-				86555D4116B2D11900881446 /* preferences.cs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3364,8 +3360,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					TORQUE_DEBUG,
-					TORQUE_DEBUG_GUARD,
-					TORQUE_DISABLE_MEMORY_MANAGER,
 					TORQUE_OS_IOS,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -3392,7 +3386,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					TORQUE_RELEASE,
-					TORQUE_DISABLE_MEMORY_MANAGER,
 					TORQUE_OS_IOS,
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

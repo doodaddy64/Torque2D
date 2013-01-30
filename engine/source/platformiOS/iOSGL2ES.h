@@ -31,6 +31,7 @@
 #ifndef _GL2ES_H_
 #define _GL2ES_H_
 
+
 #include "platform/types.h"
 
 #include "OpenGLES/ES1/gl.h"
@@ -42,6 +43,11 @@ void iPhoneGLPushMatrix();
 void iPhoneGLPopMatrix();
 void iPhoneGLMatrixMode( GLenum mode );
 }
+
+// help out the shallow matrix stacks...
+#define glPushMatrix iPhoneGLPushMatrix
+#define glPopMatrix iPhoneGLPopMatrix
+#define glMatrixMode iPhoneGLMatrixMode
 
 class ColorI;
 
