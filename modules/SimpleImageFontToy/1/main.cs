@@ -44,7 +44,7 @@ function SimpleImageFontToy::reset( %this )
     // We don't need to size this object as it sizes automatically according to the alignment, font-size and text.
    
     // Set the font size in both axis.  This is in world-units and not typicaly font "points".
-    %object.FontSize = "10 20";
+    %object.FontSize = "2 2";
     
     // We don't really need to do this as the padding is set to zero by default.
     // Padding is specified in world-units and relates to the space added between each character.
@@ -54,7 +54,14 @@ function SimpleImageFontToy::reset( %this )
     %object.TextAlignment = "Center";
 
     // Set the text to display.
-    %object.Text = "T2D Sandbox";
+    %object.Text = " !#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`~abcdefghijklmnopqrstuvwxyz";
+
+    // Make the text spin just to make it more interesting!
+    %object.AngularVelocity = 30;
+    
+    // The ImageFont is a type that defaults to a "static" body-type (typically so it's not affected by gravity)
+    // but we want this to spin so we need a "dynamic" body-type/
+    %object.BodyType = "dynamic";
     
     // Add the sprite to the scene.
     SandboxScene.add( %object );    
