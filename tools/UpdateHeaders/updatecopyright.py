@@ -21,6 +21,7 @@
 #----------------------------------------------------------------------------- 
 
 # Update all copyright headers
+# This needs to be executed at the root of the folder system to be modified.
 
 import os
 import glob
