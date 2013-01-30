@@ -340,7 +340,7 @@ function SelectionController::onSelect(%this)
     if (%this.callback !$= "")
     {
         %value = %this.getTextById(%this.getSelected());
-        %setter = "%this.toy." @ %this.callback @ "(" @ %this.getValue() @ ");";
+        %setter = "%this.toy." @ %this.callback @ "(\"" @ %this.getValue() @ "\");";
         eval(%setter);
     }
 

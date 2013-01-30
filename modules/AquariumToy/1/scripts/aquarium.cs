@@ -20,30 +20,39 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function getRandomFishInfo(%index)
+function getFishAnimationList()
 {
-    switch(%index)
-    {
-        case 0:
-        %fishInfo = "AquariumToy:angelfish1Anim" @ " 15 15";
+   %list = "AquariumToy:angelfish1Anim" SPC "AquariumToy:angelfish2Anim" SPC "AquariumToy:butterflyfishAnim";
+   %list = %list SPC "AquariumToy:pufferfishAnim" SPC "AquariumToy:rockfishAnim" SPC "AquariumToy:seahorseAnim";
+   %list = %list SPC "AquariumToy:triggerfish1Anim";
+}
 
-        case 1:
-        %fishInfo = "AquariumToy:angelfish2Anim" @ " 15 15";
+function getFishSize(%anim)
+{
+    echo("@@@ Getting size for: " @ %anim);
+
+    switch$(%anim)
+    {
+        case "AquariumToy:angelfish1Anim":
+        %fishInfo = "15 15";
+
+        case "AquariumToy:angelfish2Anim":
+        %fishInfo = "15 15";
         
-        case 2:
-        %fishInfo = "AquariumToy:butterflyfishAnim" @ " 15 15";
+        case "AquariumToy:butterflyfishAnim":
+        %fishInfo = "15 15";
         
-        case 3:
-        %fishInfo = "AquariumToy:pufferfishAnim" @ " 15 15";
+        case "AquariumToy:pufferfishAnim":
+        %fishInfo = "15 15";
         
-        case 4:
-        %fishInfo = "AquariumToy:rockfishAnim" @ " 15 7.5";
+        case "AquariumToy:rockfishAnim":
+        %fishInfo = "15 7.5";
         
-        case 5:
-        %fishInfo = "AquariumToy:seahorseAnim" @ " 7.5 15";
+        case "AquariumToy:seahorseAnim":
+        %fishInfo = "7.5 15";
         
-        case 6:
-        %fishInfo = "AquariumToy:triggerfish1Anim" @ " 15 15";
+        case "AquariumToy:triggerfish1Anim":
+        %fishInfo = "15 15";
     }
 
     return %fishInfo;

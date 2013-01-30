@@ -27,28 +27,39 @@ function createAquariumToy( %scopeSet )
     %scopeSet.createFishScheduleId = "";
     %scopeSet.maxFish = 10;
     %scopeSet.currentFish = 0;
+    %scopeSet.selectedAnimation = "AquariumToy:angelfish1Anim";
 
     addIntegerOption("Number of fish", "10 40", "35 25", true, "setMaxFish", %scopeSet.maxFish);
     addButtonOption("Reset?", "10 75", "50 25", false, "reset");
-    addButtonOption("Spawn fish", "10 110", "70 25", false, "spawnOneFish");
+    addSelectionOption(getFishAnimationList(), "Fish Animation", "10 110", "165 25", false, "setSelectedAnimation");
+    addButtonOption("Spawn fish", "10 145", "70 25", false, "spawnOneFish");
 
     // Reset the toy initially.
     %scopeSet.reset();
 }
 
+//-----------------------------------------------------------------------------
+
+function AquariumToy::setSelectedAnimation(%this, %value)
+{
+    echo("New animation: " @ %value);
+    %this.selectedAnimation = %value;
+}
+
+//-----------------------------------------------------------------------------
+
 function AquariumToy::spawnOneFish(%this)
 {
     %position = getRandom(-55, 55) SPC getRandom(-20, 20);
-    %index = getRandom(0, 6);
 
-    %fishInfo = getRandomFishInfo(%index);
+    %fishSize = getFishSize(%this.selectedAnimation);
 
     %fish = new Sprite()
     {
-        Animation = getWord(%fishInfo, 0);
+        Animation = %this.selectedAnimation;
         class = "FishClass";
         position = %position;
-        size = getWords(%fishInfo, 1, 2);
+        size = %fishSize;
         SceneLayer = "2";
         SceneGroup = "14";
         minSpeed = "5";
@@ -62,6 +73,7 @@ function AquariumToy::spawnOneFish(%this)
     %fish.setDefaultFriction( 1.0 );
     SandboxScene.add( %fish );
 }
+
 //-----------------------------------------------------------------------------
 
 function AquariumToy::reset(%this)
@@ -116,16 +128,17 @@ function AquariumToy::spawnFish(%this)
     %this.createFishScheduleId = "";
 
     %position = getRandom(-55, 55) SPC getRandom(-20, 20);
-    %index = getRandom(0, 6);
+    %index = getRandom(0, 5);
+    %anim = getWord(getFishAnimationList(), %index);
 
-    %fishInfo = getRandomFishInfo(%index);
+    %fishInfo = getFishSize(%anim);
 
     %fish = new Sprite()
     {
-        Animation = getWord(%fishInfo, 0);
+        Animation = %anim;
         class = "FishClass";
         position = %position;
-        size = getWords(%fishInfo, 1, 2);
+        size = %fishInfo;
         SceneLayer = "2";
         SceneGroup = "14";
         minSpeed = "5";
