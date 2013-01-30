@@ -442,7 +442,7 @@ ConsoleFunction(VectorCross, const char*, 3, 3, "( vecA , vecB ) Use the VectorC
 ConsoleFunction(VectorDist, F32, 3, 3, "( vecA , vecB ) Use the VectorDist function to calculate distance between two vectors of up to three elements each.\n"
                                                                 "@param vecA A vector of up to three elements.\n"
                                                                 "@param vecB A vector of up to three elements.\n"
-                                                                "@return Returns the result of \" |Xa – Xb| |Ya – Yb| |Za – Zb| \".\n"
+                                                                "@return Returns the result of \" |Xa - Xb| |Ya - Yb| |Za - Zb| \".\n"
                                                                 "@sa VectorLen")
 {
    VectorF v1(0,0,0),v2(0,0,0);

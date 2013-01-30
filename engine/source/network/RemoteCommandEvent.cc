@@ -194,7 +194,7 @@ ConsoleFunctionGroupBegin( Net, "Functions for use with the network; tagged stri
 ConsoleFunction( commandToServer, void, 2, RemoteCommandEvent::MaxRemoteCommandArgs + 1, "( func [ , arg1, ... , argn ] ) Use the commandToServer function to issue a remote procedure call the server.\n"
                                                                 "All arguments may be in tagged or non-tagged format. See 'Remote Procedure Call Samples' below\n"
                                                                 "@param func The suffix of the remote procedure name to be executed on the client.\n"
-                                                                "@param arg1 ... argn – Optional arguments to be passed to the remote procedure.\n"
+                                                                "@param arg1 ... argn - Optional arguments to be passed to the remote procedure.\n"
                                                                 "@return No return value.")
 {
    NetConnection *conn = NetConnection::getConnectionToServer();
@@ -207,7 +207,7 @@ ConsoleFunction( commandToClient, void, 3, RemoteCommandEvent::MaxRemoteCommandA
                                                                 "All arguments (excluding client) may be in tagged or non-tagged format. See 'Remote Procedure Call Samples' below\n"
                                                                 "@param client The numeric ID of a client gameConnection.\n"
                                                                 "@param func The suffix of the remote procedure name to be executed on the client.\n"
-                                                                "@param arg1 ... argn – Optional arguments to be passed to the remote procedure.\n"
+                                                                "@param arg1 ... argn - Optional arguments to be passed to the remote procedure.\n"
                                                                 "@return No return value.")
 {
    NetConnection *conn;

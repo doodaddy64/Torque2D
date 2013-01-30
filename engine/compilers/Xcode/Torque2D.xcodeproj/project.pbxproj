@@ -252,7 +252,6 @@
 		86D76FEE165687060046D71F /* bitmapBmp.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FBA16518D4600D96ADF /* bitmapBmp.cc */; };
 		86D76FEF165687060046D71F /* bitmapJpeg.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FBB16518D4600D96ADF /* bitmapJpeg.cc */; };
 		86D76FF0165687060046D71F /* bitmapPng.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FBC16518D4600D96ADF /* bitmapPng.cc */; };
-		86D76FF2165687060046D71F /* bitRender.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FBE16518D4600D96ADF /* bitRender.cc */; };
 		86D76FF3165687060046D71F /* dgl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FC116518D4600D96ADF /* dgl.cc */; };
 		86D76FF4165687060046D71F /* dglMatrix.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FC316518D4600D96ADF /* dglMatrix.cc */; };
 		86D76FF5165687060046D71F /* DynamicTexture.cc in Sources */ = {isa = PBXBuildFile; fileRef = 86BC7FC416518D4600D96ADF /* DynamicTexture.cc */; };
@@ -868,8 +867,6 @@
 		86BC7FBB16518D4600D96ADF /* bitmapJpeg.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bitmapJpeg.cc; sourceTree = "<group>"; };
 		86BC7FBC16518D4600D96ADF /* bitmapPng.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bitmapPng.cc; sourceTree = "<group>"; };
 		86BC7FBD16518D4600D96ADF /* bitmapPvr.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bitmapPvr.cc; sourceTree = "<group>"; };
-		86BC7FBE16518D4600D96ADF /* bitRender.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bitRender.cc; sourceTree = "<group>"; };
-		86BC7FBF16518D4600D96ADF /* bitRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitRender.h; sourceTree = "<group>"; };
 		86BC7FC016518D4600D96ADF /* color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
 		86BC7FC116518D4600D96ADF /* dgl.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dgl.cc; sourceTree = "<group>"; };
 		86BC7FC216518D4600D96ADF /* dgl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dgl.h; sourceTree = "<group>"; };
@@ -2129,8 +2126,6 @@
 				86BC7FBB16518D4600D96ADF /* bitmapJpeg.cc */,
 				86BC7FBC16518D4600D96ADF /* bitmapPng.cc */,
 				86BC7FBD16518D4600D96ADF /* bitmapPvr.cc */,
-				86BC7FBE16518D4600D96ADF /* bitRender.cc */,
-				86BC7FBF16518D4600D96ADF /* bitRender.h */,
 				2AE851D11681E56E00193F17 /* color.cc */,
 				86BC7FC016518D4600D96ADF /* color.h */,
 				86BC7FC116518D4600D96ADF /* dgl.cc */,
@@ -2932,7 +2927,6 @@
 				86D76FEE165687060046D71F /* bitmapBmp.cc in Sources */,
 				86D76FEF165687060046D71F /* bitmapJpeg.cc in Sources */,
 				86D76FF0165687060046D71F /* bitmapPng.cc in Sources */,
-				86D76FF2165687060046D71F /* bitRender.cc in Sources */,
 				86D76FF3165687060046D71F /* dgl.cc in Sources */,
 				86D76FF4165687060046D71F /* dglMatrix.cc in Sources */,
 				86D76FF5165687060046D71F /* DynamicTexture.cc in Sources */,

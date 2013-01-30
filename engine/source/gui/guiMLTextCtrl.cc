@@ -41,7 +41,7 @@ ConsoleMethod( GuiMLTextCtrl, setText, void, 3, 3,  "(text) Use the setText meth
 }
 
 ConsoleMethod( GuiMLTextCtrl, getText, const char*, 2, 2, "() Use the getText method to return the current text contents of the control, including all formatting characters.\n"
-                                                                "@return Returns the entire text contents of the control or “” indicating no contents.\n"
+                                                                "@return Returns the entire text contents of the control or indicating no contents.\n"
                                                                 "@sa addText")
 {
    return( object->getTextContent() );

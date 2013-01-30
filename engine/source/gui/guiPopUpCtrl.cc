@@ -312,7 +312,7 @@ ConsoleMethod( GuiPopUpMenuCtrl, add, void, 4, 5, "( entryText , entryID [ , ent
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, addScheme, void, 6, 6, "( entryScheme , fontColor , fontColorHL , fontColorSEL ) Use the addScheme method to create a new color scheme or to modify an existing one.\n"
-																"An integer color vector contains three integer values, each between 0 and 255 and is organized in this order: “R G B”.\n"
+																"An integer color vector contains three integer values, each between 0 and 255 and is organized in this order: 'R G B'.\n"
 																"@param entryScheme An integer value representing the ID of the scheme, between 1 and inf.\n"
 																"@param fontColor A vector containing an integer representation of the menu entry's normal color.\n"
 																"@param fontColorHL A vector containing an integer representation of the menu entry's highlighted color.\n"
@@ -355,7 +355,7 @@ ConsoleMethod( GuiPopUpMenuCtrl, addScheme, void, 6, 6, "( entryScheme , fontCol
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, setText, void, 3, 3, "( text ) Use the setText method to change the text displayed in the menu bar.\n"
-																"Pass the NULL string (“”) to clear the menu bar text.\n"
+																"Pass the NULL string to clear the menu bar text.\n"
 																"@param text New text to display in the menu bar.\n"
 																"@return No return value.\n"
 																"@sa getText, replaceText")
@@ -364,7 +364,7 @@ ConsoleMethod( GuiPopUpMenuCtrl, setText, void, 3, 3, "( text ) Use the setText 
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, getText, const char*, 2, 2, "() Use the getText method to get the text currently displayed in the menu bar.\n"
-																"@return Returns the text in the menu bar or “” if no text is present.\n"
+																"@return Returns the text in the menu bar or NULL if no text is present.\n"
 																"@sa getSelected, setText")
 {
    return object->getText();
@@ -437,7 +437,7 @@ ConsoleMethod( GuiPopUpMenuCtrl, setNoneSelected, void, 2, 2, "() Deselects all 
 
 ConsoleMethod( GuiPopUpMenuCtrl, getTextById, const char*, 3, 3,  "( ID ) Use the getTextById method to get the text value for the menu item represented by ID.\n"
 																"@param ID An integer value representing the ID of a menu item.\n"
-																"@return Returns a string containing the menu item corresponding to ID, or a NULL string (“”) if no menu item has the specified ID.\n"
+																"@return Returns a string containing the menu item corresponding to ID, or a NULL string if no menu item has the specified ID.\n"
 																"@sa add, getText")
 {
    return(object->getTextById(dAtoi(argv[2])));
@@ -499,7 +499,6 @@ ConsoleMethod( GuiPopUpMenuCtrl, setEnumContent, void, 4, 4, "(string class, str
 
 //------------------------------------------------------------------------------
 ConsoleMethod( GuiPopUpMenuCtrl, findText, S32, 3, 3, "( text ) Use the findText method to locate the string text in the list of menu items. It will return the ID of the first entry found.\n"
-																"This is an exact match, so if the menu item is “Gish” and you search for “Gis”, or “gish', or any other variation that does not match the entire menu item and the case of each letter, the search will not find a match\n"
 																"@param text A string containing the text to search for.\n"
 																"@return Returns an integer value representing the ID of the menu item, or -1 if the text was not found.")
 {

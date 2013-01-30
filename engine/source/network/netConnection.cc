@@ -360,7 +360,7 @@ void NetConnection::handleConnectionEstablished()
 //--------------------------------------------------------------------------
 
 ConsoleMethod(NetConnection,getAddress,const char *,2,2,"() Use the getAddress method to get the address and port that this NetConnection is currently attached to.\n"
-                                                                "@return Returns the address and port that this NetConnection is currently attached to, where the addres will be of the form: “A.B.C.D:Port”. A .. B are standard IP numbers between 0 and 255 and Port can be between 1000 and 65536. If the connection is local, the string “local” will be returned. If a this NetConnection is not currently connected the method will return a NULL string.\n"
+                                                                "@return Returns the address and port that this NetConnection is currently attached to, where the addres will be of the form: A.B.C.D:Port. A .. B are standard IP numbers between 0 and 255 and Port can be between 1000 and 65536. If the connection is local, the string 'local' will be returned. If a this NetConnection is not currently connected the method will return a NULL string.\n"
                                                                 "@sa connect, connectLocal")
 {
    if(object->isLocalConnection())
@@ -1133,7 +1133,7 @@ ConsoleMethod(NetConnection, getGhostID, S32, 3, 3, "( S32 realID ) Convert a re
 }
 
 ConsoleMethod(NetConnection, connect, void, 3, 3, "( remoteAddress ) Use the connect method to request a connection to a remote server at the address remoteAddress.\n"
-                                                                "@param remoteAddress A string containing an address of the form: “A.B.C.D:Port”, where A .. B are standard IP numbers between 0 and 255 and Port can be between 1000 and 65536.\n"
+                                                                "@param remoteAddress A string containing an address of the form: A.B.C.D:Port, where A .. B are standard IP numbers between 0 and 255 and Port can be between 1000 and 65536.\n"
                                                                 "@return No return value.\n"
                                                                 "@sa connectLocal, getAddress")
 {

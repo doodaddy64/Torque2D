@@ -133,7 +133,7 @@ ConsoleFunction(schedule, S32, 4, 0, "( t , objID || 0 , functionName, arg0, ...
                                                                 "@param t The time to wait (in milliseconds) before executing functionName.\n"
                                                                 "@param objID An optional ID to associate this event with.\n"
                                                                 "@param functionName An unadorned (flat) function name.\n"
-                                                                "@param arg0, .. , argN – Any number of optional arguments to be passed to functionName.\n"
+                                                                "@param arg0, .. , argN - Any number of optional arguments to be passed to functionName.\n"
                                                                 "@return Returns a non-zero integer representing the event ID for the scheduled event.\n"
                                                                 "@sa cancel, getEventTimeLeft, getScheduleDuration, getTimeSinceStart, isEventPending, obj.schedule")
 {

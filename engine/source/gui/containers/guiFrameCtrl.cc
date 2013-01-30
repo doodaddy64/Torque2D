@@ -56,7 +56,7 @@ void GuiFrameSetCtrl::initPersistFields()
 //-----------------------------------------------------------------------------
 ConsoleMethod( GuiFrameSetCtrl, frameBorder, void, 3, 4, "( index [ , enable = true ] ) Use the frameBorder method to change the frame's enable state.\n"
 																"This function is not working as of this writing\n"
-																"@param index Frame index to enable/disable/enable – Currently a boolean, but should actually be a string: alwaysOn, alwaysOff, dynamic.\n"
+																"@param index Frame index to enable/disable/enable - Currently a boolean, but should actually be a string: alwaysOn, alwaysOff, dynamic.\n"
 																"@return No return value.")
 {
    S32 index = dAtoi(argv[2]);
@@ -68,7 +68,7 @@ ConsoleMethod( GuiFrameSetCtrl, frameBorder, void, 3, 4, "( index [ , enable = t
 
 ConsoleMethod( GuiFrameSetCtrl, frameMovable, void, 3, 4, "( index [ , enable = true ] ) Use the frameMovable method to change the frame's draggable state.\n"
 																"This function is not working as of this writing\n"
-																"@param index Frame index to enable/disable/enable – Currently a boolean, but should actually be a string: alwaysOn, alwaysOff, dynamic.\n"
+																"@param index Frame index to enable/disable/enable - Currently a boolean, but should actually be a string: alwaysOn, alwaysOff, dynamic.\n"
 																"@return No return value.")
 {
    S32 index = dAtoi(argv[2]);

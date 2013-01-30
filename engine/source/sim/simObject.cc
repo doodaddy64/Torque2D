@@ -771,8 +771,8 @@ ConsoleMethod(SimObject,dump, void, 2, 2, "() Use the dump method to display the
 
 
 ConsoleMethod(SimObject, getType, S32, 2, 2, "() Use the getType method to get the type for this object. This type is an integer value composed of bitmasks. For simplicity, these bitmasks are defined in the engine and exposed for our use as global variables.\n"
-                                                                "To simplify the writing of scripts, a set of globals has been provided containing the bit setting for each class corresponding to a particular type. For a complete list of the bit masks, see the 'Shape Type Bitmasks' table. \n-$TypeMasks::GameBaseObjectType \n-- $TypeMasks::EnvironmentObjectType \n-- $TypeMasks::ExplosionObjectType \n-- $TypeMasks::ProjectileObjectType \n-- $TypeMasks::ShapeBaseObjectType \n--- $TypeMasks::CameraObjectType \n--- $TypeMasks::ItemObjectType \n--- $TypeMasks::MarkerObjectType \n--- $TypeMasks::PlayerObjectType \n--- $TypeMasks::StaticShapeObjectType \n--- $TypeMasks::VehicleObjectType \n-- $TypeMasks::TriggerObjectType \n- $TypeMasks::InteriorObjectType \n- $TypeMasks::StaticObjectType \n- $TypeMasks::TerrainObjectType \n- $TypeMasks::VehicleBlockerObjectType \n- $TypeMasks::WaterObjectType Two interesting general masks are: \n$TypeMasks::EnvironmentObjectType – Matches sky, sun, lightning, particle emitter nodes. \n$TypeMasks::StaticObjectType – Matches – fxFoliageReplicator, fxLight, fxShapeReplicator, fxSunlight, interiorInstance, lightning, mirrorSubObject, missionMarker, staticShape, terrain, tsStatic\n"
-                                                                "@return Returns a bit mask containing one or more set bits.\n"
+                                                                "To simplify the writing of scripts, a set of globals has been provided containing the bit setting for each class corresponding to a particular type.\n"
+              "@return Returns a bit mask containing one or more set bits.\n"
                                                                 "@sa getClassName")
 {
    return((S32)object->getType());

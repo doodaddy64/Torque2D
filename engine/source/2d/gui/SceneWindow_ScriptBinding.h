@@ -584,29 +584,28 @@ ConsoleMethod(SceneWindow, mount, void, 3, 8,   "(sceneObject, [offsetX / offset
         return;
     }
 
-    // Reset Element Count.
-    U32 elementCount = 2;
-    // Calculate Mount-Offset.
+    // Set defaults.
     Vector2 mountOffset(0.0f, 0.0f);
-
-    U32 nextArg;
-    if (argc > 3)
+    F32 mountForce = 0.0f;
+    bool sendToMount = true;
+    bool mountAngle = false;
+    
+    U32 nextArg = 3;
+    if ( (U32)argc > nextArg )
     {
         // Fetch Element Count.
-        elementCount = Utility::mGetStringElementCount(argv[3]);
+        const U32 elementCount = Utility::mGetStringElementCount(argv[nextArg]);
 
         // (object, "offsetX offsetY", ...)
         if ( elementCount == 2 )
         {
-            mountOffset = Utility::mGetStringElementVector(argv[3]);
-            nextArg = 4;
+            mountOffset = Utility::mGetStringElementVector(argv[nextArg++]);
         }
-
         // (object, offsetX, offsetY, ...)
-        else if ( elementCount == 1 && argc >= 5 )
+        else if ( elementCount == 1 && argc >= nextArg+1 )
         {
-            mountOffset = Vector2(dAtof(argv[3]), dAtof(argv[4]));
-            nextArg = 5;
+            mountOffset = Vector2(dAtof(argv[nextArg]), dAtof(argv[nextArg+1]));
+            nextArg += 2;
         }
         // Invalid.
         else
@@ -614,20 +613,18 @@ ConsoleMethod(SceneWindow, mount, void, 3, 8,   "(sceneObject, [offsetX / offset
             Con::warnf("SceneWindow::mount() - Invalid number of parameters!");
             return;
         }
-
     }
 
     // Grab the mount force - if it's specified.
-    F32 mountForce = 0.0f;
     if ( (U32)argc > nextArg )
         mountForce = dAtof(argv[nextArg++]);
 
     // Grab the send to mount flag.
-    bool sendToMount = true;
+
     if ( (U32)argc > nextArg )
         sendToMount = dAtob(argv[nextArg++]);
 
-    bool mountAngle = false;
+
     if ( (U32)argc > nextArg )
         mountAngle = dAtob(argv[nextArg++]);
 

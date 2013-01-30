@@ -504,7 +504,7 @@ TEST( PlatformStringTests, dItoaTest )
 TEST( PlatformStringTests, dIsalnumTest )
 {
     char source1[] = { "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" };
-    char source2[] = { "!£$%^&*()+-={}[]~#@':;?/>.<,|¬`" };
+    char source2[] = { "!$%^&*()+-={}[]~#@':;?/>.<,|`" };
 
     // Check results on source#1.
     const S32 sourceLength1 = dStrlen( source1 );
@@ -526,7 +526,7 @@ TEST( PlatformStringTests, dIsalnumTest )
 TEST( PlatformStringTests, dIsalphaTest )
 {
     char source1[] = { "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" };    
-    char source2[] = { "!£$%^&*()+-={}[]~#@':;?/>.<,|¬`" };
+    char source2[] = { "!$%^&*()+-={}[]~#@':;?/>.<,|`" };
     char source3[] = { "0123456789" };
 
     // Check results on source#1.
@@ -557,7 +557,7 @@ TEST( PlatformStringTests, dIsdigitTest )
 {
     char source1[] = { "0123456789" };
     char source2[] = { "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" };
-    char source3[] = { "!£$%^&*()+-={}[]~#@':;?/>.<,|¬`" };
+    char source3[] = { "!$%^&*()+-={}[]~#@':;?/>.<,|`" };
 
     // Check results on source#1.
     const S32 sourceLength1 = dStrlen( source1 );
@@ -587,7 +587,7 @@ TEST( PlatformStringTests, dIsspaceTest )
 {
     char source1[] = { "\t\r " };
     char source2[] = { "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" };
-    char source3[] = { "!£$%^&*()+-={}[]~#@':;?/>.<,|¬`" };
+    char source3[] = { "!$%^&*()+-={}[]~#@':;?/>.<,|`" };
 
     // Check results on source#1.
     const S32 sourceLength1 = dStrlen( source1 );

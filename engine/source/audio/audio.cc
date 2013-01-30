@@ -151,7 +151,7 @@ static StreamingList mStreamingCulledList;           // sources which have been 
 #define RETURN_MASK             ~(AUDIOHANDLE_INACTIVE_BIT | AUDIOHANDLE_LOADING_BIT)
 static AUDIOHANDLE mLastHandle = NULL_AUDIOHANDLE;
 
-static bool mForceMaxDistanceUpdate = false;       // force gain setting for 3d distances
+// force gain setting for 3d distances
 static U32  mNumSources = 0;                       // total number of sources to work with
 static U32  mRequestSources = MAX_AUDIOSOURCES;    // number of sources to request from openAL
 

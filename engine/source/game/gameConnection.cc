@@ -97,7 +97,7 @@ ConsoleMethod(GameConnection, setJoinPassword, void, 3, 3, "( password ) Use the
 
 ConsoleMethod(GameConnection, setConnectArgs, void, 3, 17, "( name [ , arg1 , ... , arg15 ] ) Use the setConnectArgs method to set the connection arguments for this client-side GameConnection. These values will be passed to the server upon establishing a connection.\n"
                                                                 "@param name Generally, the first argument is the name of the player.\n"
-                                                                "@param arg1 ... , arg15 – 15 additional arguments may be passed.\n"
+                                                                "@param arg1 ... , arg15 - 15 additional arguments may be passed.\n"
                                                                 "@return No return value.\n"
                                                                 "@sa setJoinPassword")
 {
