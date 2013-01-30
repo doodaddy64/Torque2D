@@ -100,6 +100,13 @@ function destroySandboxScene()
 
 function setSceneToWindow()
 {
+    // Sanity!
+    if ( !isObject(SandboxScene) )
+    {
+        error( "Cannot set Sandbox Scene to Window as the Scene is invalid." );
+        return;
+    }
+    
      // Set scene to window.
     SandboxWindow.setScene( SandboxScene );
 
@@ -129,7 +136,7 @@ function setSceneToWindow()
 function setCustomScene( %scene )
 {
     // Sanity!
-    if ( %scene = "" )
+    if ( !isObject(%scene) )
     {
         error( "Cannot set Sandbox to use an invalid Scene." );
         return;
