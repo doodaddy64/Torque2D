@@ -73,7 +73,7 @@ function Sandbox::create( %this )
     // Initialize the "cannot render" proxy.
     new RenderProxy(CannotRenderProxy)
     {
-        Image = "ToyAssets:CannotRender";
+        Image = "Sandbox:CannotRender";
     };
     Sandbox.add( CannotRenderProxy );
 }
