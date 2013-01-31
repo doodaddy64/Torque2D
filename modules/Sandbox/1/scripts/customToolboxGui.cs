@@ -232,6 +232,8 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
 
     %spinnerDown = new GuiImageButtonCtrl()
     {
+        Action = "decrease";
+        Class = "SpinnerController";
         canSaveDynamicFields = "0";
         isContainer = "0";
         Profile = "GuiDefaultProfile";
@@ -273,6 +275,8 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
 
     %spinnerUp = new GuiImageButtonCtrl()
     {
+        Action = "increase";
+        Class = "SpinnerController";
         canSaveDynamicFields = "0";
         isContainer = "0";
         Profile = "GuiDefaultProfile";
@@ -294,6 +298,10 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
     };
 
     %textEdit.validate = %textEdit @ ".updateToy();";
+    %spinnerDown.target = %textEdit;
+    %spinnerUp.target = %textEdit;
+    %spinnerDown.command = %spinnerDown @ ".updateTarget();";
+    %spinnerUp.command = %spinnerUp @ ".updateTarget();";
 
     %container.add(%spinnerDown);
     %container.add(%textEdit);
@@ -304,6 +312,33 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
     $lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
 
     $customControlCount++;
+}
+
+//-----------------------------------------------------------------------------
+
+function SpinnerController::updateTarget(%this)
+{
+    %target = %this.target;
+
+    if (%this.action $= "increase")
+    {
+        %value = %target.getText();
+        %value++;
+        %target.setText(%value);
+    }
+    else if (%this.action $= "decrease")
+    {
+        %value = %target.getText();
+        %value--;
+        %target.setText(%value);
+    }
+    else
+    {
+        error("!!! SpinnerController " @ %this @ " not assigned an action!");
+        return;
+    }
+
+    %target.updateToy();
 }
 
 //-----------------------------------------------------------------------------
