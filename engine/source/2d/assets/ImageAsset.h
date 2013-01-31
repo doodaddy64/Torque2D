@@ -258,7 +258,7 @@ protected:
     static bool writeForce16Bit( void* obj, StringTableEntry pFieldName )   { return static_cast<ImageAsset*>(obj)->getForce16Bit() == true; }
 
     static bool setFilterMode( void* obj, const char* data );
-    static bool writeFilterMode( void* obj, StringTableEntry pFieldName )   { return static_cast<ImageAsset*>(obj)->getFilterMode() != FILTER_NEAREST; }
+    static bool writeFilterMode( void* obj, StringTableEntry pFieldName )   { return static_cast<ImageAsset*>(obj)->getFilterMode() != FILTER_BILINEAR; }
 
     static bool setExplicitMode( void* obj, const char* data )              { static_cast<ImageAsset*>(obj)->setExplicitMode(dAtob(data)); return false; }
 
