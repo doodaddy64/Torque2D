@@ -215,7 +215,7 @@ function ToySelectList::onSelect(%this)
     %index = %this.getSelected();
     
     // Finish if already selected.
-    if ( %index == $activeToy )
+    if ( %index == Sandbox.ActiveToy )
         return;
     
     // Load the selected toy.
@@ -261,11 +261,11 @@ function ResolutionSelectList::onSelect(%this)
 function ReloadToyButton::onClick(%this)
 {
     // Finish if no toy is loaded.
-    if ( !isObject($activeToy) )
+    if ( !isObject(Sandbox.ActiveToy) )
         return;
         
     // Reload the toy.
-    loadToy( $activeToy );    
+    loadToy( Sandbox.ActiveToy );    
 }
 
 //-----------------------------------------------------------------------------

@@ -47,7 +47,7 @@ function addFlagOption( %label, %position, %extent, %shouldReset, %callback, %st
         Position = "1 1";
         Extent = "20 20";
         Profile = "GuiCheckBoxProfile";
-        toy = $activeToy.ScopeSet;
+        toy = Sandbox.ActiveToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "CheckboxController";
@@ -131,7 +131,7 @@ function addIntegerOption( %label, %position, %extent, %shouldReset, %callback, 
         Position = "1 1";
         Text = %startingValue;
         Extent = %extent;
-        toy = $activeToy.ScopeSet;
+        toy = Sandbox.ActiveToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "TextEditController";
@@ -211,7 +211,7 @@ function addButtonOption( %label, %position, %extent, %shouldReset, %callback)
         Position = "1 1";
         Extent = %extent;
         Visible = "1";
-        toy = $activeToy.ScopeSet;
+        toy = Sandbox.ActiveToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "ButtonController";
@@ -278,7 +278,7 @@ function addSelectionOption( %entries, %label, %position, %extent, %shouldReset,
     %menu = new GuiPopUpMenuCtrl()
     {
         class = "SelectionController";
-        toy = $activeToy.ScopeSet;
+        toy = Sandbox.ActiveToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         isContainer = "0";
@@ -395,7 +395,7 @@ function addRangeOption( %label, %position, %extent, %range, %ticks, %shouldRese
     %slider = new GuiSliderCtrl()
     {
         class = "SliderController";
-        toy = $activeToy.ScopeSet;
+        toy = Sandbox.ActiveToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         Position = "1 16";

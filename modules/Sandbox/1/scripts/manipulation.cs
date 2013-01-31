@@ -24,13 +24,13 @@
 // - Off
 // - Camera
 // - Pull
-$sandboxDragMode = "off";
+Sandbox.DragMode = "off";
 
 // Reset the sandbox pull object.
-$sandboxPullObject = "";
-$sandboxPullJointId = "";
+Sandbox.PullObject = "";
+Sandbox.PullJointId = "";
 
-$sandboxPullMaxForce = 1000;
+Sandbox.PullMaxForce = 1000;
 
 //-----------------------------------------------------------------------------
 
@@ -41,9 +41,9 @@ GlobalActionMap.bind( keyboard, "space", setNextDragMode );
 function resetSandboxDragModes()
 {   
     // These control which drag modes are available or not.
-    $sandboxDragModeAvailable["off"] = true;
-    $sandboxDragModeAvailable["camera"] = true;
-    $sandboxDragModeAvailable["pull"] = true;
+    Sandbox.DragModeAvailable["off"] = true;
+    Sandbox.DragModeAvailable["camera"] = true;
+    Sandbox.DragModeAvailable["pull"] = true;
     
     // Set the sandbox drag mode default.
     setSandboxDragMode( "camera" ); 
@@ -54,21 +54,21 @@ function resetSandboxDragModes()
 function setSandboxDragMode( %mode )
 {
     // Is the drag mode available?
-    if ( %mode !$= "off" && !$sandboxDragModeAvailable[%mode] )
+    if ( %mode !$= "off" && !Sandbox.DragModeAvailable[%mode] )
     {
         // No, so warn.
         error( "Cannot set sandbox drag mode to " @ %mode @ " as it is currently disabled." );
         return;
     }
     
-    $sandboxDragMode = %mode;
+    Sandbox.DragMode = %mode;
     
     // Reset pulled object and joint.
-    $sandboxPullObject = "";    
-    if ( $sandboxPullJointId !$= "" && SandboxScene.isJoint($sandboxPullJointId) )
+    Sandbox.PullObject = "";    
+    if ( Sandbox.PullJointId !$= "" && SandboxScene.isJoint(Sandbox.PullJointId) )
     {
-        SandboxScene.deleteJoint( $sandboxPullJointId );
-        $sandboxPullJointId = "";
+        SandboxScene.deleteJoint( Sandbox.PullJointId );
+        Sandbox.PullJointId = "";
     }        
 }
 
@@ -81,31 +81,31 @@ function setNextDragMode( %make )
         return;
 
     // "off" to "camera" transition.
-    if ( $sandboxDragMode $= "off" )
+    if ( Sandbox.DragMode $= "off" )
     {
-        if ( $sandboxDragModeAvailable["camera"] )
+        if ( Sandbox.DragModeAvailable["camera"] )
         {
             setSandboxDragMode("camera");
             return;
         }
         
-        $sandboxDragMode = "camera";
+        Sandbox.DragMode = "camera";
     }      
     
     // "camera" to "pull" transition.
-    if ( $sandboxDragMode $= "camera" )
+    if ( Sandbox.DragMode $= "camera" )
     {
-        if ( $sandboxDragModeAvailable["pull"] )
+        if ( Sandbox.DragModeAvailable["pull"] )
         {
             setSandboxDragMode("pull");
             return;
         }
             
-        $sandboxDragMode = "pull";
+        Sandbox.DragMode = "pull";
     }
 
     // "pull" to "off" transition.
-    if ( $sandboxDragMode $= "pull" )
+    if ( Sandbox.DragMode $= "pull" )
     {
         setSandboxDragMode("off");
     }          
@@ -115,7 +115,7 @@ function setNextDragMode( %make )
 
 function setSandboxDragModeAvailable( %mode, %status )
 {
-    $sandboxDragModeAvailable[%mode] = %status;    
+    Sandbox.DragModeAvailable[%mode] = %status;    
 }
 
 //-----------------------------------------------------------------------------
@@ -123,14 +123,14 @@ function setSandboxDragModeAvailable( %mode, %status )
 function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 {
     // Finish if the drag mode is off.
-    if ( $sandboxDragMode $= "off" )
+    if ( Sandbox.DragMode $= "off" )
         return;
     
     // Set touch event.
-    $touchEvent[%touchID] = %worldPos;
+    Sandbox.TouchEvent[%touchID] = %worldPos;
        
     // Handle "pull" mode.
-    if ( $sandboxDragMode $= "pull" )
+    if ( Sandbox.DragMode $= "pull" )
     {
         // Pick an object.
         %picked = SandboxScene.pickPoint( %worldPos );
@@ -140,10 +140,10 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
             return;
             
         // Fetch the first object only.
-        $sandboxPullObject = getWord( %picked, 0 );
+        Sandbox.PullObject = getWord( %picked, 0 );
         
         // Create the target joint.
-        $sandboxPullJointId = SandboxScene.createTargetJoint( $sandboxPullObject, %worldPos, $sandboxPullMaxForce );
+        Sandbox.PullJointId = SandboxScene.createTargetJoint( Sandbox.PullObject, %worldPos, Sandbox.PullMaxForce );
     }    
 }
 
@@ -152,22 +152,22 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 function SandboxWindow::onTouchUp(%this, %touchID, %worldPos)
 {
     // Finish if the drag mode is off.
-    if ( $sandboxDragMode $= "off" )
+    if ( Sandbox.DragMode $= "off" )
         return;
 
     // Reset touch event.
-    $touchEvent[%touchID] = "";
+    Sandbox.TouchEvent[%touchID] = "";
     
     // Handle "pull" mode.
-    if ( $sandboxDragMode $= "pull" )
+    if ( Sandbox.DragMode $= "pull" )
     {
         // Finish if nothing is being pulled.
-        if ( !isObject($sandboxPullObject) )
+        if ( !isObject(Sandbox.PullObject) )
             return;
         
         // Remove the pull joint.
-        SandboxScene.deleteJoint( $sandboxPullJointId );
-        $sandboxPullJointId = "";
+        SandboxScene.deleteJoint( Sandbox.PullJointId );
+        Sandbox.PullJointId = "";
     }      
 }
 
@@ -176,7 +176,7 @@ function SandboxWindow::onTouchUp(%this, %touchID, %worldPos)
 function SandboxWindow::onTouchMoved(%this, %touchID, %worldPos)
 {
     // Finish if the drag mode is off.
-    if ( $sandboxDragMode $= "off" )
+    if ( Sandbox.DragMode $= "off" )
         return;
 }
 
@@ -185,14 +185,14 @@ function SandboxWindow::onTouchMoved(%this, %touchID, %worldPos)
 function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
 {
     // Finish if the drag mode is off.
-    if ( $sandboxDragMode $= "off" )
+    if ( Sandbox.DragMode $= "off" )
         return;
 
     // Handle "camera" mode.
-    if ( $sandboxDragMode $= "camera" )
+    if ( Sandbox.DragMode $= "camera" )
     {
         // Fetch touch event.
-        %lastWorldPos = $touchEvent[%touchID];
+        %lastWorldPos = Sandbox.TouchEvent[%touchID];
 
         // Calculate touch delta.
         %offsetX = getWord(%worldPos, 0) - getWord(%lastWorldPos, 0);
@@ -202,7 +202,7 @@ function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
         // Update touch event (offset by our adjustment).
         %offsetWorldPosX = getWord(%worldPos, 0) - getWord(%touchDelta, 0);
         %offsetWorldPosY = getWord(%worldPos, 1) - getWord(%touchDelta, 1);
-        $touchEvent[%touchID] = %offsetWorldPosX SPC %offsetWorldPosY;    
+        Sandbox.TouchEvent[%touchID] = %offsetWorldPosX SPC %offsetWorldPosY;    
                 
         // Update the camera.
         %cameraPosition = SandboxWindow.getCurrentCameraPosition();    
@@ -212,14 +212,14 @@ function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
     }
     
     // Handle "pull" mode.
-    if ( $sandboxDragMode $= "pull" )
+    if ( Sandbox.DragMode $= "pull" )
     {
         // Finish if nothing is being pulled.
-        if ( !isObject($sandboxPullObject) )
+        if ( !isObject(Sandbox.PullObject) )
             return;
               
         // Set a new target for the target joint.
-        SandboxScene.setTargetJointTarget( $sandboxPullJointId, %worldPos );
+        SandboxScene.setTargetJointTarget( Sandbox.PullJointId, %worldPos );
     }
 }
 
@@ -228,7 +228,7 @@ function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
 function SandboxWindow::onMouseWheelUp(%this, %modifier, %mousePoint, %mouseClickCount)
 {
     // Finish if the drag mode is not "camera".
-    if ( !$sandboxDragMode $= "camera" )
+    if ( !Sandbox.DragMode $= "camera" )
         return;
         
     // Increase the zoom.
@@ -240,7 +240,7 @@ function SandboxWindow::onMouseWheelUp(%this, %modifier, %mousePoint, %mouseClic
 function SandboxWindow::onMouseWheelDown(%this, %modifier, %mousePoint, %mouseClickCount)
 {
     // Finish if the drag mode is not "camera".
-    if ( !$sandboxDragMode $= "camera" )
+    if ( !Sandbox.DragMode $= "camera" )
         return;
 
     // Increase the zoom.

@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-$activeToy = "";
+Sandbox.ActiveToy = "";
 
 //-----------------------------------------------------------------------------
 
@@ -72,7 +72,7 @@ function loadToy( %moduleDefinition )
         
     // Set active toy.
     // This must be done here in-case a toy depends on it during its initialization.
-    $activeToy = %moduleDefinition;
+    Sandbox.ActiveToy = %moduleDefinition;
         
     // Load the toy.
     if ( !ModuleDatabase.loadExplicit( %moduleDefinition.ModuleId ) )
@@ -90,18 +90,18 @@ function loadToy( %moduleDefinition )
 function unloadToy()
 {
     // Finish if no active toy loaded.
-    if ( !isObject($activeToy) )
+    if ( !isObject(Sandbox.ActiveToy) )
         return;
         
     // Delete any custom controls added by the toy.
     ToyCustomControls.deleteObjects();
                    
     // Unload the toy.
-    if ( !ModuleDatabase.unloadExplicit( $activeToy.moduleId ) )
+    if ( !ModuleDatabase.unloadExplicit( Sandbox.ActiveToy.moduleId ) )
     {
-        error( "Failed to unload the toy '" @ $activeToy.ModuleId @ "'." );
+        error( "Failed to unload the toy '" @ Sandbox.ActiveToy.ModuleId @ "'." );
     }
     
     // Reset active toy.
-    $activeToy = "";     
+    Sandbox.ActiveToy = "";     
 }
