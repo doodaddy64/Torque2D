@@ -140,7 +140,7 @@
 		Profile="GuiDefaultProfile"
 		HorizSizing="right"
 		VertSizing="top"
-		Position="32 300"
+		Position="805 300"
 		Extent="320 160">
 		
 		<!-- Background Color -->
