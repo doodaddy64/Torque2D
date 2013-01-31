@@ -87,8 +87,6 @@ package MoveToToyPackage
 
 function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 {
-    echo( MoveToToy.moveTime );
-    
     // Move to the touched position.
     MoveToSprite.moveTo( %worldPos, MoveToToy.moveTime );
 }

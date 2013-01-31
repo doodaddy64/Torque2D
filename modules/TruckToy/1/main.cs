@@ -24,20 +24,16 @@ function createTruckToy( %scopeSet )
 {
     // Set the sandbox drag mode availability.
     setSandboxDragModeAvailable( "pan", false );
+    setSandboxDragModeAvailable( "pull", false );
     
-    // Set the drag mode as "pull".
-    setSandboxDragMode( "pull" );
-    
+    // Set the drag mode as "off".
+    setSandboxDragMode( "off" );
+        
     // Load scripts.
     exec( "./scripts/truck.cs" );
 
-    // Create truck keys.    
-    new ActionMap(truckToyMap);
-    %scopeSet.add( truckToyMap );
-    truckToyMap.bind(keyboard, "ctrl tilde", toggleConsole);
-    truckToyMap.bind(keyboard, "left", truckReverse);
-    truckToyMap.bind(keyboard, "right", truckForward);
-    truckToyMap.push();
+    // Activate the package.
+    activatePackage( TruckToyPackage );
     
     // Initialize truck world.
     initializeTruckWorld();
@@ -47,7 +43,6 @@ function createTruckToy( %scopeSet )
 
 function destroyTruckToy( %scopeSet )
 {
-    // Delete the input map.
-    truckToyMap.pop();
-    truckToyMap.delete();
+    // Deactivate the package.
+    deactivatePackage( TruckToyPackage );
 }
