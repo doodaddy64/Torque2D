@@ -29,11 +29,11 @@ function AquariumToy::create( %this )
     AquariumToy.currentFish = 0;
     AquariumToy.selectedAnimation = "AquariumToy:angelfish1Anim";
 
-    addRangeOption( "Max Fish", "13 40", "100 25", "0 20", "20", true, setMaxFish, %this.maxFish);
-
-    addButtonOption("Reset?", "10 95", "50 25", false, "reset");
-    addSelectionOption(getFishAnimationList(), "Fish Animation", "10 130", "165 25", false, "setSelectedAnimation");
-    addButtonOption("Spawn fish", "10 165", "70 25", false, "spawnOneFish");
+    //addIntOption("Max Fish", 0, 50, "setMaxFish", %this.maxFish, false);
+    //addSelectionOption(getFishAnimationList(), "Fish Animation", "setSelectedAnimation", false);
+    //addButtonOption("Spawn fish", "spawnOneFish", false);
+    //addButtonOption("Reset?", "reset", false);
+    //addFlagOption("Fast Fish?", "setFastFish", true, false);
 
     // Reset the toy initially.
     AquariumToy.reset();
