@@ -632,31 +632,6 @@ function createTruck( %posX, %posY )
    $frontMotorJoint = SandboxScene.createWheelJoint( $truckBody, %tireFront, "1.7 -1.25", "0 0", "0 1" );     
 }
 
-// -----------------------------------------------------------------------------
-
-function truckReverse(%val)
-{
-    if(%val)
-    {
-        if ( !$truckMoving )
-        {
-            SandboxScene.setWheelJointMotor( $rearMotorJoint, true, $wheelSpeed*-1, 10000 );
-            SandboxScene.setWheelJointMotor( $frontMotorJoint, true, $wheelSpeed*-1, 10000 );
-        }
-              
-        $truckMoving = true;
-    }
-    else
-    {
-        if ( $truckMoving )
-        {
-            SandboxScene.setWheelJointMotor( $rearMotorJoint, true, 0, 10000 );
-            SandboxScene.setWheelJointMotor( $frontMotorJoint, true, 0, 10000 );
-        }
-              
-        $truckMoving = false;
-    }
-}
 
 // -----------------------------------------------------------------------------
 
@@ -676,14 +651,73 @@ function truckForward(%val)
     }
     else
     {
-        if ( $truckMoving )
-        {
-            SandboxScene.setWheelJointMotor( $rearMotorJoint, true, 0, 10000 );
-            SandboxScene.setWheelJointMotor( $frontMotorJoint, true, 0, 10000 );
-            $truckExhaust.SizeScale /= 4;
-            $truckExhaust.ForceScale *= 2;
-        }
-              
-        $truckMoving = false;
+        truckStop();
     }
 }
+
+// -----------------------------------------------------------------------------
+
+function truckReverse(%val)
+{
+    if(%val)
+    {
+        if ( !$truckMoving )
+        {
+            SandboxScene.setWheelJointMotor( $rearMotorJoint, true, $wheelSpeed*-1, 10000 );
+            SandboxScene.setWheelJointMotor( $frontMotorJoint, true, $wheelSpeed*-1, 10000 );
+            $truckExhaust.SizeScale *= 4;
+            $truckExhaust.ForceScale /= 2;
+        }
+              
+        $truckMoving = true;
+    }
+    else
+    {
+        truckStop();
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+function truckStop()
+{
+    // Finish if truck is not moving.
+    if ( !$truckMoving )
+        return;
+
+    // Stop truck moving.
+    SandboxScene.setWheelJointMotor( $rearMotorJoint, true, 0, 10000 );
+    SandboxScene.setWheelJointMotor( $frontMotorJoint, true, 0, 10000 );
+    $truckExhaust.SizeScale /= 4;
+    $truckExhaust.ForceScale *= 2;
+
+    // Flag truck as not moving.    
+    $truckMoving = false;
+}
+
+//-----------------------------------------------------------------------------
+
+package TruckToyPackage
+{
+
+function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
+{
+    // Finish if truck is already moving.
+    if ( $truckMoving )
+        return;
+    
+    if ( getWord(%worldPos,0) >= $truckBody.getPositionX() )
+        truckForward( true );
+    else
+        truckReverse( true );
+}
+
+//-----------------------------------------------------------------------------
+
+function SandboxWindow::onTouchUp(%this, %touchID, %worldPos)
+{
+    // Stop moving the truck forward.
+    truckForward( false );
+}
+    
+};
