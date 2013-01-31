@@ -41,7 +41,9 @@ IMPLEMENT_CONOBJECT(SpriteBase);
 
 //------------------------------------------------------------------------------
 
-SpriteBase::SpriteBase()
+SpriteBase::SpriteBase() :
+                mFlipX(false),
+                mFlipY(false)
 {
 
 }
@@ -62,6 +64,10 @@ void SpriteBase::initPersistFields()
     addProtectedField("Image", TypeImageAssetPtr, Offset(mImageAsset, SpriteBase), &setImage, &getImage, &writeImage, "");
     addProtectedField("Frame", TypeS32, Offset(mImageFrame, SpriteBase), &setImageFrame, &defaultProtectedGetFn, &writeImageFrame, "");
     addProtectedField("Animation", TypeAnimationAssetPtr, Offset(mAnimationAsset, SpriteBase), &setAnimation, &getAnimation, &writeAnimation, "");
+
+    /// Render flipping.
+    addField("FlipX", TypeBool, Offset(mFlipX, SpriteBase), &writeFlipX, "");
+    addField("FlipY", TypeBool, Offset(mFlipY, SpriteBase), &writeFlipY, "");
 }
 
 //-----------------------------------------------------------------------------
@@ -94,6 +100,9 @@ void SpriteBase::copyTo(SimObject* object)
 
     // Sanity!
     AssertFatal(pSpriteBase != NULL, "SpriteBase::copyTo() - Object is not the correct type.");
+
+    /// Render flipping.
+    pSpriteBase->setFlip( getFlipX(), getFlipY() );
 
     // Call render proxy base.
     SpriteProxyBase::copyTo( pSpriteBase );

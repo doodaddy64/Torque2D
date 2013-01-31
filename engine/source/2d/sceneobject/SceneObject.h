@@ -174,10 +174,6 @@ protected:
     /// Render visibility.
     bool                    mVisible;
 
-    /// Render flipping.
-    bool                    mFlipX;
-    bool                    mFlipY;
-
     /// Render blending.
     bool                    mBlendMode;
     S32                     mSrcBlendFactor;
@@ -489,13 +485,6 @@ public:
     inline void             setVisible( const bool status )             { mVisible = status; }
     inline bool             getVisible(void) const                      { return mVisible; }
 
-    /// Render flipping.
-    virtual void            setFlip( const bool flipX, bool flipY );
-    virtual void            setFlipX( const bool flipX )                { setFlip( flipX, mFlipY ); }
-    virtual void            setFlipY( bool flipY )                      { setFlip( mFlipX, flipY ); }
-    inline bool             getFlipX(void) const                        { return mFlipX; }
-    inline bool             getFlipY(void) const                        { return mFlipY; }
-
     /// Render blending.
     inline void             setBlendMode( const bool blendMode )        { mBlendMode = blendMode; }
     inline bool             getBlendMode( void ) const                  { return mBlendMode; }
@@ -709,10 +698,6 @@ protected:
 
     /// Render visibility.
     static bool             writeVisible( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getVisible() == false; }
-
-    /// Render flipping.
-    static bool             writeFlipX( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getFlipX() == true; }
-    static bool             writeFlipY( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getFlipY() == true; }
 
     /// Render blending.
     static bool             writeBlendMode( void* obj, StringTableEntry pFieldName ) { return static_cast<SceneObject*>(obj)->getBlendMode() == false; }

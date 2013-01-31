@@ -85,8 +85,8 @@ function ScrollerToy::createBackgroundScroller( %this )
     %object.ScrollX = 10;
     
     // Set the scroller repeat the animation across the background.
-    %object.RepeatX = 4;
-    %object.RepeatY = 3;
+    %object.RepeatX = 2;
+    %object.RepeatY = 2;
         
     // Add the sprite to the scene.
     SandboxScene.add( %object );    

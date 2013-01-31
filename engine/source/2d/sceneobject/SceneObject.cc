@@ -162,10 +162,6 @@ SceneObject::SceneObject() :
     /// Render visibility.                                        
     mVisible(true),
 
-    /// Render flipping.
-    mFlipX(false),
-    mFlipY(false),
-
     /// Render blending.
     mBlendMode(true),
     mSrcBlendFactor(GL_SRC_ALPHA),
@@ -360,10 +356,6 @@ void SceneObject::initPersistFields()
 
     /// Render visibility.
     addField("Visible", TypeBool, Offset(mVisible, SceneObject), &writeVisible, "");
-
-    /// Render flipping.
-    addField("FlipX", TypeBool, Offset(mFlipX, SceneObject), &writeFlipX, "");
-    addField("FlipY", TypeBool, Offset(mFlipY, SceneObject), &writeFlipY, "");
 
     /// Render blending.
     addField("BlendMode", TypeBool, Offset(mBlendMode, SceneObject), &writeBlendMode, "");
@@ -2631,19 +2623,6 @@ Vector2 SceneObject::getEdgeCollisionShapeAdjacentEnd( const U32 shapeIndex ) co
 
 //-----------------------------------------------------------------------------
 
-void SceneObject::setFlip( const bool flipX, const bool flipY )
-{
-   // If nothing's changed, we don't update anything. (JDD)
-   if( flipX == mFlipX && flipY == mFlipY )
-      return;
-
-   // Set Flip.
-   mFlipX = flipX;
-   mFlipY = flipY;
-}
-
-//-----------------------------------------------------------------------------
-
 void SceneObject::setBlendOptions( void )
 {
     // Set Blend Status.
@@ -2907,9 +2886,6 @@ void SceneObject::copyTo( SimObject* obj )
 
     /// Render visibility.
     pSceneObject->setVisible( getVisible() );
-
-    /// Render flipping.
-    pSceneObject->setFlip( getFlipX(), getFlipY() );
 
     /// Render blending.
     pSceneObject->setBlendMode( getBlendMode() );

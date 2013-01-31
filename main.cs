@@ -36,9 +36,6 @@ trace( false );
 // Sets whether to ignore compiled TorqueScript files (DSOs) or not.
 $Scripts::ignoreDSOs = true;
 
-// Controls whether global 
-$pref::T2D::imageAssetGlobalFilterMode = "Smooth";
-
 // The name of the company. Used to form the path to save preferences. Defaults to GarageGames
 // if not specified.
 // The name of the game. Used to form the path to save preferences. Defaults to C++ engine define TORQUE_GAME_NAME

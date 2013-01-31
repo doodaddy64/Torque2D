@@ -40,7 +40,9 @@ ShapeVector::ShapeVector() :
     mFillMode(false),
     mPolygonScale( 1.0f, 1.0f ),
     mIsCircle(false),
-    mCircleRadius(1.0f)
+    mCircleRadius(1.0f),
+    mFlipX(false),
+    mFlipY(false)
 {
     // Set Vector Associations.
     VECTOR_SET_ASSOCIATION( mPolygonBasisList );
@@ -85,6 +87,8 @@ void ShapeVector::copyTo(SimObject* obj)
    object->mLineColor = mLineColor;
    object->mIsCircle = mIsCircle;
    object->mCircleRadius = mCircleRadius;
+   object->mFlipX = mFlipX;
+   object->mFlipY = mFlipY;
 
    if (getPolyVertexCount() > 0)
        object->setPolyCustom(mPolygonBasisList.size(), getPoly());
@@ -297,17 +301,6 @@ void ShapeVector::renderPolygonShape(U32 vertexCount)
     glEnd();
 
 #endif
-}
-
-//----------------------------------------------------------------------------
-
-void ShapeVector::setFlip( const bool flipX, const bool flipY )
-{
-    // Call Parent.
-    Parent::setFlip(flipX, flipY);
-
-    // Generate Local Polygon.
-    generateLocalPoly();
 }
 
 //----------------------------------------------------------------------------

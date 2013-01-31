@@ -37,12 +37,13 @@ protected:
     ColorF                  mLineColor;
     ColorF                  mFillColor;
     bool                    mFillMode;
-    Vector2               mPolygonScale;          ///< Polygon Scale.
-    Vector<Vector2>       mPolygonBasisList;      ///< Polygon Basis List.
-    Vector<Vector2>       mPolygonLocalList;      ///< Polygon Local List.
+    Vector2                 mPolygonScale;          ///< Polygon Scale.
+    Vector<Vector2>         mPolygonBasisList;      ///< Polygon Basis List.
+    Vector<Vector2>         mPolygonLocalList;      ///< Polygon Local List.
     bool                    mIsCircle;
     F32                     mCircleRadius;
-
+    bool                    mFlipX;
+    bool                    mFlipY;
 
 public:
     ShapeVector();
@@ -84,7 +85,12 @@ public:
     void renderCircleShape(Vector2 position, F32 radius);
     void renderPolygonShape(U32 vertexCount);
 
-    virtual void setFlip( const bool flipX, bool flipY );
+    /// Render flipping.
+    inline void setFlip( const bool flipX, const bool flipY )   { mFlipX = flipX; mFlipY = flipY; generateLocalPoly(); }
+    inline void setFlipX( const bool flipX )                    { setFlip( flipX, mFlipY ); }
+    inline void setFlipY( const bool flipY )                    { setFlip( mFlipX, flipY ); }
+    inline bool getFlipX(void) const                            { return mFlipX; }
+    inline bool getFlipY(void) const                            { return mFlipY; }
     virtual void setSize( const Vector2& size );
 
     /// Core.

@@ -119,8 +119,8 @@ static StringTableEntry cellHeightName;
 
 static EnumTable::Enums textureFilterLookup[] =
                 {
-                { ImageAsset::FILTER_NEAREST,     "NONE"      },
-                { ImageAsset::FILTER_BILINEAR,    "SMOOTH"    },
+                { ImageAsset::FILTER_NEAREST,     "NEAREST"     },
+                { ImageAsset::FILTER_BILINEAR,    "BILINEAR"    },
                 };
 
 EnumTable textureFilterTable(sizeof(textureFilterLookup) / sizeof(EnumTable::Enums), &textureFilterLookup[0]);
@@ -178,8 +178,8 @@ ImageAsset::ImageAsset() :  mImageFile(StringTable->EmptyString),
     VECTOR_SET_ASSOCIATION( mFrames );
     VECTOR_SET_ASSOCIATION( mExplicitFrames );
 
-    // Set filter mode.    
-    setFilterMode( FILTER_NEAREST );
+    // Set the default filter mode.    
+    setFilterMode( FILTER_BILINEAR );
 
     // Initialize explicit cell field names.
     if ( !explicitCellPropertiesInitialized )

@@ -65,7 +65,7 @@ void Sprite::sceneRender( const SceneRenderState* pSceneRenderState, const Scene
 {
     // Let the parent render.
     SpriteProxyBase::render(
-        mFlipX, mFlipY,
+        getFlipX(), getFlipY(),
         mRenderOOBB[0],
         mRenderOOBB[1],
         mRenderOOBB[2],
