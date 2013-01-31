@@ -74,12 +74,23 @@ ConsoleMethod(ModuleManager, unloadGroup, bool, 3, 3,   "(moduleGroup) - Unload 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(ModuleManager, loadExplicit, bool, 3, 3,  "(moduleId) - Load the specified module explicitly.\n"
+ConsoleMethod(ModuleManager, loadExplicit, bool, 3, 4,  "(moduleId, [versionId]) - Load the specified module explicitly.\n"
                                                         "@param moduleId The module Id to load.\n"
+                                                        "@param versionId The version Id to load.  Optional:  Will load the latest version.\n"
                                                         "@return Whether the module Id was loaded or not.")
 {
-    // Load module Id explicitly.
-    return object->loadModuleExplicit( argv[2] );
+    // Fetch the module Id.
+    const char* pModuleId = argv[2];
+
+    // Load module Id without a version if not specified.
+    if ( argc == 3 )
+        return object->loadModuleExplicit( pModuleId );
+
+    // Fetch the version Id.
+    const U32 versionId = (U32)dAtoi(argv[3]);
+
+    // Load the module Id with a version.
+    return object->loadModuleExplicit( pModuleId, versionId );
 }
 
 //-----------------------------------------------------------------------------

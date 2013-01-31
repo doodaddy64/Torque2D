@@ -75,7 +75,7 @@ function loadToy( %moduleDefinition )
     Sandbox.ActiveToy = %moduleDefinition;
         
     // Load the toy.
-    if ( !ModuleDatabase.loadExplicit( %moduleDefinition.ModuleId ) )
+    if ( !ModuleDatabase.loadExplicit( %moduleDefinition.ModuleId, %moduleDefinition.VersionId ) )
     {
         error( "Failed to load the toy '" @ %moduleDefinition.ModuleId @ "'." );
         return;
