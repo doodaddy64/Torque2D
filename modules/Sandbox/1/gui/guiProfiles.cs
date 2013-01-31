@@ -387,3 +387,30 @@ if (!isObject(GuiSliderNoTextProfile)) new GuiControlProfile (GuiSliderNoTextPro
     fontColor = "white";
     fontSize = 1;
 };
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(GuiSpinnerProfile)) new GuiControlProfile (GuiSpinnerProfile)
+{
+    fontType = $platformFontType;
+    fontSize = $platformFontSize;
+    opaque = false;
+    justify = "center";
+    fillColor = "232 240 248 255";
+    fillColorHL = "251 170 0 255";
+    fillColorNA = "127 127 127 52";
+    numbersOnly = true;
+    border = -2;
+    bitmap = "^Sandbox/gui/images/textEdit_noSides";
+    borderColor = "40 40 40 10";
+    fontColor = "27 59 95 255";
+    fontColorHL = "232 240 248 255";
+    fontColorNA = "0 0 0 52";
+    fontColorSEL = "0 0 0 255";
+    textOffset = "4 2";
+    autoSizeWidth = false;
+    autoSizeHeight = false;
+    tab = false;
+    canKeyFocus = true;
+    returnTab = true;
+};
