@@ -6,6 +6,6 @@
     Type="toy"
     ToyCategoryIndex="2"
     ScriptFile="main.cs"
-    CreateFunction="createPyramidToy"
-    DestroyFunction="destroyPyramidToy"/>
+    CreateFunction="create"
+    DestroyFunction="destroy"/>
 	

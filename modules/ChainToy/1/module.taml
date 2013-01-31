@@ -7,5 +7,5 @@
     Type="toy"
     ToyCategoryIndex="2"
     ScriptFile="main.cs"
-    CreateFunction="createChainToy"
-    DestroyFunction="destroyChainToy"/>
+    CreateFunction="create"
+    DestroyFunction="destroy"/>

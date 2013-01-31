@@ -424,11 +424,11 @@ bool ModuleManager::loadModuleGroup( const char* pModuleGroup )
             // Did we execute the script file?
             if ( scriptFileExecuted )
             {
-                // Yes, so is the create function available?
-                if ( Con::isFunction( pLoadReadyModuleDefinition->getCreateFunction() ) )
+                // Yes, so is the create method available?
+                if ( pScopeSet->isMethod( pLoadReadyModuleDefinition->getCreateFunction() ) )
                 {
-                    // Yes, so call create function.
-                    Con::executef( 2, pLoadReadyModuleDefinition->getCreateFunction(), pScopeSet->getIdString() );
+                    // Yes, so call the create method.
+                    Con::executef( pScopeSet, 1, pLoadReadyModuleDefinition->getCreateFunction() );
                 }
             }
             else
@@ -602,11 +602,11 @@ bool ModuleManager::unloadModuleGroup( const char* pModuleGroup )
             // Fetch scope set.
             SimSet* pScopeSet = Sim::findObject<SimSet>( pLoadReadyModuleDefinition->mScopeSet );
 
-            // Is the destroy function available?
-            if ( Con::isFunction( pLoadReadyModuleDefinition->getDestroyFunction() ) )
+            // Is the destroy method available?
+            if ( pScopeSet->isMethod( pLoadReadyModuleDefinition->getDestroyFunction() ) )
             {
-                // Yes, so call destroy function.
-                Con::executef( 2, pLoadReadyModuleDefinition->getDestroyFunction(), pScopeSet->getIdString() );
+                // Yes, so call the destroy method.
+                Con::executef( pScopeSet, 1, pLoadReadyModuleDefinition->getDestroyFunction() );
             }
 
             // Remove scope set.
@@ -787,11 +787,11 @@ bool ModuleManager::loadModuleExplicit( const char* pModuleId )
             // Did we execute the script file?
             if ( scriptFileExecuted )
             {
-                // Yes, so is the create function available?
-                if ( Con::isFunction( pLoadReadyModuleDefinition->getCreateFunction() ) )
+                // Yes, so is the create method available?
+                if ( pScopeSet->isMethod( pLoadReadyModuleDefinition->getCreateFunction() ) )
                 {
-                    // Yes, so call create function.
-                    Con::executef( 2, pLoadReadyModuleDefinition->getCreateFunction(), pScopeSet->getIdString() );
+                    // Yes, so call the create method.
+                    Con::executef( pScopeSet, 1, pLoadReadyModuleDefinition->getCreateFunction() );
                 }
             }
             else
@@ -942,11 +942,11 @@ bool ModuleManager::unloadModuleExplicit( const char* pModuleId )
             // Fetch scope set.
             SimSet* pScopeSet = Sim::findObject<SimSet>( pLoadReadyModuleDefinition->mScopeSet );
 
-            // Is the destroy function available?
-            if ( Con::isFunction( pLoadReadyModuleDefinition->getDestroyFunction() ) )
+            // Is the destroy method available?
+            if ( pScopeSet->isMethod( pLoadReadyModuleDefinition->getDestroyFunction() ) )
             {
-                // Yes, so call destroy function.
-                Con::executef( 1, pLoadReadyModuleDefinition->getDestroyFunction() );
+                // Yes, so call the destroy method.
+                Con::executef( pScopeSet, 1, pLoadReadyModuleDefinition->getDestroyFunction() );
             }
 
             // Remove scope set.

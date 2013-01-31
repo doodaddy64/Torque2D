@@ -7,5 +7,5 @@
     Type="toy"
     ToyCategoryIndex="2"
     ScriptFile="main.cs"
-    CreateFunction="createConveyorToy"
-    DestroyFunction="destroyConveyorToy"/>
+    CreateFunction="create"
+    DestroyFunction="destroy"/>

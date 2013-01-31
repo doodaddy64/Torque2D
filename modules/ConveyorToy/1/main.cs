@@ -20,14 +20,14 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createConveyorToy( %scopeSet )
+function ConveyorToy::create( %this )
 {
       
 }
 
 //-----------------------------------------------------------------------------
 
-function destroyConveyorToy( %scopeSet )
+function ConveyorToy::destroy( %this )
 {   
        
 }

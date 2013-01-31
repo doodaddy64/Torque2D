@@ -20,16 +20,15 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createImageFontToy( %scopeSet )
+function ImageFontToy::create( %this )
 {
     // Reset the toy.    
     ImageFontToy.reset();
 }
 
-
 //-----------------------------------------------------------------------------
 
-function destroyImageFontToy( %scopeSet )
+function ImageFontToy::destroy( %this )
 {
 }
 

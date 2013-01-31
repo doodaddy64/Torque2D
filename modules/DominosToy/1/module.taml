@@ -7,6 +7,6 @@
     Type="toy"
     ToyCategoryIndex="2"
     ScriptFile="main.cs"
-    CreateFunction="createDominosToy"
-    DestroyFunction="destroyDominosToy"/>
+    CreateFunction="create"
+    DestroyFunction="destroy"/>
 	

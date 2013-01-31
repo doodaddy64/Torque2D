@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createRotateToToy( %scopeSet )
+function RotateToToy::create( %this )
 {
     // Set the sandbox drag mode availability.
     setSandboxDragModeAvailable( "pan", false );
@@ -45,7 +45,7 @@ function createRotateToToy( %scopeSet )
 
 //-----------------------------------------------------------------------------
 
-function destroyRotateToToy( %scopeSet )
+function RotateToToy::destroy( %this )
 {
     // Deactivate the package.
     deactivatePackage( RotateToToyPackage );

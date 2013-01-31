@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createSandbox( %scopeSet )
+function Sandbox::create( %this )
 {    
     // Load the preferences.
     loadSandboxPreferences();
@@ -55,14 +55,14 @@ function createSandbox( %scopeSet )
     CreateSandboxWindow();
     
     // Load and configure the console.
-    %scopeSet.add( TamlRead("./gui/ConsoleDialog.gui.taml") );
+    Sandbox.add( TamlRead("./gui/ConsoleDialog.gui.taml") );
     GlobalActionMap.bind( keyboard, "ctrl tilde", toggleConsole );
     
     // Load and configure the toolbox.
-    %scopeSet.add( TamlRead("./gui/ToolboxDialog.gui.taml") );
+    Sandbox.add( TamlRead("./gui/ToolboxDialog.gui.taml") );
 
     // Load and configure the main overlay.
-    %scopeSet.add( TamlRead("./gui/MainOverlay.gui.taml") );
+    Sandbox.add( TamlRead("./gui/MainOverlay.gui.taml") );
     
     // Scan for toys.
     scanForToys();
@@ -75,12 +75,12 @@ function createSandbox( %scopeSet )
     {
         Image = "ToyAssets:CannotRender";
     };
-    %scopeSet.add( CannotRenderProxy );
+    Sandbox.add( CannotRenderProxy );
 }
 
 //-----------------------------------------------------------------------------
 
-function destroySandbox( %scopeSet )
+function destroy( %this )
 {
     // Save sandbox preferences.
     saveSandboxPreferences();    

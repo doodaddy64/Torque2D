@@ -20,14 +20,14 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createBridgeToy( %scopeSet )
+function BridgeToy::create( %this )
 {
       
 }
 
 //-----------------------------------------------------------------------------
 
-function destroyBridgeToy( %scopeSet )
+function BridgeToy::destroy( %this )
 {   
        
 }

@@ -6,6 +6,6 @@
 	Type="toy"
 	ToyCategoryIndex="6"
 	ScriptFile="main.cs"
-	CreateFunction="createMelvToy"
-	DestroyFunction="destroyMelvToy"/>
+	CreateFunction="create"
+	DestroyFunction="destroy"/>
 	

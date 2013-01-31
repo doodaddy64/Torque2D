@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createTumblerToy( %scopeSet )
+function TumblerToy::create( %this )
 {
     // Initialize the toys settings.
     TumblerToy.createBallScheduleId = "";
@@ -37,7 +37,7 @@ function createTumblerToy( %scopeSet )
 
 //-----------------------------------------------------------------------------
 
-function destroyTumblerToy( %scopeSet )
+function TumblerToy::destroy( %this )
 {
     // Cancel any pending events.
     TumblerToy::cancelPendingEvents();

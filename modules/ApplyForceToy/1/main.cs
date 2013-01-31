@@ -20,14 +20,14 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createApplyForceToy( %scopeSet )
+function ForceToy::create( %this )
 {
       
 }
 
 //-----------------------------------------------------------------------------
 
-function destroyApplyForceToy( %scopeSet )
+function ForceToy::destroy( %this )
 {   
        
 }
