@@ -41,7 +41,9 @@ IMPLEMENT_CONOBJECT(Sprite);
 
 //------------------------------------------------------------------------------
 
-Sprite::Sprite()
+Sprite::Sprite() :
+    mFlipX(false),
+    mFlipY(false)
 {
 }
 
@@ -53,10 +55,31 @@ Sprite::~Sprite()
 
 //------------------------------------------------------------------------------
 
+void Sprite::copyTo(SimObject* object)
+{
+    // Call to parent.
+    Parent::copyTo(object);
+
+    // Cast to sprite.
+    Sprite* pSprite = static_cast<Sprite*>(object);
+
+    // Sanity!
+    AssertFatal(pSprite != NULL, "Sprite::copyTo() - Object is not the correct type.");
+
+    /// Render flipping.
+    pSprite->setFlip( getFlipX(), getFlipY() );
+}
+
+//------------------------------------------------------------------------------
+
 void Sprite::initPersistFields()
 {
     // Call parent.
     Parent::initPersistFields();
+
+    /// Render flipping.
+    addField("FlipX", TypeBool, Offset(mFlipX, Sprite), &writeFlipX, "");
+    addField("FlipY", TypeBool, Offset(mFlipY, Sprite), &writeFlipY, "");
 }
 
 //------------------------------------------------------------------------------
