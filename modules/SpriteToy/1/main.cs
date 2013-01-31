@@ -20,42 +20,54 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createSimpleScrollerToy( %scopeSet )
+function createSpriteToy( %scopeSet )
 {
-    // Create some simple scrollers.
-    createSimpleScrollerFar();
-    createSimpleScrollerNear();
+    // Reset the toy.
+    SpriteToy.reset();
+}
+
+
+//-----------------------------------------------------------------------------
+
+function destroySpriteToy( %scopeSet )
+{
 }
 
 //-----------------------------------------------------------------------------
 
-function createSimpleScrollerFar()
+function SpriteToy::reset( %this )
+{
+    // Clear the scene.
+    SandboxScene.clear();
+       
+    // Create a "static" sprite.
+    %this.createStaticSprite();   
+    
+    // Create a "animated" sprite.
+    %this.createAnimatedSprite();    
+}
+
+//-----------------------------------------------------------------------------
+
+function SpriteToy::createStaticSprite( %this )
 {    
-    // Create the scroller.
-    %object = new Scroller();
+    // Create the sprite.
+    %object = new Sprite();
     
     // Always try to configure a scene-object prior to adding it to a scene for best performance.
 
     // Set the position.
-    %object.Position = "0 -20";
-
-    // Set the size.        
-    %object.Size = "100 35";
-
-    // Set to the furthest background layer.
-    %object.SceneLayer = 31;
+    %object.Position = "-25 0";
+        
+    // If the size is to be square then we can simply pass a single value.
+    // This applies to any 'Vector2' engine type.
+    %object.Size = 40;
     
-    // Set the scroller to use a static image.
-    %object.Image = "ToyAssets:LandscapeFar";
+    // Set the sprite to use an image.  This is known as "static" image mode.
+    %object.Image = "ToyAssets:Tiles";
     
     // We don't really need to do this as the frame is set to zero by default.
     %object.Frame = 0;
-
-    // Set the scroller moving in the X axis.
-    %object.ScrollX = 30;
-    
-    // Set the scroller to only show half of the static image in the X axis.
-    %object.RepeatX = 0.5;
         
     // Add the sprite to the scene.
     SandboxScene.add( %object );    
@@ -63,39 +75,23 @@ function createSimpleScrollerFar()
 
 //-----------------------------------------------------------------------------
 
-function createSimpleScrollerNear()
-{    
-    // Create the scroller.
-    %object = new Scroller();
+function SpriteToy::createAnimatedSprite( %this )
+{
+    // Create the sprite.
+    %object = new Sprite();
     
     // Always try to configure a scene-object prior to adding it to a scene for best performance.
 
     // Set the position.
-    %object.Position = "0 -30";
-
-    // Set the size.        
-    %object.Size = "100 20";
-    
-    // Set to the furthest background layer.
-    %object.SceneLayer = 31;
-    
-    // Set the scroller to use a static image.
-    %object.Image = "ToyAssets:LandscapeNear";
-    
-    // We don't really need to do this as the frame is set to zero by default.
-    %object.Frame = 0;
-    
-    // Set the scroller moving in the X axis.
-    %object.ScrollX = 40;
-
-    // Set the scroller to only show half of the static image in the X axis.
-    %object.RepeatX = 0.5;
+    %object.Position = "25 0";
         
+    // If the size is to be square then we can simply pass a single value.
+    // This applies to any 'Vector2' engine type.
+    %object.Size = 40;
+    
+    // Set the sprite to use an animation.  This is known as "animated" image mode.
+    %object.Animation = "ToyAssets:TileAnimation";
+       
     // Add the sprite to the scene.
     SandboxScene.add( %object );    
-}
-//-----------------------------------------------------------------------------
-
-function destroySimpleScrollerToy( %scopeSet )
-{
 }

@@ -1,0 +1,12 @@
+<ModuleDefinition
+	ModuleId="BehaviorToy"
+	VersionId="1"
+	Enabled="0"
+	Description="Behavior example toy."
+	Dependencies="ToyAssets=1"
+	Type="toy"
+	ToyCategoryIndex="6"
+	ScriptFile="main.cs"
+	CreateFunction="createBehaviorToy"
+	DestroyFunction="destroyBehaviorToy"/>
+	

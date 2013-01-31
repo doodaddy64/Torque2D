@@ -20,16 +20,26 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createSimpleImageFontToy( %scopeSet )
+function createImageFontToy( %scopeSet )
 {
     // Reset the toy.    
-    SimpleImageFontToy.reset();
+    ImageFontToy.reset();
+}
+
+
+//-----------------------------------------------------------------------------
+
+function destroyImageFontToy( %scopeSet )
+{
 }
 
 //-----------------------------------------------------------------------------
 
-function SimpleImageFontToy::reset( %this )
-{    
+function ImageFontToy::reset( %this )
+{
+    // Clear the scene.
+    SandboxScene.clear();
+            
     // Create the image font.
     %object = new ImageFont();
     
@@ -65,10 +75,4 @@ function SimpleImageFontToy::reset( %this )
     
     // Add the sprite to the scene.
     SandboxScene.add( %object );    
-}
-
-//-----------------------------------------------------------------------------
-
-function destroySimpleSpriteToy( %scopeSet )
-{
 }
