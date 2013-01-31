@@ -269,7 +269,7 @@ SceneObject::SceneObject() :
     mBodyDefinition.active          = true;
     mBodyDefinition.gravityScale    = 1.0f;
 
-    // Initial the default fixture definition.
+    // Initialize the default fixture definition.
     // Important: If these defaults are changed then modify the associated "write" field protected methods to ensure
     // that the associated field is persisted if not the default.
     mDefaultFixture.userData = static_cast<PhysicsProxy*>(this);
