@@ -125,14 +125,17 @@ function toggleToolbox(%make)
         // Yes, so deactivate it.
         if ( $enableDirectInput )
             activateKeyboard();
-        Canvas.popDialog(ToolboxDialog);        
+        Canvas.popDialog(ToolboxDialog);
+        MainOverlay.setVisible(1);
         return;
     }
     
     // Activate it.
     if ( $enableDirectInput )
-        deactivateKeyboard();    
-    Canvas.pushDialog(ToolboxDialog);         
+        deactivateKeyboard();
+
+    MainOverlay.setVisible(0);
+    Canvas.pushDialog(ToolboxDialog);
 }
 
 //-----------------------------------------------------------------------------
