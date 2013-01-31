@@ -23,8 +23,8 @@
 $customLabelHeight = "15";
 $customLabelWidth = "50";
 $customLabelSpacing = "18";
-$customOptionSpacing = "25";
-$customContainerExtent = "0 0";
+$customOptionSpacing = "15";
+$customContainerExtent = "150 50";
 $containerXPosition = "0";
 $flagOptionExtent = "100 25";
 $buttonOptionExtent = "100 25";
@@ -42,12 +42,12 @@ function createCustomLabel(%text)
 
     %labelControl = new GuiTextCtrl()
     {
-        text = %label;
+        text = %text;
         Extent = %labelExtent;
         Profile = "GuiTextProfile";
         canSaveDynamicFields = "0";
         isContainer = "0";
-        Position = "1 1";
+        Position = "3 1";
         MinExtent = "8 2";
         canSave = "0";
         Visible = "1";
@@ -203,6 +203,8 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
 {
     %customLabel = createCustomLabel(%label);
 
+    %customLabel.dump();
+
     %containerPosition = nextCustomControlPosition($customControlCount);
 
     %container = new GuiControl()
@@ -239,7 +241,10 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
         InactiveImage = "Sandbox:minusButtonInactive";
     };
 
-    %controlPosition = getWord($spinnerExtent, 1) SPC $customLabelSpacing;
+    %controlPosition = (getWord($spinnerExtent, 0) + 1) SPC $customLabelSpacing;
+
+    echo("@@@ spinnerPosition: " @ %spinnerPosition);
+    echo("@@@ controlPosition: " @ %controlPosition);
 
     %textEdit = new GuiTextEditCtrl()
     {
@@ -256,7 +261,7 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
         hovertime = "1000";
     };
 
-    %spinnerPosition = getWord(%textEdit.Extent, 0) SPC $customLabelSpacing;
+    %spinnerPosition = (getWord(%textEdit.Extent, 0) + getWord(%textEdit.position, 0)) SPC $customLabelSpacing;
 
     %spinnerUp = new GuiImageButtonCtrl()
     {
