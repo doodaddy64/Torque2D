@@ -280,10 +280,6 @@ void ParticlePlayer::integrateObject( const F32 totalTime, const F32 elapsedTime
         // Fetch the asset emitter.
         ParticleAssetEmitter* pParticleAssetEmitter = pEmitterNode->getAssetEmitter();
 
-        // Skip if the emitter is not visible.
-        if ( !pEmitterNode->getVisible() )
-            continue;
-
         // Fetch the first particle node.
         ParticleSystem::ParticleNode* pParticleNode = pEmitterNode->getFirstParticle();
 
@@ -376,14 +372,54 @@ void ParticlePlayer::integrateObject( const F32 totalTime, const F32 elapsedTime
                 for ( U32 n = 0; n < emissionCount; n++ )
                     pEmitterNode->createParticle();
             }
-            // No, so was there a calculated emission?
-            else if ( localEmission == 0 )
-            {
-                // No, so reset accumulated time.
-                //pEmitterNode->setTimeSinceLastGeneration( 0.0f );
-            }
         }
     }
+
+    // Fetch the particle life-mode.
+    const ParticleAsset::LifeMode lifeMode = pParticleAsset->getLifeMode();
+
+    // Finish if we're waiting for particles already.
+    if ( mWaitingForParticles || lifeMode == ParticleAsset::INFINITE )
+        return;
+
+    // Fetch the particle lifetime.
+    const F32 lifetime = pParticleAsset->getLifetime();
+
+    // Cycle life-mode?
+    if ( lifeMode == ParticleAsset::CYCLE )
+    {
+        // Has the age expired?
+        if ( mAge >= lifetime )
+        {
+            // Yes, so restart the particle.
+            play( false );
+        }
+        return;
+    };
+
+    // Stop life-mode?
+    if ( lifeMode == ParticleAsset::STOP )
+    {
+        // Has the age expired?
+        if ( mAge >= lifetime )
+        {
+            // Yes, so stop the particle.
+            stop( true, false );
+        }
+        return;
+    };
+
+    // kill life-mode?
+    if ( lifeMode == ParticleAsset::KILL )
+    {
+        // Has the age expired?
+        if ( mAge >= lifetime )
+        {
+            // Yes, so kill the particle.
+            stop( true, true );
+        }
+        return;
+    };
 }
 
 //------------------------------------------------------------------------------

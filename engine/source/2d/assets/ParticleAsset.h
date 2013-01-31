@@ -55,8 +55,8 @@ public:
 
         INFINITE,
         CYCLE,
-        KILL,
-        STOP
+        STOP,
+        KILL
     };
 
 private:

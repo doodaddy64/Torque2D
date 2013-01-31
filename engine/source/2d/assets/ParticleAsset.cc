@@ -36,8 +36,8 @@ static EnumTable::Enums particleAssetLifeModeLookup[] =
 {
     { ParticleAsset::INFINITE,  "INFINITE" },
     { ParticleAsset::CYCLE,     "CYCLE" },
-    { ParticleAsset::KILL,      "KILL" },
     { ParticleAsset::STOP,      "STOP" },
+    { ParticleAsset::KILL,      "KILL" },
 };
 
 //-----------------------------------------------------------------------------
