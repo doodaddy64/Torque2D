@@ -110,6 +110,7 @@
 			reverseTextList="0"
 			bitmapBounds="16 16" />
 
+        <!--  Toy Selection Scrollbox
 		<GuiScrollCtrl
             Name="ToyScrollerContainer"
             canSaveDynamicFields="1"
@@ -128,7 +129,7 @@
             hScrollBar="dynamic"
             vScrollBar="alwaysOn"
             constantThumbHeight="0"
-            childMargin="2 3" />
+            childMargin="2 3" />   -->
 
 		<!-- Reload Toy -->
 		<GuiButtonCtrl
