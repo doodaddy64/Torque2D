@@ -118,12 +118,6 @@ public:
     virtual void integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats );
     virtual void sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer );
 
-    virtual void setAngle( const F32 radians ) { Parent::setAngle( 0.0f ); }; // Stop angle being changed.
-    virtual void setFixedAngle( const bool fixed ) { Parent::setFixedAngle( true ); } // Always fixed angle.
-    virtual void setFlip( const bool flipX, bool flipY ) { Parent::setFlip( false, false ); }; // Stop flip being changed.
-    virtual void setFlipX( const bool flipX ) { Parent::setFlipX( false ); }; // Stop flip being changed.
-    virtual void setFlipY( bool flipY ) { Parent::setFlipY( false ); }; // Stop flip being changed.
-
     virtual void copyTo(SimObject* object);
 
     /// Declare Console Object.

@@ -45,23 +45,11 @@ class SpriteBase : public SceneObject, public SpriteProxyBase
 {
     typedef SceneObject Parent;
 
-private:
-    /// Render flipping.
-    bool mFlipX;
-    bool mFlipY;
-
 public:
     SpriteBase();
     virtual ~SpriteBase();
 
     static void initPersistFields();
-
-    /// Render flipping.
-    virtual void setFlip( const bool flipX, const bool flipY )  { mFlipX = flipX; mFlipY = flipY; }
-    virtual void setFlipX( const bool flipX )                   { setFlip( flipX, mFlipY ); }
-    virtual void setFlipY( const bool flipY )                   { setFlip( mFlipX, flipY ); }
-    inline bool getFlipX( void ) const                          { return mFlipX; }
-    inline bool getFlipY( void ) const                          { return mFlipY; }
 
     virtual void integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats );
 
@@ -85,10 +73,6 @@ protected:
     static bool setAnimation(void* obj, const char* data)                   { DYNAMIC_VOID_CAST_TO(SpriteBase, SpriteProxyBase, obj)->setAnimation(data, false); return false; };
     static const char* getAnimation(void* obj, const char* data)            { return DYNAMIC_VOID_CAST_TO(SpriteBase, SpriteProxyBase, obj)->getAnimation(); }
     static bool writeAnimation( void* obj, StringTableEntry pFieldName )    { SpriteBase* pCastObject = static_cast<SpriteBase*>(obj); if ( pCastObject->isStaticMode() ) return false; return pCastObject->mAnimationAsset.notNull(); }
-
-    /// Render flipping.
-    static bool writeFlipX( void* obj, StringTableEntry pFieldName )        { return static_cast<SpriteBase*>(obj)->getFlipX() == true; }
-    static bool writeFlipY( void* obj, StringTableEntry pFieldName )        { return static_cast<SpriteBase*>(obj)->getFlipY() == true; }
 };
 
 #endif // _SPRITE_BASE_H_

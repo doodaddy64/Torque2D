@@ -1025,7 +1025,13 @@ void ImageAsset::calculateImage( void )
     const char* pGlobalFilter = Con::getVariable( "$pref::T2D::imageAssetGlobalFilterMode" );
 
     // Fetch global filter mode.
-    TextureFilterMode filterMode = getFilterModeEnum( pGlobalFilter );
+    TextureFilterMode filterMode;
+
+    // Set the filter mode.
+    if ( pGlobalFilter != NULL && dStrlen(pGlobalFilter) > 0 )
+        filterMode = getFilterModeEnum( pGlobalFilter );
+    else
+        filterMode = FILTER_INVALID;
     
     // If global filter mode is invalid then use local filter mode.
     if ( filterMode == FILTER_INVALID )

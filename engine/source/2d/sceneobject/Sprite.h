@@ -33,16 +33,34 @@ class Sprite : public SpriteBase
 {
     typedef SpriteBase Parent;
 
+private:
+    /// Render flipping.
+    bool mFlipX;
+    bool mFlipY;
+
 public:
     Sprite();
     virtual ~Sprite();
 
     static void initPersistFields();
+    virtual void copyTo(SimObject* object);
+
+    /// Render flipping.
+    void setFlip( const bool flipX, const bool flipY )  { mFlipX = flipX; mFlipY = flipY; }
+    void setFlipX( const bool flipX )                   { setFlip( flipX, mFlipY ); }
+    void setFlipY( const bool flipY )                   { setFlip( mFlipX, flipY ); }
+    inline bool getFlipX( void ) const                  { return mFlipX; }
+    inline bool getFlipY( void ) const                  { return mFlipY; }
 
     virtual void sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer );
 
     /// Declare Console Object.
     DECLARE_CONOBJECT( Sprite );
+
+protected:
+    static bool writeFlipX( void* obj, StringTableEntry pFieldName )        { return static_cast<Sprite*>(obj)->getFlipX() == true; }
+    static bool writeFlipY( void* obj, StringTableEntry pFieldName )        { return static_cast<Sprite*>(obj)->getFlipY() == true; }
+
 };
 
 #endif // _SPRITE_H_
