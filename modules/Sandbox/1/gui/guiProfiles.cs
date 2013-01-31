@@ -93,6 +93,14 @@ if (!isObject(GuiTransparentProfile)) new GuiControlProfile (GuiTransparentProfi
 
 // ----------------------------------------------------------------------------
 
+if(!isObject(GuiSolidDefaultProfile)) new GuiControlProfile (GuiSolidDefaultProfile)
+{
+   opaque = true;
+   border = true;
+};
+
+// ----------------------------------------------------------------------------
+
 if (!isObject(GuiToolTipProfile)) new GuiControlProfile (GuiToolTipProfile : GuiDefaultProfile)
 {
     fillColor = "246 220 165 255";
