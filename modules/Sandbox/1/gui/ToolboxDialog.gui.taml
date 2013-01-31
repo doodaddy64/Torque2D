@@ -4,8 +4,8 @@
     HorizSizing="right"
     VertSizing="bottom"
     Position="0 0"
-    Extent="640 480"
-    MinExtent="302 320"
+    Extent="1024 768"
+    MinExtent="320 320"
     Visible="1">
 	
 	<!-- Close Toolbox -->
@@ -14,7 +14,7 @@
         Profile="GuiDefaultProfile"
         VertSizing="relative"
 		HorizSizing="relative"
-        Position="565 405"
+        Position="928 672"
         Extent="96 96">
 
         <GuiImageButtonCtrl
@@ -40,6 +40,145 @@
             DownImage="@asset=Sandbox:backBtnDown" />
     </GuiControl>
 	
+	<!-- Background and Resolution Panel -->
+	<GuiControl
+		Name="ResolutionContainer"
+		Profile="GuiDefaultProfile"
+		HorizSizing="relative"
+		VertSizing="relative"
+		Position="805 555"
+		Extent="320 160">
+		
+		<!-- Background Color -->
+		<GuiTextCtrl
+			canSaveDynamicFields="0"
+			isContainer="0"
+			Profile="GuiTextProfile"
+			HorizSizing="right"
+			VertSizing="bottom"
+			Position="0 0"
+			Extent="128 15"
+			MinExtent="8 2"
+			canSave="1"
+			Visible="1"
+			Active="0"
+			hovertime="1000"
+			toolTipProfile="GuiToolTipProfile"
+			toolTip="Selects the background color for the scene."
+			text="Background Color:"
+			maxLength="255"
+			truncate="0" />	
+		<GuiPopUpMenuCtrl
+			Name="BackgroundColorSelectList"
+			canSaveDynamicFields="0"
+			isContainer="0"
+			Profile="GuiPopUpMenuProfile"
+			HorizSizing="right"
+			VertSizing="bottom"
+			Position="0 24"
+			Extent="157 25"
+			MinExtent="8 2"
+			canSave="1"
+			Visible="1"
+			Active="1"
+			hovertime="1000"
+			toolTipProfile="GuiToolTipProfile"
+			toolTip="Selects the background color for the scene."
+			tooltipWidth="250"
+			maxLength="1024"
+			maxPopupHeight="200"
+			sbUsesNAColor="0"
+			reverseTextList="0"
+			bitmapBounds="16 16" />	
+			
+		<!-- Resolution -->
+		<GuiTextCtrl
+			Name="ResolutionSelectLabel"
+			canSaveDynamicFields="0"
+			isContainer="0"
+			Profile="GuiTextProfile"
+			HorizSizing="right"
+			VertSizing="bottom"
+			Position="0 60"
+			Extent="128 15"
+			MinExtent="8 2"
+			canSave="1"
+			Visible="1"
+			Active="0"
+			hovertime="1000"
+			toolTipProfile="GuiToolTipProfile"
+			toolTip="Selects the screen resolution for the window."
+			text="Resolution:"
+			maxLength="255"
+			truncate="0" />			
+		<GuiPopUpMenuCtrl
+			Name="ResolutionSelectList"
+			canSaveDynamicFields="0"
+			isContainer="0"
+			Profile="GuiPopUpMenuProfile"
+			HorizSizing="right"
+			VertSizing="bottom"
+			Position="0 84"
+			Extent="157 25"
+			MinExtent="8 2"
+			canSave="1"
+			Visible="1"
+			Active="1"
+			hovertime="1000"
+			toolTipProfile="GuiToolTipProfile"
+			toolTip="Selects the screen resolution for the window."
+			tooltipWidth="250"
+			maxLength="1024"
+			maxPopupHeight="200"
+			sbUsesNAColor="0"
+			reverseTextList="0"
+			bitmapBounds="16 16" />
+
+		<!-- Fullscreen Option -->		
+		<GuiTextCtrl
+			Name="FullscreenOptionLabel"
+			canSaveDynamicFields="0"
+			isContainer="0"
+			Profile="GuiTextProfile"
+			HorizSizing="right"
+			VertSizing="bottom"
+			Position="30 130"
+			Extent="70 15"
+			MinExtent="8 2"
+			canSave="1"
+			Visible="1"
+			Active="0"
+			tooltipprofile="GuiToolTipProfile"
+			ToolTip="Whether the window is full-screen or not."
+			tooltipWidth="250"
+			hovertime="1000"
+			text="Fullscreen"
+			maxLength="255"
+			truncate="0" />	
+			<GuiCheckBoxCtrl
+				Name="FullscreenOptionCheckBox"
+				canSaveDynamicFields="0"            
+				isContainer="0"
+				Profile="GuiCheckBoxProfile"
+				HorizSizing="right"
+				VertSizing="bottom"
+				Position="0 130"
+				Extent="20 20"
+				MinExtent="8 2"
+				canSave="1"
+				Visible="1"
+				Command="setFullscreenOption(FullscreenOptionCheckBox.getValue());"
+				Active="1"
+				tooltipprofile="GuiToolTipProfile"
+				ToolTip="Whether the window is full-screen or not."
+				tooltipWidth="250"
+				hovertime="1000"
+				text=" "
+				groupNum="-1"
+				buttonType="ToggleButton"
+				useMouseEvents="0"
+				useInactiveState="0" />	
+	</GuiControl>
     <!-- Toy Custom Controls -->
 	<GuiControl
 		Name="ToyCustomControls"
@@ -186,144 +325,7 @@
 			toolTip="Reloads the current toy." />
 	</GuiControl>
 		
-	<!-- Background and Resolution Panel -->
-	<GuiControl
-		Profile="GuiDefaultProfile"
-		HorizSizing="right"
-		VertSizing="top"
-		Position="805 270"
-		Extent="320 160">
-		
-		<!-- Background Color -->
-		<GuiTextCtrl
-			canSaveDynamicFields="0"
-			isContainer="0"
-			Profile="GuiTextProfile"
-			HorizSizing="right"
-			VertSizing="bottom"
-			Position="0 0"
-			Extent="128 15"
-			MinExtent="8 2"
-			canSave="1"
-			Visible="1"
-			Active="0"
-			hovertime="1000"
-			toolTipProfile="GuiToolTipProfile"
-			toolTip="Selects the background color for the scene."
-			text="Background Color:"
-			maxLength="255"
-			truncate="0" />	
-		<GuiPopUpMenuCtrl
-			Name="BackgroundColorSelectList"
-			canSaveDynamicFields="0"
-			isContainer="0"
-			Profile="GuiPopUpMenuProfile"
-			HorizSizing="right"
-			VertSizing="bottom"
-			Position="0 24"
-			Extent="157 25"
-			MinExtent="8 2"
-			canSave="1"
-			Visible="1"
-			Active="1"
-			hovertime="1000"
-			toolTipProfile="GuiToolTipProfile"
-			toolTip="Selects the background color for the scene."
-			tooltipWidth="250"
-			maxLength="1024"
-			maxPopupHeight="200"
-			sbUsesNAColor="0"
-			reverseTextList="0"
-			bitmapBounds="16 16" />	
-			
-		<!-- Resolution -->
-		<GuiTextCtrl
-			Name="ResolutionSelectLabel"
-			canSaveDynamicFields="0"
-			isContainer="0"
-			Profile="GuiTextProfile"
-			HorizSizing="right"
-			VertSizing="bottom"
-			Position="0 60"
-			Extent="128 15"
-			MinExtent="8 2"
-			canSave="1"
-			Visible="1"
-			Active="0"
-			hovertime="1000"
-			toolTipProfile="GuiToolTipProfile"
-			toolTip="Selects the screen resolution for the window."
-			text="Resolution:"
-			maxLength="255"
-			truncate="0" />			
-		<GuiPopUpMenuCtrl
-			Name="ResolutionSelectList"
-			canSaveDynamicFields="0"
-			isContainer="0"
-			Profile="GuiPopUpMenuProfile"
-			HorizSizing="right"
-			VertSizing="bottom"
-			Position="0 84"
-			Extent="157 25"
-			MinExtent="8 2"
-			canSave="1"
-			Visible="1"
-			Active="1"
-			hovertime="1000"
-			toolTipProfile="GuiToolTipProfile"
-			toolTip="Selects the screen resolution for the window."
-			tooltipWidth="250"
-			maxLength="1024"
-			maxPopupHeight="200"
-			sbUsesNAColor="0"
-			reverseTextList="0"
-			bitmapBounds="16 16" />
-
-		<!-- Fullscreen Option -->		
-		<GuiTextCtrl
-			Name="FullscreenOptionLabel"
-			canSaveDynamicFields="0"
-			isContainer="0"
-			Profile="GuiTextProfile"
-			HorizSizing="right"
-			VertSizing="bottom"
-			Position="30 130"
-			Extent="70 15"
-			MinExtent="8 2"
-			canSave="1"
-			Visible="1"
-			Active="0"
-			tooltipprofile="GuiToolTipProfile"
-			ToolTip="Whether the window is full-screen or not."
-			tooltipWidth="250"
-			hovertime="1000"
-			text="Fullscreen"
-			maxLength="255"
-			truncate="0" />	
-			<GuiCheckBoxCtrl
-				Name="FullscreenOptionCheckBox"
-				canSaveDynamicFields="0"            
-				isContainer="0"
-				Profile="GuiCheckBoxProfile"
-				HorizSizing="right"
-				VertSizing="bottom"
-				Position="0 130"
-				Extent="20 20"
-				MinExtent="8 2"
-				canSave="1"
-				Visible="1"
-				Command="setFullscreenOption(FullscreenOptionCheckBox.getValue());"
-				Active="1"
-				tooltipprofile="GuiToolTipProfile"
-				ToolTip="Whether the window is full-screen or not."
-				tooltipWidth="250"
-				hovertime="1000"
-				text=" "
-				groupNum="-1"
-				buttonType="ToggleButton"
-				useMouseEvents="0"
-				useInactiveState="0" />	
-	</GuiControl>
+	
 
 	<!-- Options Panel -->
 	<GuiControl
