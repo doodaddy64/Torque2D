@@ -53,6 +53,8 @@ function createCustomLabel(%text)
     {
         text = %text;
         Extent = %labelExtent;
+        HorizSizing = "relative";
+        VertSizing = "relative";
         Profile = "GuiTextProfile";
         canSaveDynamicFields = "0";
         isContainer = "0";
@@ -94,11 +96,15 @@ function addFlagOption( %label, %callback, %startingValue, %shouldReset)
         position = %containerPosition;
         extent = %customX SPC %customY;
         Profile = GuiTransparentProfile;
+        HorizSizing = "relative";
+        VertSizing = "relative";
     };
 
     %button = new GuiButtonCtrl()
     {
         canSaveDynamicFields = "0";
+        HorizSizing = "relative";
+        VertSizing = "relative";
         isContainer = "0";
         Profile = "BlueButtonProfile";
         Position = "0 0";
@@ -160,6 +166,8 @@ function addButtonOption( %label, %callback, %shouldReset)
     %container = new GuiControl()
     {
         isContainer = 1;
+        HorizSizing = "relative";
+        VertSizing = "relative";
         position = %containerPosition;
         extent = %customX SPC %customY;
         Profile = GuiTransparentProfile;
@@ -168,6 +176,8 @@ function addButtonOption( %label, %callback, %shouldReset)
     %button = new GuiButtonCtrl()
     {
         canSaveDynamicFields = "0";
+        HorizSizing = "relative";
+        VertSizing = "relative";
         isContainer = "0";
         Profile = "BlueButtonProfile";
         Position = "0 0";
@@ -230,6 +240,8 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
     {
         isContainer = 1;
         position = %containerPosition;
+        HorizSizing = "relative";
+        VertSizing = "relative";
         extent = %customX SPC %customY;
         Profile = GuiTransparentProfile;
     };
@@ -242,6 +254,8 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
     {
         Action = "decrease";
         Class = "SpinnerController";
+        HorizSizing = "relative";
+        VertSizing = "relative";
         canSaveDynamicFields = "0";
         isContainer = "0";
         Profile = "GuiDefaultProfile";
@@ -267,6 +281,8 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
     %textEdit = new GuiTextEditCtrl()
     {
         Position = %controlPosition;
+        HorizSizing = "relative";
+        VertSizing = "relative";
         Text = %startingValue;
         Extent = $intOptionExtent;
         toy = Sandbox.ActiveToy.ScopeSet;
@@ -284,6 +300,8 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
     %spinnerUp = new GuiImageButtonCtrl()
     {
         Action = "increase";
+        HorizSizing = "relative";
+        VertSizing = "relative";
         Class = "SpinnerController";
         canSaveDynamicFields = "0";
         isContainer = "0";
@@ -380,6 +398,8 @@ function addSelectionOption( %entries, %label, %callback, %shouldReset)
     %container = new GuiControl()
     {
         isContainer = 1;
+        HorizSizing = "relative";
+        VertSizing = "relative";
         position = %containerPosition;
         extent = %customX SPC %customY;
         Profile = GuiTransparentProfile;
@@ -392,6 +412,8 @@ function addSelectionOption( %entries, %label, %callback, %shouldReset)
     %menu = new GuiPopUpMenuCtrl()
     {
         class = "SelectionController";
+        HorizSizing = "relative";
+        VertSizing = "relative";        
         toy = Sandbox.ActiveToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
