@@ -50,62 +50,12 @@ function AquariumToy::destroy( %this )
 
 //-----------------------------------------------------------------------------
 
-function AquariumToy::setFastFish(%this, %value)
-{
-    if (%value)
-        echo("@@@ Fish are fast!");
-    else
-        echo("@@@ Fish are not fast");
-}
-
-//-----------------------------------------------------------------------------
-
-function AquariumToy::setMaxFish(%this, %value)
-{
-    %this.maxFish = %value;
-}
-//-----------------------------------------------------------------------------
-
-function AquariumToy::setSelectedAnimation(%this, %value)
-{
-    %this.selectedAnimation = %value;
-}
-
-//-----------------------------------------------------------------------------
-
-function AquariumToy::spawnOneFish(%this)
-{
-    %position = getRandom(-55, 55) SPC getRandom(-20, 20);
-
-    %fishSize = getFishSize(%this.selectedAnimation);
-
-    %fish = new Sprite()
-    {
-        Animation = %this.selectedAnimation;
-        class = "FishClass";
-        position = %position;
-        size = %fishSize;
-        SceneLayer = "2";
-        SceneGroup = "14";
-        minSpeed = "5";
-        maxSpeed = "15";
-        CollisionCallback = true;
-    };
-
-    %fish.createPolygonBoxCollisionShape( 15, 15);
-    %fish.setCollisionGroups( 15 );
-    %fish.setDefaultDensity( 1 );
-    %fish.setDefaultFriction( 1.0 );
-    SandboxScene.add( %fish );
-}
-
-//-----------------------------------------------------------------------------
-
 function AquariumToy::reset(%this)
 {
     // Clear the scene.
     SandboxScene.clear();
 
+    // Set the gravity.
     SandboxScene.setGravity(0, 0);
 
     buildAquarium();
@@ -172,3 +122,56 @@ function AquariumToy::spawnFish(%this)
     if ( %this.currentFish < %this.maxFish)
         %this.createFishScheduleId = %this.schedule( 100, "spawnFish" );
 }
+
+//-----------------------------------------------------------------------------
+
+function AquariumToy::setFastFish(%this, %value)
+{
+    if (%value)
+        echo("@@@ Fish are fast!");
+    else
+        echo("@@@ Fish are not fast");
+}
+
+//-----------------------------------------------------------------------------
+
+function AquariumToy::setMaxFish(%this, %value)
+{
+    %this.maxFish = %value;
+}
+//-----------------------------------------------------------------------------
+
+function AquariumToy::setSelectedAnimation(%this, %value)
+{
+    %this.selectedAnimation = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function AquariumToy::spawnOneFish(%this)
+{
+    %position = getRandom(-55, 55) SPC getRandom(-20, 20);
+
+    %fishSize = getFishSize(%this.selectedAnimation);
+
+    %fish = new Sprite()
+    {
+        Animation = %this.selectedAnimation;
+        class = "FishClass";
+        position = %position;
+        size = %fishSize;
+        SceneLayer = "2";
+        SceneGroup = "14";
+        minSpeed = "5";
+        maxSpeed = "15";
+        CollisionCallback = true;
+    };
+
+    %fish.createPolygonBoxCollisionShape( 15, 15);
+    %fish.setCollisionGroups( 15 );
+    %fish.setDefaultDensity( 1 );
+    %fish.setDefaultFriction( 1.0 );
+    SandboxScene.add( %fish );
+}
+
+
