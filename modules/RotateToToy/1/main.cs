@@ -28,18 +28,36 @@ function createRotateToToy( %scopeSet )
     
     // Set drag mode to off.
     setSandboxDragMode( "off" );
-
-    // Create the test sprite.
-    createRotateToSprite();
-    
+        
     // Activate the package.
     activatePackage( RotateToToyPackage );    
+    
+    // Initialize the toys settings.
+    RotateToToy.rotateTime = 1000;
+
+    // Add the custom controls.
+    addIntegerOption("Rotate time", "10 40", "35 25", true, "setRotateTime", RotateToToy.rotateTime);    
+    
+    // Reset the toy initially.
+    RotateToToy.reset();      
+}
+
+
+//-----------------------------------------------------------------------------
+
+function destroyRotateToToy( %scopeSet )
+{
+    // Deactivate the package.
+    deactivatePackage( RotateToToyPackage );
 }
 
 //-----------------------------------------------------------------------------
 
-function createRotateToSprite()
+function RotateToToy::reset( %this )
 {
+    // Clear the scene.
+    SandboxScene.clear();
+        
     // Create the sprite.
     %object = new Sprite(RotateToSprite);
     
@@ -55,10 +73,9 @@ function createRotateToSprite()
 
 //-----------------------------------------------------------------------------
 
-function destroyRotateToToy( %scopeSet )
+function RotateToToy::setRotateTime( %this, %value )
 {
-    // Deactivate the package.
-    deactivatePackage( RotateToToyPackage );
+    %this.rotateTime = %value;
 }
 
 //-----------------------------------------------------------------------------
@@ -73,7 +90,7 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
     %angle = -mRadToDeg( mAtan( getWord(%worldPos,0)-getWord(%origin,0), getWord(%worldPos,1)-getWord(%origin,1) ) );
     
     //Rotate to the touched angle.
-    RotateToSprite.RotateTo( %angle );
+    RotateToSprite.RotateTo( %angle, RotateToToy.rotateTime );
 }
     
 };

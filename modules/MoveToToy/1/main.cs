@@ -29,17 +29,34 @@ function createMoveToToy( %scopeSet )
     // Set drag mode to off.
     setSandboxDragMode( "off" );
 
-    // Create the test sprite.
-    createMoveToSprite();
-    
     // Activate the package.
     activatePackage( MoveToToyPackage );    
+
+    // Initialize the toys settings.
+    MoveToToy.moveTime = 1000;
+
+    // Add the custom controls.
+    addIntegerOption("Move time", "10 40", "35 25", true, "setMoveTime", MoveToToy.moveTime);
+
+    // Reset the toy initially.
+    MoveToToy.reset();        
 }
 
 //-----------------------------------------------------------------------------
 
-function createMoveToSprite()
+function destroyMoveToToy( %scopeSet )
 {
+    // Deactivate the package.
+    deactivatePackage( MoveToToyPackage );
+}
+
+//-----------------------------------------------------------------------------
+
+function MoveToToy::reset( %this )
+{
+    // Clear the scene.
+    SandboxScene.clear();
+    
     // Create the sprite.
     %object = new Sprite(MoveToSprite);
     
@@ -58,10 +75,9 @@ function createMoveToSprite()
 
 //-----------------------------------------------------------------------------
 
-function destroyMoveToToy( %scopeSet )
+function MoveToToy::setMoveTime( %this, %value )
 {
-    // Deactivate the package.
-    deactivatePackage( MoveToToyPackage );
+    %this.moveTime = %value;
 }
 
 //-----------------------------------------------------------------------------
@@ -71,8 +87,10 @@ package MoveToToyPackage
 
 function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 {
+    echo( MoveToToy.moveTime );
+    
     // Move to the touched position.
-    MoveToSprite.moveTo( %worldPos );
+    MoveToSprite.moveTo( %worldPos, MoveToToy.moveTime );
 }
     
 };

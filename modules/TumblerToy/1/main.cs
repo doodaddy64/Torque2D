@@ -23,15 +23,37 @@
 function createTumblerToy( %scopeSet )
 {
     // Initialize the toys settings.
-    %scopeSet.createBallScheduleId = "";
-    %scopeSet.maxBalls = 100;
-    %scopeSet.currentBalls = 0;
+    TumblerToy.createBallScheduleId = "";
+    TumblerToy.maxBalls = 100;
+    TumblerToy.currentBalls = 0;
 
     // Add the custom controls.
-    addIntegerOption("Number of balls", "10 40", "35 25", true, "setMaxBalls", %scopeSet.maxBalls);
+    addIntegerOption("Number of balls", "10 40", "35 25", true, "setMaxBalls", TumblerToy.maxBalls);
 
     // Reset the toy initially.
-    %scopeSet.reset();
+    TumblerToy.reset();
+}
+
+
+//-----------------------------------------------------------------------------
+
+function destroyTumblerToy( %scopeSet )
+{
+    // Cancel any pending events.
+    TumblerToy::cancelPendingEvents();
+}
+
+//-----------------------------------------------------------------------------
+
+function TumblerToy::cancelPendingEvents(%this)
+{
+    // Finish if there are not pending events.
+    if ( !isEventPending(%this.createBallScheduleId) )
+        return;
+        
+    // Cancel it.
+    cancel(%this.createBallScheduleId);
+    %this.createBallScheduleId = "";
 }
 
 //-----------------------------------------------------------------------------
@@ -111,23 +133,4 @@ function TumblerToy::createBall(%this)
     %this.createBallScheduleId = %this.schedule( 100, "createBall" );
 }
 
-//-----------------------------------------------------------------------------
 
-function TumblerToy::cancelPendingEvents(%this)
-{
-    // Finish if there are not pending events.
-    if ( !isEventPending(%this.createBallScheduleId) )
-        return;
-        
-    // Cancel it.
-    cancel(%this.createBallScheduleId);
-    %this.createBallScheduleId = "";
-}
-
-//-----------------------------------------------------------------------------
-
-function destroyTumblerToy( %scopeSet )
-{
-    // Cancel any pending events.
-    TumblerToy::cancelPendingEvents();
-}
