@@ -1,0 +1,3 @@
+<ImageAsset
+    AssetName="assetsIconDown"
+    ImageFile="@assetFile=#assetsIconDown.png" />

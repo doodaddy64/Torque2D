@@ -1,0 +1,3 @@
+<ImageAsset
+    AssetName="helpIconHover"
+    ImageFile="@assetFile=#helpIconHover.png" />

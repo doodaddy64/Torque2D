@@ -1,0 +1,3 @@
+<ImageAsset
+    AssetName="helpIconNormal"
+    ImageFile="@assetFile=#helpIconNormal.png" />

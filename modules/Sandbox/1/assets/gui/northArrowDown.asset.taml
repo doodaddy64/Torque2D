@@ -1,0 +1,3 @@
+<ImageAsset
+    AssetName="northArrowDown"
+    ImageFile="@assetFile=#northArrowDown.png" />

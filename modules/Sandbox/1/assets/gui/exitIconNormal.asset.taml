@@ -1,0 +1,3 @@
+<ImageAsset
+    AssetName="exitIconNormal"
+    ImageFile="@assetFile=#exitIconNormal.png" />
