@@ -3150,66 +3150,6 @@ ConsoleMethod(SceneObject, getVisible, bool, 2, 2, "() - Gets the object's visib
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneObject, setFlip, void, 4, 4, "(bool flipX, bool flipY) Sets flipping for each axis.\n"
-                                                   "@param flipX Whether or not to flip the object along the x (horizontal) axis.\n"
-                                                   "@param flipY Whether or not to flip the object along the y (vertical) axis.\n"
-                                                      "@return No return value.")
-{
-    // Set Flip.
-    object->setFlip( dAtob(argv[2]), dAtob(argv[3]) );
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SceneObject, getFlip, const char*, 2, 2, "() Gets the flip for each axis.\n"
-                                                          "@return (bool flipX/bool flipY) Whether or not the object is flipped along the x and y axis.")
-{
-    // Create Returnable Buffer.
-    char* pBuffer = Con::getReturnBuffer(32);
-    // Format Buffer.
-    dSprintf(pBuffer, 32, "%d %d", object->getFlipX(), object->getFlipY());
-    // Return Buffer.
-    return pBuffer;
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SceneObject, setFlipX, void, 3, 3, "(bool flipX) Sets whether or not the object is flipped horizontally.\n"
-                                                    "@param flipX Whether or not to flip the object along the x (horizontal) axis."
-                                                      "@return No return value.")
-{
-    // Set Flip.
-    object->setFlipX( dAtob(argv[2]) );
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SceneObject, setFlipY, void, 3, 3, "(bool flipY) Sets whether or not the object is flipped vertically.\n"
-                                                    "@param flipY Whether or not to flip the object along the y (vertical) axis."
-                                                      "@return No return value.")
-{
-    // Set Flip.
-    object->setFlipY( dAtob(argv[2]) );
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SceneObject, getFlipX, bool, 2, 2, "() Gets whether or not the object is flipped horizontally.\n"
-                                                    "@return (bool flipX) Whether or not the object is flipped along the x axis.")
-{
-   return object->getFlipX();
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SceneObject, getFlipY, bool, 2, 2, "() Gets whether or not the object is flipped vertically."
-                                                    "@return (bool flipY) Whether or not the object is flipped along the y axis.")
-{
-   return object->getFlipY();
-}
-
-//-----------------------------------------------------------------------------
-
 ConsoleMethod(SceneObject, setBlendMode, void, 3, 3,    "(bool blendMode) - Sets whether blending is on or not.\n"
                                                         "@blendMode Whether blending is on or not.\n"
                                                         "@return No return Value.")

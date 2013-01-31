@@ -217,10 +217,14 @@ ConsoleMethod(ShapeVector, setCircleRadius, void, 3, 3, "(radius) Changes the ra
     object->setCircleRadius(dAtof(argv[2]));
 }
 
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(ShapeVector, getVertexCount, S32, 2, 2, "() Get the number of vertices on a polygon shape.\n")
 {
     return object->getPolyVertexCount();
 }
+
+//-----------------------------------------------------------------------------
 
 ConsoleMethod(ShapeVector, getBoxFromPoints, const char*, 2, 2, "() Get a box (\"width height\") that wraps around the poly vertices")
 {
@@ -234,4 +238,66 @@ ConsoleMethod(ShapeVector, getBoxFromPoints, const char*, 2, 2, "() Get a box (\
     
     // Return box width and height.
     return pBuffer;
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ShapeVector, setFlip, void, 4, 4,  "(bool flipX, bool flipY) Sets shape flipping for each axis.\n"
+                                                "@param flipX Whether or not to flip the shape along the x (horizontal) axis.\n"
+                                                "@param flipY Whether or not to flip the shape along the y (vertical) axis.\n"
+                                                "@return No return value.")
+{
+    // Set Flip.
+    object->setFlip( dAtob(argv[2]), dAtob(argv[3]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ShapeVector, getFlip, const char*, 2, 2,   "() Gets the flip for each axis.\n"
+                                                        "@return (bool flipX/bool flipY) Whether or not the shape is flipped along the x and y axis.")
+{
+    // Create Returnable Buffer.
+    char* pBuffer = Con::getReturnBuffer(32);
+
+    // Format Buffer.
+    dSprintf(pBuffer, 32, "%d %d", object->getFlipX(), object->getFlipY());
+
+    // Return Buffer.
+    return pBuffer;
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ShapeVector, setFlipX, void, 3, 3,     "(bool flipX) Sets whether or not the shape is flipped horizontally.\n"
+                                                    "@param flipX Whether or not to flip the shape along the x (horizontal) axis."
+                                                    "@return No return value.")
+{
+    // Set Flip.
+    object->setFlipX( dAtob(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ShapeVector, setFlipY, void, 3, 3,     "(bool flipY) Sets whether or not the shape is flipped vertically.\n"
+                                                    "@param flipY Whether or not to flip the shape along the y (vertical) axis."
+                                                    "@return No return value.")
+{
+    // Set Flip.
+    object->setFlipY( dAtob(argv[2]) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ShapeVector, getFlipX, bool, 2, 2,     "() Gets whether or not the shape is flipped horizontally.\n"
+                                                    "@return (bool flipX) Whether or not the shape is flipped along the x axis.")
+{
+   return object->getFlipX();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(ShapeVector, getFlipY, bool, 2, 2,     "() Gets whether or not the shape is flipped vertically."
+                                                    "@return (bool flipY) Whether or not the shape is flipped along the y axis.")
+{
+   return object->getFlipY();
 }
