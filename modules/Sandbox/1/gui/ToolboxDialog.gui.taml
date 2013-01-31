@@ -299,7 +299,7 @@
 		HorizSizing="left"
 		VertSizing="bottom"
 		Position="420 32"
-		Extent="240 900">
+		Extent="240 550">
 
 		<GuiTextCtrl
             canSaveDynamicFields="0"
