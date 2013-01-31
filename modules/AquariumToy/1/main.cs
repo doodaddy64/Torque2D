@@ -28,12 +28,13 @@ function AquariumToy::create( %this )
     AquariumToy.maxFish = 10;
     AquariumToy.currentFish = 0;
     AquariumToy.selectedAnimation = "AquariumToy:angelfish1Anim";
+    AquariumToy.fishAreFast = false;
 
     addIntegerOption("Max Fish", 0, 50, "setMaxFish", %this.maxFish, false);
     addSelectionOption(getFishAnimationList(), "Fish Animation", "setSelectedAnimation", false);
     addButtonOption("Spawn fish", "spawnOneFish", false);
     addButtonOption("Reset?", "reset", false);
-    addFlagOption("Fast Fish?", "setFastFish", true, false);
+    addFlagOption("Fast Fish?", "setFastFish", %this.fishAreFast, false);
 
     // Reset the toy initially.
     AquariumToy.reset();
@@ -45,6 +46,16 @@ function AquariumToy::destroy( %this )
 {
     // Cancel any pending events.
     AquariumToy::cancelPendingEvents();
+}
+
+//-----------------------------------------------------------------------------
+
+function AquariumToy::setFastFish(%this, %value)
+{
+    if (%value)
+        echo("@@@ Fish are fast!");
+    else
+        echo("@@@ Fish are not fast");
 }
 
 //-----------------------------------------------------------------------------

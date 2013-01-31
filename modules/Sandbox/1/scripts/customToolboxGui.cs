@@ -110,7 +110,7 @@ function addFlagOption( %label, %callback, %startingValue, %shouldReset)
         useMouseEvents = "0";
      };
 
-    %button.setActive(%startingValue);
+    %button.setStateOn(%startingValue);
     %button.command = %button @ ".updateToy();";
 
     %container.add(%button);
@@ -131,7 +131,7 @@ function FlagController::updateToy(%this)
         
     if (%this.callback !$= "")
     {
-        %setter = "%this.toy." @ %this.callback @ "(" @ %this.getValue() @ ");";
+        %setter = "%this.toy." @ %this.callback @ "(" @ %this.getStateOn() @ ");";
 
         eval(%setter);
     }
