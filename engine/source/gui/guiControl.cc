@@ -464,6 +464,7 @@ void GuiControl::onRender(Point2I offset, const RectI &updateRect)
 
 bool GuiControl::renderTooltip(Point2I cursorPos, const char* tipText )
 {
+#ifndef TORQUE_OS_IOS
     // Short Circuit.
     if (!mAwake) 
         return false;
@@ -610,6 +611,7 @@ bool GuiControl::renderTooltip(Point2I cursorPos, const char* tipText )
     }
 
     dglSetClipRect( oldClip );
+#endif
     return true;
 }
 
