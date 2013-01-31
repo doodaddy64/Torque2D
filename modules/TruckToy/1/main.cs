@@ -33,13 +33,7 @@ function createTruckToy( %scopeSet )
     exec( "./scripts/truck.cs" );
 
     // Activate the package.
-    activatePackage( TruckToyPackage );    
-
-    // Create truck keys.    
-    new ActionMap(truckToyMap);
-    %scopeSet.add( truckToyMap );
-    truckToyMap.bind(touchdevice, touchdown, truckForward );
-    truckToyMap.push();
+    activatePackage( TruckToyPackage );
     
     // Initialize truck world.
     initializeTruckWorld();
@@ -51,8 +45,4 @@ function destroyTruckToy( %scopeSet )
 {
     // Deactivate the package.
     deactivatePackage( TruckToyPackage );
-    
-    // Delete the input map.
-    truckToyMap.pop();
-    truckToyMap.delete();
 }

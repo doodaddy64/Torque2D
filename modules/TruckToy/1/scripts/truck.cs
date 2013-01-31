@@ -705,19 +705,23 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
     // Finish if truck is already moving.
     if ( $truckMoving )
         return;
-    
+
     if ( getWord(%worldPos,0) >= $truckBody.getPositionX() )
+    {
         truckForward( true );
+    }
     else
+    {
         truckReverse( true );
+    }
 }
 
 //-----------------------------------------------------------------------------
 
 function SandboxWindow::onTouchUp(%this, %touchID, %worldPos)
 {
-    // Stop moving the truck forward.
-    truckForward( false );
+    // Stop the truck.
+    truckStop();
 }
     
 };
