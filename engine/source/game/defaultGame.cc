@@ -550,7 +550,7 @@ void DefaultGame::processTimeEvent(TimeEvent *event)
 
    if(elapsedTime > 1024)
    {
-      elapsedTime = 1024;
+      elapsedTime = 0;
    }
 
    if(gTimeAdvance)

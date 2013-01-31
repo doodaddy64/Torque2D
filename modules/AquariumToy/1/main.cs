@@ -108,10 +108,6 @@ function AquariumToy::reset(%this)
 
     SandboxScene.setGravity(0, 0);
 
-    // Set the sandbox drag mode availability.
-    setSandboxDragModeAvailable( "pan", false );
-    setSandboxDragModeAvailable( "zoom", false );
-
     buildAquarium();
     createAquariumEffects();
 
