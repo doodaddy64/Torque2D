@@ -1,7 +1,7 @@
 <ModuleDefinition
-	ModuleId="FlipToy"
+	ModuleId="SceneLayerToy"
 	VersionId="1"
-	Description="Demonstrates flipping the rendering on Sprites."
+	Description="Demonstrates the use of scene layers."
 	Dependencies="ToyAssets=1"
 	Type="toy"
 	ToyCategoryIndex="3"

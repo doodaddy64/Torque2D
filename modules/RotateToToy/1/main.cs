@@ -21,14 +21,7 @@
 //-----------------------------------------------------------------------------
 
 function RotateToToy::create( %this )
-{
-    // Set the sandbox drag mode availability.
-    setSandboxDragModeAvailable( "pan", false );
-    setSandboxDragModeAvailable( "zoom", false );
-    
-    // Set drag mode to off.
-    setSandboxDragMode( "off" );
-        
+{        
     // Activate the package.
     activatePackage( RotateToToyPackage );    
     

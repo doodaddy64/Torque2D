@@ -22,10 +22,21 @@
 
 function PyramidToy::create( %this )
 {
+    // Set the sandbox drag mode availability.
+    setSandboxDragModeAvailable( "pan", true );
+    setSandboxDragModeAvailable( "pull", true );
+    
+    // Set the drag mode.
+    setSandboxDragMode( "pull" );
+    
+    // Configure the toy.
     PyramidToy.BrickCount = 15;
     PyramidToy.GroundWidth = 150;
     
+    // Set the camera.
     SandboxWindow.setCurrentCameraZoom( 2 );
+    
+    // Se the gravity.
     SandboxScene.setGravity( 0, -15 );
         
     // Set the sandbox drag mode.

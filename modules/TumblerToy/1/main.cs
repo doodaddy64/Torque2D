@@ -22,6 +22,13 @@
 
 function TumblerToy::create( %this )
 {
+    // Set the sandbox drag mode availability.
+    setSandboxDragModeAvailable( "pan", true );
+    setSandboxDragModeAvailable( "pull", true );
+    
+    // Set the drag mode.
+    setSandboxDragMode( "pull" );
+    
     // Initialize the toys settings.
     TumblerToy.createBallScheduleId = "";
     TumblerToy.maxBalls = 100;

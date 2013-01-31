@@ -22,6 +22,12 @@
 
 function SpriteToy::create( %this )
 {
+    // Set the sandbox drag mode availability.
+    setSandboxDragModeAvailable( "pan", true );
+    
+    // Set the drag mode.
+    setSandboxDragMode( "pan" );
+    
     // Reset the toy.
     SpriteToy.reset();
 }

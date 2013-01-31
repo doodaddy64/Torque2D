@@ -21,7 +21,7 @@
 //-----------------------------------------------------------------------------
 
 function FlipToy::create( %this )
-{
+{       
     // Reset the toy.
     FlipToy.reset();
 }

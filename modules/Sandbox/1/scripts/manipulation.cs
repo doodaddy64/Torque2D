@@ -42,11 +42,11 @@ function resetSandboxDragModes()
 {   
     // These control which drag modes are available or not.
     Sandbox.DragModeAvailable["off"] = true;
-    Sandbox.DragModeAvailable["camera"] = true;
-    Sandbox.DragModeAvailable["pull"] = true;
+    Sandbox.DragModeAvailable["camera"] = false;
+    Sandbox.DragModeAvailable["pull"] = false;
     
     // Set the sandbox drag mode default.
-    setSandboxDragMode( "camera" ); 
+    setSandboxDragMode( "off" ); 
 }
 
 //-----------------------------------------------------------------------------

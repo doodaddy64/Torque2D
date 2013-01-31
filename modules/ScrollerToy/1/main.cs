@@ -22,13 +22,6 @@
 
 function ScrollerToy::create( %this )
 {
-    // Set the sandbox drag mode availability.
-    setSandboxDragModeAvailable( "pan", false );
-    setSandboxDragModeAvailable( "pull", false );
-    
-    // Set the drag mode as "off".
-    setSandboxDragMode( "off" );
-        
     // Activate the package.
     activatePackage( ScrollerToyPackage );  
     
