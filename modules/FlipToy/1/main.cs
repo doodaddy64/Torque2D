@@ -39,43 +39,17 @@ function FlipToy::reset( %this )
 {
     // Clear the scene.
     SandboxScene.clear();
-       
-    // Create a "static" sprite.
-    %this.createStaticSprite();   
-    
-    // Create a "animated" sprite.
-    %this.createAnimatedSprite();    
+          
+    // Create a sprite.
+    %this.createSprite( "-25 19", "50 37.5", false, false );
+    %this.createSprite( "25 19", "50 37.5",  true, false );
+    %this.createSprite( "-25 -19", "50 37.5", false, true );
+    %this.createSprite( "25 -19", "50 37.5",  true, true );    
 }
 
 //-----------------------------------------------------------------------------
 
-function FlipToy::createStaticSprite( %this )
-{    
-    // Create the sprite.
-    %object = new Sprite();
-    
-    // Always try to configure a scene-object prior to adding it to a scene for best performance.
-
-    // Set the position.
-    %object.Position = "-25 0";
-        
-    // If the size is to be square then we can simply pass a single value.
-    // This applies to any 'Vector2' engine type.
-    %object.Size = 40;
-    
-    // Set the sprite to use an image.  This is known as "static" image mode.
-    %object.Image = "ToyAssets:Tiles";
-    
-    // We don't really need to do this as the frame is set to zero by default.
-    %object.Frame = 0;
-        
-    // Add the sprite to the scene.
-    SandboxScene.add( %object );    
-}
-
-//-----------------------------------------------------------------------------
-
-function FlipToy::createAnimatedSprite( %this )
+function FlipToy::createSprite( %this, %position, %size, %flipX, %flipY )
 {
     // Create the sprite.
     %object = new Sprite();
@@ -83,14 +57,16 @@ function FlipToy::createAnimatedSprite( %this )
     // Always try to configure a scene-object prior to adding it to a scene for best performance.
 
     // Set the position.
-    %object.Position = "25 0";
-        
-    // If the size is to be square then we can simply pass a single value.
-    // This applies to any 'Vector2' engine type.
-    %object.Size = 40;
+    %object.Position = %position;
+
+    // Set the size.        
+    %object.Size = %size;
     
     // Set the sprite to use an animation.  This is known as "animated" image mode.
-    %object.Animation = "ToyAssets:TileAnimation";
+    %object.Animation = "FlipToy:pufferfishAnim";
+    
+    // Set the flip options.
+    %object.setFlip( %flipX, %flipY );
        
     // Add the sprite to the scene.
     SandboxScene.add( %object );    
