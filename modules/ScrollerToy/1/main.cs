@@ -21,7 +21,17 @@
 //-----------------------------------------------------------------------------
 
 function ScrollerToy::create( %this )
-{   
+{
+    // Set the sandbox drag mode availability.
+    setSandboxDragModeAvailable( "pan", false );
+    setSandboxDragModeAvailable( "pull", false );
+    
+    // Set the drag mode as "off".
+    setSandboxDragMode( "off" );
+        
+    // Activate the package.
+    activatePackage( ScrollerToyPackage );  
+    
     // Reset the toy.
     ScrollerToy.reset();
 }
@@ -30,6 +40,8 @@ function ScrollerToy::create( %this )
 
 function ScrollerToy::destroy( %this )
 {
+    // Deactivate the package.
+    deactivatePackage( ScrollerToyPackage );    
 }
 
 //-----------------------------------------------------------------------------
@@ -40,9 +52,46 @@ function ScrollerToy::reset( %this )
     SandboxScene.clear();
     
     // Create some scrollers.
+    %this.createBackgroundScroller();   
     %this.createFarScroller();
     %this.createNearScroller();
 }
+
+//-----------------------------------------------------------------------------
+
+function ScrollerToy::createBackgroundScroller( %this )
+{    
+    // Create the scroller.
+    %object = new Scroller();
+    
+    // Note this scroller for the touch controls.
+    ScrollerToy.BackgroundScroller = %object;
+    
+    // Always try to configure a scene-object prior to adding it to a scene for best performance.
+
+    // Set the position.
+    %object.Position = "0 0";
+
+    // Set the size.        
+    %object.Size = "100 75";
+
+    // Set to the furthest background layer.
+    %object.SceneLayer = 31;
+    
+    // Set the scroller to use an animation!
+    %object.Animation = "ToyAssets:TileAnimation";
+    
+    // Set the scroller moving in the X axis.
+    %object.ScrollX = 10;
+    
+    // Set the scroller repeat the animation across the background.
+    %object.RepeatX = 4;
+    %object.RepeatY = 3;
+        
+    // Add the sprite to the scene.
+    SandboxScene.add( %object );    
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -50,6 +99,9 @@ function ScrollerToy::createFarScroller( %this )
 {    
     // Create the scroller.
     %object = new Scroller();
+    
+    // Note this scroller for the touch controls.
+    ScrollerToy.FarScroller = %object;
     
     // Always try to configure a scene-object prior to adding it to a scene for best performance.
 
@@ -69,7 +121,7 @@ function ScrollerToy::createFarScroller( %this )
     %object.Frame = 0;
 
     // Set the scroller moving in the X axis.
-    %object.ScrollX = 30;
+    %object.ScrollX = 25;
     
     // Set the scroller to only show half of the static image in the X axis.
     %object.RepeatX = 0.5;
@@ -84,6 +136,9 @@ function ScrollerToy::createNearScroller( %this )
 {    
     // Create the scroller.
     %object = new Scroller();
+
+    // Note this scroller for the touch controls.
+    ScrollerToy.NearScroller = %object;    
     
     // Always try to configure a scene-object prior to adding it to a scene for best performance.
 
@@ -111,3 +166,23 @@ function ScrollerToy::createNearScroller( %this )
     // Add the sprite to the scene.
     SandboxScene.add( %object );    
 }
+
+//-----------------------------------------------------------------------------
+
+package ScrollerToyPackage
+{
+
+function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
+{   
+    // Set the scrollers speed to be the distance from the background scrollers origin.
+    // Also use the sign to control the direction of scrolling.
+    %scrollerSpeed = getWord(%worldPos,0) - ScrollerToy.BackgroundScroller.getPositionX();
+
+    // Set the scroller speeds.
+    ScrollerToy.BackgroundScroller.ScrollX = %scrollerSpeed * 0.5;
+    ScrollerToy.FarScroller.ScrollX = %scrollerSpeed;
+    ScrollerToy.NearScroller.ScrollX = %scrollerSpeed * 1.5;
+}
+    
+};
+
