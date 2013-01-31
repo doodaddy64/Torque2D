@@ -1,0 +1,10 @@
+<ModuleDefinition
+	ModuleId="ImageFontToy"
+	VersionId="1"
+	Description="Demonstrates creating an ImageFont."
+	Dependencies="ToyAssets=1"
+	Type="toy"
+	ToyCategoryIndex="3"
+	ScriptFile="main.cs"
+	CreateFunction="createImageFontToy"
+	DestroyFunction="destroyImageFontToy"/>
