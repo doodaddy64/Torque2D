@@ -1,7 +1,7 @@
 <GuiControl
     Name="MainOverlay"
     Profile="GuiDefaultProfile"
-    HorizSizing="right"
+    HorizSizing="left"
     VertSizing="top"
     Position="0 0"
     Extent="71 71"
