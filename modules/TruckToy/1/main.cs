@@ -731,6 +731,7 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
     if ( TruckToy.TruckMoving )
         return;
 
+    // If we touch in-front of the truck then move forward else reverse.
     if ( getWord(%worldPos,0) >= TruckToy.TruckBody.getPositionX() )
     {
         truckForward( true );
