@@ -179,7 +179,7 @@ void AbstractClassRep::initialize()
             continue; // If no classes matched, skip to next.
 
          // Sort by type and then by name.
-         dQsort((void *) &dynamicTable[0], dynamicTable.size(), sizeof(AbstractClassRep *), ACRCompare);
+         dQsort((void *)dynamicTable.address(), dynamicTable.size(), sizeof(AbstractClassRep *), ACRCompare);
 
          // Allocate storage in the classTable
          classTable[group][type] = new AbstractClassRep*[NetClassCount[group][type]];

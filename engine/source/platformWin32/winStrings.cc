@@ -444,6 +444,9 @@ S32 dFflushStderr()
 
 void dQsort(void *base, U32 nelem, U32 width, S32 (QSORT_CALLBACK *fcmp)(const void *, const void *))
 {
+    if ( nelem == 0 )
+        return;
+
    qsort(base, nelem, width, fcmp);
 }   
 

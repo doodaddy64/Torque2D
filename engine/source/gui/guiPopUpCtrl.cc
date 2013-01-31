@@ -299,11 +299,11 @@ void GuiPopUpMenuCtrl::initPersistFields(void)
 
 //------------------------------------------------------------------------------
 ConsoleMethod( GuiPopUpMenuCtrl, add, void, 4, 5, "( entryText , entryID [ , entryScheme ] ) Use the add method to add a new entry with text entryText, ID entryID, and using the scheme entryScheme.\n"
-																"@param entryText Text to display in menu entry.\n"
-																"@param entryID ID to assign to entry. This value may be 1 or greater.\n"
-																"@param entryScheme An integer value representing the ID of an optional color scheme to be used for this entry.\n"
-																"@return No return value.\n"
-																"@sa addScheme, clear")
+                                                                "@param entryText Text to display in menu entry.\n"
+                                                                "@param entryID ID to assign to entry. This value may be 1 or greater.\n"
+                                                                "@param entryScheme An integer value representing the ID of an optional color scheme to be used for this entry.\n"
+                                                                "@return No return value.\n"
+                                                                "@sa addScheme, clear")
 {
    if ( argc > 4 )
       object->addEntry(argv[2],dAtoi(argv[3]),dAtoi(argv[4]));
@@ -312,13 +312,13 @@ ConsoleMethod( GuiPopUpMenuCtrl, add, void, 4, 5, "( entryText , entryID [ , ent
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, addScheme, void, 6, 6, "( entryScheme , fontColor , fontColorHL , fontColorSEL ) Use the addScheme method to create a new color scheme or to modify an existing one.\n"
-																"An integer color vector contains three integer values, each between 0 and 255 and is organized in this order: 'R G B'.\n"
-																"@param entryScheme An integer value representing the ID of the scheme, between 1 and inf.\n"
-																"@param fontColor A vector containing an integer representation of the menu entry's normal color.\n"
-																"@param fontColorHL A vector containing an integer representation of the menu entry's highlighted color.\n"
-																"@param fontColorSEL A vector containing an integer representation of the menu entry's selected color.\n"
-																"@return No return value.\n"
-																"@sa add")
+                                                                "An integer color vector contains three integer values, each between 0 and 255 and is organized in this order: 'R G B'.\n"
+                                                                "@param entryScheme An integer value representing the ID of the scheme, between 1 and inf.\n"
+                                                                "@param fontColor A vector containing an integer representation of the menu entry's normal color.\n"
+                                                                "@param fontColorHL A vector containing an integer representation of the menu entry's highlighted color.\n"
+                                                                "@param fontColorSEL A vector containing an integer representation of the menu entry's selected color.\n"
+                                                                "@return No return value.\n"
+                                                                "@sa add")
 {
    ColorI fontColor, fontColorHL, fontColorSEL;
    U32 r, g, b;
@@ -355,67 +355,67 @@ ConsoleMethod( GuiPopUpMenuCtrl, addScheme, void, 6, 6, "( entryScheme , fontCol
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, setText, void, 3, 3, "( text ) Use the setText method to change the text displayed in the menu bar.\n"
-																"Pass the NULL string to clear the menu bar text.\n"
-																"@param text New text to display in the menu bar.\n"
-																"@return No return value.\n"
-																"@sa getText, replaceText")
+                                                                "Pass the NULL string to clear the menu bar text.\n"
+                                                                "@param text New text to display in the menu bar.\n"
+                                                                "@return No return value.\n"
+                                                                "@sa getText, replaceText")
 {
    object->setText(argv[2]);
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, getText, const char*, 2, 2, "() Use the getText method to get the text currently displayed in the menu bar.\n"
-																"@return Returns the text in the menu bar or NULL if no text is present.\n"
-																"@sa getSelected, setText")
+                                                                "@return Returns the text in the menu bar or NULL if no text is present.\n"
+                                                                "@sa getSelected, setText")
 {
    return object->getText();
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, clear, void, 2, 2, "() Use the clear method to remove all entries and schemes from the menu.\n"
-																"@return No return value.\n"
-																"@sa add, addScheme")
+                                                                "@return No return value.\n"
+                                                                "@sa add, addScheme")
 {
    object->clear();
 }
 
 ConsoleMethod(GuiPopUpMenuCtrl, sort, void, 2, 2, "() Use the sort method to sort the menu in ascending order.\n"
-																"This is a lexicographic sort, so number (1,2,3,...) will come before letters (a,b,c,...)\n"
-																"@return No return value.")
+                                                                "This is a lexicographic sort, so number (1,2,3,...) will come before letters (a,b,c,...)\n"
+                                                                "@return No return value.")
 {
    object->sort();
 }
 
 // DAW: Added to sort the entries by ID
 ConsoleMethod(GuiPopUpMenuCtrl, sortID, void, 2, 2, "() Sort the list by ID.\n"
-													"@return No return value.")
+                                                    "@return No return value.")
 {
    object->sortID();
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, forceOnAction, void, 2, 2, "() Use the forceOnAction method to force the onAction callback to be triggered.\n"
-																"@return No return value.\n"
-																"@sa forceClose, onAction (GUIControl callback)")
+                                                                "@return No return value.\n"
+                                                                "@sa forceClose, onAction (GUIControl callback)")
 {
    object->onAction();
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, forceClose, void, 2, 2, "() Use the forceClose method to force the menu to close.\n"
-																"This is useful for making menus that fold up after a short delay when the mouse leaves the menu area.\n"
-																"@return No return value.\n"
-																"@sa forceOnAction")
+                                                                "This is useful for making menus that fold up after a short delay when the mouse leaves the menu area.\n"
+                                                                "@return No return value.\n"
+                                                                "@sa forceOnAction")
 {
    object->closePopUp();
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, getSelected, S32, 2, 2, "() Use the getSelected method to get the ID of the last selected entry.\n"
-																"@return Returns the ID of the currently selected entry, or 0 meaning no menu was selected after the last menu open.")
+                                                                "@return Returns the ID of the currently selected entry, or 0 meaning no menu was selected after the last menu open.")
 {
    return object->getSelected();
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, setSelected, void, 3, 4, "(int id, [scriptCallback=true]) Set the object status as selected\n"
-			  "@param id The object's ID.\n"
-			  "@param scriptCallback Flag whether to notify\n"
-			  "@return No return value.")
+              "@param id The object's ID.\n"
+              "@param scriptCallback Flag whether to notify\n"
+              "@return No return value.")
 {
    if( argc > 3 )
       object->setSelected( dAtoi( argv[2] ), dAtob( argv[3] ) );
@@ -424,21 +424,21 @@ ConsoleMethod( GuiPopUpMenuCtrl, setSelected, void, 3, 4, "(int id, [scriptCallb
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, setFirstSelected, void, 2, 2, "() \n"
-			  "@return No return value.")
+              "@return No return value.")
 {
    object->setFirstSelected();
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, setNoneSelected, void, 2, 2, "() Deselects all popup menu controls\n"
-															"@return No return value.")
+                                                            "@return No return value.")
 {
    object->setNoneSelected();
 }
 
 ConsoleMethod( GuiPopUpMenuCtrl, getTextById, const char*, 3, 3,  "( ID ) Use the getTextById method to get the text value for the menu item represented by ID.\n"
-																"@param ID An integer value representing the ID of a menu item.\n"
-																"@return Returns a string containing the menu item corresponding to ID, or a NULL string if no menu item has the specified ID.\n"
-																"@sa add, getText")
+                                                                "@param ID An integer value representing the ID of a menu item.\n"
+                                                                "@return Returns a string containing the menu item corresponding to ID, or a NULL string if no menu item has the specified ID.\n"
+                                                                "@sa add, getText")
 {
    return(object->getTextById(dAtoi(argv[2])));
 }
@@ -447,9 +447,9 @@ ConsoleMethod( GuiPopUpMenuCtrl, setEnumContent, void, 4, 4, "(string class, str
               "This fills the popup with a classrep's field enumeration type info.\n\n"
               "More of a helper function than anything.   If console access to the field list is added, "
               "at least for the enumerated types, then this should go away.."
-			  "@param className The class name associated with this enum content.\n"
-			  "@param enumName The name of the enumerated entry to add to the menu. This value must match an enum string as exposed by the engine for the class. The menu item will have the same text as the enum string name, and the ID will be equal to the enumerated entries value.\n"
-			  "@return No return value")
+              "@param className The class name associated with this enum content.\n"
+              "@param enumName The name of the enumerated entry to add to the menu. This value must match an enum string as exposed by the engine for the class. The menu item will have the same text as the enum string name, and the ID will be equal to the enumerated entries value.\n"
+              "@return No return value")
 {
    AbstractClassRep * classRep = AbstractClassRep::getClassList();
 
@@ -499,25 +499,25 @@ ConsoleMethod( GuiPopUpMenuCtrl, setEnumContent, void, 4, 4, "(string class, str
 
 //------------------------------------------------------------------------------
 ConsoleMethod( GuiPopUpMenuCtrl, findText, S32, 3, 3, "( text ) Use the findText method to locate the string text in the list of menu items. It will return the ID of the first entry found.\n"
-																"@param text A string containing the text to search for.\n"
-																"@return Returns an integer value representing the ID of the menu item, or -1 if the text was not found.")
+                                                                "@param text A string containing the text to search for.\n"
+                                                                "@return Returns an integer value representing the ID of the menu item, or -1 if the text was not found.")
 {
    return( object->findText( argv[2] ) );   
 }
 
 //------------------------------------------------------------------------------
 ConsoleMethod( GuiPopUpMenuCtrl, size, S32, 2, 2, "() Get the size of the menu, ie the number of entries in it.\n"
-			  "@return The numbers of entries as an integer.")
+              "@return The numbers of entries as an integer.")
 {
    return( object->getNumEntries() ); 
 }
 
 //------------------------------------------------------------------------------
 ConsoleMethod( GuiPopUpMenuCtrl, replaceText, void, 3, 3, "( enable ) Use the replaceText method to enable the updating of the menu bar text when a menu item is selected.\n"
-																"This does not prevent changing the menu bar text with setText.\n"
-																"@param enable A boolean value enabling or disabling the automatic updating of the menu bar text when a selection is made.\n"
-																"@return No return value.\n"
-																"@sa getText, setText")
+                                                                "This does not prevent changing the menu bar text with setText.\n"
+                                                                "@param enable A boolean value enabling or disabling the automatic updating of the menu bar text when a selection is made.\n"
+                                                                "@return No return value.\n"
+                                                                "@sa getText, setText")
 {
    object->replaceText(dAtoi(argv[2]));  
 }
@@ -619,14 +619,14 @@ void GuiPopUpMenuCtrl::setBitmap(const char *name)
 //------------------------------------------------------------------------------
 void GuiPopUpMenuCtrl::sort()
 {
-   dQsort((void *)&(mEntries[0]), mEntries.size(), sizeof(Entry), textCompare);
+    dQsort((void *)mEntries.address(), mEntries.size(), sizeof(Entry), textCompare);
 }
 
 // DAW: Added to sort by entry ID
 //------------------------------------------------------------------------------
 void GuiPopUpMenuCtrl::sortID()
 {
-   dQsort((void *)&(mEntries[0]), mEntries.size(), sizeof(Entry), idCompare);
+    dQsort((void *)mEntries.address(), mEntries.size(), sizeof(Entry), idCompare);
 }
 
 //------------------------------------------------------------------------------
@@ -1166,7 +1166,7 @@ bool GuiPopUpMenuCtrl::onKeyDown(const GuiEvent &event)
 //------------------------------------------------------------------------------
 void GuiPopUpMenuCtrl::onAction()
 {
-	if ( !mVisible || !mActive || !mAwake )
+    if ( !mVisible || !mActive || !mAwake )
       return;
 
    GuiControl *canCtrl = getParent();
@@ -1417,7 +1417,7 @@ bool GuiPopUpMenuCtrl::getColoredBox( ColorI &fontColor, S32 id )
 //------------------------------------------------------------------------------
 void GuiPopUpMenuCtrl::onMouseDown(const GuiEvent &event)
 {
-	if ( !mVisible || !mActive || !mAwake )
+    if ( !mVisible || !mActive || !mAwake )
       return;
 
    onAction();
@@ -1426,7 +1426,7 @@ void GuiPopUpMenuCtrl::onMouseDown(const GuiEvent &event)
 //------------------------------------------------------------------------------
 void GuiPopUpMenuCtrl::onMouseUp(const GuiEvent &event)
 {
-	if ( !mVisible || !mActive || !mAwake )
+    if ( !mVisible || !mActive || !mAwake )
       return;
 }
 
@@ -1434,7 +1434,7 @@ void GuiPopUpMenuCtrl::onMouseUp(const GuiEvent &event)
 // DAW: Added
 void GuiPopUpMenuCtrl::onMouseEnter(const GuiEvent &event)
 {
-	if ( !mVisible || !mActive || !mAwake )
+    if ( !mVisible || !mActive || !mAwake )
       return;
    mMouseOver = true;
 }
@@ -1443,7 +1443,7 @@ void GuiPopUpMenuCtrl::onMouseEnter(const GuiEvent &event)
 // DAW: Added
 void GuiPopUpMenuCtrl::onMouseLeave(const GuiEvent &)
 {
-	if ( !mVisible || !mActive || !mAwake )
+    if ( !mVisible || !mActive || !mAwake )
       return;
    mMouseOver = false;
 }

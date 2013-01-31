@@ -507,7 +507,7 @@ void Profiler::dump()
       rootVector.push_back(walk);
    }
 //-Mat no sort, makes it easier to compare
-   dQsort((void *) &rootVector[0], rootVector.size(), sizeof(ProfilerRootData *), rootDataCompare);
+   dQsort((void *)rootVector.address(), rootVector.size(), sizeof(ProfilerRootData *), rootDataCompare);
 
 
    if (mDumpToConsole == true)
