@@ -1181,7 +1181,7 @@ void ResManager::serialize (VectorPtr < const char *>&filenames)
       sortVector.push_back (roi);
    }
 
-   dQsort ((void *) &sortVector[0], sortVector.size (),
+   dQsort ((void *)sortVector.address(), sortVector.size (),
       sizeof (ResourceObjectIndex), ResourceObjectIndex::compare);
    for (i = 0; i < (U32)filenames.size (); i++)
       filenames[i] = sortVector[i].fileName;

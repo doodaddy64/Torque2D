@@ -638,7 +638,7 @@ bool ModuleManager::unloadModuleGroup( const char* pModuleGroup )
 
 //-----------------------------------------------------------------------------
 
-bool ModuleManager::loadModuleExplicit( const char* pModuleId )
+bool ModuleManager::loadModuleExplicit( const char* pModuleId, const U32 versionId )
 {
     // Lock database.
     LockDatabase( this );
@@ -670,18 +670,18 @@ bool ModuleManager::loadModuleExplicit( const char* pModuleId )
     if ( mEchoInfo )
     {
         Con::printSeparator();
-        Con::printf( "Module Manager: Loading explicit module Id '%s':", moduleId );
+        Con::printf( "Module Manager: Loading explicit module Id '%s' at version Id '%d':", moduleId, versionId );
     }
 
     // Finish if we could not resolve the dependencies for module Id (of any version Id).
-    if ( !resolveModuleDependencies( moduleId, 0, moduleGroup, false, moduleResolvingQueue, moduleReadyQueue ) )
+    if ( !resolveModuleDependencies( moduleId, versionId, moduleGroup, false, moduleResolvingQueue, moduleReadyQueue ) )
         return false;
 
     // Check the modules we want to load to ensure that we do not have incompatible modules loaded already.
     for ( typeModuleLoadEntryVector::iterator moduleReadyItr = moduleReadyQueue.begin(); moduleReadyItr != moduleReadyQueue.end(); ++moduleReadyItr )
     {
         // Fetch load ready module definition.
-        ModuleDefinition* pLoadReadyModuleDefinition = moduleReadyItr->mpModuleDefinition;;
+        ModuleDefinition* pLoadReadyModuleDefinition = moduleReadyItr->mpModuleDefinition;
 
         // Fetch the module Id loaded entry.
         ModuleLoadEntry* pLoadedModuleEntry = findModuleLoaded( pLoadReadyModuleDefinition->getModuleId() );
@@ -704,7 +704,7 @@ bool ModuleManager::loadModuleExplicit( const char* pModuleId )
     if ( mEchoInfo )
     {
         // Info.
-        Con::printf( "Module Manager: Explicit load of module Id '%s' and its dependencies is comprised of the following '%d' module(s):", moduleId, moduleReadyQueue.size() );
+        Con::printf( "Module Manager: Explicit load of module Id '%s' at version Id '%d' and its dependencies is comprised of the following '%d' module(s):", moduleId, versionId, moduleReadyQueue.size() );
 
         // Iterate the modules echoing them.
         for ( typeModuleLoadEntryVector::iterator moduleReadyItr = moduleReadyQueue.begin(); moduleReadyItr != moduleReadyQueue.end(); ++moduleReadyItr )
@@ -844,6 +844,17 @@ bool ModuleManager::unloadModuleExplicit( const char* pModuleId )
         return false;
     }
 
+    // Find if the module is actually loaded.
+    ModuleDefinition* pLoadedModule = findLoadedModule( moduleId );
+
+    // Is the module loaded?
+    if ( pLoadedModule == NULL )
+    {
+        // No, so warn.
+        Con::warnf( "Module Manager: Cannot unload explicit module Id '%s' as it is not loaded.", moduleId );
+        return false;
+    }
+
     // Fetch module group.
     StringTableEntry moduleGroup = pDefinitions->mModuleGroup;
 
@@ -855,7 +866,7 @@ bool ModuleManager::unloadModuleExplicit( const char* pModuleId )
     }
 
     // Finish if we could not resolve the dependencies for module Id (of any version Id).
-    if ( !resolveModuleDependencies( moduleId, 0, moduleGroup, false, moduleResolvingQueue, moduleReadyQueue ) )
+    if ( !resolveModuleDependencies( moduleId, pLoadedModule->getVersionId(), moduleGroup, false, moduleResolvingQueue, moduleReadyQueue ) )
         return false;
 
     // Check the modules we want to unload to ensure that we do not have incompatible modules loaded already.

@@ -177,8 +177,13 @@ function ToyCategorySelectList::onSelect(%this)
         ToySelectList.add( %moduleTitle, %moduleDefinition.getId() );
         
         // Select the toy if it's the default and we've not selected a toy yet.
-        if ( !$defaultToySelected && %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId )
+        if (    !$defaultToySelected &&
+                %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId &&
+                %moduleDefinition.versionId == $pref::Sandbox::defaultToyVersionId )
+        {
             ToySelectList.setSelected( %moduleDefinition.getId() );
+            $defaultToySelected = true;
+        }
     }
     ToySelectList.sort();
     

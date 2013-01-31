@@ -155,7 +155,7 @@ public:
     /// Module (un)loading.
     bool loadModuleGroup( const char* pModuleGroup );
     bool unloadModuleGroup( const char* pModuleGroup );
-    bool loadModuleExplicit( const char* pModuleId );
+    bool loadModuleExplicit( const char* pModuleId, const U32 versionId = 0 );
     bool unloadModuleExplicit( const char* pModuleId );
 
     /// Module type enumeration.

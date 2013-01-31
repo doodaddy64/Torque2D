@@ -98,7 +98,7 @@ void Dictionary::exportVariables(const char *varString, const char *fileName, bo
    if(!sortList.size())
       return;
 
-   dQsort((void *) &sortList[0], sortList.size(), sizeof(Entry *), varCompare);
+   dQsort((void *)sortList.address(), sortList.size(), sizeof(Entry *), varCompare);
 
    Vector<Entry *>::iterator s;
    char expandBuffer[1024];

@@ -76,6 +76,7 @@ function buildAquarium()
     // Far rocks
     %farRocks = new Sprite();
     %farRocks.setBodyType( "static" );
+    %farRocks.setPosition( 0, -7.5 );
     %farRocks.setImage( "AquariumToy:rocksfar" );
     %farRocks.setSize( 100, 75 );
     %farRocks.setCollisionSuppress();
@@ -87,12 +88,13 @@ function buildAquarium()
     // Near rocks
     %nearRocks = new Sprite();
     %nearRocks.setBodyType( "static" );
+    %nearRocks.setPosition( 0, -8.5 );
     %nearRocks.setImage( "AquariumToy:rocksnear" );
     %nearRocks.setSize( 100, 75 );
     %nearRocks.setCollisionSuppress();
     %nearRocks.setAwake( false );
     %nearRocks.setActive( false );
-    %farRocks.setSceneLayer(3);
+    %nearRocks.setSceneLayer(3);
     SandboxScene.add( %nearRocks );
     
     // Left trigger
@@ -131,7 +133,7 @@ function buildAquarium()
     %rightTrigger.setCollisionCallback(true);
     %rightTrigger.setBodyType( "static" );
     %rightTrigger.setCollisionShapeIsSensor(0, true);
-    SandboxScene.add( %rightTrigger );
+    SandboxScene.add( %rightTrigger );    
 }
 
 //-----------------------------------------------------------------------------
