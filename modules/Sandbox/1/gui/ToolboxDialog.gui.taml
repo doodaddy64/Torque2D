@@ -330,9 +330,9 @@
 	<!-- Options Panel -->
 	<GuiControl
 		Profile="GuiDefaultProfile"
-		HorizSizing="left"
-		VertSizing="bottom"
-		Position="420 32"
+		HorizSizing="relative"
+		VertSizing="relative"
+		Position="805 22"
 		Extent="240 550">
 
 		<GuiTextCtrl
