@@ -30,6 +30,8 @@ $sandboxDragMode = "off";
 $sandboxPullObject = "";
 $sandboxPullJointId = "";
 
+$sandboxPullMaxForce = 1000;
+
 //-----------------------------------------------------------------------------
 
 GlobalActionMap.bind( keyboard, "space", setNextDragMode );
@@ -141,7 +143,7 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
         $sandboxPullObject = getWord( %picked, 0 );
         
         // Create the target joint.
-        $sandboxPullJointId = SandboxScene.createTargetJoint( $sandboxPullObject, %worldPos, 1000 );
+        $sandboxPullJointId = SandboxScene.createTargetJoint( $sandboxPullObject, %worldPos, $sandboxPullMaxForce );
     }    
 }
 

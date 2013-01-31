@@ -27,12 +27,12 @@ function createPyramidToy( %scopeSet )
     
     SandboxWindow.setCurrentCameraZoom( 2 );
     SandboxScene.setGravity( 0, -15 );
-    
-    createPyramidGround();
-    createToyPyramid(-15, -8, $PyramidBrickCount);
-    
+        
     // Set the sandbox drag mode.
     setSandboxDragMode( "pull" ); 
+    
+    // Reset the toy.
+    PyramidToy.reset();
 }
 
 //-----------------------------------------------------------------------------
@@ -43,7 +43,18 @@ function destroyPyramidToy( %scopeSet )
 
 //-----------------------------------------------------------------------------
 
-function createPyramidGround()
+function PyramidToy::reset( %this )
+{
+    // Create the pyramid ground.
+    %this.createPyramidGround();
+    
+    // Create the pyramid.
+    %this.createPyramid(-15, -8, $PyramidBrickCount);    
+}
+
+//-----------------------------------------------------------------------------
+
+function PyramidToy::createPyramidGround( %this )
 {
     %ground = new Scroller();
     %ground.setBodyType( "static" );
@@ -57,37 +68,33 @@ function createPyramidGround()
 
 //-----------------------------------------------------------------------------
 
-function createToyPyramid( %posX, %posY, %brickBaseCount)
+function PyramidToy::createPyramid( %this, %posX, %posY, %brickBaseCount )
 {
-   if ( %brickBaseCount < 2 )
-   {
-      echo( "Invalid pyramid brick base count of" SPC %brickBaseCount );
-      return;
-   }
-   
-   for( %stack = 0; %stack < %brickBaseCount; %stack++ )
-   {
-      %stackIndexCount = %brickBaseCount - (%stack*2);
-      %stackX = %posX + ( %stack * 1.5 );
-      %stackY = %posY + ( %stack * 1.5 );
-      for ( %stackIndex = 0; %stackIndex < %stackIndexCount; %stackIndex++ )
-      {
-         createCrate( %stackX + (%stackIndex*1.5), %stackY);
-      }
-   }
-}
+    if ( %brickBaseCount < 2 )
+    {
+        echo( "Invalid pyramid brick base count of" SPC %brickBaseCount );
+        return;
+    }
 
-//-----------------------------------------------------------------------------
+    for( %stack = 0; %stack < %brickBaseCount; %stack++ )
+    {
+        %stackIndexCount = %brickBaseCount - (%stack*2);
+        %stackX = %posX + ( %stack * 1.5 );
+        %stackY = %posY + ( %stack * 1.5 );
+        
+        for ( %stackIndex = 0; %stackIndex < %stackIndexCount; %stackIndex++ )
+        {
+            %crateX = %stackX + (%stackIndex*1.5);
+            %crateY = %stackY;
 
-function createCrate( %posX, %posY)
-{
-   %imageMap = "ToyAssets:crate";
-   %obj = new Sprite();
-   %obj.setUseInputEvents(true);
-   %obj.setImage( %imageMap );
-   %obj.setPosition( %posX, %posY );
-   %obj.setSize( 1.5 );
-   %obj.setDefaultFriction( 1.0 );
-   %obj.createPolygonBoxCollisionShape( 1.5, 1.5 );
-   SandboxScene.add( %obj );
+            %obj = new Sprite();
+            %obj.setUseInputEvents(true);
+            %obj.setImage( "ToyAssets:crate" );
+            %obj.setPosition( %crateX, %crateY );
+            %obj.setSize( 1.5 );
+            %obj.setDefaultFriction( 1.0 );
+            %obj.createPolygonBoxCollisionShape( 1.5, 1.5 );
+            SandboxScene.add( %obj );          
+        }
+    }
 }
