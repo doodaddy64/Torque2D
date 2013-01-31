@@ -21,21 +21,23 @@
 //-----------------------------------------------------------------------------
 
 $customLabelHeight = "15";
+$customLabelWidth = "50";
 $customLabelSpacing = "18";
 $customOptionSpacing = "25";
 $customContainerExtent = "0 0";
-$containerXPosition = "10";
-$flagOptionExtent = "60 25";
-$buttonOptionExtent = "60 25";
-$intOptionExtent = "0 0";
+$containerXPosition = "0";
+$flagOptionExtent = "100 25";
+$buttonOptionExtent = "100 25";
+$spinnerExtent = "22 25";
+$intOptionExtent = "80 25";
 $listOptionExtent = "0 0";
 $customControlCount = 0;
 
 //-----------------------------------------------------------------------------
 
-function createCustomLabel(%text, %width)
+function createCustomLabel(%text)
 {
-    %labelWidth = %width + (%characterCount * 5);
+    %labelWidth = $customLabelWidth + (%characterCount * 5);
     %labelExtent = %labelWidth SPC $customLabelHeight;
 
     %labelControl = new GuiTextCtrl()
@@ -199,65 +201,90 @@ function ButtonController::updateToy(%this)
 
 function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shouldReset)
 {
-    //%label, %position, %extent, %shouldReset, %callback, %startingValue
-    %width = getWord(%extent, 0);
-    %height = getWord(%extent, 1);
-    %characterCount = strlen(%label);
+    %customLabel = createCustomLabel(%label);
 
-    %labelWidth = %width + (%characterCount * 5);
-    %labelExtent = %labelWidth SPC %height;
-    %positionOffset = (%width + 10) SPC "1";
-
-    %containerWidth = %labelWidth + 25;
-    %containerHeight = getWord(%extent, 1) + 35;
-    %containerExtent = %containerWidth SPC %containerHeight;
+    %containerPosition = nextCustomControlPosition($customControlCount);
 
     %container = new GuiControl()
     {
         isContainer = 1;
-        position = %position;
-        extent = %containerExtent;
+        position = %containerPosition;
+        extent = $customContainerExtent;
         Profile = GuiTransparentProfile;
     };
 
+    %container.add(%customLabel);
+
+    %spinnerPosition = "1" SPC $customLabelSpacing;
+
+    %spinnerDown = new GuiImageButtonCtrl()
+    {
+        canSaveDynamicFields = "0";
+        isContainer = "0";
+        Profile = "GuiDefaultProfile";
+        Position = %spinnerPosition;
+        Extent = $spinnerExtent;
+        MinExtent = "8 2";
+        canSave = "1";
+        Visible = "1";
+        Active = "1";
+        hovertime = "1000";
+        toolTipProfile = "GuiToolTipProfile";
+        groupNum = "-1";
+        buttonType = "PushButton";
+        useMouseEvents = "0";
+        NormalImage = "Sandbox:minusButtonNormal";
+        HoverImage = "Sandbox:minusButtonHover";
+        DownImage = "Sandbox:minusButtonDown";
+        InactiveImage = "Sandbox:minusButtonInactive";
+    };
+
+    %controlPosition = getWord($spinnerExtent, 1) SPC $customLabelSpacing;
+
     %textEdit = new GuiTextEditCtrl()
     {
-        Position = "1 1";
+        Position = %controlPosition;
         Text = %startingValue;
-        Extent = %extent;
+        Extent = $intOptionExtent;
         toy = Sandbox.ActiveToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
         class = "TextEditController";
         isContainer = "0";
-        Profile = "GuiNumberEditProfile";
+        Profile = "GuiSpinnerProfile";
         tooltipprofile = "GuiToolTipProfile";
         hovertime = "1000";
-        text = %startingValue;
     };
 
-    %textEdit.validate = %textEdit @ ".updateToy();";
-    %container.add(%textEdit);
+    %spinnerPosition = getWord(%textEdit.Extent, 0) SPC $customLabelSpacing;
 
-    %labelControl = new GuiTextCtrl()
+    %spinnerUp = new GuiImageButtonCtrl()
     {
         canSaveDynamicFields = "0";
         isContainer = "0";
-        Profile = "GuiTextProfile";
-        Position = %positionOffset;
-        Extent = %labelExtent;
+        Profile = "GuiDefaultProfile";
+        Position = %spinnerPosition;
+        Extent = $spinnerExtent;
         MinExtent = "8 2";
-        canSave = "0";
+        canSave = "1";
         Visible = "1";
-        Active = "0";
-        tooltipprofile = "GuiToolTipProfile";
-        tooltipWidth = "0";
-        text = %label;
-        maxLength = "255";
-        truncate = "0";
+        Active = "1";
+        hovertime = "1000";
+        toolTipProfile = "GuiToolTipProfile";
+        groupNum = "-1";
+        buttonType = "PushButton";
+        useMouseEvents = "0";
+        NormalImage = "Sandbox:plusButtonNormal";
+        HoverImage = "Sandbox:plusButtonHover";
+        DownImage = "Sandbox:plusButtonDown";
+        InactiveImage = "Sandbox:plusButtonInactive";
     };
 
-    %container.add(%labelControl);
+    %textEdit.validate = %textEdit @ ".updateToy();";
+
+    %container.add(%spinnerDown);
+    %container.add(%textEdit);
+    %container.add(%spinnerUp);
 
     ToyCustomControls.add(%container);
 
@@ -378,162 +405,3 @@ function SelectionController::onSelect(%this)
     if (%this.shouldResetToy && %this.toy.isMethod("reset"))
         %this.toy.reset();
 }
-
-//-----------------------------------------------------------------------------
-
-function addRangeOption( %label, %position, %extent, %range, %ticks, %shouldReset, %callback, %startingValue)
-{
-    %width = getWord(%extent, 0);
-    %height = getWord(%extent, 1);
-    %characterCount = strlen(%label);
-
-    %labelWidth = %width + (%characterCount * 5);
-    %labelExtent = %labelWidth SPC "15";
-    %positionOffset = (%width + 15) SPC "1";
-
-    %containerWidth = %labelWidth + 25;
-    %containerHeight = getWord(%extent, 1) + 35;
-    %containerExtent = %containerWidth SPC %containerHeight;
-
-    %container = new GuiControl()
-    {
-        isContainer = 1;
-        position = %position;
-        extent = %containerExtent;
-        Profile = GuiTransparentProfile;
-    };
-
-    %labelControl = new GuiTextCtrl()
-    {
-        canSaveDynamicFields = "0";
-        isContainer = "0";
-        Profile = "GuiTextProfile";
-        Position = "1 1";
-        Extent = %labelExtent;
-        MinExtent = "8 2";
-        canSave = "0";
-        Visible = "1";
-        Active = "0";
-        tooltipprofile = "GuiToolTipProfile";
-        tooltipWidth = "0";
-        text = %label;
-        maxLength = "255";
-        truncate = "0";
-    };
-
-    %container.add(%labelControl);
-
-    %slider = new GuiSliderCtrl()
-    {
-        class = "SliderController";
-        toy = Sandbox.ActiveToy.ScopeSet;
-        shouldResetToy = %shouldReset;
-        callback = %callback;
-        Position = "1 16";
-        Profile = "GuiSliderProfile";
-        Extent = %extent;
-        Range = %range;
-        Ticks = %ticks;
-        Value = %startingValue;
-    };
-
-    %slider.command = %slider @ ".updateToy();";
-
-    %container.add(%slider);
-
-    ToyCustomControls.add(%container);
-
-    return %container;
-}
-
-//-----------------------------------------------------------------------------
-
-function SliderController::updateToy(%this)
-{
-    echo("@@@ Updating slider controller");
-    if (%this.toy $= "")
-        return;
-
-    if (%this.callback !$= "")
-    {
-        %setter = "%this.toy." @ %this.callback @ "(" @ %this.getValue() @ ");";
-        echo("@@@ Setter: " @ %setter);
-        eval(%setter);
-    }
-
-    if (%this.shouldResetToy && %this.toy.isMethod("reset"))
-        %this.toy.reset();
-}
-
-/*
-<GuiTextEditCtrl
-    Name="Lt_PowerField"
-    canSaveDynamicFields="0"
-    isContainer="0"
-    Profile="GuiSpinnerProfile"
-    HorizSizing="right"
-    VertSizing="bottom"
-    Position="150 0"
-    Extent="80 25"
-    MinExtent="8 2"
-    canSave="1"
-    Visible="1"
-    Active="1"
-    hovertime="1000"
-    toolTipProfile="GuiToolTipProfile"
-    toolTip="Set the power of the Launcher between 1 and 100."
-    text="10"
-    maxLength="1024"
-    historySize="0"
-    password="0"
-    tabComplete="0"
-    sinkAllKeyEvents="0"
-    passwordMask="*"
-    truncate="0" />
-<GuiImageButtonCtrl
-    Name="Lt_PowerDownButton"
-    canSaveDynamicFields="0"
-    isContainer="0"
-    Profile="GuiDefaultProfile"
-    HorizSizing="right"
-    VertSizing="bottom"
-    Position="128 0"
-    Extent="22 25"
-    MinExtent="8 2"
-    canSave="1"
-    Visible="1"
-    Active="1"
-    hovertime="1000"
-    toolTipProfile="GuiToolTipProfile"
-    toolTip="Set the power of the Launcher between 1 and 100."
-    groupNum="-1"
-    buttonType="PushButton"
-    useMouseEvents="0"
-    NormalImage="@asset={EditorAssets}:minusImageMap"
-    HoverImage="@asset={EditorAssets}:minus_hImageMap"
-    DownImage="@asset={EditorAssets}:minus_dImageMap"
-    InactiveImage="@asset={EditorAssets}:minus_iImageMap" />
-<GuiImageButtonCtrl
-    Name="Lt_PowerUpButton"
-    canSaveDynamicFields="0"
-    isContainer="0"
-    Profile="GuiDefaultProfile"
-    HorizSizing="right"
-    VertSizing="bottom"
-    Position="230 0"
-    Extent="22 25"
-    MinExtent="8 2"
-    canSave="1"
-    Visible="1"
-    Active="1"
-    hovertime="1000"
-    toolTipProfile="GuiToolTipProfile"
-    toolTip="Set the power of the Launcher between 1 and 100."
-    groupNum="-1"
-    buttonType="PushButton"
-    useMouseEvents="0"
-    NormalImage="@asset={EditorAssets}:plusImageMap"
-    HoverImage="@asset={EditorAssets}:plus_hImageMap"
-    DownImage="@asset={EditorAssets}:plus_dImageMap"
-    InactiveImage="@asset={EditorAssets}:plus_iImageMap" />
-*/

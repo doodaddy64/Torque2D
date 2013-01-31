@@ -29,7 +29,7 @@ function AquariumToy::create( %this )
     AquariumToy.currentFish = 0;
     AquariumToy.selectedAnimation = "AquariumToy:angelfish1Anim";
 
-    //addIntOption("Max Fish", 0, 50, "setMaxFish", %this.maxFish, false);
+    addIntegerOption("Max Fish", 0, 50, "setMaxFish", %this.maxFish, false);
     //addSelectionOption(getFishAnimationList(), "Fish Animation", "setSelectedAnimation", false);
     //addButtonOption("Spawn fish", "spawnOneFish", false);
     //addButtonOption("Reset?", "reset", false);
@@ -51,14 +51,12 @@ function AquariumToy::destroy( %this )
 
 function AquariumToy::setMaxFish(%this, %value)
 {
-    echo("@@@ Range: " @ %value);
     %this.maxFish = %value;
 }
 //-----------------------------------------------------------------------------
 
 function AquariumToy::setSelectedAnimation(%this, %value)
 {
-    echo("New animation: " @ %value);
     %this.selectedAnimation = %value;
 }
 

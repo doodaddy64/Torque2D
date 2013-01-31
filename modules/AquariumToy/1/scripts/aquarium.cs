@@ -31,8 +31,6 @@ function getFishAnimationList()
 
 function getFishSize(%anim)
 {
-    echo("@@@ Getting size for: " @ %anim);
-
     switch$(%anim)
     {
         case "AquariumToy:angelfish1Anim":
