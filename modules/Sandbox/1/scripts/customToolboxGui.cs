@@ -21,17 +21,18 @@
 //-----------------------------------------------------------------------------
 
 $customLabelHeight = "15";
-$customLabelWidth = "50";
+$customLabelWidth = "80";
 $customLabelSpacing = "18";
 $customOptionSpacing = "15";
-$customContainerExtent = "150 50";
+$customContainerExtent = "190 3";
 $containerXPosition = "0";
 $flagOptionExtent = "100 25";
 $buttonOptionExtent = "100 25";
 $spinnerExtent = "22 25";
 $intOptionExtent = "80 25";
-$listOptionExtent = "0 0";
-$customControlCount = 0;
+$listOptionExtent = "180 25";
+$customControlCount = "0";
+$lastControlBottom = "0";
 
 //-----------------------------------------------------------------------------
 
@@ -47,7 +48,7 @@ function createCustomLabel(%text)
         Profile = "GuiTextProfile";
         canSaveDynamicFields = "0";
         isContainer = "0";
-        Position = "3 1";
+        Position = "3 0";
         MinExtent = "8 2";
         canSave = "0";
         Visible = "1";
@@ -65,9 +66,8 @@ function createCustomLabel(%text)
 
 function nextCustomControlPosition(%index)
 {
-    %verticalOffset = $customOptionSpacing * %index;
+    %verticalOffset = ($customOptionSpacing + %index) + $lastControlBottom;
     %position = $containerXPosition SPC %verticalOffset;
-
     return %position;
 }
 
@@ -77,11 +77,14 @@ function addFlagOption( %label, %callback, %startingValue, %shouldReset)
 {
     %containerPosition = nextCustomControlPosition($customControlCount);
 
+    %customX = getWord($customContainerExtent, 0);
+    %customY = getWord($customContainerExtent, 1) + getWord($flagOptionExtent, 1);
+
     %container = new GuiControl()
     {
         isContainer = 1;
         position = %containerPosition;
-        extent = $customContainerExtent;
+        extent = %customX SPC %customY;
         Profile = GuiTransparentProfile;
     };
 
@@ -90,7 +93,7 @@ function addFlagOption( %label, %callback, %startingValue, %shouldReset)
         canSaveDynamicFields = "0";
         isContainer = "0";
         Profile = "BlueButtonProfile";
-        Position = "1 1";
+        Position = "0 0";
         Extent = $flagOptionExtent;
         Visible = "1";
         toy = Sandbox.ActiveToy.ScopeSet;
@@ -113,6 +116,8 @@ function addFlagOption( %label, %callback, %startingValue, %shouldReset)
     %container.add(%button);
 
     ToyCustomControls.add(%container);
+
+    $lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
 
     $customControlCount++;
 }
@@ -141,11 +146,14 @@ function addButtonOption( %label, %callback, %shouldReset)
 {
     %containerPosition = nextCustomControlPosition($customControlCount);
 
+    %customX = getWord($customContainerExtent, 0);
+    %customY = getWord($customContainerExtent, 1) + getWord($buttonOptionExtent, 1);
+
     %container = new GuiControl()
     {
         isContainer = 1;
         position = %containerPosition;
-        extent = $customContainerExtent;
+        extent = %customX SPC %customY;
         Profile = GuiTransparentProfile;
     };
 
@@ -154,7 +162,7 @@ function addButtonOption( %label, %callback, %shouldReset)
         canSaveDynamicFields = "0";
         isContainer = "0";
         Profile = "BlueButtonProfile";
-        Position = "1 1";
+        Position = "0 0";
         Extent = $buttonOptionExtent;
         Visible = "1";
         toy = Sandbox.ActiveToy.ScopeSet;
@@ -176,6 +184,8 @@ function addButtonOption( %label, %callback, %shouldReset)
     %container.add(%button);
 
     ToyCustomControls.add(%container);
+
+    $lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
 
     $customControlCount++;
 }
@@ -203,15 +213,16 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
 {
     %customLabel = createCustomLabel(%label);
 
-    %customLabel.dump();
-
     %containerPosition = nextCustomControlPosition($customControlCount);
+
+    %customX = getWord($customContainerExtent, 0);
+    %customY = getWord($customContainerExtent, 1) + getWord($intOptionExtent, 1) + $customLabelHeight;
 
     %container = new GuiControl()
     {
         isContainer = 1;
         position = %containerPosition;
-        extent = $customContainerExtent;
+        extent = %customX SPC %customY;
         Profile = GuiTransparentProfile;
     };
 
@@ -242,9 +253,6 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
     };
 
     %controlPosition = (getWord($spinnerExtent, 0) + 1) SPC $customLabelSpacing;
-
-    echo("@@@ spinnerPosition: " @ %spinnerPosition);
-    echo("@@@ controlPosition: " @ %controlPosition);
 
     %textEdit = new GuiTextEditCtrl()
     {
@@ -293,7 +301,9 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
 
     ToyCustomControls.add(%container);
 
-    return %container;
+    $lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
+
+    $customControlCount++;
 }
 
 //-----------------------------------------------------------------------------
@@ -318,25 +328,24 @@ function TextEditController::updateToy(%this)
 function addSelectionOption( %entries, %label, %callback, %shouldReset)
 {
     //%entries, %label, %position, %extent, %shouldReset, %callback
-    %width = getWord(%extent, 0);
-    %height = getWord(%extent, 1);
-    %characterCount = strlen(%label);
+    %customLabel = createCustomLabel(%label);
 
-    %labelWidth = %width + (%characterCount * 5);
-    %labelExtent = %labelWidth SPC %height;
-    %positionOffset = (%width + 15) SPC "1";
+    %containerPosition = nextCustomControlPosition($customControlCount);
 
-    %containerWidth = %labelWidth + 25;
-    %containerHeight = getWord(%extent, 1) + 35;
-    %containerExtent = %containerWidth SPC %containerHeight;
+    %customX = getWord($customContainerExtent, 0);
+    %customY = getWord($customContainerExtent, 1) + getWord($listOptionExtent, 1) + $customLabelHeight;
 
     %container = new GuiControl()
     {
         isContainer = 1;
-        position = %position;
-        extent = %containerExtent;
+        position = %containerPosition;
+        extent = %customX SPC %customY;
         Profile = GuiTransparentProfile;
     };
+
+    %container.add(%customLabel);
+
+    %controlPosition = "0" SPC $customLabelSpacing;
 
     %menu = new GuiPopUpMenuCtrl()
     {
@@ -346,8 +355,8 @@ function addSelectionOption( %entries, %label, %callback, %shouldReset)
         callback = %callback;
         isContainer = "0";
         Profile = "GuiPopUpMenuProfile";
-        Position = "1 1";
-        Extent = %extent;
+        Position = %controlPosition;
+        Extent = $listOptionExtent;
         MinExtent = "8 2";
         Visible = "1";
         Active = "1";
@@ -368,29 +377,11 @@ function addSelectionOption( %entries, %label, %callback, %shouldReset)
 
     %container.add(%menu);
 
-    %labelControl = new GuiTextCtrl()
-    {
-        canSaveDynamicFields = "0";
-        isContainer = "0";
-        Profile = "GuiTextProfile";
-        Position = %positionOffset;
-        Extent = %labelExtent;
-        MinExtent = "8 2";
-        canSave = "0";
-        Visible = "1";
-        Active = "0";
-        tooltipprofile = "GuiToolTipProfile";
-        tooltipWidth = "0";
-        text = %label;
-        maxLength = "255";
-        truncate = "0";
-    };
-
-    %container.add(%labelControl);
-
     ToyCustomControls.add(%container);
 
-    return %container;
+    $lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
+
+    $customControlCount++;
 }
 
 //-----------------------------------------------------------------------------
