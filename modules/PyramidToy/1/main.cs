@@ -45,6 +45,9 @@ function destroyPyramidToy( %scopeSet )
 
 function PyramidToy::reset( %this )
 {
+    // Clear the scene.
+    SandboxScene.clear();
+        
     // Create the pyramid ground.
     %this.createPyramidGround();
     

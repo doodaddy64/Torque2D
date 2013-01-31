@@ -26,7 +26,6 @@ function createImageFontToy( %scopeSet )
     ImageFontToy.reset();
 }
 
-
 //-----------------------------------------------------------------------------
 
 function destroyImageFontToy( %scopeSet )
