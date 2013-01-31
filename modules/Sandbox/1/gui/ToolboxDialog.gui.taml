@@ -159,7 +159,7 @@
 		Profile="GuiDefaultProfile"
 		HorizSizing="right"
 		VertSizing="top"
-		Position="805 300"
+		Position="805 270"
 		Extent="320 160">
 		
 		<!-- Background Color -->
@@ -588,38 +588,35 @@
             useInactiveState="0" />
 	</GuiControl>
 	
-    <!-- Toolbox Controls -->
-	<GuiControl
-		Profile="GuiDefaultProfile"
-		HorizSizing="right"
-		VertSizing="top"
-		Position="980 440"
-		Extent="320 120">
-        
-		<!-- Close Toolbox -->
-		<GuiImageButtonCtrl
-			Name="ToolBoxCancelButton"
-			command="toggleToolbox(true);"
-			canSaveDynamicFields="0"
-			isContainer="0"
-			Profile="GuiDefaultProfile"
-			HorizSizing="right"
-			VertSizing="bottom"
-			Position="0 0"
-			Extent="37 37"
-			MinExtent="8 2"
-			canSave="1"
-			Visible="1"
-			Active="1"
-			hovertime="1000"
-			groupNum="-1"
-			buttonType="PushButton"
-			useMouseEvents="1"
-			toolTipProfile="GuiToolTipProfile"
-			toolTip="Closes the toolbox."			
-			NormalImage="@asset=Sandbox:mediumCancelNormal"
-			HoverImage="@asset=Sandbox:mediumCancelHover"
-			DownImage="@asset=Sandbox:mediumCancelDown" />
+    <!-- Close Toolbox -->
+    <GuiControl
+        Profile="GuiDefaultProfile"
+        HorizSizing="left"
+        VertSizing="bottom"
+        Position="540 680"
+        Extent="96 96">
+
+        <GuiImageButtonCtrl
+            Name="ToolBoxCancelButton"
+            command="toggleToolbox(true);"
+            canSaveDynamicFields="0"
+            isContainer="0"
+            Profile="GuiDefaultProfile"
+            HorizSizing="left"
+            VertSizing="top"
+            Position="0 0"
+            Extent="96 96"
+            MinExtent="8 2"
+            canSave="1"
+            Visible="1"
+            Active="1"
+            hovertime="1000"
+            groupNum="-1"
+            buttonType="PushButton"
+            useMouseEvents="1"
+            NormalImage="@asset=Sandbox:backBtnNormal"
+            HoverImage="@asset=Sandbox:backBtnHover"
+            DownImage="@asset=Sandbox:backBtnDown" />
     </GuiControl>	
 			
 </GuiControl>
