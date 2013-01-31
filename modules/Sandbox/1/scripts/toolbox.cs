@@ -161,8 +161,17 @@ function ToyCategorySelectList::onSelect(%this)
         if ( %index != $toyAllCategoryIndex && %moduleDefinition.ToyCategoryIndex != %index )
             continue;
 
+        // Fetch the module version.
+        %versionId = %moduleDefinition.versionId;
+
+        // Format module title so that version#1 doesn't show version but all other versions do.
+        if ( %versionId == 1 )
+            %moduleTitle = %moduleDefinition.moduleId;
+        else
+            %moduleTitle = %moduleDefinition.moduleId SPC "(v" @ %moduleDefinition.versionId @ ")";
+        
         // Add the toy GUI list.
-        ToySelectList.add( %moduleDefinition.moduleId, %moduleDefinition.getId() );
+        ToySelectList.add( %moduleTitle, %moduleDefinition.getId() );
         
         // Select the toy if it's the default and we've not selected a toy yet.
         if ( !$defaultToySelected && %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId )
