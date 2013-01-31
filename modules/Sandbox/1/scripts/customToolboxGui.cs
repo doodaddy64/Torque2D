@@ -36,6 +36,14 @@ $lastControlBottom = "0";
 
 //-----------------------------------------------------------------------------
 
+function resetCustomControls()
+{
+    $lastControlBottom = "0";
+    $customControlCount = 0;
+}
+
+//-----------------------------------------------------------------------------
+
 function createCustomLabel(%text)
 {
     %labelWidth = $customLabelWidth + (%characterCount * 5);

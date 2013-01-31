@@ -266,7 +266,9 @@ function ReloadToyButton::onClick(%this)
     // Finish if no toy is loaded.
     if ( !isObject(Sandbox.ActiveToy) )
         return;
-        
+
+    resetCustomControls();
+
     // Reload the toy.
     loadToy( Sandbox.ActiveToy );    
 }
