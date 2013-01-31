@@ -6,5 +6,5 @@
 	Type="toy"
 	ToyCategoryIndex="3"
 	ScriptFile="main.cs"
-	CreateFunction="createScrollerToy"
-	DestroyFunction="destroyScrollerToy"/>
+	CreateFunction="create"
+	DestroyFunction="destroy"/>

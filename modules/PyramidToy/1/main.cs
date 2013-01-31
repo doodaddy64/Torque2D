@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createPyramidToy( %scopeSet )
+function PyramidToy::create( %this )
 {
     $PyramidBrickCount = 15;
     $GroundWidth = 150;
@@ -37,7 +37,7 @@ function createPyramidToy( %scopeSet )
 
 //-----------------------------------------------------------------------------
 
-function destroyPyramidToy( %scopeSet )
+function PyramidToy::destroy( %this )
 {
 }
 

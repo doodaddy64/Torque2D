@@ -3,11 +3,10 @@
 	VersionId="1"
 	Description="A sandbox for testing and prototyping."
 	ScriptFile="main.cs"
-	CreateFunction="createSandbox"
-	DestroyFunction="destroySandbox">
+	CreateFunction="create"
+	DestroyFunction="destroy">
 		<DeclaredAssets
 			Path="assets"
 			Extension="asset.taml"
 			Recurse="true"/>
-
 </ModuleDefinition>

@@ -6,5 +6,5 @@
 	Type="toy"
 	ToyCategoryIndex="2"
 	ScriptFile="main.cs"
-	CreateFunction="createTumblerToy"
-	DestroyFunction="destroyTumblerToy"/>
+	CreateFunction="create"
+	DestroyFunction="destroy"/>

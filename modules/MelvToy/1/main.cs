@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createMelvToy( %scopeSet )
+function MelvToy::create( %this )
 {
     // Load scripts.
     exec( "./scripts/compositeSpriteTest.cs" );
@@ -34,6 +34,6 @@ function createMelvToy( %scopeSet )
 
 //-----------------------------------------------------------------------------
 
-function destroyMelvToy( %scopeSet )
+function MelvToy::destroy( %this )
 {
 }

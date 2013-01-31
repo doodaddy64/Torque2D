@@ -20,14 +20,14 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createRopeToy( %scopeSet )
+function RopeToy::create( %this )
 {
       
 }
 
 //-----------------------------------------------------------------------------
 
-function destroyRopeToy( %scopeSet )
+function RopeToy::destroy( %this )
 {   
        
 }

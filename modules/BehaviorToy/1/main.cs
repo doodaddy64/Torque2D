@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createBehaviorToy( %scopeSet )
+function BehaviorToy::create( %this )
 {
     // Set the sandbox drag mode availability.
     setSandboxDragModeAvailable( "pan", false );
@@ -31,6 +31,6 @@ function createBehaviorToy( %scopeSet )
 
 //-----------------------------------------------------------------------------
 
-function destroyBehaviorToy( %scopeSet )
+function BehaviorToy::destroy( %this )
 {
 }

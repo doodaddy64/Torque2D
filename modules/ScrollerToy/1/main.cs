@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createScrollerToy( %scopeSet )
+function ScrollerToy::create( %this )
 {   
     // Reset the toy.
     ScrollerToy.reset();
@@ -28,7 +28,7 @@ function createScrollerToy( %scopeSet )
 
 //-----------------------------------------------------------------------------
 
-function destroyScrollerToy( %scopeSet )
+function ScrollerToy::destroy( %this )
 {
 }
 

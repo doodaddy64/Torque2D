@@ -20,14 +20,14 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createChainToy( %scopeSet )
+function ChainToy::create( %this )
 {
       
 }
 
 //-----------------------------------------------------------------------------
 
-function destroyChainToy( %scopeSet )
+function ChainToy::destroy( %this )
 {   
        
 }

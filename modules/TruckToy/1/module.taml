@@ -6,8 +6,8 @@
     Type="toy"
     ToyCategoryIndex="5"
     ScriptFile="main.cs"
-    CreateFunction="createTruckToy"
-    DestroyFunction="destroyTruckToy">
+    CreateFunction="create"
+    DestroyFunction="destroy">
         <DeclaredAssets
             Path="assets"
             Extension="asset.taml"

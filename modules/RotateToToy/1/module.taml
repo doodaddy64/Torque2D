@@ -6,5 +6,5 @@
 	Type="toy"
 	ToyCategoryIndex="3"
 	ScriptFile="main.cs"
-	CreateFunction="createRotateToToy"
-	DestroyFunction="destroyRotateToToy"/>
+	CreateFunction="create"
+	DestroyFunction="destroy"/>

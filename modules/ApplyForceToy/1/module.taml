@@ -7,6 +7,6 @@
 	Type="toy"	
 	ToyCategoryIndex="2"
 	ScriptFile="main.cs"
-	CreateFunction="createApplyForceToy"
-	DestroyFunction="destroyApplyForceToy"/>
+	CreateFunction="create"
+	DestroyFunction="destroy"/>
 

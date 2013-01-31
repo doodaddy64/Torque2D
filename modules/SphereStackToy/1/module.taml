@@ -7,5 +7,5 @@
     Type="toy"
     ToyCategoryIndex="2"
     ScriptFile="main.cs"
-    CreateFunction="createSphereStackToy"
-    DestroyFunction="destroySphereStackToy"/>
+    CreateFunction="create"
+    DestroyFunction="destroy"/>

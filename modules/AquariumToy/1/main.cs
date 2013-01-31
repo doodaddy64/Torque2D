@@ -20,24 +20,34 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createAquariumToy( %scopeSet )
+function AquariumToy::create( %this )
 {
     exec("./scripts/aquarium.cs");
 
-    %scopeSet.createFishScheduleId = "";
-    %scopeSet.maxFish = 10;
-    %scopeSet.currentFish = 0;
-    %scopeSet.selectedAnimation = "AquariumToy:angelfish1Anim";
+    AquariumToy.createFishScheduleId = "";
+    AquariumToy.maxFish = 10;
+    AquariumToy.currentFish = 0;
+    AquariumToy.selectedAnimation = "AquariumToy:angelfish1Anim";
 
-    addRangeOption( "Max Fish", "13 40", "100 25", "0 20", "20", true, setMaxFish, %scopeSet.maxFish);
+    addRangeOption( "Max Fish", "13 40", "100 25", "0 20", "20", true, setMaxFish, %this.maxFish);
 
     addButtonOption("Reset?", "10 95", "50 25", false, "reset");
     addSelectionOption(getFishAnimationList(), "Fish Animation", "10 130", "165 25", false, "setSelectedAnimation");
     addButtonOption("Spawn fish", "10 165", "70 25", false, "spawnOneFish");
 
     // Reset the toy initially.
-    %scopeSet.reset();
+    AquariumToy.reset();
 }
+
+//-----------------------------------------------------------------------------
+
+function AquariumToy::destroy( %this )
+{
+    // Cancel any pending events.
+    AquariumToy::cancelPendingEvents();
+}
+
+//-----------------------------------------------------------------------------
 
 function AquariumToy::setMaxFish(%this, %value)
 {
@@ -156,12 +166,4 @@ function AquariumToy::spawnFish(%this)
     // Schedule to spawn a fish.
     if ( %this.currentFish < %this.maxFish)
         %this.createFishScheduleId = %this.schedule( 100, "spawnFish" );
-}
-
-//-----------------------------------------------------------------------------
-
-function destroyAquariumToy( %scopeSet )
-{
-    // Cancel any pending events.
-    AquariumToy::cancelPendingEvents();
 }

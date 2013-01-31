@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createSpriteToy( %scopeSet )
+function SpriteToy::create( %this )
 {
     // Reset the toy.
     SpriteToy.reset();
@@ -29,7 +29,7 @@ function createSpriteToy( %scopeSet )
 
 //-----------------------------------------------------------------------------
 
-function destroySpriteToy( %scopeSet )
+function SpriteToy::destroy( %this )
 {
 }
 

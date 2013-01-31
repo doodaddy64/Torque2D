@@ -20,14 +20,14 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createSphereStackToy( %scopeSet )
+function SphereStackToy::create( %this )
 {
       
 }
 
 //-----------------------------------------------------------------------------
 
-function destroySphereStackToy( %scopeSet )
+function SphereStackToy::destroy( %this )
 {   
        
 }

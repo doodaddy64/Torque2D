@@ -7,6 +7,6 @@
     Type="toy"
     ToyCategoryIndex="2"
     ScriptFile="main.cs"
-    CreateFunction="createBridgeToy"
-    DestroyFunction="destroyBridgeToy"/>
+    CreateFunction="create"
+    DestroyFunction="destroy"/>
 	

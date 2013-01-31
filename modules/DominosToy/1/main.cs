@@ -20,14 +20,14 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function createDominosToy( %scopeSet )
+function DominosToy::create( %this )
 {
       
 }
 
 //-----------------------------------------------------------------------------
 
-function destroyDominosToy( %scopeSet )
+function DominosToy::destroy( %this )
 {   
        
 }
