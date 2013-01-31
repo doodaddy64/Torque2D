@@ -22,8 +22,8 @@
 
 function PyramidToy::create( %this )
 {
-    $PyramidBrickCount = 15;
-    $GroundWidth = 150;
+    PyramidToy.BrickCount = 15;
+    PyramidToy.GroundWidth = 150;
     
     SandboxWindow.setCurrentCameraZoom( 2 );
     SandboxScene.setGravity( 0, -15 );
@@ -52,7 +52,7 @@ function PyramidToy::reset( %this )
     %this.createPyramidGround();
     
     // Create the pyramid.
-    %this.createPyramid(-15, -8, $PyramidBrickCount);    
+    %this.createPyramid(-15, -8, PyramidToy.BrickCount);    
 }
 
 //-----------------------------------------------------------------------------
@@ -62,10 +62,10 @@ function PyramidToy::createPyramidGround( %this )
     %ground = new Scroller();
     %ground.setBodyType( "static" );
     %ground.Image = "ToyAssets:woodGround";
-    %ground.setSize($GroundWidth, 2);
-    %ground.setRepeatX( $GroundWidth / 12 );   
+    %ground.setSize(PyramidToy.GroundWidth, 2);
+    %ground.setRepeatX( PyramidToy.GroundWidth / 12 );   
     %ground.setPosition(0, -10);
-    %ground.createEdgeCollisionShape( $GroundWidth/-2, 1, $GroundWidth/2, 1 );
+    %ground.createEdgeCollisionShape( PyramidToy.GroundWidth/-2, 1, PyramidToy.GroundWidth/2, 1 );
     SandboxScene.add( %ground );
 }
 
