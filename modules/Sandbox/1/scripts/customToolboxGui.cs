@@ -26,13 +26,21 @@ $customLabelSpacing = "18";
 $customOptionSpacing = "15";
 $customContainerExtent = "190 3";
 $containerXPosition = "0";
-$flagOptionExtent = "100 25";
-$buttonOptionExtent = "100 25";
+$flagOptionExtent = "180 35";
+$buttonOptionExtent = "180 35";
 $spinnerExtent = "22 25";
 $intOptionExtent = "80 25";
 $listOptionExtent = "180 25";
 $customControlCount = "0";
 $lastControlBottom = "0";
+
+//-----------------------------------------------------------------------------
+
+function resetCustomControls()
+{
+    $lastControlBottom = "0";
+    $customControlCount = 0;
+}
 
 //-----------------------------------------------------------------------------
 
@@ -362,7 +370,6 @@ function TextEditController::updateToy(%this)
 
 function addSelectionOption( %entries, %label, %callback, %shouldReset)
 {
-    //%entries, %label, %position, %extent, %shouldReset, %callback
     %customLabel = createCustomLabel(%label);
 
     %containerPosition = nextCustomControlPosition($customControlCount);
