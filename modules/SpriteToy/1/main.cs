@@ -26,7 +26,7 @@ function SpriteToy::create( %this )
     Sandbox.allowManipulation( pan );
     
     // Set the manipulation mode.
-    Sandbox.setManipulation( pan );
+    Sandbox.useManipulation( pan );
     
     // Reset the toy.
     SpriteToy.reset();
