@@ -35,7 +35,7 @@ function TumblerToy::create( %this )
     TumblerToy.currentBalls = 0;
 
     // Add the custom controls.
-    addIntegerOption("Number of balls", "10 40", "35 25", true, "setMaxBalls", TumblerToy.maxBalls);
+    addIntegerOption("Number of balls", 1, 200, "setMaxBalls", TumblerToy.maxBalls, true);
 
     // Reset the toy initially.
     TumblerToy.reset();
@@ -111,7 +111,7 @@ function TumblerToy::setMaxBalls(%this, %value)
 function TumblerToy::createBall(%this)
 {
     // Reset the event schedule.
-    %this.createTumblerBallSchedule = "";
+    %this.createBallScheduleId = "";
 
     // Fetch the stock color count.
     %stockColorCount = getStockColorCount();

@@ -1,7 +1,7 @@
 <ModuleDefinition
     ModuleId="SphereStackToy"
     VersionId="1"
-	Enabled="0"
+	Enabled="1"
     Description="Box2D Sphere Stack Test."
     Dependencies="ToyAssets=1"
     Type="toy"

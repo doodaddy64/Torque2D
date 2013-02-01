@@ -218,8 +218,11 @@ function initializeToolbox()
         }
     }
     SandboxWindow.add(MainOverlay);
-    %overlayPosition = ( getWord(SandboxWindow.Extent, 0) - 71) SPC (getWord(SandboxWindow.Extent, 1) - 71);
-    MainOverlay.position = %overlayPosition;
+    
+    %horizPosition = getWord(SandboxWindow.Extent, 0) - getWord(MainOverlay.Extent, 0);
+    %verticalPosition = getWord(SandboxWindow.Extent, 1) - getWord(MainOverlay.Extent, 1);
+    
+    MainOverlay.position = %horizPosition SPC %verticalPosition;
 }
 
 //-----------------------------------------------------------------------------
