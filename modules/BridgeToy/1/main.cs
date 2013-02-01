@@ -27,7 +27,7 @@ function BridgeToy::create(%this)
     Sandbox.allowManipulation( pull );
     
     // Set the manipulation mode.
-    Sandbox.useManipulation( pull );
+    Sandbox.useManipulation( pull );   
     
     BridgeToy.GroundWidth = 150;
     BridgeToy.maxProps = 3;
@@ -53,7 +53,7 @@ function BridgeToy::reset(%this)
     SandboxScene.clear();
     
     // Zoom the camera in    
-    SandboxWindow.setCurrentCameraZoom(2);
+    SandboxWindow.setCurrentCameraArea("-15 -15 15 15");
     
     // Prefer the collision option off as it severely affects the performance.
     setCollisionOption(false);
