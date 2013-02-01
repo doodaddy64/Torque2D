@@ -958,7 +958,6 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
         // DAW: Indices into the bitmap array
         const S32 NumBitmaps = 3;
         const S32 BorderLeft =     NumBitmaps * renderedBitmapIndex - NumBitmaps;
-        const S32 Fill =              1 + BorderLeft;
         const S32 BorderRight =       2 + BorderLeft;
 
       // align the horizontal
