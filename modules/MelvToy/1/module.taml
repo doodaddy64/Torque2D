@@ -7,5 +7,9 @@
 	ToyCategoryIndex="6"
 	ScriptFile="main.cs"
 	CreateFunction="create"
-	DestroyFunction="destroy"/>
-	
+	DestroyFunction="destroy">
+		<DeclaredAssets
+			Path="assets"
+			Extension="asset.taml"
+			Recurse="true"/>
+</ModuleDefinition>

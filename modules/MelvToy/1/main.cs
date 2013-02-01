@@ -31,16 +31,26 @@ function MelvToy::create( %this )
     setSandboxDragModeAvailable( "pull", true );
     
     // Set the drag mode.
-    setSandboxDragMode( "pull" );
-        
-    // Run test.
-    //runCompositeSpriteTest();
-    runParticleTest();
+    setSandboxDragMode( "pull" );   
     
+    // Reset the toy.
+    %this.reset();     
 }
 
 //-----------------------------------------------------------------------------
 
 function MelvToy::destroy( %this )
 {
+}
+
+//-----------------------------------------------------------------------------
+
+function MelvToy::reset( %this )
+{
+    // Clear the scene.
+    SandboxScene.clear();
+    
+    // Run test.
+    MelvToy.compositeSpriteTest();
+    //MelvToy.particleTest();     
 }

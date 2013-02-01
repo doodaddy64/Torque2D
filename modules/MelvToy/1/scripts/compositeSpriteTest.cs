@@ -20,62 +20,81 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function runCompositeSpriteTest()
+function MelvToy::compositeSpriteTest( %this )
 {
-    //createRectSprite();
-    createIsoSprite();
+    MelvToy.createOffSprite();
+    //MelvToy.createRectSprite();
+    //MelvToy.createIsoSprite();
+    //MelvToy.createCustomSprite();
+    
+	//TamlWrite( SandboxScene.CompositeSprite, "^MelvToy/composite.xml" );
+	//SandboxScene.CompositeSprite.delete();
+	//%newComposite = TamlRead( "^MelvToy/composite.xml" );
+	//SandboxScene.add( %newComposite );     
 }
 
-function createRectSprite()
+//-----------------------------------------------------------------------------
+
+function MelvToy::createOffSprite( %this )
 {
-    // Fetch the stock color count.
-    %stockColorCount = getStockColorCount();
-        
 	%composite = new CompositeSprite();
-	SandboxScene.add( %composite );
 	
     %composite.setDefaultSpriteStride( 10, 10 );
     %composite.setDefaultSpriteSize( 10 );    
     %composite.BatchLayout = "off";
 	%composite.BatchIsolated = "true";    
-	%composite.BatchSortMode = "-Y";
-    //%composite.setAngularVelocity( -10 );
 	
     for ( %y = -10; %y <= 10; %y++ )
 	{
 	    for ( %x = -10; %x <= 10; %x++ )
-        {
-                
-            %composite.addSprite( getRandom(-50,50) SPC getRandom(-37,37) );
+        {            
+            %composite.addSprite();
+            %composite.setSpriteLocalPosition( getRandom(-50,50), getRandom(-37,37) );
             %composite.setSpriteImage( "ToyAssets:Tiles", getRandom(0,15) );
-            //%composite.setSpriteName( "My Name is" SPC %x SPC %y );
             %composite.setSpriteAngle( getRandom(0,360) );
             %composite.setSpriteSize( getRandom(5,10), getRandom(5,10) );
-            //%composite.setSpriteRenderGroup( "melv" );
         }
-	}
-	
-	//TamlWrite( %composite, "^MelvToy/composite.xml" );
-	//%newComposite = TamlRead( "^MelvToy/composite.xml" );
-	//SandboxScene.add( %newComposite );    
+	}  
+	SandboxScene.add( %composite );
+	SandboxScene.CompositeSprite = %composite;
 }
 
 //-----------------------------------------------------------------------------
 
-function createIsoSprite()
+function MelvToy::createRectSprite( %this )
 {
-    // Fetch the stock color count.
-    %stockColorCount = getStockColorCount();
-        
 	%composite = new CompositeSprite();
+	
+    %composite.setDefaultSpriteStride( 10, 10 );
+    %composite.setDefaultSpriteSize( 10 );    
+    %composite.BatchLayout = "rect";
+	%composite.BatchIsolated = "true";    
+	
+    for ( %y = -10; %y <= 10; %y++ )
+	{
+	    for ( %x = -10; %x <= 10; %x++ )
+        {                
+            %composite.addSprite( %x SPC %y );
+            %composite.setSpriteImage( "ToyAssets:Tiles", getRandom(0,15) );
+            %composite.setSpriteAngle( getRandom(0,360) );
+            %composite.setSpriteSize( getRandom(5,10), getRandom(5,10) );
+        }
+	}
 	SandboxScene.add( %composite );
+	SandboxScene.CompositeSprite = %composite;
+}
+
+//-----------------------------------------------------------------------------
+
+function MelvToy::createIsoSprite( %this )
+{       
+	%composite = new CompositeSprite();
 	
     %composite.setDefaultSpriteStride( 25, 25 );
     %composite.setDefaultSpriteSize( 20 );    
     %composite.BatchLayout = "iso";
 	%composite.BatchIsolated = "true";    
 	%composite.BatchSortMode = "-Y";
-    //%composite.setAngularVelocity( -10 );
     %composite.DefaultSpriteSize = 8;
     %composite.DefaultSpriteStride = "4 2";
 	
@@ -85,22 +104,45 @@ function createIsoSprite()
         {
             %composite.addSprite( %x SPC %y );
             %composite.setSpriteImage( "MelvToy:isoTiles2", getRandom(0,4) );
-            //%composite.setSpriteName( "My Name is" SPC %x SPC %y );
-            //%composite.setSpriteAngle( getRandom(0,360) );
-            //%composite.setSpriteRenderGroup( "melv" );
-            //%composite.setSpriteBlendColor( getStockColorName(getRandom(0,%stockColorCount-1)) );
         }
 	}
 	
-	//TamlWrite( %composite, "^MelvToy/composite.xml" );
-	//%newComposite = TamlRead( "^MelvToy/composite.xml" );
-	//SandboxScene.add( %newComposite );    
+	SandboxScene.add( %composite );
+	SandboxScene.CompositeSprite = %composite;
+}
+
+//-----------------------------------------------------------------------------
+
+function MelvToy::createCustomSprite( %this )
+{
+	%composite = new CompositeSprite();
+	
+    %composite.setDefaultSpriteStride( 10, 10 );
+    %composite.setDefaultSpriteSize( 10 );    
+    %composite.BatchLayout = "custom";
+	%composite.BatchIsolated = "true";    
+	
+    for ( %y = -10; %y <= 10; %y++ )
+	{
+	    for ( %x = -10; %x <= 10; %x++ )
+        {                
+            %composite.addSprite(%x SPC %y);
+            %composite.setSpriteImage( "ToyAssets:Tiles", getRandom(0,15) );
+            %composite.setSpriteAngle( getRandom(0,360) );
+            %composite.setSpriteSize( getRandom(5,10), getRandom(5,10) );
+        }
+	}
+	SandboxScene.add( %composite );
+	SandboxScene.CompositeSprite = %composite;
 }
 
 //-----------------------------------------------------------------------------
 
 function CompositeSprite::onCustomLayout( %this, %args )
-{
+{    
+    if ( getWordCount(%args) == 0 )
+        return;
+
     %x = getWord( %args, 0 );
     %y = getWord( %args, 1 );
     

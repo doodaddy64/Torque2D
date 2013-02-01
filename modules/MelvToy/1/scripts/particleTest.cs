@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function runParticleTest()
+function MelvToy::particleTest( %this )
 {
     %particleAssetName = "Test";
     
