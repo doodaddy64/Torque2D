@@ -32,7 +32,7 @@ function BridgeToy::create(%this)
     BridgeToy.GroundWidth = 40;
     BridgeToy.maxDebris = 3;
     
-    addNumericOption("Amount of Debris", 0, 10, 1, "setMaxDebris", BridgeToy.maxDebris, true);
+    addNumericOption("Amount of Debris", 0, 50, 1, "setMaxDebris", BridgeToy.maxDebris, true);
     
     // Reset the toy initially.
     BridgeToy.reset();
@@ -211,6 +211,7 @@ function BridgeToy::createDebris(%this)
         %obj.setPosition(%randomPosition);
         %obj.setSize(1.5, 1.5);
         %obj.setDefaultFriction(1.0);
+        %obj.setDefaultDensity(0.1);
         %obj.createPolygonBoxCollisionShape(1.5, 1.5);
         %obj.setBullet( true );
         
