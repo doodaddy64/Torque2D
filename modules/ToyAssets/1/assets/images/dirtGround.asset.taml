@@ -1,4 +1,3 @@
 <ImageAsset
     AssetName="dirtyGround"
-    AssetCategory="sprites"
     ImageFile="@assetFile=#dirtGround.png" />
