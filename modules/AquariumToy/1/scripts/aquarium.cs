@@ -22,9 +22,9 @@
 
 function getFishAnimationList()
 {
-   %list = "AquariumToy:angelfish1Anim" SPC "AquariumToy:angelfish2Anim" SPC "AquariumToy:butterflyfishAnim";
-   %list = %list SPC "AquariumToy:pufferfishAnim" SPC "AquariumToy:rockfishAnim" SPC "AquariumToy:seahorseAnim";
-   %list = %list SPC "AquariumToy:triggerfish1Anim";
+   %list = "AquariumToy:angelfish1Anim" @ "," @ "AquariumToy:angelfish2Anim" @ "," @ "AquariumToy:butterflyfishAnim";
+   %list = %list @ "," @ "AquariumToy:pufferfishAnim" @ "," @ "AquariumToy:rockfishAnim" @ "," @ "AquariumToy:seahorseAnim";
+   %list = %list @ "," @ "AquariumToy:triggerfish1Anim";
 }
 
 //-----------------------------------------------------------------------------

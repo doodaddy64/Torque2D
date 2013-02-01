@@ -432,9 +432,9 @@ function addSelectionOption( %entries, %label, %callback, %shouldReset)
         bitmapBounds = "16 16";
     };
 
-    for (%i = 0; %i < getWordCount(%entries); %i++)
+    for (%i = 0; %i < getUnitCount(%entries, ","); %i++)
     {
-        %menu.add(getWord(%entries, %i), %i);
+        %menu.add(getUnit(%entries, %i, ","), %i);
     }
 
     %menu.setSelected(0);
