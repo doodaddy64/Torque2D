@@ -21,16 +21,16 @@
 //-----------------------------------------------------------------------------
 
 Sandbox.customLabelHeight = "15";
-Sandbox.customLabelWidth = "80";
+Sandbox.customLabelWidth = "220";
 Sandbox.customLabelSpacing = "18";
 Sandbox.customOptionSpacing = "15";
-Sandbox.customContainerExtent = "190 3";
+Sandbox.customContainerExtent = "250 3";
 Sandbox.containerXPosition = "0";
-Sandbox.flagOptionExtent = "180 35";
-Sandbox.buttonOptionExtent = "180 35";
+Sandbox.flagOptionExtent = "240 35";
+Sandbox.buttonOptionExtent = "240 35";
 Sandbox.spinnerExtent = "22 25";
-Sandbox.intOptionExtent = "80 25";
-Sandbox.listOptionExtent = "180 25";
+Sandbox.intOptionExtent = "196 25";
+Sandbox.listOptionExtent = "240 25";
 Sandbox.customControlCount = "0";
 Sandbox.lastControlBottom = "0";
 

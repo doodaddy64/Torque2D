@@ -14,7 +14,7 @@
         VertSizing="relative"
 		HorizSizing="relative"
         Position="960 697"
-        Extent="96 96">
+        Extent="71 71">
 
         <GuiImageButtonCtrl
             Name="ToolBoxCancelButton"
@@ -195,8 +195,8 @@
 			truncate="0" />
 		<GuiTextEditCtrl
             Name="ToyCategorySelectList"
-            Position="22 24"
-            Extent="120 25"
+            Position="22 18"
+            Extent="170 25"
             MinExtent="25 2"
             HorizSizing="relative"
             VertSizing="relative"
@@ -217,7 +217,7 @@
             Profile="GuiDefaultProfile"
             HorizSizing="relative"
             VertSizing="relative"
-            Position="0 24"
+            Position="0 18"
             Extent="22 25"
             MinExtent="8 2"
             canSave="1"
@@ -239,7 +239,7 @@
             Profile="GuiDefaultProfile"
             HorizSizing="relative"
             VertSizing="relative"
-            Position="142 24"
+            Position="192 18"
             Extent="22 25"
             MinExtent="8 2"
             canSave="1"
@@ -282,7 +282,7 @@
 			Profile="GuiTextProfile"
 			HorizSizing="relative"
 			VertSizing="relative"
-			Position="0 70"
+			Position="0 56"
 			Extent="70 18"
 			MinExtent="8 2"
 			canSave="1"
@@ -301,8 +301,8 @@
 			Profile="GuiPopUpMenuProfile"
 			HorizSizing="relative"
 			VertSizing="relative"
-			Position="0 84"
-			Extent="164 25"
+			Position="0 75"
+			Extent="214 25"
 			MinExtent="8 2"
 			canSave="1"
 			Visible="1"
