@@ -33,9 +33,11 @@ function TumblerToy::create( %this )
     TumblerToy.createBallScheduleId = "";
     TumblerToy.maxBalls = 100;
     TumblerToy.currentBalls = 0;
+    TumblerToy.MotorSpeed = 10;
 
     // Add the custom controls.
     addNumericOption("Number of balls", 10, 200, 10, "setMaxBalls", TumblerToy.maxBalls, true);
+    addNumericOption("Motor Speed", 0, 360, 10, "setMotorSpeed", TumblerToy.MotorSpeed, false );
 
     // Reset the toy initially.
     TumblerToy.reset();
@@ -77,14 +79,20 @@ function TumblerToy::reset(%this)
     SandboxScene.setGravity( 0, -39.8 );
     
     // Create the tumbler.
-    %tumbler = new SceneObject();
-    SandboxScene.add( %tumbler );
+    %tumbler = new Sprite();
+    %tumbler.Image = "ToyAssets:checkered";
+    %tumbler.BlendColor = "BlueViolet";
+    %tumbler.Size = 120.5;
+    %tumbler.setDefaultDensity( 0.1 );
     %tumbler.createPolygonBoxCollisionShape( 1, 50, 25, 0, 0 );
     %tumbler.createPolygonBoxCollisionShape( 1, 50, -25, 0, 0 );
     %tumbler.createPolygonBoxCollisionShape( 50, 1, 0, 25, 0 );
     %tumbler.createPolygonBoxCollisionShape( 50, 1, 0, -25, 0 );    
-    %tumberJoint = SandboxScene.createRevoluteJoint( %tumbler, 0, "0 0" );
-    SandboxScene.setRevoluteJointMotor( %tumberJoint, true, 15, 1000000 );
+    SandboxScene.add( %tumbler );
+
+    // Create the motor joint.    
+    TumblerToy.MotorJoint = SandboxScene.createRevoluteJoint( %tumbler, 0, "0 0" );
+    SandboxScene.setRevoluteJointMotor( TumblerToy.MotorJoint, true, TumblerToy.MotorSpeed, 1000000 );
 
     // Reset the ball count.    
     %this.currentBalls = 0;
@@ -105,6 +113,15 @@ function TumblerToy::setMaxBalls(%this, %value)
 
 //-----------------------------------------------------------------------------
 
+function TumblerToy::setMotorSpeed(%this, %value)
+{
+    TumblerToy.MotorSpeed = %value;
+    
+    SandboxScene.setRevoluteJointMotor( TumblerToy.MotorJoint, true, TumblerToy.MotorSpeed, 1000000 );
+}
+
+//-----------------------------------------------------------------------------
+
 function TumblerToy::createBall(%this)
 {
     // Reset the event schedule.
@@ -120,9 +137,9 @@ function TumblerToy::createBall(%this)
         %ball = new Sprite();
         %ball.Position = getRandom(-10,10) SPC "0";
         %ball.Size = "2";
-        %ball.Image = "ToyAssets:Football";        
+        %ball.Image = "ToyAssets:football";        
         %ball.setDefaultRestitution( 0.6 );
-        %collisionId = %ball.createCircleCollisionShape( 1 );
+        %ball.createCircleCollisionShape( 1 );
         SandboxScene.add( %ball );
 
         // Increase ball count.
