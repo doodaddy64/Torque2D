@@ -91,7 +91,7 @@ function AquariumToy::spawnFish(%this)
 
     %position = getRandom(-55, 55) SPC getRandom(-20, 20);
     %index = getRandom(0, 5);
-    %anim = getWord(getFishAnimationList(), %index);
+    %anim = getUnit(getFishAnimationList(), %index, ",");
 
     %fishInfo = getFishSize(%anim);
 
