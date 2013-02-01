@@ -214,7 +214,7 @@
 			maxLength="255"
 			truncate="0" />
 		<GuiTextEditCtrl
-            Name="ToyCategorySelectListTwo"
+            Name="ToyCategorySelectList"
             Position="22 24"
             Extent="120 25"
             MinExtent="25 25"
@@ -225,12 +225,13 @@
             shouldResetToy="0"
             callback="switchCategory"
             isContainer="0"
-            active="0"
+            active="1"
             Profile="GuiSpinnerProfile"
             tooltipprofile="GuiToolTipProfile"
             hovertime="1000" />
         <GuiImageButtonCtrl
             Name="CategoryDownButton"
+            command="ToyCategorySelectList.previousCategory();"
             canSaveDynamicFields="0"
             isContainer="0"
             Profile="GuiDefaultProfile"
@@ -252,6 +253,7 @@
             InactiveImage="@asset=Sandbox:minusButtonInactive" />
         <GuiImageButtonCtrl
             Name="CategoryUpButton"
+            command="ToyCategorySelectList.nextCategory();"
             canSaveDynamicFields="0"
             isContainer="0"
             Profile="GuiDefaultProfile"
@@ -263,9 +265,6 @@
             canSave="1"
             Visible="1"
             Active="1"
-            tooltipprofile="GuiToolTipProfile"
-            ToolTip="Set the Frames per Second between 1 and 60 to adjust the speed of the Animation."
-            hovertime="1000"
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="0"
@@ -274,7 +273,7 @@
             DownImage="@asset=Sandbox:plusButtonDown"
             InactiveImage="@asset=Sandbox:plusButtonInactive" />
 
-        <!--  Toy Selection Scrollbox -->
+        <!--  Toy Selection Scrollbox
         <GuiScrollCtrl
             Name="ToyScrollerContainer"
             canSaveDynamicFields="1"
@@ -293,29 +292,7 @@
             hScrollBar="dynamic"
             vScrollBar="dynamic"
             constantThumbHeight="0"
-            childMargin="2 3" />
-		<GuiPopUpMenuCtrl
-			Name="ToyCategorySelectList"
-			canSaveDynamicFields="0"
-			isContainer="0"
-			Profile="GuiPopUpMenuProfile"
-			HorizSizing="relative"
-			VertSizing="relative"
-			Position="2000 24"
-			Extent="180 25"
-			MinExtent="8 2"
-			canSave="1"
-			Visible="0"
-			Active="0"
-			hovertime="1000"
-			toolTipProfile="GuiToolTipProfile"
-			toolTip="Selects the toy category to play with."
-			tooltipWidth="250"
-			maxLength="1024"
-			maxPopupHeight="200"
-			sbUsesNAColor="0"
-			reverseTextList="0"
-			bitmapBounds="16 16" />
+            childMargin="2 3" />      -->
 			
 		<!-- Toy Selection -->
 		<GuiTextCtrl
@@ -344,12 +321,12 @@
 			Profile="GuiPopUpMenuProfile"
 			HorizSizing="relative"
 			VertSizing="relative"
-			Position="2000 84"
+			Position="0 84"
 			Extent="157 25"
 			MinExtent="8 2"
 			canSave="1"
-			Visible="0"
-			Active="0"
+			Visible="1"
+			Active="1"
 			hovertime="1000"
 			toolTipProfile="GuiToolTipProfile"
 			toolTip="Selects the toy to play with."

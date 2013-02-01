@@ -25,6 +25,133 @@ $defaultToySelected = false;
 
 //-----------------------------------------------------------------------------
 
+function ToyCategorySelectList::onSelect(%this)
+{
+    // Fetch the index.
+    %index = %this.currentToyCategory;
+
+    // Clear the toy GUI list.
+    ToySelectList.clear();
+
+    // Unload the active toy.
+    unloadToy();
+
+    // Fetch the toy count.
+    %toyCount = SandboxToys.getCount();
+
+    // Populate toys in the selected category.
+    for ( %toyIndex = 0; %toyIndex < %toyCount; %toyIndex++ )
+    {
+        // Fetch the toy module.
+        %moduleDefinition = SandboxToys.getObject( %toyIndex );
+
+        // Skip the toy module if the "all" category is not selected and if the toy is not in the selected category.
+        if ( %index != $toyAllCategoryIndex && %moduleDefinition.ToyCategoryIndex != %index )
+            continue;
+
+        // Fetch the module version.
+        %versionId = %moduleDefinition.versionId;
+
+        // Format module title so that version#1 doesn't show version but all other versions do.
+        if ( %versionId == 1 )
+            %moduleTitle = %moduleDefinition.moduleId;
+        else
+            %moduleTitle = %moduleDefinition.moduleId SPC "(v" @ %moduleDefinition.versionId @ ")";
+
+        // Add the toy GUI list.
+        ToySelectList.add( %moduleTitle, %moduleDefinition.getId() );
+
+        // Select the toy if it's the default and we've not selected a toy yet.
+        if (    !$defaultToySelected &&
+                %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId &&
+                %moduleDefinition.versionId == $pref::Sandbox::defaultToyVersionId )
+        {
+            ToySelectList.setSelected( %moduleDefinition.getId() );
+            $defaultToySelected = true;
+        }
+    }
+    ToySelectList.sort();
+
+    // Flag as the default toy selected.
+    $defaultToySelected = true;
+
+    // Was a toy selected?
+    if ( ToySelectList.getSelected() == 0 )
+    {
+        // No, so are there any toys to select?
+        if ( ToySelectList.size() > 0 )
+        {
+            // Yes, so select the first one.
+            ToySelectList.setFirstSelected();
+        }
+        else
+        {
+            // No, so recreate the sandbox scene just in-case any previous toy has left remenants.
+            createSandboxScene();
+        }
+    }
+
+    // Fetch whether a toy is selected or not.
+    %toySelected = ToySelectList.getSelected() != 0;
+
+    // (De)activate the toy selection and reloading appropriately.
+    ToySelectLabel.Active = %toySelected;
+    ToySelectList.Active = %toySelected;
+    ReloadToyButton.Active = %toySelected;
+}
+
+//-----------------------------------------------------------------------------
+
+function ToyCategorySelectList::initialize(%this)
+{
+     %this.toyCategories[$toyAllCategoryIndex] = "All";
+     %this.toyCategories[$toyAllCategoryIndex+1] = "Physics";
+     %this.toyCategories[$toyAllCategoryIndex+2] = "Features";
+     %this.toyCategories[$toyAllCategoryIndex+3] = "Stress Testing";
+     %this.toyCategories[$toyAllCategoryIndex+4] = "Fun";
+     %this.toyCategories[$toyAllCategoryIndex+5] = "Development";
+     %this.toyCategories[$toyAllCategoryIndex+6] = "Miscellaneous";
+     %this.maxToyCategories = $toyAllCategoryIndex + 6;
+
+     // Set the "All" category as the default.
+     // NOTE:    This is important to use so that the user-configurable default toy
+     //          can be selected at start-up.
+     %this.currentToyCategory = $toyAllCategoryIndex;
+
+     %this.setText("All");
+     %this.onSelect();
+}
+
+//-----------------------------------------------------------------------------
+
+function ToyCategorySelectList::nextCategory(%this)
+{
+    if (%this.currentToyCategory >= %this.maxToyCategories)
+        return;
+
+    %this.currentToyCategory++;
+
+    %text = %this.toyCategories[%this.currentToyCategory];
+    %this.setText(%text);
+    %this.onSelect();
+}
+
+//-----------------------------------------------------------------------------
+
+function ToyCategorySelectList::previousCategory(%this)
+{
+    if (%this.currentToyCategory <= $toyAllCategoryIndex)
+        return;
+
+    %this.currentToyCategory--;
+
+    %text = %this.toyCategories[%this.currentToyCategory];
+    %this.setText(%text);
+    %this.onSelect();
+}
+
+//-----------------------------------------------------------------------------
+
 function initializeToolbox()
 {   
     // Populate the stock colors.
@@ -42,21 +169,9 @@ function initializeToolbox()
             BackgroundColorSelectList.setSelected( %i );
     }
     BackgroundColorSelectList.sort();
-    
-    // Populate the toy categories.
-    ToyCategorySelectList.add( "All", $toyAllCategoryIndex );
-    ToyCategorySelectList.add( "Physics", $toyAllCategoryIndex+1 );
-    ToyCategorySelectList.add( "Features", $toyAllCategoryIndex+2 );
-    ToyCategorySelectList.add( "Stress Testing", $toyAllCategoryIndex+3 );
-    ToyCategorySelectList.add( "Fun", $toyAllCategoryIndex+4 );
-    ToyCategorySelectList.add( "Development", $toyAllCategoryIndex+5 );
-    ToyCategorySelectList.add( "Miscellaneous", $toyAllCategoryIndex+6 );
-    
-    // Set the "All" category as the default.
-    // NOTE:    This is important to use so that the user-configurable default toy
-    //          can be selected at start-up.
-    ToyCategorySelectList.setSelected( $toyAllCategoryIndex );
-       
+
+    ToyCategorySelectList.initialize();
+
     // Is this on the desktop?
     if ( $platform $= "windows" || $platform $= "macos" )
     {
@@ -136,83 +251,6 @@ function toggleToolbox(%make)
 
     MainOverlay.setVisible(0);
     Canvas.pushDialog(ToolboxDialog);
-}
-
-//-----------------------------------------------------------------------------
-
-function ToyCategorySelectList::onSelect(%this)
-{
-    // Fetch the index.
-    %index = %this.getSelected();
-
-    // Clear the toy GUI list.    
-    ToySelectList.clear();
-    
-    // Unload the active toy.
-    unloadToy();   
-
-    // Fetch the toy count.
-    %toyCount = SandboxToys.getCount();
-
-    // Populate toys in the selected category.
-    for ( %toyIndex = 0; %toyIndex < %toyCount; %toyIndex++ )
-    {
-        // Fetch the toy module.
-        %moduleDefinition = SandboxToys.getObject( %toyIndex );
-
-        // Skip the toy module if the "all" category is not selected and if the toy is not in the selected category.
-        if ( %index != $toyAllCategoryIndex && %moduleDefinition.ToyCategoryIndex != %index )
-            continue;
-
-        // Fetch the module version.
-        %versionId = %moduleDefinition.versionId;
-
-        // Format module title so that version#1 doesn't show version but all other versions do.
-        if ( %versionId == 1 )
-            %moduleTitle = %moduleDefinition.moduleId;
-        else
-            %moduleTitle = %moduleDefinition.moduleId SPC "(v" @ %moduleDefinition.versionId @ ")";
-        
-        // Add the toy GUI list.
-        ToySelectList.add( %moduleTitle, %moduleDefinition.getId() );
-        
-        // Select the toy if it's the default and we've not selected a toy yet.
-        if (    !$defaultToySelected &&
-                %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId &&
-                %moduleDefinition.versionId == $pref::Sandbox::defaultToyVersionId )
-        {
-            ToySelectList.setSelected( %moduleDefinition.getId() );
-            $defaultToySelected = true;
-        }
-    }
-    ToySelectList.sort();
-    
-    // Flag as the default toy selected.
-    $defaultToySelected = true;
-   
-    // Was a toy selected?
-    if ( ToySelectList.getSelected() == 0 )
-    {
-        // No, so are there any toys to select?
-        if ( ToySelectList.size() > 0 )
-        {
-            // Yes, so select the first one.
-            ToySelectList.setFirstSelected();
-        }
-        else
-        {
-            // No, so recreate the sandbox scene just in-case any previous toy has left remenants.
-            createSandboxScene();
-        }        
-    }
-    
-    // Fetch whether a toy is selected or not.
-    %toySelected = ToySelectList.getSelected() != 0;
-    
-    // (De)activate the toy selection and reloading appropriately.
-    ToySelectLabel.Active = %toySelected;
-    ToySelectList.Active = %toySelected;
-    ReloadToyButton.Active = %toySelected;
 }
 
 //-----------------------------------------------------------------------------

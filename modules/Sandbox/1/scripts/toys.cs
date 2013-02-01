@@ -95,7 +95,9 @@ function unloadToy()
         
     // Delete any custom controls added by the toy.
     ToyCustomControls.deleteObjects();
-                   
+
+    resetCustomControls();
+
     // Unload the toy.
     if ( !ModuleDatabase.unloadExplicit( Sandbox.ActiveToy.moduleId ) )
     {
