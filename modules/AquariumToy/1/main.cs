@@ -24,15 +24,15 @@ function AquariumToy::create( %this )
 {
     exec("./scripts/aquarium.cs");
 
+    // Configure settings.
     AquariumToy.createFishScheduleId = "";
     AquariumToy.maxFish = 10;
     AquariumToy.currentFish = 0;
     AquariumToy.selectedAnimation = "AquariumToy:angelfish1Anim";
 
-    addIntegerOption("Max Fish", 0, 50, "setMaxFish", %this.maxFish, false);
+    addIntegerOption("Max Fish", 0, 50, "setMaxFish", %this.maxFish, true);
     addSelectionOption(getFishAnimationList(), "Fish Animation", "setSelectedAnimation", false);
     addButtonOption("Spawn fish", "spawnOneFish", false);
-    addButtonOption("Reset?", "reset", false);
 
     // Reset the toy initially.
     AquariumToy.reset();

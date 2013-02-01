@@ -13,7 +13,7 @@
         Profile="GuiDefaultProfile"
         VertSizing="relative"
 		HorizSizing="relative"
-        Position="928 672"
+        Position="960 697"
         Extent="96 96">
 
         <GuiImageButtonCtrl
@@ -25,7 +25,7 @@
             HorizSizing="relative"
             VertSizing="relative"
             Position="0 0"
-            Extent="96 96"
+            Extent="71 71"
             MinExtent="8 2"
             canSave="1"
             Visible="1"
@@ -34,9 +34,9 @@
             groupNum="-1"
             buttonType="PushButton"
             useMouseEvents="1"
-            NormalImage="@asset=Sandbox:backBtnNormal"
-            HoverImage="@asset=Sandbox:backBtnHover"
-            DownImage="@asset=Sandbox:backBtnDown" />
+            NormalImage="@asset=Sandbox:homeIconNormal"
+            HoverImage="@asset=Sandbox:homeIconHover"
+            DownImage="@asset=Sandbox:homeIconDown" />
     </GuiControl>
 	
 	<!-- Background and Resolution Panel -->
