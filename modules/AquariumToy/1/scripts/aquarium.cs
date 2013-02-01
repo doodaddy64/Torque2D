@@ -24,7 +24,7 @@ function getFishAnimationList()
 {
    %list = "AquariumToy:angelfish1Anim" @ "," @ "AquariumToy:angelfish2Anim" @ "," @ "AquariumToy:butterflyfishAnim";
    %list = %list @ "," @ "AquariumToy:pufferfishAnim" @ "," @ "AquariumToy:rockfishAnim" @ "," @ "AquariumToy:seahorseAnim";
-   %list = %list @ "," @ "AquariumToy:triggerfish1Anim";
+   %list = %list @ "," @ "AquariumToy:triggerfish1Anim" @ "," @ "AquariumToy:eelAnim";
 }
 
 //-----------------------------------------------------------------------------
@@ -53,6 +53,9 @@ function getFishSize(%anim)
         
         case "AquariumToy:triggerfish1Anim":
         %fishInfo = "15 15";
+
+        case "AquariumToy:eelAnim":
+        %fishInfo = "7.5 3.75";
     }
 
     return %fishInfo;

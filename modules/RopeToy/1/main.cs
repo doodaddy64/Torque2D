@@ -112,6 +112,7 @@ function RopeToy::createRope(%this, %posX, %posY)
     {
         %obj = new Sprite();
         %obj.setImage( "ToyAssets:cable" );
+        %obj.setSceneLayer(1);
         %obj.setPosition( %posX, %posY - (%n*%linkHeight) );
         %obj.setSize( %linkWidth, %linkHeight );
         %obj.setDefaultDensity( 0.4 );
