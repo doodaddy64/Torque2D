@@ -127,8 +127,8 @@ function setSceneToWindow()
     // Update the toolbox options.
     updateToolboxOptions();
     
-    // reset the sandbox drag modes.
-    resetSandboxDragModes();       
+    // reset the sandbox manipulation modes.
+    Sandbox.resetManipulationModes();       
 }
 
 //-----------------------------------------------------------------------------

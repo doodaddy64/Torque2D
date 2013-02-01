@@ -23,11 +23,11 @@
 function SphereStackToy::create( %this )
 {
     // Set the sandbox drag mode availability.
-    setSandboxDragModeAvailable( "pan", true );
-    setSandboxDragModeAvailable( "pull", true );
+    Sandbox.allowManipulation( "pan" );
+    Sandbox.allowManipulation( "pull" );
     
-    // Set the drag mode.
-    setSandboxDragMode( "pull" );
+    // Set the manipulation mode.
+    Sandbox.useManipulation( "pull" );
     
     // Initialize the toys settings.
     SphereStackToy.maxBalls = 5;
@@ -74,7 +74,7 @@ function SphereStackToy::reset(%this)
     SandboxScene.setGravity( 0, -20 );
     
     // Set the drag mode as "pull".
-    setSandboxDragMode( "pull" );
+    Sandbox.useManipulation( "pull" );
     
     // Reset the ball count.    
     %this.currentBalls = 0;

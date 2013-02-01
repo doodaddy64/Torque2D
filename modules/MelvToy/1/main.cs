@@ -27,11 +27,11 @@ function MelvToy::create( %this )
     exec( "./scripts/particleTest.cs" );
     
     // Set the sandbox drag mode availability.
-    setSandboxDragModeAvailable( "pan", true );
-    setSandboxDragModeAvailable( "pull", true );
+    Sandbox.allowManipulation( "pan" );
+    Sandbox.allowManipulation( "pull" );
     
-    // Set the drag mode.
-    setSandboxDragMode( "pull" );   
+    // Set the manipulation mode.
+    Sandbox.useManipulation( "pull" );   
     
     // Reset the toy.
     %this.reset();     

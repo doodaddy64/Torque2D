@@ -23,11 +23,11 @@
 function PyramidToy::create( %this )
 {
     // Set the sandbox drag mode availability.
-    setSandboxDragModeAvailable( "pan", true );
-    setSandboxDragModeAvailable( "pull", true );
+    Sandbox.allowManipulation( "pan" );
+    Sandbox.allowManipulation( "pull" );
     
-    // Set the drag mode.
-    setSandboxDragMode( "pull" );
+    // Set the manipulation mode.
+    Sandbox.useManipulation( "pull" );
     
     // Configure the toy.
     PyramidToy.BrickCount = 15;
@@ -40,7 +40,7 @@ function PyramidToy::create( %this )
     SandboxScene.setGravity( 0, -15 );
         
     // Set the sandbox drag mode.
-    setSandboxDragMode( "pull" ); 
+    Sandbox.useManipulation( "pull" ); 
     
     // Reset the toy.
     PyramidToy.reset();

@@ -20,48 +20,58 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-// Sandbox touch-drag modes are:
+// Sandbox manipulation modes are:
 // - Off
 // - Camera
 // - Pull
-Sandbox.DragMode = "off";
+Sandbox.ManipulationMode = "off";
 
 // Reset the sandbox pull object.
 Sandbox.PullObject = "";
 Sandbox.PullJointId = "";
-
 Sandbox.PullMaxForce = 1000;
 
 //-----------------------------------------------------------------------------
 
-GlobalActionMap.bind( keyboard, "space", setNextDragMode );
+GlobalActionMap.bind( keyboard, "space", cycleManipulation );
 
 //-----------------------------------------------------------------------------
 
-function resetSandboxDragModes()
+function Sandbox::resetManipulationModes( %this )
 {   
     // These control which drag modes are available or not.
-    Sandbox.DragModeAvailable["off"] = true;
-    Sandbox.DragModeAvailable["camera"] = false;
-    Sandbox.DragModeAvailable["pull"] = false;
+    Sandbox.ManipulationModeState["off"] = true;
+    Sandbox.ManipulationModeState["camera"] = false;
+    Sandbox.ManipulationModeState["pull"] = false;
     
     // Set the sandbox drag mode default.
-    setSandboxDragMode( "off" ); 
+    Sandbox.useManipulation( "off" ); 
 }
 
 //-----------------------------------------------------------------------------
 
-function setSandboxDragMode( %mode )
+function Sandbox::allowManipulation( %this, %mode )
+{
+    // Cannot turn-off the "off" manipulation.
+    if ( %mode $= "off" )
+        return;
+        
+    Sandbox.ManipulationModeState[%mode] = %status;    
+}
+
+//-----------------------------------------------------------------------------
+
+function Sandbox::useManipulation( %this, %mode )
 {
     // Is the drag mode available?
-    if ( %mode !$= "off" && !Sandbox.DragModeAvailable[%mode] )
+    if ( %mode !$= "off" && !Sandbox.ManipulationModeState[%mode] )
     {
         // No, so warn.
         error( "Cannot set sandbox drag mode to " @ %mode @ " as it is currently disabled." );
         return;
     }
     
-    Sandbox.DragMode = %mode;
+    Sandbox.ManipulationMode = %mode;
     
     // Reset pulled object and joint.
     Sandbox.PullObject = "";    
@@ -74,48 +84,41 @@ function setSandboxDragMode( %mode )
 
 //-----------------------------------------------------------------------------
 
-function setNextDragMode( %make )
+function cycleManipulation( %make )
 {
     // Finish if being released.
     if ( !%make )
         return;
 
     // "off" to "camera" transition.
-    if ( Sandbox.DragMode $= "off" )
+    if ( Sandbox.ManipulationMode $= "off" )
     {
-        if ( Sandbox.DragModeAvailable["camera"] )
+        if ( Sandbox.ManipulationModeState["camera"] )
         {
-            setSandboxDragMode("camera");
+            Sandbox.useManipulation("camera");
             return;
         }
         
-        Sandbox.DragMode = "camera";
+        Sandbox.ManipulationMode = "camera";
     }      
     
     // "camera" to "pull" transition.
-    if ( Sandbox.DragMode $= "camera" )
+    if ( Sandbox.ManipulationMode $= "camera" )
     {
-        if ( Sandbox.DragModeAvailable["pull"] )
+        if ( Sandbox.ManipulationModeState["pull"] )
         {
-            setSandboxDragMode("pull");
+            Sandbox.useManipulation("pull");
             return;
         }
             
-        Sandbox.DragMode = "pull";
+        Sandbox.ManipulationMode = "pull";
     }
 
     // "pull" to "off" transition.
-    if ( Sandbox.DragMode $= "pull" )
+    if ( Sandbox.ManipulationMode $= "pull" )
     {
-        setSandboxDragMode("off");
+        Sandbox.useManipulation("off");
     }          
-}
-
-//-----------------------------------------------------------------------------
-
-function setSandboxDragModeAvailable( %mode, %status )
-{
-    Sandbox.DragModeAvailable[%mode] = %status;    
 }
 
 //-----------------------------------------------------------------------------
@@ -123,14 +126,14 @@ function setSandboxDragModeAvailable( %mode, %status )
 function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 {
     // Finish if the drag mode is off.
-    if ( Sandbox.DragMode $= "off" )
+    if ( Sandbox.ManipulationMode $= "off" )
         return;
     
     // Set touch event.
     Sandbox.TouchEvent[%touchID] = %worldPos;
        
     // Handle "pull" mode.
-    if ( Sandbox.DragMode $= "pull" )
+    if ( Sandbox.ManipulationMode $= "pull" )
     {
         // Pick an object.
         %picked = SandboxScene.pickPoint( %worldPos );
@@ -152,14 +155,14 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 function SandboxWindow::onTouchUp(%this, %touchID, %worldPos)
 {
     // Finish if the drag mode is off.
-    if ( Sandbox.DragMode $= "off" )
+    if ( Sandbox.ManipulationMode $= "off" )
         return;
 
     // Reset touch event.
     Sandbox.TouchEvent[%touchID] = "";
     
     // Handle "pull" mode.
-    if ( Sandbox.DragMode $= "pull" )
+    if ( Sandbox.ManipulationMode $= "pull" )
     {
         // Finish if nothing is being pulled.
         if ( !isObject(Sandbox.PullObject) )
@@ -176,7 +179,7 @@ function SandboxWindow::onTouchUp(%this, %touchID, %worldPos)
 function SandboxWindow::onTouchMoved(%this, %touchID, %worldPos)
 {
     // Finish if the drag mode is off.
-    if ( Sandbox.DragMode $= "off" )
+    if ( Sandbox.ManipulationMode $= "off" )
         return;
 }
 
@@ -185,11 +188,11 @@ function SandboxWindow::onTouchMoved(%this, %touchID, %worldPos)
 function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
 {
     // Finish if the drag mode is off.
-    if ( Sandbox.DragMode $= "off" )
+    if ( Sandbox.ManipulationMode $= "off" )
         return;
 
     // Handle "camera" mode.
-    if ( Sandbox.DragMode $= "camera" )
+    if ( Sandbox.ManipulationMode $= "camera" )
     {
         // Fetch touch event.
         %lastWorldPos = Sandbox.TouchEvent[%touchID];
@@ -212,7 +215,7 @@ function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
     }
     
     // Handle "pull" mode.
-    if ( Sandbox.DragMode $= "pull" )
+    if ( Sandbox.ManipulationMode $= "pull" )
     {
         // Finish if nothing is being pulled.
         if ( !isObject(Sandbox.PullObject) )
@@ -228,7 +231,7 @@ function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
 function SandboxWindow::onMouseWheelUp(%this, %modifier, %mousePoint, %mouseClickCount)
 {
     // Finish if the drag mode is not "camera".
-    if ( !Sandbox.DragMode $= "camera" )
+    if ( !Sandbox.ManipulationMode $= "camera" )
         return;
         
     // Increase the zoom.
@@ -240,7 +243,7 @@ function SandboxWindow::onMouseWheelUp(%this, %modifier, %mousePoint, %mouseClic
 function SandboxWindow::onMouseWheelDown(%this, %modifier, %mousePoint, %mouseClickCount)
 {
     // Finish if the drag mode is not "camera".
-    if ( !Sandbox.DragMode $= "camera" )
+    if ( !Sandbox.ManipulationMode $= "camera" )
         return;
 
     // Increase the zoom.
