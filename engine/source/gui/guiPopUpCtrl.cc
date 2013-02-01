@@ -827,6 +827,8 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
    if(mScrollDir != GuiScrollCtrl::None)
       autoScroll();
 
+   S32 renderedBitmapIndex = 1;
+
    RectI r(offset, mBounds.extent);
     if(mProfile->mBitmapArrayRects.size() >= 4)
     {
@@ -851,6 +853,7 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
       {
          // Render the fixed, filled in border
          renderFixedBitmapBordersStretchYFilled(r, 3, mProfile);
+         renderedBitmapIndex = 3;
       } 
       else
       {
@@ -893,6 +896,7 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
          {
             // Render the fixed, filled in border
             renderFixedBitmapBordersStretchYFilled(r, 2, mProfile);
+            renderedBitmapIndex = 2;
 
          } else
          {
@@ -924,6 +928,7 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
          {
             // Render the fixed, filled in border
             renderFixedBitmapBordersStretchYFilled(r, 1, mProfile);
+            renderedBitmapIndex = 1;
 
          } else
          {
@@ -950,6 +955,12 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
       localStart.x = 0;
       localStart.y = (mBounds.extent.y - (mFont->getHeight())) / 2;
 
+        // DAW: Indices into the bitmap array
+        const S32 NumBitmaps = 3;
+        const S32 BorderLeft =     NumBitmaps * renderedBitmapIndex - NumBitmaps;
+        const S32 Fill =              1 + BorderLeft;
+        const S32 BorderRight =       2 + BorderLeft;
+
       // align the horizontal
       switch (mProfile->mAlignment)
       {
@@ -959,7 +970,7 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
             // We're making use of a bitmap border, so take into account the
             // right cap of the border.
             RectI* mBitmapBounds = mProfile->mBitmapArrayRects.address();
-            localStart.x = mBounds.extent.x - mBitmapBounds[2].extent.x - txt_w;
+            localStart.x = mBounds.extent.x - mBitmapBounds[BorderRight].extent.x - txt_w;
 
          } else
          {
@@ -967,12 +978,24 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
          }
          break;
       case GuiControlProfile::CenterJustify:
+
          if(mProfile->mProfileForChildren && mProfile->mBitmapArrayRects.size())
          {
-            // We're making use of a bitmap border, so take into account the
-            // right cap of the border.
             RectI* mBitmapBounds = mProfile->mBitmapArrayRects.address();
-            localStart.x = (mBounds.extent.x - mBitmapBounds[2].extent.x - txt_w) / 2;
+
+             // GuiControlProfile::LeftJustify
+             if(txt_w > (mBounds.extent.x - mBitmapBounds[BorderLeft].extent.x - mBitmapBounds[BorderRight].extent.x) )
+             {
+                // We're making use of a bitmap border, so take into account the
+                // right cap of the border.
+                localStart.x = mBounds.extent.x - mBitmapBounds[BorderRight].extent.x - txt_w;
+             }
+             else
+             {
+                // We're making use of a bitmap border, so take into account the
+                // right cap of the border.
+                localStart.x = mBitmapBounds[BorderLeft].extent.x + ((mBounds.extent.x - mBitmapBounds[BorderLeft].extent.x - mBitmapBounds[BorderRight].extent.x - txt_w) / 2);
+             }
 
          } else
          {
@@ -980,27 +1003,30 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
          }
          break;
       default:
-         // GuiControlProfile::LeftJustify
-         if(txt_w > mBounds.extent.x)
-         {
-            // DAW: The width of the text is greater than the width of the control.
-            // In this case we will right justify the text and leave some space
-            // for the down arrow.
-            if(mProfile->mProfileForChildren && mProfile->mBitmapArrayRects.size())
-            {
-               // We're making use of a bitmap border, so take into account the
-               // right cap of the border.
-               RectI* mBitmapBounds = mProfile->mBitmapArrayRects.address();
-               localStart.x = mBounds.extent.x - mBitmapBounds[2].extent.x - txt_w;
+        // DAW: The width of the text is greater than the width of the control.
+        // In this case we will right justify the text and leave some space
+        // for the down arrow.
+        if(mProfile->mProfileForChildren && mProfile->mBitmapArrayRects.size())
+        {
+            RectI* mBitmapBounds = mProfile->mBitmapArrayRects.address();
 
-            } else
-            {
-               localStart.x = mBounds.extent.x - txt_w - 12;
-            }
-         } else
-         {
-            localStart.x = mProfile->mTextOffset.x; // DAW: Use mProfile->mTextOffset as a controlable margin for the control's text.
-         }
+             // GuiControlProfile::LeftJustify
+             if(txt_w > (mBounds.extent.x - mBitmapBounds[BorderLeft].extent.x - mBitmapBounds[BorderRight].extent.x) )
+             {
+                // We're making use of a bitmap border, so take into account the
+                // right cap of the border.
+                RectI* mBitmapBounds = mProfile->mBitmapArrayRects.address();
+                localStart.x = mBounds.extent.x - mBitmapBounds[BorderRight].extent.x - txt_w;
+             }
+             else
+             {
+                 localStart.x = mBitmapBounds[BorderLeft].extent.x;
+             }
+
+        } else
+        {
+            localStart.x = mBounds.extent.x - txt_w - 12;
+        }
          break;
       }
 
@@ -1022,6 +1048,17 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
       ColorI fontColor   = mActive ? (mInAction ? mProfile->mFontColorNA : mProfile->mFontColor) : mProfile->mFontColorNA;
 
       dglSetBitmapModulation(fontColor); // DAW: was: (mProfile->mFontColor);
+
+
+        // Save the clip rectangle.
+        const RectI previousClipRect = dglGetClipRect();
+      
+        // Set a text rendering clip rectangle when we're using bitmap edges.
+        if( mProfile->mProfileForChildren && mProfile->mBitmapArrayRects.size() )
+        {
+            RectI* mBitmapBounds = mProfile->mBitmapArrayRects.address();
+            dglSetClipRect( RectI( r.point.x + mBitmapBounds[BorderLeft].extent.x, r.point.y, r.extent.x - mBitmapBounds[BorderLeft].extent.x - mBitmapBounds[BorderRight].extent.x, r.extent.y ) );
+        }
 
       // DAW: Get the number of columns in the text
       S32 colcount = getColumnCount(mText, "\t");
@@ -1056,6 +1093,9 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
       {
          dglDrawText(mFont, globalStart, mText, mProfile->mFontColors);
       }
+
+      // Restore the clip rectangle.
+      dglSetClipRect( previousClipRect );
 
       // If we're rendering a bitmap border, then it will take care of the arrow.
       if(!(mProfile->mProfileForChildren && mProfile->mBitmapArrayRects.size()))
