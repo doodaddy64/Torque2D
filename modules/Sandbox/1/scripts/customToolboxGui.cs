@@ -227,7 +227,7 @@ function ButtonController::updateToy(%this)
 
 //-----------------------------------------------------------------------------
 
-function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shouldReset)
+function addIntegerOption( %label, %min, %max, %step, %callback, %startingValue, %shouldReset)
 {
     %customLabel = createCustomLabel(%label);
 
@@ -254,6 +254,7 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
     {
         Action = "decrease";
         Class = "SpinnerController";
+        Step = %step;
         HorizSizing = "relative";
         VertSizing = "relative";
         canSaveDynamicFields = "0";
@@ -283,6 +284,8 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
         Position = %controlPosition;
         HorizSizing = "relative";
         VertSizing = "relative";
+        min = %min;
+        max = %max;
         Text = %startingValue;
         Extent = Sandbox.intOptionExtent;
         toy = Sandbox.ActiveToy.ScopeSet;
@@ -303,6 +306,7 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
         HorizSizing = "relative";
         VertSizing = "relative";
         Class = "SpinnerController";
+        Step = %step;
         canSaveDynamicFields = "0";
         isContainer = "0";
         Profile = "GuiDefaultProfile";
@@ -346,16 +350,16 @@ function SpinnerController::updateTarget(%this)
 {
     %target = %this.target;
 
-    if (%this.action $= "increase")
+    if (%this.action $= "increase" && %target.getText() < %target.max)
     {
         %value = %target.getText();
-        %value++;
+        %value += %this.step;
         %target.setText(%value);
     }
-    else if (%this.action $= "decrease")
+    else if (%this.action $= "decrease" && %target.getText() > %target.min)
     {
         %value = %target.getText();
-        %value--;
+        %value -= %this.step;
         %target.setText(%value);
     }
     else

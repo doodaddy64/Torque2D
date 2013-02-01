@@ -29,7 +29,7 @@ function RotateToToy::create( %this )
     RotateToToy.rotateTime = 1000;
 
     // Add the custom controls.
-    addIntegerOption("Rotate time", 10, 1000, "setRotateTime", RotateToToy.rotateTime, true);
+    addIntegerOption("Rotate time", 10, 100, 10, "setRotateTime", RotateToToy.rotateTime, true);
     
     // Reset the toy initially.
     RotateToToy.reset();      

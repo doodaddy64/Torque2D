@@ -36,7 +36,7 @@ function SphereStackToy::create( %this )
     SphereStackToy.GroundWidth = 150;
     
     // Add the custom controls.
-    addIntegerOption("Number of balls", 1, 10, "setMaxBalls", SphereStackToy.maxBalls, true);
+    addIntegerOption("Number of balls", 1, 10, 1, "setMaxBalls", SphereStackToy.maxBalls, true);
 
     // Reset the toy initially.
     SphereStackToy.reset();
