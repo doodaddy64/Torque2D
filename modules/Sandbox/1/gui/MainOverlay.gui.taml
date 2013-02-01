@@ -29,7 +29,7 @@
         useMouseEvents="1"
         toolTipProfile="GuiToolTipProfile"
         toolTip="Show toolbox."			
-        NormalImage="@asset=Sandbox:toolsIconNormal"
-        HoverImage="@asset=Sandbox:toolsIconHover"
-        DownImage="@asset=Sandbox:toolsIconDown" />
+        NormalImage="@asset=Sandbox:builderIconNormal"
+        HoverImage="@asset=Sandbox:builderIconHover"
+        DownImage="@asset=Sandbox:builderIconDown" />
 </GuiControl>
