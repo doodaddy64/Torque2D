@@ -265,8 +265,9 @@ U32 SpriteBatch::addSprite( const SpriteBatchItem::LogicalPosition& logicalPosit
     if ( mSelectedSprite == NULL )
         return 0;
 
-    // Insert into sprite positions.
-    mSpritePositions.insert( logicalPosition, mSelectedSprite );
+    // Insert logical position into sprite positions if it's valid.
+    if ( logicalPosition.isValid() )
+        mSpritePositions.insert( logicalPosition, mSelectedSprite );
 
     // Flag local extents as dirty.
     setLocalExtentsDirty();
@@ -285,8 +286,10 @@ bool SpriteBatch::removeSprite( void )
     if ( !checkSpriteSelected() )
         return false;
 
-    // Remove the sprite position.
-    mSpritePositions.erase( mSelectedSprite->getLogicalPosition() );
+    // Remove the sprite logical position if it's valid.
+    const SpriteBatchItem::LogicalPosition& logicalPosition = mSelectedSprite->getLogicalPosition();
+    if ( logicalPosition.isValid() )
+        mSpritePositions.erase( mSelectedSprite->getLogicalPosition() );
 
     // Fetch and remove any sprite name.
     StringTableEntry spriteName = mSelectedSprite->getName();
@@ -949,6 +952,10 @@ SpriteBatchItem* SpriteBatch::findSpritePosition( const SpriteBatchItem::Logical
     // Debug Profiling.
     PROFILE_SCOPE(SpriteBatch_FindSpritePosition);
 
+    // Invalid logical positions are not stored.
+    if ( !logicalPosition.isValid() )
+        return NULL;
+
     // Find sprite.
     typeSpritePositionHash::iterator spriteItr = mSpritePositions.find( logicalPosition );
 
@@ -992,30 +999,42 @@ SpriteBatchItem* SpriteBatch::createSprite( const SpriteBatchItem::LogicalPositi
     // Debug Profiling.
     PROFILE_SCOPE(SpriteBatch_CreateSpriteAtLogicalPosition);
 
+    // Reset sprite batch item.
+    SpriteBatchItem* pSpriteBatchItem = NULL;
+
     // Do we have a valid logical position?
-    if ( logicalPosition.getArgCount() != 2 )
+    if ( logicalPosition.isValid() )        
     {
-        // No, so warn.
-        Con::warnf( "Invalid logical position specified for composite sprite." );
-        return NULL;
-    }
+        // Does it have the correct argument count?
+        if ( logicalPosition.getArgCount() != 2 )
+        {
+            // No, so warn.
+            Con::warnf( "Invalid logical position specified for composite sprite." );
+            return NULL;
+        }
 
-    // Does the sprite already exist?
-    if ( findSpritePosition( logicalPosition ) != NULL )
+        // Does the sprite already exist?
+        if ( findSpritePosition( logicalPosition ) != NULL )
+        {
+            // Yes, so warn.
+            Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", logicalPosition.getString() );
+            return NULL;
+        }
+
+        // Create the sprite.
+        pSpriteBatchItem = createSprite();
+
+        // Set the logical position.
+        pSpriteBatchItem->setLogicalPosition( logicalPosition );
+
+        // Set the sprite default local position.
+        pSpriteBatchItem->setLocalPosition( logicalPosition.getAsVector2() );
+    }
+    else
     {
-        // Yes, so warn.
-        Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", logicalPosition.getString() );
-        return NULL;
+        // Create the sprite.
+        pSpriteBatchItem = createSprite();
     }
-
-    // Create the sprite.
-    SpriteBatchItem* pSpriteBatchItem = createSprite();
-
-    // Set sprite key.
-    pSpriteBatchItem->setLogicalPosition( logicalPosition );
-
-    // Set the sprite default position.
-    pSpriteBatchItem->setLocalPosition( logicalPosition.getAsVector2() );
 
     // Set the sprite default size and angle.
     pSpriteBatchItem->setSize( getDefaultSpriteSize() );

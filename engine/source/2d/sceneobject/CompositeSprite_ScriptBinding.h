@@ -20,12 +20,16 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(CompositeSprite, addSprite, S32, 3, 3,    "( a b [c] [d] [e] [f] ) - Adds a sprite at the specified logical position.\n"
+ConsoleMethod(CompositeSprite, addSprite, S32, 2, 3,    "( [a] [b] [c] [d] [e] [f] ) - Adds a sprite at the specified logical position.\n"
+                                                        "You must specify the correct number of arguments for the selected layout mode.\n"
                                                         "The created sprite will be automatically selected.\n"
                                                         "@param a b c d e f Logical positions #1 & #2 and four additional and optional arguments.\n"
                                                         "@return The batch Id of the added sprite or zero if not successful." )
 {
-    return object->addSprite( SpriteBatchItem::LogicalPosition(argv[2]) );
+    if ( argc == 2 )
+        return object->addSprite( SpriteBatchItem::LogicalPosition() );
+    else
+        return object->addSprite( SpriteBatchItem::LogicalPosition(argv[2]) );
 }
 
 //-----------------------------------------------------------------------------

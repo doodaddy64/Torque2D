@@ -339,33 +339,38 @@ SpriteBatchItem* CompositeSprite::createSpriteIsometricLayout( const SpriteBatch
 
 SpriteBatchItem* CompositeSprite::createCustomLayout( const SpriteBatchItem::LogicalPosition& logicalPosition )
 {
-    // Does the sprite position already exist?
-    if ( findSpritePosition( logicalPosition ) != NULL )
+    // Do we have a valid logical position?
+    if ( logicalPosition.isValid() )        
     {
-        // Yes, so warn.
-        Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", logicalPosition.getString() );
-        return NULL;
+        // Does the sprite already exist?
+        if ( findSpritePosition( logicalPosition ) != NULL )
+        {
+            // Yes, so warn.
+            Con::warnf( "Cannot add sprite at logical position '%s' as one already exists.", logicalPosition.getString() );
+            return NULL;
+        }
     }
-
-    // Retrieve the local position from the custom layout callback.
-    const char* pLocalPosition = Con::executef(this, 2, "onCustomLayout", logicalPosition.getString() );
-
-    // Finish if no local position returned.
-    if ( pLocalPosition == NULL )
-        return NULL;
 
     // Create the sprite.
     SpriteBatchItem* pSpriteBatchItem = SpriteBatch::createSprite();
 
-    // Set sprite logical position.
-    pSpriteBatchItem->setLogicalPosition( logicalPosition );
+    // Set sprite logical position if it's valid.
+    if ( logicalPosition.isValid() )
+        pSpriteBatchItem->setLogicalPosition( logicalPosition );
 
-    // Set the local position.
-    Vector2 position(0.0f, 0.0f);
-    Con::setData( TypeVector2, &position, 0, 1, &pLocalPosition );
+    // Retrieve the local position from the custom layout callback.
+    const char* pLocalPosition = Con::executef(this, 2, "onCustomLayout", logicalPosition.getString() );
 
-    // Set the sprite default position.
-    pSpriteBatchItem->setLocalPosition( position );
+    // Was a local position returned.
+    if ( pLocalPosition != NULL && dStrlen(pLocalPosition) != 0 )
+    {
+        // Fetch the local position.
+        Vector2 position(0.0f, 0.0f);
+        Con::setData( TypeVector2, &position, 0, 1, &pLocalPosition );
+
+        // Set the sprite default position.
+        pSpriteBatchItem->setLocalPosition( position );
+    }
 
     // Set the sprite default size and angle.
     pSpriteBatchItem->setSize( getDefaultSpriteSize() );

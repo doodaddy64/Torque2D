@@ -54,13 +54,22 @@ public:
     {
         const static S32 MAX_ARGUMENTS = 6;
 
-        LogicalPosition() :
-            mArgCount( 0 ),
-            mArgString( StringTable->EmptyString ) {}
-
-        LogicalPosition( const char* pLogicalPositionArgs ) :
-            mArgString( StringTable->EmptyString )
+        LogicalPosition()
         {
+            resetState();
+        }
+
+        LogicalPosition( const char* pLogicalPositionArgs )
+        {
+            // Sanity!
+            AssertFatal( pLogicalPositionArgs != NULL, "LogicalPosition() - Cannot use NULL position arguments." );
+
+            resetState();
+
+            // Finish if no position arguments were specified.
+            if ( dStrlen(pLogicalPositionArgs) == 0 )
+                return;
+
             // Fetch argument count.
             const char* pLogicalPositionSeparator = ",\t ";
             mArgCount = (S32)StringUnit::getUnitCount( pLogicalPositionArgs, pLogicalPositionSeparator );
