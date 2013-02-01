@@ -197,7 +197,7 @@
             Name="ToyCategorySelectList"
             Position="22 24"
             Extent="120 25"
-            MinExtent="25 25"
+            MinExtent="25 2"
             HorizSizing="relative"
             VertSizing="relative"
             Text=" "
