@@ -84,6 +84,16 @@ function RopeToy::setMaxLinks(%this, %value)
 
 function RopeToy::createRope(%this, %posX, %posY)
 {
+    // Swinging box
+    %box = new Sprite();
+    %box.setUseInputEvents(true);
+    %box.setImage( "ToyAssets:crate" );
+    %box.setPosition( %crateX, %crateY );
+    %box.setSize( 1.5 );
+    %box.setDefaultFriction( 1.0 );
+    %box.createPolygonBoxCollisionShape( 1.5, 1.5 );
+    SandboxScene.add( %box );
+
     %linkWidth = 0.25;
     %linkHeight = %linkWidth * 2;
     %halfLinkHeight = %linkHeight * 0.4;
@@ -109,7 +119,7 @@ function RopeToy::createRope(%this, %posX, %posY)
         %obj.createPolygonBoxCollisionShape( %linkWidth, %linkHeight );
         %obj.setAngularDamping( 0.1 );
         %obj.setLinearDamping( 0.1 );
-
+        %obj.setUseInputEvents(true);
         SandboxScene.add( %obj );   
 
         //SandboxScene.createRopeJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, 0.01, false );
@@ -118,17 +128,7 @@ function RopeToy::createRope(%this, %posX, %posY)
         %lastLinkObj = %obj;
     }
 
-    // Swinging box
-    %box = new Sprite();
-    %box.setUseInputEvents(true);
-    %box.setImage( "ToyAssets:crate" );
-    %box.setPosition( %lastLinkObj.getPositionX(), %lastLinkObj.getPositionY() );
-    %box.setSize( 1.5 );
-    %box.setDefaultFriction( 1.0 );
-    %box.createPolygonBoxCollisionShape( 1.5, 1.5 );
-
-    SandboxScene.add( %box );
-
     SandboxScene.createRevoluteJoint( %lastLinkObj, %box, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
     SandboxScene.createRopeJoint(%box, %rootObj, 0, 0, 0, 0, 7, false);
+    %lastLinkObj.setAwake(false);
 }
