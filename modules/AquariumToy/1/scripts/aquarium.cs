@@ -152,15 +152,27 @@ function createAquariumEffects()
     %obj.setBodyType( "static" );
     %obj.setImage( "AquariumToy:wave" );
     %obj.setPosition( 0, 0 );
-    %obj.setScrollX(1);
-    %obj.setSize( 200, 75 );
-    %obj.setRepeatX( 1 );   
+    %obj.setScrollX(2);
+    %obj.setSize( 100, 75 );
+    %obj.setRepeatX( 0.2 );   
     %obj.setSceneLayer( 0 );
     %obj.setSceneGroup( 0 );
     %obj.setCollisionSuppress();
     %obj.setAwake( false );
     %obj.setActive( false );
     SandboxScene.add( %obj );
+
+    // Add the bubbles particle.
+    %bubbles= new ParticlePlayer();
+    %bubbles.Particle = "AquariumToy:Bubbles";
+    %bubbles.setPosition( 0, -38 );
+    %bubbles.setSceneLayer(4);
+    SandboxScene.add( %bubbles );   
+    
+    // Add the caustics particle.
+    %caustics = new ParticlePlayer();
+    %caustics.Particle = "AquariumToy:Caustics";
+    SandboxScene.add( %caustics ); 
 }
 
 //-----------------------------------------------------------------------------

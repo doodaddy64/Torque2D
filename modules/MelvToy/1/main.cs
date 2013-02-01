@@ -51,6 +51,6 @@ function MelvToy::reset( %this )
     SandboxScene.clear();
     
     // Run test.
-    MelvToy.compositeSpriteTest();
-    //MelvToy.particleTest();     
+    //MelvToy.compositeSpriteTest();
+    MelvToy.particleTest();     
 }

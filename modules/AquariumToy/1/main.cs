@@ -32,7 +32,7 @@ function AquariumToy::create( %this )
 
     addNumericOption("Max Fish", 0, 50, 1, "setMaxFish", %this.maxFish, true);
     addSelectionOption(getFishAnimationList(), "Fish Animation", "setSelectedAnimation", false);
-    addButtonOption("Spawn fish", "spawnOneFish", false);
+    addButtonOption("Spawn fish", "spawnOneFish", false);  
 
     // Reset the toy initially.
     AquariumToy.reset();
