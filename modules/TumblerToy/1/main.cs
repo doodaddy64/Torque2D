@@ -35,7 +35,7 @@ function TumblerToy::create( %this )
     TumblerToy.currentBalls = 0;
 
     // Add the custom controls.
-    addIntegerOption("Number of balls", 10, 200, 10, "setMaxBalls", TumblerToy.maxBalls, true);
+    addNumericOption("Number of balls", 10, 200, 10, "setMaxBalls", TumblerToy.maxBalls, true);
 
     // Reset the toy initially.
     TumblerToy.reset();

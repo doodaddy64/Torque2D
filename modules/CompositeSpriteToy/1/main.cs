@@ -41,7 +41,7 @@ function CompositeSpriteToy::create( %this )
 
     // Add the configuration options.
     addSelectionOption( "None,Rectilinear,Isometric,Custom", "Layout Mode", "setLayoutMode", true );
-    addIntegerOption("Angular Velocity", -180, 180, 20, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, false );
+    addNumericOption("Angular Velocity", -180, 180, 20, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, false );
         
     // Reset the toy.
     %this.reset();     

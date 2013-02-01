@@ -227,7 +227,7 @@ function ButtonController::updateToy(%this)
 
 //-----------------------------------------------------------------------------
 
-function addIntegerOption( %label, %min, %max, %step, %callback, %startingValue, %shouldReset)
+function addNumericOption( %label, %min, %max, %step, %callback, %startingValue, %shouldReset)
 {
     %customLabel = createCustomLabel(%label);
 
@@ -361,11 +361,6 @@ function SpinnerController::updateTarget(%this)
         %value = %target.getText();
         %value -= %this.step;
         %target.setText(%value);
-    }
-    else
-    {
-        error("!!! SpinnerController " @ %this @ " not assigned an action!");
-        return;
     }
 
     %target.updateToy();

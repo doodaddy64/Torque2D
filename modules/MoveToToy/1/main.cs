@@ -29,7 +29,7 @@ function MoveToToy::create( %this )
     MoveToToy.moveTime = 1000;
 
     // Add the custom controls.
-    addIntegerOption("Move time", 10, 1000, 10, "setMoveTime", MoveToToy.moveTime, true);
+    addNumericOption("Move time", 10, 1000, 10, "setMoveTime", MoveToToy.moveTime, true);
 
     // Reset the toy initially.
     MoveToToy.reset();        
