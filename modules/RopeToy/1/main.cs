@@ -29,11 +29,9 @@ function RopeToy::create( %this )
     // Set the manipulation mode.
     Sandbox.useManipulation( pull );   
     
-    RopeToy.GroundWidth = 150;
+    RopeToy.GroundWidth = 80;
     RopeToy.maxLinks = 16;
-    
-    addNumericOption("Max rope length", 0, RopeToy.maxLinks, 1, "setmaxLinks", RopeToy.maxLinks, true);
-    
+
     // Reset the toy initially.
     RopeToy.reset();
 }
@@ -59,7 +57,7 @@ function RopeToy::reset(%this)
     setCollisionOption(false);
     
     // Set the scene gravity.
-    SandboxScene.setGravity(0, -20);
+    SandboxScene.setGravity(0, -9.8);
     
     // Create the ground
     %ground = new Scroller();
@@ -72,7 +70,7 @@ function RopeToy::reset(%this)
     SandboxScene.add(%ground);
     
     // Create the chain
-    %this.createRope(0, 0);
+    %this.createRope(0, 2);
 }
 
 //-----------------------------------------------------------------------------
@@ -86,6 +84,16 @@ function RopeToy::setMaxLinks(%this, %value)
 
 function RopeToy::createRope(%this, %posX, %posY)
 {
+    // Swinging box
+    %box = new Sprite();
+    %box.setUseInputEvents(true);
+    %box.setImage( "ToyAssets:crate" );
+    %box.setPosition( %crateX, %crateY );
+    %box.setSize( 1.5 );
+    %box.setDefaultFriction( 1.0 );
+    %box.createPolygonBoxCollisionShape( 1.5, 1.5 );
+    SandboxScene.add( %box );
+
     %linkWidth = 0.25;
     %linkHeight = %linkWidth * 2;
     %halfLinkHeight = %linkHeight * 0.4;
@@ -114,11 +122,13 @@ function RopeToy::createRope(%this, %posX, %posY)
         %obj.setUseInputEvents(true);
         SandboxScene.add( %obj );   
 
-        SandboxScene.createRopeJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, 0.01, false );
-        //SandboxScene.createRevoluteJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );        
+        //SandboxScene.createRopeJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, 0.01, false );
+        SandboxScene.createRevoluteJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
 
         %lastLinkObj = %obj;
     }
 
+    SandboxScene.createRevoluteJoint( %lastLinkObj, %box, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
+    SandboxScene.createRopeJoint(%box, %rootObj, 0, 0, 0, 0, 7, false);
     %lastLinkObj.setAwake(false);
 }
