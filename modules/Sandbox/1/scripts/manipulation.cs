@@ -22,7 +22,7 @@
 
 // Sandbox manipulation modes are:
 // - Off
-// - Camera
+// - Pan
 // - Pull
 Sandbox.ManipulationMode = "off";
 
@@ -41,7 +41,7 @@ function Sandbox::resetManipulationModes( %this )
 {   
     // These control which drag modes are available or not.
     Sandbox.ManipulationModeState["off"] = true;
-    Sandbox.ManipulationModeState["camera"] = false;
+    Sandbox.ManipulationModeState["pan"] = false;
     Sandbox.ManipulationModeState["pull"] = false;
     
     // Set the sandbox drag mode default.
@@ -91,20 +91,20 @@ function cycleManipulation( %make )
     if ( !%make )
         return;
 
-    // "off" to "camera" transition.
+    // "off" to "pan" transition.
     if ( Sandbox.ManipulationMode $= "off" )
     {
-        if ( Sandbox.ManipulationModeState["camera"] )
+        if ( Sandbox.ManipulationModeState["pan"] )
         {
-            Sandbox.useManipulation("camera");
+            Sandbox.useManipulation("pan");
             return;
         }
         
-        Sandbox.ManipulationMode = "camera";
+        Sandbox.ManipulationMode = "pan";
     }      
     
-    // "camera" to "pull" transition.
-    if ( Sandbox.ManipulationMode $= "camera" )
+    // "pan" to "pull" transition.
+    if ( Sandbox.ManipulationMode $= "pan" )
     {
         if ( Sandbox.ManipulationModeState["pull"] )
         {
@@ -192,8 +192,8 @@ function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
     if ( Sandbox.ManipulationMode $= "off" )
         return;
 
-    // Handle "camera" mode.
-    if ( Sandbox.ManipulationMode $= "camera" )
+    // Handle "pan" mode.
+    if ( Sandbox.ManipulationMode $= "pan" )
     {
         // Fetch touch event.
         %lastWorldPos = Sandbox.TouchEvent[%touchID];
@@ -224,6 +224,8 @@ function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
               
         // Set a new target for the target joint.
         SandboxScene.setTargetJointTarget( Sandbox.ManipulationPullJointId, %worldPos );
+        
+        return;
     }
 }
 
@@ -231,8 +233,8 @@ function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
 
 function SandboxWindow::onMouseWheelUp(%this, %modifier, %mousePoint, %mouseClickCount)
 {
-    // Finish if the drag mode is not "camera".
-    if ( !Sandbox.ManipulationMode $= "camera" )
+    // Finish if the drag mode is not "pan".
+    if ( !Sandbox.ManipulationMode $= "pan" )
         return;
         
     // Increase the zoom.
@@ -243,8 +245,8 @@ function SandboxWindow::onMouseWheelUp(%this, %modifier, %mousePoint, %mouseClic
 
 function SandboxWindow::onMouseWheelDown(%this, %modifier, %mousePoint, %mouseClickCount)
 {
-    // Finish if the drag mode is not "camera".
-    if ( !Sandbox.ManipulationMode $= "camera" )
+    // Finish if the drag mode is not "pan".
+    if ( !Sandbox.ManipulationMode $= "pan" )
         return;
 
     // Increase the zoom.
