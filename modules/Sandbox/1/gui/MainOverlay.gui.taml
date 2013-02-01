@@ -4,13 +4,13 @@
     HorizSizing="left"
     VertSizing="top"
     Position="0 0"
-    Extent="136 71"
+    Extent="1024 71"
     MinExtent="71 71"
     Visible="1">
-
-    <!-- Show Toolbox -->
+	
+	<!-- Manipulation Mode-->
     <GuiImageButtonCtrl
-        Name="ToggleToolboxButton"
+        Name="ManipulationModeButton"
         command="toggleToolbox(true);"
         canSaveDynamicFields="0"
         isContainer="0"
@@ -27,20 +27,20 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="1"
-        NormalImage="@asset=Sandbox:builderIconNormal"
-        HoverImage="@asset=Sandbox:builderIconHover"
-        DownImage="@asset=Sandbox:builderIconDown" />
-		
-	<!-- Show Toolbox -->
+        NormalImage="@asset=Sandbox:helpIconNormal"
+        HoverImage="@asset=Sandbox:helpIconHover"
+        DownImage="@asset=Sandbox:helpIconDown" />	
+
+    <!-- Show Toolbox -->
     <GuiImageButtonCtrl
-        Name="ToggleToolboxButtonTwo"
+        Name="ToggleToolboxButton"
         command="toggleToolbox(true);"
         canSaveDynamicFields="0"
         isContainer="0"
         Profile="GuiDefaultProfile"
         HorizSizing="relative"
         VertSizing="relative"
-        Position="65 0"
+        Position="953 0"
         Extent="71 71"
         MinExtent="8 2"
         canSave="1"
@@ -50,7 +50,8 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="1"
-        NormalImage="@asset=Sandbox:helpIconNormal"
-        HoverImage="@asset=Sandbox:helpIconHover"
-        DownImage="@asset=Sandbox:helpIconDown" />
+        NormalImage="@asset=Sandbox:toolsIconNormal"
+        HoverImage="@asset=Sandbox:toolsIconHover"
+        DownImage="@asset=Sandbox:toolsIconDown" />
+		
 </GuiControl>

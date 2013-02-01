@@ -1,0 +1,3 @@
+<ImageAsset
+    AssetName="toolsIconNormal"
+    ImageFile="@assetFile=#toolsIconNormal.png" />

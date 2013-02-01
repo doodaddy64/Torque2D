@@ -1,4 +1,4 @@
-<GuiControl
+<GuiSpriteCtrl
     Name="ToolboxDialog"
     Profile="GuiToolboxProfile"
     HorizSizing="relative"
@@ -6,7 +6,9 @@
     Position="0 0"
     Extent="1024 768"
     MinExtent="320 320"
-    Visible="1">
+    Visible="1"
+	Image="@asset=Sandbox:largeContainer"
+	>
 	
 	<!-- Close Toolbox -->
     <GuiControl
@@ -634,4 +636,4 @@
             useMouseEvents="0"
             useInactiveState="0" />
 	</GuiControl>			
-</GuiControl>
+</GuiSpriteCtrl>
