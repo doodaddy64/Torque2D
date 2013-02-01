@@ -27,8 +27,6 @@
 Sandbox.ManipulationMode = "off";
 
 // Reset the sandbox pull object.
-Sandbox.ManipulationPullObject = "";
-Sandbox.ManipulationPullJointId = "";
 Sandbox.ManipulationPullMaxForce = 1000;
 
 //-----------------------------------------------------------------------------
@@ -136,18 +134,39 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
     // Handle "pull" mode.
     if ( Sandbox.ManipulationMode $= "pull" )
     {
+        // Reset the pull
+        Sandbox.ManipulationPullObject[%touchID] = "";
+        Sandbox.ManipulationPullJointId[%touchID] = "";
+        
         // Pick an object.
         %picked = SandboxScene.pickPoint( %worldPos );
         
         // Finish if nothing picked.
         if ( %picked $= "" )
             return;
-            
-        // Fetch the first object only.
-        Sandbox.ManipulationPullObject = getWord( %picked, 0 );
         
-        // Create the target joint.
-        Sandbox.ManipulationPullJointId = SandboxScene.createTargetJoint( Sandbox.ManipulationPullObject, %worldPos, Sandbox.ManipulationPullMaxForce );
+        // Fetch the pick count.
+        %pickCount = getWordCount( %picked );
+        
+        for( %n = 0; %n < %pickCount; %n++ )
+        {
+            // Fetch the picked object.
+            %pickedObject = getWord( %picked, %n );
+            
+            // Skip if the object is static.
+            if ( %pickedObject.getBodyType() $= "static" )
+                continue;
+                
+            // Skipp if the object is ignoring being picked.
+            if ( %pickedObject.ignorePick )
+                continue;
+                
+            // Set the pull object.
+            Sandbox.ManipulationPullObject[%touchID] = %pickedObject;
+            Sandbox.ManipulationPullJointId[%touchID] = SandboxScene.createTargetJoint( %pickedObject, %worldPos, Sandbox.ManipulationPullMaxForce );            
+        }
+        
+        return;
     }    
 }
 
@@ -164,14 +183,19 @@ function SandboxWindow::onTouchUp(%this, %touchID, %worldPos)
     
     // Handle "pull" mode.
     if ( Sandbox.ManipulationMode $= "pull" )
-    {
+    {       
         // Finish if nothing is being pulled.
-        if ( !isObject(Sandbox.ManipulationPullObject) )
+        if ( !isObject(Sandbox.ManipulationPullObject[%touchID]) )
             return;
         
+        // Reset the pull object.
+        Sandbox.ManipulationPullObject[%touchID] = "";
+        
         // Remove the pull joint.
-        SandboxScene.deleteJoint( Sandbox.ManipulationPullJointId );
-        Sandbox.ManipulationPullJointId = "";
+        SandboxScene.deleteJoint( Sandbox.ManipulationPullJointId[%touchID] );
+        Sandbox.ManipulationPullJointId[%touchID] = "";
+        
+        return;
     }      
 }
 
@@ -219,11 +243,11 @@ function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
     if ( Sandbox.ManipulationMode $= "pull" )
     {
         // Finish if nothing is being pulled.
-        if ( !isObject(Sandbox.ManipulationPullObject) )
+        if ( !isObject(Sandbox.ManipulationPullObject[%touchID]) )
             return;
               
         // Set a new target for the target joint.
-        SandboxScene.setTargetJointTarget( Sandbox.ManipulationPullJointId, %worldPos );
+        SandboxScene.setTargetJointTarget( Sandbox.ManipulationPullJointId[%touchID], %worldPos );
         
         return;
     }

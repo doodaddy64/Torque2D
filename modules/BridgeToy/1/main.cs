@@ -29,10 +29,10 @@ function BridgeToy::create(%this)
     // Set the manipulation mode.
     Sandbox.useManipulation( pull );   
     
-    BridgeToy.GroundWidth = 150;
-    BridgeToy.maxProps = 3;
+    BridgeToy.GroundWidth = 40;
+    BridgeToy.maxDebris = 3;
     
-    addNumericOption("Number of props", 0, 10, 1, "setMaxProps", BridgeToy.maxProps, true);
+    addNumericOption("Amount of Debris", 0, 10, 1, "setMaxDebris", BridgeToy.maxDebris, true);
     
     // Reset the toy initially.
     BridgeToy.reset();
@@ -53,52 +53,94 @@ function BridgeToy::reset(%this)
     SandboxScene.clear();
     
     // Zoom the camera in    
-    SandboxWindow.setCurrentCameraArea("-15 -15 15 15");
+    SandboxWindow.setCurrentCameraArea("-20 -15 20 15");
     
     // Prefer the collision option off as it severely affects the performance.
     setCollisionOption(false);
     
     // Set the scene gravity.
-    SandboxScene.setGravity(0, -20);
+    SandboxScene.setGravity(0, -9.8);
+
+    // Create a background.
+    %this.createBackground();
+                
+    // Create the links for the bridge
+    %this.createBridge(-12.5, -1, 52);
     
+    // Add some debris
+    %this.createDebris();
+    
+    // Create the left side of the bridge
+    %this.createBase(-13, 0, 0);
+    
+    // Create the right side of the bridge
+    %this.createBase(13, 0, 0);
+        
+    // Create the grund.
+    %this.createGround();   
+}
+
+//-----------------------------------------------------------------------------
+
+function BridgeToy::createBackground( %this )
+{    
+    // Create the scroller.
+    %object = new Sprite();
+    
+    // Set the sprite as "static" so it is not affected by gravity.
+    %object.setBodyType( static );
+       
+    // Always try to configure a scene-object prior to adding it to a scene for best performance.
+
+    // Set the position.
+    %object.Position = "0 0";
+
+    // Set the size.        
+    %object.Size = "40 30";
+    
+    // Set to the furthest background layer.
+    %object.SceneLayer = 31;
+    
+    // Set the scroller to use an animation!
+    %object.Image = "ToyAssets:jungleSky";
+            
+    // Add the sprite to the scene.
+    SandboxScene.add( %object );    
+}
+
+//-----------------------------------------------------------------------------
+
+function BridgeToy::createGround( %this )
+{
     // Create the ground
     %ground = new Scroller();
     %ground.setBodyType("static");
-    %ground.Image = "ToyAssets:woodGround";
-    %ground.setSize(BridgeToy.GroundWidth, 2);
+    %ground.Image = "ToyAssets:dirtGround";
+    %ground.setPosition(0, -12);
+    %ground.setSize(BridgeToy.GroundWidth, 6);
     %ground.setRepeatX(BridgeToy.GroundWidth / 12);   
-    %ground.setPosition(0, -10);
-    %ground.createEdgeCollisionShape(BridgeToy.GroundWidth/-2, 1, BridgeToy.GroundWidth/2, 1);
-    SandboxScene.add(%ground);
+    %ground.createEdgeCollisionShape(BridgeToy.GroundWidth/-2, 3, BridgeToy.GroundWidth/2, 3);
+    SandboxScene.add(%ground);  
     
-    // Create the left side of the bridge
-    %this.createBase(-12, -6.5, -90);
-    
-    // Create the right side of the bridge
-    %this.createBase(11.5, -6.5, -90);
-    
-    // Create the links for the bridge
-    %this.createBridge(-11.5, -4.1, 45);
-    
-    // Add some props
-    %this.createProps();
+    // Create the grass.
+    %grass = new Sprite();
+    %grass.setBodyType("static");
+    %grass.Image = "ToyAssets:grassForeground";
+    %grass.setPosition(0, -8.5);
+    %grass.setSize(BridgeToy.GroundWidth, 2); 
+    SandboxScene.add(%grass);       
 }
 
 //-----------------------------------------------------------------------------
 
 function BridgeToy::createBase(%this, %posX, %posY, %angle)
 {
-    %image = "ToyAssets:woodGround";
-
     %obj = new Sprite();   
     %obj.setBodyType("static");
-    %obj.setImage("ToyAssets:woodGround");
-    %obj.setSize(5, 0.8);   
-    %obj.createPolygonBoxCollisionShape(5, 0.8);
+    %obj.setImage("ToyAssets:jungleTree");
+    %obj.setSize(10, 18);   
     %obj.setPosition(%posX, %posY);
     %obj.setAngle(%angle);    
-    %obj.setAwake(false);
-    %obj.setDefaultFriction(1.0);
     
     SandboxScene.add(%obj);
 }
@@ -147,7 +189,7 @@ function BridgeToy::createBridge(%this, %posX, %posY, %linkCount)
 
         SandboxScene.createRevoluteJoint(%lastLinkObj, %obj, %halfLinkWidth, 0, -%halfLinkWidth, 0);
         %joint = SandboxScene.createMotorJoint(%lastLinkObj, %obj);
-        SandboxScene.setMotorJointMaxForce(%joint, 500);
+        SandboxScene.setMotorJointMaxForce(%joint, 100);
         %obj.setAwake(false);
         %lastLinkObj.setAwake(false);
         
@@ -157,28 +199,29 @@ function BridgeToy::createBridge(%this, %posX, %posY, %linkCount)
 
 //-----------------------------------------------------------------------------
 
-function BridgeToy::setMaxProps(%this, %value)
+function BridgeToy::createDebris(%this)
 {
-    %this.maxProps = %value;
-}
-
-function BridgeToy::createProps(%this)
-{
-    for (%image = 0; %i < %this.maxProps; %i++)
+    for (%image = 0; %i < %this.maxDebris; %i++)
     {
-        %randomPosition = getRandom(-10, 10) SPC getRandom(-2, 8);
-        %randomBrick = getRandom(1, 5);
-        
-        %image = "ToyAssets:brick_0" @ %randomBrick;
+        %randomPosition = getRandom(-10, 10) SPC getRandom(2, 8);
         
         %obj = new Sprite();   
         
-        %obj.setImage(%image);
+        %obj.setImage("ToyAssets:crate");
         %obj.setPosition(%randomPosition);
-        %obj.setSize(1, 0.5);
+        %obj.setSize(1.5, 1.5);
         %obj.setDefaultFriction(1.0);
-        %obj.createPolygonBoxCollisionShape(1, 0.5);
-        %obj.setAwake(true);
+        %obj.createPolygonBoxCollisionShape(1.5, 1.5);
+        %obj.setBullet( true );
+        
         SandboxScene.add(%obj);
     }
+}
+
+
+//-----------------------------------------------------------------------------
+
+function BridgeToy::setMaxDebris(%this, %value)
+{
+    %this.maxDebris = %value;
 }
