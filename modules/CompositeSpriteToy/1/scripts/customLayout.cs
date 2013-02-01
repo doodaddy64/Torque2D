@@ -53,6 +53,9 @@ function CompositeSpriteToy::createCustomLayout( %this )
 	
 	// Add to the scene.
 	SandboxScene.add( %composite );
+	
+	// Set the composite sprite toy.
+	CompositeSpriteToy.CompositeSprite = %composite;	
 }
 
 //-----------------------------------------------------------------------------

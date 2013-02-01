@@ -53,4 +53,7 @@ function CompositeSpriteToy::createNoLayout( %this )
 	
 	// Add to the scene.
 	SandboxScene.add( %composite );
+	
+	// Set the composite sprite toy.
+	CompositeSpriteToy.CompositeSprite = %composite;
 }

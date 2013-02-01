@@ -41,7 +41,7 @@ function CompositeSpriteToy::create( %this )
 
     // Add the configuration options.
     addSelectionOption( "None,Rectilinear,Isometric,Custom", "Layout Mode", "setLayoutMode", true );
-    addIntegerOption("Angular Velocity", -180, 180, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, true );
+    addIntegerOption("Angular Velocity", -180, 180, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, false );
         
     // Reset the toy.
     %this.reset();     
@@ -89,4 +89,9 @@ function CompositeSpriteToy::setLayoutMode( %this, %value )
 function CompositeSpriteToy::setAngularVelocity( %this, %value )
 {
     CompositeSpriteToy.AngularVelocity = %value;
+    
+    // Update any active composite sprite.
+	if ( isObject(CompositeSpriteToy.CompositeSprite) )
+	    CompositeSpriteToy.CompositeSprite.setAngularVelocity( %value );
+    
 }
