@@ -75,7 +75,6 @@ function ScrollerToy::createBackground( %this )
     SandboxScene.add( %object );    
 }
 
-
 //-----------------------------------------------------------------------------
 
 function ScrollerToy::createFarScroller( %this )
