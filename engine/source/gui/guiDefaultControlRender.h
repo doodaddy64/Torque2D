@@ -36,5 +36,6 @@ void renderSizableBitmapBordersFilled(RectI &bounds, S32 baseMultiplier, GuiCont
 void renderSizableBitmapBordersFilledIndex(RectI &bounds, S32 startIndex, GuiControlProfile *profile);
 void renderFixedBitmapBordersFilled(RectI &bounds, S32 baseMultiplier, GuiControlProfile *profile); // DAW: Added
 void renderFixedBitmapBordersFilled(RectI &bounds, S32 startIndex, GuiControlProfile *profile);
+void renderFixedBitmapBordersStretchYFilled(RectI &bounds, S32 baseMultiplier, GuiControlProfile *profile); // DAW: Added
 
 #endif

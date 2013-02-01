@@ -561,3 +561,48 @@ void renderFixedBitmapBordersFilledIndex(RectI &bounds, S32 startIndex, GuiContr
       // End drawing fill
    }
 }
+
+// DAW: Render out the fixed bitmap borders based on a multiplier into the bitmap array
+// It renders left and right caps, with a sizable fill area in the middle to reach
+// the x extent.  It does not stretch in the y direction.
+void renderFixedBitmapBordersStretchYFilled(RectI &bounds, S32 baseMultiplier, GuiControlProfile *profile)
+{
+   // DAW: Indices into the bitmap array
+   S32 NumBitmaps = 3;
+   S32 BorderLeft =     NumBitmaps * baseMultiplier - NumBitmaps;
+   S32 Fill =              1 + BorderLeft;
+   S32 BorderRight =       2 + BorderLeft;
+
+   dglClearBitmapModulation();
+   if(profile->mBitmapArrayRects.size() >= (NumBitmaps * baseMultiplier))
+   {
+      RectI destRect;
+      RectI stretchRect;
+      RectI* mBitmapBounds = profile->mBitmapArrayRects.address();
+
+      // Draw all corners first.
+
+      //left border
+      dglDrawBitmapStretchSR(profile->mTextureHandle, RectI( bounds.point.x, bounds.point.y, mBitmapBounds[BorderLeft].extent.x, bounds.extent.y ), mBitmapBounds[BorderLeft] );
+      //right border
+      dglDrawBitmapStretchSR(profile->mTextureHandle, RectI(bounds.point.x + bounds.extent.x - mBitmapBounds[BorderRight].extent.x, bounds.point.y, mBitmapBounds[BorderRight].extent.x, bounds.extent.y ), mBitmapBounds[BorderRight] );
+
+      // End drawing corners
+
+      // Begin drawing fill
+
+      //fill stretch
+      destRect.point.x = bounds.point.x + mBitmapBounds[BorderLeft].extent.x;
+      destRect.extent.x = (bounds.extent.x) - mBitmapBounds[BorderLeft].extent.x - mBitmapBounds[BorderRight].extent.x;
+      destRect.extent.y = bounds.extent.y;
+      destRect.point.y = bounds.point.y;
+      //stretch it
+      stretchRect = mBitmapBounds[Fill];
+      stretchRect.inset(1,0);
+      //draw it
+      dglDrawBitmapStretchSR(profile->mTextureHandle, destRect, stretchRect);
+
+      // End drawing fill
+   }
+}
+

@@ -837,7 +837,7 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
             index = 4; // inactive state images are indexes 4 and 5.
             //S32 l = r.point.x, r2 = r.point.x + r.extent.x - 1;
             //S32 t = r.point.y, b = r.point.y + r.extent.y - 1;
-            renderFixedBitmapBordersFilled(r, index, mProfile);
+            renderFixedBitmapBordersStretchYFilled(r, index, mProfile);
             return;
         }
     }
@@ -850,7 +850,7 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
       if(mProfile->mProfileForChildren && mProfile->mBitmapArrayRects.size())
       {
          // Render the fixed, filled in border
-         renderFixedBitmapBordersFilled(r, 3, mProfile);
+         renderFixedBitmapBordersStretchYFilled(r, 3, mProfile);
       } 
       else
       {
@@ -892,7 +892,7 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
          if(mProfile->mProfileForChildren && mProfile->mBitmapArrayRects.size())
          {
             // Render the fixed, filled in border
-            renderFixedBitmapBordersFilled(r, 2, mProfile);
+            renderFixedBitmapBordersStretchYFilled(r, 2, mProfile);
 
          } else
          {
@@ -923,7 +923,7 @@ void GuiPopUpMenuCtrl::onRender(Point2I offset, const RectI &updateRect)
          if(mProfile->mProfileForChildren && mProfile->mBitmapArrayRects.size())
          {
             // Render the fixed, filled in border
-            renderFixedBitmapBordersFilled(r, 1, mProfile);
+            renderFixedBitmapBordersStretchYFilled(r, 1, mProfile);
 
          } else
          {
