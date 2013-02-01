@@ -32,7 +32,7 @@ function BridgeToy::create(%this)
     BridgeToy.GroundWidth = 40;
     BridgeToy.maxDebris = 3;
     
-    addNumericOption("Amount of Debris", 0, 50, 1, "setMaxDebris", BridgeToy.maxDebris, true);
+    addNumericOption("Amount of Debris", 0, 30, 1, "setMaxDebris", BridgeToy.maxDebris, true);
     
     // Reset the toy initially.
     BridgeToy.reset();
