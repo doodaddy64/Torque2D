@@ -642,7 +642,7 @@
             MinExtent="8 2"
             canSave="1"
             Visible="1"
-            Command="SandboxScene.setBatchingEnabled(!SandboxScene.getStateOn());"
+            Command="SandboxScene.setBatchingEnabled(!SandboxScene.getBatchingEnabled());"
             Active="1"
             tooltipprofile="GuiToolTipProfile"
             ToolTip="Whether to use scene render batching or not."

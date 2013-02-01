@@ -26,6 +26,13 @@ function MelvToy::create( %this )
     exec( "./scripts/compositeSpriteTest.cs" );
     exec( "./scripts/particleTest.cs" );
     
+    // Set the sandbox drag mode availability.
+    setSandboxDragModeAvailable( "pan", true );
+    setSandboxDragModeAvailable( "pull", true );
+    
+    // Set the drag mode.
+    setSandboxDragMode( "pull" );
+        
     // Run test.
     //runCompositeSpriteTest();
     runParticleTest();
