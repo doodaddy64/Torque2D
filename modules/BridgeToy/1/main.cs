@@ -30,6 +30,9 @@ function BridgeToy::create(%this)
     setSandboxDragMode("pull");
     
     BridgeToy.GroundWidth = 150;
+    BridgeToy.maxProps = 3;
+    
+    addNumericOption("Number of props", 0, 10, 1, "setMaxProps", BridgeToy.maxProps, true);
     
     // Reset the toy initially.
     BridgeToy.reset();
@@ -61,6 +64,7 @@ function BridgeToy::reset(%this)
     // Set the drag mode as "pull".
     setSandboxDragMode("pull");
     
+    // Create the ground
     %ground = new Scroller();
     %ground.setBodyType("static");
     %ground.Image = "ToyAssets:woodGround";
@@ -70,10 +74,17 @@ function BridgeToy::reset(%this)
     %ground.createEdgeCollisionShape(BridgeToy.GroundWidth/-2, 1, BridgeToy.GroundWidth/2, 1);
     SandboxScene.add(%ground);
     
+    // Create the left side of the bridge
     %this.createBase(-12, -6.5, -90);
+    
+    // Create the right side of the bridge
     %this.createBase(11.5, -6.5, -90);
     
+    // Create the links for the bridge
     %this.createBridge(-11.5, -4.1, 45);
+    
+    // Add some props
+    %this.createProps();
 }
 
 //-----------------------------------------------------------------------------
@@ -94,6 +105,8 @@ function BridgeToy::createBase(%this, %posX, %posY, %angle)
     
     SandboxScene.add(%obj);
 }
+
+//-----------------------------------------------------------------------------
 
 function BridgeToy::createBridge(%this, %posX, %posY, %linkCount)
 {
@@ -142,5 +155,33 @@ function BridgeToy::createBridge(%this, %posX, %posY, %linkCount)
         %lastLinkObj.setAwake(false);
         
         %lastLinkObj = %obj;
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+function BridgeToy::setMaxProps(%this, %value)
+{
+    %this.maxProps = %value;
+}
+
+function BridgeToy::createProps(%this)
+{
+    for (%image = 0; %i < %this.maxProps; %i++)
+    {
+        %randomPosition = getRandom(-10, 10) SPC getRandom(-2, 8);
+        %randomBrick = getRandom(1, 5);
+        
+        %image = "ToyAssets:brick_0" @ %randomBrick;
+        
+        %obj = new Sprite();   
+        
+        %obj.setImage(%image);
+        %obj.setPosition(%randomPosition);
+        %obj.setSize(1, 0.5);
+        %obj.setDefaultFriction(1.0);
+        %obj.createPolygonBoxCollisionShape(1, 0.5);
+        %obj.setAwake(true);
+        SandboxScene.add(%obj);
     }
 }
