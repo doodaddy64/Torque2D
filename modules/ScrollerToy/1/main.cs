@@ -45,21 +45,18 @@ function ScrollerToy::reset( %this )
     SandboxScene.clear();
     
     // Create some scrollers.
-    %this.createBackgroundScroller();   
+    %this.createBackground();   
     %this.createFarScroller();
     %this.createNearScroller();
 }
 
 //-----------------------------------------------------------------------------
 
-function ScrollerToy::createBackgroundScroller( %this )
+function ScrollerToy::createBackground( %this )
 {    
     // Create the scroller.
-    %object = new Scroller();
-    
-    // Note this scroller for the touch controls.
-    ScrollerToy.BackgroundScroller = %object;
-    
+    %object = new Sprite();
+       
     // Always try to configure a scene-object prior to adding it to a scene for best performance.
 
     // Set the position.
@@ -68,22 +65,12 @@ function ScrollerToy::createBackgroundScroller( %this )
     // Set the size.        
     %object.Size = "100 75";
     
-    // Set the blend color so that it's about 50% transparent.
-    %object.setBlendAlpha( "0.5" );
-
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
     
     // Set the scroller to use an animation!
-    %object.Animation = "ToyAssets:TileAnimation";
-    
-    // Set the scroller moving in the X axis.
-    %object.ScrollX = 10;
-    
-    // Set the scroller repeat the animation across the background.
-    %object.RepeatX = 2;
-    %object.RepeatY = 2;
-        
+    %object.Image = "ToyAssets:jungleSky";
+            
     // Add the sprite to the scene.
     SandboxScene.add( %object );    
 }
