@@ -29,11 +29,11 @@ function CompositeSpriteToy::create( %this )
     exec( "./scripts/customLayout.cs" );
         
     // Set the sandbox drag mode availability.
-    Sandbox.allowManipulation( "pan" );
-    Sandbox.allowManipulation( "pull" );
+    Sandbox.allowManipulation( pan );
+    Sandbox.allowManipulation( pull );
     
     // Set the manipulation mode.
-    Sandbox.useManipulation( "pull" );   
+    Sandbox.useManipulation( pull );   
 
     // Configure the toy.
     CompositeSpriteToy.LayoutMode = "None";

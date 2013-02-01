@@ -23,11 +23,11 @@
 function BridgeToy::create(%this)
 {
     // Set the sandbox drag mode availability.
-    Sandbox.allowManipulation( "pan" );
-    Sandbox.allowManipulation( "pull" );
+    Sandbox.allowManipulation( pan );
+    Sandbox.allowManipulation( pull );
     
     // Set the manipulation mode.
-    Sandbox.useManipulation( "pull" );
+    Sandbox.useManipulation( pull );
     
     BridgeToy.GroundWidth = 150;
     BridgeToy.maxProps = 3;
@@ -60,9 +60,6 @@ function BridgeToy::reset(%this)
     
     // Set the scene gravity.
     SandboxScene.setGravity(0, -20);
-    
-    // Set the drag mode as "pull".
-    Sandbox.useManipulation("pull");
     
     // Create the ground
     %ground = new Scroller();

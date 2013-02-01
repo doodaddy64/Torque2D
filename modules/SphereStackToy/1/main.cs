@@ -23,11 +23,11 @@
 function SphereStackToy::create( %this )
 {
     // Set the sandbox drag mode availability.
-    Sandbox.allowManipulation( "pan" );
-    Sandbox.allowManipulation( "pull" );
+    Sandbox.allowManipulation( pan );
+    Sandbox.allowManipulation( pull );
     
     // Set the manipulation mode.
-    Sandbox.useManipulation( "pull" );
+    Sandbox.useManipulation( pull );
     
     // Initialize the toys settings.
     SphereStackToy.maxBalls = 5;

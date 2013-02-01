@@ -23,10 +23,10 @@
 function SpriteToy::create( %this )
 {
     // Set the sandbox drag mode availability.
-    Sandbox.allowManipulation( "pan" );
+    Sandbox.allowManipulation( pan );
     
     // Set the manipulation mode.
-    Sandbox.setManipulation( "pan" );
+    Sandbox.setManipulation( pan );
     
     // Reset the toy.
     SpriteToy.reset();

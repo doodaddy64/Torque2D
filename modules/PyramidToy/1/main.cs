@@ -23,11 +23,11 @@
 function PyramidToy::create( %this )
 {
     // Set the sandbox drag mode availability.
-    Sandbox.allowManipulation( "pan" );
-    Sandbox.allowManipulation( "pull" );
+    Sandbox.allowManipulation( pan );
+    Sandbox.allowManipulation( pull );
     
     // Set the manipulation mode.
-    Sandbox.useManipulation( "pull" );
+    Sandbox.useManipulation( pull );
     
     // Configure the toy.
     PyramidToy.BrickCount = 15;

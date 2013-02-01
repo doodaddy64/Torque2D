@@ -23,11 +23,11 @@
 function TumblerToy::create( %this )
 {
     // Set the sandbox drag mode availability.
-    Sandbox.allowManipulation( "pan" );
-    Sandbox.allowManipulation( "pull" );
+    Sandbox.allowManipulation( pan );
+    Sandbox.allowManipulation( pull );
     
     // Set the manipulation mode.
-    Sandbox.useManipulation( "pull" );
+    Sandbox.useManipulation( pull );
     
     // Initialize the toys settings.
     TumblerToy.createBallScheduleId = "";
@@ -76,9 +76,6 @@ function TumblerToy::reset(%this)
     // Set the scene gravity.
     SandboxScene.setGravity( 0, -39.8 );
     
-    // Set the drag mode as "pull".
-    Sandbox.useManipulation( "pull" );
-
     // Create the tumbler.
     %tumbler = new SceneObject();
     SandboxScene.add( %tumbler );
