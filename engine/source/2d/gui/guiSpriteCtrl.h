@@ -56,7 +56,7 @@ protected:
     U32                             mImageFrame;
     bool                            mAnimationPaused;
 
-    AssetPtr<ImageAsset>  mImageAsset;
+    AssetPtr<ImageAsset>            mImageAsset;
 
     bool                            mStaticMode;
     AnimationController*            mpAnimationController;

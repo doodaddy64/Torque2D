@@ -333,8 +333,9 @@ void GuiSpriteCtrl::onRender( Point2I offset, const RectI &updateRect)
             RectI destinationRegion(offset, mBounds.extent);
 
             // Render image.
-            dglClearBitmapModulation();
+            dglSetBitmapModulation( mProfile->mFillColor );
             dglDrawBitmapStretchSR( mImageAsset->getImageTexture(), destinationRegion, sourceRegion );
+            dglClearBitmapModulation();
         }
         else
         {
@@ -355,8 +356,9 @@ void GuiSpriteCtrl::onRender( Point2I offset, const RectI &updateRect)
             RectI destinationRegion(offset, mBounds.extent);
 
             // Render animation image.
-            dglClearBitmapModulation();
+            dglSetBitmapModulation( mProfile->mFillColor );
             dglDrawBitmapStretchSR( mpAnimationController->getImageTexture(), destinationRegion, sourceRegion );
+            dglClearBitmapModulation();
 
             // Update control.
             setUpdate();
