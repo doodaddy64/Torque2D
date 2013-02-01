@@ -302,7 +302,7 @@
 			HorizSizing="relative"
 			VertSizing="relative"
 			Position="0 84"
-			Extent="157 25"
+			Extent="164 25"
 			MinExtent="8 2"
 			canSave="1"
 			Visible="1"
