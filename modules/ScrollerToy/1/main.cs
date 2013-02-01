@@ -67,6 +67,9 @@ function ScrollerToy::createBackgroundScroller( %this )
 
     // Set the size.        
     %object.Size = "100 75";
+    
+    // Set the blend color so that it's about 50% transparent.
+    %object.setBlendAlpha( "0.5" );
 
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
@@ -99,16 +102,16 @@ function ScrollerToy::createFarScroller( %this )
     // Always try to configure a scene-object prior to adding it to a scene for best performance.
 
     // Set the position.
-    %object.Position = "0 -20";
+    %object.Position = "0 -10";
 
     // Set the size.        
-    %object.Size = "100 35";
+    %object.Size = "100 75";
 
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
     
     // Set the scroller to use a static image.
-    %object.Image = "ToyAssets:LandscapeFar";
+    %object.Image = "ToyAssets:TreeBackground2";
     
     // We don't really need to do this as the frame is set to zero by default.
     %object.Frame = 0;
@@ -136,16 +139,16 @@ function ScrollerToy::createNearScroller( %this )
     // Always try to configure a scene-object prior to adding it to a scene for best performance.
 
     // Set the position.
-    %object.Position = "0 -30";
+    %object.Position = "0 -10";
 
     // Set the size.        
-    %object.Size = "100 20";
+    %object.Size = "100 75";
     
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
     
     // Set the scroller to use a static image.
-    %object.Image = "ToyAssets:LandscapeNear";
+    %object.Image = "ToyAssets:TreeBackground1";
     
     // We don't really need to do this as the frame is set to zero by default.
     %object.Frame = 0;

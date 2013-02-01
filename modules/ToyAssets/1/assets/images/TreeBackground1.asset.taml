@@ -1,0 +1,3 @@
+<ImageAsset
+    AssetName="treeBackground1"
+    ImageFile="@assetFile=#treeBackground1.png" />
