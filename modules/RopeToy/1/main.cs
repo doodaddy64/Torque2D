@@ -32,7 +32,7 @@ function RopeToy::create( %this )
     RopeToy.GroundWidth = 150;
     RopeToy.maxLinks = 16;
     
-    addNumericOption("Max chain links", 0, RopeToy.maxLinks, 1, "setMaxLinks", RopeToy.maxLinks, true);
+    addNumericOption("Max rope length", 0, RopeToy.maxLinks, 1, "setmaxLinks", RopeToy.maxLinks, true);
     
     // Reset the toy initially.
     RopeToy.reset();
@@ -88,11 +88,11 @@ function RopeToy::createRope(%this, %posX, %posY)
 {
     %linkWidth = 0.25;
     %linkHeight = %linkWidth * 2;
-    %halfLinkHeight = %linkHeight * 0.5;
+    %halfLinkHeight = %linkHeight * 0.4;
 
     %rootObj = new Sprite();
     %rootObj.setBodyType( "static" );
-    %rootObj.setImage( "ToyAssets:chain" );
+    %rootObj.setImage( "ToyAssets:cable" );
     %rootObj.setPosition( %posX, %posY );
     %rootObj.setSize( %linkWidth, %linkHeight );
     %rootObj.setCollisionSuppress();
@@ -103,7 +103,7 @@ function RopeToy::createRope(%this, %posX, %posY)
     for ( %n = 1; %n <= %this.maxLinks; %n++ )
     {
         %obj = new Sprite();
-        %obj.setImage( "ToyAssets:chain" );
+        %obj.setImage( "ToyAssets:cable" );
         %obj.setPosition( %posX, %posY - (%n*%linkHeight) );
         %obj.setSize( %linkWidth, %linkHeight );
         %obj.setDefaultDensity( 0.4 );
@@ -111,9 +111,11 @@ function RopeToy::createRope(%this, %posX, %posY)
         %obj.createPolygonBoxCollisionShape( %linkWidth, %linkHeight );
         %obj.setAngularDamping( 0.1 );
         %obj.setLinearDamping( 0.1 );
+        %obj.setUseInputEvents(true);
         SandboxScene.add( %obj );   
 
-        SandboxScene.createRopeJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, 0.02, false );
+        SandboxScene.createRopeJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, 0.01, false );
+        //SandboxScene.createRevoluteJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );        
 
         %lastLinkObj = %obj;
     }
