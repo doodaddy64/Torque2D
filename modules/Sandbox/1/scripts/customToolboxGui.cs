@@ -20,34 +20,34 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-$customLabelHeight = "15";
-$customLabelWidth = "80";
-$customLabelSpacing = "18";
-$customOptionSpacing = "15";
-$customContainerExtent = "190 3";
-$containerXPosition = "0";
-$flagOptionExtent = "180 35";
-$buttonOptionExtent = "180 35";
-$spinnerExtent = "22 25";
-$intOptionExtent = "80 25";
-$listOptionExtent = "180 25";
-$customControlCount = "0";
-$lastControlBottom = "0";
+Sandbox.customLabelHeight = "15";
+Sandbox.customLabelWidth = "80";
+Sandbox.customLabelSpacing = "18";
+Sandbox.customOptionSpacing = "15";
+Sandbox.customContainerExtent = "190 3";
+Sandbox.containerXPosition = "0";
+Sandbox.flagOptionExtent = "180 35";
+Sandbox.buttonOptionExtent = "180 35";
+Sandbox.spinnerExtent = "22 25";
+Sandbox.intOptionExtent = "80 25";
+Sandbox.listOptionExtent = "180 25";
+Sandbox.customControlCount = "0";
+Sandbox.lastControlBottom = "0";
 
 //-----------------------------------------------------------------------------
 
 function resetCustomControls()
 {
-    $lastControlBottom = "0";
-    $customControlCount = 0;
+    Sandbox.lastControlBottom = "0";
+    Sandbox.customControlCount = 0;
 }
 
 //-----------------------------------------------------------------------------
 
 function createCustomLabel(%text)
 {
-    %labelWidth = $customLabelWidth + (%characterCount * 5);
-    %labelExtent = %labelWidth SPC $customLabelHeight;
+    %labelWidth = Sandbox.customLabelWidth + (%characterCount * 5);
+    %labelExtent = %labelWidth SPC Sandbox.customLabelHeight;
 
     %labelControl = new GuiTextCtrl()
     {
@@ -76,8 +76,8 @@ function createCustomLabel(%text)
 
 function nextCustomControlPosition(%index)
 {
-    %verticalOffset = ($customOptionSpacing + %index) + $lastControlBottom;
-    %position = $containerXPosition SPC %verticalOffset;
+    %verticalOffset = (Sandbox.customOptionSpacing + %index) + Sandbox.lastControlBottom;
+    %position = Sandbox.containerXPosition SPC %verticalOffset;
     return %position;
 }
 
@@ -85,10 +85,10 @@ function nextCustomControlPosition(%index)
 
 function addFlagOption( %label, %callback, %startingValue, %shouldReset)
 {
-    %containerPosition = nextCustomControlPosition($customControlCount);
+    %containerPosition = nextCustomControlPosition(Sandbox.customControlCount);
 
-    %customX = getWord($customContainerExtent, 0);
-    %customY = getWord($customContainerExtent, 1) + getWord($flagOptionExtent, 1);
+    %customX = getWord(Sandbox.customContainerExtent, 0);
+    %customY = getWord(Sandbox.customContainerExtent, 1) + getWord(Sandbox.flagOptionExtent, 1);
 
     %container = new GuiControl()
     {
@@ -108,7 +108,7 @@ function addFlagOption( %label, %callback, %startingValue, %shouldReset)
         isContainer = "0";
         Profile = "BlueButtonProfile";
         Position = "0 0";
-        Extent = $flagOptionExtent;
+        Extent = Sandbox.flagOptionExtent;
         Visible = "1";
         toy = Sandbox.ActiveToy.ScopeSet;
         shouldResetToy = %shouldReset;
@@ -131,9 +131,9 @@ function addFlagOption( %label, %callback, %startingValue, %shouldReset)
 
     ToyCustomControls.add(%container);
 
-    $lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
+    Sandbox.lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
 
-    $customControlCount++;
+    Sandbox.customControlCount++;
 }
 
 //-----------------------------------------------------------------------------
@@ -158,10 +158,10 @@ function FlagController::updateToy(%this)
 
 function addButtonOption( %label, %callback, %shouldReset)
 {
-    %containerPosition = nextCustomControlPosition($customControlCount);
+    %containerPosition = nextCustomControlPosition(Sandbox.customControlCount);
 
-    %customX = getWord($customContainerExtent, 0);
-    %customY = getWord($customContainerExtent, 1) + getWord($buttonOptionExtent, 1);
+    %customX = getWord(Sandbox.customContainerExtent, 0);
+    %customY = getWord(Sandbox.customContainerExtent, 1) + getWord(Sandbox.buttonOptionExtent, 1);
 
     %container = new GuiControl()
     {
@@ -181,7 +181,7 @@ function addButtonOption( %label, %callback, %shouldReset)
         isContainer = "0";
         Profile = "BlueButtonProfile";
         Position = "0 0";
-        Extent = $buttonOptionExtent;
+        Extent = Sandbox.buttonOptionExtent;
         Visible = "1";
         toy = Sandbox.ActiveToy.ScopeSet;
         shouldResetToy = %shouldReset;
@@ -203,9 +203,9 @@ function addButtonOption( %label, %callback, %shouldReset)
 
     ToyCustomControls.add(%container);
 
-    $lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
+    Sandbox.lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
 
-    $customControlCount++;
+    Sandbox.customControlCount++;
 }
 
 //-----------------------------------------------------------------------------
@@ -231,10 +231,10 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
 {
     %customLabel = createCustomLabel(%label);
 
-    %containerPosition = nextCustomControlPosition($customControlCount);
+    %containerPosition = nextCustomControlPosition(Sandbox.customControlCount);
 
-    %customX = getWord($customContainerExtent, 0);
-    %customY = getWord($customContainerExtent, 1) + getWord($intOptionExtent, 1) + $customLabelHeight;
+    %customX = getWord(Sandbox.customContainerExtent, 0);
+    %customY = getWord(Sandbox.customContainerExtent, 1) + getWord(Sandbox.intOptionExtent, 1) + Sandbox.customLabelHeight;
 
     %container = new GuiControl()
     {
@@ -248,7 +248,7 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
 
     %container.add(%customLabel);
 
-    %spinnerPosition = "1" SPC $customLabelSpacing;
+    %spinnerPosition = "1" SPC Sandbox.customLabelSpacing;
 
     %spinnerDown = new GuiImageButtonCtrl()
     {
@@ -260,7 +260,7 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
         isContainer = "0";
         Profile = "GuiDefaultProfile";
         Position = %spinnerPosition;
-        Extent = $spinnerExtent;
+        Extent = Sandbox.spinnerExtent;
         MinExtent = "8 2";
         canSave = "1";
         Visible = "1";
@@ -276,7 +276,7 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
         InactiveImage = "Sandbox:minusButtonInactive";
     };
 
-    %controlPosition = (getWord($spinnerExtent, 0) + 1) SPC $customLabelSpacing;
+    %controlPosition = (getWord(Sandbox.spinnerExtent, 0) + 1) SPC Sandbox.customLabelSpacing;
 
     %textEdit = new GuiTextEditCtrl()
     {
@@ -284,7 +284,7 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
         HorizSizing = "relative";
         VertSizing = "relative";
         Text = %startingValue;
-        Extent = $intOptionExtent;
+        Extent = Sandbox.intOptionExtent;
         toy = Sandbox.ActiveToy.ScopeSet;
         shouldResetToy = %shouldReset;
         callback = %callback;
@@ -295,7 +295,7 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
         hovertime = "1000";
     };
 
-    %spinnerPosition = (getWord(%textEdit.Extent, 0) + getWord(%textEdit.position, 0)) SPC $customLabelSpacing;
+    %spinnerPosition = (getWord(%textEdit.Extent, 0) + getWord(%textEdit.position, 0)) SPC Sandbox.customLabelSpacing;
 
     %spinnerUp = new GuiImageButtonCtrl()
     {
@@ -307,7 +307,7 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
         isContainer = "0";
         Profile = "GuiDefaultProfile";
         Position = %spinnerPosition;
-        Extent = $spinnerExtent;
+        Extent = Sandbox.spinnerExtent;
         MinExtent = "8 2";
         canSave = "1";
         Visible = "1";
@@ -335,9 +335,9 @@ function addIntegerOption( %label, %min, %max, %callback, %startingValue, %shoul
 
     ToyCustomControls.add(%container);
 
-    $lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
+    Sandbox.lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
 
-    $customControlCount++;
+    Sandbox.customControlCount++;
 }
 
 //-----------------------------------------------------------------------------
@@ -390,10 +390,10 @@ function addSelectionOption( %entries, %label, %callback, %shouldReset)
 {
     %customLabel = createCustomLabel(%label);
 
-    %containerPosition = nextCustomControlPosition($customControlCount);
+    %containerPosition = nextCustomControlPosition(Sandbox.customControlCount);
 
-    %customX = getWord($customContainerExtent, 0);
-    %customY = getWord($customContainerExtent, 1) + getWord($listOptionExtent, 1) + $customLabelHeight;
+    %customX = getWord(Sandbox.customContainerExtent, 0);
+    %customY = getWord(Sandbox.customContainerExtent, 1) + getWord(Sandbox.listOptionExtent, 1) + Sandbox.customLabelHeight;
 
     %container = new GuiControl()
     {
@@ -407,7 +407,7 @@ function addSelectionOption( %entries, %label, %callback, %shouldReset)
 
     %container.add(%customLabel);
 
-    %controlPosition = "0" SPC $customLabelSpacing;
+    %controlPosition = "0" SPC Sandbox.customLabelSpacing;
 
     %menu = new GuiPopUpMenuCtrl()
     {
@@ -420,7 +420,7 @@ function addSelectionOption( %entries, %label, %callback, %shouldReset)
         isContainer = "0";
         Profile = "GuiPopUpMenuProfile";
         Position = %controlPosition;
-        Extent = $listOptionExtent;
+        Extent = Sandbox.listOptionExtent;
         MinExtent = "8 2";
         Visible = "1";
         Active = "1";
@@ -443,9 +443,9 @@ function addSelectionOption( %entries, %label, %callback, %shouldReset)
 
     ToyCustomControls.add(%container);
 
-    $lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
+    Sandbox.lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
 
-    $customControlCount++;
+    Sandbox.customControlCount++;
 }
 
 //-----------------------------------------------------------------------------
