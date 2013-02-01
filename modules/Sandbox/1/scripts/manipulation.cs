@@ -56,7 +56,7 @@ function Sandbox::allowManipulation( %this, %mode )
     if ( %mode $= "off" )
         return;
         
-    Sandbox.ManipulationModeState[%mode] = %status;    
+    Sandbox.ManipulationModeState[%mode] = true;    
 }
 
 //-----------------------------------------------------------------------------
@@ -71,6 +71,7 @@ function Sandbox::useManipulation( %this, %mode )
         return;
     }
     
+    // Set the manipulation mode.
     Sandbox.ManipulationMode = %mode;
     
     // Reset pulled object and joint.
