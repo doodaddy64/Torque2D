@@ -179,7 +179,7 @@ function initializeToolbox()
         ResolutionSelectLabel.Active = true;
         ResolutionSelectList.Active = true;
         FullscreenOptionLabel.Active = true;
-        FullscreenOptionCheckBox.Active = true;
+        FullscreenOptionButton.Active = true;
         
         // Fetch the active resolution.
         %activeResolution = getRes();
@@ -405,7 +405,7 @@ function updateToolboxOptions()
     if ( $platform $= "windows" || $platform $= "macos" )
     {
         // Set the fullscreen check-box.
-        FullscreenOptionCheckBox.setStateOn( $pref::Video::fullScreen );
+        FullscreenOptionButton.setStateOn( $pref::Video::fullScreen );
         
         // Set the full-screen mode appropriately.
         if ( isFullScreen() != $pref::Video::fullScreen )
@@ -417,7 +417,7 @@ function updateToolboxOptions()
         ResolutionSelectLabel.Active = false;
         ResolutionSelectList.Active = false;
         FullscreenOptionLabel.Active = false;
-        FullscreenOptionCheckBox.Active = false;
+        FullscreenOptionButton.Active = false;
     }    
 }
 

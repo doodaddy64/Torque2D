@@ -36,7 +36,7 @@ function initializeCanvas(%windowName)
 
     videoSetGammaCorrection($pref::OpenGL::gammaCorrection);
 
-    if (!createCanvas(%windowName))
+    if ( !createCanvas(%windowName) )
     {
         error("Canvas creation failed. Shutting down.");
         quit();
@@ -44,15 +44,26 @@ function initializeCanvas(%windowName)
 
     $pref::iOS::ScreenDepth = 32;
 
-    if ($pref::iOS::DeviceType $= "")
-        %res = $pref::Video::defaultResolution;
+    if ( $pref::iOS::DeviceType !$= "" )
+    {
+        %resolution = iOSResolutionFromSetting($pref::iOS::DeviceType, $pref::iOS::ScreenOrientation);
+    }
     else
-        %res = iOSResolutionFromSetting($pref::iOS::DeviceType, $pref::iOS::ScreenOrientation);
+    {
+        if ( $pref::Video::windowedRes !$= "" )
+            %resolution = $pref::Video::windowedRes;
+        else
+            %resolution = $pref::Video::defaultResolution;
+    }
 
     if ($platform $= "windows" || $platform $= "macos")
-        setScreenMode( GetWord( %res , 0 ), GetWord( %res, 1 ), $pref::iOS::ScreenDepth, $pref::Video::fullScreen);
+    {
+        setScreenMode( GetWord( %resolution , 0 ), GetWord( %resolution, 1 ), GetWord( %resolution , 2 ), $pref::Video::fullScreen );
+    }
     else
-        setScreenMode( GetWord( %res , 0 ), GetWord( %res, 1 ), $pref::iOS::ScreenDepth, false);
+    {
+        setScreenMode( GetWord( %resolution , 0 ), GetWord( %resolution, 1 ), GetWord( %resolution, 2 ), false );
+    }
 
     $canvasCreated = true;
 }

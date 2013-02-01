@@ -27,8 +27,6 @@
         groupNum="-1"
         buttonType="PushButton"
         useMouseEvents="1"
-        toolTipProfile="GuiToolTipProfile"
-        toolTip="Show toolbox."			
         NormalImage="@asset=Sandbox:builderIconNormal"
         HoverImage="@asset=Sandbox:builderIconHover"
         DownImage="@asset=Sandbox:builderIconDown" />

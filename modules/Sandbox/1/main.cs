@@ -23,7 +23,7 @@
 function Sandbox::create( %this )
 {    
     // Load the preferences.
-    loadSandboxPreferences();
+    %this.loadPreferences();
     
     // Load system scripts
     exec( "./scripts/constants.cs");
@@ -80,10 +80,10 @@ function Sandbox::create( %this )
 
 //-----------------------------------------------------------------------------
 
-function destroy( %this )
+function Sandbox::destroy( %this )
 {
     // Save sandbox preferences.
-    saveSandboxPreferences();    
+    %this.savePreferences();    
     
     // Unload the active toy.
     unloadToy();
@@ -94,7 +94,7 @@ function destroy( %this )
 
 //-----------------------------------------------------------------------------
 
-function loadSandboxPreferences()
+function Sandbox::loadPreferences( %this )
 {
     // Load the default preferences.
     exec( "./scripts/defaultPreferences.cs" );
@@ -106,8 +106,9 @@ function loadSandboxPreferences()
 
 //-----------------------------------------------------------------------------
 
-function saveSandboxPreferences()
+function Sandbox::savePreferences( %this )
 {
     // Export only the sandbox preferences.
-    export("$pref::Sandbox::*", "preferences.cs", false, false);    
+    export("$pref::Sandbox::*", "preferences.cs", false );        
+    export("$pref::Video::*", "preferences.cs", true );
 }

@@ -1472,24 +1472,28 @@ ConsoleFunction(execPrefs, bool, 2, 4, "execPrefs(fileName [, nocalls [,journalS
    return dAtob(Con::execute(argc, argv));
 }
 
-ConsoleFunction(export, void, 2, 5, "( wildCard [ , fileName [ , isProjectPref [ , append  ] ] ]) Use the export function to save all global variables matching the specified name pattern in wildCard to a file, either appending to that file or over-writing it.\n"
+ConsoleFunction(export, void, 2, 4, "( wildCard [ ,fileName [ , append  ] ]) Use the export function to save all global variables matching the specified name pattern in wildCard to a file, either appending to that file or over-writing it.\n"
                                                                 "@param wildCard A string identifying what variable(s) to export. All characters used to create a global are allowed and the special symbol \"*\", meaning 0 or more instances of any character.\n"
                                                                 "@param fileName A string containing a path to a file in which to save the globals and their definitions.\n"
                                                                 "@param append A boolean value. If this value is true, the file will be appended to if it exists, otherwise it will be created/over-written.\n"
                                                                 "@return No return value")
 {
-   const char *filename = NULL;
-   bool append = (argc == 5) ? dAtob(argv[4]) : false;
+    // Fetch the wildcard.
+    const char* pWildcard = argv[1];
 
-   if (argc >= 3)
-   {
-      Con::expandPath(pathBuffer, sizeof(pathBuffer), argv[2]);
-      filename = pathBuffer;
-      if (filename == NULL || *filename == 0)
-         return;
-   }
+    // Fetch the filename.
+    const char* pFilename = NULL;
+    if ( argc >= 3 )
+    {
+        Con::expandPath( pathBuffer, sizeof(pathBuffer), argv[2] );
+        pFilename = pathBuffer;
+    }
 
-   gEvalState.globalVars.exportVariables(argv[1], filename, append);
+    // Fetch append flag.
+    const bool append = argc >= 4 ? dAtob(argv[3] ) : false;
+
+    // Export the variables.
+    gEvalState.globalVars.exportVariables( pWildcard, pFilename, append );
 }
 
 ConsoleFunction(deleteVariables, void, 2, 2, "( wildCard ) Use the deleteVariables function to delete any global variable matching the wildCard statement.\n"

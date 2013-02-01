@@ -75,8 +75,8 @@ $pref::Video::disableVerticalSync = 1;
 $pref::Video::displayDevice = "OpenGL";
 $pref::Video::preferOpenGL = 1;
 $pref::Video::fullScreen = 0;
-$pref::OpenGL::gammaCorrection = 0.5;
 $pref::Video::defaultResolution = "1024 768";
+$pref::OpenGL::gammaCorrection = 0.5;
 
 /// Fonts.
 $Gui::fontCacheDirectory = expandPath( "^Sandbox/fonts" );
