@@ -113,7 +113,7 @@ function ChainToy::createChain(%this, %posX, %posY)
         %obj.setLinearDamping( 0.1 );
         SandboxScene.add( %obj );   
 
-        SandboxScene.createRopeJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, 0.02, false );
+        SandboxScene.createRevoluteJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
 
         %lastLinkObj = %obj;
     }
