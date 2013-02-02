@@ -259,6 +259,19 @@ function ReloadToyOverlayButton::onClick(%this)
 
 //-----------------------------------------------------------------------------
 
+function RestartToyOverlayButton::onClick(%this)
+{
+    // Finish if no toy is loaded.
+    if ( !isObject(Sandbox.ActiveToy) )
+        return;
+
+    // Reset the toy.
+    if ( Sandbox.ActiveToy.ScopeSet.isMethod("reset") )
+        Sandbox.ActiveToy.ScopeSet.reset();
+}
+
+//-----------------------------------------------------------------------------
+
 function updateToolboxOptions()
 {
     // Finish if the sandbox scene is not available.

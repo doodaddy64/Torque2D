@@ -59,7 +59,7 @@ function ChainToy::reset(%this)
     setCollisionOption(false);
     
     // Set the scene gravity.
-    SandboxScene.setGravity(0, -20);
+    SandboxScene.setGravity(0, -9.6);
     
     // Create the ground
     %ground = new Scroller();

@@ -30,14 +30,12 @@ function SphereStackToy::create( %this )
     Sandbox.useManipulation( pull );
     
     // Initialize the toys settings.
-    SphereStackToy.maxBalls = 5;
+    SphereStackToy.maxBalls = 10;
     SphereStackToy.ballStacks = 1;
-    SphereStackToy.currentBalls = 0;
-    SphereStackToy.createBallScheduleId = "";
     SphereStackToy.GroundWidth = 150;
     
     // Add the custom controls.
-    addNumericOption("Balls to stack", 1, 10, 1, "setMaxBalls", SphereStackToy.maxBalls, true);
+    addNumericOption("Balls to stack", 1, 15, 1, "setMaxBalls", SphereStackToy.maxBalls, true);
     addNumericOption("Balls stacks", 1, 10, 1, "setBallStacks", SphereStackToy.ballStacks, true);
 
     // Reset the toy initially.
@@ -66,7 +64,7 @@ function SphereStackToy::reset(%this)
     setCollisionOption( false );
     
     // Set the scene gravity.
-    SandboxScene.setGravity( 0, -20 );
+    SandboxScene.setGravity( 0, -9.8 );
     
     // Set the drag mode as "pull".
     Sandbox.useManipulation( "pull" );
@@ -158,11 +156,15 @@ function SphereStackToy::createBall(%this)
     // Reset the event schedule.
     %this.createBallScheduleId = "";
 
+    // Finish if exceeded the required number of balls.
+    if ( %this.currentBalls >= %this.maxBalls)
+        return;
+
     // Set the ball size.
     %ballSize = 2;
     
     // Calculate ball-stack offset and stride.    
-    %ballOffset = (SphereStackToy.ballStacks * %ballSize * 2) * -0.5;
+    %ballOffset = ((SphereStackToy.ballStacks-1) * %ballSize * 2) * -0.5;
     
     // Add a ball to each stack.
     for( %n = 0; %n < SphereStackToy.ballStacks; %n++ )
@@ -175,8 +177,9 @@ function SphereStackToy::createBall(%this)
         %ball.Position = %stackOffset SPC (5 + 6 * %this.currentBalls);
         %ball.Size = %ballSize;
         %ball.Image = "ToyAssets:Football";        
+        %ball.setDefaultDensity( 0.1 );
         %ball.setDefaultRestitution( 0.5 );
-        %ball.setLinearVelocity(0, -40);
+        %ball.setLinearVelocity(0, -20);
         %ball.createCircleCollisionShape( %ballSize * 0.5 );
         
         // Add to the scene.
