@@ -30,8 +30,9 @@ function PyramidToy::create( %this )
     Sandbox.useManipulation( pull );
     
     // Configure the toy.
+    PyramidToy.BlockSize = 1.5;
     PyramidToy.BlockCount = 15;
-    PyramidToy.GroundWidth = 120;
+    PyramidToy.GroundWidth = 140;
     
     // Set the camera.
     SandboxWindow.setCurrentCameraSize( 40, 30 );
@@ -41,6 +42,7 @@ function PyramidToy::create( %this )
 
     // Add configuration option.
     addNumericOption( "Block Count", 2, 30, 1, "setBlockCount", PyramidToy.BlockCount, true );
+    addNumericOption( "Block Size", 1, 4, 0.5, "setBlockSize", PyramidToy.BlockSize, true );
     
     // Reset the toy.
     PyramidToy.reset();
@@ -74,6 +76,13 @@ function PyramidToy::reset( %this )
 function PyramidToy::setBlockCount(%this, %value)
 {
     %this.BlockCount = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function PyramidToy::setBlockSize(%this, %value)
+{
+    %this.BlockSize = %value;
 }
 
 //-----------------------------------------------------------------------------
@@ -142,33 +151,33 @@ function PyramidToy::createPyramid( %this )
     }
 
     // Set the block size.
-    %blockSize = 1.5;
+    %blockSize = PyramidToy.BlockSize;
     
     // Calculate a block building position.
     %posx = %blockCount * -0.5 * %blockSize;
-    %posy = -8.2;
+    %posy = -8.8 + (%blockSize * 0.5);
 
     // Build the stack of blocks.
     for( %stack = 0; %stack < %blockCount; %stack++ )
     {
         // Calculate the stack position.
         %stackIndexCount = %blockCount - (%stack*2);
-        %stackX = %posX + ( %stack * 1.5 );
-        %stackY = %posY + ( %stack * 1.5 );
+        %stackX = %posX + ( %stack * %blockSize );
+        %stackY = %posY + ( %stack * %blockSize );
         
         // Build the stack.
         for ( %stackIndex = 0; %stackIndex < %stackIndexCount; %stackIndex++ )
         {
             // Calculate the block position.
-            %blockX = %stackX + (%stackIndex*1.5);
+            %blockX = %stackX + (%stackIndex*%blockSize);
             %blockY = %stackY;
 
             // Create the sprite.
             %obj = new Sprite();
             %obj.setPosition( %blockX, %blockY );
             %obj.setSize( %blockSize );
-            %obj.setImage( "ToyAssets:crate" );
-            %obj.setUseInputEvents(true);
+            %obj.setImage( "ToyAssets:blocks" );
+            %obj.setImageFrame( getRandom(0,55) );
             %obj.setDefaultFriction( 1.0 );
             %obj.createPolygonBoxCollisionShape( %blockSize, %blockSize );
             
