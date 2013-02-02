@@ -88,7 +88,7 @@ function RopeToy::createRope(%this, %posX, %posY)
     %box = new Sprite();
     %box.setUseInputEvents(true);
     %box.setImage( "ToyAssets:crate" );
-    %box.setPosition( %crateX, %crateY );
+    %box.setPosition( %posX, %posY );
     %box.setSize( 1.5 );
     %box.setDefaultFriction( 1.0 );
     %box.createPolygonBoxCollisionShape( 1.5, 1.5 );
