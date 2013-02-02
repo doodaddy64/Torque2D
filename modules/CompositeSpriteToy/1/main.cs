@@ -42,7 +42,7 @@ function CompositeSpriteToy::create( %this )
     CompositeSpriteToy.RenderIsolated = false;
 
     // Add the configuration options.
-    addSelectionOption( "None,Custom,Rectilinear,Isometric", "Layout Mode", "setLayoutMode", true );
+    addSelectionOption( "None,Custom,Rectilinear,Isometric", "Layout Mode", 3, "setLayoutMode", true );
     addNumericOption("Maximum Sprite Count", 10, 1000, 10, "setSpriteCount", CompositeSpriteToy.SpriteCount, true );
     addNumericOption("Angular Velocity", -180, 180, 20, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, false );    
     addFlagOption("Render Isolated", "setRenderIsolated", CompositeSpriteToy.RenderIsolated, true );
