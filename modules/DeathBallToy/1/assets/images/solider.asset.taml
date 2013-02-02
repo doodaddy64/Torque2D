@@ -1,0 +1,7 @@
+<ImageAsset
+    AssetName="solider"
+    ImageFile="@assetFile=#soldier.png"
+    CellCountX="4"
+    CellCountY="4"
+    CellWidth="128"
+    CellHeight="128" />

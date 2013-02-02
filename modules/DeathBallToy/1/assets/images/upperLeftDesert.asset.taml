@@ -1,0 +1,3 @@
+<ImageAsset
+    AssetName="upperLeftDesert"
+    ImageFile="@assetFile=#upperLeftDesert.jpg" />

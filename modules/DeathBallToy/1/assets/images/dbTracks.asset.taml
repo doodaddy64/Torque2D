@@ -1,0 +1,3 @@
+<ImageAsset
+    AssetName="dbTracks"
+    ImageFile="@assetFile=#dbTracks.png" />
