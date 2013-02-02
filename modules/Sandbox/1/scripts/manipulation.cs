@@ -71,6 +71,21 @@ function Sandbox::useManipulation( %this, %mode )
     
     // Set the manipulation mode.
     Sandbox.ManipulationMode = %mode;
+
+    // Set the current mode as text on the button.    
+    if ( isObject(ManipulationModeButton) )
+    {
+        // Make the displayed mode more consistent.
+        if ( %mode $= "off" )
+            %mode = "Off";
+        else if ( %mode $= "pan" )
+            %mode = "Pan";
+        else if ( %mode $= "pull" )
+        %mode = "Pull";
+        
+        // Make the mode consistent when showed.
+        ManipulationModeButton.Text = %mode;
+    }
     
     // Reset pulled object and joint.
     Sandbox.ManipulationPullObject = "";    
