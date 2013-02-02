@@ -125,7 +125,7 @@ function CompositeSpriteToy::createBackground(%this)
     // Create the checkered background.
     %obj = new Scroller();
     %obj.Image = "ToyAssets:checkered";
-    %obj.BlendColor = "SlateGray";
+    %obj.BlendColor = SlateGray;
     %obj.Size = 200;
     %obj.RepeatX = 8;
     %obj.RepeatY = 8;

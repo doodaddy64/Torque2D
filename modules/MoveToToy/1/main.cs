@@ -29,7 +29,7 @@ function MoveToToy::create( %this )
     MoveToToy.moveTime = 1000;
 
     // Add the custom controls.
-    addNumericOption("Move time", 10, 1000, 10, "setMoveTime", MoveToToy.moveTime, true);
+    addNumericOption("Move time", 1000, 10000, 100, "setMoveTime", MoveToToy.moveTime, true);
 
     // Reset the toy initially.
     MoveToToy.reset();        
@@ -50,20 +50,100 @@ function MoveToToy::reset( %this )
     // Clear the scene.
     SandboxScene.clear();
     
+    // Create background.
+    %this.createBackground();
+
+    // Create target.
+    %this.createTarget();
+    
+    // Create sight.
+    %this.createSight();
+}
+
+//-----------------------------------------------------------------------------
+
+function MoveToToy::createBackground( %this )
+{    
+    // Create the scroller.
+    %object = new Sprite();
+    
+    // Set the sprite as "static" so it is not affected by gravity.
+    %object.setBodyType( static );
+       
+    // Always try to configure a scene-object prior to adding it to a scene for best performance.
+
+    // Set the position.
+    %object.Position = "0 0";
+
+    // Set the size.        
+    %object.Size = "100 75";
+    
+    // Set to the furthest background layer.
+    %object.SceneLayer = 31;
+    
+    // Set the scroller to use an animation!
+    %object.Image = "ToyAssets:highlightBackground";
+    
+    // Set the blend color.
+    %object.BlendColor = Bisque;
+            
+    // Add the sprite to the scene.
+    SandboxScene.add( %object );    
+}
+
+//-----------------------------------------------------------------------------
+
+function MoveToToy::createSight( %this )
+{
     // Create the sprite.
-    %object = new Sprite(MoveToSprite);
+    %object = new Sprite();
+    
+    // Set the sight object.
+    MoveToToy.SightObject = %object;
     
     // Set the static image.
     %object.Image = "ToyAssets:Crosshair2";
+
+    // Set the blend color.
+    %object.BlendColor = Lime;
+    
+    // Set the transparency.
+    %object.setBlendAlpha( 0.5 );
+    
+    // Set a useful size.
+    %object.Size = 40;
+    
+    // Set the sprite rotating to make it more interesting.
+    %object.AngularVelocity = -90;
+    
+    // Add to the scene.
+    SandboxScene.add( %object );    
+}
+
+//-----------------------------------------------------------------------------
+
+function MoveToToy::createTarget( %this )
+{
+    // Create the sprite.
+    %object = new Sprite();
+
+    // Set the target object.
+    MoveToToy.TargetObject = %object;
+    
+    // Set the static image.
+    %object.Image = "ToyAssets:Crosshair3";
+    
+    // Set the blend color.
+    %object.BlendColor = DarkOrange;
     
     // Set a useful size.
     %object.Size = 20;
-    
+        
     // Set the sprite rotating to make it more interesting.
-    %object.AngularVelocity = 180;
+    %object.AngularVelocity = 60;
     
     // Add to the scene.
-    SandboxScene.add( %object );
+    SandboxScene.add( %object );    
 }
 
 //-----------------------------------------------------------------------------
@@ -80,8 +160,11 @@ package MoveToToyPackage
 
 function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 {
-    // Move to the touched position.
-    MoveToSprite.moveTo( %worldPos, MoveToToy.moveTime );
+    // Set the target to the touched position.
+    MoveToToy.TargetObject.Position = %worldPos;
+    
+    // Move the sight to the touched position.
+    MoveToToy.SightObject.MoveTo( %worldPos, MoveToToy.moveTime );
 }
     
 };

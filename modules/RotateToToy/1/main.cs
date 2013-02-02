@@ -26,10 +26,10 @@ function RotateToToy::create( %this )
     activatePackage( RotateToToyPackage );    
     
     // Initialize the toys settings.
-    RotateToToy.rotateTime = 1000;
+    RotateToToy.rotateTime = 500;
 
     // Add the custom controls.
-    addNumericOption("Rotate time", 10, 100, 10, "setRotateTime", RotateToToy.rotateTime, true);
+    addNumericOption("Rotate time", 10, 10000, 10, "setRotateTime", RotateToToy.rotateTime, true);
     
     // Reset the toy initially.
     RotateToToy.reset();      
@@ -50,18 +50,64 @@ function RotateToToy::reset( %this )
 {
     // Clear the scene.
     SandboxScene.clear();
-        
+    
+    // Create background.
+    %this.createBackground();
+    
+    // Create the target.
+    %this.createTarget();        
+}
+
+//-----------------------------------------------------------------------------
+
+function RotateToToy::createBackground( %this )
+{    
+    // Create the scroller.
+    %object = new Sprite();
+    
+    // Set the sprite as "static" so it is not affected by gravity.
+    %object.setBodyType( static );
+       
+    // Always try to configure a scene-object prior to adding it to a scene for best performance.
+
+    // Set the position.
+    %object.Position = "0 0";
+
+    // Set the size.        
+    %object.Size = "100 75";
+    
+    // Set to the furthest background layer.
+    %object.SceneLayer = 31;
+    
+    // Set the scroller to use an animation!
+    %object.Image = "ToyAssets:highlightBackground";
+    
+    // Set the blend color.
+    %object.BlendColor = Bisque;
+            
+    // Add the sprite to the scene.
+    SandboxScene.add( %object );    
+}
+
+//-----------------------------------------------------------------------------
+
+function RotateToToy::createTarget( %this )
+{
     // Create the sprite.
-    %object = new Sprite(RotateToSprite);
+    %object = new Sprite();
+    
+    // Set the target.
+    RotateToToy.TargetObject = %object;
     
     // Set the static image.
-    %object.Image = "ToyAssets:Ship";
+    %object.Image = "ToyAssets:hollowArrow";
     
     // Set a useful size.
-    %object.Size = 60;
+    %object.Size = 30;
     
     // Add to the scene.
     SandboxScene.add( %object );
+    
 }
 
 //-----------------------------------------------------------------------------
@@ -79,11 +125,11 @@ package RotateToToyPackage
 function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 {
     // Calculate the angle to the mouse.
-    %origin = RotateToSprite.getPosition();
+    %origin = RotateToToy.TargetObject.getPosition();
     %angle = -mRadToDeg( mAtan( getWord(%worldPos,0)-getWord(%origin,0), getWord(%worldPos,1)-getWord(%origin,1) ) );
     
     //Rotate to the touched angle.
-    RotateToSprite.RotateTo( %angle, RotateToToy.rotateTime );
+    RotateToToy.TargetObject.RotateTo( %angle, RotateToToy.rotateTime );
 }
     
 };

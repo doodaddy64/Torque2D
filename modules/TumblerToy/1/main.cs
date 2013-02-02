@@ -114,7 +114,7 @@ function TumblerToy::createTumbler(%this)
     // Create the tumbler.
     %tumbler = new Sprite();
     %tumbler.Image = "ToyAssets:checkered";
-    %tumbler.BlendColor = "BlueViolet";
+    %tumbler.BlendColor = BlueViolet;
     %tumbler.Size = 120.5;
     %tumbler.setDefaultDensity( 0.1 );
     %tumbler.createPolygonBoxCollisionShape( 1, 50, 25, 0, 0 );
