@@ -30,8 +30,7 @@ Sandbox.flagOptionExtent = "240 35";
 Sandbox.buttonOptionExtent = "240 35";
 Sandbox.spinnerExtent = "22 25";
 Sandbox.intOptionExtent = "196 25";
-Sandbox.listOptionExtent = "240 25";
-Sandbox.listOptionExtentTwo = "240 0";
+Sandbox.listOptionExtent = "240 0";
 Sandbox.customControlCount = "0";
 Sandbox.lastControlBottom = "0";
 
@@ -386,89 +385,7 @@ function TextEditController::updateToy(%this)
 
 //-----------------------------------------------------------------------------
 
-function addSelectionOption( %entries, %label, %callback, %shouldReset)
-{
-    %customLabel = createCustomLabel(%label);
-
-    %containerPosition = nextCustomControlPosition(Sandbox.customControlCount);
-
-    %customX = getWord(Sandbox.customContainerExtent, 0);
-    %customY = getWord(Sandbox.customContainerExtent, 1) + getWord(Sandbox.listOptionExtent, 1) + Sandbox.customLabelHeight;
-
-    %container = new GuiControl()
-    {
-        isContainer = 1;
-        HorizSizing = "relative";
-        VertSizing = "relative";
-        position = %containerPosition;
-        extent = %customX SPC %customY;
-        Profile = GuiTransparentProfile;
-    };
-
-    %container.add(%customLabel);
-
-    %controlPosition = "0" SPC Sandbox.customLabelSpacing;
-
-    %menu = new GuiPopUpMenuCtrl()
-    {
-        class = "SelectionController";
-        HorizSizing = "relative";
-        VertSizing = "relative";        
-        toy = Sandbox.ActiveToy.ScopeSet;
-        shouldResetToy = %shouldReset;
-        callback = %callback;
-        isContainer = "0";
-        Profile = "GuiPopUpMenuProfile";
-        Position = %controlPosition;
-        Extent = Sandbox.listOptionExtent;
-        MinExtent = "8 2";
-        Visible = "1";
-        Active = "1";
-        toolTipProfile = "GuiToolTipProfile";
-        maxLength = "1024";
-        maxPopupHeight = "200";
-        sbUsesNAColor = "0";
-        reverseTextList = "0";
-        bitmapBounds = "16 16";
-    };
-
-    for (%i = 0; %i < getUnitCount(%entries, ","); %i++)
-    {
-        %menu.add(getUnit(%entries, %i, ","), %i);
-    }
-
-    %menu.setSelected(0);
-
-    %container.add(%menu);
-
-    ToyCustomControls.add(%container);
-
-    Sandbox.lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
-
-    Sandbox.customControlCount++;
-}
-
-//-----------------------------------------------------------------------------
-
-function SelectionController::onSelect(%this)
-{
-    if (%this.toy $= "")
-        return;
-
-    if (%this.callback !$= "")
-    {
-        %value = %this.getTextById(%this.getSelected());
-        %setter = "%this.toy." @ %this.callback @ "(\"" @ %this.getValue() @ "\");";
-        eval(%setter);
-    }
-
-    if (%this.shouldResetToy && %this.toy.isMethod("reset"))
-        %this.toy.reset();
-}
-
-//-----------------------------------------------------------------------------
-
-function addSelectionOptionTwo( %entries, %label, %maxDisplay, %callback, %shouldReset)
+function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldReset)
 {
     // Combined Y extent of the up/down buttons
     %buttonExtentAddition = 46;
@@ -528,30 +445,6 @@ function addSelectionOptionTwo( %entries, %label, %maxDisplay, %callback, %shoul
     %customLabel = createCustomLabel(%label);
     %container.add(%customLabel);
     
-    // Create and add the up button
-    %upButton = new GuiImageButtonCtrl()
-    {
-        canSaveDynamicFields = "0";
-        isContainer = "0";
-        Profile = "GuiDefaultProfile";
-        HorizSizing = "relative";
-        VertSizing = "relative";
-        Position = %buttonX SPC %upButtonY;
-        Extent = "69 23";
-        MinExtent = "8 2";
-        canSave = "1";
-        Visible = "1";
-        Active = "1";
-        groupNum = "-1";
-        buttonType = "PushButton";
-        useMouseEvents = "0";
-        NormalImage = "Sandbox:northArrowNormal";
-        HoverImage = "Sandbox:northArrowHover";
-        DownImage = "Sandbox:northArrowDown";
-    };
-
-    %container.add(%upButton);
-    
     %listContainer = new GuiControl()
     {
         isContainer = 1;
@@ -566,6 +459,7 @@ function addSelectionOptionTwo( %entries, %label, %maxDisplay, %callback, %shoul
     {
         canSaveDynamicFields = "1";
         isContainer = "1";
+        class = "CustomScrollControl";
         Profile = "GuiLightScrollProfile";
         HorizSizing = "relative";
         VertSizing = "relative";
@@ -618,8 +512,11 @@ function addSelectionOptionTwo( %entries, %label, %maxDisplay, %callback, %shoul
         %button = new GuiButtonCtrl()
         {
             canSaveDynamicFields = "0";
+            class = "SelectionController";
+            toy = Sandbox.ActiveToy.ScopeSet;
+            shouldResetToy = %shouldReset;
+            callback = %callback;
             HorizSizing = "relative";
-            class = "ToySelectButton";
             VertSizing = "relative";
             isContainer = "0";
             Profile = "BlueButtonProfile";
@@ -629,13 +526,39 @@ function addSelectionOptionTwo( %entries, %label, %maxDisplay, %callback, %shoul
             isContainer = "0";
             Active = "1";
             text = getUnit(%entries, %i, ",");
-            groupNum = "-1";
-            buttonType = "PushButton";
+            groupNum = "1";
+            buttonType = "ToggleButton";
             useMouseEvents = "0";
         };
         
+        %button.command = %button @ ".updateToy();";
+        
         %arrayList.add(%button);
     }
+    
+    // Create and add the up button
+    %upButton = new GuiImageButtonCtrl()
+    {
+        canSaveDynamicFields = "0";
+        isContainer = "0";
+        Profile = "GuiDefaultProfile";
+        HorizSizing = "relative";
+        VertSizing = "relative";
+        Position = %buttonX SPC %upButtonY;
+        Extent = "69 23";
+        MinExtent = "8 2";
+        canSave = "1";
+        Visible = "1";
+        Active = "1";
+        groupNum = "-1";
+        buttonType = "PushButton";
+        useMouseEvents = "0";
+        NormalImage = "Sandbox:northArrowNormal";
+        HoverImage = "Sandbox:northArrowHover";
+        DownImage = "Sandbox:northArrowDown";
+    };
+    
+    %upButton.command = %scrollControl @ ".scrollToPrevious();";
     
     // Create and add the down button
     %downButton = new GuiImageButtonCtrl()
@@ -659,6 +582,9 @@ function addSelectionOptionTwo( %entries, %label, %maxDisplay, %callback, %shoul
         DownImage = "Sandbox:southArrowDown";
     };
     
+    %downButton.command = %scrollControl @ ".scrollToNext();";
+    
+    %container.add(%upButton);    
     %container.add(%downButton);
     
     ToyCustomControls.add(%container);
@@ -666,6 +592,42 @@ function addSelectionOptionTwo( %entries, %label, %maxDisplay, %callback, %shoul
     Sandbox.lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
 
     Sandbox.customControlCount++;
+}
+
+//-----------------------------------------------------------------------------
+
+function CustomScrollControl::scrollToNext(%this)
+{
+    %currentScroll = %this.getScrollPositionY();
+    %currentScroll += 55;
+    %this.setScrollPosition(0, %currentScroll);
+}
+
+//-----------------------------------------------------------------------------
+
+function CustomScrollControl::scrollToPrevious(%this)
+{
+    %currentScroll = %this.getScrollPositionY();
+    %currentScroll -= 55;
+    %this.setScrollPosition(0, %currentScroll);
+}
+
+//-----------------------------------------------------------------------------
+
+function SelectionController::updateToy(%this)
+{
+    if (%this.toy $= "")
+        return;
+
+    if (%this.callback !$= "")
+    {
+        %value = %this.getText();
+        %setter = "%this.toy." @ %this.callback @ "(\"" @ %value @ "\");";
+        eval(%setter);
+    }
+
+    if (%this.shouldResetToy && %this.toy.isMethod("reset"))
+        %this.toy.reset();
 }
 
 //-----------------------------------------------------------------------------
