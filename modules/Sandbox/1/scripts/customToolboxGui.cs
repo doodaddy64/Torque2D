@@ -481,6 +481,7 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
     {
         canSaveDynamicFields = "0";
         isContainer = "1";
+        class = "CustomOptionArrayClass";
         Profile = "GuiTransparentProfile";
         HorizSizing = "relative";
         VertSizing = "relative";
@@ -531,7 +532,7 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
             useMouseEvents = "0";
         };
         
-        %button.command = %button @ ".updateToy();";
+        %button.command = %arrayList @ ".clearSelections();" @ %button @ ".updateToy();";
         
         %arrayList.add(%button);
     }
@@ -594,6 +595,17 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
     Sandbox.customControlCount++;
 }
 
+function CustomOptionArrayClass::clearSelections(%this)
+{
+    %count = %this.getCount();
+
+    for (%i = 0; %i < %count; %i++)
+    {
+        %button = %this.getObject(%i);
+        
+        %button.setStateOn(false);
+    }
+}
 //-----------------------------------------------------------------------------
 
 function CustomScrollControl::scrollToNext(%this)
@@ -619,28 +631,12 @@ function SelectionController::updateToy(%this)
     if (%this.toy $= "")
         return;
 
+    %this.setStateOn(true);
+    
     if (%this.callback !$= "")
     {
         %value = %this.getText();
         %setter = "%this.toy." @ %this.callback @ "(\"" @ %value @ "\");";
-        eval(%setter);
-    }
-
-    if (%this.shouldResetToy && %this.toy.isMethod("reset"))
-        %this.toy.reset();
-}
-
-//-----------------------------------------------------------------------------
-
-function SelectionController::onSelect(%this)
-{
-    if (%this.toy $= "")
-        return;
-
-    if (%this.callback !$= "")
-    {
-        %value = %this.getTextById(%this.getSelected());
-        %setter = "%this.toy." @ %this.callback @ "(\"" @ %this.getValue() @ "\");";
         eval(%setter);
     }
 
