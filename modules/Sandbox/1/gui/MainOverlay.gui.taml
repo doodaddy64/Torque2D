@@ -7,13 +7,14 @@
     Extent="1024 30"
     MinExtent="220 30"
     Visible="1">	
-
-	<!-- Reload Toy-->
+	
+	<!-- Manipulation Mode-->
     <GuiButtonCtrl
-		Name="ReloadToyOverlayButton"
+        Name="ManipulationModeButton"
         Profile="BlueButtonProfile"
-		Text="Reload Toy"
-		ButtonType="PushButton"		
+		Text="Mode"
+		ButtonType="PushButton"
+        command="cycleManipulation(true);"
         canSaveDynamicFields="0"
         isContainer="0"
         HorizSizing="left"
@@ -27,14 +28,13 @@
         hovertime="1000"
         groupNum="-1"
         useMouseEvents="1" />		
-			
-	<!-- Manipulation Mode-->
+
+	<!-- Reload Toy-->
     <GuiButtonCtrl
-        Name="ManipulationModeButton"
+		Name="ReloadToyOverlayButton"
         Profile="BlueButtonProfile"
-		Text="Mode"
-		ButtonType="PushButton"
-        command="cycleManipulation(true);"
+		Text="Reload Toy"
+		ButtonType="PushButton"		
         canSaveDynamicFields="0"
         isContainer="0"
         HorizSizing="left"
@@ -47,8 +47,8 @@
         Active="1"
         hovertime="1000"
         groupNum="-1"
-        useMouseEvents="1" />	
-
+        useMouseEvents="1" />		
+			
 	<!-- Show Toolbox -->
     <GuiButtonCtrl
         Profile="BlueButtonProfile"
