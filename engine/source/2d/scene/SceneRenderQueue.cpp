@@ -149,16 +149,25 @@ S32 QSORT_CALLBACK SceneRenderQueue::layerBatchOrderSort(const void* a, const vo
     const bool renderIsolatedA = pSceneRenderObjectA->getBatchIsolated();
     const bool renderIsolatedB = pSceneRenderObjectB->getBatchIsolated();
 
-    if ( !renderIsolatedA && !renderIsolatedB )
-        return 0;
+    // A not render isolated?
+    if ( !renderIsolatedA )
+    {
+        // Use the serial Id if neither are render isolated.
+        if ( !renderIsolatedB )
+            return pSceneRenderRequestA->mSerialId - pSceneRenderRequestB->mSerialId;
 
-    if ( renderIsolatedA && !renderIsolatedB )
-        return -1;
-
-    if ( !renderIsolatedA && renderIsolatedB )
+        // A not render isolated but B is.
         return 1;
+    }
 
-    // Use serial Id,
+    // B not render isolated?
+    if ( !renderIsolatedB )
+    {
+        // A is render isolated.
+        return -1;
+    }
+
+    // A and B are render isolated so use serial Id,
     return pSceneRenderRequestA->mSerialId - pSceneRenderRequestB->mSerialId;
 }
 
