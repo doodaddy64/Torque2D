@@ -98,8 +98,10 @@ function CompositeSpriteToy::setAngularVelocity( %this, %value )
     CompositeSpriteToy.AngularVelocity = %value;
     
     // Update any active composite sprite.
-	if ( isObject(CompositeSpriteToy.CompositeSprite) )
+	if ( isObject(CompositeSpriteToy.CompositeSprite) && CompositeSpriteToy.LayoutMode !$= "Isometric" )
+	{
 	    CompositeSpriteToy.CompositeSprite.setAngularVelocity( %value );
+	}
 }
 
 //-----------------------------------------------------------------------------
