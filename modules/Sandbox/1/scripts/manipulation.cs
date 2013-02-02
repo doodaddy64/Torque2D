@@ -175,6 +175,7 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
             // Set the pull object.
             Sandbox.ManipulationPullObject[%touchID] = %pickedObject;
             Sandbox.ManipulationPullJointId[%touchID] = SandboxScene.createTargetJoint( %pickedObject, %worldPos, Sandbox.ManipulationPullMaxForce );            
+            return;
         }
         
         return;
@@ -204,8 +205,7 @@ function SandboxWindow::onTouchUp(%this, %touchID, %worldPos)
         
         // Remove the pull joint.
         SandboxScene.deleteJoint( Sandbox.ManipulationPullJointId[%touchID] );
-        Sandbox.ManipulationPullJointId[%touchID] = "";
-        
+        Sandbox.ManipulationPullJointId[%touchID] = "";        
         return;
     }      
 }
