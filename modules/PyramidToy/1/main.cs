@@ -31,7 +31,7 @@ function PyramidToy::create( %this )
     
     // Configure the toy.
     PyramidToy.BlockCount = 15;
-    PyramidToy.GroundWidth = 150;
+    PyramidToy.GroundWidth = 120;
     
     // Set the camera.
     SandboxWindow.setCurrentCameraSize( 40, 30 );
@@ -88,11 +88,11 @@ function PyramidToy::createBackground( %this )
        
     // Always try to configure a scene-object prior to adding it to a scene for best performance.
 
-    // Set the position.
-    %object.Position = "0 0";
-
     // Set the size.        
-    %object.Size = "40 30";
+    %object.Size = PyramidToy.GroundWidth SPC (PyramidToy.GroundWidth * 0.75);
+    
+    // Set the position.
+    %object.setPositionY( (%object.getSizeY() * 0.5) - 15 );
     
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
@@ -141,28 +141,38 @@ function PyramidToy::createPyramid( %this )
         return;
     }
 
-    %blockSize = 1.5;    
+    // Set the block size.
+    %blockSize = 1.5;
+    
+    // Calculate a block building position.
     %posx = %blockCount * -0.5 * %blockSize;
-    %posy = -8;
+    %posy = -8.2;
 
+    // Build the stack of blocks.
     for( %stack = 0; %stack < %blockCount; %stack++ )
     {
+        // Calculate the stack position.
         %stackIndexCount = %blockCount - (%stack*2);
         %stackX = %posX + ( %stack * 1.5 );
         %stackY = %posY + ( %stack * 1.5 );
         
+        // Build the stack.
         for ( %stackIndex = 0; %stackIndex < %stackIndexCount; %stackIndex++ )
         {
-            %crateX = %stackX + (%stackIndex*1.5);
-            %crateY = %stackY;
+            // Calculate the block position.
+            %blockX = %stackX + (%stackIndex*1.5);
+            %blockY = %stackY;
 
+            // Create the sprite.
             %obj = new Sprite();
-            %obj.setUseInputEvents(true);
+            %obj.setPosition( %blockX, %blockY );
+            %obj.setSize( %blockSize );
             %obj.setImage( "ToyAssets:crate" );
-            %obj.setPosition( %crateX, %crateY );
-            %obj.setSize( 1.5 );
+            %obj.setUseInputEvents(true);
             %obj.setDefaultFriction( 1.0 );
-            %obj.createPolygonBoxCollisionShape( 1.5, 1.5 );
+            %obj.createPolygonBoxCollisionShape( %blockSize, %blockSize );
+            
+            // Add to the scene.
             SandboxScene.add( %obj );          
         }
     }
