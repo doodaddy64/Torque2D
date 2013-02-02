@@ -128,10 +128,10 @@ function initializeToolbox()
     if ( $platform $= "windows" || $platform $= "macos" )
     {
         // Yes, so make the controls screen controls visible.
-        ResolutionSelectLabel.Active = true;
-        ResolutionSelectList.Active = true;
-        FullscreenOptionLabel.Active = true;
-        FullscreenOptionButton.Active = true;
+        ResolutionSelectLabel.Visible = true;
+        ResolutionSelectList.Visible = true;
+        FullscreenOptionLabel.Visible = true;
+        FullscreenOptionButton.Visible = true;
         
         // Fetch the active resolution.
         %activeResolution = getRes();
@@ -356,7 +356,8 @@ function updateToolboxOptions()
     BatchOptionCheckBox.setStateOn( SandboxScene.getBatchingEnabled() );
     
     // Is this on the desktop?
-    if ( $platform $= "windows" || $platform $= "macos" )
+    //if ( $platform $= "windows" || $platform $= "macos" )
+    if ( false )
     {
         // Set the fullscreen check-box.
         FullscreenOptionButton.setStateOn( $pref::Video::fullScreen );
@@ -364,15 +365,7 @@ function updateToolboxOptions()
         // Set the full-screen mode appropriately.
         if ( isFullScreen() != $pref::Video::fullScreen )
             toggleFullScreen();            
-    }
-    else
-    {
-        // No, so make the screen controls visible.
-        ResolutionSelectLabel.Active = false;
-        ResolutionSelectList.Active = false;
-        FullscreenOptionLabel.Active = false;
-        FullscreenOptionButton.Active = false;
-    }    
+    }  
 }
 
 //-----------------------------------------------------------------------------
