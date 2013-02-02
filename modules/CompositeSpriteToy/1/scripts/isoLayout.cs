@@ -41,11 +41,15 @@ function CompositeSpriteToy::createIsoLayout( %this )
 
     // The batch is in "isolated" mode so we can specify a render sort mode.
 	%composite.SetBatchSortMode( "-Y" );
+
+	// Calculate a range.
+	%range = mSqrt( CompositeSpriteToy.SpriteCount ) * 0.5;
+	if ( %range < 1 ) %range = 1;
     	
 	// Add some sprites.
-    for ( %y = -5; %y <= 5; %y++ )
+    for ( %y = -%range; %y <= %range; %y++ )
 	{
-	    for ( %x = -5; %x <= 5; %x++ )
+	    for ( %x = -%range; %x <= %range; %x++ )
         {
             // Add a sprite with the specified logical position.
 	        // In isometric layout this two-part position is scaled by the default sprite-stride.            

@@ -22,6 +22,9 @@
 
 function CompositeSpriteToy::createNoLayout( %this )
 {
+    // Set the layer #0 sort mode to be depth.
+    SandboxScene.setLayerSortMode( 0, "z" );
+    
     // Create the composite sprite.
 	%composite = new CompositeSprite();
 	   
@@ -29,26 +32,29 @@ function CompositeSpriteToy::createNoLayout( %this )
     %composite.SetBatchLayout( "off" );
 	
     // Add some sprites.
-	for( %n = 0; %n < 50; %n++ )
+	for( %n = 0; %n < CompositeSpriteToy.SpriteCount; %n++ )
 	{
         // Add a sprite with no logical position.
         %composite.addSprite();
         
         // Set the sprites location position to a random location.
-        %composite.setSpriteLocalPosition( getRandom(-40,40), getRandom(-30,30) );
+        %composite.setSpriteLocalPosition( getRandom(-30,30), getRandom(-30,30) );
+                
+        // Set a random size.
+        %composite.setSpriteSize( getRandom(5,10) );
         
         // Set a random angle.
         %composite.setSpriteAngle( getRandom(0,360) );
-        
-        // Set a random size.
-        %composite.setSpriteSize( getRandom(5,10), getRandom(5,10) );
 
         // Set the sprite image with a random frame.
-        // We could also use an animation here.
-        %composite.setSpriteImage( "ToyAssets:Tiles", getRandom(0,15) );            
+        // We could also use an animation here.         
+        %composite.setSpriteImage( "ToyAssets:Gems", getRandom(0,63) );            
         
         // Set the sprite spinning to make it more interesting.
         %composite.setAngularVelocity( CompositeSpriteToy.AngularVelocity );
+        
+        // Set a random depth.
+        %composite.SetSpriteDepth( getRandom( -10.0, 10 ) );                
 	}  
 	
 	// Add to the scene.

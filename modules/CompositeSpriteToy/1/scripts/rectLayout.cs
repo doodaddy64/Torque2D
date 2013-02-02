@@ -22,24 +22,31 @@
 
 function CompositeSpriteToy::createRectLayout( %this )
 {
+    // Set the layer #0 sort mode to be depth.
+    SandboxScene.setLayerSortMode( 0, "z" );
+    
     // Create the composite sprite.
 	%composite = new CompositeSprite();
 
     // Set the default sprite stride.
     // This is used in rectilinear layout mode to scale the specified logical position arguments.	
-    %composite.setDefaultSpriteStride( 10, 10 );
+    %composite.setDefaultSpriteStride( 8, 8 );
     
     // Set the default sprite size used to a little less than the stride so we get a "gap"
     // in between the sprites.
-    %composite.setDefaultSpriteSize( 8, 8 );
+    %composite.setDefaultSpriteSize( 6, 6 );
 
 	// Set the batch layout mode.  We must do this before we add any sprites.
     %composite.SetBatchLayout( "rect" );
+
+	// Calculate a range.
+	%range = mSqrt( CompositeSpriteToy.SpriteCount ) * 0.5;
+	if ( %range < 1 ) %range = 1;
 	
 	// Add some sprites.
-    for ( %y = -5; %y <= 5; %y++ )
+    for ( %y = -%range; %y <= %range; %y++ )
 	{
-	    for ( %x = -5; %x <= 5; %x++ )
+	    for ( %x = -%range; %x <= %range; %x++ )
         {                
             // Add a sprite with the specified logical position.
 	        // In rectilinear layout this two-part position is scaled by the default sprite-stride.
@@ -49,14 +56,17 @@ function CompositeSpriteToy::createRectLayout( %this )
             // we can perform operations on it immediately.        
                         
             // Set the sprite image with a random frame.
-            // We could also use an animation here.
-            %composite.setSpriteImage( "ToyAssets:Tiles", getRandom(0,15) );
+            // We could also use an animation here.         
+            %composite.setSpriteImage( "ToyAssets:Blocks", getRandom(0,55) );            
             
             // Set an interesting angle.
             %composite.setSpriteAngle( (%x+%y) * 10 );
-            
+                                    
             // Set the sprite spinning to make it more interesting.
             %composite.setAngularVelocity( CompositeSpriteToy.AngularVelocity );           
+            
+            // Set a random depth.
+            %composite.SetSpriteDepth( getRandom( -10.0, 10 ) );                   
         }
 	}
 	

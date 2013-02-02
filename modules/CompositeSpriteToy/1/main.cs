@@ -33,14 +33,16 @@ function CompositeSpriteToy::create( %this )
     Sandbox.allowManipulation( pull );
     
     // Set the manipulation mode.
-    Sandbox.useManipulation( pull );   
+    Sandbox.useManipulation( pan );   
 
     // Configure the toy.
     CompositeSpriteToy.LayoutMode = "None";
     CompositeSpriteToy.AngularVelocity = 15;
+    CompositeSpriteToy.SpriteCount = 50;
 
     // Add the configuration options.
     addSelectionOption( "None,Rectilinear,Isometric,Custom", "Layout Mode", "setLayoutMode", true );
+    addNumericOption("Maximum Sprite Count", 10, 1000, 10, "setSpriteCount", CompositeSpriteToy.SpriteCount, true );
     addNumericOption("Angular Velocity", -180, 180, 20, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, false );
         
     // Reset the toy.
@@ -59,6 +61,9 @@ function CompositeSpriteToy::reset( %this )
 {
     // Clear the scene.
     SandboxScene.clear();
+    
+    // Create the background.
+    %this.createBackground();
     
     // Create the appropriate layout.
     switch$( CompositeSpriteToy.LayoutMode )
@@ -93,5 +98,27 @@ function CompositeSpriteToy::setAngularVelocity( %this, %value )
     // Update any active composite sprite.
 	if ( isObject(CompositeSpriteToy.CompositeSprite) )
 	    CompositeSpriteToy.CompositeSprite.setAngularVelocity( %value );
+}
+
+//-----------------------------------------------------------------------------
+
+function CompositeSpriteToy::setSpriteCount( %this, %value )
+{
+    CompositeSpriteToy.SpriteCount = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function CompositeSpriteToy::createBackground(%this)
+{
+    // Create the checkered background.
+    %obj = new Scroller();
+    %obj.Image = "ToyAssets:checkered";
+    %obj.BlendColor = "SlateGray";
+    %obj.Size = 200;
+    %obj.RepeatX = 4;
+    %obj.RepeatY = 4;
     
+    // Add to the scene.
+    SandboxScene.add( %obj );   
 }
