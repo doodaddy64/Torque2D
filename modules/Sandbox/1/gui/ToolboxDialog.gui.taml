@@ -245,23 +245,6 @@
             InactiveImage="@asset=Sandbox:plusButtonInactive" />
 			
 		<!-- Toy Selection -->
-		<GuiTextCtrl
-			Name="ToySelectLabel"
-			canSaveDynamicFields="0"
-			isContainer="0"
-			Profile="GuiTextProfile"
-			HorizSizing="relative"
-			VertSizing="relative"
-			Position="0 65"
-			Extent="70 18"
-			MinExtent="8 2"
-			canSave="1"
-			Visible="1"
-			Active="0"
-			hovertime="1000"
-			text="Toy:"
-			maxLength="255"
-			truncate="0" />
         
 		<GuiImageButtonCtrl
 			Name="PreviousToyButton"
@@ -292,7 +275,7 @@
 			Profile="GuiDefaultProfile"
 			HorizSizing="relative"
 			VertSizing="relative"
-			Position="70 635"
+			Position="70 700"
 			Extent="69 23"
 			MinExtent="8 2"
 			canSave="1"
@@ -315,7 +298,7 @@
             HorizSizing="relative"
             VertSizing="relative"
             Position="0 95"
-            Extent="215 525"
+            Extent="215 600"
             MinExtent="8 2"
             canSave="1"
             Visible="1"
@@ -330,15 +313,15 @@
 				HorizSizing="relative"
 				VertSizing="relative"
 				Position="0 5"
-				Extent="215 500"
-				MinExtent="180 510"
+				Extent="215 575"
+				MinExtent="215 575"
 				canSave="1"
 				Visible="1"
 				Active="1"
 				hovertime="1000"
 				willFirstRespond="1"
 				hScrollBar="alwaysOff"
-				vScrollBar="alwaysOn"
+				vScrollBar="dynamic"
 				constantThumbHeight="0"
 				childMargin="2 3" >
 
@@ -351,65 +334,20 @@
 					HorizSizing="relative"
 					VertSizing="relative"
 					Position="25 1"
-					Extent="173 300"
-					MinExtent="173 2"
+					Extent="190 300"
+					MinExtent="1 2"
 					canSave="1"
 					Visible="1"
 					Active="1"
 					tooltipprofile="GuiToolTipProfile"
 					hovertime="1000"
 					colCount="1"
-					colSize="160"
-					rowSize="80"
+					colSize="180"
+					rowSize="50"
 					rowSpacing="8"
 					colSpacing="8" />
 			</GuiScrollCtrl>      
 		</GuiControl> 
-			
-		<GuiPopUpMenuCtrl
-			Name="ToySelectList"
-			canSaveDynamicFields="0"
-			isContainer="0"
-			Profile="GuiPopUpMenuProfile"
-			HorizSizing="relative"
-			VertSizing="relative"
-			Position="3000 75"
-			Extent="214 25"
-			MinExtent="8 2"
-			canSave="1"
-			Visible="1"
-			Active="1"
-			hovertime="1000"
-			toolTipProfile="GuiToolTipProfile"
-			toolTip="Selects the toy to play with."
-			tooltipWidth="250"
-			maxLength="1024"
-			maxPopupHeight="200"
-			sbUsesNAColor="0"
-			reverseTextList="0"
-			bitmapBounds="16 16" />
-
-		<!-- Reload Toy -->
-		<GuiButtonCtrl
-			Name="ReloadToyButton"
-			canSaveDynamicFields="0"
-			isContainer="0"
-			Profile="BlueButtonProfile"
-			HorizSizing="relative"
-			VertSizing="relative"
-			Position="15 670"
-			Extent="180 35"
-			MinExtent="8 2"
-			canSave="1"
-			Visible="1"
-			Active="1"
-			hovertime="1000"
-			groupNum="-1"
-			buttonType="PushButton"
-			useMouseEvents="1"
-			Text="Reload Toy"
-			toolTipProfile="GuiToolTipProfile"
-			toolTip="Reloads the current toy." />
 	</GuiControl>
 
 	<!-- Options Panel -->
