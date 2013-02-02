@@ -29,6 +29,10 @@ function AquariumToy::create( %this )
     AquariumToy.maxFish = 10;
     AquariumToy.currentFish = 0;
     AquariumToy.selectedAnimation = "AquariumToy:angelfish1Anim";
+    
+    // All the fish are on a specific scene-layer so set this layer to sort in "batch" mode
+    // so that all the fish will be sorted into a batchable order to reduce draw calls.
+    SandboxScene.setLayerSortMode( 2, batch );
 
     addNumericOption("Max Fish", 0, 50, 1, "setMaxFish", %this.maxFish, true);
     addSelectionOption(getFishAnimationList(), "Fish Animation", "setSelectedAnimation", false);
