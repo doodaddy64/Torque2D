@@ -16,8 +16,6 @@
 		Text="Hide Tools"
 		ButtonType="PushButton"
 		command="toggleToolbox(true);"
-		tooltipprofile="GuiToolTipProfile"
-		ToolTip="Hides the toolbox."		
 		canSaveDynamicFields="0"
 		isContainer="0"
 		HorizSizing="relative"
