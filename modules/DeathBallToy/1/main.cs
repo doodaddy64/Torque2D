@@ -22,6 +22,17 @@
 
 function DeathBallToy::create( %this )
 {
+    // Activate the package.
+    activatePackage( DeathBallToyPackage );
+
+    // Initialize the toys settings.
+    DeathBallToy.rotateTime = 100;
+    DeathBallToy.moveTime = 3000;
+
+    // Add the custom controls.
+    addNumericOption("Rotate time", 10, 100, 10, "setRotateTime", RotateToToy.rotateTime, true);
+    addNumericOption("Move time", 10, 3000, 10, "setMoveTime", RotateToToy.moveTime, true);
+
     // Reset the toy initially.
     DeathBallToy.reset();
 }
@@ -29,10 +40,23 @@ function DeathBallToy::create( %this )
 //-----------------------------------------------------------------------------
 
 function DeathBallToy::destroy( %this )
-{   
-       
+{
+    // Cancel any pending events.
+    DeathBallToy::cancelPendingEvents();
+
+    // Deactivate the package.
+    deactivatePackage( DeathBallToyPackage );
 }
 
+function DeathBallToy::cancelPendingEvents()
+{
+    // Finish if there are not pending events.
+    if ( !isEventPending(DeathBall.rollSchedule) )
+        return;
+
+    cancel(DeathBall.rollSchedule);
+    DeathBall.rollSchedule = "";
+}
 //-----------------------------------------------------------------------------
 
 function DeathBallToy::reset(%this)
@@ -109,18 +133,53 @@ function DeathBallToy::spawnDeathball(%this, %position)
         CollisionCallback = true;
     };
 
+    %currentAnimTime = Deathball.getAnimationTime();
+    echo("currentAnimTime: " @ %currentAnimTime);
+
+    //%db.pauseAnimation(1);
+
+    Deathball.rollSchedule = Deathball.schedule(100, "updateRollAnimation");
+
     SandboxScene.add(%db);
+
+    SandboxWindow.mount( Deathball, "0 0", 0, true, false );
 }
 
 function Deathball::updateRollAnimation(%this)
 {
-    %velocity = %this.owner.getLinearVelocity();
+    %this.rollSchedule = "";
 
-    %scaledVelocity = (mAbs(%velocity.x) + mAbs(%velocity.y)) / 50;
+    %velocity = %this.getLinearVelocity();
+
+    %currentAnimTime = %this.getAnimationTime();
+    %scaledVelocity = (mAbs(getWord(%velocity, 0))) + mAbs(getWord(%velocity, 1)) / 50;
     %flooredVelocity = mFloatLength(%scaledVelocity, 1);
     %scaledAnimTime = %currentAnimTime * %flooredVelocity;
 
-    %this.owner.setSpeedFactor(%scaledAnimTime);
+//    echo("Velocity: " @ %velocity);
+//    echo("scaledVelocity: " @ %scaledVelocity);
+//    echo("flooredVelocity: " @ %flooredVelocity);
+//    echo("currentAnimTime: " @ %currentAnimTime);
+//    echo("scaledAnimTime: " @ %scaledAnimTime);
 
-    %this.rollSchedule = %this.schedule(100, updateDesktopRoll);
+    %this.setAnimationTimeScale(%scaledAnimTime);
+
+    %this.rollSchedule = %this.schedule(100, updateRollAnimation);
 }
+
+package DeathBallToyPackage
+{
+
+function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
+{
+    %origin = Deathball.getPosition();
+    %angle = -mRadToDeg( mAtan( getWord(%worldPos,0)-getWord(%origin,0), getWord(%worldPos,1)-getWord(%origin,1) ) );
+
+    //Rotate to the touched angle.
+    Deathball.RotateTo( %angle, DeathBallToy.rotateTime );
+
+    // Move to the touched position.
+    Deathball.moveTo( %worldPos, DeathBallToy.moveTime );
+}
+
+};
