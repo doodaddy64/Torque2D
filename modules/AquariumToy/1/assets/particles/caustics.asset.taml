@@ -6,8 +6,7 @@
 		EmitterSize="100 1"
 		FixedAspect="false"
         OldestInFront="1"
-        Image="@asset=AquariumToy:Beam"
-        Frame="2">
+        Image="@asset=AquariumToy:Beam">
         <ParticleAssetEmitter.Fields>
             <Quantity
                 Keys="0 1" />
