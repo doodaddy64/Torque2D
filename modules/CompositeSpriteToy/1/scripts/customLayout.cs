@@ -33,6 +33,12 @@ function CompositeSpriteToy::createCustomLayout( %this )
     
     // Set the default sprite size.
     %composite.setDefaultSpriteSize( 10 );    
+
+    // Set the batch sort mode for when we're render isolated.
+    %composite.SetBatchSortMode( "z" );
+    
+    // Set the batch render isolation.
+    %composite.SetBatchIsolated( CompositeSpriteToy.RenderIsolated );
 	
     // Add some sprites.
 	for( %n = 0; %n < CompositeSpriteToy.SpriteCount; %n++ )

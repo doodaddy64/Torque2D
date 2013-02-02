@@ -26,7 +26,6 @@ function CompositeSpriteToy::create( %this )
     exec( "./scripts/noLayout.cs" );
     exec( "./scripts/rectLayout.cs" );
     exec( "./scripts/isoLayout.cs" );
-    exec( "./scripts/isoSceneLayout.cs" );
     exec( "./scripts/customLayout.cs" );
         
     // Set the sandbox drag mode availability.
@@ -40,11 +39,12 @@ function CompositeSpriteToy::create( %this )
     CompositeSpriteToy.LayoutMode = "None";
     CompositeSpriteToy.AngularVelocity = 15;
     CompositeSpriteToy.SpriteCount = 50;
+    CompositeSpriteToy.RenderIsolated = false;
 
     // Add the configuration options.
-    addSelectionOption( "None,Rectilinear,Isometric (Isolated),Isometric (Scene),Custom", "Layout Mode", "setLayoutMode", true );
+    addSelectionOption( "None,Custom,Rectilinear,Isometric", "Layout Mode", "setLayoutMode", true );
     addNumericOption("Maximum Sprite Count", 10, 1000, 10, "setSpriteCount", CompositeSpriteToy.SpriteCount, true );
-    addNumericOption("Angular Velocity", -180, 180, 20, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, false );
+    addFlagOption("Render Isolated", "setRenderIsolated", CompositeSpriteToy.RenderIsolated, true );
         
     // Reset the toy.
     %this.reset();     
@@ -72,17 +72,14 @@ function CompositeSpriteToy::reset( %this )
         case "None":
             %this.createNoLayout();
             
+        case "Custom":
+            %this.createCustomLayout();
+            
         case "Rectilinear":
             %this.createRectLayout();
             
-        case "Isometric (Isolated)":
+        case "Isometric":
             %this.createIsoLayout();
-
-        case "Isometric (Scene)":
-            %this.createIsoSceneLayout();
-            
-        case "Custom":
-            %this.createCustomLayout();
     }
 }
 
@@ -109,6 +106,13 @@ function CompositeSpriteToy::setAngularVelocity( %this, %value )
 function CompositeSpriteToy::setSpriteCount( %this, %value )
 {
     CompositeSpriteToy.SpriteCount = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function CompositeSpriteToy::setRenderIsolated( %this, %value )
+{
+    CompositeSpriteToy.RenderIsolated = %value;
 }
 
 //-----------------------------------------------------------------------------

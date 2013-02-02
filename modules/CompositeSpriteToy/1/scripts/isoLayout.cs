@@ -22,6 +22,9 @@
 
 function CompositeSpriteToy::createIsoLayout( %this )
 {       
+    // Set the layer #0 sort mode to be depth.
+    SandboxScene.setLayerSortMode( 0, "-y" );
+    
     // Create the composite sprite.   
 	%composite = new CompositeSprite();
 	
@@ -35,13 +38,12 @@ function CompositeSpriteToy::createIsoLayout( %this )
 	// Set the batch layout mode.  We must do this before we add any sprites.
     %composite.SetBatchLayout( "iso" );
 
-    // Set the batch to render in an isolated way.  This allows the composite sprite to specify
-    // the sort mode for the sprites.  All the standard scene-layer sort modes are available.    
-	%composite.SetBatchIsolated( "true" );
-
-    // The batch is in "isolated" mode so we can specify a render sort mode.
-	%composite.SetBatchSortMode( "-Y" );
-
+    // Set the batch sort mode for when we're render isolated.
+    %composite.SetBatchSortMode( "-y" );
+    
+    // Set the batch render isolation.
+    %composite.SetBatchIsolated( CompositeSpriteToy.RenderIsolated );
+    
 	// Calculate a range.
 	%range = mSqrt( CompositeSpriteToy.SpriteCount ) * 0.5;
 	if ( %range < 1 ) %range = 1;

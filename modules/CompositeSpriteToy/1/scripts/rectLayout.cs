@@ -39,6 +39,12 @@ function CompositeSpriteToy::createRectLayout( %this )
 	// Set the batch layout mode.  We must do this before we add any sprites.
     %composite.SetBatchLayout( "rect" );
 
+    // Set the batch sort mode for when we're render isolated.
+    %composite.SetBatchSortMode( "z" );
+
+    // Set the batch render isolation.
+    %composite.SetBatchIsolated( CompositeSpriteToy.RenderIsolated );
+
 	// Calculate a range.
 	%range = mSqrt( CompositeSpriteToy.SpriteCount ) * 0.5;
 	if ( %range < 1 ) %range = 1;
