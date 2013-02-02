@@ -302,7 +302,7 @@ if(!isObject(ConsoleScrollProfile)) new GuiControlProfile( ConsoleScrollProfile 
 if(!isObject(GuiToolboxProfile)) new GuiControlProfile( GuiToolboxProfile : GuiScrollProfile )
 {
     opaque = true;
-    fillColor = "255 255 255 192";
+    fillColor = "255 255 255 96";
     border = 3;
     borderThickness = 0;
     borderColor = "0 0 0";
