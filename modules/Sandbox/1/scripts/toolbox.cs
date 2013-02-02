@@ -515,7 +515,6 @@ function ToyListArray::initialize(%this, %index)
         {
             $defaultToySelected = true;
             $defaultModuleID = %moduleDefinition.getId();
-            echo("$defaultModuleID: " @ %moduleDefinition.getId());
         }
     }
 }
