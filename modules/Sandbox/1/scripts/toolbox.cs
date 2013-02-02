@@ -252,7 +252,7 @@ function ResolutionSelectList::onSelect(%this)
 
 //-----------------------------------------------------------------------------
 
-function ReloadToyButton::onClick(%this)
+function ReloadToyOverlayButton::onClick(%this)
 {
     // Finish if no toy is loaded.
     if ( !isObject(Sandbox.ActiveToy) )
@@ -262,14 +262,7 @@ function ReloadToyButton::onClick(%this)
     resetCustomControls();
 
     // Reload the toy.
-    loadToy( Sandbox.ActiveToy );    
-}
-
-//-----------------------------------------------------------------------------
-
-function ReloadToyOverlayButton::onClick(%this)
-{
-    ReloadToyButton.onClick();
+    loadToy( Sandbox.ActiveToy ); 
 }
 
 //-----------------------------------------------------------------------------
