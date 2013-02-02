@@ -240,22 +240,28 @@ public:
     virtual void advanceTime( F32 timeDelta ) {};
 
     /// Current Camera,
+    virtual void setCurrentCameraPosition( const Vector2& position );
+    inline Vector2 getCurrentCameraPosition( void ) const               { return mCameraCurrent.mSourceArea.centre(); }
+    void setCurrentCameraSize( const Vector2& size );
+    inline Vector2 getCurrentCameraSize( void ) const                   { return Vector2( mCameraCurrent.mSourceArea.extent ); }
     virtual void setCurrentCameraArea( const RectF& cameraWindow );
     inline RectF getCurrentCameraArea( void ) const                     { return mCameraCurrent.mSourceArea; }
-    inline F32 getCurrentCameraWidth( void ) const                      { return mCameraCurrent.mSourceArea.len_x(); }
-    inline F32 getCurrentCameraHeight( void ) const                     { return mCameraCurrent.mSourceArea.len_y(); }
-    virtual void setCurrentCameraPosition( Vector2 centerPosition, F32 width, F32 height );
-    inline Vector2 getCurrentCameraPosition( void ) const               { return mCameraCurrent.mSourceArea.centre(); }
     void setCurrentCameraZoom( const F32 zoomFactor );
     inline F32 getCurrentCameraZoom( void ) const                       { return mCameraCurrent.mCameraZoom; }
     void setCurrentCameraAngle( const F32 cameraAngle );
     inline F32 getCurrentCameraAngle( void ) const                      { return mRadToDeg(mCameraCurrent.mCameraAngle); }
 
     /// Target Camera.
+    virtual void setTargetCameraPosition( const Vector2& position );
+    inline Vector2 getTargetCameraPosition( void ) const                { return mCameraTarget.mSourceArea.centre(); }
+    void setTargetCameraSize( const Vector2& size );
+    inline Vector2 getTargetCameraSize( void ) const                    { return Vector2( mCameraTarget.mSourceArea.extent ); }
     virtual void setTargetCameraArea( const RectF& cameraWindow );
-    virtual void setTargetCameraPosition( Vector2 centerPosition, F32 width, F32 height );
+    inline RectF getTargetCameraArea( void ) const                      { return mCameraTarget.mSourceArea; }
     void setTargetCameraZoom( const F32 zoomFactor );
+    inline F32 getTargetCameraZoom( void ) const                        { return mCameraTarget.mCameraZoom; }
     void setTargetCameraAngle( const F32 cameraAngle );
+    inline F32 getTargetCameraAngle( void ) const                       { return mRadToDeg(mCameraTarget.mCameraAngle); }
 
     /// Camera Interpolation Time/Mode.
     void setCameraInterpolationTime( const F32 interpolationTime );

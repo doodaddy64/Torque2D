@@ -90,11 +90,59 @@ ConsoleMethod(SceneWindow, resetScene, void, 2, 2, "() Detaches the window from 
 {
     // Reset Scene.
     object->resetScene();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, setCurrentCameraPosition, void, 3, 4,    "(x , y) - Set the current camera position.\n"
+                                                                    "@param X Position along the X axis.\n"
+                                                                    "@param Y Position along the Y axis.\n"
+                                                                    "@return No return value.")
+{
+   if ( argc == 3 )
+   {
+       object->setCurrentCameraPosition( Vector2(argv[2]) );
+       return;
+   }
+
+   object->setCurrentCameraPosition( Vector2(dAtof(argv[2]), dAtof(argv[3])) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, getCurrentCameraPosition, const char*, 2, 2, "() Get the current camera position.\n"
+                                                                        "@return The current camera position.")
+{
+    return object->getCurrentCameraPosition().scriptThis();
 }   
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, setCurrentCameraArea, void, 3, 6, "(x1 / y1 / x2 / y2) - Set current camera area."
+ConsoleMethod(SceneWindow, setCurrentCameraSize, void, 3, 4,    "(width , height) - Set the current camera position.\n"
+                                                                "@param width Size along the X axis.\n"
+                                                                "@param height Size along the Y axis.\n"
+                                                                "@return No return value.")
+{
+   if ( argc == 3 )
+   {
+       object->setCurrentCameraSize( Vector2(argv[2]) );
+       return;
+   }
+
+   object->setCurrentCameraSize( Vector2(dAtof(argv[2]), dAtof(argv[3])) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, getCurrentCameraSize, const char*, 2, 2, "() Get the current camera size.\n"
+                                                                    "@return The current camera width and height.")
+{
+    return object->getCurrentCameraSize().scriptThis();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, setCurrentCameraArea, void, 3, 6, "(x1 / y1 / x2 / y2) - Set the current camera area."
               "@param x1,y1,x2,y2 The coordinates of the minimum and maximum points (top left, bottom right)\n"
               "The input can be formatted as either \"x1 y1 x2 y2\", \"x1 y1, x2 y2\", \"x1, y1, x2, y2\"\n"
               "@return No return value.")
@@ -148,7 +196,7 @@ ConsoleMethod(SceneWindow, setCurrentCameraArea, void, 3, 6, "(x1 / y1 / x2 / y2
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, getCurrentCameraArea, const char*, 2, 2, "() Get current camera Area.\n"
+ConsoleMethod(SceneWindow, getCurrentCameraArea, const char*, 2, 2, "() Get the current camera Area.\n"
               "@return The camera area formatted as \"x1 y1 x2 y2\"")
 {
     // Fetch Camera Window.
@@ -162,121 +210,22 @@ ConsoleMethod(SceneWindow, getCurrentCameraArea, const char*, 2, 2, "() Get curr
 
     // Return Buffer.
     return pBuffer;
-}   
+}     
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, getCurrentCameraSize, const char*, 2, 2, "() Get current camera Size.\n"
-              "@return Returns the cameras width and height as a string formatted as \"width height\"")
+ConsoleMethod(SceneWindow, setCurrentCameraZoom, void, 3, 3,    "(zoomFactor) - Set the current camera Zoom Factor.\n"
+                                                                "@param zoomFactor A float value representing the zoom factor\n"
+                                                                "@return No return value.")
 {
-    // Fetch Camera Window.
-    const RectF cameraWindow = object->getCurrentCameraArea();
-
-    // Create Returnable Buffer.
-    char* pBuffer = Con::getReturnBuffer(64);
-    // Format Buffer.
-    dSprintf(pBuffer, 64, "%g %g", cameraWindow.extent.x, cameraWindow.extent.y);
-    // Return Buffer.
-    return pBuffer;
-}   
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SceneWindow, setCurrentCameraPosition, void, 3, 6, "(x / y / [width / height]) - Set current camera position.\n"
-              "@param There are 5 possible formats for input: (x1, y1), (\"x1 y1\"), (x, y, width, height) (\"x1 y1\", \"width height\") (x1, y1, x2, y2)"
-              "@return No return value.")
-{
-   // Position.
-   Vector2 position;
-   // Dimensions.
-   F32 width = object->getCurrentCameraWidth();
-   F32 height = object->getCurrentCameraHeight();
-
-   // Grab the number of elements in the first two parameters.
-   U32 elementCount1 = Utility::mGetStringElementCount(argv[2]);
-   U32 elementCount2 = 1;
-   if (argc > 3)
-      elementCount2 = Utility::mGetStringElementCount(argv[3]);
-
-   // ("x1 y1 width height")
-   if ((elementCount1 == 4) && (argc == 3))
-   {
-       position = Utility::mGetStringElementVector(argv[2]);
-       width = dAtof(Utility::mGetStringElement(argv[2], 2));
-       height = dAtof(Utility::mGetStringElement(argv[2], 3));
-   }
-   
-   // ("x1 y1", "width height")
-   else if ((elementCount1 == 2) && (elementCount2 == 2) && (argc == 4))
-   {
-       position = Utility::mGetStringElementVector(argv[2]);
-       width = dAtof(Utility::mGetStringElement(argv[3], 0));
-       height = dAtof(Utility::mGetStringElement(argv[3], 1));
-   }
-
-   // ("x1 y1")
-   else if ((elementCount1 == 2) && (argc == 3))
-   {
-       position = Utility::mGetStringElementVector(argv[2]);
-   }
-   
-   // (x1, y1, x2, y2)
-   else if (argc == 6)
-   {
-       position = Vector2(dAtof(argv[2]), dAtof(argv[3]));
-       width = dAtof(argv[4]);
-       height = dAtof(argv[5]);
-   }
-
-   // (x1, y1)
-   else if (argc == 4)
-   {
-       position = Vector2(dAtof(argv[2]), dAtof(argv[3]));
-   }
-   
-   // Invalid
-   else
-   {
-      Con::warnf("SceneObject::setArea() - Invalid number of parameters!");
-      return;
-   }
-
-    // Set Current Camera Position.
-    object->setCurrentCameraPosition( position, width, height );
-}
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SceneWindow, getCurrentCameraPosition, const char*, 2, 2, "() Get current camera position.\n"
-                                                                        "@return The current camera position.")
-{
-    return object->getCurrentCameraPosition().scriptThis();
-}   
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SceneWindow, getCurrentCameraRenderPosition, const char*, 2, 2,   "() Get current camera position post-view-limit clamping.\n"
-                                                                                "@return The current camera render position.")
-{
-    return object->getCurrentCameraRenderPosition().scriptThis();
-}   
-
-//-----------------------------------------------------------------------------
-
-ConsoleMethod(SceneWindow, setCurrentCameraZoom, void, 3, 3, "(zoomFactor) - Set current camera Zoom Factor.\n"
-              "@param zoomFactor A float value representing the zoom factor\n"
-              "@return No return value.")
-{
-    // Set Current Camera Zoom.
     object->setCurrentCameraZoom( dAtof(argv[2]) );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, getCurrentCameraZoom, F32, 2, 2, "() Get current camera Zoom.\n"
-              "@return Returns the camera zoom factor as a 32-bit floating point value.")
+ConsoleMethod(SceneWindow, getCurrentCameraZoom, F32, 2, 2, "() Get the current camera Zoom.\n"
+                                                            "@return The current camera zoom.")
 {
-    // Get Current Camera Zoom.
     return object->getCurrentCameraZoom();
 } 
 
@@ -310,6 +259,14 @@ ConsoleMethod(SceneWindow, getCurrentCameraWorldScale, const char*, 2, 2, "() Ge
 
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(SceneWindow, getCurrentCameraRenderPosition, const char*, 2, 2,   "() Get current camera position post-view-limit clamping.\n"
+                                                                                "@return The current camera render position.")
+{
+    return object->getCurrentCameraRenderPosition().scriptThis();
+} 
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(SceneWindow, getCurrentCameraRenderScale, const char*, 2, 2, "() Get current camera scale to render.\n"
               "@return Returns the cameras window width/height scale to render as a string formatted as \"widthScale heightScale\"")
 {
@@ -324,7 +281,56 @@ ConsoleMethod(SceneWindow, getCurrentCameraRenderScale, const char*, 2, 2, "() G
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, setTargetCameraArea, void, 3, 6, "(x / y / width / height) - Set target camera area."
+ConsoleMethod(SceneWindow, setTargetCameraPosition, void, 3, 4,     "(x , y) - Set the target camera position.\n"
+                                                                    "@param X Position along the X axis.\n"
+                                                                    "@param Y Position along the Y axis.\n"
+                                                                    "@return No return value.")
+{
+   if ( argc == 3 )
+   {
+       object->setTargetCameraPosition( Vector2(argv[2]) );
+       return;
+   }
+
+   object->setTargetCameraPosition( Vector2(dAtof(argv[2]), dAtof(argv[3])) );
+}
+
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, getTargetCameraPosition, const char*, 2, 2,  "() Get the target camera position.\n"
+                                                                        "@return The target camera position.")
+{
+    return object->getTargetCameraPosition().scriptThis();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, setTargetCameraSize, void, 3, 4,    "(width , height) - Set the target camera position.\n"
+                                                                "@param width Size along the X axis.\n"
+                                                                "@param height Size along the Y axis.\n"
+                                                                "@return No return value.")
+{
+   if ( argc == 3 )
+   {
+       object->setTargetCameraSize( Vector2(argv[2]) );
+       return;
+   }
+
+   object->setTargetCameraSize( Vector2(dAtof(argv[2]), dAtof(argv[3])) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, getTargetCameraSize, const char*, 2, 2, "() Get the target camera size.\n"
+                                                                    "@return The target camera width and height.")
+{
+    return object->getTargetCameraSize().scriptThis();
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, setTargetCameraArea, void, 3, 6, "(x / y / width / height) - Set the target camera area."
               "@return No return value.")
 {
    // Upper left bound.
@@ -376,75 +382,36 @@ ConsoleMethod(SceneWindow, setTargetCameraArea, void, 3, 6, "(x / y / width / he
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, setTargetCameraPosition, void, 3, 6, "(x / y / [width / height]) - Set target camera position."
-              "@return No return value.")
+ConsoleMethod(SceneWindow, getTargetCameraArea, const char*, 2, 2, "() Get the target camera Area.\n"
+              "@return The camera area formatted as \"x1 y1 x2 y2\"")
 {
-   // Position.
-   Vector2 position;
-   // Dimensions.
-   F32 width = object->getCurrentCameraWidth();
-   F32 height = object->getCurrentCameraHeight();
+    // Fetch Camera Window.
+    const RectF cameraWindow = object->getTargetCameraArea();
 
-   // Grab the number of elements in the first two parameters.
-   U32 elementCount1 = Utility::mGetStringElementCount(argv[2]);
-   U32 elementCount2 = 1;
-   if (argc > 3)
-      elementCount2 = Utility::mGetStringElementCount(argv[3]);
+    // Create Returnable Buffer.
+    char* pBuffer = Con::getReturnBuffer(64);
 
-   // ("x1 y1 width height")
-   if ((elementCount1 == 4) && (argc == 3))
-   {
-       position = Utility::mGetStringElementVector(argv[2]);
-       width = dAtof(Utility::mGetStringElement(argv[2], 2));
-       height = dAtof(Utility::mGetStringElement(argv[2], 3));
-   }
-   
-   // ("x1 y1", "width height")
-   else if ((elementCount1 == 2) && (elementCount2 == 2) && (argc == 4))
-   {
-       position = Utility::mGetStringElementVector(argv[2]);
-       width = dAtof(Utility::mGetStringElement(argv[3], 0));
-       height = dAtof(Utility::mGetStringElement(argv[3], 1));
-   }
+    // Format Buffer.
+    dSprintf(pBuffer, 64, "%.5g %.5g %.5g %.5g", cameraWindow.point.x, cameraWindow.point.y, cameraWindow.point.x+cameraWindow.extent.x, cameraWindow.point.y+cameraWindow.extent.y);
 
-   // ("x1 y1")
-   else if ((elementCount1 == 2) && (argc == 3))
-   {
-       position = Utility::mGetStringElementVector(argv[2]);
-   }
-   
-   // (x1, y1, width, height)
-   else if (argc == 6)
-   {
-       position = Vector2(dAtof(argv[2]), dAtof(argv[3]));
-       width = dAtof(argv[4]);
-       height = dAtof(argv[5]);
-   }
-   
-   // (x1, y1)
-   else if (argc == 4)
-   {
-       position = Vector2(dAtof(argv[2]), dAtof(argv[3]));
-   }
-   
-   // Invalid
-   else
-   {
-      Con::warnf("SceneObject::setArea() - Invalid number of parameters!");
-      return;
-   }
+    // Return Buffer.
+    return pBuffer;
+} 
 
-    // Set Target Camera Position.
-    object->setTargetCameraPosition( position, width, height );
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, setTargetCameraZoom, void, 3, 3, "(zoomFactor) - Set the target camera Zoom Factor."
+                                                            "@return No return value.")
+{
+    object->setTargetCameraZoom( dAtof(argv[2]) );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, setTargetCameraZoom, void, 3, 3, "(zoomFactor) - Set target camera Zoom Factor."
-              "@return No return value.")
+ConsoleMethod(SceneWindow, getTargetCameraZoom, F32, 2, 2, "() Get the target camera Zoom.\n"
+                                                            "@return The current camera zoom.")
 {
-    // Set Target Camera Zoom.
-    object->setTargetCameraZoom( dAtof(argv[2]) );
+    return object->getTargetCameraZoom();
 }
 
 //-----------------------------------------------------------------------------
@@ -454,6 +421,14 @@ ConsoleMethod(SceneWindow, setTargetCameraAngle, void, 3, 3,    "(angle) - Sets 
                                                               " @return No return value.")
 {
     object->setTargetCameraAngle( mDegToRad(dAtof(argv[2])) );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(SceneWindow, getTargetCameraAngle, F32, 2, 2,    "() Gets the target camera angle.\n"
+                                                                "@return The target camera angle in degrees.")
+{
+    return object->getTargetCameraAngle();
 }
 
 //-----------------------------------------------------------------------------
