@@ -1,0 +1,3 @@
+<ImageAsset
+    AssetName="skyBackground"
+    ImageFile="@assetFile=#highlightBackground.png" />
