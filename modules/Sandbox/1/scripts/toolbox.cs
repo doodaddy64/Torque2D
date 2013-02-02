@@ -318,10 +318,18 @@ function ReloadToyButton::onClick(%this)
     if ( !isObject(Sandbox.ActiveToy) )
         return;
 
+    // Reset custom controls.
     resetCustomControls();
 
     // Reload the toy.
     loadToy( Sandbox.ActiveToy );    
+}
+
+//-----------------------------------------------------------------------------
+
+function ReloadToyOverlayButton::onClick(%this)
+{
+    ReloadToyButton.onClick();
 }
 
 //-----------------------------------------------------------------------------

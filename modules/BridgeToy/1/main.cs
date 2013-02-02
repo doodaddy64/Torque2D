@@ -29,9 +29,14 @@ function BridgeToy::create(%this)
     // Set the manipulation mode.
     Sandbox.useManipulation( pull );   
     
+    // Set the scene gravity.
+    SandboxScene.setGravity(0, -9.8);   
+    
+    // Configure the toy.
     BridgeToy.GroundWidth = 40;
     BridgeToy.maxDebris = 3;
     
+    // Add configuration option.
     addNumericOption("Amount of Debris", 0, 30, 1, "setMaxDebris", BridgeToy.maxDebris, true);
     
     // Reset the toy initially.
@@ -58,9 +63,6 @@ function BridgeToy::reset(%this)
     // Prefer the collision option off as it severely affects the performance.
     setCollisionOption(false);
     
-    // Set the scene gravity.
-    SandboxScene.setGravity(0, -9.8);
-
     // Create a background.
     %this.createBackground();
                 
@@ -76,7 +78,7 @@ function BridgeToy::reset(%this)
     // Create the right side of the bridge
     %this.createBase(13, 0, 0);
         
-    // Create the grund.
+    // Create the ground.
     %this.createGround();   
 }
 
@@ -218,7 +220,6 @@ function BridgeToy::createDebris(%this)
         SandboxScene.add(%obj);
     }
 }
-
 
 //-----------------------------------------------------------------------------
 

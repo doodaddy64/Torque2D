@@ -45,7 +45,8 @@ function createSandboxWindow()
     SandboxWindow.setObjectInputEventGroupFilter( %allBits );
     SandboxWindow.setObjectInputEventLayerFilter( %allBits );
     SandboxWindow.setLockMouse( false );
-    SandboxWindow.setCurrentCameraPosition( 0, 0, 100, 75 );
+    SandboxWindow.setCurrentCameraPosition( 0, 0 );
+    SandboxWindow.setCurrentCameraSize( 100, 75 );
     SandboxWindow.setCurrentCameraZoom( 1 );
     SandboxWindow.setCurrentCameraAngle( 0 );
 }
@@ -120,7 +121,8 @@ function setSceneToWindow()
     SandboxWindow.setObjectInputEventGroupFilter( %allBits );
     SandboxWindow.setObjectInputEventLayerFilter( %allBits );
     SandboxWindow.setLockMouse( false );
-    SandboxWindow.setCurrentCameraPosition( 0, 0, 100, 75 );
+    SandboxWindow.setCurrentCameraPosition( 0, 0 );
+    SandboxWindow.setCurrentCameraSize( 100, 75 );
     SandboxWindow.setCurrentCameraZoom( 1 );
     SandboxWindow.setCurrentCameraAngle( 0 );
     

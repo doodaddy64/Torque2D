@@ -30,17 +30,17 @@ function PyramidToy::create( %this )
     Sandbox.useManipulation( pull );
     
     // Configure the toy.
-    PyramidToy.BrickCount = 15;
-    PyramidToy.GroundWidth = 150;
+    PyramidToy.BlockCount = 15;
+    PyramidToy.GroundWidth = 120;
     
     // Set the camera.
-    SandboxWindow.setCurrentCameraArea("-15 -15 15 15");
+    SandboxWindow.setCurrentCameraSize( 40, 30 );
     
     // Se the gravity.
-    SandboxScene.setGravity( 0, -15 );
-        
-    // Set the sandbox drag mode.
-    Sandbox.useManipulation( "pull" ); 
+    SandboxScene.setGravity( 0, -9.8 );
+
+    // Add configuration option.
+    addNumericOption( "Block Count", 2, 30, 1, "setBlockCount", PyramidToy.BlockCount, true );
     
     // Reset the toy.
     PyramidToy.reset();
@@ -59,55 +59,120 @@ function PyramidToy::reset( %this )
     // Clear the scene.
     SandboxScene.clear();
         
-    // Create the pyramid ground.
-    %this.createPyramidGround();
+    // Create a background.
+    %this.createBackground();
     
     // Create the pyramid.
-    %this.createPyramid(-15, -8, PyramidToy.BrickCount);    
+    %this.createPyramid();    
+    
+    // Create the ground.
+    %this.createGround();    
 }
 
 //-----------------------------------------------------------------------------
 
-function PyramidToy::createPyramidGround( %this )
+function PyramidToy::setBlockCount(%this, %value)
 {
+    %this.BlockCount = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function PyramidToy::createBackground( %this )
+{    
+    // Create the scroller.
+    %object = new Sprite();
+    
+    // Set the sprite as "static" so it is not affected by gravity.
+    %object.setBodyType( static );
+       
+    // Always try to configure a scene-object prior to adding it to a scene for best performance.
+
+    // Set the size.        
+    %object.Size = PyramidToy.GroundWidth SPC (PyramidToy.GroundWidth * 0.75);
+    
+    // Set the position.
+    %object.setPositionY( (%object.getSizeY() * 0.5) - 15 );
+    
+    // Set to the furthest background layer.
+    %object.SceneLayer = 31;
+    
+    // Set the scroller to use an animation!
+    %object.Image = "ToyAssets:jungleSky";
+            
+    // Add the sprite to the scene.
+    SandboxScene.add( %object );    
+}
+
+//-----------------------------------------------------------------------------
+
+function PyramidToy::createGround( %this )
+{
+    // Create the ground
     %ground = new Scroller();
-    %ground.setBodyType( "static" );
-    %ground.Image = "ToyAssets:woodGround";
-    %ground.setSize(PyramidToy.GroundWidth, 2);
-    %ground.setRepeatX( PyramidToy.GroundWidth / 12 );   
-    %ground.setPosition(0, -10);
-    %ground.createEdgeCollisionShape( PyramidToy.GroundWidth/-2, 1, PyramidToy.GroundWidth/2, 1 );
-    SandboxScene.add( %ground );
+    %ground.setBodyType("static");
+    %ground.Image = "ToyAssets:dirtGround";
+    %ground.setPosition(0, -12);
+    %ground.setSize(PyramidToy.GroundWidth, 6);
+    %ground.setRepeatX(PyramidToy.GroundWidth / 12);   
+    %ground.createEdgeCollisionShape(PyramidToy.GroundWidth/-2, 3, PyramidToy.GroundWidth/2, 3);
+    SandboxScene.add(%ground);  
+    
+    // Create the grass.
+    %grass = new Sprite();
+    %grass.setBodyType("static");
+    %grass.Image = "ToyAssets:grassForeground";
+    %grass.setPosition(0, -8.5);
+    %grass.setSize(PyramidToy.GroundWidth, 2); 
+    SandboxScene.add(%grass);       
 }
 
 //-----------------------------------------------------------------------------
 
-function PyramidToy::createPyramid( %this, %posX, %posY, %brickBaseCount )
-{
-    if ( %brickBaseCount < 2 )
+function PyramidToy::createPyramid( %this )
+{   
+    // Fetch the block count.
+    %blockCount = PyramidToy.BlockCount;
+    
+    // Sanity!
+    if ( %blockCount < 2 )
     {
-        echo( "Invalid pyramid brick base count of" SPC %brickBaseCount );
+        echo( "Cannot have a pyramid block count less than two." );
         return;
     }
 
-    for( %stack = 0; %stack < %brickBaseCount; %stack++ )
+    // Set the block size.
+    %blockSize = 1.5;
+    
+    // Calculate a block building position.
+    %posx = %blockCount * -0.5 * %blockSize;
+    %posy = -8.2;
+
+    // Build the stack of blocks.
+    for( %stack = 0; %stack < %blockCount; %stack++ )
     {
-        %stackIndexCount = %brickBaseCount - (%stack*2);
+        // Calculate the stack position.
+        %stackIndexCount = %blockCount - (%stack*2);
         %stackX = %posX + ( %stack * 1.5 );
         %stackY = %posY + ( %stack * 1.5 );
         
+        // Build the stack.
         for ( %stackIndex = 0; %stackIndex < %stackIndexCount; %stackIndex++ )
         {
-            %crateX = %stackX + (%stackIndex*1.5);
-            %crateY = %stackY;
+            // Calculate the block position.
+            %blockX = %stackX + (%stackIndex*1.5);
+            %blockY = %stackY;
 
+            // Create the sprite.
             %obj = new Sprite();
-            %obj.setUseInputEvents(true);
+            %obj.setPosition( %blockX, %blockY );
+            %obj.setSize( %blockSize );
             %obj.setImage( "ToyAssets:crate" );
-            %obj.setPosition( %crateX, %crateY );
-            %obj.setSize( 1.5 );
+            %obj.setUseInputEvents(true);
             %obj.setDefaultFriction( 1.0 );
-            %obj.createPolygonBoxCollisionShape( 1.5, 1.5 );
+            %obj.createPolygonBoxCollisionShape( %blockSize, %blockSize );
+            
+            // Add to the scene.
             SandboxScene.add( %obj );          
         }
     }

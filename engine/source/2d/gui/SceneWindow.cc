@@ -131,10 +131,13 @@ bool SceneWindow::onAdd()
     if(!Parent::onAdd())
         return false;
 
-    // Reset Current Camera Position.
-    setCurrentCameraPosition( Point2F(0,0), 100, 75 );
+    // Reset the camera position.
+    setCurrentCameraPosition( Vector2::getZero() );
 
-    // Reset Current Camera Zoom.
+    // Reset the camera size.
+    setCurrentCameraSize( Vector2( 100.0f, 75.0f ) );
+
+    // Reset the camera zoom.
     setCurrentCameraZoom( 1.0f );
 
     // Zero Camera Time.
@@ -206,6 +209,49 @@ void SceneWindow::resetScene( void )
     mpScene = NULL;
 }
 
+
+//-----------------------------------------------------------------------------
+
+void SceneWindow::setCurrentCameraPosition( const Vector2& position )
+{
+    // Are we mounted to an object?
+    if ( isCameraMounted() )
+    {
+        // Yes, so cannot use this command.
+        Con::warnf("SceneWindow::setCurrentCameraPosition() - Cannot use this command when camera is mounted!");
+        return;
+    }
+
+    // Stop Camera Move ( if any ).
+    if ( mMovingCamera ) stopCameraMove();
+
+    // Fetch the camera size.
+    const Vector2 cameraSize = getCurrentCameraSize();
+
+    // Set Camera Target.
+    mCameraCurrent.mSourceArea = RectF( position.x - (cameraSize.x * 0.5f), position.y - (cameraSize.y * 0.5f), cameraSize.x, cameraSize.y );
+
+    // Set Camera Target to Current.
+    mCameraTarget = mCameraCurrent;
+}
+
+//-----------------------------------------------------------------------------
+
+void SceneWindow::setCurrentCameraSize( const Vector2& size )
+{
+    // Stop Camera Move ( if any ).
+    if ( mMovingCamera ) stopCameraMove();
+
+    // Fetch the current position.
+    const Vector2 position = getCurrentCameraPosition();
+
+    // Set Camera Target.
+    mCameraCurrent.mSourceArea = RectF( position.x - (size.x * 0.5f), position.y - (size.y * 0.5f), size.x, size.y );
+
+    // Set Camera Target to Current.
+    mCameraTarget = mCameraCurrent;
+}
+
 //-----------------------------------------------------------------------------
 
 void SceneWindow::setCurrentCameraArea( const RectF& cameraWindow )
@@ -225,28 +271,6 @@ void SceneWindow::setCurrentCameraArea( const RectF& cameraWindow )
     mCameraCurrent.mSourceArea = cameraWindow;
     mCameraCurrent.mCameraZoom = 1.0f;
     mCameraCurrent.mCameraAngle = 0.0f;
-
-    // Set Camera Target to Current.
-    mCameraTarget = mCameraCurrent;
-}
-
-//-----------------------------------------------------------------------------
-
-void SceneWindow::setCurrentCameraPosition( Vector2 centerPosition, F32 width, F32 height )
-{
-    // Are we mounted to an object?
-    if ( isCameraMounted() )
-    {
-        // Yes, so cannot use this command.
-        Con::warnf("SceneWindow::setCurrentCameraPosition - Cannot use this command when camera is mounted!");
-        return;
-    }
-
-    // Stop Camera Move ( if any ).
-    if ( mMovingCamera ) stopCameraMove();
-
-    // Set Camera Target.
-    mCameraCurrent.mSourceArea = RectF( centerPosition.x - width/2, centerPosition.y - height/2, width, height );
 
     // Set Camera Target to Current.
     mCameraTarget = mCameraCurrent;
@@ -282,6 +306,42 @@ void SceneWindow::setCurrentCameraAngle( const F32 cameraAngle )
 
 //-----------------------------------------------------------------------------
 
+void SceneWindow::setTargetCameraPosition( const Vector2& position )
+{
+    // Are we mounted to an object?
+    if ( isCameraMounted() )
+    {
+        // Yes, so cannot use this command.
+        Con::warnf("SceneWindow::setTargetCameraPosition - Cannot use this command when camera is mounted!");
+        return;
+    }
+
+    // Stop Camera Move ( if any ).
+    if ( mMovingCamera ) stopCameraMove();
+
+    // Fetch the camera size.
+    const Vector2 cameraSize = getTargetCameraSize();
+
+    // Set Camera Target.
+    mCameraTarget.mSourceArea = RectF( position.x - (cameraSize.x*0.5f), position.y - (cameraSize.y*0.5f), cameraSize.x, cameraSize.y );
+}
+
+//-----------------------------------------------------------------------------
+
+void SceneWindow::setTargetCameraSize( const Vector2& size )
+{
+    // Stop Camera Move ( if any ).
+    if ( mMovingCamera ) stopCameraMove();
+
+    // Fetch the current position.
+    const Vector2 position = getTargetCameraPosition();
+
+    // Set Camera Target.
+    mCameraTarget.mSourceArea = RectF( position.x - (size.x * 0.5f), position.y - (size.y * 0.5f), size.x, size.y );
+}
+
+//-----------------------------------------------------------------------------
+
 void SceneWindow::setTargetCameraArea( const RectF& cameraWindow )
 {
     // Are we mounted to an object?
@@ -297,25 +357,6 @@ void SceneWindow::setTargetCameraArea( const RectF& cameraWindow )
 
     // Set Camera Target.
     mCameraTarget.mSourceArea = cameraWindow;
-}
-
-//-----------------------------------------------------------------------------
-
-void SceneWindow::setTargetCameraPosition( Vector2 centerPosition, F32 width, F32 height )
-{
-    // Are we mounted to an object?
-    if ( isCameraMounted() )
-    {
-        // Yes, so cannot use this command.
-        Con::warnf("SceneWindow::setTargetCameraPosition - Cannot use this command when camera is mounted!");
-        return;
-    }
-
-    // Stop Camera Move ( if any ).
-    if ( mMovingCamera ) stopCameraMove();
-
-    // Set Camera Target.
-    mCameraTarget.mSourceArea = RectF( centerPosition.x - width/2, centerPosition.y - height/2, width, height );
 }
 
 //-----------------------------------------------------------------------------

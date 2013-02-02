@@ -61,8 +61,8 @@ function TruckToy::reset( %this )
     SandboxScene.setGravity( 0, -9.8 );  
 
     // Camera Configuration
-    SandboxWindow.setCurrentCameraArea( TruckToy.CameraWidth/-2, TruckToy.CameraHeight/2, TruckToy.CameraWidth/2, TruckToy.CameraHeight/-2 );
     SandboxWindow.setCurrentCameraPosition( TruckToy.WorldLeft + (TruckToy.CameraWidth/2) - 10, 0 );
+    SandboxWindow.setCurrentCameraSize( TruckToy.CameraWidth, TruckToy.CameraHeight );
     SandboxWindow.setViewLimitOn( TruckToy.WorldLeft, TruckToy.CameraHeight/-2, TruckToy.WorldRight, TruckToy.CameraWidth/2 );
 
     // Create the scene contents in a roughly left to right order.      
