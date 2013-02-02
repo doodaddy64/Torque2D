@@ -30,6 +30,8 @@ function ToyCategorySelectList::onSelect(%this)
     // Fetch the index.
     %index = %this.currentToyCategory;
 
+    $defaultToySelected = false;
+
     ToyListArray.initialize(%index);
     ToyListScroller.computeSizes();
     ToyListScroller.scrollToTop();
@@ -38,11 +40,16 @@ function ToyCategorySelectList::onSelect(%this)
     unloadToy();
 
     // Flag as the default toy selected.
-    $defaultToySelected = true;
-
-    %firstToyButton = ToyListArray.getObject(0);
-    if (isObject(%firstToyButton))
-        %firstToyButton.performSelect();
+    if ($defaultToySelected)
+    {
+        loadToy($defaultModuleID);
+    }
+    else
+    {
+        %firstToyButton = ToyListArray.getObject(0);
+        if (isObject(%firstToyButton))
+            %firstToyButton.performSelect();
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -199,21 +206,6 @@ function toggleToolbox(%make)
 
     MainOverlay.setVisible(0);
     Canvas.pushDialog(ToolboxDialog);
-}
-
-//-----------------------------------------------------------------------------
-
-function ToySelectList::onSelect(%this)
-{
-    // Fetch the index.
-    %index = %this.getSelected();
-    
-    // Finish if already selected.
-    if ( %index == Sandbox.ActiveToy )
-        return;
-    
-    // Load the selected toy.
-    loadToy( %index );
 }
 
 //-----------------------------------------------------------------------------
@@ -522,6 +514,8 @@ function ToyListArray::initialize(%this, %index)
         if (!$defaultToySelected && %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId && %moduleDefinition.versionId == $pref::Sandbox::defaultToyVersionId )
         {
             $defaultToySelected = true;
+            $defaultModuleID = %moduleDefinition.getId();
+            echo("$defaultModuleID: " @ %moduleDefinition.getId());
         }
     }
 }
