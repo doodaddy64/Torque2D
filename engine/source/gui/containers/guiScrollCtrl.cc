@@ -755,7 +755,7 @@ void GuiScrollCtrl::scrollByRegion(Region reg)
          case HorizThumb:
          case None:
           {
-              Con::errorf("Unhandled case in GuiScrollCtrl::scrollByRegion");
+              //Con::errorf("Unhandled case in GuiScrollCtrl::scrollByRegion");
           }
       }
    }
@@ -784,7 +784,7 @@ void GuiScrollCtrl::scrollByRegion(Region reg)
          case HorizThumb:
          case None:
           {
-              Con::errorf("Unhandled case in GuiScrollCtrl::scrollByRegion");
+              //Con::errorf("Unhandled case in GuiScrollCtrl::scrollByRegion");
               break;
           }
       }
