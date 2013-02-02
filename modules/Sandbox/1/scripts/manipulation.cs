@@ -31,10 +31,6 @@ Sandbox.ManipulationPullMaxForce = 1000;
 
 //-----------------------------------------------------------------------------
 
-GlobalActionMap.bind( keyboard, "space", cycleManipulation );
-
-//-----------------------------------------------------------------------------
-
 function Sandbox::resetManipulationModes( %this )
 {   
     // These control which drag modes are available or not.
