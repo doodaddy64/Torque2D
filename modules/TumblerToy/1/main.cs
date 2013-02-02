@@ -79,20 +79,7 @@ function TumblerToy::reset(%this)
     SandboxScene.setGravity( 0, -39.8 );
     
     // Create the tumbler.
-    %tumbler = new Sprite();
-    %tumbler.Image = "ToyAssets:checkered";
-    %tumbler.BlendColor = "BlueViolet";
-    %tumbler.Size = 120.5;
-    %tumbler.setDefaultDensity( 0.1 );
-    %tumbler.createPolygonBoxCollisionShape( 1, 50, 25, 0, 0 );
-    %tumbler.createPolygonBoxCollisionShape( 1, 50, -25, 0, 0 );
-    %tumbler.createPolygonBoxCollisionShape( 50, 1, 0, 25, 0 );
-    %tumbler.createPolygonBoxCollisionShape( 50, 1, 0, -25, 0 );    
-    SandboxScene.add( %tumbler );
-
-    // Create the motor joint.    
-    TumblerToy.MotorJoint = SandboxScene.createRevoluteJoint( %tumbler, 0, "0 0" );
-    SandboxScene.setRevoluteJointMotor( TumblerToy.MotorJoint, true, TumblerToy.MotorSpeed, 1000000 );
+    %this.createTumbler();
 
     // Reset the ball count.    
     %this.currentBalls = 0;
@@ -118,6 +105,27 @@ function TumblerToy::setMotorSpeed(%this, %value)
     TumblerToy.MotorSpeed = %value;
     
     SandboxScene.setRevoluteJointMotor( TumblerToy.MotorJoint, true, TumblerToy.MotorSpeed, 1000000 );
+}
+
+//-----------------------------------------------------------------------------
+
+function TumblerToy::createTumbler(%this)
+{
+    // Create the tumbler.
+    %tumbler = new Sprite();
+    %tumbler.Image = "ToyAssets:checkered";
+    %tumbler.BlendColor = "BlueViolet";
+    %tumbler.Size = 120.5;
+    %tumbler.setDefaultDensity( 0.1 );
+    %tumbler.createPolygonBoxCollisionShape( 1, 50, 25, 0, 0 );
+    %tumbler.createPolygonBoxCollisionShape( 1, 50, -25, 0, 0 );
+    %tumbler.createPolygonBoxCollisionShape( 50, 1, 0, 25, 0 );
+    %tumbler.createPolygonBoxCollisionShape( 50, 1, 0, -25, 0 );    
+    SandboxScene.add( %tumbler );
+
+    // Create the motor joint.    
+    TumblerToy.MotorJoint = SandboxScene.createRevoluteJoint( %tumbler, 0, "0 0" );
+    SandboxScene.setRevoluteJointMotor( TumblerToy.MotorJoint, true, TumblerToy.MotorSpeed, 1000000 );    
 }
 
 //-----------------------------------------------------------------------------

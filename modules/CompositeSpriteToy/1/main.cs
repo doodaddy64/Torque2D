@@ -33,15 +33,19 @@ function CompositeSpriteToy::create( %this )
     Sandbox.allowManipulation( pull );
     
     // Set the manipulation mode.
-    Sandbox.useManipulation( pull );   
+    Sandbox.useManipulation( pan );   
 
     // Configure the toy.
     CompositeSpriteToy.LayoutMode = "None";
     CompositeSpriteToy.AngularVelocity = 15;
+    CompositeSpriteToy.SpriteCount = 50;
+    CompositeSpriteToy.RenderIsolated = false;
 
     // Add the configuration options.
-    addSelectionOption( "None,Rectilinear,Isometric,Custom", "Layout Mode", "setLayoutMode", true );
-    addNumericOption("Angular Velocity", -180, 180, 20, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, false );
+    addSelectionOption( "None,Custom,Rectilinear,Isometric", "Layout Mode", "setLayoutMode", true );
+    addNumericOption("Maximum Sprite Count", 10, 1000, 10, "setSpriteCount", CompositeSpriteToy.SpriteCount, true );
+    addNumericOption("Angular Velocity", -180, 180, 20, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, false );    
+    addFlagOption("Render Isolated", "setRenderIsolated", CompositeSpriteToy.RenderIsolated, true );
         
     // Reset the toy.
     %this.reset();     
@@ -60,20 +64,23 @@ function CompositeSpriteToy::reset( %this )
     // Clear the scene.
     SandboxScene.clear();
     
+    // Create the background.
+    %this.createBackground();
+    
     // Create the appropriate layout.
     switch$( CompositeSpriteToy.LayoutMode )
     {
         case "None":
             %this.createNoLayout();
             
+        case "Custom":
+            %this.createCustomLayout();
+            
         case "Rectilinear":
             %this.createRectLayout();
             
         case "Isometric":
             %this.createIsoLayout();
-            
-        case "Custom":
-            %this.createCustomLayout();
     }
 }
 
@@ -93,5 +100,36 @@ function CompositeSpriteToy::setAngularVelocity( %this, %value )
     // Update any active composite sprite.
 	if ( isObject(CompositeSpriteToy.CompositeSprite) )
 	    CompositeSpriteToy.CompositeSprite.setAngularVelocity( %value );
+}
+
+//-----------------------------------------------------------------------------
+
+function CompositeSpriteToy::setSpriteCount( %this, %value )
+{
+    CompositeSpriteToy.SpriteCount = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function CompositeSpriteToy::setRenderIsolated( %this, %value )
+{
+    CompositeSpriteToy.RenderIsolated = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function CompositeSpriteToy::createBackground(%this)
+{
+    // Create the checkered background.
+    %obj = new Scroller();
+    %obj.Image = "ToyAssets:checkered";
+    %obj.BlendColor = "SlateGray";
+    %obj.Size = 200;
+    %obj.RepeatX = 8;
+    %obj.RepeatY = 8;
+    %obj.ScrollX = 10;
+    %obj.ScrollY = 7;
     
+    // Add to the scene.
+    SandboxScene.add( %obj );   
 }

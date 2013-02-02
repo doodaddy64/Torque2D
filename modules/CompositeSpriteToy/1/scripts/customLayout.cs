@@ -22,6 +22,9 @@
 
 function CompositeSpriteToy::createCustomLayout( %this )
 {
+    // Set the layer #0 sort mode to be depth.
+    SandboxScene.setLayerSortMode( 0, "z" );
+    
     // Create the composite sprite.
 	%composite = new CompositeSprite();
 	
@@ -29,10 +32,16 @@ function CompositeSpriteToy::createCustomLayout( %this )
     %composite.SetBatchLayout( "custom" );
     
     // Set the default sprite size.
-    %composite.setDefaultSpriteSize( 5 );    
+    %composite.setDefaultSpriteSize( 10 );    
+
+    // Set the batch sort mode for when we're render isolated.
+    %composite.SetBatchSortMode( "z" );
+    
+    // Set the batch render isolation.
+    %composite.SetBatchIsolated( CompositeSpriteToy.RenderIsolated );
 	
     // Add some sprites.
-	for( %n = 0; %n < 100; %n++ )
+	for( %n = 0; %n < CompositeSpriteToy.SpriteCount; %n++ )
 	{
         // Add a sprite with the specified logical position.
         %composite.addSprite( %n );
@@ -41,14 +50,17 @@ function CompositeSpriteToy::createCustomLayout( %this )
         // we can perform operations on it immediately.        
         
         // Set the sprite image with a random frame.
-        // We could also use an animation here.
-        %composite.setSpriteImage( "ToyAssets:Tiles", getRandom(0,15) );
+        // We could also use an animation here.         
+        %composite.setSpriteImage( "ToyAssets:Gems", getRandom(0,63) );            
         
         // Set an interesting angle.
         %composite.setSpriteAngle( %x );
         
         // Set the sprite spinning to make it more interesting.
         %composite.setAngularVelocity( CompositeSpriteToy.AngularVelocity );               
+        
+        // Set a random depth.
+        %composite.SetSpriteDepth( getRandom( -10.0, 10 ) );        
     }
 	
 	// Add to the scene.
@@ -76,7 +88,7 @@ function CompositeSprite::onCustomLayout( %this, %args )
     %angle = mDegToRad( %inputX * 10 );
     
     // Calculate an interesting output position.
-    %outputX = %inputX - 50;
+    %outputX = %inputX - (CompositeSpriteToy.SpriteCount * 0.5);
     %outputY = mCos(%angle) * 30;
         
     // Return the position of the sprite.
