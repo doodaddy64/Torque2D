@@ -59,6 +59,9 @@ Scroller::Scroller() :
 {
    // Use a static body by default.
    mBodyDefinition.type = b2_staticBody;
+
+   // Use fixed rotation by default.
+   mBodyDefinition.fixedRotation = true;
 }
 
 //------------------------------------------------------------------------------
