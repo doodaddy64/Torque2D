@@ -66,9 +66,6 @@ function SphereStackToy::reset(%this)
     // Set the scene gravity.
     SandboxScene.setGravity( 0, -9.8 );
     
-    // Set the drag mode as "pull".
-    Sandbox.useManipulation( "pull" );
-    
     // Reset the ball count.    
     %this.currentBalls = 0;
     
