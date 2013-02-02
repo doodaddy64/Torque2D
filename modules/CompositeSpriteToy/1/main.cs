@@ -26,6 +26,7 @@ function CompositeSpriteToy::create( %this )
     exec( "./scripts/noLayout.cs" );
     exec( "./scripts/rectLayout.cs" );
     exec( "./scripts/isoLayout.cs" );
+    exec( "./scripts/isoSceneLayout.cs" );
     exec( "./scripts/customLayout.cs" );
         
     // Set the sandbox drag mode availability.
@@ -41,7 +42,7 @@ function CompositeSpriteToy::create( %this )
     CompositeSpriteToy.SpriteCount = 50;
 
     // Add the configuration options.
-    addSelectionOption( "None,Rectilinear,Isometric,Custom", "Layout Mode", "setLayoutMode", true );
+    addSelectionOption( "None,Rectilinear,Isometric (Isolated),Isometric (Scene),Custom", "Layout Mode", "setLayoutMode", true );
     addNumericOption("Maximum Sprite Count", 10, 1000, 10, "setSpriteCount", CompositeSpriteToy.SpriteCount, true );
     addNumericOption("Angular Velocity", -180, 180, 20, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, false );
         
@@ -74,8 +75,11 @@ function CompositeSpriteToy::reset( %this )
         case "Rectilinear":
             %this.createRectLayout();
             
-        case "Isometric":
+        case "Isometric (Isolated)":
             %this.createIsoLayout();
+
+        case "Isometric (Scene)":
+            %this.createIsoSceneLayout();
             
         case "Custom":
             %this.createCustomLayout();
@@ -116,8 +120,10 @@ function CompositeSpriteToy::createBackground(%this)
     %obj.Image = "ToyAssets:checkered";
     %obj.BlendColor = "SlateGray";
     %obj.Size = 200;
-    %obj.RepeatX = 4;
-    %obj.RepeatY = 4;
+    %obj.RepeatX = 8;
+    %obj.RepeatY = 8;
+    %obj.ScrollX = 10;
+    %obj.ScrollY = 7;
     
     // Add to the scene.
     SandboxScene.add( %obj );   
