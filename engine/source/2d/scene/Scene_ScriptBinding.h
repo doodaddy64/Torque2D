@@ -3077,6 +3077,35 @@ ConsoleMethod(Scene, getDebugSceneObject, S32, 2, 2,   "( Gets the scene object 
 
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(Scene, setLayerSortMode, void, 4, 4,  "(layer, sortMode) Sets the layer to use the specified render sort mode.\n"
+                                                    "@param layer The layer to modify.\n"
+                                                    "@param sortMode The sort mode to use on the specified layer.\n"
+                                                    "@return No return value." )
+{
+    // Fetch the layer.
+    const U32 layer = dAtoi(argv[2]);
+
+    // Fetch the sort mode.
+    const SceneRenderQueue::RenderSort sortMode = SceneRenderQueue::getRenderSortEnum( argv[3] );
+
+    object->setLayerSortMode( layer, sortMode );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(Scene, getLayerSortMode, const char*, 3, 3,   "(layer) Gets the render sort mode for the specified layer.\n"
+                                                            "@param layer The layer to retrieve.\n"
+                                                            "@return The render sort mode for the specified layer." )
+{
+    // Fetch the layer.
+    const U32 layer = dAtoi(argv[2]);
+
+    // Fetch the sort mode.
+    return SceneRenderQueue::getRenderSortDescription( object->getLayerSortMode( layer ) );
+}
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(Scene, resetDebugStats, void, 2, 2,   "() Resets the debug statistics.\n"
                                                             "@return No return value." )
 {

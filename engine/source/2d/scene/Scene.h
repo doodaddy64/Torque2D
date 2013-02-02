@@ -635,7 +635,8 @@ public:
     inline SceneObject*     getDebugSceneObject( void ) const           { return mpDebugSceneObject; }
 
     /// Layer sorting.
-    inline SceneRenderQueue::RenderSort getLayerSortMode( const U32 layer ) { AssertFatal( layer < MAX_LAYERS_SUPPORTED, "Invalid layer" ); return mLayerSortModes[layer]; }
+    void setLayerSortMode( const U32 layer, const SceneRenderQueue::RenderSort sortMode );
+    SceneRenderQueue::RenderSort getLayerSortMode( const U32 layer );
 
     /// Window attachments.
     void                    attachSceneWindow( SceneWindow* pSceneWindow2D );

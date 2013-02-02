@@ -3150,6 +3150,47 @@ void Scene::setDebugSceneObject( SceneObject* pSceneObject )
 
 //-----------------------------------------------------------------------------
 
+void Scene::setLayerSortMode( const U32 layer, const SceneRenderQueue::RenderSort sortMode )
+{
+    // Is the layer valid?
+    if ( layer > MAX_LAYERS_SUPPORTED )
+    {
+        // No, so warn.
+        Con::warnf( "Scene::setLayerSortMode() - Layer '%d' is out of range.", layer );
+
+        return;
+    }
+
+    // Is the sort mode valid?
+    if ( sortMode == SceneRenderQueue::RENDER_SORT_INVALID )
+    {
+        // No, so warn.
+        Con::warnf( "Scene::setLayerSortMode() - Sort mode is invalid for layer '%d'.", layer );
+
+        return;
+    }
+
+    mLayerSortModes[layer] = sortMode;
+}
+
+//-----------------------------------------------------------------------------
+
+SceneRenderQueue::RenderSort Scene::getLayerSortMode( const U32 layer )
+{
+    // Is the layer valid?
+    if ( layer > MAX_LAYERS_SUPPORTED )
+    {
+        // No, so warn.
+        Con::warnf( "Scene::getLayerSortMode() - Layer '%d' is out of range.", layer );
+
+        return SceneRenderQueue::RENDER_SORT_INVALID;
+    }
+
+    return mLayerSortModes[layer];
+}
+
+//-----------------------------------------------------------------------------
+
 void Scene::attachSceneWindow( SceneWindow* pSceneWindow2D )
 {
     // Ignore if already attached.
