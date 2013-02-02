@@ -30,6 +30,10 @@ function ToyCategorySelectList::onSelect(%this)
     // Fetch the index.
     %index = %this.currentToyCategory;
 
+    ToyListScroller.scrollToTop();
+    
+    ToyListArray.initialize(%index);
+    
     // Clear the toy GUI list.
     ToySelectList.clear();
 
@@ -254,6 +258,7 @@ function toggleToolbox(%make)
 
     MainOverlay.setVisible(0);
     Canvas.pushDialog(ToolboxDialog);
+    ToyListArray.position = "15 0";
 }
 
 //-----------------------------------------------------------------------------
@@ -518,4 +523,106 @@ function setSortOption( %flag )
 {
     $pref::Sandbox::sortOption = %flag;
     updateToolboxOptions();
+}
+
+//-----------------------------------------------------------------------------
+
+function ToyListScroller::scrollToNext(%this)
+{
+    %currentScroll = %this.getScrollPositionY();
+    %currentScroll += 85;
+    %this.setScrollPosition(0, %currentScroll);
+}
+
+//-----------------------------------------------------------------------------
+
+function ToyListScroller::scrollToPrevious(%this)
+{
+    %currentScroll = %this.getScrollPositionY();
+    %currentScroll -= 85;
+    %this.setScrollPosition(0, %currentScroll);
+}
+
+//-----------------------------------------------------------------------------
+
+function ToyListArray::initialize(%this, %index)
+{
+    %this.clear();
+    
+    // Fetch the toy count.
+    %toyCount = SandboxToys.getCount();
+
+    // Populate toys in the selected category.
+    for ( %toyIndex = 0; %toyIndex < %toyCount; %toyIndex++ )
+    {
+        // Fetch the toy module.
+        %moduleDefinition = SandboxToys.getObject( %toyIndex );
+
+        // Skip the toy module if the "all" category is not selected and if the toy is not in the selected category.
+        if ( %index != $toyAllCategoryIndex && %moduleDefinition.ToyCategoryIndex != %index )
+            continue;
+
+        // Fetch the module version.
+        %versionId = %moduleDefinition.versionId;
+
+        // Format module title so that version#1 doesn't show version but all other versions do.
+        if ( %versionId == 1 )
+            %moduleTitle = %moduleDefinition.moduleId;
+        else
+            %moduleTitle = %moduleDefinition.moduleId SPC "(v" @ %moduleDefinition.versionId @ ")";
+
+        // Add the toy GUI list.
+        %this.addToyButton(%moduleTitle, %moduleDefinition.getId());
+        //ToySelectList.add( %moduleTitle, %moduleDefinition.getId() );
+
+        // Select the toy if it's the default and we've not selected a toy yet.
+        if (!$defaultToySelected && 
+            %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId && 
+            %moduleDefinition.versionId == $pref::Sandbox::defaultToyVersionId )
+        {
+            ToySelectList.setSelected( %moduleDefinition.getId() );
+            $defaultToySelected = true;
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------
+
+function ToyListArray::addToyButton(%this, %moduleTitle, %moduleDefintionId)
+{
+    %button = new GuiButtonCtrl()
+    {
+        canSaveDynamicFields = "0";
+        HorizSizing = "relative";
+        class = "ToySelectButton";
+        VertSizing = "relative";
+        isContainer = "0";
+        Profile = "BlueButtonProfile";
+        Position = "0 0";
+        Extent = "160 80";
+        Visible = "1";
+        toy = %moduleDefintionId;
+        isContainer = "0";
+        Active = "1";
+        text = %moduleTitle;
+        groupNum = "-1";
+        buttonType = "PushButton";
+        useMouseEvents = "0";
+    };
+     
+    %button.command = %button @ ".performSelect();";
+    
+    %this.add(%button);
+}
+
+//-----------------------------------------------------------------------------
+
+function ToySelectButton::performSelect(%this)
+{
+    // Finish if already selected.
+    if ( %this.toy == Sandbox.ActiveToy )
+        return;
+    
+    // Load the selected toy.
+    loadToy( %this.toy );
 }

@@ -93,7 +93,7 @@ if (!isObject(GuiTransparentProfile)) new GuiControlProfile (GuiTransparentProfi
 
 // ----------------------------------------------------------------------------
 
-if(!isObject(GuiSolidDefaultProfile)) new GuiControlProfile (GuiSolidDefaultProfile)
+if(!isObject(GuiSolidProfile)) new GuiControlProfile (GuiSolidProfile)
 {
    opaque = true;
    border = true;
@@ -421,4 +421,28 @@ if (!isObject(GuiSpinnerProfile)) new GuiControlProfile (GuiSpinnerProfile)
     tab = false;
     canKeyFocus = true;
     returnTab = true;
+};
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(GuiLightScrollProfile)) new GuiControlProfile (GuiLightScrollProfile : GuiScrollProfile)
+{
+    opaque = false;
+    fillColor = "212 216 220";
+    border = 0;
+    bitmap = "^Sandbox/gui/images/scrollBar";
+    hasBitmapArray = true;
+};
+
+//-----------------------------------------------------------------------------
+
+if (!isObject(GuiSunkenContainerProfile)) new GuiControlProfile (GuiSunkenContainerProfile)
+{
+    opaque = false;
+    fillColor = "232 240 248 255";
+    fillColorHL = "251 170 0 255";
+    fillColorNA = "127 127 127 52";
+    border = -2;
+    bitmap = "^Sandbox/gui/images/sunkenContainer";
+    borderColor = "40 40 40 10";
 };
