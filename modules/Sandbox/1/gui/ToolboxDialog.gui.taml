@@ -155,7 +155,7 @@
 		HorizSizing="relative"
 		VertSizing="relative"
 		Position="320 16"
-		Extent="580 416"/>
+		Extent="580 768"/>
 
 	<!-- Toy Selection Panel -->
 	<GuiControl
