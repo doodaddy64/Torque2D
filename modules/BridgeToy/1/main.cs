@@ -214,7 +214,7 @@ function BridgeToy::createDebris(%this)
         %obj.setSize(1.5, 1.5);
         %obj.setDefaultFriction(1.0);
         %obj.setDefaultDensity(0.1);
-        %obj.createPolygonBoxCollisionShape(1.5, 1.5);
+        %obj.createPolygonBoxCollisionShape(1.4, 1.4);
         %obj.setBullet( true );
         
         SandboxScene.add(%obj);
