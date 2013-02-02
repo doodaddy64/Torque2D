@@ -30,78 +30,19 @@ function ToyCategorySelectList::onSelect(%this)
     // Fetch the index.
     %index = %this.currentToyCategory;
 
+    ToyListArray.initialize(%index);
+    ToyListScroller.computeSizes();
     ToyListScroller.scrollToTop();
     
-    ToyListArray.initialize(%index);
-    
-    // Clear the toy GUI list.
-    ToySelectList.clear();
-
     // Unload the active toy.
     unloadToy();
-
-    // Fetch the toy count.
-    %toyCount = SandboxToys.getCount();
-
-    // Populate toys in the selected category.
-    for ( %toyIndex = 0; %toyIndex < %toyCount; %toyIndex++ )
-    {
-        // Fetch the toy module.
-        %moduleDefinition = SandboxToys.getObject( %toyIndex );
-
-        // Skip the toy module if the "all" category is not selected and if the toy is not in the selected category.
-        if ( %index != $toyAllCategoryIndex && %moduleDefinition.ToyCategoryIndex != %index )
-            continue;
-
-        // Fetch the module version.
-        %versionId = %moduleDefinition.versionId;
-
-        // Format module title so that version#1 doesn't show version but all other versions do.
-        if ( %versionId == 1 )
-            %moduleTitle = %moduleDefinition.moduleId;
-        else
-            %moduleTitle = %moduleDefinition.moduleId SPC "(v" @ %moduleDefinition.versionId @ ")";
-
-        // Add the toy GUI list.
-        ToySelectList.add( %moduleTitle, %moduleDefinition.getId() );
-
-        // Select the toy if it's the default and we've not selected a toy yet.
-        if (    !$defaultToySelected &&
-                %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId &&
-                %moduleDefinition.versionId == $pref::Sandbox::defaultToyVersionId )
-        {
-            ToySelectList.setSelected( %moduleDefinition.getId() );
-            $defaultToySelected = true;
-        }
-    }
-    ToySelectList.sort();
 
     // Flag as the default toy selected.
     $defaultToySelected = true;
 
-    // Was a toy selected?
-    if ( ToySelectList.getSelected() == 0 )
-    {
-        // No, so are there any toys to select?
-        if ( ToySelectList.size() > 0 )
-        {
-            // Yes, so select the first one.
-            ToySelectList.setFirstSelected();
-        }
-        else
-        {
-            // No, so recreate the sandbox scene just in-case any previous toy has left remenants.
-            createSandboxScene();
-        }
-    }
-
-    // Fetch whether a toy is selected or not.
-    %toySelected = ToySelectList.getSelected() != 0;
-
-    // (De)activate the toy selection and reloading appropriately.
-    ToySelectLabel.Active = %toySelected;
-    ToySelectList.Active = %toySelected;
-    ReloadToyButton.Active = %toySelected;
+    %firstToyButton = ToyListArray.getObject(0);
+    if (isObject(%firstToyButton))
+        %firstToyButton.performSelect();
 }
 
 //-----------------------------------------------------------------------------
@@ -258,7 +199,6 @@ function toggleToolbox(%make)
 
     MainOverlay.setVisible(0);
     Canvas.pushDialog(ToolboxDialog);
-    ToyListArray.position = "15 0";
 }
 
 //-----------------------------------------------------------------------------
@@ -556,6 +496,9 @@ function ToyListScroller::scrollToPrevious(%this)
 function ToyListArray::initialize(%this, %index)
 {
     %this.clear();
+    %currentExtent = %this.extent;
+    %newExtent = getWord(%currentExtent, 0) SPC "20";
+    %this.Extent = %newExtent;
     
     // Fetch the toy count.
     %toyCount = SandboxToys.getCount();
@@ -581,14 +524,10 @@ function ToyListArray::initialize(%this, %index)
 
         // Add the toy GUI list.
         %this.addToyButton(%moduleTitle, %moduleDefinition.getId());
-        //ToySelectList.add( %moduleTitle, %moduleDefinition.getId() );
-
+        
         // Select the toy if it's the default and we've not selected a toy yet.
-        if (!$defaultToySelected && 
-            %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId && 
-            %moduleDefinition.versionId == $pref::Sandbox::defaultToyVersionId )
+        if (!$defaultToySelected && %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId && %moduleDefinition.versionId == $pref::Sandbox::defaultToyVersionId )
         {
-            ToySelectList.setSelected( %moduleDefinition.getId() );
             $defaultToySelected = true;
         }
     }
