@@ -120,7 +120,7 @@ function BridgeToy::createGround( %this )
     %ground.Image = "ToyAssets:dirtGround";
     %ground.setPosition(0, -12);
     %ground.setSize(BridgeToy.GroundWidth, 6);
-    %ground.setRepeatX(BridgeToy.GroundWidth / 12);   
+    %ground.setRepeatX(BridgeToy.GroundWidth / 60);   
     %ground.createEdgeCollisionShape(BridgeToy.GroundWidth/-2, 3, BridgeToy.GroundWidth/2, 3);
     SandboxScene.add(%ground);  
     

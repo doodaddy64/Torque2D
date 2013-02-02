@@ -123,7 +123,7 @@ function PyramidToy::createGround( %this )
     %ground.Image = "ToyAssets:dirtGround";
     %ground.setPosition(0, -12);
     %ground.setSize(PyramidToy.GroundWidth, 6);
-    %ground.setRepeatX(PyramidToy.GroundWidth / 12);   
+    %ground.setRepeatX(PyramidToy.GroundWidth / 60);   
     %ground.createEdgeCollisionShape(PyramidToy.GroundWidth/-2, 3, PyramidToy.GroundWidth/2, 3);
     SandboxScene.add(%ground);  
     
