@@ -421,9 +421,15 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
     
     // Main container buffer (accounts for size of list, up/down buttons, and buffer)
     %containerHeight += ((%maxDisplay+1) * %buttonSize) + %buttonExtentAddition + %buffer;
-        
+    
+    // X position of buttons
+    %buttonX = "90";
+    
+    // Y position for up button 
+    %upButtonY = Sandbox.customLabelSpacing;
+    
     // List container
-    %listContainerPosition = "0" SPC (%upButtonY + 27);
+    %listContainerPosition = "0" SPC %upButtonY + 22;
     %listContainerWidth = %containerWidth;
     %listContainerHeight = ((%maxDisplay+1) * %buttonSize) + %buttonSpacing;
     
@@ -434,13 +440,9 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
     %arrayListWidth = %scrollContainerWidth - 25;
     %arrayListHeight = 0;
     
-    // X position of buttons
-    %upButtonX = "40";
-    %downButtonX = "130";
+    // Y position for the down button
+    %downButtonY = getWord(%listContainerPosition, 1) + %listContainerHeight;
     
-    // Y position for up button 
-    %buttonY = getWord(%listContainerPosition, 1) + %listContainerHeight + 10;
-
     // Create the base container
     %container = new GuiControl()
     {
@@ -556,7 +558,7 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
         Profile = "GuiDefaultProfile";
         HorizSizing = "relative";
         VertSizing = "relative";
-        Position = %upButtonX SPC %buttonY;
+        Position = %buttonX SPC %upButtonY;
         Extent = "69 23";
         MinExtent = "8 2";
         canSave = "1";
@@ -580,7 +582,7 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
         Profile = "GuiDefaultProfile";
         HorizSizing = "relative";
         VertSizing = "relative";
-        Position = %downButtonX SPC %buttonY;
+        Position = %buttonX SPC %downButtonY;
         Extent = "69 23";
         MinExtent = "8 2";
         canSave = "1";
