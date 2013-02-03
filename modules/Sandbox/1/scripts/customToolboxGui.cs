@@ -350,16 +350,24 @@ function SpinnerController::updateTarget(%this)
 {
     %target = %this.target;
 
-    if (%this.action $= "increase" && %target.getText() < %target.max)
+    if (%this.action $= "increase")
     {
         %value = %target.getText();
         %value += %this.step;
+        
+        if (%value > %target.max)
+            %value = %target.max;
+        
         %target.setText(%value);
     }
     else if (%this.action $= "decrease" && %target.getText() > %target.min)
     {
         %value = %target.getText();
         %value -= %this.step;
+        
+        if (%value < %target.min)
+            %value = %target.min;
+            
         %target.setText(%value);
     }
 
@@ -372,7 +380,12 @@ function TextEditController::updateToy(%this)
 {
     if (%this.toy $= "")
         return;
-        
+    
+    if (%this.getText() > %this.max)
+        %this.setText(%this.max);
+    else if (%this.getText() < %this.min)
+        %this.setText(%his.min);
+    
     if (%this.callback !$= "" && %this.getValue() !$= "")
     {
         %setter = "%this.toy." @ %this.callback @ "(" @ %this.getValue() @ ");";

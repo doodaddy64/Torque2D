@@ -39,7 +39,7 @@ function AquariumToy::create( %this )
     SandboxScene.setLayerSortMode( 4, batch );
     SandboxScene.setLayerSortMode( 5, batch );
     
-    addNumericOption("Max Fish", 0, 50, 1, "setMaxFish", %this.maxFish, true);
+    addNumericOption("Max Fish", 1, 50, 1, "setMaxFish", %this.maxFish, true);
     addSelectionOption(getFishAnimationList(), "Fish Animation", 5, "setSelectedAnimation", false);
     addButtonOption("Spawn fish", "spawnOneFish", false);  
 
