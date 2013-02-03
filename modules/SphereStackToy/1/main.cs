@@ -58,7 +58,7 @@ function SphereStackToy::reset(%this)
     SandboxScene.clear();
     
     // Zoom the camera in    
-    SandboxWindow.setCurrentCameraSize( 50, 37.5 );
+    SandboxWindow.setCameraSize( 50, 37.5 );
     
     // Prefer the collision option off as it severely affects the performance.
     setCollisionOption( false );

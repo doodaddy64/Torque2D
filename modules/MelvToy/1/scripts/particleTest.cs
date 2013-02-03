@@ -22,7 +22,7 @@
 
 function MelvToy::particleTest( %this )
 {
-    SandboxWindow.setCurrentCameraSize( 20, 15 );
+    SandboxWindow.setCameraSize( 20, 15 );
     
     %particleAssetName = "Test";
     
@@ -132,8 +132,8 @@ function MelvToy::particleTest( %this )
     
     %assetFilePath = expandPath( "^MelvToy/particle.asset.taml" );
     
-	TamlWrite( %effectAsset, %assetFilePath );
-	
+    TamlWrite( %effectAsset, %assetFilePath );
+    
     if ( !AssetDatabase.addSingleDeclaredAsset( ModuleDatabase.findLoadedModule( "MelvToy" ), %assetFilePath ) )
     {
         error( "Could not load the asset file:" SPC %assetFilePath );
@@ -166,6 +166,6 @@ function MelvToy::particleTest( %this )
     
     //TamlWrite( SandboxScene, "scene.taml" );
     //%newScene = TamlRead( "scene.taml" );
-	
-	//quit();
+    
+    //quit();
 }

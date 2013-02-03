@@ -64,7 +64,7 @@ function ChainToy::reset(%this)
     SandboxScene.clear();
     
     // Set the camera size.
-    SandboxWindow.setCurrentCameraSize( 40, 30 );
+    SandboxWindow.setCameraSize( 40, 30 );
     
     // Create a background.
     %this.createBackground();

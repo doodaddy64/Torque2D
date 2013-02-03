@@ -226,7 +226,7 @@ void ParticlePlayer::preIntegrate( const F32 totalTime, const F32 elapsedTime, D
         SceneWindow* pSceneWindow = static_cast<SceneWindow*>(*itr);
 
         // Are we within the camera distance?
-        if ( (pSceneWindow->getCurrentCameraPosition() - position).LengthSquared() < cameraIdleDistanceSqr )
+        if ( (pSceneWindow->getCameraPosition() - position).LengthSquared() < cameraIdleDistanceSqr )
         {
             // Yes, so play.
             if ( !getIsPlaying() )

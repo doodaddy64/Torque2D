@@ -227,7 +227,7 @@ public:
     inline bool isViewLimitOn( void ) const { return mViewLimitActive; }
     inline Vector2 getViewLimitMin( void ) const { return mViewLimitMin; }
     inline Vector2 getViewLimitMax( void ) const { return mViewLimitMax; }
-    inline void clampCurrentCameraViewLimit( void );
+    inline void clampCameraViewLimit( void );
 
     /// Tick Processing.
     void zeroCameraTime( void );
@@ -239,17 +239,17 @@ public:
     virtual void processTick();
     virtual void advanceTime( F32 timeDelta ) {};
 
-    /// Current Camera,
-    virtual void setCurrentCameraPosition( const Vector2& position );
-    inline Vector2 getCurrentCameraPosition( void ) const               { return mCameraCurrent.mSourceArea.centre(); }
-    void setCurrentCameraSize( const Vector2& size );
-    inline Vector2 getCurrentCameraSize( void ) const                   { return Vector2( mCameraCurrent.mSourceArea.extent ); }
-    virtual void setCurrentCameraArea( const RectF& cameraWindow );
-    inline RectF getCurrentCameraArea( void ) const                     { return mCameraCurrent.mSourceArea; }
-    void setCurrentCameraZoom( const F32 zoomFactor );
-    inline F32 getCurrentCameraZoom( void ) const                       { return mCameraCurrent.mCameraZoom; }
-    void setCurrentCameraAngle( const F32 cameraAngle );
-    inline F32 getCurrentCameraAngle( void ) const                      { return mRadToDeg(mCameraCurrent.mCameraAngle); }
+    /// Camera,
+    virtual void setCameraPosition( const Vector2& position );
+    inline Vector2 getCameraPosition( void ) const                      { return mCameraCurrent.mSourceArea.centre(); }
+    void setCameraSize( const Vector2& size );
+    inline Vector2 getCameraSize( void ) const                          { return Vector2( mCameraCurrent.mSourceArea.extent ); }
+    virtual void setCameraArea( const RectF& cameraWindow );
+    inline RectF getCameraArea( void ) const                            { return mCameraCurrent.mSourceArea; }
+    void setCameraZoom( const F32 zoomFactor );
+    inline F32 getCameraZoom( void ) const                               { return mCameraCurrent.mCameraZoom; }
+    void setCameraAngle( const F32 cameraAngle );
+    inline F32 getCameraAngle( void ) const                             { return mRadToDeg(mCameraCurrent.mCameraAngle); }
 
     /// Target Camera.
     virtual void setTargetCameraPosition( const Vector2& position );
@@ -277,11 +277,11 @@ public:
     F32 sigmoidInterpolate( F32 from, F32 to, F32 delta );
     void updateCamera( void );
 
-    inline Vector2 getCurrentCameraRenderPosition( void )               { calculateCameraView( &mCameraCurrent ); return mCameraCurrent.mDestinationArea.centre(); }
-    inline RectF getCurrentCameraRenderArea( void )                     { calculateCameraView( &mCameraCurrent ); return mCameraCurrent.mDestinationArea; }
+    inline Vector2 getCameraRenderPosition( void )                      { calculateCameraView( &mCameraCurrent ); return mCameraCurrent.mDestinationArea.centre(); }
+    inline RectF getCameraRenderArea( void )                            { calculateCameraView( &mCameraCurrent ); return mCameraCurrent.mDestinationArea; }
+    inline const Vector2 getCameraWindowScale( void ) const             { return mCameraCurrent.mSceneWindowScale; }
     inline F32 getCameraInterpolationTime( void )                       { return mCameraTransitionTime; }
-    inline const Vector2 getCurrentCameraWindowScale( void ) const      { return mCameraCurrent.mSceneWindowScale; }
-    inline const CameraView& getCurrentCamera(void) const               { return mCameraCurrent; }
+    inline const CameraView& getCamera(void) const                      { return mCameraCurrent; }
     inline const Vector2& getCameraShake(void) const                    { return mCameraShakeOffset; }
     inline bool isCameraMounted( void ) const                           { return mCameraMounted; }
     inline bool isCameraMoving( void ) const                            { return mMovingCamera; }
