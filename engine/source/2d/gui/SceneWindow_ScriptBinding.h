@@ -94,55 +94,55 @@ ConsoleMethod(SceneWindow, resetScene, void, 2, 2, "() Detaches the window from 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, setCurrentCameraPosition, void, 3, 4,    "(x , y) - Set the current camera position.\n"
+ConsoleMethod(SceneWindow, setCameraPosition, void, 3, 4,    "(x , y) - Set the current camera position.\n"
                                                                     "@param X Position along the X axis.\n"
                                                                     "@param Y Position along the Y axis.\n"
                                                                     "@return No return value.")
 {
    if ( argc == 3 )
    {
-       object->setCurrentCameraPosition( Vector2(argv[2]) );
+       object->setCameraPosition( Vector2(argv[2]) );
        return;
    }
 
-   object->setCurrentCameraPosition( Vector2(dAtof(argv[2]), dAtof(argv[3])) );
+   object->setCameraPosition( Vector2(dAtof(argv[2]), dAtof(argv[3])) );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, getCurrentCameraPosition, const char*, 2, 2, "() Get the current camera position.\n"
+ConsoleMethod(SceneWindow, getCameraPosition, const char*, 2, 2, "() Get the current camera position.\n"
                                                                         "@return The current camera position.")
 {
-    return object->getCurrentCameraPosition().scriptThis();
+    return object->getCameraPosition().scriptThis();
 }   
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, setCurrentCameraSize, void, 3, 4,    "(width , height) - Set the current camera position.\n"
+ConsoleMethod(SceneWindow, setCameraSize, void, 3, 4,    "(width , height) - Set the current camera position.\n"
                                                                 "@param width Size along the X axis.\n"
                                                                 "@param height Size along the Y axis.\n"
                                                                 "@return No return value.")
 {
    if ( argc == 3 )
    {
-       object->setCurrentCameraSize( Vector2(argv[2]) );
+       object->setCameraSize( Vector2(argv[2]) );
        return;
    }
 
-   object->setCurrentCameraSize( Vector2(dAtof(argv[2]), dAtof(argv[3])) );
+   object->setCameraSize( Vector2(dAtof(argv[2]), dAtof(argv[3])) );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, getCurrentCameraSize, const char*, 2, 2, "() Get the current camera size.\n"
+ConsoleMethod(SceneWindow, getCameraSize, const char*, 2, 2, "() Get the current camera size.\n"
                                                                     "@return The current camera width and height.")
 {
-    return object->getCurrentCameraSize().scriptThis();
+    return object->getCameraSize().scriptThis();
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, setCurrentCameraArea, void, 3, 6, "(x1 / y1 / x2 / y2) - Set the current camera area."
+ConsoleMethod(SceneWindow, setCameraArea, void, 3, 6, "(x1 / y1 / x2 / y2) - Set the current camera area."
               "@param x1,y1,x2,y2 The coordinates of the minimum and maximum points (top left, bottom right)\n"
               "The input can be formatted as either \"x1 y1 x2 y2\", \"x1 y1, x2 y2\", \"x1, y1, x2, y2\"\n"
               "@return No return value.")
@@ -182,7 +182,7 @@ ConsoleMethod(SceneWindow, setCurrentCameraArea, void, 3, 6, "(x1 / y1 / x2 / y2
    // Invalid
    else
    {
-      Con::warnf("SceneWindow::setCurrentCameraArea() - Invalid number of parameters!");
+      Con::warnf("SceneWindow::setCameraArea() - Invalid number of parameters!");
       return;
    }
 
@@ -191,16 +191,16 @@ ConsoleMethod(SceneWindow, setCurrentCameraArea, void, 3, 6, "(x1 / y1 / x2 / y2
     Vector2 bottomRight( (v1.x > v2.x) ? v1.x : v2.x, (v1.y > v2.y) ? v1.y : v2.y );
 
     // Set Current Camera Area.
-    object->setCurrentCameraArea( RectF(topLeft.x, topLeft.y, bottomRight.x-topLeft.x, bottomRight.y-topLeft.y) );
+    object->setCameraArea( RectF(topLeft.x, topLeft.y, bottomRight.x-topLeft.x, bottomRight.y-topLeft.y) );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, getCurrentCameraArea, const char*, 2, 2, "() Get the current camera Area.\n"
+ConsoleMethod(SceneWindow, getCameraArea, const char*, 2, 2, "() Get the current camera Area.\n"
               "@return The camera area formatted as \"x1 y1 x2 y2\"")
 {
     // Fetch Camera Window.
-    const RectF cameraWindow = object->getCurrentCameraArea();
+    const RectF cameraWindow = object->getCameraArea();
 
     // Create Returnable Buffer.
     char* pBuffer = Con::getReturnBuffer(64);
@@ -214,64 +214,64 @@ ConsoleMethod(SceneWindow, getCurrentCameraArea, const char*, 2, 2, "() Get the 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, setCurrentCameraZoom, void, 3, 3,    "(zoomFactor) - Set the current camera Zoom Factor.\n"
+ConsoleMethod(SceneWindow, setCameraZoom, void, 3, 3,    "(zoomFactor) - Set the current camera Zoom Factor.\n"
                                                                 "@param zoomFactor A float value representing the zoom factor\n"
                                                                 "@return No return value.")
 {
-    object->setCurrentCameraZoom( dAtof(argv[2]) );
+    object->setCameraZoom( dAtof(argv[2]) );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, getCurrentCameraZoom, F32, 2, 2, "() Get the current camera Zoom.\n"
+ConsoleMethod(SceneWindow, getCameraZoom, F32, 2, 2, "() Get the current camera Zoom.\n"
                                                             "@return The current camera zoom.")
 {
-    return object->getCurrentCameraZoom();
+    return object->getCameraZoom();
 } 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, setCurrentCameraAngle, void, 3, 3, "(angle) - Sets the current camera angle.\n"
+ConsoleMethod(SceneWindow, setCameraAngle, void, 3, 3, "(angle) - Sets the current camera angle.\n"
                                                               "@param angle The current camera angle in degrees.\n"
                                                               "@return No return value.")
 {
-    object->setCurrentCameraAngle( mDegToRad(dAtof(argv[2])) );
+    object->setCameraAngle( mDegToRad(dAtof(argv[2])) );
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, getCurrentCameraAngle, F32, 2, 2,    "() Gets the current camera angle.\n"
+ConsoleMethod(SceneWindow, getCameraAngle, F32, 2, 2,    "() Gets the current camera angle.\n"
                                                                 "@return The current camera angle in degrees.")
 {
-    return object->getCurrentCameraAngle();
+    return object->getCameraAngle();
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, getCurrentCameraWorldScale, const char*, 2, 2, "() Get current camera scale to world.\n"
+ConsoleMethod(SceneWindow, getCameraWorldScale, const char*, 2, 2, "() Get current camera scale to world.\n"
               "@return Returns the cameras window width/height scale to world as a string formatted as \"widthScale heightScale\"")
 {
     // Fetch camera window
-    const Vector2 cameraWindowScale = object->getCurrentCameraWindowScale();
+    const Vector2 cameraWindowScale = object->getCameraWindowScale();
 
     return cameraWindowScale.scriptThis();
 }
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, getCurrentCameraRenderPosition, const char*, 2, 2,   "() Get current camera position post-view-limit clamping.\n"
+ConsoleMethod(SceneWindow, getCameraRenderPosition, const char*, 2, 2,   "() Get current camera position post-view-limit clamping.\n"
                                                                                 "@return The current camera render position.")
 {
-    return object->getCurrentCameraRenderPosition().scriptThis();
+    return object->getCameraRenderPosition().scriptThis();
 } 
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, getCurrentCameraRenderScale, const char*, 2, 2, "() Get current camera scale to render.\n"
+ConsoleMethod(SceneWindow, getCameraRenderScale, const char*, 2, 2, "() Get current camera scale to render.\n"
               "@return Returns the cameras window width/height scale to render as a string formatted as \"widthScale heightScale\"")
 {
     // Fetch camera window scale.
-    Vector2 cameraWindowScale = object->getCurrentCameraWindowScale();
+    Vector2 cameraWindowScale = object->getCameraWindowScale();
 
     // Inverse scale.
     cameraWindowScale.receiprocate();
@@ -695,11 +695,11 @@ ConsoleMethod(SceneWindow, setViewLimitOff, void, 2, 2, "() Set View Limit Off."
 
 //-----------------------------------------------------------------------------
 
-ConsoleMethod(SceneWindow, clampCurrentCameraViewLimit, void, 2, 2, "() Clamps the current camera to the current view limit.\n"
+ConsoleMethod(SceneWindow, clampCameraViewLimit, void, 2, 2, "() Clamps the current camera to the current view limit.\n"
                                                                     "Nothing will happen if the view-limit is not active or the camera is moving.\n"
                                                                     "@return No return value")
 {
-    object->clampCurrentCameraViewLimit();
+    object->clampCameraViewLimit();
 }
 
 //-----------------------------------------------------------------------------

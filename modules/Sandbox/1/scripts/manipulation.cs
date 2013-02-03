@@ -244,8 +244,8 @@ function SandboxWindow::onTouchDragged(%this, %touchID, %worldPos)
         Sandbox.TouchEvent[%touchID] = %offsetWorldPosX SPC %offsetWorldPosY;    
                 
         // Update the camera.
-        %cameraPosition = SandboxWindow.getCurrentCameraPosition();    
-        SandboxWindow.setCurrentCameraPosition( getWord(%cameraPosition,0) - getWord(%touchDelta,0), getWord(%cameraPosition,1) - getWord(%touchDelta,1) );
+        %cameraPosition = SandboxWindow.getCameraPosition();    
+        SandboxWindow.setCameraPosition( getWord(%cameraPosition,0) - getWord(%touchDelta,0), getWord(%cameraPosition,1) - getWord(%touchDelta,1) );
         
         return;
     }
@@ -273,7 +273,7 @@ function SandboxWindow::onMouseWheelUp(%this, %modifier, %mousePoint, %mouseClic
         return;
         
     // Increase the zoom.
-    SandboxWindow.setCurrentCameraZoom( SandboxWindow.getCurrentCameraZoom() + $pref::Sandbox::cameraZoomRate );
+    SandboxWindow.setCameraZoom( SandboxWindow.getCameraZoom() + $pref::Sandbox::cameraZoomRate );
 }
 
 //-----------------------------------------------------------------------------
@@ -285,5 +285,5 @@ function SandboxWindow::onMouseWheelDown(%this, %modifier, %mousePoint, %mouseCl
         return;
 
     // Increase the zoom.
-    SandboxWindow.setCurrentCameraZoom( SandboxWindow.getCurrentCameraZoom() - $pref::Sandbox::cameraZoomRate );            
+    SandboxWindow.setCameraZoom( SandboxWindow.getCameraZoom() - $pref::Sandbox::cameraZoomRate );            
 }

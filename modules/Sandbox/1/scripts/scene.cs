@@ -45,10 +45,10 @@ function createSandboxWindow()
     SandboxWindow.setObjectInputEventGroupFilter( %allBits );
     SandboxWindow.setObjectInputEventLayerFilter( %allBits );
     SandboxWindow.setLockMouse( true );
-    SandboxWindow.setCurrentCameraPosition( 0, 0 );
-    SandboxWindow.setCurrentCameraSize( 100, 75 );
-    SandboxWindow.setCurrentCameraZoom( 1 );
-    SandboxWindow.setCurrentCameraAngle( 0 );
+    SandboxWindow.setCameraPosition( 0, 0 );
+    SandboxWindow.setCameraSize( 100, 75 );
+    SandboxWindow.setCameraZoom( 1 );
+    SandboxWindow.setCameraAngle( 0 );
 }
 
 //-----------------------------------------------------------------------------
@@ -121,10 +121,10 @@ function setSceneToWindow()
     SandboxWindow.setObjectInputEventGroupFilter( %allBits );
     SandboxWindow.setObjectInputEventLayerFilter( %allBits );
     SandboxWindow.setLockMouse( true );
-    SandboxWindow.setCurrentCameraPosition( 0, 0 );
-    SandboxWindow.setCurrentCameraSize( 100, 75 );
-    SandboxWindow.setCurrentCameraZoom( 1 );
-    SandboxWindow.setCurrentCameraAngle( 0 );
+    SandboxWindow.setCameraPosition( 0, 0 );
+    SandboxWindow.setCameraSize( 100, 75 );
+    SandboxWindow.setCameraZoom( 1 );
+    SandboxWindow.setCameraAngle( 0 );
     
     // Update the toolbox options.
     updateToolboxOptions();

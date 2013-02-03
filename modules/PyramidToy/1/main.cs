@@ -35,7 +35,7 @@ function PyramidToy::create( %this )
     PyramidToy.GroundWidth = 140;
     
     // Set the camera.
-    SandboxWindow.setCurrentCameraSize( 40, 30 );
+    SandboxWindow.setCameraSize( 40, 30 );
     
     // Se the gravity.
     SandboxScene.setGravity( 0, -9.8 );

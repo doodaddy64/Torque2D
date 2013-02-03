@@ -132,13 +132,13 @@ bool SceneWindow::onAdd()
         return false;
 
     // Reset the camera position.
-    setCurrentCameraPosition( Vector2::getZero() );
+    setCameraPosition( Vector2::getZero() );
 
     // Reset the camera size.
-    setCurrentCameraSize( Vector2( 100.0f, 75.0f ) );
+    setCameraSize( Vector2( 100.0f, 75.0f ) );
 
     // Reset the camera zoom.
-    setCurrentCameraZoom( 1.0f );
+    setCameraZoom( 1.0f );
 
     // Zero Camera Time.
     zeroCameraTime();
@@ -212,13 +212,13 @@ void SceneWindow::resetScene( void )
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::setCurrentCameraPosition( const Vector2& position )
+void SceneWindow::setCameraPosition( const Vector2& position )
 {
     // Are we mounted to an object?
     if ( isCameraMounted() )
     {
         // Yes, so cannot use this command.
-        Con::warnf("SceneWindow::setCurrentCameraPosition() - Cannot use this command when camera is mounted!");
+        Con::warnf("SceneWindow::setCameraPosition() - Cannot use this command when camera is mounted!");
         return;
     }
 
@@ -226,7 +226,7 @@ void SceneWindow::setCurrentCameraPosition( const Vector2& position )
     if ( mMovingCamera ) stopCameraMove();
 
     // Fetch the camera size.
-    const Vector2 cameraSize = getCurrentCameraSize();
+    const Vector2 cameraSize = getCameraSize();
 
     // Set Camera Target.
     mCameraCurrent.mSourceArea = RectF( position.x - (cameraSize.x * 0.5f), position.y - (cameraSize.y * 0.5f), cameraSize.x, cameraSize.y );
@@ -237,13 +237,13 @@ void SceneWindow::setCurrentCameraPosition( const Vector2& position )
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::setCurrentCameraSize( const Vector2& size )
+void SceneWindow::setCameraSize( const Vector2& size )
 {
     // Stop Camera Move ( if any ).
     if ( mMovingCamera ) stopCameraMove();
 
     // Fetch the current position.
-    const Vector2 position = getCurrentCameraPosition();
+    const Vector2 position = getCameraPosition();
 
     // Set Camera Target.
     mCameraCurrent.mSourceArea = RectF( position.x - (size.x * 0.5f), position.y - (size.y * 0.5f), size.x, size.y );
@@ -254,13 +254,13 @@ void SceneWindow::setCurrentCameraSize( const Vector2& size )
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::setCurrentCameraArea( const RectF& cameraWindow )
+void SceneWindow::setCameraArea( const RectF& cameraWindow )
 {
     // Are we mounted to an object?
     if ( isCameraMounted() )
     {
         // Yes, so cannot use this command.
-        Con::warnf("SceneWindow::setCurrentCameraArea - Cannot use this command when camera is mounted!");
+        Con::warnf("SceneWindow::setCameraArea - Cannot use this command when camera is mounted!");
         return;
     }
 
@@ -278,7 +278,7 @@ void SceneWindow::setCurrentCameraArea( const RectF& cameraWindow )
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::setCurrentCameraZoom( const F32 zoomFactor )
+void SceneWindow::setCameraZoom( const F32 zoomFactor )
 {
     // Stop Camera Move ( if any ).
     if ( mMovingCamera ) stopCameraMove();
@@ -292,7 +292,7 @@ void SceneWindow::setCurrentCameraZoom( const F32 zoomFactor )
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::setCurrentCameraAngle( const F32 cameraAngle )
+void SceneWindow::setCameraAngle( const F32 cameraAngle )
 {
     // Stop Camera Move ( if any ).
     if ( mMovingCamera ) stopCameraMove();
@@ -751,7 +751,7 @@ void SceneWindow::setViewLimitOn( const Vector2& limitMin, const Vector2& limitM
 
 //-----------------------------------------------------------------------------
 
-void SceneWindow::clampCurrentCameraViewLimit( void )
+void SceneWindow::clampCameraViewLimit( void )
 {
     // Finish if the view-limit is not on or the camera is moving.
     if ( !mViewLimitActive || mMovingCamera )
@@ -1732,7 +1732,7 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
 
         // Camera Window #1.
         dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Camera", NULL );
-        Vector2 cameraPosition = getCurrentCameraPosition();
+        Vector2 cameraPosition = getCameraPosition();
         dSprintf( mDebugText, sizeof( mDebugText ), "- Pos=(%0.1f,%0.1f), Size=(%0.1f,%0.1f), Zoom=%0.1f, Angle=%0.1f, Lower=(%0.1f,%0.1f), Upper=(%0.1f,%0.1f)", 
             cameraPosition.x,
             cameraPosition.y,
@@ -1749,7 +1749,7 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
 
         // Camera Window #2.
         Point2I windowExtent = getExtent();
-        Vector2 windowScale = getCurrentCameraWindowScale();
+        Vector2 windowScale = getCameraWindowScale();
         dSprintf( mDebugText, sizeof( mDebugText ), "- Window=(%d,%d), WorldScale=(%0.3f,%0.3f), RenderScale=(%0.3f,%0.3f)", 
             windowExtent.x, windowExtent.y,
             windowScale.x, windowScale.y,
