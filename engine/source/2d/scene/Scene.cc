@@ -1491,6 +1491,15 @@ U32 Scene::createDistanceJoint(
     const F32 dampingRatio,
     const bool collideConnected )
 {
+    // Sanity!
+    if (    (pSceneObjectA != NULL && pSceneObjectA->getScene() == NULL) ||
+            (pSceneObjectB != NULL && pSceneObjectB->getScene() == NULL) )
+    {
+        // Warn.
+        Con::printf( "Cannot add a joint to a scene object that is not in a scene." );
+        return -1;
+    }
+
     // Fetch bodies.
     b2Body* pBodyA = pSceneObjectA != NULL ? pSceneObjectA->getBody() : getGroundBody();
     b2Body* pBodyB = pSceneObjectB != NULL ? pSceneObjectB->getBody() : getGroundBody();
@@ -1687,6 +1696,15 @@ U32 Scene::createRopeJoint(
         const F32 maxLength,
         const bool collideConnected )
 {
+    // Sanity!
+    if (    (pSceneObjectA != NULL && pSceneObjectA->getScene() == NULL) ||
+            (pSceneObjectB != NULL && pSceneObjectB->getScene() == NULL) )
+    {
+        // Warn.
+        Con::printf( "Cannot add a joint to a scene object that is not in a scene." );
+        return -1;
+    }
+
     // Fetch bodies.
     b2Body* pBodyA = pSceneObjectA != NULL ? pSceneObjectA->getBody() : getGroundBody();
     b2Body* pBodyB = pSceneObjectB != NULL ? pSceneObjectB->getBody() : getGroundBody();
@@ -1768,6 +1786,15 @@ U32 Scene::createRevoluteJoint(
         const b2Vec2& localAnchorA, const b2Vec2& localAnchorB,
         const bool collideConnected )
 {
+    // Sanity!
+    if (    (pSceneObjectA != NULL && pSceneObjectA->getScene() == NULL) ||
+            (pSceneObjectB != NULL && pSceneObjectB->getScene() == NULL) )
+    {
+        // Warn.
+        Con::printf( "Cannot add a joint to a scene object that is not in a scene." );
+        return -1;
+    }
+
     // Fetch bodies.
     b2Body* pBodyA = pSceneObjectA != NULL ? pSceneObjectA->getBody() : getGroundBody();
     b2Body* pBodyB = pSceneObjectB != NULL ? pSceneObjectB->getBody() : getGroundBody();
@@ -1928,6 +1955,15 @@ U32 Scene::createWeldJoint(
         const F32 dampingRatio,
         const bool collideConnected )
 {
+    // Sanity!
+    if (    (pSceneObjectA != NULL && pSceneObjectA->getScene() == NULL) ||
+            (pSceneObjectB != NULL && pSceneObjectB->getScene() == NULL) )
+    {
+        // Warn.
+        Con::printf( "Cannot add a joint to a scene object that is not in a scene." );
+        return -1;
+    }
+
     // Fetch bodies.
     b2Body* pBodyA = pSceneObjectA != NULL ? pSceneObjectA->getBody() : getGroundBody();
     b2Body* pBodyB = pSceneObjectB != NULL ? pSceneObjectB->getBody() : getGroundBody();
@@ -2069,6 +2105,15 @@ U32 Scene::createWheelJoint(
         const b2Vec2& worldAxis,
         const bool collideConnected )
 {
+    // Sanity!
+    if (    (pSceneObjectA != NULL && pSceneObjectA->getScene() == NULL) ||
+            (pSceneObjectB != NULL && pSceneObjectB->getScene() == NULL) )
+    {
+        // Warn.
+        Con::printf( "Cannot add a joint to a scene object that is not in a scene." );
+        return -1;
+    }
+
     // Fetch bodies.
     b2Body* pBodyA = pSceneObjectA != NULL ? pSceneObjectA->getBody() : getGroundBody();
     b2Body* pBodyB = pSceneObjectB != NULL ? pSceneObjectB->getBody() : getGroundBody();
@@ -2276,6 +2321,15 @@ U32 Scene::createFrictionJoint(
         const F32 maxTorque,
         const bool collideConnected )
 {
+    // Sanity!
+    if (    (pSceneObjectA != NULL && pSceneObjectA->getScene() == NULL) ||
+            (pSceneObjectB != NULL && pSceneObjectB->getScene() == NULL) )
+    {
+        // Warn.
+        Con::printf( "Cannot add a joint to a scene object that is not in a scene." );
+        return -1;
+    }
+
     // Fetch bodies.
     b2Body* pBodyA = pSceneObjectA != NULL ? pSceneObjectA->getBody() : getGroundBody();
     b2Body* pBodyB = pSceneObjectB != NULL ? pSceneObjectB->getBody() : getGroundBody();
@@ -2416,6 +2470,15 @@ U32 Scene::createPrismaticJoint(
         const b2Vec2& worldAxis,
         const bool collideConnected )
 {
+    // Sanity!
+    if (    (pSceneObjectA != NULL && pSceneObjectA->getScene() == NULL) ||
+            (pSceneObjectB != NULL && pSceneObjectB->getScene() == NULL) )
+    {
+        // Warn.
+        Con::printf( "Cannot add a joint to a scene object that is not in a scene." );
+        return -1;
+    }
+
     // Fetch bodies.
     b2Body* pBodyA = pSceneObjectA != NULL ? pSceneObjectA->getBody() : getGroundBody();
     b2Body* pBodyB = pSceneObjectB != NULL ? pSceneObjectB->getBody() : getGroundBody();
@@ -2578,6 +2641,15 @@ U32 Scene::createPulleyJoint(
         const F32 lengthA, const F32 lengthB,
         const bool collideConnected )
 {
+    // Sanity!
+    if (    (pSceneObjectA != NULL && pSceneObjectA->getScene() == NULL) ||
+            (pSceneObjectB != NULL && pSceneObjectB->getScene() == NULL) )
+    {
+        // Warn.
+        Con::printf( "Cannot add a joint to a scene object that is not in a scene." );
+        return -1;
+    }
+
     // Fetch bodies.
     b2Body* pBodyA = pSceneObjectA != NULL ? pSceneObjectA->getBody() : getGroundBody();
     b2Body* pBodyB = pSceneObjectB != NULL ? pSceneObjectB->getBody() : getGroundBody();
@@ -2611,6 +2683,14 @@ U32 Scene::createTargetJoint(
         const F32 dampingRatio,
         const bool collideConnected )
 {
+    // Sanity!
+    if ( pSceneObject != NULL && pSceneObject->getScene() == NULL )
+    {
+        // Warn.
+        Con::printf( "Cannot add a joint to a scene object that is not in a scene." );
+        return -1;
+    }
+
     // Sanity!
     AssertFatal( pSceneObject != NULL, "Invalid scene object." );
 
@@ -2880,6 +2960,15 @@ U32 Scene::createMotorJoint(
             const F32 correctionFactor,
             const bool collideConnected )
 {
+    // Sanity!
+    if (    (pSceneObjectA != NULL && pSceneObjectA->getScene() == NULL) ||
+            (pSceneObjectB != NULL && pSceneObjectB->getScene() == NULL) )
+    {
+        // Warn.
+        Con::printf( "Cannot add a joint to a scene object that is not in a scene." );
+        return -1;
+    }
+
     // Fetch bodies.
     b2Body* pBodyA = pSceneObjectA != NULL ? pSceneObjectA->getBody() : getGroundBody();
     b2Body* pBodyB = pSceneObjectB != NULL ? pSceneObjectB->getBody() : getGroundBody();
