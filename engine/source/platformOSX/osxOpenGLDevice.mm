@@ -46,51 +46,43 @@ osxOpenGLDevice::osxOpenGLDevice()
 }
 
 //------------------------------------------------------------------------------
-
-bool osxOpenGLDevice::enumDisplayModes( CGDirectDisplayID display )
+//  Fill Vector<Resolution> mResoultionList with list of supported modes
+bool osxOpenGLDevice::enumDisplayModes(CGDirectDisplayID display)
 {
-    // Clear the resolution list.
     mResolutionList.clear();
     
-    // Fetch a list of all available modes for the specified display.
+    // get the display, and the list of all available modes.
     CFArrayRef modeArray = CGDisplayCopyAllDisplayModes(display, NULL);
     
-    // Fetch the mode count.
-    const S32 modeCount = CFArrayGetCount(modeArray);
+    int len = CFArrayGetCount(modeArray);
     
-    // Iterate the modes.
-    for( S32 modeIndex = 0; modeIndex < modeCount; modeIndex++ )
+    for(int i = 0; i < len; i++)
     {
-        // Fetch the display mode.
-        CGDisplayModeRef mode = (CGDisplayModeRef)CFArrayGetValueAtIndex(modeArray, modeIndex);
+        CGDisplayModeRef mode;
+        CFStringRef pixelEncoding;
         
-        // Get the mode width.
-        const S32 width = CGDisplayModeGetWidth(mode);
+        mode = (CGDisplayModeRef)CFArrayGetValueAtIndex(modeArray, i);
         
-        // Get the mode height.
-        const S32 height = CGDisplayModeGetHeight(mode);
+        // get this mode.
+        int width, height, bpp;
         
-        // Get the pixel encoding.
-        CFStringRef pixelEncoding = CGDisplayModeCopyPixelEncoding(mode);
+        // get width
+        width = CGDisplayModeGetWidth(mode);
         
-        // Is it a 32 bpp?
-        S32 bitDepth;
-        if ( CFStringCompare( pixelEncoding, CFSTR(IO32BitDirectPixels), 0 ) == kCFCompareEqualTo )
+        // get height
+        height = CGDisplayModeGetHeight(mode);
+        
+        // get bpp
+        pixelEncoding = CGDisplayModeCopyPixelEncoding(mode);
+        
+        bpp = CFStringGetIntValue(pixelEncoding);
+        
+        // add to the list
+        if (bpp != 8)
         {
-            bitDepth = 32;
+            Resolution newRes(width, height, bpp);
+            mResolutionList.push_back(newRes);
         }
-        else if ( CFStringCompare( pixelEncoding, CFSTR(IO16BitDirectPixels), 0 ) == kCFCompareEqualTo )
-        {
-            bitDepth = 16;
-        }
-        else
-        {
-            // Skip the mode.
-            continue;
-        }
-        
-        // Store the resolution.
-        mResolutionList.push_back( Resolution( width, height, bitDepth ) );
     }
     
     return true;
@@ -163,11 +155,6 @@ void osxOpenGLDevice::shutdown()
 
 NSOpenGLPixelFormat* osxOpenGLDevice::generateValidPixelFormat(bool fullscreen, U32 bpp, U32 samples)
 {
-    AssertWarn(bpp==16 || bpp==32 || bpp==0, "An unusual bit depth was requested in findValidPixelFormat(). clamping to 16|32");
-    
-    if (bpp)
-        bpp = bpp > 16 ? 32 : 16;
-    
     AssertWarn(samples <= 6, "An unusual multisample depth was requested in findValidPixelFormat(). clamping to 0...6");
     
     samples = samples > 6 ? 6 : samples;
@@ -178,10 +165,7 @@ NSOpenGLPixelFormat* osxOpenGLDevice::generateValidPixelFormat(bool fullscreen, 
     attr[i++] = NSOpenGLPFADoubleBuffer;
     attr[i++] = NSOpenGLPFANoRecovery;
     attr[i++] = NSOpenGLPFAAccelerated;
-    
-    if (fullscreen)
-        attr[i++] = NSOpenGLPFAFullScreen;
-    
+        
     if(bpp != 0)
     {
         // native pixel formats are argb 1555 & argb 8888.
@@ -238,6 +222,9 @@ bool osxOpenGLDevice::setScreenMode( U32 width, U32 height, U32 bpp, bool fullSc
     // Sanity check. Some scripts are liable to pass in bad values.
     if (!bpp)
         bpp = [platState desktopBitsPixel];
+    
+    if (bpp)
+        bpp = bpp > 16 ? 32 : 16;
     
     Resolution newRes = Resolution(width, height, bpp);
     

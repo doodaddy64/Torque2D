@@ -697,7 +697,7 @@ function TruckProjectile::handleCollision(%this, %object, %collisionDetails)
     %particlePlayer.SceneLayer = TruckToy.BackgroundDomain-1;
     %particlePlayer.ParticleInterpolation = true;
     %particlePlayer.Particle = "ToyAssets:ImpactExplosion";
-    %particlePlayer.SizeScale = TruckToy.ExplosionScale;
+    %particlePlayer.SizeScale = getRandom(TruckToy.ExplosionScale, TruckToy.ExplosionScale * 1.5);
     SandboxScene.add( %particlePlayer ); 
     
     // Start the camera shaking.

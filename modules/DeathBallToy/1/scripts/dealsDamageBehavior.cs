@@ -1,0 +1,71 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2013 GarageGames, LLC
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+// IN THE SOFTWARE.
+//-----------------------------------------------------------------------------
+
+if (!isObject(DealsDamageBehavior))
+{
+    %template = new BehaviorTemplate(DealsDamageBehavior);
+
+    %template.friendlyName = "Deals Damage";
+    %template.behaviorType = "Game";
+    %template.description  = "Set the object to deal damage to TakesDamage objects it collides with";
+
+    %template.addBehaviorField(strength, "The amount of damage the object deals", int, 10);
+    %template.addBehaviorField(deleteOnHit, "Delete the object when it collides", bool, 1);
+}
+
+function DealsDamageBehavior::onBehaviorAdd(%this)
+{
+    %this.owner.collisionCallback = true;
+    %this.owner.collisionActiveSend = true;
+}
+
+function DealsDamageBehavior::dealDamage(%this, %amount, %victim)
+{
+    %takesDamage = %victim.getBehavior("TakesDamageBehavior");
+
+    if (!isObject(%takesDamage))
+        return;
+   
+    %takesDamage.takeDamage(%amount, %this);
+}
+
+function DealsDamageBehavior::explode(%this, %position)
+{
+    if (isObject(%this.explodeEffect))
+    {
+        %explosion = %this.explodeEffect.cloneWithBehaviors();
+        %explosion.position = %position;
+        %explosion.setEffectLifeMode("Kill", 1.0);
+        %explosion.playEffect();
+    }
+}
+
+function DealsDamageBehavior::onCollision(%this, %dstObj, %srcRef, %dstRef, %time, %normal, %contactCount, %contacts)
+{
+    %this.dealDamage(%this.strength, %dstObj);
+   
+    if (%this.deleteOnHit)
+    {
+        %this.explode(getWords(%contacts, 0, 1));
+        %this.owner.safeDelete();
+    }
+}

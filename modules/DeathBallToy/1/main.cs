@@ -22,17 +22,31 @@
 
 function DeathBallToy::create( %this )
 {
+    // Execute behavior scripts
+    exec("./scripts/dealsDamageBehavior.cs");
+    exec("./scripts/takesDamageBehavior.cs");
+    exec("./scripts/faceObjectBehavior.cs");
+    exec("./scripts/moveTowardBehavior.cs");
+    exec("./scripts/spawnAreaBehavior.cs");
+
     // Activate the package.
     activatePackage( DeathBallToyPackage );
 
     // Initialize the toys settings.
     DeathBallToy.rotateTime = 100;
     DeathBallToy.moveTime = 3000;
-
+    DeathBallToy.soldierSpeed = 10;
+    DeathBallToy.spawnPointCount = 4;
+    DeathballToy.spawnAmount = 40;
+    DeathballToy.soldierTemplate = "";
+    
     // Add the custom controls.
-    addNumericOption("Rotate time", 10, 100, 10, "setRotateTime", RotateToToy.rotateTime, true);
-    addNumericOption("Move time", 10, 3000, 10, "setMoveTime", RotateToToy.moveTime, true);
-
+    addNumericOption("Deathball turn speed", 10, 100, 10, "setRotateTime", DeathBallToy.rotateTime, false);
+    addNumericOption("Deathball move speed", 10, 3000, 10, "setMoveTime", DeathBallToy.moveTime, false);
+    addNumericOption("Number of spawnpoints", 4, 4, 1, "setSpawnPointCount", DeathBallToy.spawnPointCount, true);
+    addNumericOption("Soldier count", 40, 100, 10, "setSpawnAmount", DeathBallToy.spawnAmount, true);
+    addNumericOption("Soldier speed", 1, 10, 1, "setSoldierSpeed", DeathBallToy.soldierSpeed, false);
+    
     // Reset the toy initially.
     DeathBallToy.reset();
 }
@@ -48,15 +62,6 @@ function DeathBallToy::destroy( %this )
     deactivatePackage( DeathBallToyPackage );
 }
 
-function DeathBallToy::cancelPendingEvents()
-{
-    // Finish if there are not pending events.
-    if ( !isEventPending(DeathBall.rollSchedule) )
-        return;
-
-    cancel(DeathBall.rollSchedule);
-    DeathBall.rollSchedule = "";
-}
 //-----------------------------------------------------------------------------
 
 function DeathBallToy::reset(%this)
@@ -73,9 +78,61 @@ function DeathBallToy::reset(%this)
     // Add deathball
     %this.spawnDeathball("0 0");
 
-    // Start spawning soldiers
+    // Create the soldier enemy we will be spawning
+    %this.generateSoldierTemplate();
+    
+    // Setup the spawners
+    %this.setupSpawnPoints();
 
-    // GET 'EM!
+    // Start spawning soldiers
+    %this.startSpawning();
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setRotateTime(%this, %value)
+{
+    %this.rotateTime = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setMoveTime(%this, %value)
+{
+    %this.moveTime = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setSpawnPointCount(%this, %value)
+{
+    %this.spawnPointCount = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setSpawnAmount(%this, %value)
+{
+    %this.spawnAmount = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setSoldierSpeed(%this, %value)
+{
+    %this.soldierSpeed = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::cancelPendingEvents()
+{
+    // Finish if there are not pending events.
+    if ( !isEventPending(DeathBall.rollSchedule) )
+        return;
+
+    cancel(DeathBall.rollSchedule);
+    DeathBall.rollSchedule = "";
 }
 
 //-----------------------------------------------------------------------------
@@ -119,6 +176,7 @@ function DeathBallToy::createDesertBackgrounds(%this)
 }
 
 //-----------------------------------------------------------------------------
+
 function DeathBallToy::spawnDeathball(%this, %position)
 {
     %db = new Sprite(Deathball)
@@ -145,6 +203,8 @@ function DeathBallToy::spawnDeathball(%this, %position)
     SandboxWindow.mount( Deathball, "0 0", 0, true, false );
 }
 
+//-----------------------------------------------------------------------------
+
 function Deathball::updateRollAnimation(%this)
 {
     %this.rollSchedule = "";
@@ -156,16 +216,40 @@ function Deathball::updateRollAnimation(%this)
     %flooredVelocity = mFloatLength(%scaledVelocity, 1);
     %scaledAnimTime = %currentAnimTime * %flooredVelocity;
 
-//    echo("Velocity: " @ %velocity);
-//    echo("scaledVelocity: " @ %scaledVelocity);
-//    echo("flooredVelocity: " @ %flooredVelocity);
-//    echo("currentAnimTime: " @ %currentAnimTime);
-//    echo("scaledAnimTime: " @ %scaledAnimTime);
-
     %this.setAnimationTimeScale(%scaledAnimTime);
 
     %this.rollSchedule = %this.schedule(100, updateRollAnimation);
 }
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::generateSoldierTemplate(%this)
+{
+    // Create the soldier sprite
+    %soldier = new Sprite();
+    
+    // Add the behaviors
+    
+    // Disable it
+    %soldier.setEnabled(0);
+    
+    // Return it to the toy
+    %this.soldierTemplate = %soldier;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setupSpawnPoints(%this)
+{
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::startSpawning(%this)
+{
+}
+
+//-----------------------------------------------------------------------------
 
 package DeathBallToyPackage
 {
