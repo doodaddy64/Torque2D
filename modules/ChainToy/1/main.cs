@@ -20,7 +20,7 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-function RopeToy::create( %this )
+function ChainToy::create( %this )
 {
     // Set the sandbox drag mode availability.
     Sandbox.allowManipulation( pan );
@@ -28,72 +28,109 @@ function RopeToy::create( %this )
     
     // Set the manipulation mode.
     Sandbox.useManipulation( pull );   
+
+    // Set the scene gravity.
+    SandboxScene.setGravity(0, -9.8);
     
-    RopeToy.GroundWidth = 80;
-    RopeToy.maxLinks = 16;
+    // Configure the toy.
+    ChainToy.GroundWidth = 80;
+    ChainToy.maxLinks = 30;
+
+    // Add configuration option.
 
     // Reset the toy initially.
-    RopeToy.reset();
+    ChainToy.reset();
 }
 
 //-----------------------------------------------------------------------------
 
-function RopeToy::destroy( %this )
+function ChainToy::destroy( %this )
 {   
        
 }
 
 //-----------------------------------------------------------------------------
 
-function RopeToy::reset(%this)
+function ChainToy::reset(%this)
 {
     // Clear the scene.
     SandboxScene.clear();
     
-    // Zoom the camera in    
-    SandboxWindow.setCurrentCameraArea("-15 -15 15 15");
+    // Set the camera size.
+    SandboxWindow.setCurrentCameraSize( 40, 30 );
     
-    // Prefer the collision option off as it severely affects the performance.
-    setCollisionOption(false);
-    
-    // Set the scene gravity.
-    SandboxScene.setGravity(0, -9.8);
-    
-    // Create the ground
-    %ground = new Scroller();
-    %ground.setBodyType("static");
-    %ground.Image = "ToyAssets:woodGround";
-    %ground.setSize(RopeToy.GroundWidth, 2);
-    %ground.setRepeatX(RopeToy.GroundWidth / 12);   
-    %ground.setPosition(0, -10);
-    %ground.createEdgeCollisionShape(RopeToy.GroundWidth/-2, 1, RopeToy.GroundWidth/2, 1);
-    SandboxScene.add(%ground);
-    
+    // Create a background.
+    %this.createBackground();
+       
     // Create the chain
-    %this.createRope(0, 2);
+    %this.createRope(0, 10);
+       
+    // Create the ground.
+    %this.createGround();          
 }
 
 //-----------------------------------------------------------------------------
 
-function RopeToy::setMaxLinks(%this, %value)
+function ChainToy::createBackground( %this )
+{    
+    // Create the scroller.
+    %object = new Sprite();
+    
+    // Set the sprite as "static" so it is not affected by gravity.
+    %object.setBodyType( static );
+       
+    // Always try to configure a scene-object prior to adding it to a scene for best performance.
+
+    // Set the position.
+    %object.Position = "0 0";
+
+    // Set the size.        
+    %object.Size = "40 30";
+    
+    // Set to the furthest background layer.
+    %object.SceneLayer = 31;
+    
+    // Set the scroller to use an animation!
+    %object.Image = "ToyAssets:jungleSky";
+            
+    // Add the sprite to the scene.
+    SandboxScene.add( %object );    
+}
+
+//-----------------------------------------------------------------------------
+
+function ChainToy::createGround( %this )
+{
+    // Create the ground
+    %ground = new Scroller();
+    %ground.setBodyType("static");
+    %ground.Image = "ToyAssets:dirtGround";
+    %ground.setPosition(0, -12);
+    %ground.setSize(ChainToy.GroundWidth, 6);
+    %ground.setRepeatX(ChainToy.GroundWidth / 60);   
+    %ground.createEdgeCollisionShape(ChainToy.GroundWidth/-2, 3, ChainToy.GroundWidth/2, 3);
+    SandboxScene.add(%ground);  
+    
+    // Create the grass.
+    %grass = new Sprite();
+    %grass.setBodyType("static");
+    %grass.Image = "ToyAssets:grassForeground";
+    %grass.setPosition(0, -8.5);
+    %grass.setSize(ChainToy.GroundWidth, 2); 
+    SandboxScene.add(%grass);       
+}
+
+//-----------------------------------------------------------------------------
+
+function ChainToy::setMaxLinks(%this, %value)
 {
     %this.maxLinks = %value;
 }
 
 //-----------------------------------------------------------------------------
 
-function RopeToy::createRope(%this, %posX, %posY)
+function ChainToy::createRope(%this, %posX, %posY)
 {
-    // Swinging box
-    %box = new Sprite();
-    %box.setUseInputEvents(true);
-    %box.setImage( "ToyAssets:crate" );
-    %box.setPosition( %posX, %posY );
-    %box.setSize( 1.5 );
-    %box.setDefaultFriction( 1.0 );
-    %box.createPolygonBoxCollisionShape( 1.5, 1.5 );
-    SandboxScene.add( %box );
-
     %linkWidth = 0.25;
     %linkHeight = %linkWidth * 2;
     %halfLinkHeight = %linkHeight * 0.4;
@@ -112,24 +149,37 @@ function RopeToy::createRope(%this, %posX, %posY)
     {
         %obj = new Sprite();
         %obj.setImage( "ToyAssets:cable" );
+        //%obj.setBodyType( "static" );
         %obj.setSceneLayer(1);
         %obj.setPosition( %posX, %posY - (%n*%linkHeight) );
         %obj.setSize( %linkWidth, %linkHeight );
-        %obj.setDefaultDensity( 0.4 );
+        %obj.setDefaultDensity( 20 );
         %obj.setDefaultFriction( 0.2 );
         %obj.createPolygonBoxCollisionShape( %linkWidth, %linkHeight );
         %obj.setAngularDamping( 0.1 );
         %obj.setLinearDamping( 0.1 );
-        %obj.setUseInputEvents(true);
         SandboxScene.add( %obj );   
 
-        //SandboxScene.createRopeJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, 0.01, false );
         SandboxScene.createRevoluteJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
 
         %lastLinkObj = %obj;
     }
+    //%lastLinkObj.setAwake(false);
+    
+    // Calculate length from the fixed pivot.
+    %pivotDistance = %linkHeight * %this.maxLinks;
 
-    SandboxScene.createRevoluteJoint( %lastLinkObj, %box, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
-    SandboxScene.createRopeJoint(%box, %rootObj, 0, 0, 0, 0, 7, false);
-    %lastLinkObj.setAwake(false);
+    // Rope weight.
+    %weight = new Sprite();
+    //%weight.setBodyType( "static" );
+    %weight.setUseInputEvents(true);
+    %weight.setImage( "ToyAssets:crate" );
+    %weight.setSize( 1.5 );
+    %weight.setPosition( %posX, %posY - %pivotDistance - (%weight.getSizeY() * 0.5) );
+    %weight.setDefaultFriction( 1.0 );
+    %weight.createPolygonBoxCollisionShape( 1, 1 );
+    SandboxScene.add( %weight );
+
+    SandboxScene.createRevoluteJoint( %lastLinkObj, %weight, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
+    SandboxScene.createRopeJoint(%rootObj, %weight, 0, 0, 0, %weight.getSizeY() * 0.5, %pivotDistance, false);
 }

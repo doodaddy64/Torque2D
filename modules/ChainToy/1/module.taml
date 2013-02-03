@@ -1,8 +1,8 @@
 <ModuleDefinition
-    ModuleId="RopeToy"
+    ModuleId="ChainToy"
     VersionId="1"
 	Enabled="1"
-    Description="Box2D Rope Test."
+    Description="Demonstrates the chaining together of multiple bodies."
     Dependencies="ToyAssets=1"
     Type="toy"
     ToyCategoryIndex="2"
