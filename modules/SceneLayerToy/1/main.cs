@@ -22,6 +22,12 @@
 
 function SceneLayerToy::create( %this )
 {
+    // Configure the toy.
+    SceneLayerToy.AngularSpeed = 1;
+    
+    // Add the configuration options.
+    addNumericOption("Angular Speed", -50, 50, 1, "setAngularScale", SceneLayerToy.AngularSpeed, true );       
+    
     // Reset the toy.
     SceneLayerToy.reset();
 }
@@ -39,7 +45,49 @@ function SceneLayerToy::reset( %this )
 {
     // Clear the scene.
     SandboxScene.clear();
+    
+    // Create background.
+    %this.createBackground();    
 
+    // Create scene layers.
+    %this.createSceneLayers();
+}
+
+//-----------------------------------------------------------------------------
+
+function SceneLayerToy::createBackground( %this )
+{    
+    // Create the scroller.
+    %object = new Sprite();
+    
+    // Set the sprite as "static" so it is not affected by gravity.
+    %object.setBodyType( static );
+       
+    // Always try to configure a scene-object prior to adding it to a scene for best performance.
+
+    // Set the position.
+    %object.Position = "0 0";
+
+    // Set the size.        
+    %object.Size = "100 75";
+    
+    // Set to the furthest background layer.
+    %object.SceneLayer = 31;
+    
+    // Set the scroller to use an animation!
+    %object.Image = "ToyAssets:highlightBackground";
+    
+    // Set the blend color.
+    %object.BlendColor = Bisque;
+            
+    // Add the sprite to the scene.
+    SandboxScene.add( %object );    
+}
+
+//-----------------------------------------------------------------------------
+
+function SceneLayerToy::createSceneLayers( %this )
+{
     // Add a sprite to all scene layers.
     for( %layer = 0; %layer <= 31; %layer++ )
     {
@@ -47,10 +95,10 @@ function SceneLayerToy::reset( %this )
         %object = new Sprite();
 
         // Set the position so each layer is in a different Y position.
-        %object.SetPosition( -32 + (%layer * 2), -32 + (%layer * 2) );
+        %object.SetPosition( -32 + (%layer * 2), -27 + (%layer * 1.5) );
         
         // Set the size.
-        %object.Size = "20 10";
+        %object.Size = "30 10";
         
         // Set the scene layer.
         %object.SceneLayer = %layer;
@@ -62,10 +110,23 @@ function SceneLayerToy::reset( %this )
         %object.Frame = %layer;
         
         // Set the object randomly spinning to make it more interesting.
-        %object.AngularVelocity = getRandom(-180,180);
+        %object.AngularVelocity = %layer * SceneLayerToy.AngularSpeed;
+        
+        // Don't let it sleep.
+        // This is done because the sprites rotating VERY slowly might get
+        // put to sleep.
+        %object.SleepingAllowed = false;
         
         // Add the object to the scene.
         SandboxScene.add( %object );
-    }  
+    }      
 }
+
+//-----------------------------------------------------------------------------
+
+function SceneLayerToy::setAngularScale( %this, %value )
+{
+    SceneLayerToy.AngularSpeed = %value;
+}
+
 
