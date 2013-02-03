@@ -46,43 +46,51 @@ osxOpenGLDevice::osxOpenGLDevice()
 }
 
 //------------------------------------------------------------------------------
-//  Fill Vector<Resolution> mResoultionList with list of supported modes
-bool osxOpenGLDevice::enumDisplayModes(CGDirectDisplayID display)
+
+bool osxOpenGLDevice::enumDisplayModes( CGDirectDisplayID display )
 {
+    // Clear the resolution list.
     mResolutionList.clear();
     
-    // get the display, and the list of all available modes.
+    // Fetch a list of all available modes for the specified display.
     CFArrayRef modeArray = CGDisplayCopyAllDisplayModes(display, NULL);
     
-    int len = CFArrayGetCount(modeArray);
+    // Fetch the mode count.
+    const S32 modeCount = CFArrayGetCount(modeArray);
     
-    for(int i = 0; i < len; i++)
+    // Iterate the modes.
+    for( S32 modeIndex = 0; modeIndex < modeCount; modeIndex++ )
     {
-        CGDisplayModeRef mode;
-        CFStringRef pixelEncoding;
+        // Fetch the display mode.
+        CGDisplayModeRef mode = (CGDisplayModeRef)CFArrayGetValueAtIndex(modeArray, modeIndex);
         
-        mode = (CGDisplayModeRef)CFArrayGetValueAtIndex(modeArray, i);
+        // Get the mode width.
+        const S32 width = CGDisplayModeGetWidth(mode);
         
-        // get this mode.
-        int width, height, bpp;
+        // Get the mode height.
+        const S32 height = CGDisplayModeGetHeight(mode);
         
-        // get width
-        width = CGDisplayModeGetWidth(mode);
+        // Get the pixel encoding.
+        CFStringRef pixelEncoding = CGDisplayModeCopyPixelEncoding(mode);
         
-        // get height
-        height = CGDisplayModeGetHeight(mode);
-        
-        // get bpp
-        pixelEncoding = CGDisplayModeCopyPixelEncoding(mode);
-        
-        bpp = CFStringGetIntValue(pixelEncoding);
-        
-        // add to the list
-        if (bpp != 8)
+        // Is it a 32 bpp?
+        S32 bitDepth;
+        if ( CFStringCompare( pixelEncoding, CFSTR(IO32BitDirectPixels), 0 ) == kCFCompareEqualTo )
         {
-            Resolution newRes(width, height, bpp);
-            mResolutionList.push_back(newRes);
+            bitDepth = 32;
         }
+        else if ( CFStringCompare( pixelEncoding, CFSTR(IO16BitDirectPixels), 0 ) == kCFCompareEqualTo )
+        {
+            bitDepth = 16;
+        }
+        else
+        {
+            // Skip the mode.
+            continue;
+        }
+        
+        // Store the resolution.
+        mResolutionList.push_back( Resolution( width, height, bitDepth ) );
     }
     
     return true;
