@@ -57,8 +57,8 @@ function BridgeToy::reset(%this)
     // Clear the scene.
     SandboxScene.clear();
     
-    // Zoom the camera in    
-    SandboxWindow.setCurrentCameraArea("-20 -15 20 15");
+    // Set the camera size.
+    SandboxWindow.setCurrentCameraSize( 40, 30 );
        
     // Create a background.
     %this.createBackground();
