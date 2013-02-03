@@ -27,7 +27,7 @@
 //<--%PUAP% -Mat add #defines for min window/resolution size
 #define MIN_RESOLUTION_X			320
 #define MIN_RESOLUTION_Y			320//for 230 x 480 or 480 x 320
-#define MIN_RESOLUTION_BIT_DEPTH	16
+#define MIN_RESOLUTION_BIT_DEPTH	32
 #define MIN_RESOLUTION_XY_STRING	"320 320"
 //%PUAP%-->
 
