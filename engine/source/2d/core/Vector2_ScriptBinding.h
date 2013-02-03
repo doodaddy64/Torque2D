@@ -28,7 +28,7 @@
 #include "2d/sceneobject/SceneObject.h"
 #endif
 
-
+//-----------------------------------------------------------------------------
 
 ConsoleFunctionGroupBegin( Vector2Math, "Vector2 math functions.");
 
@@ -43,21 +43,11 @@ ConsoleFunction( Vector2Add, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - Re
         return NULL;
     }
 
-    // Input Vectors.
-    Vector2 v1(0,0),v2(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &v1.x, &v1.y);
-    dSscanf(argv[2],"%g %g", &v2.x, &v2.y);
-    // Do Vector Operation.
-    Vector2 v = v1 + v2;
-    // Create Returnable Buffer.
-    char* pBuffer = Con::getReturnBuffer(32);
-    // Format Buffer.
-    dSprintf(pBuffer, 32, "%g %g", v.x, v.y);
-    // Return Velocity.
-    return pBuffer;
-}
+    Vector2 v1( argv[1] );
+    Vector2 v2( argv[2] );
 
+    return ( v1 + v2 ).scriptThis();
+}
 
 //-----------------------------------------------------------------------------
 // Subtract two 2D Vectors.
@@ -71,21 +61,29 @@ ConsoleFunction( Vector2Sub, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - Re
         return NULL;
     }
 
-    // Input Vectors.
-    Vector2 v1(0,0),v2(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &v1.x, &v1.y);
-    dSscanf(argv[2],"%g %g", &v2.x, &v2.y);
-    // Do Vector Operation.
-    Vector2 v = v1 - v2;
-    // Create Returnable Buffer.
-    char* pBuffer = Con::getReturnBuffer(32);
-    // Format Buffer.
-    dSprintf(pBuffer, 32, "%g %g", v.x, v.y);
-    // Return Velocity.
-    return pBuffer;
+    Vector2 v1( argv[1] );
+    Vector2 v2( argv[2] );
+
+    return ( v1 - v2 ).scriptThis();
 }
 
+//-----------------------------------------------------------------------------
+// The absolute difference between two 2D Vectors.
+//-----------------------------------------------------------------------------
+ConsoleFunction( Vector2Abs, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - Returns abs(v1-v2).")
+{
+    // Check Parameters.
+    if (Utility::mGetStringElementCount(argv[1]) < 2 ||Utility::mGetStringElementCount(argv[2]) < 2 )
+    {
+        Con::warnf("Vector2Sub() - Invalid number of parameters!");
+        return NULL;
+    }
+
+    Vector2 v1( argv[1] );
+    Vector2 v2( argv[2] );
+
+    return ( v1 - v2 ).absolute().scriptThis();
+}
 
 //-----------------------------------------------------------------------------
 // Multiply two 2D Vectors (Not Dot-Product!)
@@ -99,21 +97,11 @@ ConsoleFunction( Vector2Mult, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - R
         return NULL;
     }
 
-    // Input Vectors.
-    Vector2 v1(0,0),v2(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &v1.x, &v1.y);
-    dSscanf(argv[2],"%g %g", &v2.x, &v2.y);
-    // Do Vector Operation.
-    Vector2 v( v1.x*v2.x, v1.y*v2.y );
-    // Create Returnable Buffer.
-    char* pBuffer = Con::getReturnBuffer(32);
-    // Format Buffer.
-    dSprintf(pBuffer, 32, "%g %g", v1.x*v2.x, v1.y*v2.y );
-    // Return Velocity.
-    return pBuffer;
-}
+    Vector2 v1( argv[1] );
+    Vector2 v2( argv[2] );
 
+    return Vector2( v1.x * v2.x, v1.y * v2.y ).scriptThis();
+}
 
 //-----------------------------------------------------------------------------
 // Scale a 2D Vector.
@@ -127,20 +115,12 @@ ConsoleFunction( Vector2Scale, const char*, 3, 3, "(Vector2 v1$, scale) - Return
         return NULL;
     }
 
-    // Input Vectors.
-    Vector2 v1(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &v1.x, &v1.y);
-    // Do Vector Operation.
-    v1 *= dAtof(argv[2]);
-    // Create Returnable Buffer.
-    char* pBuffer = Con::getReturnBuffer(32);
-    // Format Buffer.
-    dSprintf(pBuffer, 32, "%g %g", v1.x, v1.y);
-    // Return Velocity.
-    return pBuffer;
-}
+    Vector2 v1( argv[1] );
 
+    v1 *= dAtof(argv[2]);
+
+    return v1.scriptThis();
+}
 
 //-----------------------------------------------------------------------------
 // Normalize a 2D Vector.
@@ -154,20 +134,10 @@ ConsoleFunction( Vector2Normalize, const char*, 2, 2, "(Vector2 v1$) - Returns N
         return NULL;
     }
 
-    // Input Vectors.
-    Vector2 v1(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &v1.x, &v1.y);
-    // Do Vector Operation.
+    Vector2 v1( argv[1] );
     v1.Normalize();
-    // Create Returnable Buffer.
-    char* pBuffer = Con::getReturnBuffer(32);
-    // Format Buffer.
-    dSprintf(pBuffer, 32, "%g %g", v1.x, v1.y);
-    // Return Velocity.
-    return pBuffer;
+    return v1.scriptThis();
 }
-
 
 //-----------------------------------------------------------------------------
 // Dot-Product of two 2D Vectors.
@@ -181,15 +151,11 @@ ConsoleFunction(Vector2Dot, F32, 3, 3, "(Vector2 v1$, Vector2 v2$) - Returns dot
         return 0.0f;
     }
 
-    // Input Vectors.
-    Vector2 v1(0,0), v2(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &v1.x, &v1.y);
-    dSscanf(argv[2],"%g %g", &v2.x, &v2.y);
-    // Do Vector Operation.
+    Vector2 v1( argv[1] );
+    Vector2 v2( argv[2] );
+
     return v1.dot( v2 );
 }
-
 
 //-----------------------------------------------------------------------------
 // Equality of two 2D Points.
@@ -203,19 +169,18 @@ ConsoleFunction( Vector2Compare, bool, 3, 4, "(Vector2 p1$, Vector2 p2$, [epsilo
         return NULL;
     }
 
-    // Input Vectors.
-    Vector2 p1(0,0), p2(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &p1.x, &p1.y);
-    dSscanf(argv[2],"%g %g", &p2.x, &p2.y);
+    Vector2 p1( argv[1] );
+    Vector2 p2( argv[2] );
+
     // Do Vector Operation.
     const F32 delta = (p2 - p1).Length();
+
     // Calculate Epsilon.
     const F32 epsilon = (argc >= 4) ? dAtof(argv[3]) : FLT_EPSILON;
+
     // Return  epsilon delta.
     return mIsEqualRange( delta, 0.0f, epsilon );
 }
-
 
 //-----------------------------------------------------------------------------
 // Distance between two 2D Points.
@@ -229,15 +194,11 @@ ConsoleFunction( Vector2Distance, F32, 3, 3, "(Vector2 p1$, Vector2 p2$) - Retur
         return NULL;
     }
 
-    // Input Vectors.
-    Vector2 p1(0,0), p2(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &p1.x, &p1.y);
-    dSscanf(argv[2],"%g %g", &p2.x, &p2.y);
-    // Do Vector Operation.
+    Vector2 p1( argv[1] );
+    Vector2 p2( argv[2] );
+
     return (p2 - p1).Length();
 }
-
 
 //-----------------------------------------------------------------------------
 // Angle between two 2D Vectors.
@@ -251,18 +212,14 @@ ConsoleFunction( t2dAngleBetween, F32, 3, 3, "(Vector2 v1$, Vector2 v2$) - Retur
         return NULL;
     }
 
-    Vector2 v1(0,0), v2(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &v1.x, &v1.y);
-    dSscanf(argv[2],"%g %g", &v2.x, &v2.y);
+    Vector2 v1( argv[1] );
+    Vector2 v2( argv[2] );
 
     v1.Normalize();
     v2.Normalize();
 
-    // Do Vector Operation.
     return mRadToDeg( mAcos( v1.dot(v2) ) );
 }
-
 
 //-----------------------------------------------------------------------------
 // Angle from one point to another.
@@ -276,15 +233,12 @@ ConsoleFunction( t2dAngleToPoint, F32, 3, 3, "(Vector2 p1, Vector2 p1) - Returns
         return NULL;
     }
 
-    Vector2 p1(0,0), p2(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &p1.x, &p1.y);
-    dSscanf(argv[2],"%g %g", &p2.x, &p2.y);
+    Vector2 p1( argv[1] );
+    Vector2 p2( argv[2] );
 
     // Do Operation.
     return mRadToDeg( mAtan((p2.x - p1.x), (p1.y - p2.y)) );
 }
-
 
 //-----------------------------------------------------------------------------
 // Length of a 2D Vector.
@@ -298,14 +252,10 @@ ConsoleFunction( Vector2Length, F32, 2, 2, "(Vector2 v1$) - Returns the length o
         return 0.0f;
     }
 
-    // Input Vectors.
-    Vector2 v1(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &v1.x, &v1.y);
-    // Do Vector Operation.
+    Vector2 v1( argv[1] );
+
     return v1.Length();
 }
-
 
 //-----------------------------------------------------------------------------
 // Normalize Rectangle (two 2D Vectors) with relation to each other.
@@ -319,19 +269,19 @@ ConsoleFunction( t2dRectNormalize, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$
         return NULL;
     }
 
-    // Input Vectors.
-    Vector2 v1(0,0), v2(0,0);
-    // Scan-in vectors.
-    dSscanf(argv[1],"%g %g", &v1.x, &v1.y);
-    dSscanf(argv[2],"%g %g", &v2.x, &v2.y);
+    Vector2 v1( argv[1] );
+    Vector2 v2( argv[2] );
+
     // Do Vector Operation.
     Vector2 topLeft( (v1.x <= v2.x) ? v1.x : v2.x, (v1.y <= v2.y) ? v1.y : v2.y );
     Vector2 bottomRight( (v1.x > v2.x) ? v1.x : v2.x, (v1.y > v2.y) ? v1.y : v2.y );
 
     // Create Returnable Buffer.
     char* pBuffer = Con::getReturnBuffer( 64 );
+
     // Format Buffer.
     dSprintf(pBuffer, 64, "%g %g %g %g", topLeft.x, topLeft.y, bottomRight.x, bottomRight.y);
+
     // Return Velocity.
     return pBuffer;
 }
@@ -339,5 +289,3 @@ ConsoleFunction( t2dRectNormalize, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$
 //-----------------------------------------------------------------------------
 
 ConsoleFunctionGroupEnd( Vector2Math );
-
-
