@@ -58,9 +58,6 @@ function TruckToy::create( %this )
     addFlagOption("Rear Wheel Drive", "setRearWheelDrive", TruckToy.RearWheelDrive, false );
     addNumericOption( "Projectile Rate (ms)", 100, 60000, 100, "setProjectileRate", TruckToy.ProjectileRate, false );
     addNumericOption( "Explosion Scale", 1, 11, 1, "setExplosionScale", TruckToy.ExplosionScale, false );
-
-    // Redirect the scene namespace.
-    //SandboxScene.class = "TruckScene";
     
     // Reset the toy.
     %this.reset();
@@ -125,9 +122,6 @@ function TruckToy::reset( %this )
     %this.createBrick( 4, -87.5, TruckToy.FloorLevel + 0.75, true );     
     %this.createBrick( 2, -79, TruckToy.FloorLevel + 0.25, true );     
     %this.createBonfire( -91.5, TruckToy.FloorLevel + 0.5, 1, TruckToy.BackgroundDomain-1 );
-
-    %truckStartX = -82.7;
-    %truckStartY = 3;
 
     // Building with chains.   
     %this.createForegroundWall( 2, -99, -5 );   
@@ -195,8 +189,8 @@ function TruckToy::reset( %this )
     %this.createBonfire( 85, TruckToy.FloorLevel, 1.5, TruckToy.BackgroundDomain-1 );
 
     // Truck.
-    //%truckStartX = TruckToy.WorldLeft + (TruckToy.CameraWidth/6);
-    //%truckStartY = 3;   
+    %truckStartX = TruckToy.WorldLeft + (TruckToy.CameraWidth/6);
+    %truckStartY = 3;   
     %this.createTruck( %truckStartX, %truckStartY );    
     
     // Schedule to create a projectile.
