@@ -30,17 +30,21 @@ function ChainToy::create( %this )
     Sandbox.useManipulation( pull );   
 
     // Set the scene gravity.
-    SandboxScene.setGravity(0, -9.8);
+    SandboxScene.setGravity(0, -29.8);
     
     // Configure the toy.
     ChainToy.GroundWidth = 80;
-    ChainToy.ChainLinks = 15;
+    ChainToy.ChainLinks = 25;
     ChainToy.ChainCount = 2;
+    ChainToy.ChainLimit = true;
+    ChainToy.BallDensity = 4;
 
     // Add configuration option.
-    addNumericOption( "Chain Links", 1, 45, 1, "setChainLinks", ChainToy.ChainLinks, true );
-    addNumericOption( "Chain Count", 1, 8, 1, "setChainCount", ChainToy.ChainCount, true );
-
+    addNumericOption( "Chain Links", 1, 46, 1, "setChainLinks", ChainToy.ChainLinks, true );
+    addNumericOption( "Chain Count", 1, 20, 1, "setChainCount", ChainToy.ChainCount, true );
+    addFlagOption("Chain Limit", "setChainLimit", ChainToy.ChainLimit, true );
+    addNumericOption( "Ball Density", 1, 10, 1, "setBallDensity", ChainToy.BallDensity, true );
+    
     // Reset the toy initially.
     ChainToy.reset();
 }
@@ -66,16 +70,14 @@ function ChainToy::reset(%this)
     %this.createBackground();
                
     // Create the chains.
-    %chainOffset = (ChainToy.ChainCount-1) * -2.5;
+    %chainSpacing = 2;
+    %chainOffset = (ChainToy.ChainCount-1) * -(%chainSpacing*0.5);
     for( %n = 0; %n < ChainToy.ChainCount; %n++ )
     {        
         %this.createChain(%chainOffset, 15);
-        %chainOffset += 5;
+        %chainOffset += %chainSpacing;
     }
 
-    // Create the tree.
-    //%this.createTree();
-       
     // Create the ground.
     %this.createGround();          
 }
@@ -137,42 +139,33 @@ function ChainToy::createGround( %this )
 
 //-----------------------------------------------------------------------------
 
-function ChainToy::createTree( %this )
-{
-    // Create the tree.
-    %obj = new Sprite();
-    %obj.setBodyType("static");
-    %obj.Image = "ToyAssets:jungleTree";
-    %obj.setPosition( -5, 0 );
-    %obj.setSize( 20, 25 ); 
-    
-    // Add to the scene.
-    SandboxScene.add(%obj);       
-}
-
-//-----------------------------------------------------------------------------
-
 function ChainToy::createChain(%this, %posX, %posY)
 {
+    // Set-up some initial dimensions.
     %linkWidth = 0.25;
     %linkHeight = %linkWidth * 2;
-    %halfLinkHeight = %linkHeight * 0.4;
+    %halfLinkHeight = %linkHeight * 0.5;
+    %weightSize = 1.5;
+    %weightHalfSize = %weightSize * 0.5;
+    %pivotDistance = %linkHeight * %this.ChainLinks;  
 
-    %rootObj = new Sprite();
-    %rootObj.setBodyType( "static" );
-    %rootObj.setImage( "ToyAssets:chain" );
-    %rootObj.setPosition( %posX, %posY );
-    %rootObj.setSize( %linkWidth, %linkHeight );
-    %rootObj.setCollisionSuppress();
-    SandboxScene.add( %rootObj );
+    // Create a fixed pivot object.
+    %fixedObject = new Sprite();
+    %fixedObject.BodyType = static;
+    %fixedObject.Image = "ToyAssets:chain";
+    %fixedObject.setPosition( %posX, %posY );
+    %fixedObject.setSize( %linkWidth, %linkHeight );
+    SandboxScene.add( %fixedObject );
 
-    %lastLinkObj = %rootObj;
+    // Set-up the last linked object as the fixed pivot.
+    %lastLinkObj = %fixedObject;
 
+    // Now add the rest of the links.
     for ( %n = 1; %n <= %this.ChainLinks; %n++ )
     {
+        // Create the link object.
         %obj = new Sprite();
         %obj.setImage( "ToyAssets:chain" );
-        %obj.setSceneLayer(1);
         %obj.setPosition( %posX, %posY - (%n*%linkHeight) );
         %obj.setSize( %linkWidth, %linkHeight );
         %obj.setDefaultDensity( 20 );
@@ -182,31 +175,30 @@ function ChainToy::createChain(%this, %posX, %posY)
         %obj.setLinearDamping( 0.1 );
         SandboxScene.add( %obj );   
 
+        // Create a revolute joint from the last link to this one.
         SandboxScene.createRevoluteJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
 
+        // Reference this link as the last link.
         %lastLinkObj = %obj;
-    }
-    
-    // Calculate length from the fixed pivot.
-    %pivotDistance = %linkHeight * %this.ChainLinks;
-
-    %weightSize = 1.5;
-    %weightHalfSize = %weightSize * 0.5;
+    }    
 
     // Create the weight.
     %weight = new Sprite();
-    %weight.setUseInputEvents(true);
     %weight.setImage( "ToyAssets:whitesphere" );
     %weight.BlendColor = DarkGreen;
     %weight.setSize( %weightSize );
     %weight.setPosition( %posX, %posY - %pivotDistance - %weightHalfSize );
-    %weight.setDefaultFriction( 1.0 );
-    %weight.setDefaultDensity( 5 );
+    %weight.setDefaultFriction( 0.2 );
+    %weight.setDefaultDensity( 1 );
     %weight.createCircleCollisionShape( %weightHalfSize );
     SandboxScene.add( %weight );
 
+    // Create a revolute joint from the last link to the weight.
     SandboxScene.createRevoluteJoint( %lastLinkObj, %weight, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
-    SandboxScene.createRopeJoint(%rootObj, %weight, 0, 0, 0, %weightHalfSize, %pivotDistance, false);
+    
+    // If the chain limit is on then create a rope join from the fixed pivot to the weight.
+    if ( %this.ChainLimit )
+        SandboxScene.createRopeJoint(%fixedObject, %weight, 0, 0, 0, %weightHalfSize, %pivotDistance, false);
 }
 
 //-----------------------------------------------------------------------------
@@ -221,4 +213,18 @@ function ChainToy::setChainLinks(%this, %value)
 function ChainToy::setChainCount(%this, %value)
 {
     %this.ChainCount = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function ChainToy::setChainLimit(%this, %value)
+{
+    %this.ChainLimit = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function ChainToy::setBallDensity(%this, %value)
+{
+    %this.BallDensity = %value;
 }
