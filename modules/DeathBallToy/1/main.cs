@@ -22,17 +22,29 @@
 
 function DeathBallToy::create( %this )
 {
+    // DealsDamageBehavior
+    // TakesDamageBehavior
+    // MoveTowardBehavior
+    // FaceObjectBehavior
+    // SpawnAreaBehavior
+
     // Activate the package.
     activatePackage( DeathBallToyPackage );
 
     // Initialize the toys settings.
     DeathBallToy.rotateTime = 100;
     DeathBallToy.moveTime = 3000;
-
+    DeathBallToy.soldierSpeed = 10;
+    DeathBallToy.spawnPointCount = 4;
+    DeathballToy.spawnAmount = 40;
+    
     // Add the custom controls.
-    addNumericOption("Rotate time", 10, 100, 10, "setRotateTime", RotateToToy.rotateTime, true);
-    addNumericOption("Move time", 10, 3000, 10, "setMoveTime", RotateToToy.moveTime, true);
-
+    addNumericOption("Deathball turn speed", 10, 100, 10, "setRotateTime", DeathBallToy.rotateTime, false);
+    addNumericOption("Deathball move speed", 10, 3000, 10, "setMoveTime", DeathBallToy.moveTime, false);
+    addNumericOption("Number of spawnpoints", 4, 4, 1, "setSpawnPointCount", DeathBallToy.spawnPointCount, true);
+    addNumericOption("Soldier count", 40, 100, 10, "setSpawnAmount", DeathBallToy.spawnAmount, true);
+    addNumericOption("Soldier speed", 1, 10, 1, "setSoldierSpeed", DeathBallToy.soldierSpeed, false);
+    
     // Reset the toy initially.
     DeathBallToy.reset();
 }
@@ -48,15 +60,6 @@ function DeathBallToy::destroy( %this )
     deactivatePackage( DeathBallToyPackage );
 }
 
-function DeathBallToy::cancelPendingEvents()
-{
-    // Finish if there are not pending events.
-    if ( !isEventPending(DeathBall.rollSchedule) )
-        return;
-
-    cancel(DeathBall.rollSchedule);
-    DeathBall.rollSchedule = "";
-}
 //-----------------------------------------------------------------------------
 
 function DeathBallToy::reset(%this)
@@ -76,6 +79,53 @@ function DeathBallToy::reset(%this)
     // Start spawning soldiers
 
     // GET 'EM!
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setRotateTime(%this, %value)
+{
+    %this.rotateTime = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setMoveTime(%this, %value)
+{
+    %this.moveTime = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setSpawnPointCount(%this, %value)
+{
+    %this.spawnPointCount = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setSpawnAmount(%this, %value)
+{
+    %this.spawnAmount = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setSoldierSpeed(%this, %value)
+{
+    %this.soldierSpeed = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::cancelPendingEvents()
+{
+    // Finish if there are not pending events.
+    if ( !isEventPending(DeathBall.rollSchedule) )
+        return;
+
+    cancel(DeathBall.rollSchedule);
+    DeathBall.rollSchedule = "";
 }
 
 //-----------------------------------------------------------------------------
@@ -155,12 +205,6 @@ function Deathball::updateRollAnimation(%this)
     %scaledVelocity = (mAbs(getWord(%velocity, 0))) + mAbs(getWord(%velocity, 1)) / 50;
     %flooredVelocity = mFloatLength(%scaledVelocity, 1);
     %scaledAnimTime = %currentAnimTime * %flooredVelocity;
-
-//    echo("Velocity: " @ %velocity);
-//    echo("scaledVelocity: " @ %scaledVelocity);
-//    echo("flooredVelocity: " @ %flooredVelocity);
-//    echo("currentAnimTime: " @ %currentAnimTime);
-//    echo("scaledAnimTime: " @ %scaledAnimTime);
 
     %this.setAnimationTimeScale(%scaledAnimTime);
 
