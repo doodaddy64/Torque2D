@@ -60,8 +60,24 @@ function TruckToy::create( %this )
 
 function TruckToy::destroy( %this )
 {
+    // Cancel any pending events.
+    TumblerToy::cancelPendingEvents();
+        
     // Deactivate the package.
     deactivatePackage( TruckToyPackage );
+}
+
+//-----------------------------------------------------------------------------
+
+function TruckToy::cancelPendingEvents(%this)
+{
+    // Finish if there are not pending events.
+    if ( !isEventPending(%this.createProjectileScheduleId) )
+        return;
+        
+    // Cancel it.
+    cancel(%this.createProjectileScheduleId);
+    %this.createProjectileScheduleId = "";
 }
 
 //-----------------------------------------------------------------------------
@@ -82,85 +98,88 @@ function TruckToy::reset( %this )
     // Create the scene contents in a roughly left to right order.      
 
     // Background.
-    createBackground();
+    %this.createBackground();
 
     // Floor.
-    createFloor();
+    %this.createFloor();
      
     // Wrecked cars at start.
-    createWreckedCar( 1, -90, TruckToy.FloorLevel + 0.75, 0, true );
-    createWreckedCar( 2, -85, TruckToy.FloorLevel + 0.75, 0, true );
-    createWreckedCar( 3, -82, TruckToy.FloorLevel + 0.75, 0, true );
-    createWreckedCar( 1, -87.123, -2.478, 2.537, true );
-    createBrick( 3, -87.5, TruckToy.FloorLevel + 0.25, true );     
-    createBrick( 4, -87.5, TruckToy.FloorLevel + 0.75, true );     
-    createBrick( 2, -79, TruckToy.FloorLevel + 0.25, true );     
+    %this.createWreckedCar( 1, -90, TruckToy.FloorLevel + 0.75, 0, true );
+    %this.createWreckedCar( 2, -85, TruckToy.FloorLevel + 0.75, 0, true );
+    %this.createWreckedCar( 3, -82, TruckToy.FloorLevel + 0.75, 0, true );
+    %this.createWreckedCar( 1, -87.123, -2.478, 2.537, true );
+    %this.createBrick( 3, -87.5, TruckToy.FloorLevel + 0.25, true );     
+    %this.createBrick( 4, -87.5, TruckToy.FloorLevel + 0.75, true );     
+    %this.createBrick( 2, -79, TruckToy.FloorLevel + 0.25, true );     
 
 
     // Building with chains.   
-    createForegroundWall( 2, -99, -5 );   
-    createForegroundWall( 1, -75.5, -6.5 );  
-    createBrokenCementWall( -78, -1.5 );
-    createWreckedBuilding( -71.5, -1 );
-    createWoodPile( -65, -2.5 );
-    createBrickPile( -67, TruckToy.FloorLevel + 0.45 );
-    createForegroundBrickWall( 1, -61, -6 );
+    %this.createForegroundWall( 2, -99, -5 );   
+    %this.createForegroundWall( 1, -75.5, -6.5 );  
+    %this.createBrokenCementWall( -78, -1.5 );
+    %this.createWreckedBuilding( -71.5, -1 );
+    %this.createWoodPile( -65, -2.5 );
+    %this.createBrickPile( -67, TruckToy.FloorLevel + 0.45 );
+    %this.createForegroundBrickWall( 1, -61, -6 );
 
 
     // Start of bridge.   
-    createPlank( 1, -53, TruckToy.FloorLevel + 0.5, 0, true );
-    createPlank( 1, -50.1522, -2.3, 21.267, true );
-    createWreckedCar( 2, -47, TruckToy.FloorLevel + 1.9, -100, true );
-    createWreckedCar( 3, -45.5, TruckToy.FloorLevel + 1.9, 100, true );
-    createPlank( 2, -44, TruckToy.FloorLevel + 2, -90, true );
-    createPlank( 1, -43, TruckToy.FloorLevel + 2, -90, true );
-    createPlank( 2, -42, TruckToy.FloorLevel + 2, -90, true );
-    createPlank( 1, -41, TruckToy.FloorLevel + 2, -90, true );  
-    createForegroundWall( 2, -42, -4.5 );  
-    createBridge( -41, TruckToy.FloorLevel + 4, 40 );
+    %this.createPlank( 1, -53, TruckToy.FloorLevel + 0.5, 0, true );
+    %this.createPlank( 1, -50.1522, -2.3, 21.267, true );
+    %this.createWreckedCar( 2, -47, TruckToy.FloorLevel + 1.9, -100, true );
+    %this.createWreckedCar( 3, -45.5, TruckToy.FloorLevel + 1.9, 100, true );
+    %this.createPlank( 2, -44, TruckToy.FloorLevel + 2, -90, true );
+    %this.createPlank( 1, -43, TruckToy.FloorLevel + 2, -90, true );
+    %this.createPlank( 2, -42, TruckToy.FloorLevel + 2, -90, true );
+    %this.createPlank( 1, -41, TruckToy.FloorLevel + 2, -90, true );  
+    %this.createForegroundWall( 2, -42, -4.5 );  
+    %this.createBridge( -41, TruckToy.FloorLevel + 4, 40 );
     for ( %n = 0; %n < 10; %n++ )
     {
-      %brick = createBrick( getRandom(1,5), -39 + getRandomF(0,16), TruckToy.FloorLevel + 5, false );     
+      %brick = %this.createBrickStack( getRandom(1,5), -39 + getRandomF(0,16), TruckToy.FloorLevel + 5, false );     
       %brick.setAwake(true);
     }   
-    createPlank( 1, -20.5, TruckToy.FloorLevel + 1.5, -90, true );
-    createPlank( 3, -19, TruckToy.FloorLevel + 4, 0, true );
-    createPlank( 1, -16.5, TruckToy.FloorLevel + 1.5, -90, true );
-    createForegroundBrickWall( 2, -19, -6 );
+    %this.createPlank( 1, -20.5, TruckToy.FloorLevel + 1.5, -90, true );
+    %this.createPlank( 3, -19, TruckToy.FloorLevel + 4, 0, true );
+    %this.createPlank( 1, -16.5, TruckToy.FloorLevel + 1.5, -90, true );
+    %this.createForegroundBrickWall( 2, -19, -6 );
 
     // More wrecked cars.
-    createWreckedCar( 1, -12, TruckToy.FloorLevel + 0.75, 0, true );
-    createWreckedCar( 2, -7, TruckToy.FloorLevel + 0.75, 0, true );
-    createWreckedCar( 3, -4, TruckToy.FloorLevel + 0.75, 0, true );
+    %this.createWreckedCar( 1, -12, TruckToy.FloorLevel + 0.75, 0, true );
+    %this.createWreckedCar( 2, -7, TruckToy.FloorLevel + 0.75, 0, true );
+    %this.createWreckedCar( 3, -4, TruckToy.FloorLevel + 0.75, 0, true );
      
     // ************************************************************************   
     // Start of pyramid.
     // ************************************************************************   
-    createPyramid( 2, TruckToy.FloorLevel + 0.25, 19, true );   
-    createForegroundWall( 1, 9, -6 );
-    createPyramid( 2+21, TruckToy.FloorLevel + 0.25, 13, true );
-    createForegroundBrickWall( 1, 9, -7 );
+    %this.createPyramid( 2, TruckToy.FloorLevel + 0.25, 19, true );   
+    %this.createForegroundWall( 1, 9, -6 );
+    %this.createPyramid( 2+21, TruckToy.FloorLevel + 0.25, 13, true );
+    %this.createForegroundBrickWall( 1, 9, -7 );
 
 
     // ************************************************************************   
     // Start of brick stacks.
     // ************************************************************************      
-    createBrickStack( 45, TruckToy.FloorLevel + 0.25, 10, false );
-    createBrickStack( 47, TruckToy.FloorLevel + 0.25, 1, true );
-    createBrickStack( 49, TruckToy.FloorLevel + 0.25, 10, false );
+    %this.createBrickStack( 45, TruckToy.FloorLevel + 0.25, 10, false );
+    %this.createBrickStack( 47, TruckToy.FloorLevel + 0.25, 1, true );
+    %this.createBrickStack( 49, TruckToy.FloorLevel + 0.25, 10, false );
      
-    createBrickStack( 72, TruckToy.FloorLevel + 0.25, 1, true );
-    createBrickStack( 74, TruckToy.FloorLevel + 0.25, 10, false );
-    createBrickStack( 76, TruckToy.FloorLevel + 0.25, 1, true );
-    createBrickStack( 78, TruckToy.FloorLevel + 0.25, 10, false );
+    %this.createBrickStack( 72, TruckToy.FloorLevel + 0.25, 1, true );
+    %this.createBrickStack( 74, TruckToy.FloorLevel + 0.25, 10, false );
+    %this.createBrickStack( 76, TruckToy.FloorLevel + 0.25, 1, true );
+    %this.createBrickStack( 78, TruckToy.FloorLevel + 0.25, 10, false );
 
     // Truck.
-    createTruck( TruckToy.WorldLeft + (TruckToy.CameraWidth/6), 3 );     
+    %this.createTruck( TruckToy.WorldLeft + (TruckToy.CameraWidth/6), 3 );    
+    
+    // Schedule to create a projectile.
+    %this.createProjectileScheduleId = %this.schedule( 100, "createProjectile" );    
 }
 
 // -----------------------------------------------------------------------------
 
-function createBackground()
+function TruckToy::createBackground(%this)
 {  
     // Atmosphere
     %obj = new Sprite();
@@ -193,7 +212,7 @@ function createBackground()
 
 // -----------------------------------------------------------------------------
 
-function createFloor()
+function TruckToy::createFloor(%this)
 {
     // Ground  
     %obj = new Scroller();
@@ -214,7 +233,7 @@ function createFloor()
 
 // -----------------------------------------------------------------------------
 
-function createBrokenCementWall( %posX, %posY )
+function TruckToy::createBrokenCementWall( %this, %posX, %posY )
 {
     %obj = new Sprite();   
     %obj.setBodyType( "static" );
@@ -233,7 +252,7 @@ function createBrokenCementWall( %posX, %posY )
 
 // -----------------------------------------------------------------------------
 
-function createWoodPile( %posX, %posY )
+function TruckToy::createWoodPile( %this, %posX, %posY )
 {
     %obj = new Sprite();   
     %obj.setBodyType( "static" );
@@ -252,17 +271,17 @@ function createWoodPile( %posX, %posY )
 
 // -----------------------------------------------------------------------------
 
-function createBrickStack( %posX, %posY, %brickCount, %static )
+function TruckToy::createBrickStack( %this, %posX, %posY, %brickCount, %static )
 {
     for ( %n = 0; %n < %brickCount; %n++ )
     {
-        createBrick( getRandom(1,5), %posX, %posY + (%n*0.5), %static );     
+        %this.createBrick( getRandom(1,5), %posX, %posY + (%n*0.5), %static );     
     }      
 }
 
 // -----------------------------------------------------------------------------
 
-function createPyramid( %posX, %posY, %brickBaseCount, %static )
+function TruckToy::createPyramid( %this, %posX, %posY, %brickBaseCount, %static )
 {
     if ( %brickBaseCount < 2 )
     {
@@ -277,14 +296,14 @@ function createPyramid( %posX, %posY, %brickBaseCount, %static )
         %stackY = %posY + ( %stack * 0.5 );
         for ( %stackIndex = 0; %stackIndex < %stackIndexCount; %stackIndex++ )
         {
-            createBrick( getRandom(1, 5), %stackX + %stackIndex, %stackY, %static );
+            %this.createBrick( getRandom(1, 5), %stackX + %stackIndex, %stackY, %static );
         }
     }
 }
 
 // -----------------------------------------------------------------------------
 
-function createBridge( %posX, %posY, %linkCount )
+function TruckToy::createBridge( %this, %posX, %posY, %linkCount )
 {
    
    %linkWidth = 0.5;
@@ -345,7 +364,7 @@ function createBridge( %posX, %posY, %linkCount )
 
 // -----------------------------------------------------------------------------
 
-function createChain( %posX, %posY, %linkCount )
+function TruckToy::createChain( %this, %posX, %posY, %linkCount )
 {
     %linkWidth = 0.25;
     %linkHeight = %linkWidth * 2;
@@ -391,7 +410,7 @@ function createChain( %posX, %posY, %linkCount )
 
 // -----------------------------------------------------------------------------
 
-function createWreckedBuilding( %posX, %posY )
+function TruckToy::createWreckedBuilding( %this, %posX, %posY )
 {
     %obj = new Sprite();   
     %obj.setBodyType( "static" );
@@ -405,15 +424,15 @@ function createWreckedBuilding( %posX, %posY )
     %obj.setActive( false );
     SandboxScene.add( %obj );
 
-    createChain( %posX - 3, %posY + 3.4, 10 );   
-    createChain( %posX - 1, %posY + 3.2, 10 );   
-    createChain( %posX + 1, %posY + 3.0, 10 );   
-    createChain( %posX + 3, %posY + 2.8, 10 );   
+    %this.createChain( %posX - 3, %posY + 3.4, 10 );   
+    %this.createChain( %posX - 1, %posY + 3.2, 10 );   
+    %this.createChain( %posX + 1, %posY + 3.0, 10 );   
+    %this.createChain( %posX + 3, %posY + 2.8, 10 );   
 }
 
 // -----------------------------------------------------------------------------
 
-function createForegroundBrickWall( %wallNumber, %posX, %posY )
+function TruckToy::createForegroundBrickWall( %this, %wallNumber, %posX, %posY )
 {
     if ( %wallNumber < 1 || %wallNumber > 2 )
     {
@@ -442,7 +461,7 @@ function createForegroundBrickWall( %wallNumber, %posX, %posY )
 
 // -----------------------------------------------------------------------------
 
-function createForegroundWall( %wallNumber, %posX, %posY )
+function TruckToy::createForegroundWall( %this, %wallNumber, %posX, %posY )
 {
     if ( %wallNumber < 1 || %wallNumber > 2 )
     {
@@ -470,7 +489,7 @@ function createForegroundWall( %wallNumber, %posX, %posY )
 
 // -----------------------------------------------------------------------------
 
-function createBrick( %brickNumber, %posX, %posY, %static )
+function TruckToy::createBrick( %this, %brickNumber, %posX, %posY, %static )
 {
     if ( %brickNumber < 1 || %brickNumber > 5 )
     {
@@ -498,7 +517,7 @@ function createBrick( %brickNumber, %posX, %posY, %static )
 
 // -----------------------------------------------------------------------------
 
-function createBrickPile( %posX, %posY )
+function TruckToy::createBrickPile( %this, %posX, %posY )
 {
     %obj = new Sprite();   
     %obj.setBodyType( "static" );
@@ -515,7 +534,7 @@ function createBrickPile( %posX, %posY )
 
 // -----------------------------------------------------------------------------
 
-function createPlank( %plankNumber, %posX, %posY, %angle, %static )
+function TruckToy::createPlank( %this, %plankNumber, %posX, %posY, %angle, %static )
 {
     if ( %plankNumber < 1 || %plankNumber > 3 )
     {
@@ -555,7 +574,7 @@ function createPlank( %plankNumber, %posX, %posY, %angle, %static )
 
 // -----------------------------------------------------------------------------
 
-function createWreckedCar( %carNumber, %posX, %posY, %angle, %static )
+function TruckToy::createWreckedCar( %this, %carNumber, %posX, %posY, %angle, %static )
 {
     if ( %carNumber < 1 || %carNumber > 3 )
     {
@@ -595,7 +614,24 @@ function createWreckedCar( %carNumber, %posX, %posY, %angle, %static )
 
 // -----------------------------------------------------------------------------
 
-function createTruck( %posX, %posY )
+function TruckToy::createProjectile(%this)
+{
+    // Fetch the truck position.
+    %truckPosition = TruckToy.TruckBody.Position;
+    
+    %projectile = new Sprite();
+    %projectile.Animation = "ToyAssets:Cannonball_projectile_1Animation";
+    //%projectile.Image = "ToyAssets:Cannonball_projectile_1Sprite";
+    %projectile.setPosition( TruckToy.WorldLeft + (TruckToy.CameraWidth/6) + 5, 3 );
+    %projectile.FlipY = true;
+    %projectile.Size = 1;
+    %projectile.BodyType = "static";
+    SandboxScene.add( %projectile );    
+}
+
+// -----------------------------------------------------------------------------
+
+function TruckToy::createTruck( %this, %posX, %posY )
 {
     // Truck Body.
     %exhaustParticles = new ParticlePlayer();
@@ -740,7 +776,7 @@ function truckReverse(%val)
 
 //-----------------------------------------------------------------------------
 
-function truckStop()
+function TruckToy::truckStop(%this)
 {
     // Finish if truck is not moving.
     if ( !TruckToy.TruckMoving )
@@ -825,7 +861,7 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 function SandboxWindow::onTouchUp(%this, %touchID, %worldPos)
 {
     // Stop the truck.
-    truckStop();
+    TruckToy.truckStop();
 }
     
 };
