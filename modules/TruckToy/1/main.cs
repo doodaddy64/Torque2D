@@ -650,7 +650,7 @@ function TruckToy::createBonfire(%this, %x, %y, %scale, %layer)
     %particlePlayer.SetPosition( %x, %y );
     %particlePlayer.SceneLayer = %layer;
     %particlePlayer.ParticleInterpolation = true;
-    %particlePlayer.Particle = "TruckToy:bonfire";
+    %particlePlayer.Particle = "ToyAssets:bonfire";
     %particlePlayer.SizeScale = %scale;
     %particlePlayer.CameraIdleDistance = TruckToy.CameraWidth * 0.8;
     SandboxScene.add( %particlePlayer ); 
@@ -696,7 +696,7 @@ function TruckProjectile::handleCollision(%this, %object, %collisionDetails)
     %particlePlayer.Size = 10;
     %particlePlayer.SceneLayer = TruckToy.BackgroundDomain-1;
     %particlePlayer.ParticleInterpolation = true;
-    %particlePlayer.Particle = "TruckToy:ImpactExplosion";
+    %particlePlayer.Particle = "ToyAssets:ImpactExplosion";
     %particlePlayer.SizeScale = TruckToy.ExplosionScale;
     SandboxScene.add( %particlePlayer ); 
     
