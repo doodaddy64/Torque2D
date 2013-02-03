@@ -1,3 +1,3 @@
 <ImageAsset
-    AssetName="Trail_LeafImageMap"
+    AssetName="Trail_LeafImage"
     ImageFile="@assetFile=#Trail_Leaf.png" />

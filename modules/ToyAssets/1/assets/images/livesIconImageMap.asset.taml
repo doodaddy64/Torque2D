@@ -1,4 +1,4 @@
 <ImageAsset
-    AssetName="livesIconImageMap"
+    AssetName="livesIconImage"
     imageFile="@assetFile=#livesIcon.png"
     />
