@@ -32,7 +32,6 @@ function SceneLayerToy::create( %this )
     SceneLayerToy.reset();
 }
 
-
 //-----------------------------------------------------------------------------
 
 function SceneLayerToy::destroy( %this )
