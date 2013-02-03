@@ -31,12 +31,26 @@ function TruckToy::create( %this )
     TruckToy.WorldLeft = TruckToy.WorldWidth * -0.5;
     TruckToy.WorldRight = TruckToy.WorldWidth * 0.5;
     TruckToy.FloorLevel = -4.5;
-    TruckToy.WheelSpeed = -400;
     TruckToy.BackdropDomain = 31;
     TruckToy.BackgroundDomain = 25;
     TruckToy.TruckDomain = 20;
     TruckToy.ObstacleDomain = 15;
     TruckToy.ForegroundDomain = 10;    
+
+    TruckToy.WheelSpeed = 400;
+    TruckToy.WheelFriction = 1;
+    TruckToy.FrontWheelDensity = 6;
+    TruckToy.RearWheelDensity = 3;
+    TruckToy.FrontWheelDrive = true;
+    TruckToy.RearWheelDrive = true;
+    
+    // Add the custom controls.
+    addNumericOption( "Wheel Speed", 100, 1000, 50, "setWheelSpeed", TruckToy.WheelSpeed, false );
+    addNumericOption( "Wheel Friction", 0, 10, 1, "setWheelFriction", TruckToy.WheelFriction, true );
+    addNumericOption( "Front Wheel Density", 1, 20, 1, "setFrontWheelDensity", TruckToy.FrontWheelDensity, true );
+    addNumericOption( "Rear Wheel Density", 1, 20, 1, "setFrontWheelDensity", TruckToy.RearWheelDensity, true );
+    addFlagOption("Front Wheel Drive", "setFrontWheelDrive", TruckToy.FrontWheelDrive, false );
+    addFlagOption("Rear Wheel Drive", "setRearWheelDrive", TruckToy.RearWheelDrive, false );
     
     // Reset the toy.
     %this.reset();
@@ -141,7 +155,7 @@ function TruckToy::reset( %this )
     createBrickStack( 78, TruckToy.FloorLevel + 0.25, 10, false );
 
     // Truck.
-    createTruck( TruckToy.WorldLeft + (TruckToy.CameraWidth/6), 15 );     
+    createTruck( TruckToy.WorldLeft + (TruckToy.CameraWidth/6), 3 );     
 }
 
 // -----------------------------------------------------------------------------
@@ -151,7 +165,8 @@ function createBackground()
     // Atmosphere
     %obj = new Sprite();
     %obj.setBodyType( "static" );
-    %obj.setImage( "TruckToy:background_day" );
+    %obj.setImage( "ToyAssets:highlightBackground" );
+    //%obj.setImage( "TruckToy:background_day" );
     %obj.setSize( TruckToy.WorldWidth * (TruckToy.CameraWidth*2), 75 );
     %obj.setSceneLayer( TruckToy.BackdropDomain );
     %obj.setSceneGroup( TruckToy.BackdropDomain );
@@ -627,11 +642,12 @@ function createTruck( %posX, %posY )
     %tireRear.setSceneLayer( TruckToy.TruckDomain-1 );
     %tireRear.setSceneGroup( TruckToy.ObstacleDomain );
     %tireRear.setCollisionGroups( TruckToy.ObstacleDomain );
-    %tireRear.setDefaultFriction( 1.0 );
-    %tireRear.setDefaultDensity( 3.0 );
+    %tireRear.setDefaultFriction( TruckToy.WheelFriction );
+    %tireRear.setDefaultDensity( TruckToy.RearWheelDensity );
     %tireRear.createCircleCollisionShape( 0.8 ); 
     SandboxScene.add( %tireRear );
-
+    TruckToy.RearWheel = %tireRear;
+    
     // Front tire.
     %tireFront = new Sprite();
     %tireFront.setPosition( %posX+1.7, %posY-1.0 );
@@ -640,10 +656,11 @@ function createTruck( %posX, %posY )
     %tireFront.setSceneLayer( TruckToy.TruckDomain-1 );
     %tireFront.setSceneGroup( TruckToy.ObstacleDomain );
     %tireFront.setCollisionGroups( TruckToy.ObstacleDomain );
-    %tireFront.setDefaultFriction( 1.0 );
-    %tireFront.setDefaultDensity( 6.0 );
+    %tireFront.setDefaultFriction( TruckToy.WheelFriction );
+    %tireFront.setDefaultDensity( TruckToy.FrontWheelDensity );
     %tireFront.createCircleCollisionShape( 0.8 ); 
     SandboxScene.add( %tireFront );   
+    TruckToy.FrontWheel = %tireFront;
 
     // Suspension joints.
     TruckToy.RearMotorJoint = SandboxScene.createWheelJoint( TruckToy.TruckBody, %tireRear, "-1.4 -1.25", "0 0", "0 1" );
@@ -659,10 +676,23 @@ function truckForward(%val)
     { 
         if ( !TruckToy.TruckMoving )
         {
-            SandboxScene.setWheelJointMotor( TruckToy.RearMotorJoint, true, TruckToy.WheelSpeed, 10000 );
-            SandboxScene.setWheelJointMotor( TruckToy.FrontMotorJoint, true, TruckToy.WheelSpeed, 10000 );
-            TruckToy.TruckExhaust.SizeScale *= 4;
-            TruckToy.TruckExhaust.ForceScale /= 2;
+            %driveActive = false;
+            if ( TruckToy.FrontWheelDrive )
+            {
+                SandboxScene.setWheelJointMotor( TruckToy.FrontMotorJoint, true, -TruckToy.WheelSpeed, 10000 );
+                %driveActive = true;
+            }
+            if ( TruckToy.RearWheelDrive )
+            {
+                SandboxScene.setWheelJointMotor( TruckToy.RearMotorJoint, true, -TruckToy.WheelSpeed, 10000 );
+                %driveActive = true;
+            }
+            
+            if ( %driveActive )
+            {
+                TruckToy.TruckExhaust.SizeScale *= 4;
+                TruckToy.TruckExhaust.ForceScale /= 2;
+            }
         }
               
         TruckToy.TruckMoving = true;
@@ -681,10 +711,23 @@ function truckReverse(%val)
     {
         if ( !TruckToy.TruckMoving )
         {
-            SandboxScene.setWheelJointMotor( TruckToy.RearMotorJoint, true, TruckToy.WheelSpeed*-1, 10000 );
-            SandboxScene.setWheelJointMotor( TruckToy.FrontMotorJoint, true, TruckToy.WheelSpeed*-1, 10000 );
-            TruckToy.TruckExhaust.SizeScale *= 4;
-            TruckToy.TruckExhaust.ForceScale /= 2;
+            %driveActive = false;
+            if ( TruckToy.FrontWheelDrive )
+            {
+                SandboxScene.setWheelJointMotor( TruckToy.FrontMotorJoint, true, TruckToy.WheelSpeed, 10000 );
+                %driveActive = true;
+            }
+            if ( TruckToy.RearWheelDrive )
+            {
+                SandboxScene.setWheelJointMotor( TruckToy.RearMotorJoint, true, TruckToy.WheelSpeed, 10000 );
+                %driveActive = true;
+            }
+            
+            if ( %driveActive )
+            {
+                TruckToy.TruckExhaust.SizeScale *= 4;
+                TruckToy.TruckExhaust.ForceScale /= 2;
+            }            
         }
               
         TruckToy.TruckMoving = true;
@@ -711,6 +754,48 @@ function truckStop()
 
     // Flag truck as not moving.    
     TruckToy.TruckMoving = false;
+}
+
+//-----------------------------------------------------------------------------
+
+function TruckToy::setWheelSpeed( %this, %value )
+{
+    %this.WheelSpeed = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function TruckToy::setWheelFriction( %this, %value )
+{
+    %this.WheelFriction = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function TruckToy::setFrontWheelDensity( %this, %value )
+{
+    %this.FrontWheelDensity = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function TruckToy::setRearWheelDensity( %this, %value )
+{
+    %this.RearWheelDensity = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function TruckToy::setFrontWheelDrive( %this, %value )
+{
+    %this.FrontWheelDrive = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function TruckToy::setRearWheelDrive( %this, %value )
+{
+    %this.RearWheelDrive = %value;
 }
 
 //-----------------------------------------------------------------------------
