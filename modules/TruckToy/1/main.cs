@@ -57,7 +57,7 @@ function TruckToy::create( %this )
     addFlagOption("Front Wheel Drive", "setFrontWheelDrive", TruckToy.FrontWheelDrive, false );
     addFlagOption("Rear Wheel Drive", "setRearWheelDrive", TruckToy.RearWheelDrive, false );
     addNumericOption( "Projectile Rate (ms)", 100, 60000, 100, "setProjectileRate", TruckToy.ProjectileRate, false );
-    addNumericOption( "Explosion Scale", 1, 10, 1, "setExplosionScale", TruckToy.ExplosionScale, false );
+    addNumericOption( "Explosion Scale", 1, 11, 1, "setExplosionScale", TruckToy.ExplosionScale, false );
 
     // Redirect the scene namespace.
     //SandboxScene.class = "TruckScene";
