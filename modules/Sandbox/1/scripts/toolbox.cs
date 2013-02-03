@@ -357,7 +357,7 @@ function updateToolboxOptions()
     
     // Is this on the desktop?
     //if ( $platform $= "windows" || $platform $= "macos" )
-    if ( false )
+    if ( $platform !$= "iOS" )
     {
         // Set the fullscreen check-box.
         FullscreenOptionButton.setStateOn( $pref::Video::fullScreen );

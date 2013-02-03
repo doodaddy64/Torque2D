@@ -98,8 +98,8 @@
 - (void)windowFinishedLiveResize:(NSNotification *)notification
 {
     NSSize size = [[self window] frame].size;
+
     [[osxPlatState sharedPlatState] setWindowSize:(S32)size.width height:(S32)size.height];
-    [self updateContext];
 }
 
 #pragma mark ---- OSXTorqueView OpenGL Handling ----
