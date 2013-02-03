@@ -248,16 +248,22 @@ bool osxOpenGLDevice::setScreenMode( U32 width, U32 height, U32 bpp, bool fullSc
         newRes.w = mainDisplayRect.size.width;
         newRes.h = mainDisplayRect.size.height;
         
+        [[platState window] setStyleMask:NSBorderlessWindowMask];
+        
         [[platState window] setFrame:mainDisplayRect display:YES];
         
         [[platState window] setLevel:NSMainMenuWindowLevel+1];
 
         [[platState torqueView] setFrame:mainDisplayRect];
+        
     }
     else
     {
-        [platState setWindowSize:newRes.w height:newRes.h];
+        [[platState window] setStyleMask:NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask];
     }
+    
+    [platState setWindowSize:newRes.w height:newRes.h];
+
     
     [[platState torqueView] createContextWithPixelFormat:pixelFormat];
     
