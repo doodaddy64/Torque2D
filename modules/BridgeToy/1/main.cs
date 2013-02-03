@@ -59,10 +59,7 @@ function BridgeToy::reset(%this)
     
     // Zoom the camera in    
     SandboxWindow.setCurrentCameraArea("-20 -15 20 15");
-    
-    // Prefer the collision option off as it severely affects the performance.
-    setCollisionOption(false);
-    
+       
     // Create a background.
     %this.createBackground();
                 
