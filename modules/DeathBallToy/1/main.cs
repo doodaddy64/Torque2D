@@ -22,11 +22,12 @@
 
 function DeathBallToy::create( %this )
 {
-    // DealsDamageBehavior
-    // TakesDamageBehavior
-    // MoveTowardBehavior
-    // FaceObjectBehavior
-    // SpawnAreaBehavior
+    // Execute behavior scripts
+    exec("./scripts/dealsDamageBehavior.cs");
+    exec("./scripts/takesDamageBehavior.cs");
+    exec("./scripts/faceObjectBehavior.cs");
+    exec("./scripts/moveTowardBehavior.cs");
+    exec("./scripts/spawnAreaBehavior.cs");
 
     // Activate the package.
     activatePackage( DeathBallToyPackage );
@@ -37,6 +38,7 @@ function DeathBallToy::create( %this )
     DeathBallToy.soldierSpeed = 10;
     DeathBallToy.spawnPointCount = 4;
     DeathballToy.spawnAmount = 40;
+    DeathballToy.soldierTemplate = "";
     
     // Add the custom controls.
     addNumericOption("Deathball turn speed", 10, 100, 10, "setRotateTime", DeathBallToy.rotateTime, false);
@@ -76,9 +78,14 @@ function DeathBallToy::reset(%this)
     // Add deathball
     %this.spawnDeathball("0 0");
 
-    // Start spawning soldiers
+    // Create the soldier enemy we will be spawning
+    %this.generateSoldierTemplate();
+    
+    // Setup the spawners
+    %this.setupSpawnPoints();
 
-    // GET 'EM!
+    // Start spawning soldiers
+    %this.startSpawning();
 }
 
 //-----------------------------------------------------------------------------
@@ -169,6 +176,7 @@ function DeathBallToy::createDesertBackgrounds(%this)
 }
 
 //-----------------------------------------------------------------------------
+
 function DeathBallToy::spawnDeathball(%this, %position)
 {
     %db = new Sprite(Deathball)
@@ -195,6 +203,8 @@ function DeathBallToy::spawnDeathball(%this, %position)
     SandboxWindow.mount( Deathball, "0 0", 0, true, false );
 }
 
+//-----------------------------------------------------------------------------
+
 function Deathball::updateRollAnimation(%this)
 {
     %this.rollSchedule = "";
@@ -210,6 +220,36 @@ function Deathball::updateRollAnimation(%this)
 
     %this.rollSchedule = %this.schedule(100, updateRollAnimation);
 }
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::generateSoldierTemplate(%this)
+{
+    // Create the soldier sprite
+    %soldier = new Sprite();
+    
+    // Add the behaviors
+    
+    // Disable it
+    %soldier.setEnabled(0);
+    
+    // Return it to the toy
+    %this.soldierTemplate = %soldier;
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::setupSpawnPoints%this)
+{
+}
+
+//-----------------------------------------------------------------------------
+
+function DeathBallToy::startSpawning%this)
+{
+}
+
+//-----------------------------------------------------------------------------
 
 package DeathBallToyPackage
 {
