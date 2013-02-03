@@ -155,11 +155,6 @@ void osxOpenGLDevice::shutdown()
 
 NSOpenGLPixelFormat* osxOpenGLDevice::generateValidPixelFormat(bool fullscreen, U32 bpp, U32 samples)
 {
-    AssertWarn(bpp==16 || bpp==32 || bpp==0, "An unusual bit depth was requested in findValidPixelFormat(). clamping to 16|32");
-    
-    if (bpp)
-        bpp = bpp > 16 ? 32 : 16;
-    
     AssertWarn(samples <= 6, "An unusual multisample depth was requested in findValidPixelFormat(). clamping to 0...6");
     
     samples = samples > 6 ? 6 : samples;
@@ -170,10 +165,7 @@ NSOpenGLPixelFormat* osxOpenGLDevice::generateValidPixelFormat(bool fullscreen, 
     attr[i++] = NSOpenGLPFADoubleBuffer;
     attr[i++] = NSOpenGLPFANoRecovery;
     attr[i++] = NSOpenGLPFAAccelerated;
-    
-    if (fullscreen)
-        attr[i++] = NSOpenGLPFAFullScreen;
-    
+        
     if(bpp != 0)
     {
         // native pixel formats are argb 1555 & argb 8888.
@@ -230,6 +222,9 @@ bool osxOpenGLDevice::setScreenMode( U32 width, U32 height, U32 bpp, bool fullSc
     // Sanity check. Some scripts are liable to pass in bad values.
     if (!bpp)
         bpp = [platState desktopBitsPixel];
+    
+    if (bpp)
+        bpp = bpp > 16 ? 32 : 16;
     
     Resolution newRes = Resolution(width, height, bpp);
     
