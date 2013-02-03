@@ -34,9 +34,12 @@ function ChainToy::create( %this )
     
     // Configure the toy.
     ChainToy.GroundWidth = 80;
-    ChainToy.maxLinks = 30;
+    ChainToy.ChainLinks = 15;
+    ChainToy.ChainCount = 2;
 
     // Add configuration option.
+    addNumericOption( "Chain Links", 1, 45, 1, "setChainLinks", ChainToy.ChainLinks, true );
+    addNumericOption( "Chain Count", 1, 8, 1, "setChainCount", ChainToy.ChainCount, true );
 
     // Reset the toy initially.
     ChainToy.reset();
@@ -61,9 +64,17 @@ function ChainToy::reset(%this)
     
     // Create a background.
     %this.createBackground();
-       
-    // Create the chain
-    %this.createRope(0, 10);
+               
+    // Create the chains.
+    %chainOffset = (ChainToy.ChainCount-1) * -2.5;
+    for( %n = 0; %n < ChainToy.ChainCount; %n++ )
+    {        
+        %this.createChain(%chainOffset, 15);
+        %chainOffset += 5;
+    }
+
+    // Create the tree.
+    //%this.createTree();
        
     // Create the ground.
     %this.createGround();          
@@ -101,7 +112,7 @@ function ChainToy::createBackground( %this )
 
 function ChainToy::createGround( %this )
 {
-    // Create the ground
+    // Create the ground.
     %ground = new Scroller();
     %ground.setBodyType("static");
     %ground.Image = "ToyAssets:dirtGround";
@@ -109,6 +120,8 @@ function ChainToy::createGround( %this )
     %ground.setSize(ChainToy.GroundWidth, 6);
     %ground.setRepeatX(ChainToy.GroundWidth / 60);   
     %ground.createEdgeCollisionShape(ChainToy.GroundWidth/-2, 3, ChainToy.GroundWidth/2, 3);
+    
+    // Add to the scene.
     SandboxScene.add(%ground);  
     
     // Create the grass.
@@ -117,19 +130,29 @@ function ChainToy::createGround( %this )
     %grass.Image = "ToyAssets:grassForeground";
     %grass.setPosition(0, -8.5);
     %grass.setSize(ChainToy.GroundWidth, 2); 
+    
+    // Add to the scene.
     SandboxScene.add(%grass);       
 }
 
 //-----------------------------------------------------------------------------
 
-function ChainToy::setMaxLinks(%this, %value)
+function ChainToy::createTree( %this )
 {
-    %this.maxLinks = %value;
+    // Create the tree.
+    %obj = new Sprite();
+    %obj.setBodyType("static");
+    %obj.Image = "ToyAssets:jungleTree";
+    %obj.setPosition( -5, 0 );
+    %obj.setSize( 20, 25 ); 
+    
+    // Add to the scene.
+    SandboxScene.add(%obj);       
 }
 
 //-----------------------------------------------------------------------------
 
-function ChainToy::createRope(%this, %posX, %posY)
+function ChainToy::createChain(%this, %posX, %posY)
 {
     %linkWidth = 0.25;
     %linkHeight = %linkWidth * 2;
@@ -137,7 +160,7 @@ function ChainToy::createRope(%this, %posX, %posY)
 
     %rootObj = new Sprite();
     %rootObj.setBodyType( "static" );
-    %rootObj.setImage( "ToyAssets:cable" );
+    %rootObj.setImage( "ToyAssets:chain" );
     %rootObj.setPosition( %posX, %posY );
     %rootObj.setSize( %linkWidth, %linkHeight );
     %rootObj.setCollisionSuppress();
@@ -145,11 +168,10 @@ function ChainToy::createRope(%this, %posX, %posY)
 
     %lastLinkObj = %rootObj;
 
-    for ( %n = 1; %n <= %this.maxLinks; %n++ )
+    for ( %n = 1; %n <= %this.ChainLinks; %n++ )
     {
         %obj = new Sprite();
-        %obj.setImage( "ToyAssets:cable" );
-        //%obj.setBodyType( "static" );
+        %obj.setImage( "ToyAssets:chain" );
         %obj.setSceneLayer(1);
         %obj.setPosition( %posX, %posY - (%n*%linkHeight) );
         %obj.setSize( %linkWidth, %linkHeight );
@@ -164,22 +186,39 @@ function ChainToy::createRope(%this, %posX, %posY)
 
         %lastLinkObj = %obj;
     }
-    //%lastLinkObj.setAwake(false);
     
     // Calculate length from the fixed pivot.
-    %pivotDistance = %linkHeight * %this.maxLinks;
+    %pivotDistance = %linkHeight * %this.ChainLinks;
 
-    // Rope weight.
+    %weightSize = 1.5;
+    %weightHalfSize = %weightSize * 0.5;
+
+    // Create the weight.
     %weight = new Sprite();
-    //%weight.setBodyType( "static" );
     %weight.setUseInputEvents(true);
-    %weight.setImage( "ToyAssets:crate" );
-    %weight.setSize( 1.5 );
-    %weight.setPosition( %posX, %posY - %pivotDistance - (%weight.getSizeY() * 0.5) );
+    %weight.setImage( "ToyAssets:whitesphere" );
+    %weight.BlendColor = DarkGreen;
+    %weight.setSize( %weightSize );
+    %weight.setPosition( %posX, %posY - %pivotDistance - %weightHalfSize );
     %weight.setDefaultFriction( 1.0 );
-    %weight.createPolygonBoxCollisionShape( 1, 1 );
+    %weight.setDefaultDensity( 5 );
+    %weight.createCircleCollisionShape( %weightHalfSize );
     SandboxScene.add( %weight );
 
     SandboxScene.createRevoluteJoint( %lastLinkObj, %weight, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
-    SandboxScene.createRopeJoint(%rootObj, %weight, 0, 0, 0, %weight.getSizeY() * 0.5, %pivotDistance, false);
+    SandboxScene.createRopeJoint(%rootObj, %weight, 0, 0, 0, %weightHalfSize, %pivotDistance, false);
+}
+
+//-----------------------------------------------------------------------------
+
+function ChainToy::setChainLinks(%this, %value)
+{
+    %this.ChainLinks = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function ChainToy::setChainCount(%this, %value)
+{
+    %this.ChainCount = %value;
 }
