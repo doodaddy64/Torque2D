@@ -124,7 +124,10 @@ function TruckToy::reset( %this )
     %this.createBrick( 3, -87.5, TruckToy.FloorLevel + 0.25, true );     
     %this.createBrick( 4, -87.5, TruckToy.FloorLevel + 0.75, true );     
     %this.createBrick( 2, -79, TruckToy.FloorLevel + 0.25, true );     
+    %this.createBonfire( -91.5, TruckToy.FloorLevel + 0.5, 1, TruckToy.BackgroundDomain-1 );
 
+    %truckStartX = -82.7;
+    %truckStartY = 3;
 
     // Building with chains.   
     %this.createForegroundWall( 2, -99, -5 );   
@@ -134,7 +137,7 @@ function TruckToy::reset( %this )
     %this.createWoodPile( -65, -2.5 );
     %this.createBrickPile( -67, TruckToy.FloorLevel + 0.45 );
     %this.createForegroundBrickWall( 1, -61, -6 );
-
+    %this.createBonfire( -82, TruckToy.FloorLevel + 0.5, 1.5, TruckToy.ObstacleDomain+1 );
 
     // Start of bridge.   
     %this.createPlank( 1, -53, TruckToy.FloorLevel + 0.5, 0, true );
@@ -156,11 +159,15 @@ function TruckToy::reset( %this )
     %this.createPlank( 3, -19, TruckToy.FloorLevel + 4, 0, true );
     %this.createPlank( 1, -16.5, TruckToy.FloorLevel + 1.5, -90, true );
     %this.createForegroundBrickWall( 2, -19, -6 );
+    %this.createBonfire( -46.5, TruckToy.FloorLevel, 3, TruckToy.BackgroundDomain-1 );
+    %this.createBonfire( -18.7, TruckToy.FloorLevel + 1, 2, TruckToy.BackgroundDomain-1 );
 
     // More wrecked cars.
     %this.createWreckedCar( 1, -12, TruckToy.FloorLevel + 0.75, 0, true );
     %this.createWreckedCar( 2, -7, TruckToy.FloorLevel + 0.75, 0, true );
     %this.createWreckedCar( 3, -4, TruckToy.FloorLevel + 0.75, 0, true );
+    %this.createBonfire( -5, TruckToy.FloorLevel + 0.5, 1, TruckToy.BackgroundDomain-1 );
+     
      
     // ************************************************************************   
     // Start of pyramid.
@@ -169,6 +176,7 @@ function TruckToy::reset( %this )
     %this.createForegroundWall( 1, 9, -6 );
     %this.createPyramid( 2+21, TruckToy.FloorLevel + 0.25, 13, true );
     %this.createForegroundBrickWall( 1, 9, -7 );
+    %this.createBonfire( 21, TruckToy.FloorLevel, 3, TruckToy.BackgroundDomain-1 );
 
 
     // ************************************************************************   
@@ -183,8 +191,13 @@ function TruckToy::reset( %this )
     %this.createBrickStack( 76, TruckToy.FloorLevel + 0.25, 1, true );
     %this.createBrickStack( 78, TruckToy.FloorLevel + 0.25, 10, false );
 
+    %this.createBonfire( 71, TruckToy.FloorLevel, 1, TruckToy.BackgroundDomain-1 );
+    %this.createBonfire( 85, TruckToy.FloorLevel, 1.5, TruckToy.BackgroundDomain-1 );
+
     // Truck.
-    %this.createTruck( TruckToy.WorldLeft + (TruckToy.CameraWidth/6), 3 );    
+    //%truckStartX = TruckToy.WorldLeft + (TruckToy.CameraWidth/6);
+    //%truckStartY = 3;   
+    %this.createTruck( %truckStartX, %truckStartY );    
     
     // Schedule to create a projectile.
     TruckToy.createProjectileScheduleId = %this.schedule( TruckToy.ProjectileRate, "createProjectile" );    
@@ -365,7 +378,7 @@ function TruckToy::createBridge( %this, %posX, %posY, %linkCount )
       
       SandboxScene.createRevoluteJoint( %lastLinkObj, %obj, %halfLinkWidth, 0, -%halfLinkWidth, 0 );
       %joint = SandboxScene.createMotorJoint( %lastLinkObj, %obj );
-      SandboxScene.setMotorJointMaxForce( %joint, 500 );
+      SandboxScene.setMotorJointMaxForce( %joint, 1000 );
       %obj.setAwake( false );
       %lastLinkObj.setAwake( false );
       //%obj.setDebugOn( 5 );
@@ -398,10 +411,20 @@ function TruckToy::createChain( %this, %posX, %posY, %linkCount )
 
     for ( %n = 1; %n <= %linkCount; %n++ )
     {
-        %obj = new Sprite();
-        %obj.setImage( "ToyAssets:chain" );
-        %obj.setPosition( %posX, %posY - (%n*%linkHeight) );
-        %obj.setSize( %linkWidth, %linkHeight );
+        if ( %n < %linkCount )
+        {
+            %obj = new Sprite();
+            %obj.setImage( "ToyAssets:chain" );
+            %obj.setPosition( %posX, %posY - (%n*%linkHeight) );        
+            %obj.setSize( %linkWidth, %linkHeight );
+            SandboxScene.add( %obj );   
+        }
+        else
+        {
+            %obj = %this.createBonfire( %posX, %posY - (%n*%linkHeight), 0.5, TruckToy.BackgroundDomain-1 );                    
+            %obj.BodyType = dynamic;
+        }
+        
         %obj.setSceneLayer( TruckToy.BackgroundDomain-1 );
         %obj.setSceneGroup( TruckToy.ObstacleDomain );
         %obj.setCollisionGroups( TruckToy.ObstacleDomain );
@@ -410,7 +433,6 @@ function TruckToy::createChain( %this, %posX, %posY, %linkCount )
         %obj.createPolygonBoxCollisionShape( %linkWidth, %linkHeight );
         %obj.setAngularDamping( 1.0 );
         %obj.setLinearDamping( 0.5 );
-        SandboxScene.add( %obj );   
 
         SandboxScene.createRevoluteJoint( %lastLinkObj, %obj, 0, -%halfLinkHeight, 0, %halfLinkHeight, false );
 
@@ -622,6 +644,24 @@ function TruckToy::createWreckedCar( %this, %carNumber, %posX, %posY, %angle, %s
     SandboxScene.add( %obj );
 
     return %obj;
+}
+
+// -----------------------------------------------------------------------------
+
+function TruckToy::createBonfire(%this, %x, %y, %scale, %layer)
+{
+    // Create an impact explosion at the projectiles position.
+    %particlePlayer = new ParticlePlayer();
+    %particlePlayer.BodyType = static;
+    %particlePlayer.SetPosition( %x, %y );
+    %particlePlayer.SceneLayer = %layer;
+    %particlePlayer.ParticleInterpolation = true;
+    %particlePlayer.Particle = "TruckToy:bonfire";
+    %particlePlayer.SizeScale = %scale;
+    %particlePlayer.CameraIdleDistance = TruckToy.CameraWidth * 0.8;
+    SandboxScene.add( %particlePlayer ); 
+    return %particlePlayer;
+    
 }
 
 // -----------------------------------------------------------------------------
@@ -888,7 +928,7 @@ function TruckToy::setProjectileRate( %this, %value )
     %this.cancelPendingEvents();
     
     // Schedule to create a projectile.
-    %this.createProjectileScheduleId = %this.schedule( 0, "createProjectile" );    
+    %this.createProjectileScheduleId = %this.schedule( 1000, "createProjectile" );    
 }
 
 //-----------------------------------------------------------------------------
