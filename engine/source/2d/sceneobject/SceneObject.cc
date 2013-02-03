@@ -1965,8 +1965,15 @@ void SceneObject::setCollisionShapeFriction( const U32 shapeIndex, const F32 fri
 
     if ( mpScene )
     {
+        // Fetch the fixture.
+        b2Fixture* pFixture = mCollisionFixtures[shapeIndex];
+
         // Update live fixture.
-        mCollisionFixtures[shapeIndex]->SetFriction( friction );
+        pFixture->SetFriction( friction );
+
+        // Re-filter fixture.
+        pFixture->Refilter();
+
         return;
     }
 
@@ -2000,8 +2007,15 @@ void SceneObject::setCollisionShapeRestitution( const U32 shapeIndex, const F32 
 
     if ( mpScene )
     {
+        // Fetch the fixture.
+        b2Fixture* pFixture = mCollisionFixtures[shapeIndex];
+
         // Update live fixture.
-        mCollisionFixtures[shapeIndex]->SetRestitution( restitution );
+        pFixture->SetRestitution( restitution );
+
+        // Re-filter fixture.
+        pFixture->Refilter();
+
         return;
     }
 
@@ -2035,8 +2049,15 @@ void SceneObject::setCollisionShapeIsSensor( const U32 shapeIndex, const bool is
 
     if ( mpScene )
     {
+        // Fetch the fixture.
+        b2Fixture* pFixture = mCollisionFixtures[shapeIndex];
+
         // Update live fixture.
-        mCollisionFixtures[shapeIndex]->SetSensor( isSensor );
+        pFixture->SetSensor( isSensor );
+
+        // Re-filter fixture.
+        pFixture->Refilter();
+
         return;
     }
 
