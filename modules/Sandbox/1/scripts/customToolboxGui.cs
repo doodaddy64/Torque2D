@@ -421,13 +421,7 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
     
     // Main container buffer (accounts for size of list, up/down buttons, and buffer)
     %containerHeight += ((%maxDisplay+1) * %buttonSize) + %buttonExtentAddition + %buffer;
-    
-    // X position of buttons
-    %buttonX = "90";
-    
-    // Y position for up button 
-    %upButtonY = Sandbox.customLabelSpacing;
-    
+        
     // List container
     %listContainerPosition = "0" SPC (%upButtonY + 27);
     %listContainerWidth = %containerWidth;
@@ -440,9 +434,13 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
     %arrayListWidth = %scrollContainerWidth - 25;
     %arrayListHeight = 0;
     
-    // Y position for the down button
-    %downButtonY = getWord(%listContainerPosition, 1) + %listContainerHeight + 7;
+    // X position of buttons
+    %upButtonX = "40";
+    %downButtonX = "130";
     
+    // Y position for up button 
+    %buttonY = getWord(%listContainerPosition, 1) + %listContainerHeight + 10;
+
     // Create the base container
     %container = new GuiControl()
     {
@@ -558,7 +556,7 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
         Profile = "GuiDefaultProfile";
         HorizSizing = "relative";
         VertSizing = "relative";
-        Position = %buttonX SPC %upButtonY;
+        Position = %upButtonX SPC %buttonY;
         Extent = "69 23";
         MinExtent = "8 2";
         canSave = "1";
@@ -582,7 +580,7 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
         Profile = "GuiDefaultProfile";
         HorizSizing = "relative";
         VertSizing = "relative";
-        Position = %buttonX SPC %downButtonY;
+        Position = %downButtonX SPC %buttonY;
         Extent = "69 23";
         MinExtent = "8 2";
         canSave = "1";
