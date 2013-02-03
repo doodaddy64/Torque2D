@@ -154,11 +154,11 @@ function ScrollerToy::createNearScroller( %this )
 package ScrollerToyPackage
 {
 
-function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
+function SandboxWindow::onTouchDown(%this, %touchID, %worldPosition)
 {   
     // Set the scrollers speed to be the distance from the farground scrollers origin.
     // Also use the sign to control the direction of scrolling.
-    %scrollerSpeed = getWord(%worldPos,0) - ScrollerToy.FarScroller .getPositionX();
+    %scrollerSpeed = getWord(%worldPosition,0) - ScrollerToy.FarScroller .getPositionX();
 
     // Set the scroller speeds.
     ScrollerToy.FarScroller.ScrollX = %scrollerSpeed;

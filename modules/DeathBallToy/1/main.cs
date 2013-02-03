@@ -254,16 +254,16 @@ function DeathBallToy::startSpawning(%this)
 package DeathBallToyPackage
 {
 
-function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
+function SandboxWindow::onTouchDown(%this, %touchID, %worldPosition)
 {
     %origin = Deathball.getPosition();
-    %angle = -mRadToDeg( mAtan( getWord(%worldPos,0)-getWord(%origin,0), getWord(%worldPos,1)-getWord(%origin,1) ) );
+    %angle = -mRadToDeg( mAtan( getWord(%worldPosition,0)-getWord(%origin,0), getWord(%worldPosition,1)-getWord(%origin,1) ) );
 
     //Rotate to the touched angle.
     Deathball.RotateTo( %angle, DeathBallToy.rotateTime );
 
     // Move to the touched position.
-    Deathball.moveTo( %worldPos, DeathBallToy.moveTime );
+    Deathball.moveTo( %worldPosition, DeathBallToy.moveTime );
 }
 
 };

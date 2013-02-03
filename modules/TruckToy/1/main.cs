@@ -936,14 +936,14 @@ function TruckToy::setExplosionScale( %this, %value )
 package TruckToyPackage
 {
 
-function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
+function SandboxWindow::onTouchDown(%this, %touchID, %worldPosition)
 {
     // Finish if truck is already moving.
     if ( TruckToy.TruckMoving )
         return;
 
     // If we touch in-front of the truck then move forward else reverse.
-    if ( getWord(%worldPos,0) >= TruckToy.TruckBody.getPositionX() )
+    if ( getWord(%worldPosition,0) >= TruckToy.TruckBody.getPositionX() )
     {
         truckForward( true );
     }
@@ -955,7 +955,7 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
 
 //-----------------------------------------------------------------------------
 
-function SandboxWindow::onTouchUp(%this, %touchID, %worldPos)
+function SandboxWindow::onTouchUp(%this, %touchID, %worldPosition)
 {
     // Stop the truck.
     TruckToy.truckStop();

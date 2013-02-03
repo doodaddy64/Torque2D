@@ -122,11 +122,11 @@ function RotateToToy::setRotateTime( %this, %value )
 package RotateToToyPackage
 {
 
-function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
+function SandboxWindow::onTouchDown(%this, %touchID, %worldPosition)
 {
     // Calculate the angle to the mouse.
     %origin = RotateToToy.TargetObject.getPosition();
-    %angle = -mRadToDeg( mAtan( getWord(%worldPos,0)-getWord(%origin,0), getWord(%worldPos,1)-getWord(%origin,1) ) );
+    %angle = -mRadToDeg( mAtan( getWord(%worldPosition,0)-getWord(%origin,0), getWord(%worldPosition,1)-getWord(%origin,1) ) );
     
     //Rotate to the touched angle.
     RotateToToy.TargetObject.RotateTo( %angle, RotateToToy.rotateTime );

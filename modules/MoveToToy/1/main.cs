@@ -158,13 +158,13 @@ function MoveToToy::setMoveTime( %this, %value )
 package MoveToToyPackage
 {
 
-function SandboxWindow::onTouchDown(%this, %touchID, %worldPos)
+function SandboxWindow::onTouchDown(%this, %touchID, %worldPosition)
 {
     // Set the target to the touched position.
-    MoveToToy.TargetObject.Position = %worldPos;
+    MoveToToy.TargetObject.Position = %worldPosition;
     
     // Move the sight to the touched position.
-    MoveToToy.SightObject.MoveTo( %worldPos, MoveToToy.moveTime );
+    MoveToToy.SightObject.MoveTo( %worldPosition, MoveToToy.moveTime );
 }
     
 };
