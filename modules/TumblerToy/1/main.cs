@@ -49,7 +49,7 @@ function TumblerToy::create( %this )
 function TumblerToy::destroy( %this )
 {
     // Cancel any pending events.
-    TumblerToy::cancelPendingEvents();
+    TumblerToy.cancelPendingEvents();
 }
 
 //-----------------------------------------------------------------------------
