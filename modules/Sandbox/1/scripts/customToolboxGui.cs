@@ -360,7 +360,7 @@ function SpinnerController::updateTarget(%this)
         
         %target.setText(%value);
     }
-    else if (%this.action $= "decrease" && %target.getText() > %target.min)
+    else if (%this.action $= "decrease")
     {
         %value = %target.getText();
         %value -= %this.step;
