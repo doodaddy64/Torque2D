@@ -372,7 +372,12 @@ function TextEditController::updateToy(%this)
 {
     if (%this.toy $= "")
         return;
-        
+    
+    if (%this.getText() > %this.max)
+        %this.setText(%this.max);
+    else if (%this.getText() < %this.min)
+        %this.setText(%his.min);
+    
     if (%this.callback !$= "" && %this.getValue() !$= "")
     {
         %setter = "%this.toy." @ %this.callback @ "(" @ %this.getValue() @ ");";
