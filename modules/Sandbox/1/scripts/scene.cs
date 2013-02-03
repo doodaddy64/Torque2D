@@ -30,7 +30,7 @@ function createSandboxWindow()
 
         // Set profile.        
         SandboxWindow.Profile = SandboxWindowProfile;
-
+        
         // Push the window.
         Canvas.setContent( SandboxWindow );                     
     }
@@ -44,7 +44,7 @@ function createSandboxWindow()
     SandboxWindow.setRenderLayers( %allBits );
     SandboxWindow.setObjectInputEventGroupFilter( %allBits );
     SandboxWindow.setObjectInputEventLayerFilter( %allBits );
-    SandboxWindow.setLockMouse( false );
+    SandboxWindow.setLockMouse( true );
     SandboxWindow.setCurrentCameraPosition( 0, 0 );
     SandboxWindow.setCurrentCameraSize( 100, 75 );
     SandboxWindow.setCurrentCameraZoom( 1 );
@@ -120,7 +120,7 @@ function setSceneToWindow()
     SandboxWindow.setRenderLayers( %allBits );
     SandboxWindow.setObjectInputEventGroupFilter( %allBits );
     SandboxWindow.setObjectInputEventLayerFilter( %allBits );
-    SandboxWindow.setLockMouse( false );
+    SandboxWindow.setLockMouse( true );
     SandboxWindow.setCurrentCameraPosition( 0, 0 );
     SandboxWindow.setCurrentCameraSize( 100, 75 );
     SandboxWindow.setCurrentCameraZoom( 1 );
