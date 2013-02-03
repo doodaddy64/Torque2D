@@ -154,7 +154,7 @@ public:
     void integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats );
     void interpolateObject( const F32 timeDelta );
 
-    virtual bool validRender( void ) const { return mPlaying && mParticleAsset.notNull() && mParticleAsset->isAssetValid(); }
+    virtual bool validRender( void ) const { return mParticleAsset.notNull() && mParticleAsset->isAssetValid(); }
     virtual bool shouldRender( void ) const { return true; }
     virtual void sceneRender( const SceneRenderState* pSceneRenderState, const SceneRenderRequest* pSceneRenderRequest, BatchRender* pBatchRenderer );
     virtual void sceneRenderOverlay( const SceneRenderState* sceneRenderState );
