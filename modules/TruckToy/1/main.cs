@@ -676,8 +676,7 @@ function TruckToy::createProjectile(%this)
     %projectile.setSceneGroup( TruckToy.ProjectileDomain );
     %projectile.FlipY = true;
     %projectile.Size = getRandom(0.5, 2);
-    //%projectile.setLinearVelocity( -2, 0 );
-    //%projectile.BodyType = "static";
+    %projectile.Lifetime = 2.5;
     %projectile.createCircleCollisionShape( 0.2 ); 
     %projectile.setCollisionGroups( TruckToy.ObstacleDomain );
     %projectile.CollisionCallback = true;
