@@ -32,7 +32,7 @@ if (!isObject(TakesDamageBehavior))
     %template.addBehaviorField(explodeEffect, "The particle effect to play on death", asset, "", ParticleAsset);
     %template.addBehaviorField(spawnEffect, "The particle effect to play on spawn", asset, "", ParticleAsset);
     %template.addBehaviorField(deathAnim, "The object's death animation, alternative to explodeEffect", asset, "", AnimationAsset);
-    %template.addBehaviorField(deleteOnDeath, "Delete the owner upon dieing, bool, false);
+    %template.addBehaviorField(deleteOnDeath, "Delete the owner upon dieing", bool, false);
 }
 
 function TakesDamageBehavior::initialize(%this)

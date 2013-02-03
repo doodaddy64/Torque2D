@@ -239,13 +239,13 @@ function DeathBallToy::generateSoldierTemplate(%this)
 
 //-----------------------------------------------------------------------------
 
-function DeathBallToy::setupSpawnPoints%this)
+function DeathBallToy::setupSpawnPoints(%this)
 {
 }
 
 //-----------------------------------------------------------------------------
 
-function DeathBallToy::startSpawning%this)
+function DeathBallToy::startSpawning(%this)
 {
 }
 

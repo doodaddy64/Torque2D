@@ -1,7 +1,7 @@
 <ModuleDefinition
     ModuleId="DeathBallToy"
     VersionId="1"
-    Enabled="0"
+    Enabled="1"
     Description="Deathball rolling toy"    
     Type="toy"
     ToyCategoryIndex="5"
