@@ -29,9 +29,9 @@ function MelvToy::particleTest( %this )
     %effectAsset = new ParticleAsset();
     %effectAsset.assetName = %particleAssetName;   
     
-    //%effectAsset.LifeMode = "infinite";    
-    %effectAsset.LifeMode = "kill";    
-    %effectAsset.Lifetime = 1;
+    %effectAsset.LifeMode = "infinite";    
+    //%effectAsset.LifeMode = "kill";    
+    //%effectAsset.Lifetime = 1;
 
     //%effectAsset.selectField( "EmissionArc" );    
         //%effectAsset.setSingleDataKey( 15 );
@@ -39,91 +39,6 @@ function MelvToy::particleTest( %this )
     //%effectAsset.selectField( "EmissionAngle" );    
         //%effectAsset.setSingleDataKey( 180 );
     
-    // ---------------------------------------------------------   
-    
-    %emitter2 = %effectAsset.createEmitter();
-    %emitter2.EmitterName = "debris";
-    %emitter2.EmitterType = "box";
-    %emitter2.EmitterSize = "2 1";
-    %emitter2.EmitterAngle = 90;
-    %emitter2.EmitterOffset = "0 0";
-    %emitter2.IntenseParticles = false;
-    %emitter2.Image = "ToyAssets:Asteroids";
-    %emitter2.RandomImageFrame = true;
-    %emitter2.FixedAspect = true;
-    %emitter2.OldestInFront = true;
-    %emitter2.AttachPositionToEmitter = false;
-    %emitter2.AttachRotationToEmitter = false;
-
-    %emitter2.selectField( "Quantity" );    
-        %emitter2.addDataKey( 0, 150 );
-        %emitter2.addDataKey( 0.1, 150 );
-        %emitter2.addDataKey( 0.11, 0 );
-        
-    %emitter2.selectField( "Lifetime" ); 
-        %emitter2.setSingleDataKey( 2 );
-
-    %emitter2.selectField( "LifetimeVariation" ); 
-        %emitter2.setSingleDataKey( 1 );
-
-    %emitter2.selectField( "Speed" );    
-        %emitter2.setSingleDataKey( 0.8 );
-
-    %emitter2.selectField( "SpeedVariation" );    
-        %emitter2.setSingleDataKey( 0.3 );
-
-    %emitter2.selectField( "SizeXVariation" );
-        %emitter2.setSingleDataKey( 2.1 );
-       
-    %emitter2.selectField( "SizeXLife" );
-        %emitter2.addDataKey( 0, 0 );
-        %emitter2.addDataKey( 0.1, 0.1 );
-        //%emitter2.addDataKey( 0.8, 1 );
-        //%emitter2.addDataKey( 1, 2 );
-        
-    %emitter2.selectField( "EmissionAngle" );
-        %emitter2.setSingleDataKey( 90 );        
-
-    %emitter2.selectField( "EmissionArc" );
-        %emitter2.setSingleDataKey( 90 );
-
-    //%emitter2.selectField( "Spin" );    
-        //%emitter2.setSingleDataKey( 0 );
-
-    %emitter2.selectField( "SpinVariation" );
-        %emitter2.setSingleDataKey( 360 );
-        
-    %emitter2.selectField( "RandomMotion" );
-        %emitter2.setSingleDataKey( 10 );
-
-    %emitter2.selectField( "FixedForce" );
-        %emitter2.setSingleDataKey( 8 );
-        %emitter2.FixedForceAngle = -90;
-
-    %emitter2.selectField( "FixedForceVariation" );
-        %emitter2.setSingleDataKey( 2 );
-
-    //%emitter2.selectField( "RedChannel" );
-        //%emitter2.addDataKey( 0, 0 );
-        //%emitter2.addDataKey( 1, 0.5 );    
-//
-    //%emitter2.selectField( "GreenChannel" );
-        //%emitter2.addDataKey( 0, 0 );
-        //%emitter2.addDataKey( 0.3, 1 );    
-        //%emitter2.addDataKey( 1, 0 );    
-//
-    //%emitter2.selectField( "BlueChannel" );
-        //%emitter2.addDataKey( 0, 1 );
-        //%emitter2.addDataKey( 0.6, 1 );    
-        //%emitter2.addDataKey( 1, 0 );    
-
-    %emitter2.selectField( "AlphaChannel" );
-        %emitter2.addDataKey( 0, 0 );
-        %emitter2.addDataKey( 0.1, 1 );
-        %emitter2.addDataKey( 0.8, 1 );
-        %emitter2.addDataKey( 1, 0 );    
-
-
     // ---------------------------------------------------------
            
     %emitter = %effectAsset.createEmitter();
@@ -134,10 +49,10 @@ function MelvToy::particleTest( %this )
     %emitter.EmitterOffset = "0 0";
     %emitter.IntenseParticles = true;
     //%emitter.Animation = "ToyAssets:Projectile_FireballAnim";
-    %emitter.Animation = "ToyAssets:Impact_ExplosionAnimation";
+    %emitter.Animation = "ToyAssets:Projectile_Meteor_StrikeAnimation";
     //%emitter.Image = "ToyAssets:Impact_ExplosionSprite";
-    //%emitter.Image = "ToyAssets:Particles4";
-    //%emitter.Frame = 0;
+    //%emitter.Image = "ToyAssets:Particles2";
+    //%emitter.Frame = 3;
     %emitter.FixedAspect = true;
     %emitter.RandomImageFrame = false;
     %emitter.OldestInFront = true;
@@ -146,8 +61,6 @@ function MelvToy::particleTest( %this )
 
     %emitter.selectField( "Quantity" );    
         %emitter.addDataKey( 0, 20 );
-        %emitter.addDataKey( 0.1, 20 );
-        %emitter.addDataKey( 0.11, 0 );
         
     %emitter.selectField( "Lifetime" ); 
         %emitter.setSingleDataKey( 1 );
@@ -156,41 +69,41 @@ function MelvToy::particleTest( %this )
         //%emitter.setSingleDataKey( 1 );
 
     %emitter.selectField( "Speed" );    
-        %emitter.setSingleDataKey( 0 );
+        %emitter.setSingleDataKey( 0.1 );
 
     %emitter.selectField( "SpeedVariation" );    
         %emitter.setSingleDataKey( 0 );
 
     %emitter.selectField( "SizeXVariation" );
-        %emitter.setSingleDataKey( 2 );
+      %emitter.setSingleDataKey( 0.3 );
        
     %emitter.selectField( "SizeXLife" );
         %emitter.addDataKey( 0, 0 );
-        %emitter.addDataKey( 0.1, 3 );
+        %emitter.addDataKey( 0.1, 0.5 );
         //%emitter.addDataKey( 0.8, 1 );
         //%emitter.addDataKey( 1, 2 );
         
-    //%emitter.selectField( "EmissionAngle" );
-        //%emitter.setSingleDataKey( 90 );        
+    %emitter.selectField( "EmissionAngle" );
+        %emitter.setSingleDataKey( 90 );        
 
-    //%emitter.selectField( "EmissionArc" );
-        //%emitter.setSingleDataKey( 30 );        
+    %emitter.selectField( "EmissionArc" );
+        %emitter.setSingleDataKey( 30 );        
 
     //%emitter.selectField( "Spin" );    
         //%emitter.setSingleDataKey( 0 );
 
-    //%emitter.selectField( "SpinVariation" );
-        //%emitter.setSingleDataKey( 360 );
+    %emitter.selectField( "SpinVariation" );
+        %emitter.setSingleDataKey( 360 );
         
-    //%emitter.selectField( "RandomMotion" );
-        //%emitter.setSingleDataKey( 80 );
+    %emitter.selectField( "RandomMotion" );
+        %emitter.setSingleDataKey( 10 );
 
-    //%emitter.selectField( "FixedForce" );
-        //%emitter.setSingleDataKey( 1 );
-        //%emitter.FixedForceAngle = 90;
+    %emitter.selectField( "FixedForce" );
+        %emitter.setSingleDataKey( 30 );
+        %emitter.FixedForceAngle = 90;
 
-    //%emitter.selectField( "FixedForceVariation" );
-        //%emitter.setSingleDataKey( 1 );
+    %emitter.selectField( "FixedForceVariation" );
+        %emitter.setSingleDataKey( 10 );
 
     //%emitter.selectField( "RedChannel" );
         //%emitter.addDataKey( 0, 0 );
