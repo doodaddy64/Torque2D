@@ -951,7 +951,7 @@ void SceneWindow::sendWindowInputEvent( StringTableEntry name, const GuiEvent& e
     char argBuffer[3][64];
 
      // Format Event-Modifier Buffer.
-    dSprintf(argBuffer[0], 64, "%d", event.modifier);
+    dSprintf(argBuffer[0], 64, "%d", event.eventID);
 
     // Format Mouse-Position Buffer.
     dSprintf(argBuffer[1], 64, "%g %g", worldMousePoint.x, worldMousePoint.y);
