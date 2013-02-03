@@ -637,7 +637,7 @@ function TruckToy::createProjectile(%this)
     %projectile = new Sprite() { class = "TruckProjectile"; };
     %projectile.Animation = "ToyAssets:Projectile_FireballAnim";
     //%projectile.Image = "ToyAssets:Cannonball_projectile_1Sprite";
-    %projectile.setPosition( getRandom( %truckPositionX - (TruckToy.CameraWidth * 0.5), %truckPositionX + (TruckToy.CameraWidth * 0.5) ), 12 );
+    %projectile.setPosition( getRandom( %truckPositionX - (TruckToy.CameraWidth * 0.2), %truckPositionX + (TruckToy.CameraWidth * 0.5) ), 12 );
     %projectile.setSceneLayer( TruckToy.BackgroundDomain-2 );
     %projectile.setSceneGroup( TruckToy.ProjectileDomain );
     %projectile.FlipY = true;
@@ -668,7 +668,7 @@ function TruckProjectile::handleCollision(%this, %object, %collisionDetails)
     SandboxScene.add( %particlePlayer ); 
     
     // Start the camera shaking.
-    SandboxWindow.startCameraShake( 10 * TruckToy.ExplosionScale, 1 );
+    SandboxWindow.startCameraShake( 10 + (5 * TruckToy.ExplosionScale), 1 );
     
     // Delete the projectile.
     %this.safeDelete();   
