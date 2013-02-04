@@ -27,6 +27,7 @@ function TruckToy::create( %this )
 
     TruckToy.createProjectileScheduleId = "";
     
+    TruckToy.ObstacleFriction = 1.5;
     TruckToy.CameraWidth = 20;
     TruckToy.CameraHeight = 15;
     TruckToy.WorldWidth = TruckToy.CameraWidth * 10;
@@ -103,7 +104,7 @@ function TruckToy::reset( %this )
     // Camera Configuration
     SandboxWindow.setCameraPosition( TruckToy.WorldLeft + (TruckToy.CameraWidth/2) - 10, 0 );
     SandboxWindow.setCameraSize( TruckToy.CameraWidth, TruckToy.CameraHeight );
-    SandboxWindow.setViewLimitOn( TruckToy.WorldLeft, TruckToy.CameraHeight/-2, TruckToy.WorldRight, TruckToy.CameraWidth/2 );
+    SandboxWindow.setViewLimitOn( TruckToy.WorldLeft, TruckToy.CameraHeight/-2, TruckToy.WorldRight, TruckToy.CameraHeight/2 );
 
     // Create the scene contents in a roughly left to right order.      
 
@@ -243,6 +244,7 @@ function TruckToy::createFloor(%this)
     %obj.setRepeatX( TruckToy.WorldWidth / 12 );   
     %obj.setSceneLayer( TruckToy.ObstacleDomain );
     %obj.setSceneGroup( TruckToy.ObstacleDomain );
+    %obj.setDefaultFriction( TruckToy.ObstacleFriction );
     %obj.setCollisionGroups( TruckToy.ObstacleDomain SPC TruckToy.ProjectileDomain );
     %obj.createEdgeCollisionShape( TruckToy.WorldWidth/-2, 1.5, TruckToy.WorldWidth/2, 1.5 );
     %obj.createEdgeCollisionShape( TruckToy.WorldWidth/-2, 3, TruckToy.WorldWidth/-2, 50 );
@@ -362,7 +364,7 @@ function TruckToy::createBridge( %this, %posX, %posY, %linkCount )
       {      
          %obj.setCollisionGroups( TruckToy.ObstacleDomain );   
          %obj.setDefaultDensity( 1 );
-         %obj.setDefaultFriction( 1.0 );
+         %obj.setDefaultFriction( TruckToy.ObstacleFriction );
          %obj.createPolygonBoxCollisionShape( %linkWidth, %linkHeight );
          %obj.setAngularDamping( 1.0 );
          %obj.setLinearDamping( 1.0 );
@@ -537,7 +539,7 @@ function TruckToy::createBrick( %this, %brickNumber, %posX, %posY, %static )
     %obj.setSceneLayer( TruckToy.ObstacleDomain );
     %obj.setSceneGroup( TruckToy.ObstacleDomain );
     %obj.setCollisionGroups( TruckToy.ObstacleDomain );
-    %obj.setDefaultFriction( 1.0 );
+    %obj.setDefaultFriction( TruckToy.ObstacleFriction );
     %obj.createPolygonBoxCollisionShape( 1, 0.5 );
     %obj.setAwake( false );
     SandboxScene.add( %obj );
@@ -582,6 +584,7 @@ function TruckToy::createPlank( %this, %plankNumber, %posX, %posY, %angle, %stat
     %obj.setSize( 5, 1 );   
     %obj.setSceneLayer( TruckToy.ObstacleDomain );
     %obj.setSceneGroup( TruckToy.ObstacleDomain );
+    %obj.setDefaultFriction( TruckToy.ObstacleFriction );
     %obj.setCollisionGroups( TruckToy.ObstacleDomain );
     %obj.setAwake( false );
     %obj.setDefaultFriction( 1.0 );
@@ -623,7 +626,7 @@ function TruckToy::createWreckedCar( %this, %carNumber, %posX, %posY, %angle, %s
     %obj.setSceneGroup( TruckToy.ObstacleDomain );
     %obj.setCollisionGroups( TruckToy.ObstacleDomain );
     %obj.setAwake( false );
-    %obj.setDefaultFriction( 1.0 );
+    %obj.setDefaultFriction( TruckToy.ObstacleFriction );
 
     switch$( %carNumber )
     {  
@@ -795,11 +798,20 @@ function truckForward(%val)
                 SandboxScene.setWheelJointMotor( TruckToy.FrontMotorJoint, true, -TruckToy.WheelSpeed, 10000 );
                 %driveActive = true;
             }
+            else
+            {
+                SandboxScene.setWheelJointMotor( TruckToy.FrontMotorJoint, false );
+            }
+            
             if ( TruckToy.RearWheelDrive )
             {
                 SandboxScene.setWheelJointMotor( TruckToy.RearMotorJoint, true, -TruckToy.WheelSpeed, 10000 );
                 %driveActive = true;
             }
+            else
+            {
+                SandboxScene.setWheelJointMotor( TruckToy.RearMotorJoint, false );
+            }            
             
             if ( %driveActive )
             {
@@ -830,10 +842,18 @@ function truckReverse(%val)
                 SandboxScene.setWheelJointMotor( TruckToy.FrontMotorJoint, true, TruckToy.WheelSpeed, 10000 );
                 %driveActive = true;
             }
+            else
+            {
+                SandboxScene.setWheelJointMotor( TruckToy.FrontMotorJoint, false );
+            }
             if ( TruckToy.RearWheelDrive )
             {
                 SandboxScene.setWheelJointMotor( TruckToy.RearMotorJoint, true, TruckToy.WheelSpeed, 10000 );
                 %driveActive = true;
+            }
+            else
+            {
+                SandboxScene.setWheelJointMotor( TruckToy.RearMotorJoint, false );
             }
             
             if ( %driveActive )
