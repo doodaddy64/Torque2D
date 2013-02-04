@@ -267,11 +267,10 @@ bool osxOpenGLDevice::setScreenMode( U32 width, U32 height, U32 bpp, bool fullSc
         [[platState window] setStyleMask:NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask];
     }
     
-    
-    [platState setWindowSize:newRes.w height:newRes.h];
-    
     [[platState torqueView] createContextWithPixelFormat:pixelFormat];
     
+    [platState setWindowSize:newRes.w height:newRes.h];
+        
     // clear out garbage from the gl window.
     glClearColor(0,0,0,1);
     glClear(GL_COLOR_BUFFER_BIT );
