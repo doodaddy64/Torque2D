@@ -1301,9 +1301,13 @@ void SceneWindow::calculateCameraView( CameraView* pCameraView )
     // Fetch Camera View.
     pCameraView->mDestinationArea = pCameraView->mSourceArea;
 
-    // Inset Window by Zoom Factor.
-    pCameraView->mDestinationArea.inset( zoomFactorX, zoomFactorY );
-
+    // Inset Window by Zoom Factor (if it's big enough to do so).
+    if (    pCameraView->mDestinationArea.extent.x > (zoomFactorX*2.0f) &&
+            pCameraView->mDestinationArea.extent.y > (zoomFactorY*2.0f) )
+    {
+        pCameraView->mDestinationArea.inset( zoomFactorX, zoomFactorY );
+    }
+        
     // Ensure we've got a valid window.
     if ( !pCameraView->mDestinationArea.isValidRect() )
         // Make it real!
@@ -1374,13 +1378,22 @@ void SceneWindow::calculateCameraView( CameraView* pCameraView )
         pCameraView->mDestinationArea.point  = pCameraView->mSceneMin;
         pCameraView->mDestinationArea.extent = pCameraView->mSceneMax - pCameraView->mSceneMin;
 
-        // Inset Window by Zoom Factor.
-        pCameraView->mDestinationArea.inset( zoomFactorX, zoomFactorY );
+        // Inset Window by Zoom Factor (if it's big enough to do so).
+        if (    pCameraView->mDestinationArea.extent.x > (zoomFactorX*2.0f) &&
+                pCameraView->mDestinationArea.extent.y > (zoomFactorY*2.0f) )
+        {
+            pCameraView->mDestinationArea.inset( zoomFactorX, zoomFactorY );
+        }
     }
 
     // Calculate Scene Window Scale.
     pCameraView->mSceneWindowScale.x = (pCameraView->mSceneMax.x - pCameraView->mSceneMin.x) / mBounds.len_x();
     pCameraView->mSceneWindowScale.y = (pCameraView->mSceneMax.y - pCameraView->mSceneMin.y) / mBounds.len_y();
+
+    if ( pCameraView->mDestinationArea.extent.x < 0.0f )
+    {
+        S32 a =0;
+    }
 }
 
 //-----------------------------------------------------------------------------
