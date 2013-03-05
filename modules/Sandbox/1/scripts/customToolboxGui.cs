@@ -25,7 +25,7 @@ Sandbox.customLabelWidth = "220";
 Sandbox.customLabelSpacing = "18";
 Sandbox.customOptionSpacing = "15";
 Sandbox.customContainerExtent = "250 3";
-Sandbox.containerXPosition = "0";
+Sandbox.containerXPosition = "20";
 Sandbox.flagOptionExtent = "240 35";
 Sandbox.buttonOptionExtent = "240 35";
 Sandbox.spinnerExtent = "22 25";
@@ -40,6 +40,11 @@ function resetCustomControls()
 {
     Sandbox.lastControlBottom = "0";
     Sandbox.customControlCount = 0;
+    
+    %customControlExtent = ToyCustomControls.Extent;
+    %newExtent = getWord(ToyCustomControls.Extent, 0) SPC 705;
+    ToyCustomControls.Extent = %newExtent;
+    CustomControlsScroller.computeSizes();
 }
 
 //-----------------------------------------------------------------------------
@@ -83,7 +88,7 @@ function nextCustomControlPosition(%index)
 
 //-----------------------------------------------------------------------------
 
-function addFlagOption( %label, %callback, %startingValue, %shouldReset)
+function addFlagOption( %label, %callback, %startingValue, %shouldReset, %tooltipText)
 {
     %containerPosition = nextCustomControlPosition(Sandbox.customControlCount);
 
@@ -118,6 +123,7 @@ function addFlagOption( %label, %callback, %startingValue, %shouldReset)
         Active = "1";
         hovertime = "1000";
         toolTipProfile = "GuiToolTipProfile";
+        toolTip = %tooltipText;
         text = %label;
         groupNum = "-1";
         buttonType = "ToggleButton";
@@ -132,7 +138,15 @@ function addFlagOption( %label, %callback, %startingValue, %shouldReset)
     ToyCustomControls.add(%container);
 
     Sandbox.lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
-
+    
+    if (Sandbox.lastControlBottom > getWord(ToyCustomControls.Extent, 1))
+    {
+        %rootContainerExtent = getWord(ToyCustomControls.Extent, 0) SPC Sandbox.lastControlBottom + 20;
+    
+        ToyCustomControls.Extent = %rootContainerExtent;
+        CustomControlsScroller.computeSizes();
+    }
+    
     Sandbox.customControlCount++;
 }
 
@@ -156,7 +170,7 @@ function FlagController::updateToy(%this)
 
 //-----------------------------------------------------------------------------
 
-function addButtonOption( %label, %callback, %shouldReset)
+function addButtonOption( %label, %callback, %shouldReset, %tooltipText)
 {
     %containerPosition = nextCustomControlPosition(Sandbox.customControlCount);
 
@@ -191,6 +205,7 @@ function addButtonOption( %label, %callback, %shouldReset)
         Active = "1";
         hovertime = "1000";
         toolTipProfile = "GuiToolTipProfile";
+        toolTip = %tooltipText;
         text = %label;
         groupNum = "-1";
         buttonType = "PushButton";
@@ -205,6 +220,14 @@ function addButtonOption( %label, %callback, %shouldReset)
 
     Sandbox.lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
 
+    if (Sandbox.lastControlBottom > getWord(ToyCustomControls.Extent, 1))
+    {
+        %rootContainerExtent = getWord(ToyCustomControls.Extent, 0) SPC Sandbox.lastControlBottom + 20;
+    
+        ToyCustomControls.Extent = %rootContainerExtent;
+        CustomControlsScroller.computeSizes();
+    }
+    
     Sandbox.customControlCount++;
 }
 
@@ -227,7 +250,7 @@ function ButtonController::updateToy(%this)
 
 //-----------------------------------------------------------------------------
 
-function addNumericOption( %label, %min, %max, %step, %callback, %startingValue, %shouldReset)
+function addNumericOption( %label, %min, %max, %step, %callback, %startingValue, %shouldReset, %tooltipText)
 {
     %customLabel = createCustomLabel(%label);
 
@@ -268,6 +291,7 @@ function addNumericOption( %label, %min, %max, %step, %callback, %startingValue,
         Active = "1";
         hovertime = "1000";
         toolTipProfile = "GuiToolTipProfile";
+        toolTip = %tooltipText;
         groupNum = "-1";
         buttonType = "PushButton";
         useMouseEvents = "0";
@@ -294,7 +318,8 @@ function addNumericOption( %label, %min, %max, %step, %callback, %startingValue,
         class = "TextEditController";
         isContainer = "0";
         Profile = "GuiSpinnerProfile";
-        tooltipprofile = "GuiToolTipProfile";
+        toolTipProfile = "GuiToolTipProfile";
+        toolTip = %tooltipText;
         hovertime = "1000";
     };
 
@@ -318,6 +343,7 @@ function addNumericOption( %label, %min, %max, %step, %callback, %startingValue,
         Active = "1";
         hovertime = "1000";
         toolTipProfile = "GuiToolTipProfile";
+        toolTip = %tooltipText;
         groupNum = "-1";
         buttonType = "PushButton";
         useMouseEvents = "0";
@@ -341,6 +367,14 @@ function addNumericOption( %label, %min, %max, %step, %callback, %startingValue,
 
     Sandbox.lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
 
+    if (Sandbox.lastControlBottom > getWord(ToyCustomControls.Extent, 1))
+    {
+        %rootContainerExtent = getWord(ToyCustomControls.Extent, 0) SPC Sandbox.lastControlBottom + 20;
+    
+        ToyCustomControls.Extent = %rootContainerExtent;
+        CustomControlsScroller.computeSizes();
+    }
+    
     Sandbox.customControlCount++;
 }
 
@@ -398,7 +432,7 @@ function TextEditController::updateToy(%this)
 
 //-----------------------------------------------------------------------------
 
-function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldReset)
+function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldReset, %tooltipText)
 {
     // Combined Y extent of the up/down buttons
     %buttonExtentAddition = 46;
@@ -488,6 +522,8 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
         vScrollBar = "alwaysOn";
         constantThumbHeight = "0";
         childMargin = "2 3";
+        toolTipProfile = "GuiToolTipProfile";
+        toolTip = %tooltipText;        
     };
     
     %arrayList = new GuiDynamicCtrlArrayControl()
@@ -511,6 +547,8 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
         rowSize = "50";
         rowSpacing = "8";
         colSpacing = "8";
+        toolTipProfile = "GuiToolTipProfile";
+        toolTip = %tooltipText;       
     };
     
     %scrollControl.add(%arrayList);
@@ -543,6 +581,8 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
             groupNum = "1";
             buttonType = "ToggleButton";
             useMouseEvents = "0";
+            toolTipProfile = "GuiToolTipProfile";
+            toolTip = %tooltipText;            
         };
         
         %button.command = %arrayList @ ".clearSelections();" @ %button @ ".updateToy();";
@@ -570,6 +610,8 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
         NormalImage = "Sandbox:northArrowNormal";
         HoverImage = "Sandbox:northArrowHover";
         DownImage = "Sandbox:northArrowDown";
+        toolTipProfile = "GuiToolTipProfile";
+        toolTip = %tooltipText;       
     };
     
     %upButton.command = %scrollControl @ ".scrollToPrevious();";
@@ -594,6 +636,8 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
         NormalImage = "Sandbox:southArrowNormal";
         HoverImage = "Sandbox:southArrowHover";
         DownImage = "Sandbox:southArrowDown";
+        toolTipProfile = "GuiToolTipProfile";
+        toolTip = %tooltipText;        
     };
     
     %downButton.command = %scrollControl @ ".scrollToNext();";
@@ -602,9 +646,17 @@ function addSelectionOption( %entries, %label, %maxDisplay, %callback, %shouldRe
     %container.add(%downButton);
     
     ToyCustomControls.add(%container);
-
+        
     Sandbox.lastControlBottom = getWord(%container.position, 1) + getWord(%container.extent, 1);
-
+    
+    if (Sandbox.lastControlBottom > getWord(ToyCustomControls.Extent, 1))
+    {
+        %rootContainerExtent = getWord(ToyCustomControls.Extent, 0) SPC Sandbox.lastControlBottom + 20;
+    
+        ToyCustomControls.Extent = %rootContainerExtent;
+        CustomControlsScroller.computeSizes();
+    }
+    
     Sandbox.customControlCount++;
 }
 

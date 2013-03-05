@@ -148,7 +148,7 @@ bool Platform::deleteDirectory( const char* pPath )
 
     // Expand module location.
     char pathBuffer[1024];
-    Con::expandPath( pathBuffer, sizeof(pathBuffer), pPath, true );
+    Con::expandPath( pathBuffer, sizeof(pathBuffer), pPath, NULL, true );
 
     // Delete directory recursively.
     return deleteDirectoryRecusrive( pathBuffer );

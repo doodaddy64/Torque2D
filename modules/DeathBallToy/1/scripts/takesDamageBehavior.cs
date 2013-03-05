@@ -20,27 +20,20 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-if (!isObject(TakesDamageBehavior))
+function TakesDamageBehavior::initialize(%this, %health, %explodeEffect, %spawnEffect, %deathAnimation, %deleteOnDeath)
 {
-    %template = new BehaviorTemplate(TakesDamageBehavior);
-
-    %template.friendlyName = "Takes Damage";
-    %template.behaviorType = "Game";
-    %template.description  = "Set the object to take damage from DealsDamage objects that collide with it";
-
-    %template.addBehaviorField(health, "The amount of health the object has", int, 100);
-    %template.addBehaviorField(explodeEffect, "The particle effect to play on death", asset, "", ParticleAsset);
-    %template.addBehaviorField(spawnEffect, "The particle effect to play on spawn", asset, "", ParticleAsset);
-    %template.addBehaviorField(deathAnim, "The object's death animation, alternative to explodeEffect", asset, "", AnimationAsset);
-    %template.addBehaviorField(deleteOnDeath, "Delete the owner upon dieing", bool, false);
-}
-
-function TakesDamageBehavior::initialize(%this)
-{
+    %this.health = %health;
+    %this.explodeEffect = %explodeEffect;
+    %this.spawnEffect = %spawnEffect;
+    %this.deathAnim = %deathAnimation;
+    %this.deleteOnDeath = %deleteOnDeath;
+    
     %this.startHealth = %this.health;
    
-    %this.spawn();
+    //%this.spawn();
 }
+
+//-----------------------------------------------------------------------------
 
 function TakesDamageBehavior::takeDamage(%this, %amount, %assailant)
 {
@@ -50,7 +43,7 @@ function TakesDamageBehavior::takeDamage(%this, %amount, %assailant)
     {
         // This only works on animated sprites
         if (%this.deathAnim !$= "")
-            %this.owner.setAnimation(%this.deathAnim);
+            %this.owner.animation = %this.deathAnim;
       
         if (%this.explodeEffect !$= "")
             %this.explode();
@@ -58,6 +51,8 @@ function TakesDamageBehavior::takeDamage(%this, %amount, %assailant)
         %this.kill();
     }
 }
+
+//-----------------------------------------------------------------------------
 
 function TakesDamageBehavior::kill(%this)
 {
@@ -69,13 +64,11 @@ function TakesDamageBehavior::kill(%this)
         %this.owner.safeDelete();
 }
 
+//-----------------------------------------------------------------------------
+
 function TakesDamageBehavior::spawn(%this)
 {
     %this.health = %this.startHealth;
-
-    %this.owner.setCollisionSuppress(false);
-    %this.owner.visible = true;
-    %this.owner.alive = true;
 
     if ( isObject(%this.spawnEffect) )
     {
@@ -88,6 +81,8 @@ function TakesDamageBehavior::spawn(%this)
         SandboxScene.add( %particlePlayer );
     }
 }
+
+//-----------------------------------------------------------------------------
 
 function TakesDamageBehavior::explode(%this)
 {

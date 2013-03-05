@@ -1,6 +1,6 @@
 <ImageAsset
-    AssetName="solider"
-    ImageFile="@assetFile=#soldier.png"
+    AssetName="soldier"
+    ImageFile="soldier.png"
     CellCountX="4"
     CellCountY="4"
     CellWidth="128"

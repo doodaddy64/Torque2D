@@ -225,10 +225,10 @@ if (!isObject(GuiCheckBoxProfile)) new GuiControlProfile (GuiCheckBoxProfile)
 if(!isObject(GuiConsoleProfile)) new GuiControlProfile (GuiConsoleProfile)
 {
     fontType = $platformFontType;
-    fontSize = $platformFontSize;
-    fontColor = "255 255 255";
-    fontColorHL = "155 155 155";
-    fontColorNA = "255 0 0";
+    fontSize = $platformFontSize * 1.1;
+    fontColor = White;
+    fontColorHL = LightSlateGray;
+    fontColorNA = Red;
     fontColors[6] = "100 100 100";
     fontColors[7] = "100 100 0";
     fontColors[8] = "0 0 100";
@@ -271,7 +271,7 @@ if(!isObject(GuiNumberEditProfile)) new GuiControlProfile (GuiNumberEditProfile:
 if(!isObject(GuiConsoleTextEditProfile)) new GuiControlProfile (GuiConsoleTextEditProfile : GuiTextEditProfile)
 {
     fontType = $platformFontType;
-    fontSize = $platformFontSize;
+    fontSize = $platformFontSize * 1.1;
 };
 
 //-----------------------------------------------------------------------------
@@ -302,7 +302,7 @@ if(!isObject(ConsoleScrollProfile)) new GuiControlProfile( ConsoleScrollProfile 
 if(!isObject(GuiToolboxProfile)) new GuiControlProfile( GuiToolboxProfile : GuiScrollProfile )
 {
     opaque = true;
-    fillColor = "255 255 255 96";
+    fillColor = "255 255 255 220";
     border = 3;
     borderThickness = 0;
     borderColor = "0 0 0";

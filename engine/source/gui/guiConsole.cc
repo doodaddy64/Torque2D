@@ -70,13 +70,16 @@ S32 GuiConsole::getMaxWidth(S32 startIndex, S32 endIndex)
 void GuiConsole::onPreRender()
 {
    //see if the size has changed
-   U32 prevSize = mBounds.extent.y / mCellSize.y;
    U32 size;
    ConsoleLogEntry *log;
 
    Con::getLockLog(log, size);
    Con::unlockLog(); // we unlock immediately because we only use size here, not log.
-   
+
+   U32 prevSize = mBounds.extent.y / mCellSize.y;
+   if ( prevSize > size )
+       prevSize = 0;
+
    if(size != prevSize)
    {
       //first, find out if the console was scrolled up
@@ -87,7 +90,7 @@ void GuiConsole::onPreRender()
          scrolled = parent->isScrolledToBottom();
 
       //find the max cell width for the new entries
-      S32 newMax = getMaxWidth(prevSize, size - 1);
+      S32 newMax = getMaxWidth(0, size - 1);
       if(newMax > mCellSize.x)
          mCellSize.set(newMax, mFont->getHeight());
 

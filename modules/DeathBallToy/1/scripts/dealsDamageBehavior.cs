@@ -20,23 +20,21 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-if (!isObject(DealsDamageBehavior))
+function DealsDamageBehavior::initialize(%this, %strength, %deleteOnHit)
 {
-    %template = new BehaviorTemplate(DealsDamageBehavior);
-
-    %template.friendlyName = "Deals Damage";
-    %template.behaviorType = "Game";
-    %template.description  = "Set the object to deal damage to TakesDamage objects it collides with";
-
-    %template.addBehaviorField(strength, "The amount of damage the object deals", int, 10);
-    %template.addBehaviorField(deleteOnHit, "Delete the object when it collides", bool, 1);
+    %this.strength = %strength;
+    %this.deleteOnHit = %deleteOnHit;
 }
+
+//-----------------------------------------------------------------------------
 
 function DealsDamageBehavior::onBehaviorAdd(%this)
 {
     %this.owner.collisionCallback = true;
     %this.owner.collisionActiveSend = true;
 }
+
+//-----------------------------------------------------------------------------
 
 function DealsDamageBehavior::dealDamage(%this, %amount, %victim)
 {
@@ -47,6 +45,8 @@ function DealsDamageBehavior::dealDamage(%this, %amount, %victim)
    
     %takesDamage.takeDamage(%amount, %this);
 }
+
+//-----------------------------------------------------------------------------
 
 function DealsDamageBehavior::explode(%this, %position)
 {
@@ -59,9 +59,11 @@ function DealsDamageBehavior::explode(%this, %position)
     }
 }
 
-function DealsDamageBehavior::onCollision(%this, %dstObj, %srcRef, %dstRef, %time, %normal, %contactCount, %contacts)
+//-----------------------------------------------------------------------------
+
+function DealsDamageBehavior::handleCollision(%this, %object, %collisionDetails)
 {
-    %this.dealDamage(%this.strength, %dstObj);
+    %this.dealDamage(%this.strength, %object);
    
     if (%this.deleteOnHit)
     {

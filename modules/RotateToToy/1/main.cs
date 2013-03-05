@@ -26,10 +26,12 @@ function RotateToToy::create( %this )
     activatePackage( RotateToToyPackage );    
     
     // Initialize the toys settings.
-    RotateToToy.rotateTime = 500;
+    RotateToToy.rotateSpeed = 360;
+    RotateToToy.trackMouse = true;
 
     // Add the custom controls.
-    addNumericOption("Rotate time", 10, 10000, 10, "setRotateTime", RotateToToy.rotateTime, true);
+    addNumericOption("Rotate Speed", 1, 720, 1, "setRotateSpeed", RotateToToy.rotateSpeed, false, "Sets the angular speed to use to rotate to the target angle.");
+    addFlagOption("Track Mouse", "setTrackMouse", RotateToToy.trackMouse, false, "Whether to track the angle to the mouse or not." );
     
     // Reset the toy initially.
     RotateToToy.reset();      
@@ -62,7 +64,7 @@ function RotateToToy::reset( %this )
 
 function RotateToToy::createBackground( %this )
 {    
-    // Create the scroller.
+    // Create the sprite.
     %object = new Sprite();
     
     // Set the sprite as "static" so it is not affected by gravity.
@@ -79,7 +81,7 @@ function RotateToToy::createBackground( %this )
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
     
-    // Set the scroller to use an animation!
+    // Set an image.
     %object.Image = "ToyAssets:highlightBackground";
     
     // Set the blend color.
@@ -112,9 +114,16 @@ function RotateToToy::createTarget( %this )
 
 //-----------------------------------------------------------------------------
 
-function RotateToToy::setRotateTime( %this, %value )
+function RotateToToy::setRotateSpeed( %this, %value )
 {
-    %this.rotateTime = %value;
+    %this.rotateSpeed = %value;
+}
+
+//-----------------------------------------------------------------------------
+
+function RotateToToy::setTrackMouse( %this, %value )
+{
+    %this.trackMouse = %value;
 }
 
 //-----------------------------------------------------------------------------
@@ -129,7 +138,23 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPosition)
     %angle = -mRadToDeg( mAtan( getWord(%worldPosition,0)-getWord(%origin,0), getWord(%worldPosition,1)-getWord(%origin,1) ) );
     
     //Rotate to the touched angle.
-    RotateToToy.TargetObject.RotateTo( %angle, RotateToToy.rotateTime );
+    RotateToToy.TargetObject.RotateTo( %angle, RotateToToy.rotateSpeed );
+}
+
+//-----------------------------------------------------------------------------
+
+function SandboxWindow::onTouchMoved(%this, %touchID, %worldPosition)
+{
+    // Finish if not tracking the mouse.
+    if ( !RotateToToy.trackMouse )
+        return;
+        
+    // Calculate the angle to the mouse.
+    %origin = RotateToToy.TargetObject.getPosition();
+    %angle = -mRadToDeg( mAtan( getWord(%worldPosition,0)-getWord(%origin,0), getWord(%worldPosition,1)-getWord(%origin,1) ) );
+    
+    //Rotate to the touched angle.
+    RotateToToy.TargetObject.RotateTo( %angle, RotateToToy.rotateSpeed );        
 }
     
 };

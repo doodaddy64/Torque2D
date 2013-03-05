@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="Tiles"
-    ImageFile="@assetFile=#tiles.png"
+    ImageFile="tiles.png"
 	FilterMode="NEAREST"
     CellCountX="4"
     CellCountY="4"

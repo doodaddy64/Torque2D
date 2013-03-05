@@ -41,8 +41,8 @@ function PyramidToy::create( %this )
     SandboxScene.setGravity( 0, -9.8 );
 
     // Add configuration option.
-    addNumericOption( "Block Count", 2, 30, 1, "setBlockCount", PyramidToy.BlockCount, true );
-    addNumericOption( "Block Size", 1, 4, 0.5, "setBlockSize", PyramidToy.BlockSize, true );
+    addNumericOption( "Block Count", 2, 30, 1, "setBlockCount", PyramidToy.BlockCount, true, "Sets the number of blocks used to create the pyramid." );
+    addNumericOption( "Block Size", 1, 4, 0.5, "setBlockSize", PyramidToy.BlockSize, true, "Sets the size of the blocks used to create the pyramid." );
     
     // Reset the toy.
     PyramidToy.reset();
@@ -89,7 +89,7 @@ function PyramidToy::setBlockSize(%this, %value)
 
 function PyramidToy::createBackground( %this )
 {    
-    // Create the scroller.
+    // Create the sprite.
     %object = new Sprite();
     
     // Set the sprite as "static" so it is not affected by gravity.
@@ -106,7 +106,7 @@ function PyramidToy::createBackground( %this )
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
     
-    // Set the scroller to use an animation!
+    // Set an image.
     %object.Image = "ToyAssets:jungleSky";
             
     // Add the sprite to the scene.

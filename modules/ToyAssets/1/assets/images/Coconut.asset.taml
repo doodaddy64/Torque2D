@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="Coconut"
-    ImageFile="@assetFile=#Coconut.png"
+    ImageFile="Coconut.png"
     CellCountX="4"
     CellCountY="4"
     CellWidth="32"

@@ -26,7 +26,7 @@ function SceneLayerToy::create( %this )
     SceneLayerToy.AngularSpeed = 1;
     
     // Add the configuration options.
-    addNumericOption("Angular Speed", -50, 50, 1, "setAngularScale", SceneLayerToy.AngularSpeed, true );       
+    addNumericOption("Angular Speed", -50, 50, 1, "setAngularScale", SceneLayerToy.AngularSpeed, true, "Sets the rotational speed for the blocks." );       
     
     // Reset the toy.
     SceneLayerToy.reset();
@@ -56,7 +56,7 @@ function SceneLayerToy::reset( %this )
 
 function SceneLayerToy::createBackground( %this )
 {    
-    // Create the scroller.
+    // Create the sprite.
     %object = new Sprite();
     
     // Set the sprite as "static" so it is not affected by gravity.
@@ -73,7 +73,7 @@ function SceneLayerToy::createBackground( %this )
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
     
-    // Set the scroller to use an animation!
+    // Set an image.
     %object.Image = "ToyAssets:highlightBackground";
     
     // Set the blend color.

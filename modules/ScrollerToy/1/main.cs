@@ -54,7 +54,7 @@ function ScrollerToy::reset( %this )
 
 function ScrollerToy::createBackground( %this )
 {    
-    // Create the scroller.
+    // Create the sprite.
     %object = new Sprite();
        
     // Always try to configure a scene-object prior to adding it to a scene for best performance.
@@ -68,7 +68,7 @@ function ScrollerToy::createBackground( %this )
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
     
-    // Set the scroller to use an animation!
+    // Set an image.
     %object.Image = "ToyAssets:jungleSky";
             
     // Add the sprite to the scene.

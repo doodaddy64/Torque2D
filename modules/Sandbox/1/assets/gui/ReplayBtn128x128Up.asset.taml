@@ -1,3 +1,3 @@
 <ImageAsset
     AssetName="ReplayBtn128x128UpImage"
-    ImageFile="@assetFile=#ReplayBtn128x128Up.png" />
+    ImageFile="ReplayBtn128x128Up.png" />

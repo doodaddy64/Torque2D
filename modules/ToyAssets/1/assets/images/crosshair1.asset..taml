@@ -1,3 +1,3 @@
 <ImageAsset
     AssetName="Crosshair1"
-    ImageFile="@assetFile=#crosshair1.png" />
+    ImageFile="crosshair1.png" />

@@ -35,8 +35,8 @@ function SphereStackToy::create( %this )
     SphereStackToy.GroundWidth = 150;
     
     // Add the custom controls.
-    addNumericOption("Balls to stack", 1, 15, 1, "setMaxBalls", SphereStackToy.maxBalls, true);
-    addNumericOption("Balls stacks", 1, 10, 1, "setBallStacks", SphereStackToy.ballStacks, true);
+    addNumericOption("Balls to stack", 1, 15, 1, "setMaxBalls", SphereStackToy.maxBalls, true, "Sets the number of balls to stack.");
+    addNumericOption("Balls stacks", 1, 10, 1, "setBallStacks", SphereStackToy.ballStacks, true, "Sets the number of ball stacks.");
 
     // Reset the toy initially.
     SphereStackToy.reset();
@@ -46,8 +46,6 @@ function SphereStackToy::create( %this )
 
 function SphereStackToy::destroy( %this )
 {   
-    // Cancel any pending events.
-    SphereStackToy::cancelPendingEvents();
 }
 
 //-----------------------------------------------------------------------------
@@ -68,38 +66,22 @@ function SphereStackToy::reset(%this)
     
     // Reset the ball count.    
     %this.currentBalls = 0;
-    
-    // Cancel any pending events.
-    SphereStackToy::cancelPendingEvents();
-    
+        
     // Create the background.
     %this.createBackground();
     
     // Create the ground.
     %this.createGround();
         
-    // Schedule to create a ball.
-    %this.createBallScheduleId = %this.schedule( 100, "createBall" );
-}
-
-//-----------------------------------------------------------------------------
-
-function SphereStackToy::cancelPendingEvents(%this)
-{
-    // Finish if there are not pending events.
-    if ( !isEventPending(%this.createBallScheduleId) )
-        return;
-        
-    // Cancel it.
-    cancel(%this.createBallScheduleId);
-    %this.createBallScheduleId = "";
+    // Start the timer.
+    SphereStackToy.startTimer( "createball", 100 );
 }
 
 //-----------------------------------------------------------------------------
 
 function SphereStackToy::createBackground( %this )
 {    
-    // Create the scroller.
+    // Create the sprite.
     %object = new Sprite();
     
     // Stop the background from being affected by gravity.
@@ -116,7 +98,7 @@ function SphereStackToy::createBackground( %this )
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
     
-    // Set the scroller to use an animation!
+    // Set an image.
     %object.Image = "ToyAssets:skyBackground";
             
     // Add the sprite to the scene.
@@ -150,12 +132,14 @@ function SphereStackToy::createGround( %this )
 
 function SphereStackToy::createBall(%this)
 {
-    // Reset the event schedule.
-    %this.createBallScheduleId = "";
-
     // Finish if exceeded the required number of balls.
     if ( %this.currentBalls >= %this.maxBalls)
+    {
+        // Stop the timer.
+        SphereStackToy.stopTimer();
+        
         return;
+    }
 
     // Set the ball size.
     %ballSize = 2;
@@ -188,10 +172,10 @@ function SphereStackToy::createBall(%this)
     
     // Finish if exceeded the required number of balls.
     if ( %this.currentBalls == %this.maxBalls)
-        return;
-
-    // Schedule to create a ball.
-    %this.createBallScheduleId = %this.schedule( 150, "createBall" );
+    {
+        // Stop the timer.
+        SphereStackToy.stopTimer();
+    }
 }
 
 //-----------------------------------------------------------------------------

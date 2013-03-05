@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="dbForward"
-    ImageFile="@assetFile=#dbForward.png"
+    ImageFile="dbForward.png"
     CellCountX="4"
     CellCountY="4"
     CellWidth="256"

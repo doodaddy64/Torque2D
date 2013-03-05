@@ -1,3 +1,3 @@
 <ImageAsset
     AssetName="truckBody"
-    ImageFile="@assetFile=#truckBody.png" />
+    ImageFile="truckBody.png" />

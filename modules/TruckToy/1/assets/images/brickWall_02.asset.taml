@@ -1,3 +1,3 @@
 <ImageAsset
     AssetName="brickWall_02"
-    ImageFile="@assetFile=#brickWall_02.png" />
+    ImageFile="brickWall_02.png" />

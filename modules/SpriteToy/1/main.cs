@@ -60,7 +60,7 @@ function SpriteToy::reset( %this )
 
 function SpriteToy::createBackground( %this )
 {    
-    // Create the scroller.
+    // Create the sprite.
     %object = new Sprite();
     
     // Set the sprite as "static" so it is not affected by gravity.

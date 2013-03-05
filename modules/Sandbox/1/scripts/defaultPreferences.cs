@@ -25,7 +25,7 @@ $Game::CompanyName              = "GarageGames LLC";
 $Game::ProductName              = "Torque 2D Sandbox";
 
 // Sandbox.
-$pref::Sandbox::defaultToyId           = "AquariumToy";
+$pref::Sandbox::defaultToyId           = "TruckToy";
 $pref::Sandbox::defaultToyVersionId    = 1;
 $pref::Sandbox::defaultBackgroundColor = "Black";
 $pref::Sandbox::metricsOption   = false;
@@ -38,7 +38,8 @@ $pref::Sandbox::sleepOption     = false;
 $pref::Sandbox::collisionOption = false;
 $pref::Sandbox::positionOption  = false;
 $pref::Sandbox::sortOption      = false;
-$pref::Sandbox::cameraZoomRate  = 0.02;
+$pref::Sandbox::cameraMouseZoomRate = 0.1;
+$pref::Sandbox::cameraTouchZoomRate = 0.001;
 
 /// iOS
 $pref::iOS::ScreenOrientation   = $iOS::constant::Landscape;

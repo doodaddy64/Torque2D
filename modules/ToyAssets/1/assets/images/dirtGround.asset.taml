@@ -1,3 +1,3 @@
 <ImageAsset
     AssetName="dirtGround"
-    ImageFile="@assetFile=#dirtGround.png" />
+    ImageFile="dirtGround.png" />

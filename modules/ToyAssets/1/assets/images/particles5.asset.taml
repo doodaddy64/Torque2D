@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="Particles5"
-    ImageFile="@assetFile=#particles5.png"
+    ImageFile="particles5.png"
     CellCountX="2"
     CellCountY="2"
     CellWidth="64"

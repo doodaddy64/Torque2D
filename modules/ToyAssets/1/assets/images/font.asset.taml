@@ -1,7 +1,6 @@
 <ImageAsset
     AssetName="font"
-    ImageFile="@assetFile=#font.png"
-	FilterMode="NEAREST"
+    ImageFile="font.png"
 	CellOffsetY="1"
 	CellStrideY="16"
     CellCountX="16"

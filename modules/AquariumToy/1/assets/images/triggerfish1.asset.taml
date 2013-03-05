@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="triggerfish1"
-    ImageFile="@assetFile=#triggerfish1.png"
+    ImageFile="triggerfish1.png"
     CellCountX="2"
     CellCountY="2"
     CellWidth="256"

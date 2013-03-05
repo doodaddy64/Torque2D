@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="seahorse"
-    ImageFile="@assetFile=#seahorse.png"
+    ImageFile="seahorse.png"
     CellCountX="4"
     CellCountY="1"
     CellWidth="128"

@@ -42,10 +42,10 @@ function CompositeSpriteToy::create( %this )
     CompositeSpriteToy.RenderIsolated = false;
 
     // Add the configuration options.
-    addSelectionOption( "None,Custom,Rectilinear,Isometric", "Layout Mode", 4, "setLayoutMode", true );
-    addNumericOption("Maximum Sprite Count", 10, 1000, 10, "setSpriteCount", CompositeSpriteToy.SpriteCount, true );
-    addNumericOption("Angular Velocity", -180, 180, 20, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, false );    
-    addFlagOption("Render Isolated", "setRenderIsolated", CompositeSpriteToy.RenderIsolated, true );
+    addSelectionOption( "None,Custom,Rectilinear,Isometric", "Layout Mode", 4, "setLayoutMode", true, "Selects the layout mode for the composite sprite." );
+    addNumericOption("Maximum Sprite Count", 10, 1000, 10, "setSpriteCount", CompositeSpriteToy.SpriteCount, true, "Sets the maximum number of sprites to create." );
+    addNumericOption("Angular Velocity", -180, 180, 20, "setAngularVelocity", CompositeSpriteToy.AngularVelocity, false, "Sets the rate at which the composite sprite spins." );    
+    addFlagOption("Render Isolated", "setRenderIsolated", CompositeSpriteToy.RenderIsolated, true , "Whether the composite renders its sprites isolated from the scene layer it occupies or not.");
         
     // Reset the toy.
     %this.reset();     

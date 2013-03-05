@@ -20,119 +20,81 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-if (!isObject(SpawnAreaBehavior))
+function SpawnAreaBehavior::initialize(%this, %object, %count, %spawnTime, %spawnVariance, %autoSpawn, %spawnLocation)
 {
-    %template = new BehaviorTemplate(SpawnAreaBehavior);
-
-    %template.friendlyName = "Spawn Area";
-    %template.behaviorType = "AI";
-    %template.description  = "Spawns objects inside the area of this object";
-
-    %template.addBehaviorField(object, "The object to clone", object, "", sceneObject);
-    %template.addBehaviorField(count, "The number of objects to clone (-1 for infinite)", int, 50);
-    %template.addBehaviorField(spawnTime, "The time between spawns (seconds)", float, 2.0);
-    %template.addBehaviorField(spawnVariance, "The variance in the spawn time (seconds)", float, 1.0);
-
-    %spawnLocations = "Area" TAB "Edges" TAB "Center" TAB "Top" TAB "Bottom" TAB "Left" TAB "Right";
-    %template.addBehaviorField(spawnLocation, "The are in which objects can be spawned", enum, "Area", %spawnLocations);
-
-    %template.addBehaviorField(autoSpawn, "Automatically start/stop spawning", bool, true);
+    %this.object = %object;
+    %this.count = %count;
+    %this.spawnTime = %spawnTime;
+    %this.spawnVariance = %spawnVariance;
+    %this.autoSpawn = %autoSpawn;
+    %this.spawnLocation = %spawnLocation;
 }
 
-function SpawnAreaBehavior::onAddToScene(%this, %scenegraph)
+//-----------------------------------------------------------------------------
+
+function SpawnAreaBehavior::onBehaviorAdd(%this, %scenegraph)
 {
     %this.spawnCount = 0;
-   
-    if (%this.count && %this.autoSpawn)
-        %this.spawnEvent = %this.schedule(%this.spawnTime, "spawn");
+    %this.schedule(%this.spawnStart * 1000, "spawn");
 }
 
-function SpawnAreaBehavior::startSpawns(%this)
-{
-    if (%this.autoSpawn)
-        return;
-      
-    if (%this.count)
-        %this.spawnEvent = %this.schedule(%this.spawnTime, "spawn");
-}
+//-----------------------------------------------------------------------------
 
 function SpawnAreaBehavior::spawn(%this)
 {
-    if (!isObject(%this.object))
+    if (!isObject(%this.object) || !%this.owner.enabled)
         return;
-   
-    %clone = 0;
-   
-    for (%i = 0; %i < %this.spawnCount; %i++)
-    {
-        if (!%this.pool[%i].isEnabled())
-        {
-            %clone = %this.pool[%i];
-            %clone.Enabled = true;
-         
-            break;
-        }
-    }
-   
-    if (!%clone)
-    {
-        %this.pool[%this.spawnCount] = %this.object.cloneWithBehaviors();
-        %clone = %this.pool[%this.spawnCount];
-        %this.spawnCount++;
-    }
-   
+
+    %clone = %this.object.clone();
+
+    SandboxScene.add(%clone);
+
+    %clone.setEnabled(1);
+
     %xPos = 0;
     %yPos = 0;
     %spawnLocation = %this.spawnLocation;
+
     %edges = "Top" TAB "Bottom" TAB "Left" TAB "Right";
 
     if (%spawnLocation $= "Edges")
         %spawnLocation = getField(%edges, getRandom(0, 3));
-   
+
     switch$ (%spawnLocation)
     {
         case "Area":
             %xPos = getRandom(getWord(%this.owner.getAreaMin(), 0), getWord(%this.owner.getAreaMax(), 0));
             %yPos = getRandom(getWord(%this.owner.getAreaMin(), 1), getWord(%this.owner.getAreaMax(), 1));
-            
         case "Center":
             %xPos = %this.owner.position.x;
             %yPos = %this.owner.position.y;
-            
         case "Top":
             %xPos = getRandom(getWord(%this.owner.getAreaMin(), 0), getWord(%this.owner.getAreaMax(), 0));
             %yPos = getWord(%this.owner.getAreaMin(), 1);
-        
         case "Bottom":
             %xPos = getRandom(getWord(%this.owner.getAreaMin(), 0), getWord(%this.owner.getAreaMax(), 0));
             %yPos = getWord(%this.owner.getAreaMax(), 1);
-        
         case "Left":
             %xPos = getWord(%this.owner.getAreaMin(), 0);
             %yPos = getRandom(getWord(%this.owner.getAreaMin(), 1), getWord(%this.owner.getAreaMax(), 1));
-        
         case "Right":
             %xPos = getWord(%this.owner.getAreaMax(), 0);
             %yPos = getRandom(getWord(%this.owner.getAreaMin(), 1), getWord(%this.owner.getAreaMax(), 1));
-   }
-   
-    %clone.position = %xPos SPC %yPos;
-   
-    %clone.active = true;
+    }
 
-    if (%this.spawnCount < %this.count)
+    %clone.position = %xPos SPC %yPos;
+
+    %this.spawnCount++;
+
+    if (%this.spawnCount < %this.count || %this.count == -1)
     {
         %minTime = (%this.spawnTime - %this.spawnVariance) * 1000;
         %maxTime = (%this.spawnTime + %this.spawnVariance) * 1000;
         %spawnTime = getRandom(%minTime, %maxTime);
-        %this.spawnEvent = %this.schedule(%spawnTime, "spawn");
-    }
-}
 
-function SpawnAreaBehavior::stopSpawns(%this)
-{
-    if (%this.autoSpawn)
-        return;
-      
-    cancel(%this.spawnEvent);
+        if( %spawnTime < 55 )
+            %spawnTime = 55;
+
+        %this.schedule(%spawnTime, "spawn");
+    }
 }

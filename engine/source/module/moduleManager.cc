@@ -1161,7 +1161,7 @@ StringTableEntry ModuleManager::copyModule( ModuleDefinition* pSourceModuleDefin
     {
         // No, so we have to ensure that there is a trailing slash as that indicates a folder (not a file) when creating a path in the platform code.
         char createDirectoryBuffer[1024];
-        Con::expandPath( createDirectoryBuffer, sizeof(createDirectoryBuffer), pTargetPath, true );
+        Con::expandPath( createDirectoryBuffer, sizeof(createDirectoryBuffer), pTargetPath, NULL, true );
 
         // No, so can we create it?
         if ( !Platform::createPath( createDirectoryBuffer ) )
@@ -1311,7 +1311,7 @@ bool ModuleManager::synchronizeDependencies( ModuleDefinition* pRootModuleDefini
     {
         // No, so we have to ensure that there is a trailing slash as that indicates a folder (not a file) when creating a path in the platform code.
         char createDirectoryBuffer[1024];
-        Con::expandPath( createDirectoryBuffer, sizeof(createDirectoryBuffer), pTargetDependencyPath, true );
+        Con::expandPath( createDirectoryBuffer, sizeof(createDirectoryBuffer), pTargetDependencyPath, NULL, true );
 
         // No, so can we create it?
         if ( !Platform::createPath( createDirectoryBuffer ) )

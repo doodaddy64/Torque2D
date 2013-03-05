@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="Asteroids"
-    ImageFile="@assetFile=#asteroids.png"
+    ImageFile="asteroids.png"
     CellCountX="2"
     CellCountY="2"
     CellWidth="128"

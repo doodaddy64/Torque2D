@@ -1,4 +1,4 @@
 <AudioAsset
     AssetName="DwarfDeathSound"
     AssetAutoUnload="0"
-    AudioFile="@assetFile=#TD_DwarfDeathSound.wav" />
+    AudioFile="TD_DwarfDeathSound.wav" />

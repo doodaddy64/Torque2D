@@ -1,7 +1,7 @@
 <ModuleDefinition
 	ModuleId="MoveToToy"
 	VersionId="1"
-	Description="Show the T2D 'MoveTo' feature."
+	Description="Demonstrates the ability to move to a specific position over time."
 	Dependencies="ToyAssets=1"
 	Type="toy"
 	ToyCategoryIndex="3"

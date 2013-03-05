@@ -67,6 +67,8 @@ function ToggleConsole( %make )
     // Activate it.
     if ( $enableDirectInput )
         deactivateKeyboard();    
-    Canvas.pushDialog(ConsoleDialog, 2);         
+        
+    Canvas.pushDialog(ConsoleDialog);
+    ConsoleScrollCtrl.scrollToBottom();    
     ConsoleEntry.setFirstResponder();
 }

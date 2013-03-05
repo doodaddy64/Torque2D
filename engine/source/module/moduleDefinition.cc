@@ -54,6 +54,7 @@ ModuleDefinition::ModuleDefinition() :
     mDeprecated( false ),
     mCriticalMerge( false ),
     mModuleDescription( StringTable->EmptyString ),
+    mAuthor( StringTable->EmptyString ),
     mModuleGroup( StringTable->EmptyString ),
     mModuleType( StringTable->EmptyString ),
     mScriptFile( StringTable->EmptyString ),
@@ -93,6 +94,7 @@ void ModuleDefinition::initPersistFields()
     addProtectedField( "Deprecated", TypeBool, Offset(mDeprecated, ModuleDefinition), &setDeprecated, &defaultProtectedGetFn, &writeDeprecated, "Whether the module is deprecated or not.  Optional: If not specified then the module is not deprecated." );
     addProtectedField( "CriticalMerge", TypeBool, Offset(mCriticalMerge, ModuleDefinition), &setDeprecated, &defaultProtectedGetFn, &writeCriticalMerge, "Whether the merging of a module prior to a restart is critical or not.  Optional: If not specified then the module is not merge critical." );
     addProtectedField( "Description", TypeString, Offset(mModuleDescription, ModuleDefinition), &setModuleDescription, &defaultProtectedGetFn, &writeModuleDescription, "The description displayed for debugging purposes." );
+    addProtectedField( "Author", TypeString, Offset(mAuthor, ModuleDefinition), &setAuthor, &defaultProtectedGetFn, &writeAuthor, "The author of the module." );
     addProtectedField( "Group", TypeString, Offset(mModuleGroup, ModuleDefinition), &setModuleGroup, &defaultProtectedGetFn, "The module group used typically when loading modules as a group." );
     addProtectedField( "Type", TypeString, Offset(mModuleType, ModuleDefinition), &setModuleType, &defaultProtectedGetFn, &writeModuleType, "The module type typically used to distinguish modules during module enumeration.  Optional: If not specified then the type is empty although this can still be used as a pseudo 'global' type for instance." );
     addProtectedField( "Dependencies", TypeString, Offset(mDependencies, ModuleDefinition), &setDependencies, &getDependencies, &writeDependencies, "A comma-separated list of module Ids/VersionIds (<ModuleId>=<VersionId>,<ModuleId>=<VersionId>,etc) which this module depends upon. Optional: If not specified then no dependencies are assumed." );

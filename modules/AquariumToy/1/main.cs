@@ -25,7 +25,6 @@ function AquariumToy::create( %this )
     exec("./scripts/aquarium.cs");
 
     // Configure settings.
-    AquariumToy.createFishScheduleId = "";
     AquariumToy.maxFish = 10;
     AquariumToy.currentFish = 0;
     AquariumToy.selectedAnimation = "AquariumToy:angelfish1Anim";
@@ -39,9 +38,9 @@ function AquariumToy::create( %this )
     SandboxScene.setLayerSortMode( 4, batch );
     SandboxScene.setLayerSortMode( 5, batch );
     
-    addNumericOption("Max Fish", 1, 50, 1, "setMaxFish", %this.maxFish, true);
-    addSelectionOption(getFishAnimationList(), "Fish Animation", 5, "setSelectedAnimation", false);
-    addButtonOption("Spawn fish", "spawnOneFish", false);  
+    addNumericOption("Max Fish", 1, 50, 1, "setMaxFish", %this.maxFish, true, "Sets the maximum number of fish to be created.");
+    addSelectionOption(getFishAnimationList(), "Fish Animation", 5, "setSelectedAnimation", false, "Selects the fish animation that can be spawned manually.");
+    addButtonOption("Spawn fish", "spawnOneFish", false, "Spawns the selected fish animation." );  
 
     // Reset the toy initially.
     AquariumToy.reset();
@@ -51,8 +50,6 @@ function AquariumToy::create( %this )
 
 function AquariumToy::destroy( %this )
 {
-    // Cancel any pending events.
-    AquariumToy::cancelPendingEvents();
 }
 
 //-----------------------------------------------------------------------------
@@ -71,33 +68,14 @@ function AquariumToy::reset(%this)
     // Reset the ball count.
     %this.currentFish = 0;
 
-    // Cancel any pending events.
-    AquariumToy::cancelPendingEvents();
-
-    // Schedule to create a ball.
-    %this.createFishScheduleId = %this.schedule( 100, "spawnFish" );
-}
-
-//-----------------------------------------------------------------------------
-
-function AquariumToy::cancelPendingEvents(%this)
-{
-    // Finish if there are not pending events.
-    if ( !isEventPending(%this.createFishScheduleId) )
-        return;
-
-    // Cancel it.
-    cancel(%this.createFishScheduleId);
-    %this.createFishScheduleId = "";
+    // Start the timer.
+    AquariumToy.startTimer( "spawnFish", 100 );
 }
 
 //-----------------------------------------------------------------------------
 
 function AquariumToy::spawnFish(%this)
 {
-    // Reset the event schedule.
-    %this.createFishScheduleId = "";
-
     %position = getRandom(-55, 55) SPC getRandom(-20, 20);
     %index = getRandom(0, 5);
     %anim = getUnit(getFishAnimationList(), %index, ",");
@@ -125,9 +103,12 @@ function AquariumToy::spawnFish(%this)
 
     %this.currentFish++;
 
-    // Schedule to spawn a fish.
-    if ( %this.currentFish < %this.maxFish)
-        %this.createFishScheduleId = %this.schedule( 100, "spawnFish" );
+    // Have we reached the maximum number of fish?
+    if ( %this.currentFish >= %this.maxFish)
+    {
+        // Yes, so stop the timer.
+        AquariumToy.stopTimer();
+    }
 }
 
 //-----------------------------------------------------------------------------

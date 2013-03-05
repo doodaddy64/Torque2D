@@ -1,7 +1,7 @@
 <ModuleDefinition
 	ModuleId="RotateToToy"
 	VersionId="1"
-	Description="Show the T2D 'RotateTo' feature."
+	Description="Demonstrates the ability to rotate to a specific angle over time."
 	Dependencies="ToyAssets=1"
 	Type="toy"
 	ToyCategoryIndex="3"

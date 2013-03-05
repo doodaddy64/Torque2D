@@ -1,7 +1,7 @@
 <ImageAsset
     AssetName="butterflyfish"
-    ImageFile="@assetFile=#butterflyfish.png"
-	CellCountX="2"
+    ImageFile="butterflyfish.png"
+    CellCountX="2"
     CellCountY="2"
     CellWidth="256"
     CellHeight="256" />

@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="dbRight"
-    ImageFile="@assetFile=#dbRight.png"
+    ImageFile="dbRight.png"
     CellCountX="4"
     CellCountY="4"
     CellWidth="256"

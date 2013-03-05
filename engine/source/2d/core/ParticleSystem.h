@@ -33,7 +33,7 @@ class ParticleSystem
 {
 public:
     /// Particle node.
-    struct ParticleNode
+    struct ParticleNode : public IFactoryObjectReset
     {
         /// Particle Node Linkages.
         ParticleNode*           mPreviousNode;
@@ -72,6 +72,11 @@ public:
         Vector2                 mPreTickPosition;
         Vector2                 mPostTickPosition;
         Vector2                 mRenderTickPosition;
+
+        virtual void resetState( void )
+        {
+            mAnimationController.resetState();
+        }
     };
 
 private:
@@ -92,7 +97,7 @@ public:
     void freeParticle( ParticleNode* pParticleNode );
 
     inline U32 getActiveParticleCount( void ) const { return mActiveParticleCount; };
-    inline U32 getAllocatedParticleCount( void ) const { return mParticlePool.size() * mParticlePoolBlockSize; }
+    inline U32 getAllocatedParticleCount( void ) const { return (U32)mParticlePool.size() * mParticlePoolBlockSize; }
 };
 
 #endif // _PARTICLE_SYSTEM_H_

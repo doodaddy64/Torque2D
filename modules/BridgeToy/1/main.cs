@@ -37,7 +37,7 @@ function BridgeToy::create(%this)
     BridgeToy.maxDebris = 3;
     
     // Add configuration option.
-    addNumericOption("Amount of Debris", 0, 30, 1, "setMaxDebris", BridgeToy.maxDebris, true);
+    addNumericOption("Amount of Debris", 0, 30, 1, "setMaxDebris", BridgeToy.maxDebris, true, "Sets the amount of debris created.");
     
     // Reset the toy initially.
     BridgeToy.reset();
@@ -83,7 +83,7 @@ function BridgeToy::reset(%this)
 
 function BridgeToy::createBackground( %this )
 {    
-    // Create the scroller.
+    // Create the sprite.
     %object = new Sprite();
     
     // Set the sprite as "static" so it is not affected by gravity.
@@ -100,7 +100,7 @@ function BridgeToy::createBackground( %this )
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
     
-    // Set the scroller to use an animation!
+    // Set an image.
     %object.Image = "ToyAssets:jungleSky";
             
     // Add the sprite to the scene.

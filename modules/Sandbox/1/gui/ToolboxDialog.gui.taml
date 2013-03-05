@@ -7,7 +7,7 @@
     Extent="1024 768"
     MinExtent="320 320"
     Visible="1"
-	Image="@asset=Sandbox:largeContainer">
+	Image="@asset=Sandbox:blueGradient">
 	
 	<!-- Close Toolbox -->
 	<GuiButtonCtrl
@@ -149,13 +149,33 @@
 	</GuiControl>
 	
     <!-- Toy Custom Controls -->
-	<GuiControl
-		Name="ToyCustomControls"
-		Profile="GuiDefaultProfile"
+	<GuiScrollCtrl
+		Name="CustomControlsScroller"
+		canSaveDynamicFields="1"
+		isContainer="1"
+		Profile="GuiLightScrollProfile"
 		HorizSizing="relative"
 		VertSizing="relative"
-		Position="320 16"
-		Extent="580 768"/>
+		Position="365 30"
+		Extent="315 730"
+		MinExtent="315 730"
+		canSave="1"
+		Visible="1"
+		Active="1"
+		hovertime="1000"
+		willFirstRespond="1"
+		hScrollBar="alwaysOff"
+		vScrollBar="dynamic"
+		constantThumbHeight="0"
+		childMargin="2 3" >
+		<GuiControl
+			Name="ToyCustomControls"
+			Profile="GuiSunkenContainerProfile"
+			HorizSizing="relative"
+			VertSizing="relative"
+			Position="3 3"
+			Extent="295 705" />
+	</GuiScrollCtrl>
 
 	<!-- Toy Selection Panel -->
 	<GuiControl
@@ -244,8 +264,7 @@
             DownImage="@asset=Sandbox:plusButtonDown"
             InactiveImage="@asset=Sandbox:plusButtonInactive" />
 			
-		<!-- Toy Selection -->
-        
+		<!-- Toy Selection -->        
 		<GuiImageButtonCtrl
 			Name="PreviousToyButton"
 			canSaveDynamicFields="0"

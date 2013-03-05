@@ -1,7 +1,7 @@
 <ModuleDefinition
     ModuleId="PyramidToy"
     VersionId="1"
-    Description="Box2D Pyramid Test."
+    Description="Demonstrates rigid-body stacking."
     Dependencies="ToyAssets=1"
     Type="toy"
     ToyCategoryIndex="2"

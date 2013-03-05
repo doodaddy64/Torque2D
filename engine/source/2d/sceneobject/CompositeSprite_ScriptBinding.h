@@ -108,6 +108,27 @@ ConsoleMethod(CompositeSprite, getBatchIsolated, bool, 2, 2,    "() - Gets wheth
 
 //-----------------------------------------------------------------------------
 
+ConsoleMethod(CompositeSprite, setBatchCulling, void, 3, 3,     "(bool batchCulling) - Sets whether the sprites are culled.\n"
+                                                                "For sprites that are off-screen this is considerably faster during render at the expense of memory.\n"
+                                                                "For small composites with a few sprites, the overhead is probably not worth it.\n"
+                                                                "@return No return value." )
+{
+    // Fetch batch culling..
+    const bool batchCulling = dAtob(argv[2]);
+
+    STATIC_VOID_CAST_TO(CompositeSprite, SpriteBatch, object)->setBatchCulling( batchCulling );
+}
+
+//-----------------------------------------------------------------------------
+
+ConsoleMethod(CompositeSprite, getBatchCulling, bool, 2, 2,    "() - Gets whether the sprites are render culled or not\n"
+                                                                "@return Whether the sprites are rendered culled or not." )
+{
+    return object->getBatchCulling();
+}
+
+//-----------------------------------------------------------------------------
+
 ConsoleMethod(CompositeSprite, setBatchSortMode, void, 3, 3,    "(renderSortMode) - Sets the batch render sort mode.\n"
                                                                 "The render sort mode is used when isolated batch mode is on.\n"
                                                                 "@return No return value." )

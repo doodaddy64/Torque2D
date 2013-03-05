@@ -1,4 +1,4 @@
 <AudioAsset
     AssetName="VolleyTowerFireSound"
     AssetAutoUnload="0"
-    AudioFile="@assetFile=#TD_VolleyFiringSound.wav" />
+    AudioFile="TD_VolleyFiringSound.wav" />

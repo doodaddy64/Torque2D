@@ -1416,14 +1416,11 @@ StringTableEntry getPathExpandoValue( U32 expandoIndex )
 
 //-----------------------------------------------------------------------------
 
-bool expandPath( char* pDstPath, U32 size, const char* pSrcPath, const bool ensureTrailingSlash )
+bool expandPath( char* pDstPath, U32 size, const char* pSrcPath, const char* pWorkingDirectoryHint, const bool ensureTrailingSlash )
 { 
     char pathBuffer[2048];
     const char* pSrc = pSrcPath;
     char* pSlash;
-
-    // Reset injected path prefix.
-    StringTableEntry injectedPathPrefix = NULL;
 
     // Fetch leading character.
     const char leadingToken = *pSrc;
@@ -1555,99 +1552,8 @@ bool expandPath( char* pDstPath, U32 size, const char* pSrcPath, const bool ensu
         return true;
     }
 
-    // Module relative.
-    if ( leadingToken == '#' )
-    {
-        // Error.
-        Con::errorf("expandPath() : Could not expand module relative path '%s'.", pSrcPath );
-
-        // Are we ensuring the trailing slash?
-        if ( ensureTrailingSlash )
-        {
-            // Yes, so ensure it.
-            Con::ensureTrailingSlash( pDstPath, pSrcPath );
-        }
-        else
-        {
-            // No, so just use the source path.
-            dStrcpy( pDstPath, pSrcPath );
-        }
-
-        return false;
-    }
-
-    // Mod-Path.
-    // MM: I think we should get rid of this complication and move entirely to using expandos.
-    if ( leadingToken == '~' )
-    {
-        char modBuffer[1024];
-
-        // Fetch the code-block file-path.
-        const StringTableEntry codeblockFullPath = CodeBlock::getCurrentCodeBlockFullPath();
-
-        // Fetch the code-block mod name.
-        const StringTableEntry codeblockModName = CodeBlock::getCurrentCodeBlockModName();
-
-        // Relative to mod
-        if( codeblockModName && codeblockFullPath )
-        {
-            Platform::makeFullPathName(codeblockModName, modBuffer, sizeof(modBuffer));
-            injectedPathPrefix = modBuffer;
-        }
-        else
-        {
-            // Fetch expando.
-            StringTableEntry expandoPath = getPathExpando( "project" );
-
-            // Does the expando exist?
-            if( expandoPath == NULL )
-            {
-                // No, so error.
-                Con::errorf("expandPath() : Could not find path expando 'project' for path '%s'.", pSrcPath );
-
-                // Are we ensuring the trailing slash?
-                if ( ensureTrailingSlash )
-                {
-                    // Yes, so ensure it.
-                    Con::ensureTrailingSlash( pDstPath, pSrcPath );
-                }
-                else
-                {
-                    // No, so just use the source path.
-                    dStrcpy( pDstPath, pSrcPath );
-                }
-
-                return false;
-            }
-
-            injectedPathPrefix = expandoPath;
-        }
-
-        // swallow ~ and optional slash
-        switch( pSrc[1] )
-        {
-            case '/': pSrc += 2; break;
-            default: pSrc++;
-        }
-         
-        // Format the output path.
-        dSprintf( pathBuffer, sizeof(pathBuffer), "%s/%s", injectedPathPrefix, pSrc );
-
-        // Are we ensuring the trailing slash?
-        if ( ensureTrailingSlash )
-        {
-            // Yes, so ensure it.
-            Con::ensureTrailingSlash( pathBuffer, pathBuffer );
-        }
-
-        // Strip repeat slashes.
-        Con::stripRepeatSlashes( pDstPath, pathBuffer, size );
-
-        return true;
-    }
-
     // All else.
-    Platform::makeFullPathName( pSrcPath, pathBuffer, sizeof(pathBuffer) );
+    Platform::makeFullPathName( pSrcPath, pathBuffer, sizeof(pathBuffer), pWorkingDirectoryHint );
 
     // Are we ensuring the trailing slash?
     if ( ensureTrailingSlash )
@@ -1673,7 +1579,7 @@ bool isBasePath( const char* SrcPath, const char* pBasePath )
 
 //-----------------------------------------------------------------------------
 
-void collapsePath( char* pDstPath, U32 size, const char* pSrcPath )
+void collapsePath( char* pDstPath, U32 size, const char* pSrcPath, const char* pWorkingDirectoryHint )
 {
     // Check path against expandos.  If there are multiple matches, choose the
     // expando that produces the shortest relative path.
@@ -1727,18 +1633,18 @@ void collapsePath( char* pDstPath, U32 size, const char* pSrcPath )
         return;
     }
 
-    // Fetch the current directory.
-    StringTableEntry currentDirectory = Platform::getCurrentDirectory();
+    // Fetch the working directory.
+    StringTableEntry workingDirectory = pWorkingDirectoryHint != NULL ? pWorkingDirectoryHint : Platform::getCurrentDirectory();
 
     // Fetch path relative to current directory.
-    StringTableEntry relativePath = Platform::makeRelativePathName( pSrcPath, currentDirectory );
+    StringTableEntry relativePath = Platform::makeRelativePathName( pSrcPath, workingDirectory );
 
     // If the relative path is simply a period
     if ( relativePath[0] == '.'  && relativePath[1] != '.' )
         relativePath++;
 
     // Format against expando.
-    dSprintf( pathBuffer, sizeof(pathBuffer), "%s/%s", currentDirectory, relativePath );
+    dSprintf( pathBuffer, sizeof(pathBuffer), "%s/%s", workingDirectory, relativePath );
 
     // Strip repeat slashes.
     Con::stripRepeatSlashes( pDstPath, pathBuffer, size );

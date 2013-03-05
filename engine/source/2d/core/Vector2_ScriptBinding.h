@@ -34,7 +34,7 @@ ConsoleFunctionGroupBegin( Vector2Math, "Vector2 math functions.");
 
 //-----------------------------------------------------------------------------
 
-ConsoleFunction( Vector2Add, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - Returns v1+v2.")
+ConsoleFunction( Vector2Add, const char*, 3, 3, "(Vector2 v1, Vector2 v2) - Returns v1+v2.")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 ||Utility::mGetStringElementCount(argv[2]) < 2 )
@@ -52,7 +52,7 @@ ConsoleFunction( Vector2Add, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - Re
 //-----------------------------------------------------------------------------
 // Subtract two 2D Vectors.
 //-----------------------------------------------------------------------------
-ConsoleFunction( Vector2Sub, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - Returns v1-v2.")
+ConsoleFunction( Vector2Sub, const char*, 3, 3, "(Vector2 v1, Vector2 v2) - Returns v1-v2.")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 ||Utility::mGetStringElementCount(argv[2]) < 2 )
@@ -70,7 +70,7 @@ ConsoleFunction( Vector2Sub, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - Re
 //-----------------------------------------------------------------------------
 // The absolute difference between two 2D Vectors.
 //-----------------------------------------------------------------------------
-ConsoleFunction( Vector2Abs, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - Returns abs(v1-v2).")
+ConsoleFunction( Vector2Abs, const char*, 3, 3, "(Vector2 v1, Vector2 v2) - Returns abs(v1-v2).")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 ||Utility::mGetStringElementCount(argv[2]) < 2 )
@@ -88,7 +88,7 @@ ConsoleFunction( Vector2Abs, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - Re
 //-----------------------------------------------------------------------------
 // Multiply two 2D Vectors (Not Dot-Product!)
 //-----------------------------------------------------------------------------
-ConsoleFunction( Vector2Mult, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - Returns v1 mult v2.")
+ConsoleFunction( Vector2Mult, const char*, 3, 3, "(Vector2 v1, Vector2 v2) - Returns v1 mult v2.")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 ||Utility::mGetStringElementCount(argv[2]) < 2 )
@@ -106,7 +106,7 @@ ConsoleFunction( Vector2Mult, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - R
 //-----------------------------------------------------------------------------
 // Scale a 2D Vector.
 //-----------------------------------------------------------------------------
-ConsoleFunction( Vector2Scale, const char*, 3, 3, "(Vector2 v1$, scale) - Returns v1 scaled by scale.")
+ConsoleFunction( Vector2Scale, const char*, 3, 3, "(Vector2 v1, scale) - Returns v1 scaled by scale.")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 )
@@ -125,7 +125,7 @@ ConsoleFunction( Vector2Scale, const char*, 3, 3, "(Vector2 v1$, scale) - Return
 //-----------------------------------------------------------------------------
 // Normalize a 2D Vector.
 //-----------------------------------------------------------------------------
-ConsoleFunction( Vector2Normalize, const char*, 2, 2, "(Vector2 v1$) - Returns Normalized v1.")
+ConsoleFunction( Vector2Normalize, const char*, 2, 2, "(Vector2 v1) - Returns Normalized v1.")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 )
@@ -142,7 +142,7 @@ ConsoleFunction( Vector2Normalize, const char*, 2, 2, "(Vector2 v1$) - Returns N
 //-----------------------------------------------------------------------------
 // Dot-Product of two 2D Vectors.
 //-----------------------------------------------------------------------------
-ConsoleFunction(Vector2Dot, F32, 3, 3, "(Vector2 v1$, Vector2 v2$) - Returns dot-product of v1 and v2.")
+ConsoleFunction(Vector2Dot, F32, 3, 3, "(Vector2 v1, Vector2 v2) - Returns dot-product of v1 and v2.")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 ||Utility::mGetStringElementCount(argv[2]) < 2 )
@@ -160,7 +160,7 @@ ConsoleFunction(Vector2Dot, F32, 3, 3, "(Vector2 v1$, Vector2 v2$) - Returns dot
 //-----------------------------------------------------------------------------
 // Equality of two 2D Points.
 //-----------------------------------------------------------------------------
-ConsoleFunction( Vector2Compare, bool, 3, 4, "(Vector2 p1$, Vector2 p2$, [epsilon]) - Compares points p1 and p2 with optional difference (epsilon).")
+ConsoleFunction( Vector2Compare, bool, 3, 4, "(Vector2 p1, Vector2 p2, [epsilon]) - Compares points p1 and p2 with optional difference (epsilon).")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 ||Utility::mGetStringElementCount(argv[2]) < 2 )
@@ -185,7 +185,7 @@ ConsoleFunction( Vector2Compare, bool, 3, 4, "(Vector2 p1$, Vector2 p2$, [epsilo
 //-----------------------------------------------------------------------------
 // Distance between two 2D Points.
 //-----------------------------------------------------------------------------
-ConsoleFunction( Vector2Distance, F32, 3, 3, "(Vector2 p1$, Vector2 p2$) - Returns the distance between points p1 and p2.")
+ConsoleFunction( Vector2Distance, F32, 3, 3, "(Vector2 p1, Vector2 p2) - Returns the distance between points p1 and p2.")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 ||Utility::mGetStringElementCount(argv[2]) < 2 )
@@ -203,7 +203,7 @@ ConsoleFunction( Vector2Distance, F32, 3, 3, "(Vector2 p1$, Vector2 p2$) - Retur
 //-----------------------------------------------------------------------------
 // Angle between two 2D Vectors.
 //-----------------------------------------------------------------------------
-ConsoleFunction( t2dAngleBetween, F32, 3, 3, "(Vector2 v1$, Vector2 v2$) - Returns the angle between v1 and v2.")
+ConsoleFunction( t2dAngleBetween, F32, 3, 3, "(Vector2 v1, Vector2 v2) - Returns the angle between v1 and v2.")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 ||Utility::mGetStringElementCount(argv[2]) < 2 )
@@ -243,7 +243,7 @@ ConsoleFunction( t2dAngleToPoint, F32, 3, 3, "(Vector2 p1, Vector2 p1) - Returns
 //-----------------------------------------------------------------------------
 // Length of a 2D Vector.
 //-----------------------------------------------------------------------------
-ConsoleFunction( Vector2Length, F32, 2, 2, "(Vector2 v1$) - Returns the length of v1.")
+ConsoleFunction( Vector2Length, F32, 2, 2, "(Vector2 v1) - Returns the length of v1.")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 )
@@ -258,9 +258,62 @@ ConsoleFunction( Vector2Length, F32, 2, 2, "(Vector2 v1$) - Returns the length o
 }
 
 //-----------------------------------------------------------------------------
+// Inverse of a 2D Vector.
+//-----------------------------------------------------------------------------
+ConsoleFunction( Vector2Inverse, const char*, 2, 2, "(Vector2 v1) - Returns the inverse of v1.")
+{
+    // Check Parameters.
+    if (Utility::mGetStringElementCount(argv[1]) < 2 )
+    {
+        Con::warnf("Vector2Inverse() - Invalid number of parameters!");
+        return StringTable->EmptyString;
+    }
+
+    Vector2 v1( argv[1] );
+
+    return (-v1).scriptThis();
+}
+
+//-----------------------------------------------------------------------------
+// Inverse X component of a 2D Vector.
+//-----------------------------------------------------------------------------
+ConsoleFunction( Vector2InverseX, const char*, 2, 2, "(Vector2 v1) - Returns the inverse of the v1 X component.")
+{
+    // Check Parameters.
+    if (Utility::mGetStringElementCount(argv[1]) < 2 )
+    {
+        Con::warnf("Vector2InverseX() - Invalid number of parameters!");
+        return StringTable->EmptyString;
+    }
+
+    Vector2 v1( argv[1] );
+    v1.x = -v1.x;
+
+    return v1.scriptThis();
+}
+
+//-----------------------------------------------------------------------------
+// Inverse Y component of a 2D Vector.
+//-----------------------------------------------------------------------------
+ConsoleFunction( Vector2InverseY, const char*, 2, 2, "(Vector2 v1) - Returns the inverse of the v1 Y component.")
+{
+    // Check Parameters.
+    if (Utility::mGetStringElementCount(argv[1]) < 2 )
+    {
+        Con::warnf("Vector2InverseY() - Invalid number of parameters!");
+        return StringTable->EmptyString;
+    }
+
+    Vector2 v1( argv[1] );
+    v1.y = -v1.y;
+
+    return v1.scriptThis();
+}
+
+//-----------------------------------------------------------------------------
 // Normalize Rectangle (two 2D Vectors) with relation to each other.
 //-----------------------------------------------------------------------------
-ConsoleFunction( t2dRectNormalize, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$) - Returns Normalize rectangle of v1 and v2.")
+ConsoleFunction( t2dRectNormalize, const char*, 3, 3, "(Vector2 v1, Vector2 v2) - Returns Normalize rectangle of v1 and v2.")
 {
     // Check Parameters.
     if (Utility::mGetStringElementCount(argv[1]) < 2 ||Utility::mGetStringElementCount(argv[2]) < 2 )
@@ -285,6 +338,7 @@ ConsoleFunction( t2dRectNormalize, const char*, 3, 3, "(Vector2 v1$, Vector2 v2$
     // Return Velocity.
     return pBuffer;
 }
+
 
 //-----------------------------------------------------------------------------
 

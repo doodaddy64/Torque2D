@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="eel"
-    ImageFile="@assetFile=#eel.png"
+    ImageFile="eel.png"
     CellCountX="1"
     CellCountY="4"
     CellWidth="256"

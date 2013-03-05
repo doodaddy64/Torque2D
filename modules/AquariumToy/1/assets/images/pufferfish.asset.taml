@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="pufferfish"
-    ImageFile="@assetFile=#pufferfish.png"
+    ImageFile="pufferfish.png"
     CellCountX="2"
     CellCountY="2"
     CellWidth="256"

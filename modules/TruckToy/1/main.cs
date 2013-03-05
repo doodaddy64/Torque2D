@@ -25,8 +25,6 @@ function TruckToy::create( %this )
     // Activate the package.
     activatePackage( TruckToyPackage );
 
-    TruckToy.createProjectileScheduleId = "";
-    
     TruckToy.ObstacleFriction = 1.5;
     TruckToy.CameraWidth = 20;
     TruckToy.CameraHeight = 15;
@@ -51,14 +49,14 @@ function TruckToy::create( %this )
     TruckToy.ExplosionScale = 1;
     
     // Add the custom controls.
-    addNumericOption( "Wheel Speed", 100, 1000, 50, "setWheelSpeed", TruckToy.WheelSpeed, false );
-    addNumericOption( "Wheel Friction", 0, 10, 1, "setWheelFriction", TruckToy.WheelFriction, true );
-    addNumericOption( "Front Wheel Density", 1, 20, 1, "setFrontWheelDensity", TruckToy.FrontWheelDensity, true );
-    addNumericOption( "Rear Wheel Density", 1, 20, 1, "setFrontWheelDensity", TruckToy.RearWheelDensity, true );
-    addFlagOption("Front Wheel Drive", "setFrontWheelDrive", TruckToy.FrontWheelDrive, false );
-    addFlagOption("Rear Wheel Drive", "setRearWheelDrive", TruckToy.RearWheelDrive, false );
-    addNumericOption( "Projectile Rate (ms)", 100, 60000, 100, "setProjectileRate", TruckToy.ProjectileRate, false );
-    addNumericOption( "Explosion Scale", 1, 11, 1, "setExplosionScale", TruckToy.ExplosionScale, false );
+    addNumericOption( "Wheel Speed", 100, 1000, 50, "setWheelSpeed", TruckToy.WheelSpeed, false, "Sets the rotational speed of the wheel when it is put into drive." );
+    addNumericOption( "Wheel Friction", 0, 10, 1, "setWheelFriction", TruckToy.WheelFriction, true, "Sets the friction for the surface of each wheel." );
+    addNumericOption( "Front Wheel Density", 1, 20, 1, "setFrontWheelDensity", TruckToy.FrontWheelDensity, true, "Sets the density of the front wheel." );
+    addNumericOption( "Rear Wheel Density", 1, 20, 1, "setFrontWheelDensity", TruckToy.RearWheelDensity, true, "Sets the density of the rear wheel." );
+    addFlagOption("Front Wheel Drive", "setFrontWheelDrive", TruckToy.FrontWheelDrive, false, "Whether the motor on the front wheel is active or not." );
+    addFlagOption("Rear Wheel Drive", "setRearWheelDrive", TruckToy.RearWheelDrive, false, "Whether the motor on the rear wheel is active or not." );
+    addNumericOption( "Projectile Rate (ms)", 100, 60000, 100, "setProjectileRate", TruckToy.ProjectileRate, false, "Sets the time interval in-between projectiles appearing." );
+    addNumericOption( "Explosion Scale", 1, 11, 1, "setExplosionScale", TruckToy.ExplosionScale, false, "Sets the size scale of the explosions caused by a projectile landing." );
     
     // Reset the toy.
     %this.reset();
@@ -68,33 +66,14 @@ function TruckToy::create( %this )
 
 function TruckToy::destroy( %this )
 {
-    // Cancel any pending events.
-    TruckToy.cancelPendingEvents();
-        
     // Deactivate the package.
     deactivatePackage( TruckToyPackage );
 }
 
 //-----------------------------------------------------------------------------
 
-function TruckToy::cancelPendingEvents(%this)
-{
-    // Finish if there are not pending events.
-    if ( !isEventPending(%this.createProjectileScheduleId) )
-        return;
-        
-    // Cancel it.
-    cancel(%this.createProjectileScheduleId);
-    %this.createProjectileScheduleId = "";
-}
-
-//-----------------------------------------------------------------------------
-
 function TruckToy::reset( %this )
 {   
-    // Cancel any pending events.
-    %this.cancelPendingEvents();
-    
     // Clear the scene.
     SandboxScene.clear();    
     
@@ -194,8 +173,8 @@ function TruckToy::reset( %this )
     %truckStartY = 3;   
     %this.createTruck( %truckStartX, %truckStartY );    
     
-    // Schedule to create a projectile.
-    TruckToy.createProjectileScheduleId = %this.schedule( TruckToy.ProjectileRate, "createProjectile" );    
+    // Start the timer.
+    TruckToy.startTimer( "createProjectile", TruckToy.ProjectileRate );
 }
 
 // -----------------------------------------------------------------------------
@@ -665,15 +644,11 @@ function TruckToy::createBonfire(%this, %x, %y, %scale, %layer)
 
 function TruckToy::createProjectile(%this)
 {
-    // Reset the event schedule.
-    %this.createProjectileScheduleId = "";
-    
     // Fetch the truck position.
     %truckPositionX = TruckToy.TruckBody.getPositionX();
     
     %projectile = new Sprite() { class = "TruckProjectile"; };
     %projectile.Animation = "ToyAssets:Projectile_FireballAnim";
-    //%projectile.Image = "ToyAssets:Cannonball_projectile_1Sprite";
     %projectile.setPosition( getRandom( %truckPositionX - (TruckToy.CameraWidth * 0.2), %truckPositionX + (TruckToy.CameraWidth * 0.5) ), 12 );
     %projectile.setSceneLayer( TruckToy.BackgroundDomain-2 );
     %projectile.setSceneGroup( TruckToy.ProjectileDomain );
@@ -684,9 +659,6 @@ function TruckToy::createProjectile(%this)
     %projectile.setCollisionGroups( TruckToy.ObstacleDomain );
     %projectile.CollisionCallback = true;
     SandboxScene.add( %projectile ); 
-    
-    // Schedule to create a projectile.
-    %this.createProjectileScheduleId = %this.schedule( %this.ProjectileRate, "createProjectile" );         
 }
 
 // -----------------------------------------------------------------------------
@@ -695,6 +667,7 @@ function TruckProjectile::handleCollision(%this, %object, %collisionDetails)
 {   
     // Create an impact explosion at the projectiles position.
     %particlePlayer = new ParticlePlayer();
+    %particlePlayer.BodyType = Static;
     %particlePlayer.Position = %this.Position;    
     %particlePlayer.Size = 10;
     %particlePlayer.SceneLayer = TruckToy.BackgroundDomain-1;
@@ -704,7 +677,7 @@ function TruckProjectile::handleCollision(%this, %object, %collisionDetails)
     SandboxScene.add( %particlePlayer ); 
     
     // Start the camera shaking.
-    SandboxWindow.startCameraShake( 10 + (5 * TruckToy.ExplosionScale), 1 );
+    SandboxWindow.startCameraShake( 10 + (3 * TruckToy.ExplosionScale), 1 );
     
     // Delete the projectile.
     %this.safeDelete();   
@@ -937,11 +910,8 @@ function TruckToy::setProjectileRate( %this, %value )
 {
     %this.ProjectileRate = %value;
     
-    // Cancel any pending events.
-    %this.cancelPendingEvents();
-    
-    // Schedule to create a projectile.
-    %this.createProjectileScheduleId = %this.schedule( 1000, "createProjectile" );    
+    // Start the timer.
+    TruckToy.startTimer( "createProjectile", TruckToy.ProjectileRate );
 }
 
 //-----------------------------------------------------------------------------

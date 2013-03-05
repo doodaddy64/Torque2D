@@ -2,7 +2,7 @@
     ModuleId="ChainToy"
     VersionId="1"
 	Enabled="1"
-    Description="Demonstrates the chaining together of multiple bodies."
+    Description="Demonstrates the ability to create rope and chains using joints."
     Dependencies="ToyAssets=1"
     Type="toy"
     ToyCategoryIndex="2"

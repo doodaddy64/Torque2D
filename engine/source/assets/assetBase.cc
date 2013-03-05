@@ -165,42 +165,21 @@ StringTableEntry AssetBase::expandAssetFilePath( const char* pAssetFilePath ) co
         return StringTable->EmptyString;
     }
 
+    // Fetch the asset base-path hint.
+    StringTableEntry assetBasePathHint;
+    if ( getOwned() )
+    {
+        assetBasePathHint = mpOwningAssetManager->getAssetPath( getAssetId() );
+    }
+    else
+    {
+        assetBasePathHint = NULL;
+    }
+
+    // Expand the path with the asset base-path hint.
     char assetFilePathBuffer[1024];
-
-    // Is the asset file-path an asset-relative path?
-    if ( *pAssetFilePath != '#' )
-    {
-        // No, so expand the path in the usual way.
-        Con::expandPath( assetFilePathBuffer, sizeof(assetFilePathBuffer), pAssetFilePath );
-        return StringTable->insert( assetFilePathBuffer );
-    }
-
-    // Is the asset owned
-    if ( !mpOwningAssetManager )
-    {
-        // No, so warn.
-        Con::warnf( "AssetBase: Cannot expand relative asset path on asset that is not owned which will potentially cause an incorrect path: '%s'", pAssetFilePath );
-
-        // Return the original file-path.
-        // NOTE: Although the file-path is unchanged here, it's likely the caller might expand it again causing an incorrect relative path to be used (relative to the code-path).
-        return StringTable->insert( pAssetFilePath );
-    }
-
-    // Yes, so is the asset file-path the correct length.
-    if ( dStrlen(pAssetFilePath) == 1 )
-    {
-        // No, so warn.
-        Con::warnf( "AssetBase: Cannot expand relative asset path as it is an invalid length: '%s'", pAssetFilePath );
-
-        // Return the original file-path.
-        // NOTE: Although the file-path is unchanged here, it's likely the caller might expand it again causing an incorrect relative path to be used (relative to the code-path).
-        return StringTable->insert( pAssetFilePath );
-    }
-
-    // Format expanded path taking into account any missing slash.
-    dSprintf( assetFilePathBuffer, sizeof(assetFilePathBuffer), "%s/%s", mpOwningAssetManager->getAssetPath( getAssetId() ), pAssetFilePath + (pAssetFilePath[1] == '/' ? 2 : 1 ) );
-
-    return StringTable->insert( assetFilePathBuffer );       
+    Con::expandPath( assetFilePathBuffer, sizeof(assetFilePathBuffer), pAssetFilePath, assetBasePathHint );
+    return StringTable->insert( assetFilePathBuffer );
 }
 
 //-----------------------------------------------------------------------------
@@ -225,13 +204,6 @@ StringTableEntry AssetBase::collapseAssetFilePath( const char* pAssetFilePath ) 
 
     char assetFilePathBuffer[1024];
 
-    // Is the asset file-path already an asset-relative path?
-    if ( *pAssetFilePath == '#' )
-    {
-        // Yes, so assume it's already collapsed.
-        return StringTable->insert( assetFilePathBuffer );
-    }
-
     // Is the asset owned
     if ( !mpOwningAssetManager )
     {
@@ -250,7 +222,7 @@ StringTableEntry AssetBase::collapseAssetFilePath( const char* pAssetFilePath ) 
         StringTableEntry relativePath = Platform::makeRelativePathName( pAssetFilePath, assetBasePath );
 
         // Format the collapsed path.
-        dSprintf( assetFilePathBuffer, sizeof(assetFilePathBuffer), "#%s", relativePath );
+        dSprintf( assetFilePathBuffer, sizeof(assetFilePathBuffer), "%s", relativePath );
     }
     else
     {
@@ -278,17 +250,29 @@ void AssetBase::refreshAsset( void )
 
 //-----------------------------------------------------------------------------
 
+void AssetBase::acquireAssetReference( void )
+{
+    // Acquired the acquired reference count.
+    if ( mpOwningAssetManager != NULL )
+        mpOwningAssetManager->acquireAcquiredReferenceCount();
+    
+    mAcquireReferenceCount++;
+}
+
+//-----------------------------------------------------------------------------
+
 bool AssetBase::releaseAssetReference( void )
 {
     // Are there any acquisition references?
     if ( mAcquireReferenceCount == 0 )
     {
-        // No, so warn.
-        Con::warnf( "AssetBase: Cannot release asset reference as there are no current acquisitions." );
-
         // Return "unload" unless auto unload is off.
         return mpAssetDefinition->mAssetAutoUnload;
     }
+
+    // Release the acquired reference count.
+    if ( mpOwningAssetManager != NULL )
+        mpOwningAssetManager->releaseAcquiredReferenceCount(); 
 
     // Release reference.
     mAcquireReferenceCount--;

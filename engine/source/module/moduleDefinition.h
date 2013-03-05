@@ -90,6 +90,7 @@ private:
     bool                            mDeprecated;
     bool                            mCriticalMerge;
     StringTableEntry                mModuleDescription;
+    StringTableEntry                mAuthor;;
     StringTableEntry                mModuleGroup;
     StringTableEntry                mModuleType;
     typeModuleDependencyVector      mDependencies;
@@ -146,6 +147,8 @@ public:
     inline bool             getCriticalMerge( void ) const                      { return mCriticalMerge; }
     inline void             setModuleDescription( const char* pModuleDescription ) { if ( checkUnlocked() ) { mModuleDescription = StringTable->insert(pModuleDescription); } }
     inline StringTableEntry getModuleDescription( void ) const                  { return mModuleDescription; }
+    inline void             setAuthor( const char* pAuthor )                    { if ( checkUnlocked() ) { mAuthor = StringTable->insert(pAuthor); } }
+    inline StringTableEntry getAuthor( void ) const                             { return mAuthor; }
     inline void             setModuleGroup( const char* pModuleGroup )          { if ( checkUnlocked() ) { mModuleGroup = StringTable->insert(pModuleGroup); } }
     inline StringTableEntry getModuleGroup( void ) const                        { return mModuleGroup; }
     inline void             setModuleType( const char* pModuleType )            { if ( checkUnlocked() ) { mModuleType = StringTable->insert(pModuleType); } }
@@ -212,7 +215,9 @@ protected:
     static bool             writeDeprecated( void* obj, StringTableEntry pFieldName )   { return static_cast<ModuleDefinition*>(obj)->getDeprecated() == true; }
     static bool             writeCriticalMerge( void* obj, StringTableEntry pFieldName ){ return static_cast<ModuleDefinition*>(obj)->getCriticalMerge() == true; }    
     static bool             setModuleDescription(void* obj, const char* data)           { static_cast<ModuleDefinition*>(obj)->setModuleDescription( data ); return false; }
-    static bool             writeModuleDescription( void* obj, StringTableEntry pFieldName )  { return static_cast<ModuleDefinition*>(obj)->getModuleDescription() != StringTable->EmptyString; }
+    static bool             writeModuleDescription( void* obj, StringTableEntry pFieldName ) { return static_cast<ModuleDefinition*>(obj)->getModuleDescription() != StringTable->EmptyString; }
+    static bool             setAuthor(void* obj, const char* data)                      { static_cast<ModuleDefinition*>(obj)->setAuthor( data ); return false; }
+    static bool             writeAuthor( void* obj, StringTableEntry pFieldName )       { return static_cast<ModuleDefinition*>(obj)->getAuthor() != StringTable->EmptyString; }
     static bool             setModuleGroup(void* obj, const char* data)                 { static_cast<ModuleDefinition*>(obj)->setModuleGroup( data ); return false; }
     static bool             setModuleType(void* obj, const char* data)                  { static_cast<ModuleDefinition*>(obj)->setModuleType( data ); return false; }
     static bool             writeModuleType( void* obj, StringTableEntry pFieldName )   { return static_cast<ModuleDefinition*>(obj)->getModuleType() != StringTable->EmptyString; }

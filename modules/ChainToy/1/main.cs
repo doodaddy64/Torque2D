@@ -40,10 +40,10 @@ function ChainToy::create( %this )
     ChainToy.BallDensity = 4;
 
     // Add configuration option.
-    addNumericOption( "Chain Links", 1, 46, 1, "setChainLinks", ChainToy.ChainLinks, true );
-    addNumericOption( "Chain Count", 1, 20, 1, "setChainCount", ChainToy.ChainCount, true );
-    addFlagOption("Chain Limit", "setChainLimit", ChainToy.ChainLimit, true );
-    addNumericOption( "Ball Density", 1, 10, 1, "setBallDensity", ChainToy.BallDensity, true );
+    addNumericOption( "Chain Links", 1, 46, 1, "setChainLinks", ChainToy.ChainLinks, true, "Sets the number of links in each chain." );
+    addNumericOption( "Chain Count", 1, 20, 1, "setChainCount", ChainToy.ChainCount, true, "Sets the number of chains to create." );
+    addFlagOption("Chain Limit", "setChainLimit", ChainToy.ChainLimit, true, "Whether to restrict the length of the chain with a rope joint or not." );
+    addNumericOption( "Ball Density", 1, 10, 1, "setBallDensity", ChainToy.BallDensity, true, "Sets the ball density." );
     
     // Reset the toy initially.
     ChainToy.reset();
@@ -86,7 +86,7 @@ function ChainToy::reset(%this)
 
 function ChainToy::createBackground( %this )
 {    
-    // Create the scroller.
+    // Create the sprite.
     %object = new Sprite();
     
     // Set the sprite as "static" so it is not affected by gravity.
@@ -103,7 +103,7 @@ function ChainToy::createBackground( %this )
     // Set to the furthest background layer.
     %object.SceneLayer = 31;
     
-    // Set the scroller to use an animation!
+    // Set an image.
     %object.Image = "ToyAssets:jungleSky";
             
     // Add the sprite to the scene.

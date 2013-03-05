@@ -1,4 +1,4 @@
 <AudioAsset
     AssetName="titleMusic"
     AssetAutoUnload="0"
-    AudioFile="@assetFile=#TD_Medieval_TitleAudio.wav" />
+    AudioFile="TD_Medieval_TitleAudio.wav" />

@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="dbQuarter"
-    ImageFile="@assetFile=#dbQuarter.png"
+    ImageFile="dbQuarter.png"
     CellCountX="4"
     CellCountY="4"
     CellWidth="256"

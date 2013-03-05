@@ -20,29 +20,31 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-if (!isObject(MoveTowardBehavior))
+function MoveTowardBehavior::initialize(%this, %target, %speed)
 {
-    %template = new BehaviorTemplate(MoveTowardBehavior);
-
-    %template.friendlyName = "Move Toward";
-    %template.behaviorType = "AI";
-    %template.description  = "Set the object to move toward another object";
-
-    %template.addBehaviorField(target, "The object to move toward", object, "", sceneObject);
-    %template.addBehaviorField(speed, "The speed to move toward the object at (world units per second)", float, 2.0);
+    %this.target = %target;
+    %this.speed = %speed;
 }
 
-function MoveTowardBehavior::onAddToScene(%this)
+//-----------------------------------------------------------------------------
+
+function MoveTowardBehavior::onBehaviorAdd(%this)
 {
     %this.schedule(500, updateMoveToward);
 }
 
+//-----------------------------------------------------------------------------
+
 function MoveTowardBehavior::updateMoveToward(%this)
 {
-    if (!isObject(%this.target) || !%this.owner.alive)
+    if (!isObject(%this.target))
         return;
 
-    %this.owner.moveTo(%this.target.position, %this.speed);
-   
-    %this.schedule(200, updateMoveToward);
+    %relativePosition = VectorSub(%this.target.getPosition(), %this.owner.getPosition());
+    
+    %scaledVelocity = VectorScale(%relativePosition, %this.speed);
+
+    %this.owner.setLinearVelocity( getWord(%scaledVelocity, 0), getWord(%scaledVelocity, 1) );
+    
+    %this.schedule(500, updateMoveToward);
 }

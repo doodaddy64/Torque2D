@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="isotiles"
-    ImageFile="@assetFile=#isotiles.png"
+    ImageFile="isotiles.png"
     CellStrideY="22"
     CellCountX="1"
     CellCountY="5"

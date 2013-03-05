@@ -1,6 +1,6 @@
 <ImageAsset
     AssetName="CardDeck"
-    ImageFile="@assetFile=#CardDeck.png"
+    ImageFile="CardDeck.png"
     CellCountX="13"
     CellCountY="5"
     CellWidth="144"

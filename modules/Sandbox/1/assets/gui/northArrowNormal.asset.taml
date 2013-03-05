@@ -1,3 +1,3 @@
 <ImageAsset
     AssetName="northArrowNormal"
-    ImageFile="@assetFile=#northArrowNormal" />
+    ImageFile="northArrowNormal" />

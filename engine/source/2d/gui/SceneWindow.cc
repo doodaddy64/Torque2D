@@ -1389,11 +1389,6 @@ void SceneWindow::calculateCameraView( CameraView* pCameraView )
     // Calculate Scene Window Scale.
     pCameraView->mSceneWindowScale.x = (pCameraView->mSceneMax.x - pCameraView->mSceneMin.x) / mBounds.len_x();
     pCameraView->mSceneWindowScale.y = (pCameraView->mSceneMax.y - pCameraView->mSceneMin.y) / mBounds.len_y();
-
-    if ( pCameraView->mDestinationArea.extent.x < 0.0f )
-    {
-        S32 a =0;
-    }
 }
 
 //-----------------------------------------------------------------------------
@@ -1873,12 +1868,13 @@ void SceneWindow::renderMetricsOverlay( Point2I offset, const RectI& updateRect 
 
         // Asset Manager.
         dglDrawText( font, bannerOffset + Point2I(0,(S32)linePositionY), "Assets", NULL );
-        dSprintf( mDebugText, sizeof( mDebugText ), "- Declared=%d, Referenced=%d, LoadedInternal=%d<%d>, LoadedExternal=%d<%d>, LoadedPrivate=%d<%d>",
+        dSprintf( mDebugText, sizeof( mDebugText ), "- AcquiredRefs=%d, Declared=%d, Referenced=%d, LoadedInternal=%d<%d>, LoadedExternal=%d<%d>, LoadedPrivate=%d<%d>",
+            AssetDatabase.getAcquiredReferenceCount(),
             AssetDatabase.getDeclaredAssetCount(),
             AssetDatabase.getReferencedAssetCount(),
             AssetDatabase.getLoadedInternalAssetCount(), AssetDatabase.getMaxLoadedInternalAssetCount(),
             AssetDatabase.getLoadedExternalAssetCount(), AssetDatabase.getMaxLoadedExternalAssetCount(),
-            AssetDatabase.getLoadedPrivateAssetCount(), AssetDatabase.getMaxLoadedPrivateAssetCount());
+            AssetDatabase.getLoadedPrivateAssetCount(), AssetDatabase.getMaxLoadedPrivateAssetCount() );
         dglDrawText( font, bannerOffset + Point2I(metricsOffset,(S32)linePositionY), mDebugText, NULL );
         linePositionY += linePositionOffsetY;
     }

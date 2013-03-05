@@ -20,36 +20,39 @@
 // IN THE SOFTWARE.
 //-----------------------------------------------------------------------------
 
-if (!isObject(FaceObjectBehavior))
+function FaceObjectBehavior::initialize(%this, %target, %turnSpeed, %rotationOffset)
 {
-    %template = new BehaviorTemplate(FaceObjectBehavior);
-
-    %template.friendlyName = "Face Object";
-    %template.behaviorType = "AI";
-    %template.description  = "Set the object to face another object";
-
-    %template.addBehaviorField(object, "The object to face", object, "", sceneObject);
-    %template.addBehaviorField(turnSpeed, "The speed to rotate at (degrees per second). Use 0 to snap", float, 0.0);
-    %template.addBehaviorField(rotationOffset, "The rotation offset (degrees)", float, 0.0);
+    %this.target = %target;
+    %this.turnSpeed = %turnSpeed;
+    %this.rotationOffset = %rotationOffset;
 }
 
-function FaceObjectBehavior::onAddToScene(%this)
+//-----------------------------------------------------------------------------
+
+function FaceObjectBehavior::onBehaviorAdd(%this)
 {
     %this.schedule(200, updateFace);
 }
 
+//-----------------------------------------------------------------------------
+
 function FaceObjectBehavior::updateFace(%this)
 {
-    if (!isObject(%this.object) || !%this.owner.active)
+    if (!isObject(%this.target) || !%this.owner.active)
         return;
    
-    %vector = t2dVectorSub(%this.object.position, %this.owner.position);
-    %targetRotation = mRadToDeg(mAtan(%vector.y, %vector.x)) + 90 + %this.rotationOffset;
-   
-    if (%this.turnSpeed == 0)
-        %this.owner.setRotation(%targetRotation);
+    %origin = %this.owner.getPosition();
+    %angle = -mRadToDeg( mAtan( getWord(%this.target.getPosition(),0)-getWord(%origin,0), getWord(%this.target.getPosition(),1)-getWord(%origin,1) ) );
+    
+    if ( %this.turnSpeed > 0.0 )
+    {
+        %this.owner.rotateTo(%angle, %this.turnSpeed);
+    }
     else
-        %this.owner.rotateTo(%targetRotation, %this.turnSpeed, true, false, true, 0.1);
+    {
+        %this.owner.setAngle(%angle);
+    }
+    
       
     %this.schedule(200, updateFace);
 }

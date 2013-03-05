@@ -46,9 +46,12 @@ function ToyCategorySelectList::onSelect(%this)
     }
     else
     {
-        %firstToyButton = ToyListArray.getObject(0);
-        if (isObject(%firstToyButton))
-            %firstToyButton.performSelect();
+        if ( ToyListArray.getCount() > 0 )
+        {
+            %firstToyButton = ToyListArray.getObject(0);
+            if (isObject(%firstToyButton))
+                %firstToyButton.performSelect();
+        }
     }
 }
 
@@ -60,9 +63,8 @@ function ToyCategorySelectList::initialize(%this)
      %this.toyCategories[$toyAllCategoryIndex+1] = "Physics";
      %this.toyCategories[$toyAllCategoryIndex+2] = "Features";
      %this.toyCategories[$toyAllCategoryIndex+3] = "Stress Testing";
-     %this.toyCategories[$toyAllCategoryIndex+4] = "Fun";
-     %this.toyCategories[$toyAllCategoryIndex+5] = "Development";
-     %this.toyCategories[$toyAllCategoryIndex+6] = "Miscellaneous";
+     %this.toyCategories[$toyAllCategoryIndex+4] = "Fun and Games";
+     %this.toyCategories[$toyAllCategoryIndex+5] = "Custom";
      %this.maxToyCategories = $toyAllCategoryIndex + 6;
 
      // Set the "All" category as the default.
@@ -240,6 +242,21 @@ function ResolutionSelectList::onSelect(%this)
     
     // Set the screen mode.    
     setScreenMode( GetWord( %resolution , 0 ), GetWord( %resolution, 1 ), GetWord( %resolution, 2 ), $pref::Video::fullScreen );
+}
+
+//-----------------------------------------------------------------------------
+
+function PauseSceneModeButton::onClick(%this)
+{
+    // Sanity!
+    if ( !isObject(SandboxScene) )
+    {
+        error( "Cannot pause/unpause the Sandbox scene as it does not exist." );
+        return;
+    }
+    
+    // Toggle the scene pause.
+    SandboxScene.setScenePause( !SandboxScene.getScenePause() );   
 }
 
 //-----------------------------------------------------------------------------
@@ -514,7 +531,7 @@ function ToyListArray::initialize(%this, %index)
             %moduleTitle = %moduleDefinition.moduleId SPC "(v" @ %moduleDefinition.versionId @ ")";
 
         // Add the toy GUI list.
-        %this.addToyButton(%moduleTitle, %moduleDefinition.getId());
+        %this.addToyButton(%moduleTitle, %moduleDefinition);
         
         // Select the toy if it's the default and we've not selected a toy yet.
         if (!$defaultToySelected && %moduleDefinition.moduleId $= $pref::Sandbox::defaultToyId && %moduleDefinition.versionId == $pref::Sandbox::defaultToyVersionId )
@@ -527,7 +544,7 @@ function ToyListArray::initialize(%this, %index)
 
 //-----------------------------------------------------------------------------
 
-function ToyListArray::addToyButton(%this, %moduleTitle, %moduleDefintionId)
+function ToyListArray::addToyButton(%this, %moduleTitle, %moduleDefintion)
 {
     %button = new GuiButtonCtrl()
     {
@@ -537,10 +554,12 @@ function ToyListArray::addToyButton(%this, %moduleTitle, %moduleDefintionId)
         VertSizing = "relative";
         isContainer = "0";
         Profile = "BlueButtonProfile";
+        toolTipProfile = "GuiToolTipProfile";
+        toolTip = %moduleDefintion.Description;
         Position = "0 0";
         Extent = "160 80";
         Visible = "1";
-        toy = %moduleDefintionId;
+        toy = %moduleDefintion.getId();
         isContainer = "0";
         Active = "1";
         text = %moduleTitle;

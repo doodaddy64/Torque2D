@@ -2,10 +2,10 @@
     ModuleId="SphereStackToy"
     VersionId="1"
 	Enabled="1"
-    Description="Box2D Sphere Stack Test."
+    Description="Demonstrates the physics accuracy by stacking balls."
     Dependencies="ToyAssets=1"
     Type="toy"
-    ToyCategoryIndex="2"
+    ToyCategoryIndex="3"
     ScriptFile="main.cs"
     CreateFunction="create"
     DestroyFunction="destroy"/>

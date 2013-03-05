@@ -1,7 +1,7 @@
 <ImageAsset
     AssetName="rockfish"
-    ImageFile="@assetFile=#rockfish.png"
-	CellCountX="2"
+    ImageFile="rockfish.png"
+    CellCountX="2"
     CellCountY="2"
     CellWidth="256"
     CellHeight="128" />

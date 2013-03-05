@@ -147,9 +147,6 @@ public:
     virtual void copyTo(SimObject* object);
     virtual void safeDelete( void );
 
-    virtual void OnRegisterScene( Scene* pScene );
-    virtual void OnUnregisterScene( Scene* pScene );
-
     virtual void preIntegrate( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats );
     void integrateObject( const F32 totalTime, const F32 elapsedTime, DebugStats* pDebugStats );
     void interpolateObject( const F32 timeDelta );
@@ -190,13 +187,13 @@ public:
     inline void setPaused( const bool paused ) { mPaused = paused; }
     inline bool getPaused( void ) const { return mPaused; }
 
-    bool moveEffectTo( const F32 moveTime, const F32 timeStep, U32& peakCount, F32& peakTime );
-    bool findParticlePeak( const F32 searchTime, const F32 timeStep, const U32 peakLimit, U32& peakCount, F32& peakTime );
-
     /// Declare Console Object.
     DECLARE_CONOBJECT(ParticlePlayer);
 
 protected:
+    virtual void OnRegisterScene( Scene* pScene );
+    virtual void OnUnregisterScene( Scene* pScene );
+
     /// Particle Creation/Integration.
     void configureParticle( EmitterNode* pEmitterNode, ParticleSystem::ParticleNode* pParticleNode );
     void integrateParticle( EmitterNode* pEmitterNode, ParticleSystem::ParticleNode* pParticleNode, const F32 particleAge, const F32 elapsedTime );

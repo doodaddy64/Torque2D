@@ -1,8 +1,8 @@
 <ModuleDefinition
     ModuleId="DeathBallToy"
     VersionId="1"
-    Enabled="0"
-    Description="Deathball rolling toy"    
+    Enabled="1"
+    Description="A ball game demonstration."    
     Type="toy"
     ToyCategoryIndex="5"
     ScriptFile="main.cs"
@@ -13,4 +13,3 @@
             Extension="asset.taml"
             Recurse="true"/>		
 </ModuleDefinition>
-

@@ -1,4 +1,4 @@
 <AudioAsset
     AssetName="BarbarianDeathSound"
     AssetAutoUnload="0"
-    AudioFile="@assetFile=#TD_BarbarianDeathSound.wav" />
+    AudioFile="TD_BarbarianDeathSound.wav" />
