@@ -22,9 +22,6 @@
 
 function RotateToToy::create( %this )
 {        
-    // Activate the package.
-    activatePackage( RotateToToyPackage );    
-    
     // Initialize the toys settings.
     RotateToToy.rotateSpeed = 360;
     RotateToToy.trackMouse = true;
@@ -42,8 +39,6 @@ function RotateToToy::create( %this )
 
 function RotateToToy::destroy( %this )
 {
-    // Deactivate the package.
-    deactivatePackage( RotateToToyPackage );
 }
 
 //-----------------------------------------------------------------------------
@@ -85,7 +80,7 @@ function RotateToToy::createBackground( %this )
     %object.Image = "ToyAssets:highlightBackground";
     
     // Set the blend color.
-    %object.BlendColor = Bisque;
+    %object.BlendColor = SlateGray;
             
     // Add the sprite to the scene.
     SandboxScene.add( %object );    
@@ -128,14 +123,11 @@ function RotateToToy::setTrackMouse( %this, %value )
 
 //-----------------------------------------------------------------------------
 
-package RotateToToyPackage
-{
-
-function SandboxWindow::onTouchDown(%this, %touchID, %worldPosition)
+function RotateToToy::onTouchDown(%this, %touchID, %worldPosition)
 {
     // Calculate the angle to the mouse.
     %origin = RotateToToy.TargetObject.getPosition();
-    %angle = -mRadToDeg( mAtan( getWord(%worldPosition,0)-getWord(%origin,0), getWord(%worldPosition,1)-getWord(%origin,1) ) );
+    %angle = -mRadToDeg( mAtan( %worldPosition.x-%origin.x, %worldPosition.y-%origin.y ) );
     
     //Rotate to the touched angle.
     RotateToToy.TargetObject.RotateTo( %angle, RotateToToy.rotateSpeed );
@@ -143,7 +135,7 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPosition)
 
 //-----------------------------------------------------------------------------
 
-function SandboxWindow::onTouchMoved(%this, %touchID, %worldPosition)
+function RotateToToy::onTouchMoved(%this, %touchID, %worldPosition)
 {
     // Finish if not tracking the mouse.
     if ( !RotateToToy.trackMouse )
@@ -151,10 +143,8 @@ function SandboxWindow::onTouchMoved(%this, %touchID, %worldPosition)
         
     // Calculate the angle to the mouse.
     %origin = RotateToToy.TargetObject.getPosition();
-    %angle = -mRadToDeg( mAtan( getWord(%worldPosition,0)-getWord(%origin,0), getWord(%worldPosition,1)-getWord(%origin,1) ) );
+    %angle = -mRadToDeg( mAtan( %worldPosition.x-%origin.x, %worldPosition.y-%origin.y ) );
     
     //Rotate to the touched angle.
     RotateToToy.TargetObject.RotateTo( %angle, RotateToToy.rotateSpeed );        
 }
-    
-};

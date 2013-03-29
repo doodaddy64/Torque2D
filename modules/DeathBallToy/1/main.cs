@@ -29,9 +29,6 @@ function DeathBallToy::create( %this )
     exec("./scripts/moveTowardBehavior.cs");
     exec("./scripts/spawnAreaBehavior.cs");
 
-    // Activate the package.
-    activatePackage( DeathBallToyPackage );
-
     // Initialize the toys settings.
     DeathBallToy.WorldTop = 35;
     DeathBallToy.WorldBottom = -110;
@@ -68,9 +65,6 @@ function DeathBallToy::destroy( %this )
 {
     // Cancel any pending events.
     DeathBallToy::cancelPendingEvents();
-
-    // Deactivate the package.
-    deactivatePackage( DeathBallToyPackage );
 }
 
 //-----------------------------------------------------------------------------
@@ -223,11 +217,11 @@ function Deathball::updateRollAnimation(%this)
 {
     %this.rollSchedule = "";
 
-    %velocity = %this.getLinearVelocity();
-    %scaledVelocity = (mAbs(getWord(%velocity, 0))) + mAbs(getWord(%velocity, 1)) / 50;
+    %velocity = %this.getLinearVelocity();    
+    %scaledVelocity = VectorLen(%velocity); // (mAbs(getWord(%velocity, 0))) + mAbs(getWord(%velocity, 1)) / 50;
     %flooredVelocity = mFloatLength(%scaledVelocity, 1);
 
-    %this.setAnimationTimeScale(%flooredVelocity / 15);
+    %this.setAnimationTimeScale(%flooredVelocity / 20);
 
     %this.rollSchedule = %this.schedule(100, updateRollAnimation);
 }
@@ -453,10 +447,7 @@ function DeathBallToy::cancelPendingEvents()
 
 //-----------------------------------------------------------------------------
 
-package DeathBallToyPackage
-{
-
-function SandboxWindow::onTouchDown(%this, %touchID, %worldPosition)
+function DeathBallToy::onTouchDown(%this, %touchID, %worldPosition)
 {
     %origin = Deathball.getPosition();
     %angle = -mRadToDeg( mAtan( getWord(%worldPosition,0)-getWord(%origin,0), getWord(%worldPosition,1)-getWord(%origin,1) ) );
@@ -474,22 +465,21 @@ function SandboxWindow::onTouchDown(%this, %touchID, %worldPosition)
 
 //-----------------------------------------------------------------------------
 
-function SandboxWindow::onTouchUp(%this, %touchID, %worldPosition)
+function DeathBallToy::onTouchUp(%this, %touchID, %worldPosition)
 {
     %origin = Deathball.getPosition();
     %angle = -mRadToDeg( mAtan( getWord(%worldPosition,0)-getWord(%origin,0), getWord(%worldPosition,1)-getWord(%origin,1) ) );
-
-    Deathball.RotateTo( %angle, DeathBallToy.rotateSpeed );
-
-    %adjustedSpeed = (DeathBallToy.ballSpeed / DeathBallToy.maxBallSpeed) * 3000;
-
+    
+    // Since the speed is used instead of time, we can use the current velocity to set it's speed.
+    %adjustedSpeed = VectorLen(DeathBall.getLinearVelocity());// (DeathBallToy.ballSpeed / DeathBallToy.maxBallSpeed) * 3000;
+   
     Deathball.MoveTo( %worldPosition, %adjustedSpeed, true, false );
 }
 
 //-----------------------------------------------------------------------------
 
-function SandboxWindow::onTouchDragged(%this, %touchID, %worldPosition)
-{
+function DeathBallToy::onTouchDragged(%this, %touchID, %worldPosition)
+{    
     %origin = Deathball.getPosition();
     %angle = -mRadToDeg( mAtan( getWord(%worldPosition,0)-getWord(%origin,0), getWord(%worldPosition,1)-getWord(%origin,1) ) );
 
@@ -503,20 +493,3 @@ function SandboxWindow::onTouchDragged(%this, %touchID, %worldPosition)
 
     Deathball.setLinearVelocity( getWord(%scaledVelocity, 0), getWord(%scaledVelocity, 1) );
 }
-
-
-//-----------------------------------------------------------------------------
-
-/*function SandboxWindow::onMouseWheelUp(%this, %modifier, %mousePoint, %mouseClickCount)
-{
-    // Don't allow zooming
-}
-
-//-----------------------------------------------------------------------------
-
-function SandboxWindow::onMouseWheelDown(%this, %modifier, %mousePoint, %mouseClickCount)
-{
-    // Don't allow zooming
-}         */
-
-};
